@@ -1,0 +1,30 @@
+{
+    "name" : "phpcsstandards/phpcsutils",
+    "description" : "A suite of utility functions for use with PHP_CodeSniffer",
+    "type" : "phpcodesniffer-standard",
+    "keywords" : [ "phpcs", "standards", "php_codesniffer", "phpcs2", "phpcs3", "tokens", "utility" ],
+    "license" : "LGPL-3.0-or-later",
+    "authors" : [
+        {
+            "name" : "Juliette Reinders Folmer",
+            "role" : "lead",
+            "homepage" : "https://github.com/jrfnl"
+        },
+        {
+            "name" : "Contributors",
+            "homepage" : "https://github.com/PHPCSStandards/PHPCSUtils/graphs/contributors"
+        }
+    ],
+    "support" : {
+        "issues" : "https://github.com/PHPCSStandards/PHPCSUtils/issues",
+        "source" : "https://github.com/PHPCSStandards/PHPCSUtils"
+    },
+    "require" : {
+        "php" : ">=5.4",
+        "squizlabs/php_codesniffer" : "^2.6.0 || ^3.0.2",
+        "dealerdirect/phpcodesniffer-composer-installer" : "^0.5"
+    },
+    "require-dev" : {
+        "roave/security-advisories" : "dev-master"
+    }
+}
