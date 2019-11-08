@@ -11,6 +11,9 @@
 
     <file>.</file>
 
+    <!-- Exclude PHPDoc structure files. -->
+    <exclude-pattern>*/build/*</exclude-pattern>
+
     <!-- Exclude Composer vendor directory. -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
 
