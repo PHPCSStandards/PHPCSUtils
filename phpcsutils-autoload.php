@@ -17,6 +17,10 @@
  * - If an external standard uses its own unit test setup, this file should
  *   be included from the unit test bootstrap file.
  *
+ * - If an external standard uses the PHPCSUtils `UtilityMethodTestCase`
+ *   class to test their own utility methods, this file should be included from
+ *   the unit test bootstrap file.
+ *
  * @package   PHPCSUtils
  * @copyright 2019 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
