@@ -64,7 +64,13 @@
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
         ],
         "test": [
+            "@php ./vendor/phpunit/phpunit/phpunit --no-coverage"
+        ],
+        "coverage": [
             "@php ./vendor/phpunit/phpunit/phpunit"
+        ],
+        "coverage-local": [
+            "@php ./vendor/phpunit/phpunit/phpunit --coverage-html ./build/coverage-html"
         ]
     }
 }
