@@ -28,12 +28,34 @@
         "jakub-onderka/php-parallel-lint": "^1.0",
         "jakub-onderka/php-console-highlighter": "^0.4"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "classmap": ["PHPCSUtils/"]
     },
     "scripts" : {
         "lint": [
             "@php ./vendor/jakub-onderka/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
+        ],
+        "install-devtools": [
+            "composer require --dev phpcsstandards/phpcsdevtools:\"^1.0 || dev-develop\" --no-suggest"
+        ],
+        "remove-devtools": [
+            "composer remove --dev phpcsstandards/phpcsdevtools"
+        ],
+        "checkcs": [
+            "@install-devtools",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+            "@remove-devtools"
+        ],
+        "fixcs": [
+            "@install-devtools",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+            "@remove-devtools"
+        ],
+        "travis-checkcs": [
+            "@install-devtools",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
         ]
     }
 }
