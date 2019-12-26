@@ -24,7 +24,16 @@
         "squizlabs/php_codesniffer" : "^2.6.0 || ^3.1.0",
         "dealerdirect/phpcodesniffer-composer-installer" : "^0.3 || ^0.4.1 || ^0.5.0"
     },
+    "require-dev" : {
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "jakub-onderka/php-console-highlighter": "^0.4"
+    },
     "autoload": {
         "classmap": ["PHPCSUtils/"]
+    },
+    "scripts" : {
+        "lint": [
+            "@php ./vendor/jakub-onderka/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
+        ]
     }
 }
