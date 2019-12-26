@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
+    backupGlobals="true"
+    bootstrap="./Tests/bootstrap.php"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    colors="true"
+    forceCoversAnnotation="true">
+
+    <testsuites>
+        <testsuite name="PHPCSUtils">
+            <directory suffix="Test.php">./Tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
+            <!-- Not recording coverage for PHPCS23Utils as there is nothing directly testable. -->
+            <directory suffix=".php">./PHPCSUtils/</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+
+</phpunit>

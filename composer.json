@@ -26,22 +26,28 @@
     },
     "require-dev" : {
         "jakub-onderka/php-parallel-lint": "^1.0",
-        "jakub-onderka/php-console-highlighter": "^0.4"
+        "jakub-onderka/php-console-highlighter": "^0.4",
+        "phpunit/phpunit" : "^4.5 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "classmap": ["PHPCSUtils/"]
     },
+    "autoload-dev" : {
+        "psr-4": {
+            "PHPCSUtils\\Tests\\": "Tests/"
+        }
+    },
     "scripts" : {
         "lint": [
             "@php ./vendor/jakub-onderka/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
         ],
         "install-devtools": [
-            "composer require --dev phpcsstandards/phpcsdevtools:\"^1.0 || dev-develop\" --no-suggest"
+            "composer require phpcsstandards/phpcsdevtools:\"^1.0 || dev-develop\" --no-suggest --update-no-dev"
         ],
         "remove-devtools": [
-            "composer remove --dev phpcsstandards/phpcsdevtools"
+            "composer remove phpcsstandards/phpcsdevtools --update-no-dev"
         ],
         "checkcs": [
             "@install-devtools",
@@ -56,6 +62,15 @@
         "travis-checkcs": [
             "@install-devtools",
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+        ],
+        "test": [
+            "@php ./vendor/phpunit/phpunit/phpunit --no-coverage"
+        ],
+        "coverage": [
+            "@php ./vendor/phpunit/phpunit/phpunit"
+        ],
+        "coverage-local": [
+            "@php ./vendor/phpunit/phpunit/phpunit --coverage-html ./build/coverage-html"
         ]
     }
 }

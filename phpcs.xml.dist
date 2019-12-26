@@ -58,6 +58,12 @@
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>/phpcsutils-autoload\.php$</exclude-pattern>
         <exclude-pattern>/PHPCS23Utils/Sniffs/Load/LoadUtilsSniff\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/bootstrap\.php$</exclude-pattern>
+    </rule>
+
+    <!-- Double arrow alignment gets very fiddly with multi-line test data provider arrays. -->
+    <rule ref="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned">
+        <exclude-pattern>/Tests/*Test\.php$</exclude-pattern>
     </rule>
 
 </ruleset>

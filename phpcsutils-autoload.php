@@ -93,3 +93,24 @@ if (defined('PHPCSUTILS_PHPCS_ALIASES_SET') === false) {
 
     define('PHPCSUTILS_PHPCS_ALIASES_SET', true);
 }
+
+if (defined('PHPCSUTILS_PHPUNIT_ALIASES_SET') === false) {
+    /*
+     * Alias the PHPUnit 4/5 TestCase class to its PHPUnit 6+ name.
+     *
+     * This allows the both the PHPCSUtils native unit tests as well as the
+     * `UtilityMethodTestCase` class to work cross-version with PHPUnit
+     * below 6.x and above.
+     *
+     * {@internal The `class_exists` wrappers are needed to play nice with
+     * PHPUnit bootstrap files of external standards which may be creating
+     * cross-version compatibility in a similar manner.}}
+     */
+    if (class_exists('PHPUnit_Framework_TestCase') === true
+        && class_exists('PHPUnit\Framework\TestCase') === false
+    ) {
+        class_alias('PHPUnit_Framework_TestCase', 'PHPUnit\Framework\TestCase');
+    }
+
+    define('PHPCSUTILS_PHPUNIT_ALIASES_SET', true);
+}
