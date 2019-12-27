@@ -1285,7 +1285,8 @@ class BCFile
      * - Introduced in PHPCS 0.0.5.
      * - This method has received no significant code updates since PHPCS 2.6.0.
      *
-     * @see \PHP_CodeSniffer\Files\File::hasCondition() Original source.
+     * @see \PHP_CodeSniffer\Files\File::hasCondition()  Original source.
+     * @see \PHPCSUtils\Utils\Conditions::hasCondition() PHPCSUtils native alternative.
      *
      * @since 1.0.0
      *
@@ -1309,7 +1310,8 @@ class BCFile
      * - Introduced in PHPCS 1.3.0.
      * - This method has received no significant code updates since PHPCS 2.6.0.
      *
-     * @see \PHP_CodeSniffer\Files\File::getCondition() Original source.
+     * @see \PHP_CodeSniffer\Files\File::getCondition()  Original source.
+     * @see \PHPCSUtils\Utils\Conditions::getCondition() More versatile alternative.
      *
      * @since 1.0.0
      *

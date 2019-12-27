@@ -21,6 +21,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  * @covers \PHPCSUtils\BackCompat\BCFile::getCondition
  * @covers \PHPCSUtils\BackCompat\BCFile::hasCondition
  *
+ * @group conditions
+ *
  * @since 1.0.0
  */
 class GetConditionTest extends UtilityMethodTestCase
