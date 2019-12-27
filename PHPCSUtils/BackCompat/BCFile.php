@@ -1024,6 +1024,18 @@ class BCFile
      * Returns the content of the tokens from the specified start position in
      * the token stack for the specified length.
      *
+     * PHPCS cross-version compatible version of the File::getTokensAsString() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 3.3.0: New `$origContent` parameter to optionally return original
+     *                (non tab-replaced) content.
+     * - PHPCS 3.4.0: - Now throws a `RuntimeException` if the $start param is invalid.
+     *                  This stops an infinite loop when the function is passed invalid data.
+     *                - If the $length param is invalid, an empty string will be returned.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getTokensAsString() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file being scanned.
