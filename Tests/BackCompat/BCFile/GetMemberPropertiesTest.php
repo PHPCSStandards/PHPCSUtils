@@ -1,6 +1,11 @@
 <?php
 /**
- * Tests for the \PHP_CodeSniffer\Files\File::getMemberProperties method.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -20,17 +25,23 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::getMemberProperties method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::getMemberProperties
+ *
+ * @since 1.0.0
+ */
 class GetMemberPropertiesTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Test the getMemberProperties() method.
      *
+     * @dataProvider dataGetMemberProperties
+     *
      * @param string $identifier Comment which precedes the test case.
      * @param bool   $expected   Expected function output.
-     *
-     * @dataProvider dataGetMemberProperties
      *
      * @return void
      */
@@ -40,12 +51,10 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
         $result   = BCFile::getMemberProperties(self::$phpcsFile, $variable);
 
         $this->assertArraySubset($expected, $result, true);
-
-    }//end testGetMemberProperties()
-
+    }
 
     /**
-     * Data provider for the GetMemberProperties test.
+     * Data provider.
      *
      * @see testGetMemberProperties()
      *
@@ -469,19 +478,17 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
         ];
-
-    }//end dataGetMemberProperties()
-
+    }
 
     /**
      * Test receiving an expected exception when a non property is passed.
-     *
-     * @param string $identifier Comment which precedes the test case.
      *
      * @expectedException        PHP_CodeSniffer\Exceptions\RuntimeException
      * @expectedExceptionMessage $stackPtr is not a class member var
      *
      * @dataProvider dataNotClassProperty
+     *
+     * @param string $identifier Comment which precedes the test case.
      *
      * @return void
      */
@@ -489,12 +496,10 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
     {
         $variable = $this->getTargetToken($identifier, T_VARIABLE);
         $result   = BCFile::getMemberProperties(self::$phpcsFile, $variable);
-
-    }//end testNotClassPropertyException()
-
+    }
 
     /**
-     * Data provider for the NotClassPropertyException test.
+     * Data provider.
      *
      * @see testNotClassPropertyException()
      *
@@ -510,9 +515,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
             ['/* testNestedMethodParam 1 */'],
             ['/* testNestedMethodParam 2 */'],
         ];
-
-    }//end dataNotClassProperty()
-
+    }
 
     /**
      * Test receiving an expected exception when a non variable is passed.
@@ -526,8 +529,5 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
     {
         $next   = $this->getTargetToken('/* testNotAVariable */', T_RETURN);
         $result = BCFile::getMemberProperties(self::$phpcsFile, $next);
-
-    }//end testNotAVariableException()
-
-
-}//end class
+    }
+}

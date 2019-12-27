@@ -72,21 +72,27 @@
     </rule>
     <rule ref="Generic.Commenting.DocComment.TagsNotGrouped">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
     <rule ref="PEAR.Commenting.FileComment.AuthorTagOrder">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
     <rule ref="PEAR.Commenting.FileComment.CopyrightTagOrder">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
     <rule ref="PEAR.Commenting.FileComment.DuplicateLicenseTag">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
     <rule ref="PEAR.Commenting.FileComment.LicenseTagOrder">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
     <rule ref="PEAR.Commenting.FileComment.LinkTagOrder">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
 
 </ruleset>

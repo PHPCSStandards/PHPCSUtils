@@ -1,5 +1,12 @@
 <?php
 /**
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
+/**
  * Tests for the \PHP_CodeSniffer\Files\File:findEndOfStatement method.
  *
  * This class is imported from the PHP_CodeSniffer project.
@@ -20,9 +27,15 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::findEndOfStatement method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::findEndOfStatement
+ *
+ * @since 1.0.0
+ */
 class FindEndOfStatementTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Test a simple assignment.
@@ -36,9 +49,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 5)], $tokens[$found]);
-
-    }//end testSimpleAssignment()
-
+    }
 
     /**
      * Test a direct call to a control structure.
@@ -52,9 +63,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 6)], $tokens[$found]);
-
-    }//end testControlStructure()
-
+    }
 
     /**
      * Test the assignment of a closure.
@@ -68,9 +77,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 13)], $tokens[$found]);
-
-    }//end testClosureAssignment()
-
+    }
 
     /**
      * Test using a heredoc in a function argument.
@@ -99,9 +106,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[$start], $tokens[$found]);
-
-    }//end testHeredocFunctionArg()
-
+    }
 
     /**
      * Test parts of a switch statement.
@@ -130,9 +135,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 6)], $tokens[$found]);
-
-    }//end testSwitch()
-
+    }
 
     /**
      * Test statements that are array values.
@@ -161,9 +164,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 3)], $tokens[$found]);
-
-    }//end testStatementAsArrayValue()
-
+    }
 
     /**
      * Test a use group.
@@ -177,8 +178,5 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 23)], $tokens[$found]);
-
-    }//end testUseGroup()
-
-
-}//end class
+    }
+}

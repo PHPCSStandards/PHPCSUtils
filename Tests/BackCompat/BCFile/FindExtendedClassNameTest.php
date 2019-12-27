@@ -1,6 +1,11 @@
 <?php
 /**
- * Tests for the \PHP_CodeSniffer\Files\File:findExtendedClassName method.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -22,18 +27,24 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::findExtendedClassName method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::findExtendedClassName
+ *
+ * @since 1.0.0
+ */
 class FindExtendedClassNameTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Test retrieving the name of the class being extended by another class
      * (or interface).
      *
+     * @dataProvider dataExtendedClass
+     *
      * @param string $identifier Comment which precedes the test case.
      * @param bool   $expected   Expected function output.
-     *
-     * @dataProvider dataExtendedClass
      *
      * @return void
      */
@@ -42,12 +53,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
         $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE]);
         $result  = BCFile::findExtendedClassName(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
-
-    }//end testFindExtendedClassName()
-
+    }
 
     /**
-     * Data provider for the FindExtendedClassName test.
+     * Data provider.
      *
      * @see testFindExtendedClassName()
      *
@@ -97,8 +106,5 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'testFECNClass',
             ],
         ];
-
-    }//end dataExtendedClass()
-
-
-}//end class
+    }
+}

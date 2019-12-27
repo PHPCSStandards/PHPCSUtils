@@ -1,6 +1,11 @@
 <?php
 /**
- * Tests for the \PHP_CodeSniffer\Files\File:isReference method.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -20,17 +25,23 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::isReference method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::isReference
+ *
+ * @since 1.0.0
+ */
 class IsReferenceTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Test a class that extends another.
      *
+     * @dataProvider dataIsReference
+     *
      * @param string $identifier Comment which precedes the test case.
      * @param bool   $expected   Expected function output.
-     *
-     * @dataProvider dataIsReference
      *
      * @return void
      */
@@ -39,12 +50,10 @@ class IsReferenceTest extends UtilityMethodTestCase
         $bitwiseAnd = $this->getTargetToken($identifier, T_BITWISE_AND);
         $result     = BCFile::isReference(self::$phpcsFile, $bitwiseAnd);
         $this->assertSame($expected, $result);
-
-    }//end testIsReference()
-
+    }
 
     /**
-     * Data provider for the IsReference test.
+     * Data provider.
      *
      * @see testIsReference()
      *
@@ -234,8 +243,5 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
         ];
-
-    }//end dataIsReference()
-
-
-}//end class
+    }
+}

@@ -1,6 +1,11 @@
 <?php
 /**
- * Tests for the \PHP_CodeSniffer\Files\File:findImplementedInterfaceNames method.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -21,17 +26,23 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames
+ *
+ * @since 1.0.0
+ */
 class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Test retrieving the name(s) of the interfaces being implemented by a class.
      *
+     * @dataProvider dataImplementedInterface
+     *
      * @param string $identifier Comment which precedes the test case.
      * @param bool   $expected   Expected function output.
-     *
-     * @dataProvider dataImplementedInterface
      *
      * @return void
      */
@@ -40,12 +51,10 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
         $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE]);
         $result  = BCFile::findImplementedInterfaceNames(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
-
-    }//end testFindImplementedInterfaceNames()
-
+    }
 
     /**
-     * Data provider for the FindImplementedInterfaceNames test.
+     * Data provider.
      *
      * @see testFindImplementedInterfaceNames()
      *
@@ -92,8 +101,5 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 ],
             ],
         ];
-
-    }//end dataImplementedInterface()
-
-
-}//end class
+    }
+}

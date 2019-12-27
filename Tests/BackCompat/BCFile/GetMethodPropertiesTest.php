@@ -1,6 +1,11 @@
 <?php
 /**
- * Tests for the \PHP_CodeSniffer\Files\File:getMethodProperties method.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -18,9 +23,15 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodProperties method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::getMethodProperties
+ *
+ * @since 1.0.0
+ */
 class GetMethodPropertiesTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Test a basic function.
@@ -40,10 +51,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testBasicFunction()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a function with a return type.
@@ -63,10 +72,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testReturnFunction()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a closure used as a function argument.
@@ -86,10 +93,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testNestedClosure()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a basic method.
@@ -109,10 +114,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testBasicMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a private static method.
@@ -132,10 +135,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testPrivateStaticMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a basic final method.
@@ -155,10 +156,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testFinalMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a protected method with a return type.
@@ -178,10 +177,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testProtectedReturnMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a public method with a return type.
@@ -201,10 +198,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testPublicReturnMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a public method with a nullable return type.
@@ -224,10 +219,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testNullableReturnMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a public method with a nullable return type.
@@ -247,10 +240,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testMessyNullableReturnMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a method with a namespaced return type.
@@ -270,10 +261,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testReturnNamespace()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a method with a messy namespaces return type.
@@ -293,10 +282,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testReturnMultilineNamespace()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a basic abstract method.
@@ -316,10 +303,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => false,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testAbstractMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test an abstract method with a return type.
@@ -339,10 +324,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => false,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testAbstractReturnMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test a basic interface method.
@@ -362,10 +345,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => false,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testInterfaceMethod()
-
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test helper.
@@ -381,8 +362,5 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
         $this->assertArraySubset($expected, $found, true);
-
-    }//end getMethodPropertiesTestHelper()
-
-
-}//end class
+    }
+}

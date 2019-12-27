@@ -1,6 +1,11 @@
 <?php
 /**
- * Tests for the \PHP_CodeSniffer\Files\File:getMethodParameters method.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -21,9 +26,15 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
+/**
+ * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodParameters method.
+ *
+ * @covers \PHPCSUtils\BackCompat\BCFile::getMethodParameters
+ *
+ * @since 1.0.0
+ */
 class GetMethodParametersTest extends UtilityMethodTestCase
 {
-
 
     /**
      * Verify pass-by-reference parsing.
@@ -42,10 +53,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testPassByReference()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify array hint parsing.
@@ -64,10 +73,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testArrayHint()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify type hint parsing.
@@ -95,10 +102,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testTypeHint()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify self type hint parsing.
@@ -117,10 +122,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testSelfTypeHint()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify nullable type hint parsing.
@@ -148,10 +151,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => true,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testNullableTypeHint()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify variable.
@@ -170,10 +171,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testVariable()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify default value parsing with a single function param.
@@ -193,10 +192,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testSingleDefaultValue()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify default value parsing.
@@ -225,10 +222,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testDefaultValues()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Verify "bitwise and" in default value !== pass-by-reference.
@@ -248,10 +243,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'     => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* '.__FUNCTION__.' */', $expected);
-
-    }//end testBitwiseAndConstantExpressionDefaultValue()
-
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
 
     /**
      * Test helper.
@@ -267,8 +260,5 @@ class GetMethodParametersTest extends UtilityMethodTestCase
         $found    = BCFile::getMethodParameters(self::$phpcsFile, $function);
 
         $this->assertArraySubset($expected, $found, true);
-
-    }//end getMethodParametersTestHelper()
-
-
-}//end class
+    }
+}
