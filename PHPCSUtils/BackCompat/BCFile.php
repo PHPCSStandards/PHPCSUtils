@@ -1409,6 +1409,14 @@ class BCFile
     /**
      * Returns the names of the interfaces that the specified class implements.
      *
+     * PHPCS cross-version compatible version of the File::findImplementedInterfaceNames() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 2.7.0.
+     * - PHPCS 2.8.0: Now supports anonymous classes.
+     *
+     * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
