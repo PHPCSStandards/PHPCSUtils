@@ -1297,29 +1297,7 @@ class BCFile
      */
     public static function hasCondition(File $phpcsFile, $stackPtr, $types)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Check for the existence of the token.
-        if (isset($tokens[$stackPtr]) === false) {
-            return false;
-        }
-
-        // Make sure the token has conditions.
-        if (isset($tokens[$stackPtr]['conditions']) === false) {
-            return false;
-        }
-
-        $types      = (array) $types;
-        $conditions = $tokens[$stackPtr]['conditions'];
-
-        foreach ($types as $type) {
-            if (in_array($type, $conditions, true) === true) {
-                // We found a token with the required type.
-                return true;
-            }
-        }
-
-        return false;
+        return $phpcsFile->hasCondition($stackPtr, $types);
     }
 
     /**
@@ -1344,26 +1322,7 @@ class BCFile
      */
     public static function getCondition(File $phpcsFile, $stackPtr, $type)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Check for the existence of the token.
-        if (isset($tokens[$stackPtr]) === false) {
-            return false;
-        }
-
-        // Make sure the token has conditions.
-        if (isset($tokens[$stackPtr]['conditions']) === false) {
-            return false;
-        }
-
-        $conditions = $tokens[$stackPtr]['conditions'];
-        foreach ($conditions as $token => $condition) {
-            if ($condition === $type) {
-                return $token;
-            }
-        }
-
-        return false;
+        return $phpcsFile->getCondition($stackPtr, $type);
     }
 
     /**
