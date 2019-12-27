@@ -555,6 +555,8 @@ class BCFile
                 T_SELF         => T_SELF,
                 T_PARENT       => T_PARENT,
                 T_NS_SEPARATOR => T_NS_SEPARATOR,
+                T_RETURN_TYPE  => T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
+                T_ARRAY_HINT   => T_ARRAY_HINT, // PHPCS < 2.8.0.
             ];
 
             for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
@@ -565,7 +567,10 @@ class BCFile
                     break;
                 }
 
-                if ($tokens[$i]['code'] === T_NULLABLE) {
+                if ($tokens[$i]['type'] === 'T_NULLABLE'
+                    // Handle nullable tokens in PHPCS < 2.8.0.
+                    || (defined('T_NULLABLE') === false && $tokens[$i]['code'] === T_INLINE_THEN)
+                ) {
                     $nullableReturnType = true;
                 }
 
