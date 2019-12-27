@@ -764,6 +764,7 @@ class BCFile
                 T_SELF         => T_SELF,
                 T_PARENT       => T_PARENT,
                 T_NS_SEPARATOR => T_NS_SEPARATOR,
+                T_ARRAY_HINT   => T_ARRAY_HINT, // Array property type declarations in PHPCS < 3.3.0.
             ];
 
             for ($i; $i < $stackPtr; $i++) {
@@ -772,7 +773,10 @@ class BCFile
                     break;
                 }
 
-                if ($tokens[$i]['code'] === T_NULLABLE) {
+                if ($tokens[$i]['type'] === 'T_NULLABLE'
+                    // Handle nullable property types in PHPCS < 3.5.0.
+                    || $tokens[$i]['code'] === T_INLINE_THEN
+                ) {
                     $nullableType = true;
                 }
 
