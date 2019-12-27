@@ -1,6 +1,7 @@
 <?php
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+/* testNotAClass */
+function notAClass() {}
 
 class testFECNClass {}
 
@@ -24,10 +25,10 @@ interface testInterfaceThatExtendsFQCNInterface extends \PHP_CodeSniffer\Tests\C
 
 /* testNestedExtendedClass */
 class testFECNNestedExtendedClass {
-	public function someMethod() {
-		/* testNestedExtendedAnonClass */
-		$anon = new class extends testFECNAnonClass {};
-	}
+    public function someMethod() {
+        /* testNestedExtendedAnonClass */
+        $anon = new class extends testFECNAnonClass {};
+    }
 }
 
 /* testClassThatExtendsAndImplements */
@@ -35,3 +36,16 @@ class testFECNClassThatExtendsAndImplements extends testFECNClass implements Int
 
 /* testClassThatImplementsAndExtends */
 class testFECNClassThatImplementsAndExtends implements InterfaceA, InterfaceB extends testFECNClass {}
+
+/* testExtendedAnonClass */
+$anon = new class( $a, $b ) extends testFECNExtendedAnonClass {};
+
+/* testInterfaceMultiExtends */
+interface Multi extends \Package\FooInterface, \BarInterface {};
+
+/* testMissingExtendsName */
+class testMissingExtendsName extends { /* missing classname */ } // Internal parse error.
+
+// Intentional parse error. Has to be the last test in the file.
+/* testParseError */
+class testParseError extends testFECNClass

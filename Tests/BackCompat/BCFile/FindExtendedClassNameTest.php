@@ -38,6 +38,29 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
 {
 
     /**
+     * Test getting a `false` result when a non-existent token is passed.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $result = BCFile::findExtendedClassName(self::$phpcsFile, 100000);
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Test getting a `false` result when a token other than one of the supported tokens is passed.
+     *
+     * @return void
+     */
+    public function testNotAClass()
+    {
+        $token  = $this->getTargetToken('/* testNotAClass */', [T_FUNCTION]);
+        $result = BCFile::findExtendedClassName(self::$phpcsFile, $token);
+        $this->assertFalse($result);
+    }
+
+    /**
      * Test retrieving the name of the class being extended by another class
      * (or interface).
      *
@@ -104,6 +127,22 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
             [
                 '/* testClassThatImplementsAndExtends */',
                 'testFECNClass',
+            ],
+            [
+                '/* testExtendedAnonClass */',
+                'testFECNExtendedAnonClass',
+            ],
+            [
+                '/* testInterfaceMultiExtends */',
+                '\Package\FooInterface',
+            ],
+            [
+                '/* testMissingExtendsName */',
+                false,
+            ],
+            [
+                '/* testParseError */',
+                false,
             ],
         ];
     }
