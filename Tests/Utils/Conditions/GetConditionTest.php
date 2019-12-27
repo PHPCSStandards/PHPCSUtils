@@ -16,8 +16,7 @@ use PHPCSUtils\Utils\Conditions;
 /**
  * Tests for various methods in the \PHPCSUtils\Utils\Conditions class.
  *
- * @covers \PHPCSUtils\Utils\Conditions::getCondition
- * @covers \PHPCSUtils\Utils\Conditions::hasCondition
+ * @covers \PHPCSUtils\Utils\Conditions
  *
  * @group conditions
  *
@@ -157,5 +156,137 @@ class GetConditionTest extends BCFile_GetConditionTest
             $result,
             'Failed asserting that "testDeepestNested" has a class condition based on the OO Scope token types'
         );
+    }
+
+    /**
+     * Test passing a non conditional token to getFirstCondition()/getLastCondition().
+     *
+     * @return void
+     */
+    public function testNonConditionalTokenGetFirstLast()
+    {
+        $stackPtr = $this->getTargetToken('/* testStartPoint */', \T_STRING);
+
+        $result = Conditions::getFirstCondition(self::$phpcsFile, $stackPtr);
+        $this->assertFalse($result, 'Failed asserting that getFirstCondition() on non conditional token returns false');
+
+        $result = Conditions::getLastCondition(self::$phpcsFile, $stackPtr);
+        $this->assertFalse($result, 'Failed asserting that getLastCondition() on non conditional token returns false');
+    }
+
+    /**
+     * Test retrieving the first condition token pointer, in general and of specific types.
+     *
+     * @dataProvider dataGetFirstCondition
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     *
+     * @return void
+     */
+    public function testGetFirstCondition($testMarker)
+    {
+        $stackPtr = self::$testTokens[$testMarker];
+
+        $result = Conditions::getFirstCondition(self::$phpcsFile, $stackPtr);
+        $this->assertSame(self::$markerTokens['/* condition 0: namespace */'], $result);
+
+        $result = Conditions::getFirstCondition(self::$phpcsFile, $stackPtr, \T_IF);
+        $this->assertSame(self::$markerTokens['/* condition 1: if */'], $result);
+
+        $result = Conditions::getFirstCondition(self::$phpcsFile, $stackPtr, $this->ooScopeTokens);
+        $this->assertSame(self::$markerTokens['/* condition 5: nested class */'], $result);
+
+        $result = Conditions::getFirstCondition(self::$phpcsFile, $stackPtr, [\T_ELSEIF]);
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Data provider. Pass the markers for the test tokens on.
+     *
+     * @see testGetFirstCondition() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetFirstCondition()
+    {
+        $data = [];
+        foreach (self::$testTargets as $marker) {
+            $data[\trim($marker, '/* ')] = [$marker];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Test retrieving the last condition token pointer, in general and of specific types.
+     *
+     * @dataProvider dataGetLastCondition
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     * @param array  $expected   The marker for the pointers to the expected condition
+     *                           results for the pre-set tests.
+     *
+     * @return void
+     */
+    public function testGetLastCondition($testMarker, $expected)
+    {
+        $stackPtr = self::$testTokens[$testMarker];
+
+        $result = Conditions::getLastCondition(self::$phpcsFile, $stackPtr);
+        $this->assertSame(self::$markerTokens[$expected['no type']], $result);
+
+        $result = Conditions::getLastCondition(self::$phpcsFile, $stackPtr, \T_IF);
+        $this->assertSame(self::$markerTokens[$expected['T_IF']], $result);
+
+        $result = Conditions::getLastCondition(self::$phpcsFile, $stackPtr, $this->ooScopeTokens);
+        $this->assertSame(self::$markerTokens[$expected['OO tokens']], $result);
+
+        $result = Conditions::getLastCondition(self::$phpcsFile, $stackPtr, [\T_FINALLY]);
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetLastCondition() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetLastCondition()
+    {
+        return [
+            'testSeriouslyNestedMethod' => [
+                '/* testSeriouslyNestedMethod */',
+                [
+                    'no type'   => '/* condition 5: nested class */',
+                    'T_IF'      => '/* condition 4: if */',
+                    'OO tokens' => '/* condition 5: nested class */',
+                ],
+            ],
+            'testDeepestNested' => [
+                '/* testDeepestNested */',
+                [
+                    'no type'   => '/* condition 13: closure */',
+                    'T_IF'      => '/* condition 10-1: if */',
+                    'OO tokens' => '/* condition 11-1: nested anonymous class */',
+                ],
+            ],
+            'testInException' => [
+                '/* testInException */',
+                [
+                    'no type'   => '/* condition 11-3: catch */',
+                    'T_IF'      => '/* condition 4: if */',
+                    'OO tokens' => '/* condition 5: nested class */',
+                ],
+            ],
+            'testInDefault' => [
+                '/* testInDefault */',
+                [
+                    'no type'   => '/* condition 8b: default */',
+                    'T_IF'      => '/* condition 4: if */',
+                    'OO tokens' => '/* condition 5: nested class */',
+                ],
+            ],
+        ];
     }
 }

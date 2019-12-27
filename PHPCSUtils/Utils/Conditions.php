@@ -114,4 +114,42 @@ class Conditions
     {
         return (self::getCondition($phpcsFile, $stackPtr, $types) !== false);
     }
+
+    /**
+     * Return the position of the first (outermost) condition of a certain type for the passed token.
+     *
+     * If no types are specified, the first condition for the token, independently of type,
+     * will be returned.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The position of the token we are checking.
+     * @param int|string|array            $types     Optional. The type(s) of tokens to search for.
+     *
+     * @return int|false StackPtr to the condition or false if the token does not have the condition.
+     */
+    public static function getFirstCondition(File $phpcsFile, $stackPtr, $types = [])
+    {
+        return self::getCondition($phpcsFile, $stackPtr, $types, false);
+    }
+
+    /**
+     * Return the position of the last (innermost) condition of a certain type for the passed token.
+     *
+     * If no types are specified, the last condition for the token, independently of type,
+     * will be returned.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The position of the token we are checking.
+     * @param int|string|array            $types     Optional. The type(s) of tokens to search for.
+     *
+     * @return int|false StackPtr to the condition or false if the token does not have the condition.
+     */
+    public static function getLastCondition(File $phpcsFile, $stackPtr, $types = [])
+    {
+        return self::getCondition($phpcsFile, $stackPtr, $types, true);
+    }
 }
