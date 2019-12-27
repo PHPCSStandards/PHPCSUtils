@@ -883,6 +883,21 @@ class BCFile
     /**
      * Determine if the passed token is a reference operator.
      *
+     * PHPCS cross-version compatible version of the File::isReference() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 3.1.1: Bug fix: misidentification of reference vs bitwise operator, PHPCS#1604/#1609.
+     *                - An array assignment of a calculated value with a bitwise and operator in it,
+     *                  was being misidentified as a reference.
+     *                - A calculated default value for a function parameter with a bitwise and operator
+     *                  in it, was being misidentified as a reference.
+     *                - New by reference was not recognized as a reference.
+     *                - References to class properties with `self::`, `parent::`, `static::`,
+     *                  `namespace\ClassName::`, `classname::` were not recognized as references.
+     *
+     * @see \PHP_CodeSniffer\Files\File::isReference() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
