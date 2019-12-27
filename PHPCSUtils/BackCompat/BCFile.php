@@ -1034,7 +1034,7 @@ class BCFile
      *
      * @return string The token contents.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position does not exist.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
      */
     public static function getTokensAsString(File $phpcsFile, $start, $length, $origContent = false)
     {
