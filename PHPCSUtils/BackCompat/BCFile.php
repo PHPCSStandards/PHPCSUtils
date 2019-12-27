@@ -186,6 +186,8 @@ class BCFile
      *                  will be set in a "reference_token" array index.
      *                - If the param is variable length, the position of the variadic operator will
      *                  be set in a "variadic_token" array index.
+     * - PHPCS 3.5.3: Fixed a bug where the "type_hint_end_token" array index for a type hinted
+     *                parameter would bleed through to the next (non-type hinted) parameter.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters() Original source.
      *
@@ -388,16 +390,18 @@ class BCFile
                     }
 
                     // Reset the vars, as we are about to process the next parameter.
-                    $defaultStart    = null;
-                    $equalToken      = null;
-                    $paramStart      = ($i + 1);
-                    $passByReference = false;
-                    $referenceToken  = false;
-                    $variableLength  = false;
-                    $variadicToken   = false;
-                    $typeHint        = '';
-                    $typeHintToken   = false;
-                    $nullableType    = false;
+                    $currVar          = null;
+                    $paramStart       = ($i + 1);
+                    $defaultStart     = null;
+                    $equalToken       = null;
+                    $passByReference  = false;
+                    $referenceToken   = false;
+                    $variableLength   = false;
+                    $variadicToken    = false;
+                    $typeHint         = '';
+                    $typeHintToken    = false;
+                    $typeHintEndToken = false;
+                    $nullableType     = false;
 
                     $paramCount++;
                     break;
