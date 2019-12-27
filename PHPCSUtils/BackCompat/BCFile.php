@@ -1344,6 +1344,17 @@ class BCFile
      * Returns the name of the class that the specified class extends.
      * (works for classes, anonymous classes and interfaces)
      *
+     * PHPCS cross-version compatible version of the File::findExtendedClassName() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 1.2.0.
+     * - PHPCS 2.8.0: Now supports anonymous classes.
+     * - PHPCS 3.1.0: Now supports interfaces extending interfaces (incorrectly, only supporting
+     *                single interface extension).
+     * - PHPCS 3.3.2: Fixed bug causing bleed through with nested classes, PHPCS#2127.
+     *
+     * @see \PHP_CodeSniffer\Files\File::findExtendedClassName() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
