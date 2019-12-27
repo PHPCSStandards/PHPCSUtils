@@ -152,6 +152,43 @@ class BCFile
      *         'default_token'       => integer, // The stack pointer to the start of the default value.
      *         'default_equal_token' => integer, // The stack pointer to the equals sign.
      *
+     * PHPCS cross-version compatible version of the File::getMethodParameters() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 2.8.0: Now recognises `self` as a valid type declaration.
+     * - PHPCS 2.8.0: The return array now contains a new "token" index containing the stack pointer
+     *                to the variable.
+     * - PHPCS 2.8.0: The return array now contains a new "content" index containing the raw content
+     *                of the param definition.
+     * - PHPCS 2.8.0: Added support for nullable types.
+     *                - The return array now contains a new "nullable_type" index set to true or false
+     *                  for each method parameter.
+     * - PHPCS 2.8.0: Added support for closures.
+     * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
+     *                `\PHP_CodeSniffer\Exceptions\TokenizerException`.
+     * - PHPCS 3.3.0: The return array now contains a new "type_hint_token" array index.
+     *                - Provides the position in the token stack of the first token in the type declaration.
+     * - PHPCS 3.3.1: Fixed incompatibility with PHP 7.3.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
+     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.0: Added support for closure USE groups.
+     * - PHPCS 3.5.0: The return array now contains yet more more information.
+     *                - If a type hint is specified, the position of the last token in the hint will be
+     *                  set in a "type_hint_end_token" array index.
+     *                - If a default is specified, the position of the first token in the default value
+     *                  will be set in a "default_token" array index.
+     *                - If a default is specified, the position of the equals sign will be set in a
+     *                  "default_equal_token" array index.
+     *                - If the param is not the last, the position of the comma will be set in a
+     *                  "comma_token" array index.
+     *                - If the param is passed by reference, the position of the reference operator
+     *                  will be set in a "reference_token" array index.
+     *                - If the param is variable length, the position of the variadic operator will
+     *                  be set in a "variadic_token" array index.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getMethodParameters() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
