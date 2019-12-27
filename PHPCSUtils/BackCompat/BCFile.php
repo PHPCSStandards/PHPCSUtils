@@ -268,22 +268,23 @@ class BCFile
                 }
             }
 
-            switch ($tokens[$i]['code']) {
-                case T_BITWISE_AND:
+            // Changed from checking 'code' to 'type' to allow for T_NULLABLE not existing in PHPCS < 2.8.0.
+            switch ($tokens[$i]['type']) {
+                case 'T_BITWISE_AND':
                     if ($defaultStart === null) {
                         $passByReference = true;
                         $referenceToken  = $i;
                     }
                     break;
-                case T_VARIABLE:
+                case 'T_VARIABLE':
                     $currVar = $i;
                     break;
-                case T_ELLIPSIS:
+                case 'T_ELLIPSIS':
                     $variableLength = true;
                     $variadicToken  = $i;
                     break;
-                case T_ARRAY_HINT: // PHPCS < 3.3.0.
-                case T_CALLABLE:
+                case 'T_ARRAY_HINT': // PHPCS < 3.3.0.
+                case 'T_CALLABLE':
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
                     }
@@ -291,9 +292,9 @@ class BCFile
                     $typeHint        .= $tokens[$i]['content'];
                     $typeHintEndToken = $i;
                     break;
-                case T_SELF:
-                case T_PARENT:
-                case T_STATIC:
+                case 'T_SELF':
+                case 'T_PARENT':
+                case 'T_STATIC':
                     // Self and parent are valid, static invalid, but was probably intended as type hint.
                     if (isset($defaultStart) === false) {
                         if ($typeHintToken === false) {
@@ -304,7 +305,7 @@ class BCFile
                         $typeHintEndToken = $i;
                     }
                     break;
-                case T_STRING:
+                case 'T_STRING':
                     // This is a string, so it may be a type hint, but it could
                     // also be a constant used as a default value.
                     $prevComma = false;
@@ -338,7 +339,7 @@ class BCFile
                         $typeHintEndToken = $i;
                     }
                     break;
-                case T_NS_SEPARATOR:
+                case 'T_NS_SEPARATOR':
                     // Part of a type hint or default value.
                     if ($defaultStart === null) {
                         if ($typeHintToken === false) {
@@ -349,15 +350,16 @@ class BCFile
                         $typeHintEndToken = $i;
                     }
                     break;
-                case T_NULLABLE:
+                case 'T_NULLABLE':
+                case 'T_INLINE_THEN': // PHPCS < 2.8.0.
                     if ($defaultStart === null) {
                         $nullableType     = true;
                         $typeHint        .= $tokens[$i]['content'];
                         $typeHintEndToken = $i;
                     }
                     break;
-                case T_CLOSE_PARENTHESIS:
-                case T_COMMA:
+                case 'T_CLOSE_PARENTHESIS':
+                case 'T_COMMA':
                     // If it's null, then there must be no parameters for this
                     // method.
                     if ($currVar === null) {
@@ -406,7 +408,7 @@ class BCFile
 
                     $paramCount++;
                     break;
-                case T_EQUAL:
+                case 'T_EQUAL':
                     $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
                     $equalToken   = $i;
                     break;
