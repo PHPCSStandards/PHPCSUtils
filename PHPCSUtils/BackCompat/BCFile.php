@@ -1156,6 +1156,17 @@ class BCFile
     /**
      * Returns the position of the last non-whitespace token in a statement.
      *
+     * PHPCS cross-version compatible version of the File::findEndOfStatement() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 2.1.0.
+     * - PHPCS 2.6.2: New optional `$ignore` parameter to selectively ignore stop points.
+     * - PHPCS 2.7.1: Improved handling of short arrays, PHPCS #1203.
+     * - PHPCS 3.3.0: Bug fix: end of statement detection when passed a scope opener, PHPCS #1863.
+     * - PHPCS 3.5.0: Improved handling of group use statements.
+     *
+     * @see \PHP_CodeSniffer\Files\File::findEndOfStatement() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
