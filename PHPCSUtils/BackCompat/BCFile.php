@@ -1299,6 +1299,14 @@ class BCFile
     /**
      * Return the position of the condition for the passed token.
      *
+     * PHPCS cross-version compatible version of the File::getCondition() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 1.3.0.
+     * - This method has received no significant code updates since PHPCS 2.6.0.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getCondition() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
