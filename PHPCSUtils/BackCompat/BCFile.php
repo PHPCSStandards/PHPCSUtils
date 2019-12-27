@@ -817,6 +817,17 @@ class BCFile
      *   );
      * </code>
      *
+     * PHPCS cross-version compatible version of the File::getClassProperties() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 1.3.0.
+     * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
+     *                `\PHP_CodeSniffer\Exceptions\TokenizerException`.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
+     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getClassProperties() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
