@@ -34,7 +34,7 @@ class MyClass {
     /* testMessyNullableReturnMethod */
     public function myFunction() /* comment
         */ :  
-        /* comment */ ? //comment
+        /* comment */ ? // phpcs:ignore Stnd.Cat.Sniff -- For reasons.
         array {}
 
     /* testReturnNamespace */
@@ -59,4 +59,12 @@ interface MyInterface
 {
     /* testInterfaceMethod */
     function myFunction();
+}
+
+/* testNotAFunction */
+return true;
+
+/* testPhpcsIssue1264 */
+function foo() : array {
+    echo $foo;
 }

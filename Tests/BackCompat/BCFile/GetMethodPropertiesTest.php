@@ -34,6 +34,19 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
 {
 
     /**
+     * Test receiving an expected exception when a non function token is passed.
+     *
+     * @return void
+     */
+    public function testNotAFunctionException()
+    {
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+
+        $next = $this->getTargetToken('/* testNotAFunction */', T_RETURN);
+        BCFile::getMethodProperties(self::$phpcsFile, $next);
+    }
+
+    /**
      * Test a basic function.
      *
      * @return void
@@ -44,6 +57,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '',
+            'return_type_token'    => false,
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -65,6 +79,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => 'array',
+            'return_type_token'    => 11, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -86,6 +101,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => 'int',
+            'return_type_token'    => 8, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -107,6 +123,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '',
+            'return_type_token'    => false,
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -128,6 +145,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'private',
             'scope_specified'      => true,
             'return_type'          => '',
+            'return_type_token'    => false,
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -149,6 +167,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => true,
             'return_type'          => '',
+            'return_type_token'    => false,
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => true,
@@ -170,6 +189,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'protected',
             'scope_specified'      => true,
             'return_type'          => 'int',
+            'return_type_token'    => 8, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -191,6 +211,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => true,
             'return_type'          => 'array',
+            'return_type_token'    => 7, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -212,6 +233,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => true,
             'return_type'          => '?array',
+            'return_type_token'    => 8, // Offset from the T_FUNCTION token.
             'nullable_return_type' => true,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -233,6 +255,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => true,
             'return_type'          => '?array',
+            'return_type_token'    => 18, // Offset from the T_FUNCTION token.
             'nullable_return_type' => true,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -254,6 +277,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '\MyNamespace\MyClass',
+            'return_type_token'    => 7, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -275,6 +299,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '\MyNamespace\MyClass\Foo',
+            'return_type_token'    => 7, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
@@ -296,6 +321,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '',
+            'return_type_token'    => false,
             'nullable_return_type' => false,
             'is_abstract'          => true,
             'is_final'             => false,
@@ -317,6 +343,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'protected',
             'scope_specified'      => true,
             'return_type'          => 'bool',
+            'return_type_token'    => 7, // Offset from the T_FUNCTION token.
             'nullable_return_type' => false,
             'is_abstract'          => true,
             'is_final'             => false,
@@ -338,11 +365,36 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '',
+            'return_type_token'    => false,
             'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
             'is_static'            => false,
             'has_body'             => false,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
+     *
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264
+     *
+     * @return void
+     */
+    public function testPhpcsIssue1264()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => 'array',
+            'return_type_token'    => 8, // Offset from the T_FUNCTION token.
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
         ];
 
         $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -361,6 +413,10 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
         $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE]);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
-        $this->assertArraySubset($expected, $found, true);
+        if ($expected['return_type_token'] !== false) {
+            $expected['return_type_token'] += $function;
+        }
+
+        $this->assertSame($expected, $found);
     }
 }
