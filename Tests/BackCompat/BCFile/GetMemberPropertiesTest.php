@@ -572,9 +572,6 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when a non property is passed.
      *
-     * @expectedException        PHP_CodeSniffer\Exceptions\RuntimeException
-     * @expectedExceptionMessage $stackPtr is not a class member var
-     *
      * @dataProvider dataNotClassProperty
      *
      * @param string $identifier Comment which precedes the test case.
@@ -583,8 +580,10 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
      */
     public function testNotClassPropertyException($identifier)
     {
+        $this->expectPhpcsException('$stackPtr is not a class member var');
+
         $variable = $this->getTargetToken($identifier, T_VARIABLE);
-        $result   = BCFile::getMemberProperties(self::$phpcsFile, $variable);
+        BCFile::getMemberProperties(self::$phpcsFile, $variable);
     }
 
     /**
@@ -609,14 +608,13 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when a non variable is passed.
      *
-     * @expectedException        PHP_CodeSniffer\Exceptions\RuntimeException
-     * @expectedExceptionMessage $stackPtr must be of type T_VARIABLE
-     *
      * @return void
      */
     public function testNotAVariableException()
     {
-        $next   = $this->getTargetToken('/* testNotAVariable */', T_RETURN);
-        $result = BCFile::getMemberProperties(self::$phpcsFile, $next);
+        $this->expectPhpcsException('$stackPtr must be of type T_VARIABLE');
+
+        $next = $this->getTargetToken('/* testNotAVariable */', T_RETURN);
+        BCFile::getMemberProperties(self::$phpcsFile, $next);
     }
 }
