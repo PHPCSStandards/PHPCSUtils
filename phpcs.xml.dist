@@ -66,4 +66,27 @@
         <exclude-pattern>/Tests/*Test\.php$</exclude-pattern>
     </rule>
 
+    <!-- Allow slightly different code style and file docblocks for classes imported from PHPCS. -->
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment.TagsNotGrouped">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+    <rule ref="PEAR.Commenting.FileComment.AuthorTagOrder">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+    <rule ref="PEAR.Commenting.FileComment.CopyrightTagOrder">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+    <rule ref="PEAR.Commenting.FileComment.DuplicateLicenseTag">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+    <rule ref="PEAR.Commenting.FileComment.LicenseTagOrder">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+    <rule ref="PEAR.Commenting.FileComment.LinkTagOrder">
+        <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
+    </rule>
+
 </ruleset>

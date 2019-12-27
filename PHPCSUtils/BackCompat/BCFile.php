@@ -1,6 +1,11 @@
 <?php
 /**
- * Represents a piece of content being checked during the run.
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
  * The methods in this class are imported from the PHP_CodeSniffer project.
  * Note: this is not a one-on-one import of the `File` class!
@@ -28,15 +33,28 @@
 
 namespace PHPCSUtils\BackCompat;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 
+/**
+ * PHPCS native utility functions.
+ *
+ * Backport the latest version of PHPCS native utility functions to make them
+ * available to older PHPCS version without the bugs and other quirks that the
+ * older versions of the native functions had.
+ *
+ * @see \PHP_CodeSniffer\Files\File Source of these utility methods.
+ *
+ * @since 1.0.0
+ */
 class BCFile
 {
 
     /**
      * Returns the declaration names for classes, interfaces, traits, and functions.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the declaration token
@@ -45,6 +63,7 @@ class BCFile
      *
      * @return string|null The name of the class, interface, trait, or function;
      *                     or NULL if the function or class is anonymous.
+     *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
      *                                                      T_FUNCTION, T_CLASS, T_ANON_CLASS,
      *                                                      T_CLOSURE, T_TRAIT, or T_INTERFACE.
@@ -63,7 +82,7 @@ class BCFile
             && $tokenCode !== T_INTERFACE
             && $tokenCode !== T_TRAIT
         ) {
-            throw new RuntimeException('Token type "'.$tokens[$stackPtr]['type'].'" is not T_FUNCTION, T_CLASS, T_INTERFACE or T_TRAIT');
+            throw new RuntimeException('Token type "' . $tokens[$stackPtr]['type'] . '" is not T_FUNCTION, T_CLASS, T_INTERFACE or T_TRAIT');
         }
 
         if ($tokenCode === T_FUNCTION
@@ -83,9 +102,7 @@ class BCFile
         }
 
         return $content;
-
-    }//end getDeclarationName()
-
+    }
 
     /**
      * Returns the method parameters for the specified function token.
@@ -121,11 +138,14 @@ class BCFile
      *         'default_token'       => integer, // The stack pointer to the start of the default value.
      *         'default_equal_token' => integer, // The stack pointer to the equals sign.
      *
+     * @since 1.0.0
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
      *                                               to acquire the parameters for.
      *
      * @return array
+     *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
      *                                                      type T_FUNCTION, T_CLOSURE, or T_USE.
      */
@@ -161,18 +181,18 @@ class BCFile
 
         $closer = $tokens[$opener]['parenthesis_closer'];
 
-        $vars            = [];
-        $currVar         = null;
-        $paramStart      = ($opener + 1);
-        $defaultStart    = null;
-        $equalToken      = null;
-        $paramCount      = 0;
-        $passByReference = false;
-        $referenceToken  = false;
-        $variableLength  = false;
-        $variadicToken   = false;
-        $typeHint        = '';
-        $typeHintToken   = false;
+        $vars             = [];
+        $currVar          = null;
+        $paramStart       = ($opener + 1);
+        $defaultStart     = null;
+        $equalToken       = null;
+        $paramCount       = 0;
+        $passByReference  = false;
+        $referenceToken   = false;
+        $variableLength   = false;
+        $variadicToken    = false;
+        $typeHint         = '';
+        $typeHintToken    = false;
         $typeHintEndToken = false;
         $nullableType     = false;
 
@@ -196,151 +216,149 @@ class BCFile
             }
 
             switch ($tokens[$i]['code']) {
-            case T_BITWISE_AND:
-                if ($defaultStart === null) {
-                    $passByReference = true;
-                    $referenceToken  = $i;
-                }
-                break;
-            case T_VARIABLE:
-                $currVar = $i;
-                break;
-            case T_ELLIPSIS:
-                $variableLength = true;
-                $variadicToken  = $i;
-                break;
-            case T_CALLABLE:
-                if ($typeHintToken === false) {
-                    $typeHintToken = $i;
-                }
-
-                $typeHint        .= $tokens[$i]['content'];
-                $typeHintEndToken = $i;
-                break;
-            case T_SELF:
-            case T_PARENT:
-            case T_STATIC:
-                // Self and parent are valid, static invalid, but was probably intended as type hint.
-                if (isset($defaultStart) === false) {
+                case T_BITWISE_AND:
+                    if ($defaultStart === null) {
+                        $passByReference = true;
+                        $referenceToken  = $i;
+                    }
+                    break;
+                case T_VARIABLE:
+                    $currVar = $i;
+                    break;
+                case T_ELLIPSIS:
+                    $variableLength = true;
+                    $variadicToken  = $i;
+                    break;
+                case T_CALLABLE:
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
                     }
 
                     $typeHint        .= $tokens[$i]['content'];
                     $typeHintEndToken = $i;
-                }
-                break;
-            case T_STRING:
-                // This is a string, so it may be a type hint, but it could
-                // also be a constant used as a default value.
-                $prevComma = false;
-                for ($t = $i; $t >= $opener; $t--) {
-                    if ($tokens[$t]['code'] === T_COMMA) {
-                        $prevComma = $t;
-                        break;
-                    }
-                }
+                    break;
+                case T_SELF:
+                case T_PARENT:
+                case T_STATIC:
+                    // Self and parent are valid, static invalid, but was probably intended as type hint.
+                    if (isset($defaultStart) === false) {
+                        if ($typeHintToken === false) {
+                            $typeHintToken = $i;
+                        }
 
-                if ($prevComma !== false) {
-                    $nextEquals = false;
-                    for ($t = $prevComma; $t < $i; $t++) {
-                        if ($tokens[$t]['code'] === T_EQUAL) {
-                            $nextEquals = $t;
+                        $typeHint        .= $tokens[$i]['content'];
+                        $typeHintEndToken = $i;
+                    }
+                    break;
+                case T_STRING:
+                    // This is a string, so it may be a type hint, but it could
+                    // also be a constant used as a default value.
+                    $prevComma = false;
+                    for ($t = $i; $t >= $opener; $t--) {
+                        if ($tokens[$t]['code'] === T_COMMA) {
+                            $prevComma = $t;
                             break;
                         }
                     }
 
-                    if ($nextEquals !== false) {
-                        break;
-                    }
-                }
+                    if ($prevComma !== false) {
+                        $nextEquals = false;
+                        for ($t = $prevComma; $t < $i; $t++) {
+                            if ($tokens[$t]['code'] === T_EQUAL) {
+                                $nextEquals = $t;
+                                break;
+                            }
+                        }
 
-                if ($defaultStart === null) {
-                    if ($typeHintToken === false) {
-                        $typeHintToken = $i;
-                    }
-
-                    $typeHint        .= $tokens[$i]['content'];
-                    $typeHintEndToken = $i;
-                }
-                break;
-            case T_NS_SEPARATOR:
-                // Part of a type hint or default value.
-                if ($defaultStart === null) {
-                    if ($typeHintToken === false) {
-                        $typeHintToken = $i;
+                        if ($nextEquals !== false) {
+                            break;
+                        }
                     }
 
-                    $typeHint        .= $tokens[$i]['content'];
-                    $typeHintEndToken = $i;
-                }
-                break;
-            case T_NULLABLE:
-                if ($defaultStart === null) {
-                    $nullableType     = true;
-                    $typeHint        .= $tokens[$i]['content'];
-                    $typeHintEndToken = $i;
-                }
-                break;
-            case T_CLOSE_PARENTHESIS:
-            case T_COMMA:
-                // If it's null, then there must be no parameters for this
-                // method.
-                if ($currVar === null) {
-                    continue 2;
-                }
+                    if ($defaultStart === null) {
+                        if ($typeHintToken === false) {
+                            $typeHintToken = $i;
+                        }
 
-                $vars[$paramCount]            = [];
-                $vars[$paramCount]['token']   = $currVar;
-                $vars[$paramCount]['name']    = $tokens[$currVar]['content'];
-                $vars[$paramCount]['content'] = trim($phpcsFile->getTokensAsString($paramStart, ($i - $paramStart)));
+                        $typeHint        .= $tokens[$i]['content'];
+                        $typeHintEndToken = $i;
+                    }
+                    break;
+                case T_NS_SEPARATOR:
+                    // Part of a type hint or default value.
+                    if ($defaultStart === null) {
+                        if ($typeHintToken === false) {
+                            $typeHintToken = $i;
+                        }
 
-                if ($defaultStart !== null) {
-                    $vars[$paramCount]['default']       = trim($phpcsFile->getTokensAsString($defaultStart, ($i - $defaultStart)));
-                    $vars[$paramCount]['default_token'] = $defaultStart;
-                    $vars[$paramCount]['default_equal_token'] = $equalToken;
-                }
+                        $typeHint        .= $tokens[$i]['content'];
+                        $typeHintEndToken = $i;
+                    }
+                    break;
+                case T_NULLABLE:
+                    if ($defaultStart === null) {
+                        $nullableType     = true;
+                        $typeHint        .= $tokens[$i]['content'];
+                        $typeHintEndToken = $i;
+                    }
+                    break;
+                case T_CLOSE_PARENTHESIS:
+                case T_COMMA:
+                    // If it's null, then there must be no parameters for this
+                    // method.
+                    if ($currVar === null) {
+                        continue 2;
+                    }
 
-                $vars[$paramCount]['pass_by_reference']   = $passByReference;
-                $vars[$paramCount]['reference_token']     = $referenceToken;
-                $vars[$paramCount]['variable_length']     = $variableLength;
-                $vars[$paramCount]['variadic_token']      = $variadicToken;
-                $vars[$paramCount]['type_hint']           = $typeHint;
-                $vars[$paramCount]['type_hint_token']     = $typeHintToken;
-                $vars[$paramCount]['type_hint_end_token'] = $typeHintEndToken;
-                $vars[$paramCount]['nullable_type']       = $nullableType;
+                    $vars[$paramCount]            = [];
+                    $vars[$paramCount]['token']   = $currVar;
+                    $vars[$paramCount]['name']    = $tokens[$currVar]['content'];
+                    $vars[$paramCount]['content'] = trim($phpcsFile->getTokensAsString($paramStart, ($i - $paramStart)));
 
-                if ($tokens[$i]['code'] === T_COMMA) {
-                    $vars[$paramCount]['comma_token'] = $i;
-                } else {
-                    $vars[$paramCount]['comma_token'] = false;
-                }
+                    if ($defaultStart !== null) {
+                        $vars[$paramCount]['default']             = trim($phpcsFile->getTokensAsString($defaultStart, ($i - $defaultStart)));
+                        $vars[$paramCount]['default_token']       = $defaultStart;
+                        $vars[$paramCount]['default_equal_token'] = $equalToken;
+                    }
 
-                // Reset the vars, as we are about to process the next parameter.
-                $defaultStart    = null;
-                $equalToken      = null;
-                $paramStart      = ($i + 1);
-                $passByReference = false;
-                $referenceToken  = false;
-                $variableLength  = false;
-                $variadicToken   = false;
-                $typeHint        = '';
-                $typeHintToken   = false;
-                $nullableType    = false;
+                    $vars[$paramCount]['pass_by_reference']   = $passByReference;
+                    $vars[$paramCount]['reference_token']     = $referenceToken;
+                    $vars[$paramCount]['variable_length']     = $variableLength;
+                    $vars[$paramCount]['variadic_token']      = $variadicToken;
+                    $vars[$paramCount]['type_hint']           = $typeHint;
+                    $vars[$paramCount]['type_hint_token']     = $typeHintToken;
+                    $vars[$paramCount]['type_hint_end_token'] = $typeHintEndToken;
+                    $vars[$paramCount]['nullable_type']       = $nullableType;
 
-                $paramCount++;
-                break;
-            case T_EQUAL:
-                $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
-                $equalToken   = $i;
-                break;
-            }//end switch
-        }//end for
+                    if ($tokens[$i]['code'] === T_COMMA) {
+                        $vars[$paramCount]['comma_token'] = $i;
+                    } else {
+                        $vars[$paramCount]['comma_token'] = false;
+                    }
+
+                    // Reset the vars, as we are about to process the next parameter.
+                    $defaultStart    = null;
+                    $equalToken      = null;
+                    $paramStart      = ($i + 1);
+                    $passByReference = false;
+                    $referenceToken  = false;
+                    $variableLength  = false;
+                    $variadicToken   = false;
+                    $typeHint        = '';
+                    $typeHintToken   = false;
+                    $nullableType    = false;
+
+                    $paramCount++;
+                    break;
+                case T_EQUAL:
+                    $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
+                    $equalToken   = $i;
+                    break;
+            }
+        }
 
         return $vars;
-
-    }//end getMethodParameters()
-
+    }
 
     /**
      * Returns the visibility and implementation properties of a method.
@@ -361,13 +379,16 @@ class BCFile
      *   );
      * </code>
      *
+     * @since 1.0.0
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
      *                                               acquire the properties for.
      *
      * @return array
+     *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                        T_FUNCTION token.
+     *                                                      T_FUNCTION token.
      */
     public static function getMethodProperties(File $phpcsFile, $stackPtr)
     {
@@ -412,29 +433,29 @@ class BCFile
             }
 
             switch ($tokens[$i]['code']) {
-            case T_PUBLIC:
-                $scope          = 'public';
-                $scopeSpecified = true;
-                break;
-            case T_PRIVATE:
-                $scope          = 'private';
-                $scopeSpecified = true;
-                break;
-            case T_PROTECTED:
-                $scope          = 'protected';
-                $scopeSpecified = true;
-                break;
-            case T_ABSTRACT:
-                $isAbstract = true;
-                break;
-            case T_FINAL:
-                $isFinal = true;
-                break;
-            case T_STATIC:
-                $isStatic = true;
-                break;
-            }//end switch
-        }//end for
+                case T_PUBLIC:
+                    $scope          = 'public';
+                    $scopeSpecified = true;
+                    break;
+                case T_PRIVATE:
+                    $scope          = 'private';
+                    $scopeSpecified = true;
+                    break;
+                case T_PROTECTED:
+                    $scope          = 'protected';
+                    $scopeSpecified = true;
+                    break;
+                case T_ABSTRACT:
+                    $isAbstract = true;
+                    break;
+                case T_FINAL:
+                    $isFinal = true;
+                    break;
+                case T_STATIC:
+                    $isStatic = true;
+                    break;
+            }
+        }
 
         $returnType         = '';
         $returnTypeToken    = false;
@@ -478,10 +499,10 @@ class BCFile
 
             $end     = $phpcsFile->findNext([T_OPEN_CURLY_BRACKET, T_SEMICOLON], $tokens[$stackPtr]['parenthesis_closer']);
             $hasBody = $tokens[$end]['code'] === T_OPEN_CURLY_BRACKET;
-        }//end if
+        }
 
         if ($returnType !== '' && $nullableReturnType === true) {
-            $returnType = '?'.$returnType;
+            $returnType = '?' . $returnType;
         }
 
         return [
@@ -495,9 +516,7 @@ class BCFile
             'is_static'            => $isStatic,
             'has_body'             => $hasBody,
         ];
-
-    }//end getMethodProperties()
-
+    }
 
     /**
      * Returns the visibility and implementation properties of a class member var.
@@ -518,14 +537,17 @@ class BCFile
      *   );
      * </code>
      *
+     * @since 1.0.0
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the T_VARIABLE token to
      *                                               acquire the properties for.
      *
      * @return array
+     *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                        T_VARIABLE token, or if the position is not
-     *                                                        a class member variable.
+     *                                                      T_VARIABLE token, or if the position is not
+     *                                                      a class member variable.
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
@@ -602,23 +624,23 @@ class BCFile
             }
 
             switch ($tokens[$i]['code']) {
-            case T_PUBLIC:
-                $scope          = 'public';
-                $scopeSpecified = true;
-                break;
-            case T_PRIVATE:
-                $scope          = 'private';
-                $scopeSpecified = true;
-                break;
-            case T_PROTECTED:
-                $scope          = 'protected';
-                $scopeSpecified = true;
-                break;
-            case T_STATIC:
-                $isStatic = true;
-                break;
+                case T_PUBLIC:
+                    $scope          = 'public';
+                    $scopeSpecified = true;
+                    break;
+                case T_PRIVATE:
+                    $scope          = 'private';
+                    $scopeSpecified = true;
+                    break;
+                case T_PROTECTED:
+                    $scope          = 'protected';
+                    $scopeSpecified = true;
+                    break;
+                case T_STATIC:
+                    $isStatic = true;
+                    break;
             }
-        }//end for
+        }
 
         $type         = '';
         $typeToken    = false;
@@ -656,9 +678,9 @@ class BCFile
             }
 
             if ($type !== '' && $nullableType === true) {
-                $type = '?'.$type;
+                $type = '?' . $type;
             }
-        }//end if
+        }
 
         return [
             'scope'           => $scope,
@@ -669,9 +691,7 @@ class BCFile
             'type_end_token'  => $typeEndToken,
             'nullable_type'   => $nullableType,
         ];
-
-    }//end getMemberProperties()
-
+    }
 
     /**
      * Returns the visibility and implementation properties of a class.
@@ -684,11 +704,14 @@ class BCFile
      *   );
      * </code>
      *
+     * @since 1.0.0
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the T_CLASS
      *                                               token to acquire the properties for.
      *
      * @return array
+     *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      T_CLASS token.
      */
@@ -717,29 +740,29 @@ class BCFile
             }
 
             switch ($tokens[$i]['code']) {
-            case T_ABSTRACT:
-                $isAbstract = true;
-                break;
+                case T_ABSTRACT:
+                    $isAbstract = true;
+                    break;
 
-            case T_FINAL:
-                $isFinal = true;
-                break;
+                case T_FINAL:
+                    $isFinal = true;
+                    break;
             }
-        }//end for
+        }
 
         return [
             'is_abstract' => $isAbstract,
             'is_final'    => $isFinal,
         ];
-
-    }//end getClassProperties()
-
+    }
 
     /**
      * Determine if the passed token is a reference operator.
      *
      * Returns true if the specified token position represents a reference.
      * Returns false if the token represents a bitwise operator.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
@@ -820,7 +843,7 @@ class BCFile
                             return true;
                         }
                     }
-                }//end if
+                }
             } else {
                 $prev = false;
                 for ($t = ($tokens[$lastBracket]['parenthesis_opener'] - 1); $t >= 0; $t--) {
@@ -834,8 +857,8 @@ class BCFile
                     // Closure use by reference.
                     return true;
                 }
-            }//end if
-        }//end if
+            }
+        }
 
         // Pass by reference in function calls and assign by reference in arrays.
         if ($tokens[$tokenBefore]['code'] === T_OPEN_PARENTHESIS
@@ -863,17 +886,17 @@ class BCFile
                 if ($tokens[$nextSignificantAfter]['code'] === T_VARIABLE) {
                     return true;
                 }
-            }//end if
-        }//end if
+            }
+        }
 
         return false;
-
-    }//end isReference()
-
+    }
 
     /**
      * Returns the content of the tokens from the specified start position in
      * the token stack for the specified length.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file being scanned.
      * @param int                         $start       The position to start from in the token stack.
@@ -882,6 +905,7 @@ class BCFile
      *                                                 content should be used.
      *
      * @return string The token contents.
+     *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position does not exist.
      */
     public static function getTokensAsString(File $phpcsFile, $start, $length, $origContent = false)
@@ -913,12 +937,12 @@ class BCFile
         }
 
         return $str;
-
-    }//end getTokensAsString()
-
+    }
 
     /**
      * Returns the position of the first non-whitespace token in a statement.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
@@ -967,7 +991,7 @@ class BCFile
                 && $i === $tokens[$i]['bracket_closer']
             ) {
                 $i = $tokens[$i]['bracket_opener'];
-            } else if (isset($tokens[$i]['parenthesis_opener']) === true
+            } elseif (isset($tokens[$i]['parenthesis_opener']) === true
                 && $i === $tokens[$i]['parenthesis_closer']
             ) {
                 $i = $tokens[$i]['parenthesis_opener'];
@@ -976,15 +1000,15 @@ class BCFile
             if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === false) {
                 $lastNotEmpty = $i;
             }
-        }//end for
+        }
 
         return 0;
-
-    }//end findStartOfStatement()
-
+    }
 
     /**
      * Returns the position of the last non-whitespace token in a statement.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
@@ -1044,15 +1068,15 @@ class BCFile
                 }
 
                 $i = $tokens[$i]['scope_closer'];
-            } else if (isset($tokens[$i]['bracket_closer']) === true
+            } elseif (isset($tokens[$i]['bracket_closer']) === true
                 && $i === $tokens[$i]['bracket_opener']
             ) {
                 $i = $tokens[$i]['bracket_closer'];
-            } else if (isset($tokens[$i]['parenthesis_closer']) === true
+            } elseif (isset($tokens[$i]['parenthesis_closer']) === true
                 && $i === $tokens[$i]['parenthesis_opener']
             ) {
                 $i = $tokens[$i]['parenthesis_closer'];
-            } else if ($tokens[$i]['code'] === T_OPEN_USE_GROUP) {
+            } elseif ($tokens[$i]['code'] === T_OPEN_USE_GROUP) {
                 $end = $phpcsFile->findNext(T_CLOSE_USE_GROUP, ($i + 1));
                 if ($end !== false) {
                     $i = $end;
@@ -1062,21 +1086,21 @@ class BCFile
             if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === false) {
                 $lastNotEmpty = $i;
             }
-        }//end for
+        }
 
         return ($phpcsFile->numTokens - 1);
-
-    }//end findEndOfStatement()
-
+    }
 
     /**
      * Determine if the passed token has a condition of one of the passed types.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      * @param int|string|array            $types     The type(s) of tokens to search for.
      *
-     * @return boolean
+     * @return bool
      */
     public static function hasCondition(File $phpcsFile, $stackPtr, $types)
     {
@@ -1103,14 +1127,14 @@ class BCFile
         }
 
         return false;
-
-    }//end hasCondition()
-
+    }
 
     /**
      * Return the position of the condition for the passed token.
      *
      * Returns FALSE if the token does not have the condition.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
@@ -1140,15 +1164,15 @@ class BCFile
         }
 
         return false;
-
-    }//end getCondition()
-
+    }
 
     /**
      * Returns the name of the class that the specified class extends.
      * (works for classes, anonymous classes and interfaces)
      *
      * Returns FALSE on error or if there is no extended class name.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class.
@@ -1177,7 +1201,7 @@ class BCFile
 
         $classOpenerIndex = $tokens[$stackPtr]['scope_opener'];
         $extendsIndex     = $phpcsFile->findNext(T_EXTENDS, $stackPtr, $classOpenerIndex);
-        if (false === $extendsIndex) {
+        if ($extendsIndex === false) {
             return false;
         }
 
@@ -1196,14 +1220,14 @@ class BCFile
         }
 
         return $name;
-
-    }//end findExtendedClassName()
-
+    }
 
     /**
      * Returns the names of the interfaces that the specified class implements.
      *
      * Returns FALSE on error or if there are no implemented interface names.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class.
@@ -1253,8 +1277,5 @@ class BCFile
             $names = array_map('trim', $names);
             return $names;
         }
-
-    }//end findImplementedInterfaceNames()
-
-
-}//end class
+    }
+}
