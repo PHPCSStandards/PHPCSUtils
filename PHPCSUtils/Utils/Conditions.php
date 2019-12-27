@@ -24,7 +24,16 @@ class Conditions
 {
 
     /**
-     * Retrieve the position of the condition for the passed token.
+     * Retrieve the position of a condition for the passed token.
+     *
+     * If no types are specified, the first condition for the token - or if `$reverse=true`,
+     * the last condition - will be returned.
+     *
+     * Main differences with the PHPCS version:
+     * - The singular `$type` parameter has become the more flexible `$types` parameter allowing to
+     *   search for several types of conditions in one go.
+     * - The `$types` parameter is now optional.
+     * - Addition of the `$reverse` parameter.
      *
      * @see \PHP_CodeSniffer\Files\File::getCondition()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getCondition() Cross-version compatible version of the original.
@@ -33,12 +42,15 @@ class Conditions
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
-     * @param int|string                  $type      The type of token to search for.
+     * @param int|string|array            $types     Optional. The type(s) of tokens to search for.
+     * @param bool                        $reverse   Optional. Whether to search for the first (outermost)
+     *                                               (false) or the last (innermost) condition (true) of
+     *                                               the specified type(s).
      *
      * @return int|false Integer stack pointer to the condition or FALSE if the token
      *                   does not have the condition.
      */
-    public static function getCondition(File $phpcsFile, $stackPtr, $type)
+    public static function getCondition(File $phpcsFile, $stackPtr, $types = [], $reverse = false)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -48,14 +60,34 @@ class Conditions
         }
 
         // Make sure the token has conditions.
-        if (isset($tokens[$stackPtr]['conditions']) === false) {
+        if (empty($tokens[$stackPtr]['conditions'])) {
             return false;
         }
 
+        $types      = (array) $types;
         $conditions = $tokens[$stackPtr]['conditions'];
-        foreach ($conditions as $token => $condition) {
-            if ($condition === $type) {
-                return $token;
+
+        if (empty($types) === true) {
+            // No types specified, just return the first/last condition pointer.
+            if ($reverse === true) {
+                \end($conditions);
+            } else {
+                \reset($conditions);
+            }
+
+            return \key($conditions);
+        }
+
+        if ($reverse === true) {
+            $conditions = \array_reverse($conditions, true);
+        }
+
+        foreach ($conditions as $ptr => $type) {
+            if (isset($tokens[$ptr]) === true
+                && \in_array($type, $types, true) === true
+            ) {
+                // We found a token with the required type.
+                return $ptr;
             }
         }
 
@@ -64,6 +96,8 @@ class Conditions
 
     /**
      * Determine if the passed token has a condition of one of the passed types.
+     *
+     * This method is not significantly different from the PHPCS native version.
      *
      * @see \PHP_CodeSniffer\Files\File::hasCondition()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::hasCondition() Cross-version compatible version of the original.
@@ -78,28 +112,6 @@ class Conditions
      */
     public static function hasCondition(File $phpcsFile, $stackPtr, $types)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Check for the existence of the token.
-        if (isset($tokens[$stackPtr]) === false) {
-            return false;
-        }
-
-        // Make sure the token has conditions.
-        if (isset($tokens[$stackPtr]['conditions']) === false) {
-            return false;
-        }
-
-        $types      = (array) $types;
-        $conditions = $tokens[$stackPtr]['conditions'];
-
-        foreach ($types as $type) {
-            if (\in_array($type, $conditions, true) === true) {
-                // We found a token with the required type.
-                return true;
-            }
-        }
-
-        return false;
+        return (self::getCondition($phpcsFile, $stackPtr, $types) !== false);
     }
 }
