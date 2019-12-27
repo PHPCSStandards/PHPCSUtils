@@ -2,8 +2,16 @@
 /**
  * Tests for the \PHP_CodeSniffer\Files\File:isReference method.
  *
+ * This class is imported from the PHP_CodeSniffer project.
+ *
+ * Copyright of the original code in this class as per the import:
+ * @author    Juliette Reinders Folmer <jrf@phpcodesniffer.info>
  * @author    Greg Sherwood <gsherwood@squiz.net>
- * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
+ *
+ * With documentation contributions from:
+ * @author    Phil Davis <phil@jankaritech.com>
+ *
+ * @copyright 2017-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 

@@ -2,8 +2,14 @@
 /**
  * Tests for the \PHP_CodeSniffer\Files\File:getMethodProperties method.
  *
+ * This class is imported from the PHP_CodeSniffer project.
+ *
+ * Copyright of the original code in this class as per the import:
  * @author    Greg Sherwood <gsherwood@squiz.net>
- * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @author    Chris Wilkinson <c.wilkinson@elifesciences.org>
+ * @author    Juliette Reinders Folmer <jrf@phpcodesniffer.info>
+ *
+ * @copyright 2018-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 

@@ -2,8 +2,27 @@
 /**
  * Represents a piece of content being checked during the run.
  *
+ * The methods in this class are imported from the PHP_CodeSniffer project.
+ * Note: this is not a one-on-one import of the `File` class!
+ *
+ * Copyright of the original code in this class as per the import:
  * @author    Greg Sherwood <gsherwood@squiz.net>
- * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @author    Jaroslav Hanslík <kukulich@kukulich.cz>
+ * @author    jdavis <jdavis@bamboohr.com>
+ * @author    Klaus Purer <klaus.purer@gmail.com>
+ * @author    Juliette Reinders Folmer <jrf@phpcodesniffer.info>
+ * @author    Nick Wilde <nick@briarmoon.ca>
+ * @author    Martin Hujer <mhujer@gmail.com>
+ * @author    Chris Wilkinson <c.wilkinson@elifesciences.org>
+ *
+ * With documentation contributions from:
+ * @author    Pascal Borreli <pascal@borreli.com>
+ * @author    Diogo Oliveira de Melo <dmelo87@gmail.com>
+ * @author    Stefano Kowalke <blueduck@gmx.net>
+ * @author    George Mponos <gmponos@gmail.com>
+ * @author    Tyson Andre <tysonandre775@hotmail.com>
+ *
+ * @copyright 2006-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 

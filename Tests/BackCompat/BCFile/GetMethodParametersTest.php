@@ -2,8 +2,17 @@
 /**
  * Tests for the \PHP_CodeSniffer\Files\File:getMethodParameters method.
  *
+ * This class is imported from the PHP_CodeSniffer project.
+ *
+ * Copyright of the original code in this class as per the import:
  * @author    Greg Sherwood <gsherwood@squiz.net>
- * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @author    Juliette Reinders Folmer <jrf@phpcodesniffer.info>
+ *
+ * With documentation contributions from:
+ * @author    Diogo Oliveira de Melo <dmelo87@gmail.com>
+ * @author    George Mponos <gmponos@gmail.com>
+ *
+ * @copyright 2010-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
