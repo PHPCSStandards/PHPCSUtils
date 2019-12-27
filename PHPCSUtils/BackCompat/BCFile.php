@@ -1061,6 +1061,7 @@ class BCFile
      *                - If the $length param is invalid, an empty string will be returned.
      *
      * @see \PHP_CodeSniffer\Files\File::getTokensAsString() Original source.
+     * @see \PHPCSUtils\Utils\GetTokensAsString              Related set of functions.
      *
      * @since 1.0.0
      *

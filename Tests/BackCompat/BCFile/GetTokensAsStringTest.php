@@ -18,6 +18,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::getTokensAsString
  *
+ * @group gettokensasstring
+ *
  * @since 1.0.0
  */
 class GetTokensAsStringTest extends UtilityMethodTestCase
