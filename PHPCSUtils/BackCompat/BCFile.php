@@ -446,7 +446,7 @@ class BCFile
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_FUNCTION token.
+     *                                                      T_FUNCTION or a T_CLOSURE token.
      */
     public static function getMethodProperties(File $phpcsFile, $stackPtr)
     {
