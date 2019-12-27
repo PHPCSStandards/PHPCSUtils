@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\BackCompat;
 
+use PHP_CodeSniffer\Files\File;
+
 /**
  * Utility methods to retrieve (configuration) information from PHP_CodeSniffer.
  *
@@ -25,6 +27,15 @@ namespace PHPCSUtils\BackCompat;
  */
 class Helper
 {
+
+    /**
+     * The default tab width used by PHP_CodeSniffer.
+     *
+     * @since 1.0.0
+     *
+     * @var int
+     */
+    const DEFAULT_TABWIDTH = 4;
 
     /**
      * Get the PHP_CodeSniffer version number.
@@ -86,5 +97,87 @@ class Helper
 
         // PHPCS 3.x.
         return \PHP_CodeSniffer\Config::getConfigData($key);
+    }
+
+    /**
+     * Get the value of a CLI overrulable single PHP_CodeSniffer config key.
+     *
+     * Use this for config keys which can be set in the `CodeSniffer.conf` file,
+     * on the command-line or in a ruleset.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being processed.
+     * @param string                      $key       The name of the config value.
+     *
+     * @return string|null
+     */
+    public static function getCommandLineData(File $phpcsFile, $key)
+    {
+        if (\class_exists('\PHP_CodeSniffer\Config') === false) {
+            // PHPCS 2.x.
+            $config = $phpcsFile->phpcs->cli->getCommandLineValues();
+            if (isset($config[$key])) {
+                return $config[$key];
+            }
+        } else {
+            // PHPCS 3.x.
+            $config = $phpcsFile->config;
+            if (isset($config->{$key})) {
+                return $config->{$key};
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the applicable tab width as passed to PHP_CodeSniffer from the
+     * command-line or the ruleset.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being processed.
+     *
+     * @return int Tab width. Defaults to the PHPCS native default of 4.
+     */
+    public static function getTabWidth(File $phpcsFile)
+    {
+        $tabWidth = self::getCommandLineData($phpcsFile, 'tabWidth');
+        if ($tabWidth > 0) {
+            return $tabWidth;
+        }
+
+        return self::DEFAULT_TABWIDTH;
+    }
+
+    /**
+     * Check whether the `--ignore-annotations` option has been used.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile Optional. The current file
+     *                                               being processed.
+     *
+     * @return bool True if annotations should be ignored, false otherwise.
+     */
+    public static function ignoreAnnotations(File $phpcsFile = null)
+    {
+        if (\class_exists('\PHP_CodeSniffer\Config') === false) {
+            // PHPCS 2.x does not support `--ignore-annotations`.
+            return false;
+        }
+
+        // PHPCS 3.x.
+        if (isset($phpcsFile, $phpcsFile->config->annotations)) {
+            return ! $phpcsFile->config->annotations;
+        }
+
+        $annotations = \PHP_CodeSniffer\Config::getConfigData('annotations');
+        if (isset($annotations)) {
+            return ! $annotations;
+        }
+
+        return false;
     }
 }
