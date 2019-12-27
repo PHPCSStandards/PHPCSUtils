@@ -807,7 +807,7 @@ class BCFile
     }
 
     /**
-     * Returns the visibility and implementation properties of a class.
+     * Returns the implementation properties of a class.
      *
      * The format of the return value is:
      * <code>
