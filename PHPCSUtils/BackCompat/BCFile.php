@@ -1344,14 +1344,13 @@ class BCFile
      * Returns the name of the class that the specified class extends.
      * (works for classes, anonymous classes and interfaces)
      *
-     * Returns FALSE on error or if there is no extended class name.
-     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The stack position of the class.
+     * @param int                         $stackPtr  The stack position of the class or interface.
      *
-     * @return string|false
+     * @return string|false The extended class name or FALSE on error or if there
+     *                      is no extended class name.
      */
     public static function findExtendedClassName(File $phpcsFile, $stackPtr)
     {
