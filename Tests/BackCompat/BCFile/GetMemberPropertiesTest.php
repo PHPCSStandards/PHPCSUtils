@@ -15,11 +15,12 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
+use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
-class GetMemberPropertiesTest extends AbstractMethodUnitTest
+class GetMemberPropertiesTest extends UtilityMethodTestCase
 {
 
 
@@ -36,7 +37,7 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
     public function testGetMemberProperties($identifier, $expected)
     {
         $variable = $this->getTargetToken($identifier, T_VARIABLE);
-        $result   = self::$phpcsFile->getMemberProperties($variable);
+        $result   = BCFile::getMemberProperties(self::$phpcsFile, $variable);
 
         $this->assertArraySubset($expected, $result, true);
 
@@ -487,7 +488,7 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
     public function testNotClassPropertyException($identifier)
     {
         $variable = $this->getTargetToken($identifier, T_VARIABLE);
-        $result   = self::$phpcsFile->getMemberProperties($variable);
+        $result   = BCFile::getMemberProperties(self::$phpcsFile, $variable);
 
     }//end testNotClassPropertyException()
 
@@ -524,7 +525,7 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
     public function testNotAVariableException()
     {
         $next   = $this->getTargetToken('/* testNotAVariable */', T_RETURN);
-        $result = self::$phpcsFile->getMemberProperties($next);
+        $result = BCFile::getMemberProperties(self::$phpcsFile, $next);
 
     }//end testNotAVariableException()
 

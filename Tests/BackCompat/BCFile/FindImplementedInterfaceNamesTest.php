@@ -16,11 +16,12 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
+use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
-class FindImplementedInterfaceNamesTest extends AbstractMethodUnitTest
+class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
 {
 
 
@@ -37,7 +38,7 @@ class FindImplementedInterfaceNamesTest extends AbstractMethodUnitTest
     public function testFindImplementedInterfaceNames($identifier, $expected)
     {
         $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE]);
-        $result  = self::$phpcsFile->findImplementedInterfaceNames($OOToken);
+        $result  = BCFile::findImplementedInterfaceNames(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
 
     }//end testFindImplementedInterfaceNames()

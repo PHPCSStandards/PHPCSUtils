@@ -15,11 +15,12 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
+use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
-class IsReferenceTest extends AbstractMethodUnitTest
+class IsReferenceTest extends UtilityMethodTestCase
 {
 
 
@@ -36,7 +37,7 @@ class IsReferenceTest extends AbstractMethodUnitTest
     public function testIsReference($identifier, $expected)
     {
         $bitwiseAnd = $this->getTargetToken($identifier, T_BITWISE_AND);
-        $result     = self::$phpcsFile->isReference($bitwiseAnd);
+        $result     = BCFile::isReference(self::$phpcsFile, $bitwiseAnd);
         $this->assertSame($expected, $result);
 
     }//end testIsReference()

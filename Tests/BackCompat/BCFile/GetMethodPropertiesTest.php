@@ -13,11 +13,12 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
+use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
-class GetMethodPropertiesTest extends AbstractMethodUnitTest
+class GetMethodPropertiesTest extends UtilityMethodTestCase
 {
 
 
@@ -377,7 +378,7 @@ class GetMethodPropertiesTest extends AbstractMethodUnitTest
     private function getMethodPropertiesTestHelper($commentString, $expected)
     {
         $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE]);
-        $found    = self::$phpcsFile->getMethodProperties($function);
+        $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
         $this->assertArraySubset($expected, $found, true);
 
