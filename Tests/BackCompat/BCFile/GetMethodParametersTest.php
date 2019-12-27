@@ -45,12 +45,18 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var',
-            'content'           => '&$var',
-            'pass_by_reference' => true,
-            'variable_length'   => false,
-            'type_hint'         => '',
-            'nullable_type'     => false,
+            'token'               => 5, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => '&$var',
+            'pass_by_reference'   => true,
+            'reference_token'     => 4, // Offset from the T_FUNCTION token.
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -65,12 +71,18 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var',
-            'content'           => 'array $var',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => 'array',
-            'nullable_type'     => false,
+            'token'               => 6, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => 'array $var',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'array',
+            'type_hint_token'     => 4, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 4, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -85,21 +97,33 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var1',
-            'content'           => 'foo $var1',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => 'foo',
-            'nullable_type'     => false,
+            'token'               => 6, // Offset from the T_FUNCTION token.
+            'name'                => '$var1',
+            'content'             => 'foo $var1',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'foo',
+            'type_hint_token'     => 4, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 4, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => 7, // Offset from the T_FUNCTION token.
         ];
 
         $expected[1] = [
-            'name'              => '$var2',
-            'content'           => 'bar $var2',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => 'bar',
-            'nullable_type'     => false,
+            'token'               => 11, // Offset from the T_FUNCTION token.
+            'name'                => '$var2',
+            'content'             => 'bar $var2',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'bar',
+            'type_hint_token'     => 9, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -114,12 +138,18 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var',
-            'content'           => 'self $var',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => 'self',
-            'nullable_type'     => false,
+            'token'               => 6, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => 'self $var',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'self',
+            'type_hint_token'     => 4, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 4, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -134,21 +164,33 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var1',
-            'content'           => '?int $var1',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '?int',
-            'nullable_type'     => true,
+            'token'               => 7, // Offset from the T_FUNCTION token.
+            'name'                => '$var1',
+            'content'             => '?int $var1',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?int',
+            'type_hint_token'     => 5, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 5, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'comma_token'         => 8, // Offset from the T_FUNCTION token.
         ];
 
         $expected[1] = [
-            'name'              => '$var2',
-            'content'           => '?\bar $var2',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '?\bar',
-            'nullable_type'     => true,
+            'token'               => 14, // Offset from the T_FUNCTION token.
+            'name'                => '$var2',
+            'content'             => '?\bar $var2',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?\bar',
+            'type_hint_token'     => 11, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 12, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -163,12 +205,18 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var',
-            'content'           => '$var',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '',
-            'nullable_type'     => false,
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => '$var',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -183,13 +231,21 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var1',
-            'content'           => '$var1=self::CONSTANT',
-            'default'           => 'self::CONSTANT',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '',
-            'nullable_type'     => false,
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$var1',
+            'content'             => '$var1=self::CONSTANT',
+            'default'             => 'self::CONSTANT',
+            'default_token'       => 6, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -204,22 +260,38 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$var1',
-            'content'           => '$var1=1',
-            'default'           => '1',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '',
-            'nullable_type'     => false,
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$var1',
+            'content'             => '$var1=1',
+            'default'             => '1',
+            'default_token'       => 6, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 7, // Offset from the T_FUNCTION token.
         ];
         $expected[1] = [
-            'name'              => '$var2',
-            'content'           => "\$var2='value'",
-            'default'           => "'value'",
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '',
-            'nullable_type'     => false,
+            'token'               => 9, // Offset from the T_FUNCTION token.
+            'name'                => '$var2',
+            'content'             => "\$var2='value'",
+            'default'             => "'value'",
+            'default_token'       => 11, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -234,13 +306,21 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     {
         $expected    = [];
         $expected[0] = [
-            'name'              => '$a',
-            'content'           => '$a = 10 & 20',
-            'default'           => '10 & 20',
-            'pass_by_reference' => false,
-            'variable_length'   => false,
-            'type_hint'         => '',
-            'nullable_type'     => false,
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$a',
+            'content'             => '$a = 10 & 20',
+            'default'             => '10 & 20',
+            'default_token'       => 8, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 6, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -259,6 +339,32 @@ class GetMethodParametersTest extends UtilityMethodTestCase
         $function = $this->getTargetToken($commentString, [T_FUNCTION]);
         $found    = BCFile::getMethodParameters(self::$phpcsFile, $function);
 
-        $this->assertArraySubset($expected, $found, true);
+        foreach ($expected as $key => $param) {
+            $expected[$key]['token'] += $target;
+
+            if ($param['reference_token'] !== false) {
+                $expected[$key]['reference_token'] += $target;
+            }
+            if ($param['variadic_token'] !== false) {
+                $expected[$key]['variadic_token'] += $target;
+            }
+            if ($param['type_hint_token'] !== false) {
+                $expected[$key]['type_hint_token'] += $target;
+            }
+            if ($param['type_hint_end_token'] !== false) {
+                $expected[$key]['type_hint_end_token'] += $target;
+            }
+            if ($param['comma_token'] !== false) {
+                $expected[$key]['comma_token'] += $target;
+            }
+            if (isset($param['default_token'])) {
+                $expected[$key]['default_token'] += $target;
+            }
+            if (isset($param['default_equal_token'])) {
+                $expected[$key]['default_equal_token'] += $target;
+            }
+        }
+
+        $this->assertSame($expected, $found);
     }
 }
