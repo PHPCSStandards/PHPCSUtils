@@ -1253,6 +1253,14 @@ class BCFile
     /**
      * Determine if the passed token has a condition of one of the passed types.
      *
+     * PHPCS cross-version compatible version of the File::hasCondition() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - This method has received no significant code updates since PHPCS 2.6.0.
+     *
+     * @see \PHP_CodeSniffer\Files\File::hasCondition() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
