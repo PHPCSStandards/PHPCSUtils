@@ -1299,15 +1299,14 @@ class BCFile
     /**
      * Return the position of the condition for the passed token.
      *
-     * Returns FALSE if the token does not have the condition.
-     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      * @param int|string                  $type      The type of token to search for.
      *
-     * @return int
+     * @return int|false Integer stack pointer to the condition or FALSE if the token
+     *                   does not have the condition.
      */
     public static function getCondition(File $phpcsFile, $stackPtr, $type)
     {
