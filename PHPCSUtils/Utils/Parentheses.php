@@ -11,6 +11,8 @@
 namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\Helper;
 
 /**
  * Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped in
@@ -36,11 +38,43 @@ class Parentheses
     public static function getOwner(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if (isset($tokens[$stackPtr], $tokens[$stackPtr]['parenthesis_owner']) === false) {
+
+        if (isset($tokens[$stackPtr]['parenthesis_owner'])) {
+            return $tokens[$stackPtr]['parenthesis_owner'];
+        }
+
+        /*
+         * `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
+         *
+         * {@internal As the 'parenthesis_owner' index is only set on parentheses, we didn't need to do any
+         * input validation before, but now we do.}
+         */
+        if (\version_compare(Helper::getVersion(), '3.5.0', '>=') === true) {
             return false;
         }
 
-        return $tokens[$stackPtr]['parenthesis_owner'];
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_OPEN_PARENTHESIS
+            && $tokens[$stackPtr]['code'] !== \T_CLOSE_PARENTHESIS)
+        ) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['code'] === \T_CLOSE_PARENTHESIS) {
+            $stackPtr = $tokens[$stackPtr]['parenthesis_opener'];
+        }
+
+        $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+        if ($prevNonEmpty !== false
+            && ($tokens[$prevNonEmpty]['code'] === \T_LIST
+            || $tokens[$prevNonEmpty]['code'] === \T_ANON_CLASS
+            // Work-around: anon classes were, in certain circumstances, tokenized as T_CLASS prior to PHPCS 3.4.0.
+            || $tokens[$prevNonEmpty]['code'] === \T_CLASS)
+        ) {
+            return $prevNonEmpty;
+        }
+
+        return false;
     }
 
     /**
@@ -66,6 +100,17 @@ class Parentheses
 
         $tokens      = $phpcsFile->getTokens();
         $validOwners = (array) $validOwners;
+
+        /*
+         * Work around tokenizer bug where anon classes were, in certain circumstances, tokenized
+         * as `T_CLASS` prior to PHPCS 3.4.0.
+         * As `T_CLASS` is normally not an parenthesis owner, we can safely add it to the array
+         * without doing a version check.
+         */
+        if (\in_array(\T_ANON_CLASS, $validOwners, true)) {
+            $validOwners[] = \T_CLASS;
+        }
+
         return \in_array($tokens[$owner]['code'], $validOwners, true);
     }
 

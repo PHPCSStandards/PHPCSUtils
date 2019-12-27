@@ -35,6 +35,12 @@ $anonClass = new class(
 ) extends DateTime {
 };
 
+/* testListOnCloseParens */
+list($a, $b) = $array;
+
+/* testNoOwnerOnCloseParens */
+$a = ($b + $c);
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 declare(ticks=1

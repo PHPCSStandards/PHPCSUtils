@@ -321,6 +321,35 @@ class ParenthesesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test passing a close parenthesis token to methods which expect to receive an open/close parenthesis.
+     *
+     * This specifically tests the BC-layer for lists and anon classes.
+     *
+     * @return void
+     */
+    public function testPassingParenthesisCloseHandlinginBCLayer()
+    {
+        $stackPtr = $this->getTargetToken('/* testListOnCloseParens */', \T_CLOSE_PARENTHESIS);
+
+        $result = Parentheses::getOwner(self::$phpcsFile, $stackPtr);
+        $this->assertSame(($stackPtr - 6), $result);
+
+        $result = Parentheses::isOwnerIn(self::$phpcsFile, $stackPtr, \T_LIST);
+        $this->assertTrue($result);
+
+        $result = Parentheses::isOwnerIn(self::$phpcsFile, $stackPtr, \T_IF);
+        $this->assertFalse($result);
+
+        $stackPtr = $this->getTargetToken('/* testNoOwnerOnCloseParens */', \T_CLOSE_PARENTHESIS);
+
+        $result = Parentheses::getOwner(self::$phpcsFile, $stackPtr);
+        $this->assertFalse($result);
+
+        $result = Parentheses::isOwnerIn(self::$phpcsFile, $stackPtr, BCTokens::scopeOpeners());
+        $this->assertFalse($result);
+    }
+
+    /**
      * Test correctly retrieving the first parenthesis opener for an arbitrary token.
      *
      * @dataProvider dataWalkParentheses
