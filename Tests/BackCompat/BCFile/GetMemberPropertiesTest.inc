@@ -39,7 +39,10 @@ class TestMemberProperties
     var static $varG = true;
 
     /* testPublicStatic */
-    public static $varH = true;
+    public // comment
+    // phpcs:ignore Stnd.Cat.Sniff -- For reasons.
+    static
+    $varH = true;
 
     /* testProtectedStatic */
     static protected $varI = true;
