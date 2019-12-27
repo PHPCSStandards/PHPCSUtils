@@ -1409,14 +1409,13 @@ class BCFile
     /**
      * Returns the names of the interfaces that the specified class implements.
      *
-     * Returns FALSE on error or if there are no implemented interface names.
-     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class.
      *
-     * @return array|false
+     * @return array|false Array with names of the implemented interfaces or FALSE on
+     *                     error or if there are no implemented interface names.
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
