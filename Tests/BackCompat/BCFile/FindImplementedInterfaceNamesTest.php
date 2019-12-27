@@ -37,6 +37,29 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
 {
 
     /**
+     * Test getting a `false` result when a non-existent token is passed.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $result = BCFile::findImplementedInterfaceNames(self::$phpcsFile, 100000);
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Test getting a `false` result when a token other than one of the supported tokens is passed.
+     *
+     * @return void
+     */
+    public function testNotAClass()
+    {
+        $token  = $this->getTargetToken('/* testNotAClass */', [T_FUNCTION]);
+        $result = BCFile::findImplementedInterfaceNames(self::$phpcsFile, $token);
+        $this->assertFalse($result);
+    }
+
+    /**
      * Test retrieving the name(s) of the interfaces being implemented by a class.
      *
      * @dataProvider dataImplementedInterface
@@ -99,6 +122,18 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                     '\InterfaceA',
                     'InterfaceB',
                 ],
+            ],
+            [
+                '/* testAnonClassImplements */',
+                ['testFIINInterface'],
+            ],
+            [
+                '/* testMissingImplementsName */',
+                false,
+            ],
+            [
+                '/* testParseError */',
+                false,
             ],
         ];
     }

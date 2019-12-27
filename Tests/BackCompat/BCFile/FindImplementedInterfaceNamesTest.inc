@@ -1,6 +1,7 @@
 <?php
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+/* testNotAClass */
+function notAClass() {}
 
 interface testFIINInterface2 {}
 
@@ -24,3 +25,13 @@ class testFECNClassThatExtendsAndImplements extends testFECNClass implements Int
 
 /* testClassThatImplementsAndExtends */
 class testFECNClassThatImplementsAndExtends implements \InterfaceA, InterfaceB extends testFECNClass {}
+
+/* testAnonClassImplements */
+$anon = class() implements testFIINInterface {}
+
+/* testMissingImplementsName */
+class testMissingExtendsName implements { /* missing interface name */  } // Internal parse error.
+
+// Intentional parse error. Has to be the last test in the file.
+/* testParseError */
+class testParseError implements testInterface
