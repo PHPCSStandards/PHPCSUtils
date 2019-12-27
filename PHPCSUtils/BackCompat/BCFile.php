@@ -623,6 +623,29 @@ class BCFile
      *   );
      * </code>
      *
+     * PHPCS cross-version compatible version of the File::getMemberProperties() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
+     *                `\PHP_CodeSniffer\Exceptions\TokenizerException`.
+     * - PHPCS 3.4.0: Fixed method params being recognized as properties, PHPCS#2214.
+     * - PHPCS 3.5.0: New `type`, `type_token`, `type_end_token` and `nullable_type` array indexes.
+     *                - The `type` index contains the type of the member var, or a blank string
+     *                  if not specified.
+     *                - If the type is nullable, `type` will contain the leading `?`.
+     *                - If a type is specified, the position of the first token in the type will
+     *                  be set in a `type_token` array index.
+     *                - If a type is specified, the position of the last token in the type will
+     *                  be set in a `type_end_token` array index.
+     *                - If the type is nullable, a `nullable_type` array index will also be set to TRUE.
+     *                - If the type contains namespace information, it will be cleaned of whitespace
+     *                  and comments in the `type` value.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
+     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
