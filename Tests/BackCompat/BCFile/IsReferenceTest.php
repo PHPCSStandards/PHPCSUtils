@@ -206,6 +206,42 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
+                '/* testShortListAssignByReferenceNoKeyA */',
+                true,
+            ],
+            [
+                '/* testShortListAssignByReferenceNoKeyB */',
+                true,
+            ],
+            [
+                '/* testNestedShortListAssignByReferenceNoKey */',
+                true,
+            ],
+            [
+                '/* testLongListAssignByReferenceNoKeyA */',
+                true,
+            ],
+            [
+                '/* testLongListAssignByReferenceNoKeyB */',
+                true,
+            ],
+            [
+                '/* testLongListAssignByReferenceNoKeyC */',
+                true,
+            ],
+            [
+                '/* testNestedShortListAssignByReferenceWithKeyA */',
+                true,
+            ],
+            [
+                '/* testNestedShortListAssignByReferenceWithKeyB */',
+                true,
+            ],
+            [
+                '/* testLongListAssignByReferenceWithKeyA */',
+                true,
+            ],
+            [
                 '/* testPassByReferenceA */',
                 true,
             ],

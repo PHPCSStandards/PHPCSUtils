@@ -101,6 +101,29 @@ $collection = &collector();
 /* testAssignByReferenceF */
 $collection ??= &collector();
 
+/* testShortListAssignByReferenceNoKeyA */
+[
+    &$a,
+    /* testShortListAssignByReferenceNoKeyB */
+    &$b,
+    /* testNestedShortListAssignByReferenceNoKey */
+    [$c, &$d]
+] = $array;
+
+/* testLongListAssignByReferenceNoKeyA */
+list($a, &$b, list(/* testLongListAssignByReferenceNoKeyB */ &$c, /* testLongListAssignByReferenceNoKeyC */ &$d)) = $array;
+
+[
+    /* testNestedShortListAssignByReferenceWithKeyA */
+    'a' => [&$a, $b],
+    /* testNestedShortListAssignByReferenceWithKeyB */
+    'b' => [$c, &$d]
+] = $array;
+
+
+/* testLongListAssignByReferenceWithKeyA */
+list(get_key()[1] => &$e) = [1, 2, 3];
+
 /* testPassByReferenceA */
 functionCall(&$something, $somethingElse);
 
