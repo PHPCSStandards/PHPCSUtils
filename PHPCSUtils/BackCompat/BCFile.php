@@ -915,12 +915,7 @@ class BCFile
             return false;
         }
 
-        $tokenBefore = $phpcsFile->findPrevious(
-            Tokens::$emptyTokens,
-            ($stackPtr - 1),
-            null,
-            true
-        );
+        $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
         if ($tokens[$tokenBefore]['code'] === T_FUNCTION) {
             // Function returns a reference.
@@ -943,12 +938,7 @@ class BCFile
             return true;
         }
 
-        $tokenAfter = $phpcsFile->findNext(
-            Tokens::$emptyTokens,
-            ($stackPtr + 1),
-            null,
-            true
-        );
+        $tokenAfter = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
 
         if ($tokens[$tokenAfter]['code'] === T_NEW) {
             return true;
