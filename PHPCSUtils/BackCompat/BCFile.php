@@ -883,15 +883,13 @@ class BCFile
     /**
      * Determine if the passed token is a reference operator.
      *
-     * Returns true if the specified token position represents a reference.
-     * Returns false if the token represents a bitwise operator.
-     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
      *
-     * @return boolean
+     * @return bool TRUE if the specified token position represents a reference.
+     *              FALSE if the token represents a bitwise operator.
      */
     public static function isReference(File $phpcsFile, $stackPtr)
     {
