@@ -282,6 +282,7 @@ class BCFile
                     $variableLength = true;
                     $variadicToken  = $i;
                     break;
+                case T_ARRAY_HINT: // PHPCS < 3.3.0.
                 case T_CALLABLE:
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
