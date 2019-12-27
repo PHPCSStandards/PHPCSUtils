@@ -54,6 +54,20 @@ class BCFile
     /**
      * Returns the declaration names for classes, interfaces, traits, and functions.
      *
+     * PHPCS cross-version compatible version of the File::getDeclarationName() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 2.8.0: Returns null when passed an anonymous class. Previously, the method
+     *                would throw a "token not of an accepted type" exception.
+     * - PHPCS 2.9.0: Returns null when passed a PHP closure. Previously, the method
+     *                would throw a "token not of an accepted type" exception.
+     * - PHPCS 3.0.0: Added support for ES6 class/method syntax.
+     * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
+     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
