@@ -437,6 +437,29 @@ class BCFile
      *   );
      * </code>
      *
+     * PHPCS cross-version compatible version of the File::getMethodProperties() method.
+     *
+     * Changelog for the PHPCS native function:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 3.0.0: Removed the `is_closure` array index which was always `false` anyway.
+     * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
+     *                `\PHP_CodeSniffer\Exceptions\TokenizerException`.
+     * - PHPCS 3.3.0: New `return_type`, `return_type_token` and `nullable_return_type` array indexes.
+     *                - The `return_type` index contains the return type of the function or closer,
+     *                  or a blank string if not specified.
+     *                - If the return type is nullable, the return type will contain the leading `?`.
+     *                - A `nullable_return_type` array index in the return value will also be set to `true`.
+     *                - If the return type contains namespace information, it will be cleaned of
+     *                  whitespace and comments.
+     *                - To access the original return value string, use the main tokens array.
+     * - PHPCS 3.4.0: New `has_body` array index.
+     *                - `false` if the method has no body (as with abstract and interface methods)
+     *                  or `true` otherwise.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
+     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getMethodProperties() Original source.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
