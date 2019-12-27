@@ -36,7 +36,7 @@ class IsReferenceTest extends UtilityMethodTestCase
 {
 
     /**
-     * Test a class that extends another.
+     * Test correctly identifying that whether a "bitwise and" token is a reference or not.
      *
      * @dataProvider dataIsReference
      *
