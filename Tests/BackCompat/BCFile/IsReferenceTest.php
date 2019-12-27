@@ -36,6 +36,17 @@ class IsReferenceTest extends UtilityMethodTestCase
 {
 
     /**
+     * Test that false is returned when a non-"bitwise and" token is passed.
+     *
+     * @return void
+     */
+    public function testNotBitwiseAndToken()
+    {
+        $target = $this->getTargetToken('/* testBitwiseAndA */', T_STRING);
+        $this->assertFalse(BCFile::isReference(self::$phpcsFile, $target));
+    }
+
+    /**
      * Test correctly identifying that whether a "bitwise and" token is a reference or not.
      *
      * @dataProvider dataIsReference
@@ -188,6 +199,10 @@ class IsReferenceTest extends UtilityMethodTestCase
             ],
             [
                 '/* testAssignByReferenceE */',
+                true,
+            ],
+            [
+                '/* testAssignByReferenceF */',
                 true,
             ],
             [

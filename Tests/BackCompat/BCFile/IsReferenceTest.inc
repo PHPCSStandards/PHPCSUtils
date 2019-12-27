@@ -98,6 +98,9 @@ $myValue = &$obj->getValue();
 /* testAssignByReferenceE */
 $collection = &collector();
 
+/* testAssignByReferenceF */
+$collection ??= &collector();
+
 /* testPassByReferenceA */
 functionCall(&$something, $somethingElse);
 
