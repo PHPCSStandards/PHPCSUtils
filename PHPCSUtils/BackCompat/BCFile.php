@@ -41,9 +41,35 @@ use PHPCSUtils\BackCompat\BCTokens;
 /**
  * PHPCS native utility functions.
  *
- * Backport the latest version of PHPCS native utility functions to make them
- * available to older PHPCS version without the bugs and other quirks that the
+ * Backport of the latest versions of PHPCS native utility functions to make them
+ * available in older PHPCS versions without the bugs and other quirks that the
  * older versions of the native functions had.
+ *
+ * Additionally, this class works round the following tokenizer issues for
+ * any affected utility functions:
+ * - Array return type declarations were incorrectly tokenized to `T_ARRAY_HINT`
+ *   instead of `T_RETURN_TYPE` in some circumstances prior to PHPCS 2.8.0.
+ * - `T_NULLABLE` was not available prior to PHPCS 2.8.0 and utility functions did
+ *   not take nullability of types into account.
+ * - The PHPCS native ignore annotations were not available prior to PHPCS 3.2.0.
+ * - The way return types were tokenized has changed in PHPCS 3.3.0.
+ *   Previously a lot of them were tokenized as `T_RETURN_HINT`. For namespaced
+ *   classnames this only tokenized the classname, not the whole return type.
+ *   Now tokenization is "normalized" with most tokens being `T_STRING`, including
+ *   array return type declarations.
+ * - Typed properties were not recognized prior to PHPCS 3.5.0, including the
+ *   `?` nullability token not being converted to `T_NULLABLE`.
+ * - General PHP cross-version incompatibilities.
+ *
+ * Most functions in this class will have a related twin-function in the relevant
+ * class in the `PHPCSUtils\Utils` namespace.
+ * These will be indicated with `@see` tags in the docblock of the function.
+ *
+ * The PHPCSUtils native twin-functions will often have additional features and/or
+ * improved functionality, but will generally be fully compatible with the PHPCS
+ * native functions.
+ * The differences between the functions here and the twin functions are documented
+ * in the docblock of the respective twin-function.
  *
  * @see \PHP_CodeSniffer\Files\File Source of these utility methods.
  *
