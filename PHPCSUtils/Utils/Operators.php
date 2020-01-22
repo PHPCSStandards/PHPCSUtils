@@ -225,4 +225,40 @@ class Operators
 
         return false;
     }
+
+    /**
+     * Determine whether a ternary is a short ternary/elvis operator, i.e. without "middle".
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer_File $phpcsFile The file being scanned.
+     * @param int                   $stackPtr  The position of the ternary then/else
+     *                                         operator in the stack.
+     *
+     * @return bool True if short ternary, or false otherwise.
+     */
+    public static function isShortTernary(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['code'] === \T_INLINE_THEN) {
+            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_INLINE_ELSE) {
+                return true;
+            }
+        }
+
+        if ($tokens[$stackPtr]['code'] === \T_INLINE_ELSE) {
+            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+            if ($prevNonEmpty !== false && $tokens[$prevNonEmpty]['code'] === \T_INLINE_THEN) {
+                return true;
+            }
+        }
+
+        // Not a ternary operator token.
+        return false;
+    }
 }
