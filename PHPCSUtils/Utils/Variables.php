@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Scopes;
 
 /**
@@ -77,15 +78,7 @@ class Variables
             throw new RuntimeException('$stackPtr is not a class member var');
         }
 
-        $valid = [
-            \T_PUBLIC    => \T_PUBLIC,
-            \T_PRIVATE   => \T_PRIVATE,
-            \T_PROTECTED => \T_PROTECTED,
-            \T_STATIC    => \T_STATIC,
-            \T_VAR       => \T_VAR,
-        ];
-
-        $valid += Tokens::$emptyTokens;
+        $valid = Collections::$propertyModifierKeywords + Tokens::$emptyTokens;
 
         $scope          = 'public';
         $scopeSpecified = false;
@@ -131,15 +124,6 @@ class Variables
 
         if ($i < $stackPtr) {
             // We've found a type.
-            $valid = [
-                \T_STRING       => \T_STRING,
-                \T_CALLABLE     => \T_CALLABLE,
-                \T_SELF         => \T_SELF,
-                \T_PARENT       => \T_PARENT,
-                \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-                \T_ARRAY_HINT   => \T_ARRAY_HINT, // Array property type declarations in PHPCS < 3.3.0.
-            ];
-
             for ($i; $i < $stackPtr; $i++) {
                 if ($tokens[$i]['code'] === \T_VARIABLE) {
                     // Hit another variable in a group definition.
@@ -153,7 +137,7 @@ class Variables
                     $nullableType = true;
                 }
 
-                if (isset($valid[$tokens[$i]['code']]) === true) {
+                if (isset(Collections::$propertyTypeTokens[$tokens[$i]['code']]) === true) {
                     $typeEndToken = $i;
                     if ($typeToken === false) {
                         $typeToken = $i;
