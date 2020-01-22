@@ -24,7 +24,6 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -32,10 +31,22 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::findExtendedClassName
  *
+ * @group objectdeclarations
+ *
  * @since 1.0.0
  */
 class FindExtendedClassNameTest extends UtilityMethodTestCase
 {
+
+    /**
+     * The fully qualified name of the class being tested.
+     *
+     * This allows for the same unit tests to be run for both the BCFile functions
+     * as well as for the related PHPCSUtils functions.
+     *
+     * @var string
+     */
+    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
 
     /**
      * Test getting a `false` result when a non-existent token is passed.
@@ -44,7 +55,9 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $result = BCFile::findExtendedClassName(self::$phpcsFile, 100000);
+        $testClass = static::TEST_CLASS;
+
+        $result = $testClass::findExtendedClassName(self::$phpcsFile, 100000);
         $this->assertFalse($result);
     }
 
@@ -55,8 +68,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      */
     public function testNotAClass()
     {
+        $testClass = static::TEST_CLASS;
+
         $token  = $this->getTargetToken('/* testNotAClass */', [T_FUNCTION]);
-        $result = BCFile::findExtendedClassName(self::$phpcsFile, $token);
+        $result = $testClass::findExtendedClassName(self::$phpcsFile, $token);
         $this->assertFalse($result);
     }
 
@@ -73,8 +88,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      */
     public function testFindExtendedClassName($identifier, $expected)
     {
+        $testClass = static::TEST_CLASS;
+
         $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE]);
-        $result  = BCFile::findExtendedClassName(self::$phpcsFile, $OOToken);
+        $result  = $testClass::findExtendedClassName(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
     }
 

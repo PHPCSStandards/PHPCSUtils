@@ -17,6 +17,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::getClassProperties
  *
+ * @group objectdeclarations
+ *
  * @since 1.0.0
  */
 class GetClassPropertiesTest extends UtilityMethodTestCase

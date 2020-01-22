@@ -18,6 +18,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::getDeclarationName
  *
+ * @group objectdeclarations
+ *
  * @since 1.0.0
  */
 class GetDeclarationNameTest extends UtilityMethodTestCase
