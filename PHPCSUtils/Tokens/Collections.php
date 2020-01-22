@@ -59,6 +59,31 @@ class Collections
     ];
 
     /**
+     * OO structures which can use the `extends` keyword.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $OOCanExtend = [
+        \T_CLASS      => \T_CLASS,
+        \T_ANON_CLASS => \T_ANON_CLASS,
+        \T_INTERFACE  => \T_INTERFACE,
+    ];
+
+    /**
+     * OO structures which can use the `implements` keyword.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $OOCanImplement = [
+        \T_CLASS      => \T_CLASS,
+        \T_ANON_CLASS => \T_ANON_CLASS,
+    ];
+
+    /**
      * OO scopes in which constants can be declared.
      *
      * Note: traits can not declare constants.

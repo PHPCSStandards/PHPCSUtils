@@ -16,6 +16,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\FindImplementedInterfaceNamesTest as BCFi
  * Tests for the \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() method.
  *
  * @covers \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames
+ * @covers \PHPCSUtils\Utils\ObjectDeclarations::findNames
  *
  * @group objectdeclarations
  *

@@ -1364,7 +1364,8 @@ class BCFile
      *                single interface extension).
      * - PHPCS 3.3.2: Fixed bug causing bleed through with nested classes, PHPCS#2127.
      *
-     * @see \PHP_CodeSniffer\Files\File::findExtendedClassName() Original source.
+     * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()          Original source.
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *
@@ -1426,7 +1427,8 @@ class BCFile
      * - Introduced in PHPCS 2.7.0.
      * - PHPCS 2.8.0: Now supports anonymous classes.
      *
-     * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames() Original source.
+     * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()          Original source.
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *
