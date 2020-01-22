@@ -925,6 +925,7 @@ class BCFile
      *                  `namespace\ClassName::`, `classname::` were not recognized as references.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference() Original source.
+     * @see \PHPCSUtils\Utils\Operators::isReference() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *

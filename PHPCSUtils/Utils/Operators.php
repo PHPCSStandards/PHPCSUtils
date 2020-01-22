@@ -29,6 +29,9 @@ class Operators
     /**
      * Determine if the passed token is a reference operator.
      *
+     * Main differences with the PHPCS version:
+     * - Defensive coding against incorrect calls to this method.
+     *
      * @see \PHP_CodeSniffer\Files\File::isReference()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
      *
@@ -44,7 +47,7 @@ class Operators
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_BITWISE_AND) {
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_BITWISE_AND) {
             return false;
         }
 
