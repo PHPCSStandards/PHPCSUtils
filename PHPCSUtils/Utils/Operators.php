@@ -12,8 +12,9 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Utils\FunctionDeclarations;
+use PHPCSUtils\Utils\Parentheses;
 
 /**
  * Utility functions for use when working with operators.
@@ -76,37 +77,20 @@ class Operators
             return true;
         }
 
-        if (isset($tokens[$stackPtr]['nested_parenthesis']) === true) {
-            $brackets    = $tokens[$stackPtr]['nested_parenthesis'];
-            $lastBracket = \array_pop($brackets);
-            if (isset($tokens[$lastBracket]['parenthesis_owner']) === true) {
-                $owner = $tokens[$tokens[$lastBracket]['parenthesis_owner']];
-                if ($owner['code'] === \T_FUNCTION
-                    || $owner['code'] === \T_CLOSURE
-                ) {
-                    $params = BCFile::getMethodParameters($phpcsFile, $tokens[$lastBracket]['parenthesis_owner']);
-                    foreach ($params as $param) {
-                        $varToken = $tokenAfter;
-                        if ($param['variable_length'] === true) {
-                            $varToken = $phpcsFile->findNext(
-                                (Tokens::$emptyTokens + [\T_ELLIPSIS]),
-                                ($stackPtr + 1),
-                                null,
-                                true
-                            );
-                        }
-
-                        if ($param['token'] === $varToken
-                            && $param['pass_by_reference'] === true
-                        ) {
-                            // Function parameter declared to be passed by reference.
-                            return true;
-                        }
+        $lastOpener = Parentheses::getLastOpener($phpcsFile, $stackPtr);
+        if ($lastOpener !== false) {
+            $lastOwner = Parentheses::lastOwnerIn($phpcsFile, $stackPtr, [\T_FUNCTION, \T_CLOSURE]);
+            if ($lastOwner !== false) {
+                $params = FunctionDeclarations::getParameters($phpcsFile, $lastOwner);
+                foreach ($params as $param) {
+                    if ($param['pass_by_reference'] === true) {
+                        // Function parameter declared to be passed by reference.
+                        return true;
                     }
                 }
-            } else {
+            } elseif (isset($tokens[$lastOpener]['parenthesis_owner']) === false) {
                 $prev = false;
-                for ($t = ($tokens[$lastBracket]['parenthesis_opener'] - 1); $t >= 0; $t--) {
+                for ($t = ($lastOpener - 1); $t >= 0; $t--) {
                     if ($tokens[$t]['code'] !== \T_WHITESPACE) {
                         $prev = $t;
                         break;
