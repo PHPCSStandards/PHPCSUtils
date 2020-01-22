@@ -13,9 +13,12 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
+use PHPCSUtils\Utils\Scopes;
 
 /**
  * Utility functions for use when examining function declaration statements.
@@ -27,6 +30,84 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  */
 class FunctionDeclarations
 {
+
+    /**
+     * A list of all PHP magic functions.
+     *
+     * The array keys are the function names, the values as well, but without the double underscore.
+     *
+     * The function names are listed in lowercase as function names in PHP are case-insensitive
+     * and comparisons against this list should therefore always be done in a case-insensitive manner.
+     *
+     * @since 1.0.0
+     *
+     * @var array <string> => <string>
+     */
+    public static $magicFunctions = [
+        '__autoload' => 'autoload',
+    ];
+
+    /**
+     * A list of all PHP magic methods.
+     *
+     * The array keys are the method names, the values as well, but without the double underscore.
+     *
+     * The method names are listed in lowercase as function names in PHP are case-insensitive
+     * and comparisons against this list should therefore always be done in a case-insensitive manner.
+     *
+     * @since 1.0.0
+     *
+     * @var array <string> => <string>
+     */
+    public static $magicMethods = [
+        '__construct'   => 'construct',
+        '__destruct'    => 'destruct',
+        '__call'        => 'call',
+        '__callstatic'  => 'callstatic',
+        '__get'         => 'get',
+        '__set'         => 'set',
+        '__isset'       => 'isset',
+        '__unset'       => 'unset',
+        '__sleep'       => 'sleep',
+        '__wakeup'      => 'wakeup',
+        '__tostring'    => 'tostring',
+        '__set_state'   => 'set_state',
+        '__clone'       => 'clone',
+        '__invoke'      => 'invoke',
+        '__debuginfo'   => 'debuginfo', // PHP 5.6.
+        '__serialize'   => 'serialize', // PHP 7.4.
+        '__unserialize' => 'unserialize', // PHP 7.4.
+    ];
+
+    /**
+     * A list of all PHP native non-magic methods starting with a double underscore.
+     *
+     * These come from PHP modules such as SOAPClient.
+     *
+     * The array keys are the method names, the values the name of the PHP extension containing
+     * the function.
+     *
+     * The method names are listed in lowercase as function names in PHP are case-insensitive
+     * and comparisons against this list should therefore always be done in a case-insensitive manner.
+     *
+     * @since 1.0.0
+     *
+     * @var array <string> => <string>
+     */
+    public static $methodsDoubleUnderscore = [
+        '__dorequest'              => 'SOAPClient',
+        '__getcookies'             => 'SOAPClient',
+        '__getfunctions'           => 'SOAPClient',
+        '__getlastrequest'         => 'SOAPClient',
+        '__getlastrequestheaders'  => 'SOAPClient',
+        '__getlastresponse'        => 'SOAPClient',
+        '__getlastresponseheaders' => 'SOAPClient',
+        '__gettypes'               => 'SOAPClient',
+        '__setcookie'              => 'SOAPClient',
+        '__setlocation'            => 'SOAPClient',
+        '__setsoapheaders'         => 'SOAPClient',
+        '__soapcall'               => 'SOAPClient',
+    ];
 
     /**
      * Returns the declaration name for a function.
@@ -447,5 +528,193 @@ class FunctionDeclarations
         }
 
         return $vars;
+    }
+
+    /**
+     * Checks if a given function is a PHP magic function.
+     *
+     * @todo Add check for the function declaration being namespaced!
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::isMagicFunctionName() For when you already know the name of the
+     *                                                                   function and scope checking is done in the
+     *                                                                   sniff.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     *
+     * @return bool
+     */
+    public static function isMagicFunction(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_FUNCTION) {
+            return false;
+        }
+
+        if (Conditions::hasCondition($phpcsFile, $stackPtr, BCTokens::ooScopeTokens()) === true) {
+            return false;
+        }
+
+        $name = self::getName($phpcsFile, $stackPtr);
+        return self::isMagicFunctionName($name);
+    }
+
+    /**
+     * Verify if a given function name is the name of a PHP magic function.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The full function name.
+     *
+     * @return bool
+     */
+    public static function isMagicFunctionName($name)
+    {
+        $name = \strtolower($name);
+        return (isset(self::$magicFunctions[$name]) === true);
+    }
+
+    /**
+     * Checks if a given function is a PHP magic method.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::isMagicMethodName() For when you already know the name of the
+     *                                                                 method and scope checking is done in the
+     *                                                                 sniff.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     *
+     * @return bool
+     */
+    public static function isMagicMethod(File $phpcsFile, $stackPtr)
+    {
+        if (Scopes::isOOMethod($phpcsFile, $stackPtr) === false) {
+            return false;
+        }
+
+        $name = self::getName($phpcsFile, $stackPtr);
+        return self::isMagicMethodName($name);
+    }
+
+    /**
+     * Verify if a given function name is the name of a PHP magic method.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The full function name.
+     *
+     * @return bool
+     */
+    public static function isMagicMethodName($name)
+    {
+        $name = \strtolower($name);
+        return (isset(self::$magicMethods[$name]) === true);
+    }
+
+    /**
+     * Checks if a given function is a PHP native double underscore method.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::isPHPDoubleUnderscoreMethodName() For when you already know the
+     *                                                                               name of the method and scope
+     *                                                                               checking is done in the sniff.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     *
+     * @return bool
+     */
+    public static function isPHPDoubleUnderscoreMethod(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_FUNCTION) {
+            return false;
+        }
+
+        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, BCTokens::ooScopeTokens());
+        if ($scopePtr === false) {
+            return false;
+        }
+
+        /*
+         * If this is a class, make sure it extends something, as otherwise, the methods
+         * still can't be overloads for the SOAPClient methods.
+         * For a trait/interface we don't know the concrete implementation context, so skip
+         * this check.
+         */
+        if ($tokens[$scopePtr]['code'] === \T_CLASS || $tokens[$scopePtr]['code'] === \T_ANON_CLASS) {
+            $extends = ObjectDeclarations::findExtendedClassName($phpcsFile, $scopePtr);
+            if ($extends === false) {
+                return false;
+            }
+        }
+
+        $name = self::getName($phpcsFile, $stackPtr);
+        return self::isPHPDoubleUnderscoreMethodName($name);
+    }
+
+    /**
+     * Verify if a given function name is the name of a PHP native double underscore method.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The full function name.
+     *
+     * @return bool
+     */
+    public static function isPHPDoubleUnderscoreMethodName($name)
+    {
+        $name = \strtolower($name);
+        return (isset(self::$methodsDoubleUnderscore[$name]) === true);
+    }
+
+    /**
+     * Checks if a given function is a magic method or a PHP native double underscore method.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::isSpecialMethodName() For when you already know the name of the
+     *                                                                   method and scope checking is done in the
+     *                                                                   sniff.
+     *
+     * @since 1.0.0
+     *
+     * {@internal Not the most efficient way of checking this, but less efficient ways will get
+     *            less reliable results or introduce a lot of code duplication.}
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     *
+     * @return bool
+     */
+    public static function isSpecialMethod(File $phpcsFile, $stackPtr)
+    {
+        if (self::isMagicMethod($phpcsFile, $stackPtr) === true) {
+            return true;
+        }
+
+        if (self::isPHPDoubleUnderscoreMethod($phpcsFile, $stackPtr) === true) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Verify if a given function name is the name of a magic method or a PHP native double underscore method.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The full function name.
+     *
+     * @return bool
+     */
+    public static function isSpecialMethodName($name)
+    {
+        $name = \strtolower($name);
+        return (isset(self::$magicMethods[$name]) === true || isset(self::$methodsDoubleUnderscore[$name]) === true);
     }
 }
