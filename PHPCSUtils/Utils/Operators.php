@@ -22,9 +22,35 @@ use PHPCSUtils\Utils\Parentheses;
  * @since 1.0.0 The `isReference()` method is based on and inspired by
  *              the method of the same name in the PHPCS native `File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ *              The `isUnaryPlusMinus()` method is, in part, inspired by the
+ *              `Squiz.WhiteSpace.OperatorSpacing` sniff.
  */
 class Operators
 {
+
+    /**
+     * Tokens which indicate that a plus/minus is unary when they preceed it.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <irrelevant>
+     */
+    private static $extraUnaryIndicators = [
+        \T_STRING_CONCAT       => true,
+        \T_RETURN              => true,
+        \T_ECHO                => true,
+        \T_PRINT               => true,
+        \T_YIELD               => true,
+        \T_COMMA               => true,
+        \T_OPEN_PARENTHESIS    => true,
+        \T_OPEN_SQUARE_BRACKET => true,
+        \T_OPEN_SHORT_ARRAY    => true,
+        \T_OPEN_CURLY_BRACKET  => true,
+        \T_COLON               => true,
+        \T_INLINE_THEN         => true,
+        \T_INLINE_ELSE         => true,
+        \T_CASE                => true,
+    ];
 
     /**
      * Determine if the passed token is a reference operator.
@@ -136,6 +162,65 @@ class Operators
                     return true;
                 }
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether a T_MINUS/T_PLUS token is a unary operator.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the plus/minus token.
+     *
+     * @return bool True if the token passed is a unary operator.
+     *              False otherwise or if the token is not a T_PLUS/T_MINUS token.
+     */
+    public static function isUnaryPlusMinus(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_PLUS
+            && $tokens[$stackPtr]['code'] !== \T_MINUS)
+        ) {
+            return false;
+        }
+
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        if ($next === false) {
+            // Live coding or parse error.
+            return false;
+        }
+
+        if (isset(BCTokens::operators()[$tokens[$next]['code']]) === true) {
+            // Next token is an operator, so this is not a unary.
+            return false;
+        }
+
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+
+        /*
+         * Check the preceeding token for an indication that this is not an arithmetic operation.
+         */
+        if (isset(BCTokens::operators()[$tokens[$prev]['code']]) === true
+            || isset(BCTokens::comparisonTokens()[$tokens[$prev]['code']]) === true
+            || isset(Tokens::$booleanOperators[$tokens[$prev]['code']]) === true
+            || isset(BCTokens::assignmentTokens()[$tokens[$prev]['code']]) === true
+            || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
+            || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
+        ) {
+            return true;
+        }
+
+        /*
+         * BC for PHPCS < 3.1.0 in which the PHP 5.5 T_YIELD token was not yet backfilled.
+         * Note: not accounting for T_YIELD_FROM as that would be a parse error anyway.
+         */
+        if ($tokens[$prev]['code'] === \T_STRING && $tokens[$prev]['content'] === 'yield') {
+            return true;
         }
 
         return false;
