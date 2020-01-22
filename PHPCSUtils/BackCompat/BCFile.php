@@ -26,6 +26,7 @@
  * @author    Stefano Kowalke <blueduck@gmx.net>
  * @author    George Mponos <gmponos@gmail.com>
  * @author    Tyson Andre <tysonandre775@hotmail.com>
+ * @author    Klaus Purer <klaus.purer@protonmail.ch>
  *
  * @copyright 2006-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
@@ -1121,7 +1122,7 @@ class BCFile
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
-     * @param int|array                   $ignore    Token types that should not be considered stop points.
+     * @param int|string|array            $ignore    Token types that should not be considered stop points.
      *
      * @return int
      */
@@ -1198,7 +1199,7 @@ class BCFile
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
-     * @param int|array                   $ignore    Token types that should not be considered stop points.
+     * @param int|string|array            $ignore    Token types that should not be considered stop points.
      *
      * @return int
      */
