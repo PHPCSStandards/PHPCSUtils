@@ -215,6 +215,11 @@ class ObjectDeclarations
      * Retrieves the name of the class that the specified class extends.
      * (works for classes, anonymous classes and interfaces)
      *
+     * Main differences with the PHPCS version:
+     * - Bugs fixed:
+     *   - Handling of PHPCS annotations.
+     *   - Handling of comments.
+     *
      * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName() Cross-version compatible version of the original.
      *
@@ -252,11 +257,11 @@ class ObjectDeclarations
             return false;
         }
 
-        $find = [
+        $find  = [
             \T_NS_SEPARATOR,
             \T_STRING,
-            \T_WHITESPACE,
         ];
+        $find += Tokens::$emptyTokens;
 
         $end  = $phpcsFile->findNext($find, ($extendsIndex + 1), ($classOpenerIndex + 1), true);
         $name = $phpcsFile->getTokensAsString(($extendsIndex + 1), ($end - $extendsIndex - 1));
