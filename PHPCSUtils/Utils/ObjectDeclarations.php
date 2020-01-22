@@ -213,7 +213,11 @@ class ObjectDeclarations
 
     /**
      * Retrieves the name of the class that the specified class extends.
-     * (works for classes, anonymous classes and interfaces)
+     *
+     * Works for classes, anonymous classes and interfaces, though it is strongly recommended
+     * to use the {@see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedInterfaceNames()}
+     * method to examine interfaces instead. Interfaces can extend multiple parent interfaces,
+     * and that use case is not handled by this method.
      *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
@@ -222,8 +226,10 @@ class ObjectDeclarations
      * - Improved handling of parse errors.
      * - The returned name will be clean of superfluous whitespace and/or comments.
      *
-     * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()   Original source.
-     * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName() Cross-version compatible version of the original.
+     * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()               Original source.
+     * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName()             Cross-version compatible version of
+     *                                                                         the original.
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedInterfaceNames() Similar method for extended interfaces.
      *
      * @since 1.0.0
      *
@@ -269,6 +275,29 @@ class ObjectDeclarations
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
         return self::findNames($phpcsFile, $stackPtr, \T_IMPLEMENTS, Collections::$OOCanImplement);
+    }
+
+    /**
+     * Retrieves the names of the interfaces that the specified interface extends.
+     *
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName() Similar method for extended classes.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The stack position of the interface keyword.
+     *
+     * @return array|false Array with names of the extended interfaces or FALSE on
+     *                     error or if there are no extended interface names.
+     */
+    public static function findExtendedInterfaceNames(File $phpcsFile, $stackPtr)
+    {
+        return self::findNames(
+            $phpcsFile,
+            $stackPtr,
+            \T_EXTENDS,
+            [\T_INTERFACE => \T_INTERFACE]
+        );
     }
 
     /**
