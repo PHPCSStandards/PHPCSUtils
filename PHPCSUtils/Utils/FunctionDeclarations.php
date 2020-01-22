@@ -251,6 +251,7 @@ class FunctionDeclarations
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a T_USE token is a closure use.
+     * - More efficient and more stable looping of the default value.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -318,31 +319,11 @@ class FunctionDeclarations
         $nullableType     = false;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
-            // Check to see if this token has a parenthesis or bracket opener. If it does
-            // it's likely to be an array which might have arguments in it. This
-            // could cause problems in our parsing below, so lets just skip to the
-            // end of it.
-            if (isset($tokens[$i]['parenthesis_opener']) === true) {
-                // Don't do this if it's the close parenthesis for the method.
-                if ($i !== $tokens[$i]['parenthesis_closer']) {
-                    $i = ($tokens[$i]['parenthesis_closer'] + 1);
-                }
-            }
-
-            if (isset($tokens[$i]['bracket_opener']) === true) {
-                // Don't do this if it's the close parenthesis for the method.
-                if ($i !== $tokens[$i]['bracket_closer']) {
-                    $i = ($tokens[$i]['bracket_closer'] + 1);
-                }
-            }
-
             // Changed from checking 'code' to 'type' to allow for T_NULLABLE not existing in PHPCS < 2.8.0.
             switch ($tokens[$i]['type']) {
                 case 'T_BITWISE_AND':
-                    if ($defaultStart === null) {
-                        $passByReference = true;
-                        $referenceToken  = $i;
-                    }
+                    $passByReference = true;
+                    $referenceToken  = $i;
                     break;
 
                 case 'T_VARIABLE':
@@ -356,6 +337,11 @@ class FunctionDeclarations
 
                 case 'T_ARRAY_HINT': // PHPCS < 3.3.0.
                 case 'T_CALLABLE':
+                case 'T_SELF':
+                case 'T_PARENT':
+                case 'T_STATIC': // Self and parent are valid, static invalid, but was probably intended as type hint.
+                case 'T_STRING':
+                case 'T_NS_SEPARATOR':
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
                     }
@@ -364,74 +350,11 @@ class FunctionDeclarations
                     $typeHintEndToken = $i;
                     break;
 
-                case 'T_SELF':
-                case 'T_PARENT':
-                case 'T_STATIC':
-                    // Self and parent are valid, static invalid, but was probably intended as type hint.
-                    if (isset($defaultStart) === false) {
-                        if ($typeHintToken === false) {
-                            $typeHintToken = $i;
-                        }
-
-                        $typeHint        .= $tokens[$i]['content'];
-                        $typeHintEndToken = $i;
-                    }
-                    break;
-
-                case 'T_STRING':
-                    // This is a string, so it may be a type hint, but it could
-                    // also be a constant used as a default value.
-                    $prevComma = false;
-                    for ($t = $i; $t >= $opener; $t--) {
-                        if ($tokens[$t]['code'] === \T_COMMA) {
-                            $prevComma = $t;
-                            break;
-                        }
-                    }
-
-                    if ($prevComma !== false) {
-                        $nextEquals = false;
-                        for ($t = $prevComma; $t < $i; $t++) {
-                            if ($tokens[$t]['code'] === \T_EQUAL) {
-                                $nextEquals = $t;
-                                break;
-                            }
-                        }
-
-                        if ($nextEquals !== false) {
-                            break;
-                        }
-                    }
-
-                    if ($defaultStart === null) {
-                        if ($typeHintToken === false) {
-                            $typeHintToken = $i;
-                        }
-
-                        $typeHint        .= $tokens[$i]['content'];
-                        $typeHintEndToken = $i;
-                    }
-                    break;
-
-                case 'T_NS_SEPARATOR':
-                    // Part of a type hint or default value.
-                    if ($defaultStart === null) {
-                        if ($typeHintToken === false) {
-                            $typeHintToken = $i;
-                        }
-
-                        $typeHint        .= $tokens[$i]['content'];
-                        $typeHintEndToken = $i;
-                    }
-                    break;
-
                 case 'T_NULLABLE':
                 case 'T_INLINE_THEN': // PHPCS < 2.8.0.
-                    if ($defaultStart === null) {
-                        $nullableType     = true;
-                        $typeHint        .= $tokens[$i]['content'];
-                        $typeHintEndToken = $i;
-                    }
+                    $nullableType     = true;
+                    $typeHint        .= $tokens[$i]['content'];
+                    $typeHintEndToken = $i;
                     break;
 
                 case 'T_CLOSE_PARENTHESIS':
@@ -492,6 +415,33 @@ class FunctionDeclarations
                 case 'T_EQUAL':
                     $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
                     $equalToken   = $i;
+
+                    // Skip past everything in the default value before going into the next switch loop.
+                    for ($j = ($i + 1); $j <= $closer; $j++) {
+                        // Skip past array()'s et al as default values.
+                        if (isset($tokens[$j]['parenthesis_opener'], $tokens[$j]['parenthesis_closer'])) {
+                            $j = $tokens[$j]['parenthesis_closer'];
+
+                            if ($j === $closer) {
+                                // Found the end of the parameter.
+                                break;
+                            }
+
+                            continue;
+                        }
+
+                        // Skip past short arrays et al as default values.
+                        if (isset($tokens[$j]['bracket_opener'])) {
+                            $j = $tokens[$j]['bracket_closer'];
+                            continue;
+                        }
+
+                        if ($tokens[$j]['code'] === \T_COMMA) {
+                            break;
+                        }
+                    }
+
+                    $i = ($j - 1);
                     break;
             }
         }
