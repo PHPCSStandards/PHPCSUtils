@@ -59,6 +59,19 @@ class Collections
     ];
 
     /**
+     * List of tokens which can end a namespace declaration statement.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $namespaceDeclarationClosers = [
+        \T_SEMICOLON          => \T_SEMICOLON,
+        \T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET,
+        \T_CLOSE_TAG          => \T_CLOSE_TAG,
+    ];
+
+    /**
      * OO structures which can use the `extends` keyword.
      *
      * @since 1.0.0

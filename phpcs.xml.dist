@@ -95,4 +95,19 @@
         <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
 
+    <!--
+    #############################################################################
+    TEMPORARY ADJUSTMENTS
+    Adjustments which should be removed once the associated issue has been resolved.
+    #############################################################################
+    -->
+
+    <!-- Bug in PHPCS 3.5.0 - 3.5.3. Fixed in PHPCS 3.5.4. This exclusion can be removed once
+         3.5.4 comes out.
+         Ref: https://github.com/squizlabs/PHP_CodeSniffer/pull/2730
+    -->
+    <rule ref="PSR12.ControlStructures.ControlStructureSpacing.LineIndent">
+        <exclude-pattern>/PHPCSUtils/Utils/Namespaces\.php$</exclude-pattern>
+    </rule>
+
 </ruleset>
