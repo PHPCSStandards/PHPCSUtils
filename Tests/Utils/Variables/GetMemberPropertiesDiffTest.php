@@ -29,6 +29,18 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
 {
 
     /**
+     * Test passing a non-existent token pointer.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $this->expectPhpcsException('$stackPtr must be of type T_VARIABLE');
+
+        Variables::getMemberProperties(self::$phpcsFile, 10000);
+    }
+
+    /**
      * Test receiving an expected exception when an (invalid) interface property is passed.
      *
      * @return void

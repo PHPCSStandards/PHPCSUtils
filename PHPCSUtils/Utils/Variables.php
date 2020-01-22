@@ -48,6 +48,7 @@ class Variables
      * - Removed the parse error warning for properties in interfaces.
      *   This will now throw the same "$stackPtr is not a class member var" runtime exception as
      *   other non-property variables passed to the method.
+     * - Defensive coding against incorrect calls to this method.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
@@ -68,7 +69,7 @@ class Variables
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_VARIABLE) {
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_VARIABLE) {
             throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
         }
 
