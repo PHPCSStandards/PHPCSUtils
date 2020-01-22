@@ -32,6 +32,9 @@ class ObjectDeclarations
      *       this method will be accepted for JS files.
      * Note: support for JS ES6 method syntax has not (yet) been back-filled for PHPCS < 3.0.0.
      *
+     * Main differences with the PHPCS version:
+     * - Defensive coding against incorrect calls to this method.
+     *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Cross-version compatible version of the original.
      *
@@ -43,20 +46,23 @@ class ObjectDeclarations
      *                                               trait, or function.
      *
      * @return string|null The name of the class, interface, trait, or function;
-     *                     or NULL if the function or class is anonymous or
-     *                     in case of a parse error/live coding.
+     *                     or NULL if the passed token doesn't exist, the function or
+     *                     class is anonymous or in case of a parse error/live coding.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
      *                                                      T_FUNCTION, T_CLASS, T_TRAIT, or T_INTERFACE.
      */
     public static function getName(File $phpcsFile, $stackPtr)
     {
-        $tokens    = $phpcsFile->getTokens();
-        $tokenCode = $tokens[$stackPtr]['code'];
+        $tokens = $phpcsFile->getTokens();
 
-        if ($tokenCode === \T_ANON_CLASS || $tokenCode === \T_CLOSURE) {
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] === \T_ANON_CLASS || $tokens[$stackPtr]['code'] === \T_CLOSURE)
+        ) {
             return null;
         }
+
+        $tokenCode = $tokens[$stackPtr]['code'];
 
         /*
          * BC: Work-around JS ES6 classes not being tokenized as T_CLASS in PHPCS < 3.0.0.

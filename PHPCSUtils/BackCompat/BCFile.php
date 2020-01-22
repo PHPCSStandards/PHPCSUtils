@@ -99,6 +99,7 @@ class BCFile
      * Note: support for JS ES6 method syntax has not been back-filled for PHPCS < 3.0.0.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *
