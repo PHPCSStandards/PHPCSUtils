@@ -263,6 +263,12 @@ class Namespaces
                 // Stop if we encounter a scoped namespace declaration as we already know we're not in one.
                 if (isset($tokens[$prev]['scope_condition']) === true
                     && $tokens[$tokens[$prev]['scope_condition']]['code'] === \T_NAMESPACE
+                    /*
+                     * BC: Work around a bug where curlies for variable variables received an incorrect
+                     * and irrelevant scope condition in PHPCS < 3.3.0.
+                     * {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/1882}
+                     */
+                    && self::isDeclaration($phpcsFile, $tokens[$prev]['scope_condition']) === true
                 ) {
                     break;
                 }
