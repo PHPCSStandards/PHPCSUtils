@@ -156,6 +156,11 @@ class ObjectDeclarations
      *   );
      * </code>
      *
+     * Main differences with the PHPCS version:
+     * - Bugs fixed:
+     *   - Handling of PHPCS annotations.
+     *   - Handling of unorthodox docblock placement.
+     *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getClassProperties() Cross-version compatible version of the original.
      *
@@ -178,13 +183,11 @@ class ObjectDeclarations
             throw new RuntimeException('$stackPtr must be of type T_CLASS');
         }
 
-        $valid = [
-            \T_FINAL       => \T_FINAL,
-            \T_ABSTRACT    => \T_ABSTRACT,
-            \T_WHITESPACE  => \T_WHITESPACE,
-            \T_COMMENT     => \T_COMMENT,
-            \T_DOC_COMMENT => \T_DOC_COMMENT,
+        $valid  = [
+            \T_FINAL    => \T_FINAL,
+            \T_ABSTRACT => \T_ABSTRACT,
         ];
+        $valid += Tokens::$emptyTokens;
 
         $isAbstract = false;
         $isFinal    = false;
