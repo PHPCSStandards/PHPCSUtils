@@ -94,6 +94,9 @@ class BCFile
      * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      *
+     * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
+     *       this method will be accepted for JS files.
+     *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
      *
      * @since 1.0.0
@@ -119,6 +122,16 @@ class BCFile
             return null;
         }
 
+        /*
+         * BC: Work-around JS ES6 classes not being tokenized as T_CLASS in PHPCS < 3.0.0.
+         */
+        if ($phpcsFile->tokenizerType === 'JS'
+            && $tokenCode === T_STRING
+            && $tokens[$stackPtr]['content'] === 'class'
+        ) {
+            $tokenCode = T_CLASS;
+        }
+
         if ($tokenCode !== T_FUNCTION
             && $tokenCode !== T_CLASS
             && $tokenCode !== T_INTERFACE
@@ -136,7 +149,7 @@ class BCFile
         }
 
         $content = null;
-        for ($i = $stackPtr; $i < $phpcsFile->numTokens; $i++) {
+        for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['code'] === T_STRING) {
                 $content = $tokens[$i]['content'];
                 break;

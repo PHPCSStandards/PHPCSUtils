@@ -116,6 +116,7 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
             'class' => [
                 '/* testClass */',
                 'ClassName',
+                [\T_CLASS, \T_STRING],
             ],
             'method' => [
                 '/* testMethod */',
