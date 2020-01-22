@@ -38,4 +38,85 @@ class GetNameDiffTest extends UtilityMethodTestCase
         $result = ObjectDeclarations::getName(self::$phpcsFile, 10000);
         $this->assertNull($result);
     }
+
+    /**
+     * Test receiving "null" when passed an anonymous construct or in case of a parse error.
+     *
+     * @dataProvider dataGetNameNull
+     *
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType Token type of the token to get as stackPtr.
+     *
+     * @return void
+     */
+    public function testGetNameNull($testMarker, $targetType)
+    {
+        $target = $this->getTargetToken($testMarker, $targetType);
+        $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
+        $this->assertNull($result);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetNameNull() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetNameNull()
+    {
+        return [
+            'live-coding' => [
+                '/* testLiveCoding */',
+                \T_CLASS,
+            ],
+        ];
+    }
+
+    /**
+     * Test retrieving the name of a function or OO structure.
+     *
+     * @dataProvider dataGetName
+     *
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param string     $expected   Expected function output.
+     * @param int|string $targetType Token type of the token to get as stackPtr.
+     *
+     * @return void
+     */
+    public function testGetName($testMarker, $expected, $targetType = null)
+    {
+        if (isset($targetType) === false) {
+            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION];
+        }
+
+        $target = $this->getTargetToken($testMarker, $targetType);
+        $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetName() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetName()
+    {
+        return [
+            'trait-name-starts-with-number' => [
+                '/* testTraitStartingWithNumber */',
+                '5InvalidNameStartingWithNumber',
+            ],
+            'interface-fully-numeric-name' => [
+                '/* testInterfaceFullyNumeric */',
+                '12345',
+            ],
+            'using-reserved-keyword-as-name' => [
+                '/* testInvalidInterfaceName */',
+                'switch',
+            ],
+        ];
+    }
 }
