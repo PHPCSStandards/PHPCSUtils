@@ -48,15 +48,16 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
     public function testMessyPhpcsAnnotationsMethod()
     {
         $expected = [
-            'scope'                => 'public',
-            'scope_specified'      => true,
-            'return_type'          => '',
-            'return_type_token'    => false,
-            'nullable_return_type' => false,
-            'is_abstract'          => true,
-            'is_final'             => false,
-            'is_static'            => false,
-            'has_body'             => true,
+            'scope'                 => 'public',
+            'scope_specified'       => true,
+            'return_type'           => '',
+            'return_type_token'     => false,
+            'return_type_end_token' => false,
+            'nullable_return_type'  => false,
+            'is_abstract'           => true,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
         ];
 
         $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -70,15 +71,39 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
     public function testMessyPhpcsAnnotationsStaticClosure()
     {
         $expected = [
-            'scope'                => 'public',
-            'scope_specified'      => false,
-            'return_type'          => '',
-            'return_type_token'    => false,
-            'nullable_return_type' => false,
-            'is_abstract'          => false,
-            'is_final'             => false,
-            'is_static'            => true,
-            'has_body'             => true,
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '',
+            'return_type_token'     => false,
+            'return_type_end_token' => false,
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => true,
+            'has_body'              => true,
+        ];
+
+        $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Test that the new "return_type_end_token" index is set correctly.
+     *
+     * @return void
+     */
+    public function testReturnTypeEndTokenIndex()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?\MyNamespace\MyClass\Foo',
+            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 20, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
         ];
 
         $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -99,6 +124,9 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
 
         if ($expected['return_type_token'] !== false) {
             $expected['return_type_token'] += $function;
+        }
+        if ($expected['return_type_end_token'] !== false) {
+            $expected['return_type_end_token'] += $function;
         }
 
         $this->assertSame($expected, $found);

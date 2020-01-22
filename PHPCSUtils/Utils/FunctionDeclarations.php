@@ -60,16 +60,18 @@ class FunctionDeclarations
      * The format of the return value is:
      * <code>
      *   array(
-     *    'scope'                => 'public', // Public, private, or protected
-     *    'scope_specified'      => true,     // TRUE if the scope keyword was found.
-     *    'return_type'          => '',       // The return type of the method.
-     *    'return_type_token'    => integer,  // The stack pointer to the start of the return type
-     *                                        // or FALSE if there is no return type.
-     *    'nullable_return_type' => false,    // TRUE if the return type is nullable.
-     *    'is_abstract'          => false,    // TRUE if the abstract keyword was found.
-     *    'is_final'             => false,    // TRUE if the final keyword was found.
-     *    'is_static'            => false,    // TRUE if the static keyword was found.
-     *    'has_body'             => false,    // TRUE if the method has a body
+     *    'scope'                 => 'public', // Public, private, or protected
+     *    'scope_specified'       => true,     // TRUE if the scope keyword was found.
+     *    'return_type'           => '',       // The return type of the method.
+     *    'return_type_token'     => integer,  // The stack pointer to the start of the return type
+     *                                         // or FALSE if there is no return type.
+     *    'return_type_end_token' => integer,  // The stack pointer to the end of the return type
+     *                                         // or FALSE if there is no return type.
+     *    'nullable_return_type'  => false,    // TRUE if the return type is nullable.
+     *    'is_abstract'           => false,    // TRUE if the abstract keyword was found.
+     *    'is_final'              => false,    // TRUE if the final keyword was found.
+     *    'is_static'             => false,    // TRUE if the static keyword was found.
+     *    'has_body'              => false,    // TRUE if the method has a body
      *   );
      * </code>
      *
@@ -80,6 +82,7 @@ class FunctionDeclarations
      *      parse errors or live coding.
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
+     * - New `return_type_end_token` (int|false) array index.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -152,6 +155,7 @@ class FunctionDeclarations
 
         $returnType         = '';
         $returnTypeToken    = false;
+        $returnTypeEndToken = false;
         $nullableReturnType = false;
         $hasBody            = false;
 
@@ -185,7 +189,8 @@ class FunctionDeclarations
                         $returnTypeToken = $i;
                     }
 
-                    $returnType .= $tokens[$i]['content'];
+                    $returnType        .= $tokens[$i]['content'];
+                    $returnTypeEndToken = $i;
                 }
             }
         }
@@ -195,15 +200,16 @@ class FunctionDeclarations
         }
 
         return [
-            'scope'                => $scope,
-            'scope_specified'      => $scopeSpecified,
-            'return_type'          => $returnType,
-            'return_type_token'    => $returnTypeToken,
-            'nullable_return_type' => $nullableReturnType,
-            'is_abstract'          => $isAbstract,
-            'is_final'             => $isFinal,
-            'is_static'            => $isStatic,
-            'has_body'             => $hasBody,
+            'scope'                 => $scope,
+            'scope_specified'       => $scopeSpecified,
+            'return_type'           => $returnType,
+            'return_type_token'     => $returnTypeToken,
+            'return_type_end_token' => $returnTypeEndToken,
+            'nullable_return_type'  => $nullableReturnType,
+            'is_abstract'           => $isAbstract,
+            'is_final'              => $isFinal,
+            'is_static'             => $isStatic,
+            'has_body'              => $hasBody,
         ];
     }
 
