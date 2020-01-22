@@ -63,7 +63,8 @@ class Collections
      *
      * @since 1.0.0
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related list containing only tokens used for short lists.
+     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related property containing only tokens used
+     *                                                       for short lists.
      *
      * @var array <int|string> => <int|string>
      */
@@ -81,7 +82,8 @@ class Collections
      *
      * @since 1.0.0
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related list containing only tokens used for short lists.
+     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related property containing only tokens used
+     *                                                         for short lists (cross-version).
      *
      * @var array <int|string> => <int|string>
      */
@@ -230,7 +232,7 @@ class Collections
      *
      * @since 1.0.0
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokens Related list containing all tokens used for lists.
+     * @see \PHPCSUtils\Tokens\Collections::$listTokens Related property containing all tokens used for lists.
      *
      * @var array <int|string> => <int|string>
      */
@@ -247,7 +249,8 @@ class Collections
      *
      * @since 1.0.0
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC Related list containing all tokens used for lists.
+     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC Related property containing all tokens used for lists
+     *                                                    (cross-version).
      *
      * @var array <int|string> => <int|string>
      */
