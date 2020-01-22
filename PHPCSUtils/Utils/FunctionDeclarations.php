@@ -76,7 +76,10 @@ class FunctionDeclarations
      * Main differences with the PHPCS version:
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
+     *   - `has_body` index could be set to `true` for functions without body in the case of
+     *      parse errors or live coding.
      * - Defensive coding against incorrect calls to this method.
+     * - More efficient checking whether a function has a body.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -150,7 +153,7 @@ class FunctionDeclarations
         $returnType         = '';
         $returnTypeToken    = false;
         $nullableReturnType = false;
-        $hasBody            = true;
+        $hasBody            = false;
 
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
             $scopeOpener = null;
@@ -159,10 +162,14 @@ class FunctionDeclarations
             }
 
             for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
-                if (($scopeOpener === null && $tokens[$i]['code'] === \T_SEMICOLON)
-                    || ($scopeOpener !== null && $i === $scopeOpener)
-                ) {
+                if ($i === $scopeOpener) {
                     // End of function definition.
+                    $hasBody = true;
+                    break;
+                }
+
+                if ($scopeOpener === null && $tokens[$i]['code'] === \T_SEMICOLON) {
+                    // End of abstract/interface function definition.
                     break;
                 }
 
@@ -181,12 +188,6 @@ class FunctionDeclarations
                     $returnType .= $tokens[$i]['content'];
                 }
             }
-
-            $end     = $phpcsFile->findNext(
-                [\T_OPEN_CURLY_BRACKET, \T_SEMICOLON],
-                $tokens[$stackPtr]['parenthesis_closer']
-            );
-            $hasBody = $tokens[$end]['code'] === \T_OPEN_CURLY_BRACKET;
         }
 
         if ($returnType !== '' && $nullableReturnType === true) {
