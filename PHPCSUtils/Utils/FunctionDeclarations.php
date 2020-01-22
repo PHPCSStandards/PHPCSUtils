@@ -214,11 +214,11 @@ class FunctionDeclarations
     }
 
     /**
-     * Returns the method parameters for the specified function token.
+     * Retrieves the method parameters for the specified function token.
      *
      * Also supports passing in a USE token for a closure use group.
      *
-     * Each parameter is in the following format:
+     * The returned array will contain the following information for each parameter:
      *
      * <code>
      *   0 => array(
@@ -242,7 +242,7 @@ class FunctionDeclarations
      *        )
      * </code>
      *
-     * Parameters with default values have an additional array indexs of:
+     * Parameters with default values have the following additional array indexes:
      *         'default'             => string,  // The full content of the default value.
      *         'default_token'       => integer, // The stack pointer to the start of the default value.
      *         'default_equal_token' => integer, // The stack pointer to the equals sign.
