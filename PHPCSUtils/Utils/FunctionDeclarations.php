@@ -250,6 +250,7 @@ class FunctionDeclarations
      *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
+     * - More efficient checking whether a T_USE token is a closure use.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -278,8 +279,11 @@ class FunctionDeclarations
         }
 
         if ($tokens[$stackPtr]['code'] === \T_USE) {
-            $opener = $phpcsFile->findNext(\T_OPEN_PARENTHESIS, ($stackPtr + 1));
-            if ($opener === false || isset($tokens[$opener]['parenthesis_owner']) === true) {
+            $opener = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            if ($opener === false
+                || $tokens[$opener]['code'] !== \T_OPEN_PARENTHESIS
+                || isset($tokens[$opener]['parenthesis_owner']) === true
+            ) {
                 throw new RuntimeException('$stackPtr was not a valid T_USE');
             }
         } else {
