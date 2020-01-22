@@ -161,6 +161,7 @@ class ObjectDeclarations
      *   - Handling of PHPCS annotations.
      *   - Handling of unorthodox docblock placement.
      *   - A class cannot both be abstract as well as final, so this utility should not allow for that.
+     * - Defensive coding against incorrect calls to this method.
      *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getClassProperties() Cross-version compatible version of the original.
@@ -180,7 +181,7 @@ class ObjectDeclarations
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_CLASS) {
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_CLASS) {
             throw new RuntimeException('$stackPtr must be of type T_CLASS');
         }
 

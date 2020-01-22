@@ -29,6 +29,18 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
 {
 
     /**
+     * Test passing a non-existent token pointer.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $this->expectPhpcsException('$stackPtr must be of type T_CLASS');
+
+        ObjectDeclarations::getClassProperties(self::$phpcsFile, 10000);
+    }
+
+    /**
      * Test retrieving the properties for a class declaration.
      *
      * @dataProvider dataGetClassProperties
