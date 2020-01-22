@@ -12,8 +12,9 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Utils\FunctionDeclarations;
+use PHPCSUtils\Utils\Parentheses;
 
 /**
  * Utility functions for use when working with operators.
@@ -27,6 +28,10 @@ class Operators
 
     /**
      * Determine if the passed token is a reference operator.
+     *
+     * Main differences with the PHPCS version:
+     * - Defensive coding against incorrect calls to this method.
+     * - Improved handling of select tokenizer errors involving short lists/short arrays.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
@@ -43,7 +48,7 @@ class Operators
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_BITWISE_AND) {
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_BITWISE_AND) {
             return false;
         }
 
@@ -76,37 +81,20 @@ class Operators
             return true;
         }
 
-        if (isset($tokens[$stackPtr]['nested_parenthesis']) === true) {
-            $brackets    = $tokens[$stackPtr]['nested_parenthesis'];
-            $lastBracket = \array_pop($brackets);
-            if (isset($tokens[$lastBracket]['parenthesis_owner']) === true) {
-                $owner = $tokens[$tokens[$lastBracket]['parenthesis_owner']];
-                if ($owner['code'] === \T_FUNCTION
-                    || $owner['code'] === \T_CLOSURE
-                ) {
-                    $params = BCFile::getMethodParameters($phpcsFile, $tokens[$lastBracket]['parenthesis_owner']);
-                    foreach ($params as $param) {
-                        $varToken = $tokenAfter;
-                        if ($param['variable_length'] === true) {
-                            $varToken = $phpcsFile->findNext(
-                                (Tokens::$emptyTokens + [\T_ELLIPSIS]),
-                                ($stackPtr + 1),
-                                null,
-                                true
-                            );
-                        }
-
-                        if ($param['token'] === $varToken
-                            && $param['pass_by_reference'] === true
-                        ) {
-                            // Function parameter declared to be passed by reference.
-                            return true;
-                        }
+        $lastOpener = Parentheses::getLastOpener($phpcsFile, $stackPtr);
+        if ($lastOpener !== false) {
+            $lastOwner = Parentheses::lastOwnerIn($phpcsFile, $stackPtr, [\T_FUNCTION, \T_CLOSURE]);
+            if ($lastOwner !== false) {
+                $params = FunctionDeclarations::getParameters($phpcsFile, $lastOwner);
+                foreach ($params as $param) {
+                    if ($param['pass_by_reference'] === true) {
+                        // Function parameter declared to be passed by reference.
+                        return true;
                     }
                 }
-            } else {
+            } elseif (isset($tokens[$lastOpener]['parenthesis_owner']) === false) {
                 $prev = false;
-                for ($t = ($tokens[$lastBracket]['parenthesis_opener'] - 1); $t >= 0; $t--) {
+                for ($t = ($lastOpener - 1); $t >= 0; $t--) {
                     if ($tokens[$t]['code'] !== \T_WHITESPACE) {
                         $prev = $t;
                         break;
@@ -124,6 +112,7 @@ class Operators
         if ($tokens[$tokenBefore]['code'] === \T_OPEN_PARENTHESIS
             || $tokens[$tokenBefore]['code'] === \T_COMMA
             || $tokens[$tokenBefore]['code'] === \T_OPEN_SHORT_ARRAY
+            || $tokens[$tokenBefore]['code'] === \T_OPEN_SQUARE_BRACKET // PHPCS 2.8.0 < 3.3.0.
         ) {
             if ($tokens[$tokenAfter]['code'] === \T_VARIABLE) {
                 return true;
