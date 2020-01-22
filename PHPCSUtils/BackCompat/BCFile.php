@@ -239,7 +239,8 @@ class BCFile
      * - PHPCS 3.5.3: Fixed a bug where the "type_hint_end_token" array index for a type hinted
      *                parameter would bleed through to the next (non-type hinted) parameter.
      *
-     * @see \PHP_CodeSniffer\Files\File::getMethodParameters() Original source.
+     * @see \PHP_CodeSniffer\Files\File::getMethodParameters()      Original source.
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *
