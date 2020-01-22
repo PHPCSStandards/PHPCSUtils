@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -118,14 +119,26 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
                 'ClassName',
                 [\T_CLASS, \T_STRING],
             ],
-            'method' => [
-                '/* testMethod */',
-                'methodName',
-            ],
             'function-unicode-name' => [
                 '/* testFunctionUnicode */',
                 'π',
             ],
         ];
+    }
+
+    /**
+     * Test retrieving the name of JS ES6 class method.
+     *
+     * @return void
+     */
+    public function testGetDeclarationNameES6Method()
+    {
+        if (\version_compare(Helper::getVersion(), '3.0.0', '<') === true) {
+            $this->markTestSkipped('Support for JS ES6 method has not been backfilled for PHPCS 2.x (yet)');
+        }
+
+        $target = $this->getTargetToken('/* testMethod */', [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION]);
+        $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
+        $this->assertSame('methodName', $result);
     }
 }

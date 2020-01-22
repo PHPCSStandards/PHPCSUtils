@@ -96,6 +96,7 @@ class BCFile
      *
      * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
      *       this method will be accepted for JS files.
+     * Note: support for JS ES6 method syntax has not been back-filled for PHPCS < 3.0.0.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
      *
