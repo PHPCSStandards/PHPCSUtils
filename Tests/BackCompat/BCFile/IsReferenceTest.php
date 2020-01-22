@@ -22,7 +22,6 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -30,10 +29,22 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::isReference
  *
+ * @group operators
+ *
  * @since 1.0.0
  */
 class IsReferenceTest extends UtilityMethodTestCase
 {
+
+    /**
+     * The fully qualified name of the class being tested.
+     *
+     * This allows for the same unit tests to be run for both the BCFile functions
+     * as well as for the related PHPCSUtils functions.
+     *
+     * @var string
+     */
+    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
 
     /**
      * Test that false is returned when a non-"bitwise and" token is passed.
@@ -42,8 +53,10 @@ class IsReferenceTest extends UtilityMethodTestCase
      */
     public function testNotBitwiseAndToken()
     {
+        $testClass = static::TEST_CLASS;
+
         $target = $this->getTargetToken('/* testBitwiseAndA */', T_STRING);
-        $this->assertFalse(BCFile::isReference(self::$phpcsFile, $target));
+        $this->assertFalse($testClass::isReference(self::$phpcsFile, $target));
     }
 
     /**
@@ -58,8 +71,10 @@ class IsReferenceTest extends UtilityMethodTestCase
      */
     public function testIsReference($identifier, $expected)
     {
+        $testClass = static::TEST_CLASS;
+
         $bitwiseAnd = $this->getTargetToken($identifier, T_BITWISE_AND);
-        $result     = BCFile::isReference(self::$phpcsFile, $bitwiseAnd);
+        $result     = $testClass::isReference(self::$phpcsFile, $bitwiseAnd);
         $this->assertSame($expected, $result);
     }
 
