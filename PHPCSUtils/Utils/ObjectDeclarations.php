@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
@@ -156,6 +157,13 @@ class ObjectDeclarations
      *   );
      * </code>
      *
+     * Main differences with the PHPCS version:
+     * - Bugs fixed:
+     *   - Handling of PHPCS annotations.
+     *   - Handling of unorthodox docblock placement.
+     *   - A class cannot both be abstract as well as final, so this utility should not allow for that.
+     * - Defensive coding against incorrect calls to this method.
+     *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getClassProperties() Cross-version compatible version of the original.
      *
@@ -174,20 +182,15 @@ class ObjectDeclarations
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_CLASS) {
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_CLASS) {
             throw new RuntimeException('$stackPtr must be of type T_CLASS');
         }
 
-        $valid = [
-            \T_FINAL       => \T_FINAL,
-            \T_ABSTRACT    => \T_ABSTRACT,
-            \T_WHITESPACE  => \T_WHITESPACE,
-            \T_COMMENT     => \T_COMMENT,
-            \T_DOC_COMMENT => \T_DOC_COMMENT,
+        $valid      = Collections::$classModifierKeywords + Tokens::$emptyTokens;
+        $properties = [
+            'is_abstract' => false,
+            'is_final'    => false,
         ];
-
-        $isAbstract = false;
-        $isFinal    = false;
 
         for ($i = ($stackPtr - 1); $i > 0; $i--) {
             if (isset($valid[$tokens[$i]['code']]) === false) {
@@ -196,19 +199,16 @@ class ObjectDeclarations
 
             switch ($tokens[$i]['code']) {
                 case \T_ABSTRACT:
-                    $isAbstract = true;
-                    break;
+                    $properties['is_abstract'] = true;
+                    break 2;
 
                 case \T_FINAL:
-                    $isFinal = true;
-                    break;
+                    $properties['is_final'] = true;
+                    break 2;
             }
         }
 
-        return [
-            'is_abstract' => $isAbstract,
-            'is_final'    => $isFinal,
-        ];
+        return $properties;
     }
 
     /**

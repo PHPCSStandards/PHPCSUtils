@@ -875,7 +875,8 @@ class BCFile
      * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      *
-     * @see \PHP_CodeSniffer\Files\File::getClassProperties() Original source.
+     * @see \PHP_CodeSniffer\Files\File::getClassProperties()          Original source.
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::getClassProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *

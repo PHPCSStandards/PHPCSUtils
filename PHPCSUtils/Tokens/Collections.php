@@ -25,6 +25,18 @@ class Collections
 {
 
     /**
+     * Modifier keywords which can be used for a class declaration.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $classModifierKeywords = [
+        \T_FINAL    => \T_FINAL,
+        \T_ABSTRACT => \T_ABSTRACT,
+    ];
+
+    /**
      * List of tokens which represent "closed" scopes.
      *
      * I.e. anything declared within that scope - except for other closed scopes - is
