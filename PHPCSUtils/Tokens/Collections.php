@@ -112,4 +112,21 @@ class Collections
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_TRAIT      => \T_TRAIT,
     ];
+
+    /**
+     * Token types which can be encountered in a return type declaration.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $returnTypeTokens = [
+        \T_STRING       => \T_STRING,
+        \T_CALLABLE     => \T_CALLABLE,
+        \T_SELF         => \T_SELF,
+        \T_PARENT       => \T_PARENT,
+        \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
+        \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
+    ];
 }

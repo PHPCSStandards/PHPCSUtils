@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
@@ -59,18 +60,29 @@ class FunctionDeclarations
      * The format of the return value is:
      * <code>
      *   array(
-     *    'scope'                => 'public', // Public, private, or protected
-     *    'scope_specified'      => true,     // TRUE if the scope keyword was found.
-     *    'return_type'          => '',       // The return type of the method.
-     *    'return_type_token'    => integer,  // The stack pointer to the start of the return type
-     *                                        // or FALSE if there is no return type.
-     *    'nullable_return_type' => false,    // TRUE if the return type is nullable.
-     *    'is_abstract'          => false,    // TRUE if the abstract keyword was found.
-     *    'is_final'             => false,    // TRUE if the final keyword was found.
-     *    'is_static'            => false,    // TRUE if the static keyword was found.
-     *    'has_body'             => false,    // TRUE if the method has a body
+     *    'scope'                 => 'public', // Public, private, or protected
+     *    'scope_specified'       => true,     // TRUE if the scope keyword was found.
+     *    'return_type'           => '',       // The return type of the method.
+     *    'return_type_token'     => integer,  // The stack pointer to the start of the return type
+     *                                         // or FALSE if there is no return type.
+     *    'return_type_end_token' => integer,  // The stack pointer to the end of the return type
+     *                                         // or FALSE if there is no return type.
+     *    'nullable_return_type'  => false,    // TRUE if the return type is nullable.
+     *    'is_abstract'           => false,    // TRUE if the abstract keyword was found.
+     *    'is_final'              => false,    // TRUE if the final keyword was found.
+     *    'is_static'             => false,    // TRUE if the static keyword was found.
+     *    'has_body'              => false,    // TRUE if the method has a body
      *   );
      * </code>
+     *
+     * Main differences with the PHPCS version:
+     * - Bugs fixed:
+     *   - Handling of PHPCS annotations.
+     *   - `has_body` index could be set to `true` for functions without body in the case of
+     *      parse errors or live coding.
+     * - Defensive coding against incorrect calls to this method.
+     * - More efficient checking whether a function has a body.
+     * - New `return_type_end_token` (int|false) array index.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -90,32 +102,20 @@ class FunctionDeclarations
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_FUNCTION
-            && $tokens[$stackPtr]['code'] !== \T_CLOSURE
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
+                && $tokens[$stackPtr]['code'] !== \T_CLOSURE)
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
         }
 
         if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
-            $valid = [
-                \T_PUBLIC      => \T_PUBLIC,
-                \T_PRIVATE     => \T_PRIVATE,
-                \T_PROTECTED   => \T_PROTECTED,
-                \T_STATIC      => \T_STATIC,
-                \T_FINAL       => \T_FINAL,
-                \T_ABSTRACT    => \T_ABSTRACT,
-                \T_WHITESPACE  => \T_WHITESPACE,
-                \T_COMMENT     => \T_COMMENT,
-                \T_DOC_COMMENT => \T_DOC_COMMENT,
-            ];
+            $valid = Tokens::$methodPrefixes;
         } else {
-            $valid = [
-                \T_STATIC      => \T_STATIC,
-                \T_WHITESPACE  => \T_WHITESPACE,
-                \T_COMMENT     => \T_COMMENT,
-                \T_DOC_COMMENT => \T_DOC_COMMENT,
-            ];
+            $valid = [\T_STATIC => \T_STATIC];
         }
+
+        $valid += Tokens::$emptyTokens;
 
         $scope          = 'public';
         $scopeSpecified = false;
@@ -155,8 +155,9 @@ class FunctionDeclarations
 
         $returnType         = '';
         $returnTypeToken    = false;
+        $returnTypeEndToken = false;
         $nullableReturnType = false;
-        $hasBody            = true;
+        $hasBody            = false;
 
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
             $scopeOpener = null;
@@ -164,21 +165,15 @@ class FunctionDeclarations
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
             }
 
-            $valid = [
-                \T_STRING       => \T_STRING,
-                \T_CALLABLE     => \T_CALLABLE,
-                \T_SELF         => \T_SELF,
-                \T_PARENT       => \T_PARENT,
-                \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-                \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
-                \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
-            ];
-
             for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
-                if (($scopeOpener === null && $tokens[$i]['code'] === \T_SEMICOLON)
-                    || ($scopeOpener !== null && $i === $scopeOpener)
-                ) {
+                if ($i === $scopeOpener) {
                     // End of function definition.
+                    $hasBody = true;
+                    break;
+                }
+
+                if ($scopeOpener === null && $tokens[$i]['code'] === \T_SEMICOLON) {
+                    // End of abstract/interface function definition.
                     break;
                 }
 
@@ -189,20 +184,15 @@ class FunctionDeclarations
                     $nullableReturnType = true;
                 }
 
-                if (isset($valid[$tokens[$i]['code']]) === true) {
+                if (isset(Collections::$returnTypeTokens[$tokens[$i]['code']]) === true) {
                     if ($returnTypeToken === false) {
                         $returnTypeToken = $i;
                     }
 
-                    $returnType .= $tokens[$i]['content'];
+                    $returnType        .= $tokens[$i]['content'];
+                    $returnTypeEndToken = $i;
                 }
             }
-
-            $end     = $phpcsFile->findNext(
-                [\T_OPEN_CURLY_BRACKET, \T_SEMICOLON],
-                $tokens[$stackPtr]['parenthesis_closer']
-            );
-            $hasBody = $tokens[$end]['code'] === \T_OPEN_CURLY_BRACKET;
         }
 
         if ($returnType !== '' && $nullableReturnType === true) {
@@ -210,15 +200,16 @@ class FunctionDeclarations
         }
 
         return [
-            'scope'                => $scope,
-            'scope_specified'      => $scopeSpecified,
-            'return_type'          => $returnType,
-            'return_type_token'    => $returnTypeToken,
-            'nullable_return_type' => $nullableReturnType,
-            'is_abstract'          => $isAbstract,
-            'is_final'             => $isFinal,
-            'is_static'            => $isStatic,
-            'has_body'             => $hasBody,
+            'scope'                 => $scope,
+            'scope_specified'       => $scopeSpecified,
+            'return_type'           => $returnType,
+            'return_type_token'     => $returnTypeToken,
+            'return_type_end_token' => $returnTypeEndToken,
+            'nullable_return_type'  => $nullableReturnType,
+            'is_abstract'           => $isAbstract,
+            'is_final'              => $isFinal,
+            'is_static'             => $isStatic,
+            'has_body'              => $hasBody,
         ];
     }
 

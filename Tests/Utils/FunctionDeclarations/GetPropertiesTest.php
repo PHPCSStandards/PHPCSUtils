@@ -77,6 +77,15 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
             $expected['return_type_token'] += $function;
         }
 
+        /*
+         * Test the new `return_type_end_token` key which is not in the original datasets.
+         */
+        $this->assertArrayHasKey('return_type_end_token', $found);
+        $this->assertTrue($found['return_type_end_token'] === false || \is_int($found['return_type_end_token']));
+
+        // Remove the array key before doing the compare against the original dataset.
+        unset($found['return_type_end_token']);
+
         $this->assertSame($expected, $found);
     }
 }
