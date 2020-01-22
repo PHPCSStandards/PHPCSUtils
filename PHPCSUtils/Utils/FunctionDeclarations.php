@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
@@ -103,18 +104,9 @@ class FunctionDeclarations
         }
 
         if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
-            $valid = [
-                \T_PUBLIC    => \T_PUBLIC,
-                \T_PRIVATE   => \T_PRIVATE,
-                \T_PROTECTED => \T_PROTECTED,
-                \T_STATIC    => \T_STATIC,
-                \T_FINAL     => \T_FINAL,
-                \T_ABSTRACT  => \T_ABSTRACT,
-            ];
+            $valid = Tokens::$methodPrefixes;
         } else {
-            $valid = [
-                \T_STATIC => \T_STATIC,
-            ];
+            $valid = [\T_STATIC => \T_STATIC];
         }
 
         $valid += Tokens::$emptyTokens;
@@ -166,16 +158,6 @@ class FunctionDeclarations
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
             }
 
-            $valid = [
-                \T_STRING       => \T_STRING,
-                \T_CALLABLE     => \T_CALLABLE,
-                \T_SELF         => \T_SELF,
-                \T_PARENT       => \T_PARENT,
-                \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-                \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
-                \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
-            ];
-
             for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
                 if (($scopeOpener === null && $tokens[$i]['code'] === \T_SEMICOLON)
                     || ($scopeOpener !== null && $i === $scopeOpener)
@@ -191,7 +173,7 @@ class FunctionDeclarations
                     $nullableReturnType = true;
                 }
 
-                if (isset($valid[$tokens[$i]['code']]) === true) {
+                if (isset(Collections::$returnTypeTokens[$tokens[$i]['code']]) === true) {
                     if ($returnTypeToken === false) {
                         $returnTypeToken = $i;
                     }
