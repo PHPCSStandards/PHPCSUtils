@@ -12,3 +12,6 @@ class testDeclarationWithComments
         \SubDir         \         SomeInterface,
         // comment
         InterfaceB {}
+
+/* testMultiImplementedStrayComma */
+class testMultiImplementedStrayComma implements testInterfaceA, , testInterfaceB {} // Intentional parse error.

@@ -20,6 +20,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  * version. These tests would fail when using the BCFile `findExtendedClassName()` method.
  *
  * @covers \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName
+ * @covers \PHPCSUtils\Utils\ObjectDeclarations::findNames
  *
  * @group objectdeclarations
  *
@@ -59,6 +60,10 @@ class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
                 '/* testDeclarationWithComments */',
                 '// phpcs:ignore Stnd.Cat.Sniff -- For reasons.
     \Package\SubDir /* comment */ \ /* comment */ SomeClass /* comment */',
+            ],
+            'parse-error-stray-comma' => [
+                '/* testExtendedClassStrayComma */',
+                'testClass',
             ],
         ];
     }

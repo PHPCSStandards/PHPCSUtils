@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
@@ -219,6 +220,7 @@ class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
+     * - Improved handling of parse errors.
      *
      * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName() Cross-version compatible version of the original.
@@ -226,52 +228,20 @@ class ObjectDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The stack position of the class.
+     * @param int                         $stackPtr  The stack position of the class or interface.
      *
      * @return string|false The extended class name or FALSE on error or if there
      *                      is no extended class name.
      */
     public static function findExtendedClassName(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Check for the existence of the token.
-        if (isset($tokens[$stackPtr]) === false) {
+        $names = self::findNames($phpcsFile, $stackPtr, \T_EXTENDS, Collections::$OOCanExtend);
+        if ($names === false) {
             return false;
         }
 
-        if ($tokens[$stackPtr]['code'] !== \T_CLASS
-            && $tokens[$stackPtr]['code'] !== \T_ANON_CLASS
-            && $tokens[$stackPtr]['code'] !== \T_INTERFACE
-        ) {
-            return false;
-        }
-
-        if (isset($tokens[$stackPtr]['scope_opener']) === false) {
-            return false;
-        }
-
-        $classOpenerIndex = $tokens[$stackPtr]['scope_opener'];
-        $extendsIndex     = $phpcsFile->findNext(\T_EXTENDS, $stackPtr, $classOpenerIndex);
-        if ($extendsIndex === false) {
-            return false;
-        }
-
-        $find  = [
-            \T_NS_SEPARATOR,
-            \T_STRING,
-        ];
-        $find += Tokens::$emptyTokens;
-
-        $end  = $phpcsFile->findNext($find, ($extendsIndex + 1), ($classOpenerIndex + 1), true);
-        $name = $phpcsFile->getTokensAsString(($extendsIndex + 1), ($end - $extendsIndex - 1));
-        $name = \trim($name);
-
-        if ($name === '') {
-            return false;
-        }
-
-        return $name;
+        // Classes can only extend one parent class.
+        return \array_shift($names);
     }
 
     /**
@@ -281,6 +251,7 @@ class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
+     * - Improved handling of parse errors.
      *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames() Cross-version compatible version of
@@ -296,46 +267,65 @@ class ObjectDeclarations
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
+        return self::findNames($phpcsFile, $stackPtr, \T_IMPLEMENTS, Collections::$OOCanImplement);
+    }
+
+    /**
+     * Retrieves the names of the extended classes or interfaces or the implemented
+     * interfaces that the specific class/interface declaration extends/implements.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile  The file where this token was found.
+     * @param int                         $stackPtr   The stack position of the
+     *                                                class/interface declaration keyword.
+     * @param int                         $keyword    The token constant for the keyword to examine.
+     *                                                Either `T_EXTENDS` or `T_IMPLEMENTS`.
+     * @param array                       $allowedFor Array of OO types for which use of the keyword
+     *                                                is allowed.
+     *
+     * @return array|false Returns an array of names or false on error or when the object
+     *                     being declared does not extend/implement another object.
+     */
+    private static function findNames(File $phpcsFile, $stackPtr, $keyword, $allowedFor)
+    {
         $tokens = $phpcsFile->getTokens();
 
-        // Check for the existence of the token.
-        if (isset($tokens[$stackPtr]) === false) {
-            return false;
-        }
-
-        if ($tokens[$stackPtr]['code'] !== \T_CLASS
-            && $tokens[$stackPtr]['code'] !== \T_ANON_CLASS
+        if (isset($tokens[$stackPtr]) === false
+            || isset($allowedFor[$tokens[$stackPtr]['code']]) === false
+            || isset($tokens[$stackPtr]['scope_opener']) === false
         ) {
             return false;
         }
 
-        if (isset($tokens[$stackPtr]['scope_closer']) === false) {
-            return false;
-        }
-
-        $classOpenerIndex = $tokens[$stackPtr]['scope_opener'];
-        $implementsIndex  = $phpcsFile->findNext(\T_IMPLEMENTS, $stackPtr, $classOpenerIndex);
-        if ($implementsIndex === false) {
+        $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+        $keywordPtr  = $phpcsFile->findNext($keyword, ($stackPtr + 1), $scopeOpener);
+        if ($keywordPtr === false) {
             return false;
         }
 
         $find  = [
             \T_NS_SEPARATOR,
             \T_STRING,
-            \T_COMMA,
         ];
         $find += Tokens::$emptyTokens;
 
-        $end  = $phpcsFile->findNext($find, ($implementsIndex + 1), ($classOpenerIndex + 1), true);
-        $name = $phpcsFile->getTokensAsString(($implementsIndex + 1), ($end - $implementsIndex - 1));
-        $name = \trim($name);
+        $names = [];
+        $end   = $keywordPtr;
+        do {
+            $start = ($end + 1);
+            $end   = $phpcsFile->findNext($find, $start, ($scopeOpener + 1), true);
+            $name  = \trim(GetTokensAsString::normal($phpcsFile, $start, ($end - 1)));
 
-        if ($name === '') {
+            if (\trim($name) !== '') {
+                $names[] = $name;
+            }
+        } while ($tokens[$end]['code'] === \T_COMMA);
+
+        if (empty($names)) {
             return false;
-        } else {
-            $names = \explode(',', $name);
-            $names = \array_map('trim', $names);
-            return $names;
         }
+
+        return $names;
     }
 }

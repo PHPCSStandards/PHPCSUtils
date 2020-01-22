@@ -16,6 +16,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\FindExtendedClassNameTest as BCFile_FindE
  * Tests for the \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName() method.
  *
  * @covers \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName
+ * @covers \PHPCSUtils\Utils\ObjectDeclarations::findNames
  *
  * @group objectdeclarations
  *

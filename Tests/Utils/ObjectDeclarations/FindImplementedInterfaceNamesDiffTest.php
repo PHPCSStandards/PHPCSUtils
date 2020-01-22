@@ -20,6 +20,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  * version. These tests would fail when using the BCFile `findImplementedInterfaceNames()` method.
  *
  * @covers \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames
+ * @covers \PHPCSUtils\Utils\ObjectDeclarations::findNames
  *
  * @group objectdeclarations
  *
@@ -66,6 +67,13 @@ class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
         \SubDir         \         SomeInterface',
                     '// comment
         InterfaceB',
+                ],
+            ],
+            'parse-error-stray-comma' => [
+                '/* testMultiImplementedStrayComma */',
+                [
+                    0 => 'testInterfaceA',
+                    1 => 'testInterfaceB',
                 ],
             ],
         ];
