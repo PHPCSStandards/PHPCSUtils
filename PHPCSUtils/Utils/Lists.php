@@ -10,9 +10,11 @@
 
 namespace PHPCSUtils\Utils;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
  * Utility functions to retrieve information when working with lists.
@@ -213,5 +215,186 @@ class Lists
         }
 
         return false;
+    }
+
+    /**
+     * Retrieves information on the assignments made in the specified (long/short) list.
+     *
+     * This method also accepts `T_OPEN_SQUARE_BRACKET` tokens to allow it to be
+     * PHPCS cross-version compatible as the short array tokenizing has been plagued by
+     * a number of bugs over time, which affects the short list determination.
+     *
+     * The returned array will contain the following basic information for each assignment:
+     *
+     * <code>
+     *   0 => array(
+     *         'raw'      => string, // The full content of the variable definition, including
+     *                               // whitespace and comments.
+     *                               // This may be an empty string when an item is being skipped.
+     *         'is_empty' => bool,   // Whether this is an empty list item, i.e. the
+     *                               // second item in `list($a, , $b)`.
+     *        )
+     * </code>
+     *
+     * Non-empty list items will have the following additional array indexes set:
+     * <code>
+     *         'assignment'           => string,       // The content of the assignment part, cleaned of comments.
+     *                                                 // This could be a nested list.
+     *         'nested_list'          => bool,         // Whether this is a nested list.
+     *         'assign_by_reference'  => bool,         // Is the variable assigned by reference?
+     *         'reference_token'      => int|false,    // The stack pointer to the reference operator or
+     *                                                 // FALSE when not a reference assignment.
+     *         'variable'             => string|false, // The base variable being assigned to or
+     *                                                 // FALSE in case of a nested list or variable variable.
+     *                                                 // I.e. `$a` in `list($a['key'])`.
+     *         'assignment_token'     => int,          // The start pointer for the assignment.
+     *         'assignment_end_token' => int,          // The end pointer for the assignment.
+     * </code>
+     *
+     *
+     * Assignments with keys will have the following additional array indexes set:
+     * <code>
+     *         'key'                 => string, // The content of the key, cleaned of comments.
+     *         'key_token'           => int,    // The stack pointer to the start of the key.
+     *         'key_end_token'       => int,    // The stack pointer to the end of the key.
+     *         'double_arrow_token'  => int,    // The stack pointer to the double arrow.
+     * </code>
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position in the stack of the function token
+     *                                               to acquire the parameters for.
+     *
+     * @return array An array with information on each assignment made, including skipped assignments (empty),
+     *               or an empty array if no assignments are made at all (fatal error in PHP 7+).
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
+     *                                                      type T_LIST, T_OPEN_SHORT_ARRAY or
+     *                                                      T_OPEN_SQUARE_BRACKET.
+     */
+    public static function getAssignments(File $phpcsFile, $stackPtr)
+    {
+        $openClose = self::getOpenClose($phpcsFile, $stackPtr);
+        if ($openClose === false) {
+            // The `getOpenClose()` method does the $stackPtr validation.
+            throw new RuntimeException('The Lists::getAssignments() method expects a long/short list token.');
+        }
+
+        $opener = $openClose['opener'];
+        $closer = $openClose['closer'];
+
+        $tokens = $phpcsFile->getTokens();
+
+        $vars         = [];
+        $start        = null;
+        $lastNonEmpty = null;
+        $reference    = null;
+        $list         = null;
+        $lastComma    = $opener;
+        $current      = [];
+
+        for ($i = ($opener + 1); $i <= $closer; $i++) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
+                continue;
+            }
+
+            switch ($tokens[$i]['code']) {
+                case \T_DOUBLE_ARROW:
+                    $current['key'] = GetTokensAsString::compact($phpcsFile, $start, $lastNonEmpty, true);
+
+                    $current['key_token']          = $start;
+                    $current['key_end_token']      = $lastNonEmpty;
+                    $current['double_arrow_token'] = $i;
+
+                    // Partial reset.
+                    $start        = null;
+                    $lastNonEmpty = null;
+                    $reference    = null;
+                    break;
+
+                case \T_COMMA:
+                case $tokens[$closer]['code']:
+                    if ($tokens[$i]['code'] === $tokens[$closer]['code']) {
+                        if ($i !== $closer) {
+                            $lastNonEmpty = $i;
+                            break;
+                        } elseif ($start === null && $lastComma === $opener) {
+                            // This is an empty list.
+                            break 2;
+                        }
+                    }
+
+                    $current['raw'] = \trim(GetTokensAsString::normal($phpcsFile, ($lastComma + 1), ($i - 1)));
+
+                    if ($start === null) {
+                        $current['is_empty'] = true;
+                    } else {
+                        $current['is_empty']    = false;
+                        $current['assignment']  = \trim(
+                            GetTokensAsString::compact($phpcsFile, $start, $lastNonEmpty, true)
+                        );
+                        $current['nested_list'] = isset($list);
+
+                        $current['assign_by_reference'] = false;
+                        $current['reference_token']     = false;
+                        if (isset($reference)) {
+                            $current['assign_by_reference'] = true;
+                            $current['reference_token']     = $reference;
+                        }
+
+                        $current['variable'] = false;
+                        if (isset($list) === false && $tokens[$start]['code'] === \T_VARIABLE) {
+                            $current['variable'] = $tokens[$start]['content'];
+                        }
+                        $current['assignment_token']     = $start;
+                        $current['assignment_end_token'] = $lastNonEmpty;
+                    }
+
+                    $vars[] = $current;
+
+                    // Reset.
+                    $start        = null;
+                    $lastNonEmpty = null;
+                    $reference    = null;
+                    $list         = null;
+                    $lastComma    = $i;
+                    $current      = [];
+
+                    break;
+
+                case \T_LIST:
+                case \T_OPEN_SHORT_ARRAY:
+                    if ($start === null) {
+                        $start = $i;
+                    }
+
+                    /*
+                     * As the top level list has an open/close, we know we don't have a parse error and
+                     * any nested lists will be tokenized correctly, so no need for extra checks here.
+                     */
+                    $nestedOpenClose = self::getOpenClose($phpcsFile, $i, true);
+                    $list            = $i;
+                    $i               = $nestedOpenClose['closer'];
+
+                    $lastNonEmpty = $i;
+                    break;
+
+                case \T_BITWISE_AND:
+                    $reference    = $i;
+                    $lastNonEmpty = $i;
+                    break;
+
+                default:
+                    if ($start === null) {
+                        $start = $i;
+                    }
+
+                    $lastNonEmpty = $i;
+                    break;
+            }
+        }
+
+        return $vars;
     }
 }
