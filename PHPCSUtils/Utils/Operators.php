@@ -215,6 +215,14 @@ class Operators
             return true;
         }
 
+        /*
+         * BC for PHPCS < 3.1.0 in which the PHP 5.5 T_YIELD token was not yet backfilled.
+         * Note: not accounting for T_YIELD_FROM as that would be a parse error anyway.
+         */
+        if ($tokens[$prev]['code'] === \T_STRING && $tokens[$prev]['content'] === 'yield') {
+            return true;
+        }
+
         return false;
     }
 }
