@@ -71,7 +71,7 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     public function testInvalidUse($identifier)
     {
-        $this->expectPhpcsException('$stackPtr was not a valid T_USE');
+        $this->expectPhpcsException('$stackPtr was not a valid closure T_USE');
 
         $use = $this->getTargetToken($identifier, [\T_USE]);
         FunctionDeclarations::getParameters(self::$phpcsFile, $use);
