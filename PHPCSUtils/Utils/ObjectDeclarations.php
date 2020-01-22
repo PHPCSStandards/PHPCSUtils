@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
@@ -185,14 +186,11 @@ class ObjectDeclarations
             throw new RuntimeException('$stackPtr must be of type T_CLASS');
         }
 
-        $valid  = [
-            \T_FINAL    => \T_FINAL,
-            \T_ABSTRACT => \T_ABSTRACT,
+        $valid      = Collections::$classModifierKeywords + Tokens::$emptyTokens;
+        $properties = [
+            'is_abstract' => false,
+            'is_final'    => false,
         ];
-        $valid += Tokens::$emptyTokens;
-
-        $isAbstract = false;
-        $isFinal    = false;
 
         for ($i = ($stackPtr - 1); $i > 0; $i--) {
             if (isset($valid[$tokens[$i]['code']]) === false) {
@@ -201,19 +199,16 @@ class ObjectDeclarations
 
             switch ($tokens[$i]['code']) {
                 case \T_ABSTRACT:
-                    $isAbstract = true;
+                    $properties['is_abstract'] = true;
                     break 2;
 
                 case \T_FINAL:
-                    $isFinal = true;
+                    $properties['is_final'] = true;
                     break 2;
             }
         }
 
-        return [
-            'is_abstract' => $isAbstract,
-            'is_final'    => $isFinal,
-        ];
+        return $properties;
     }
 
     /**
