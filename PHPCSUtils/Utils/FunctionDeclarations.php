@@ -75,6 +75,7 @@ class FunctionDeclarations
      * Main differences with the PHPCS version:
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
+     * - Defensive coding against incorrect calls to this method.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -94,8 +95,9 @@ class FunctionDeclarations
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_FUNCTION
-            && $tokens[$stackPtr]['code'] !== \T_CLOSURE
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
+                && $tokens[$stackPtr]['code'] !== \T_CLOSURE)
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
         }
