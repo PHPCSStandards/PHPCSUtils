@@ -59,6 +59,21 @@ class Collections
     ];
 
     /**
+     * Tokens which are used to create lists.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related list containing only tokens used for short lists.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $listTokens = [
+        \T_LIST              => \T_LIST,
+        \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
+    ];
+
+    /**
      * List of tokens which can end a namespace declaration statement.
      *
      * @since 1.0.0
@@ -188,5 +203,19 @@ class Collections
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
         \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
         \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
+    ];
+
+    /**
+     * Tokens which are used for short lists.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$listTokens Related list containing all tokens used for lists.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $shortListTokens = [
+        \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
     ];
 }
