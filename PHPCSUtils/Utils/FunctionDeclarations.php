@@ -247,6 +247,9 @@ class FunctionDeclarations
      *         'default_token'       => integer, // The stack pointer to the start of the default value.
      *         'default_equal_token' => integer, // The stack pointer to the equals sign.
      *
+     * Main differences with the PHPCS version:
+     * - Defensive coding against incorrect calls to this method.
+     *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
      *
@@ -265,9 +268,10 @@ class FunctionDeclarations
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_FUNCTION
-            && $tokens[$stackPtr]['code'] !== \T_CLOSURE
-            && $tokens[$stackPtr]['code'] !== \T_USE
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
+                && $tokens[$stackPtr]['code'] !== \T_CLOSURE
+                && $tokens[$stackPtr]['code'] !== \T_USE)
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
         }
