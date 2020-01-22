@@ -156,7 +156,7 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
     {
         $msg       = 'Failed to find test target token for comment string: ';
         $exception = 'PHPUnit\Framework\AssertionFailedError';
-        if (class_exists('PHPUnit_Framework_AssertionFailedError')) {
+        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
             // PHPUnit < 6.
             $exception = 'PHPUnit_Framework_AssertionFailedError';
         }

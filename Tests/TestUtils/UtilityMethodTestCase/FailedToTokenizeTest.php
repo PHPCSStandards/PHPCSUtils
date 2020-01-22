@@ -45,7 +45,7 @@ class FailedToTokenizeTest extends UtilityMethodTestCase
     {
         $msg       = 'Tokenizing of the test case file failed for case file: ';
         $exception = 'PHPUnit\Framework\AssertionFailedError';
-        if (class_exists('PHPUnit_Framework_AssertionFailedError')) {
+        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
             // PHPUnit < 6.
             $exception = 'PHPUnit_Framework_AssertionFailedError';
         }
