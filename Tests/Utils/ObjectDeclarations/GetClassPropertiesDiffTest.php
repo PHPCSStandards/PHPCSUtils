@@ -69,6 +69,13 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
                     'is_final'    => true,
                 ],
             ],
+            'abstract-final-parse-error' => [
+                '/* testParseErrorAbstractFinal */',
+                [
+                    'is_abstract' => true,
+                    'is_final'    => false,
+                ],
+            ],
         ];
     }
 }
