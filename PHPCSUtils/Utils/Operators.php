@@ -31,6 +31,7 @@ class Operators
      *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
+     * - Improved handling of select tokenizer errors involving short lists/short arrays.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
@@ -111,6 +112,7 @@ class Operators
         if ($tokens[$tokenBefore]['code'] === \T_OPEN_PARENTHESIS
             || $tokens[$tokenBefore]['code'] === \T_COMMA
             || $tokens[$tokenBefore]['code'] === \T_OPEN_SHORT_ARRAY
+            || $tokens[$tokenBefore]['code'] === \T_OPEN_SQUARE_BRACKET // PHPCS 2.8.0 < 3.3.0.
         ) {
             if ($tokens[$tokenAfter]['code'] === \T_VARIABLE) {
                 return true;
