@@ -58,6 +58,12 @@ class Lists
          * bracket is followed by an `=` sign.
          *
          * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971
+         *
+         * Also work around a bug in the tokenizer of PHPCS < 2.8.0 where a `[` would be
+         * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
+         * preceded by a closing curly belonging to a control structure.
+         *
+         * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
          */
         if ($tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
             || $tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET
@@ -73,15 +79,15 @@ class Lists
             }
 
             $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-            if ($prevNonEmpty !== 0 && $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG) {
-                // Not this bug.
-                return false;
-            }
-
-            $closer       = $tokens[$opener]['bracket_closer'];
-            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
-            if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
-                return true;
+            if ((($prevNonEmpty === 0 && $tokens[$prevNonEmpty]['code'] === \T_OPEN_TAG) // Bug #1971.
+                || ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
+                    && isset($tokens[$prevNonEmpty]['scope_condition']))) // Bug #1284.
+            ) {
+                $closer       = $tokens[$opener]['bracket_closer'];
+                $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
+                if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
+                    return true;
+                }
             }
 
             return false;

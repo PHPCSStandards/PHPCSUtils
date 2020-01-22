@@ -86,6 +86,22 @@ class IsShortListTokenizerBC1Test extends UtilityMethodTestCase
                 '/* testTokenizerIssue1381PHPCSlt290D2 */',
                 false,
             ],
+            'issue-1284-short-list-directly-after-close-curly-control-structure' => [
+                '/* testTokenizerIssue1284PHPCSlt280A */',
+                true,
+            ],
+            'issue-1284-short-array-directly-after-close-curly-control-structure' => [
+                '/* testTokenizerIssue1284PHPCSlt280B */',
+                false,
+            ],
+            'issue-1284-array-access-variable-variable' => [
+                '/* testTokenizerIssue1284PHPCSlt290C */',
+                false,
+            ],
+            'issue-1284-array-access-variable-property' => [
+                '/* testTokenizerIssue1284PHPCSlt280D */',
+                false,
+            ],
         ];
     }
 }
