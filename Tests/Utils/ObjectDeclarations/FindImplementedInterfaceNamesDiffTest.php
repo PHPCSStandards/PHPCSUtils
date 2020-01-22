@@ -59,14 +59,8 @@ class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
             'phpcs-annotation-and-comments' => [
                 '/* testDeclarationWithComments */',
                 [
-                    '//phpcs:ignore Standard.Cat.Sniff -- For reasons
-        \Vendor
-        /* comment */
-        \Package\Core
-        //phpcs:disable Standard.Cat.Sniff -- For reasons
-        \SubDir         \         SomeInterface',
-                    '// comment
-        InterfaceB',
+                    '\Vendor\Package\Core\SubDir\SomeInterface',
+                    'InterfaceB',
                 ],
             ],
             'parse-error-stray-comma' => [

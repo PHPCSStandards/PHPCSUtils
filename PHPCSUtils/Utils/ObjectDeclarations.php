@@ -221,6 +221,7 @@ class ObjectDeclarations
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
      * - Improved handling of parse errors.
+     * - The returned name will be clean of superfluous whitespace and/or comments.
      *
      * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName() Cross-version compatible version of the original.
@@ -252,6 +253,7 @@ class ObjectDeclarations
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
      * - Improved handling of parse errors.
+     * - The returned name(s) will be clean of superfluous whitespace and/or comments.
      *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames() Cross-version compatible version of
@@ -315,7 +317,7 @@ class ObjectDeclarations
         do {
             $start = ($end + 1);
             $end   = $phpcsFile->findNext($find, $start, ($scopeOpener + 1), true);
-            $name  = \trim(GetTokensAsString::normal($phpcsFile, $start, ($end - 1)));
+            $name  = GetTokensAsString::noEmpties($phpcsFile, $start, ($end - 1));
 
             if (\trim($name) !== '') {
                 $names[] = $name;

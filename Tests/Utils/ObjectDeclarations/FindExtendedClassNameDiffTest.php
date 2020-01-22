@@ -58,8 +58,7 @@ class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
         return [
             'phpcs-annotation-and-comments' => [
                 '/* testDeclarationWithComments */',
-                '// phpcs:ignore Stnd.Cat.Sniff -- For reasons.
-    \Package\SubDir /* comment */ \ /* comment */ SomeClass /* comment */',
+                '\Package\SubDir\SomeClass',
             ],
             'parse-error-stray-comma' => [
                 '/* testExtendedClassStrayComma */',
