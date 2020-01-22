@@ -850,7 +850,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
-     * Verify handling of a closure.
+     * Verify handling of a declaration interlaced with whitespace and comments.
      *
      * @return void
      */
