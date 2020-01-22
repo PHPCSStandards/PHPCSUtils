@@ -72,6 +72,10 @@ class FunctionDeclarations
      *   );
      * </code>
      *
+     * Main differences with the PHPCS version:
+     * - Bugs fixed:
+     *   - Handling of PHPCS annotations.
+     *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
      *
@@ -98,24 +102,20 @@ class FunctionDeclarations
 
         if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
             $valid = [
-                \T_PUBLIC      => \T_PUBLIC,
-                \T_PRIVATE     => \T_PRIVATE,
-                \T_PROTECTED   => \T_PROTECTED,
-                \T_STATIC      => \T_STATIC,
-                \T_FINAL       => \T_FINAL,
-                \T_ABSTRACT    => \T_ABSTRACT,
-                \T_WHITESPACE  => \T_WHITESPACE,
-                \T_COMMENT     => \T_COMMENT,
-                \T_DOC_COMMENT => \T_DOC_COMMENT,
+                \T_PUBLIC    => \T_PUBLIC,
+                \T_PRIVATE   => \T_PRIVATE,
+                \T_PROTECTED => \T_PROTECTED,
+                \T_STATIC    => \T_STATIC,
+                \T_FINAL     => \T_FINAL,
+                \T_ABSTRACT  => \T_ABSTRACT,
             ];
         } else {
             $valid = [
-                \T_STATIC      => \T_STATIC,
-                \T_WHITESPACE  => \T_WHITESPACE,
-                \T_COMMENT     => \T_COMMENT,
-                \T_DOC_COMMENT => \T_DOC_COMMENT,
+                \T_STATIC => \T_STATIC,
             ];
         }
+
+        $valid += Tokens::$emptyTokens;
 
         $scope          = 'public';
         $scopeSpecified = false;
