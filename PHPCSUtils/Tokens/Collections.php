@@ -74,6 +74,26 @@ class Collections
     ];
 
     /**
+     * Tokens which are used to create lists.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related list containing only tokens used for short lists.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $listTokensBC = [
+        \T_LIST                 => \T_LIST,
+        \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY    => \T_CLOSE_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
+        \T_CLOSE_SQUARE_BRACKET => \T_CLOSE_SQUARE_BRACKET,
+    ];
+
+    /**
      * List of tokens which can end a namespace declaration statement.
      *
      * @since 1.0.0
@@ -217,5 +237,24 @@ class Collections
     public static $shortListTokens = [
         \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
         \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
+    ];
+
+    /**
+     * Tokens which are used for short lists.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC Related list containing all tokens used for lists.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $shortListTokensBC = [
+        \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY    => \T_CLOSE_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
+        \T_CLOSE_SQUARE_BRACKET => \T_CLOSE_SQUARE_BRACKET,
     ];
 }

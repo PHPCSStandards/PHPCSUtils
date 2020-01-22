@@ -23,7 +23,11 @@ class Lists
 {
 
     /**
-     * Determine whether a T_OPEN/CLOSE_SHORT_ARRAY token is a short list() construct.
+     * Determine whether a `T_OPEN/CLOSE_SHORT_ARRAY` token is a short list() construct.
+     *
+     * This method also accepts `T_OPEN/CLOSE_SQUARE_BRACKET` tokens to allow it to be
+     * PHPCS cross-version compatible as the short array tokenizing has been plagued by
+     * a number of bugs over time, which affects the short list determination.
      *
      * @since 1.0.0
      *
@@ -31,8 +35,8 @@ class Lists
      * @param int                         $stackPtr  The position of the short array bracket token.
      *
      * @return bool True if the token passed is the open/close bracket of a short list.
-     *              False if the token is a short array bracket or not
-     *              a T_OPEN/CLOSE_SHORT_ARRAY token.
+     *              False if the token is a short array bracket or plain square bracket
+     *              or not one of the accepted tokens.
      */
     public static function isShortList(File $phpcsFile, $stackPtr)
     {
@@ -40,8 +44,46 @@ class Lists
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortListTokens[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::$shortListTokensBC[$tokens[$stackPtr]['code']]) === false
         ) {
+            return false;
+        }
+
+        /*
+         * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 - 3.2.3 where a `[` would be
+         * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
+         * preceded by a PHP open tag at the very start of the file.
+         *
+         * In that case, we also know for sure that it is a short list as long as the close
+         * bracket is followed by an `=` sign.
+         *
+         * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971
+         */
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
+            || $tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET
+        ) {
+            $opener = $stackPtr;
+            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET) {
+                $opener = $tokens[$stackPtr]['bracket_opener'];
+            }
+
+            if (isset($tokens[$opener]['bracket_closer']) === false) {
+                // Definitely not a short list.
+                return false;
+            }
+
+            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
+            if ($prevNonEmpty !== 0 && $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG) {
+                // Not this bug.
+                return false;
+            }
+
+            $closer       = $tokens[$opener]['bracket_closer'];
+            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
+            if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
+                return true;
+            }
+
             return false;
         }
 
@@ -76,7 +118,7 @@ class Lists
         $parentOpen = $opener;
         do {
             $parentOpen = $phpcsFile->findPrevious(
-                \T_OPEN_SHORT_ARRAY,
+                [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET], // BC: PHPCS#1971.
                 ($parentOpen - 1),
                 null,
                 false,
@@ -87,7 +129,9 @@ class Lists
             if ($parentOpen === false) {
                 return false;
             }
-        } while ($tokens[$parentOpen]['bracket_closer'] < $opener);
+        } while (isset($tokens[$parentOpen]['bracket_closer']) === true
+            && $tokens[$parentOpen]['bracket_closer'] < $opener
+        );
 
         return self::isShortList($phpcsFile, $parentOpen);
     }
