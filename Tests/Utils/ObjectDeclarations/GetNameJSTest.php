@@ -8,30 +8,45 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\BackCompat\BCFile;
+namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
-use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\Helper;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\BackCompat\BCFile\GetDeclarationNameJSTest as BCFile_GetDeclarationNameJSTest;
+use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
- * Tests for the \PHPCSUtils\BackCompat\BCFile::getDeclarationName() method.
+ * Tests for the \PHPCSUtils\Utils\ObjectDeclarations::getName() method.
  *
- * @covers \PHPCSUtils\BackCompat\BCFile::getDeclarationName
+ * @covers \PHPCSUtils\Utils\ObjectDeclarations::getName
  *
  * @group objectdeclarations
  *
  * @since 1.0.0
  */
-class GetDeclarationNameJSTest extends UtilityMethodTestCase
+class GetNameJSTest extends BCFile_GetDeclarationNameJSTest
 {
 
     /**
-     * The file extension of the test case file (without leading dot).
+     * Full path to the test case file associated with this test class.
      *
      * @var string
      */
-    protected static $fileExtension = 'js';
+    protected static $caseFile = '';
+
+    /**
+     * Initialize PHPCS & tokenize the test case file.
+     *
+     * Overloaded to re-use the `$caseFile` from the BCFile test.
+     *
+     * @beforeClass
+     *
+     * @return void
+     */
+    public static function setUpTestFile()
+    {
+        self::$caseFile = \dirname(\dirname(__DIR__)) . '/BackCompat/BCFile/GetDeclarationNameJSTest.js';
+        parent::setUpTestFile();
+    }
 
     /**
      * Test receiving an expected exception when a non-supported token is passed.
@@ -43,11 +58,13 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
         $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE or T_TRAIT');
 
         $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
-        BCFile::getDeclarationName(self::$phpcsFile, $target);
+        ObjectDeclarations::getName(self::$phpcsFile, $target);
     }
 
     /**
      * Test receiving "null" when passed an anonymous construct or in case of a parse error.
+     *
+     * {@internal Method name not adjusted as otherwise it wouldn't overload the parent method.}
      *
      * @dataProvider dataGetDeclarationNameNull
      *
@@ -59,29 +76,14 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
     public function testGetDeclarationNameNull($testMarker, $targetType)
     {
         $target = $this->getTargetToken($testMarker, $targetType);
-        $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
+        $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
         $this->assertNull($result);
     }
 
     /**
-     * Data provider.
-     *
-     * @see GetDeclarationNameTest::testGetDeclarationNameNull()
-     *
-     * @return array
-     */
-    public function dataGetDeclarationNameNull()
-    {
-        return [
-            'closure' => [
-                '/* testClosure */',
-                \T_CLOSURE,
-            ],
-        ];
-    }
-
-    /**
      * Test retrieving the name of a function or OO structure.
+     *
+     * {@internal Method name not adjusted as otherwise it wouldn't overload the parent method.}
      *
      * @dataProvider dataGetDeclarationName
      *
@@ -98,38 +100,14 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
         }
 
         $target = $this->getTargetToken($testMarker, $targetType);
-        $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
+        $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
         $this->assertSame($expected, $result);
     }
 
     /**
-     * Data provider.
-     *
-     * @see GetDeclarationNameTest::testGetDeclarationName()
-     *
-     * @return array
-     */
-    public function dataGetDeclarationName()
-    {
-        return [
-            'function' => [
-                '/* testFunction */',
-                'functionName',
-            ],
-            'class' => [
-                '/* testClass */',
-                'ClassName',
-                [\T_CLASS, \T_STRING],
-            ],
-            'function-unicode-name' => [
-                '/* testFunctionUnicode */',
-                'π',
-            ],
-        ];
-    }
-
-    /**
      * Test retrieving the name of JS ES6 class method.
+     *
+     * {@internal Method name not adjusted as otherwise it wouldn't overload the parent method.}
      *
      * @return void
      */
@@ -140,7 +118,7 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
         }
 
         $target = $this->getTargetToken('/* testMethod */', [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION]);
-        $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
+        $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
         $this->assertSame('methodName', $result);
     }
 }
