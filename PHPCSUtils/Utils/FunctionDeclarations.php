@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
@@ -441,12 +442,12 @@ class FunctionDeclarations
                     $vars[$paramCount]['token']   = $currVar;
                     $vars[$paramCount]['name']    = $tokens[$currVar]['content'];
                     $vars[$paramCount]['content'] = \trim(
-                        $phpcsFile->getTokensAsString($paramStart, ($i - $paramStart))
+                        GetTokensAsString::normal($phpcsFile, $paramStart, ($i - 1))
                     );
 
                     if ($defaultStart !== null) {
                         $vars[$paramCount]['default']             = \trim(
-                            $phpcsFile->getTokensAsString($defaultStart, ($i - $defaultStart))
+                            GetTokensAsString::normal($phpcsFile, $defaultStart, ($i - 1))
                         );
                         $vars[$paramCount]['default_token']       = $defaultStart;
                         $vars[$paramCount]['default_equal_token'] = $equalToken;
