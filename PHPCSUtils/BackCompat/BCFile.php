@@ -152,7 +152,13 @@ class BCFile
         $content = null;
         for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['code'] === T_STRING) {
-                $content = $tokens[$i]['content'];
+                /*
+                 * BC: In PHPCS 2.6.0, in case of live coding, the last token in a file will be tokenized
+                 * as T_STRING, but won't have the `content` index set.
+                 */
+                if (isset($tokens[$i]['content'])) {
+                    $content = $tokens[$i]['content'];
+                }
                 break;
             }
         }
