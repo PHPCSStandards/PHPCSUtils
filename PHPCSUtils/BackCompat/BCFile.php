@@ -1426,7 +1426,8 @@ class BCFile
      * - Introduced in PHPCS 2.7.0.
      * - PHPCS 2.8.0: Now supports anonymous classes.
      *
-     * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames() Original source.
+     * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()          Original source.
+     * @see \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *

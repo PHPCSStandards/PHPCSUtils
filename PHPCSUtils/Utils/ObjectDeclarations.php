@@ -277,6 +277,11 @@ class ObjectDeclarations
     /**
      * Retrieves the names of the interfaces that the specified class implements.
      *
+     * Main differences with the PHPCS version:
+     * - Bugs fixed:
+     *   - Handling of PHPCS annotations.
+     *   - Handling of comments.
+     *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames() Cross-version compatible version of
      *                                                                     the original.
@@ -314,12 +319,12 @@ class ObjectDeclarations
             return false;
         }
 
-        $find = [
+        $find  = [
             \T_NS_SEPARATOR,
             \T_STRING,
-            \T_WHITESPACE,
             \T_COMMA,
         ];
+        $find += Tokens::$emptyTokens;
 
         $end  = $phpcsFile->findNext($find, ($implementsIndex + 1), ($classOpenerIndex + 1), true);
         $name = $phpcsFile->getTokensAsString(($implementsIndex + 1), ($end - $implementsIndex - 1));
