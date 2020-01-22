@@ -62,6 +62,30 @@ class IsShortListTokenizerBC1Test extends UtilityMethodTestCase
                 '/* testTokenizerIssue1971PHPCSlt330gt271B */',
                 true,
             ],
+            'issue-1381-array-dereferencing-1' => [
+                '/* testTokenizerIssue1381PHPCSlt290A1 */',
+                false,
+            ],
+            'issue-1381-array-dereferencing-1-deref' => [
+                '/* testTokenizerIssue1381PHPCSlt290A2 */',
+                false,
+            ],
+            'issue-1381-array-dereferencing-2' => [
+                '/* testTokenizerIssue1381PHPCSlt290B */',
+                false,
+            ],
+            'issue-1381-array-dereferencing-3' => [
+                '/* testTokenizerIssue1381PHPCSlt290C */',
+                false,
+            ],
+            'issue-1381-array-dereferencing-4' => [
+                '/* testTokenizerIssue1381PHPCSlt290D1 */',
+                false,
+            ],
+            'issue-1381-array-dereferencing-4-deref-deref' => [
+                '/* testTokenizerIssue1381PHPCSlt290D2 */',
+                false,
+            ],
         ];
     }
 }
