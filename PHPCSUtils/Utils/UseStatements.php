@@ -210,7 +210,27 @@ class UseStatements
                 continue;
             }
 
-            switch ($tokens[$i]['code']) {
+            $tokenCode = $tokens[$i]['code'];
+
+            /*
+             * BC: Work round a tokenizer bug related to a parse error.
+             *
+             * If `function` or `const` is used as the alias, the semi-colon after it would
+             * be tokenized as T_STRING.
+             * For `function` this was fixed in PHPCS 2.8.0. For `const` the issue still exists
+             * in PHPCS 3.5.2.
+             *
+             * Along the same lines, the `}` T_CLOSE_USE_GROUP would also be tokenized as T_STRING.
+             */
+            if ($tokenCode === \T_STRING) {
+                if ($tokens[$i]['content'] === ';') {
+                    $tokenCode = \T_SEMICOLON;
+                } elseif ($tokens[$i]['content'] === '}') {
+                    $tokenCode = \T_CLOSE_USE_GROUP;
+                }
+            }
+
+            switch ($tokenCode) {
                 case \T_STRING:
                     // Only when either at the start of the statement or at the start of a new sub within a group.
                     if ($start === true && $fixedType === false) {
@@ -262,7 +282,7 @@ class UseStatements
                         }
                     }
 
-                    if ($tokens[$i]['code'] !== \T_COMMA) {
+                    if ($tokenCode !== \T_COMMA) {
                         break 2;
                     }
 
@@ -279,8 +299,39 @@ class UseStatements
                     $name .= $tokens[$i]['content'];
                     break;
 
-                // Fall back in case reserved keyword is (illegally) used in name.
-                // Parse error, but not our concern.
+                case \T_FUNCTION:
+                case \T_CONST:
+                    /*
+                     * BC: Work around tokenizer bug in PHPCS < 3.4.1.
+                     *
+                     * `function`/`const` in `use function`/`use const` tokenized as T_FUNCTION/T_CONST
+                     * instead of T_STRING when there is a comment between the keywords.
+                     *
+                     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2431
+                     */
+                    if ($start === true && $fixedType === false) {
+                        $type  = \strtolower($tokens[$i]['content']);
+                        $start = false;
+                        if ($useGroup === false) {
+                            $fixedType = true;
+                        }
+
+                        break;
+                    }
+
+                    $start = false;
+
+                    if ($hasAlias === false) {
+                        $name .= $tokens[$i]['content'];
+                    }
+
+                    $alias = $tokens[$i]['content'];
+                    break;
+
+                /*
+                 * Fall back in case reserved keyword is (illegally) used in name.
+                 * Parse error, but not our concern.
+                 */
                 default:
                     if ($hasAlias === false) {
                         $name .= $tokens[$i]['content'];
