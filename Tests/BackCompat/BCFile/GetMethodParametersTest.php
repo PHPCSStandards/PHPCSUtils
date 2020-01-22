@@ -31,6 +31,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::getMethodParameters
  *
+ * @group functiondeclarations
+ *
  * @since 1.0.0
  */
 class GetMethodParametersTest extends UtilityMethodTestCase
@@ -989,7 +991,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    private function getMethodParametersTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
+    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
     {
         $target = $this->getTargetToken($commentString, $targetType);
         $found  = BCFile::getMethodParameters(self::$phpcsFile, $target);

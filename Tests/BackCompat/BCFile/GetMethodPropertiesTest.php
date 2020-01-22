@@ -28,6 +28,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::getMethodProperties
  *
+ * @group functiondeclarations
+ *
  * @since 1.0.0
  */
 class GetMethodPropertiesTest extends UtilityMethodTestCase
@@ -408,7 +410,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    private function getMethodPropertiesTestHelper($commentString, $expected)
+    protected function getMethodPropertiesTestHelper($commentString, $expected)
     {
         $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE]);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
