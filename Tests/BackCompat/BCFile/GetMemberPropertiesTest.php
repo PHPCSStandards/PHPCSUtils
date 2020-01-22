@@ -22,7 +22,6 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -30,10 +29,22 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\BackCompat\BCFile::getMemberProperties
  *
+ * @group variables
+ *
  * @since 1.0.0
  */
 class GetMemberPropertiesTest extends UtilityMethodTestCase
 {
+
+    /**
+     * The fully qualified name of the class being tested.
+     *
+     * This allows for the same unit tests to be run for both the BCFile functions
+     * as well as for the related PHPCSUtils functions.
+     *
+     * @var string
+     */
+    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
 
     /**
      * Test the getMemberProperties() method.
@@ -47,8 +58,10 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
      */
     public function testGetMemberProperties($identifier, $expected)
     {
+        $testClass = static::TEST_CLASS;
+
         $variable = $this->getTargetToken($identifier, T_VARIABLE);
-        $result   = BCFile::getMemberProperties(self::$phpcsFile, $variable);
+        $result   = $testClass::getMemberProperties(self::$phpcsFile, $variable);
 
         if (isset($expected['type_token']) && $expected['type_token'] !== false) {
             $expected['type_token'] += $variable;
@@ -582,8 +595,10 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
     {
         $this->expectPhpcsException('$stackPtr is not a class member var');
 
+        $testClass = static::TEST_CLASS;
+
         $variable = $this->getTargetToken($identifier, T_VARIABLE);
-        BCFile::getMemberProperties(self::$phpcsFile, $variable);
+        $testClass::getMemberProperties(self::$phpcsFile, $variable);
     }
 
     /**
@@ -614,7 +629,9 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
     {
         $this->expectPhpcsException('$stackPtr must be of type T_VARIABLE');
 
+        $testClass = static::TEST_CLASS;
+
         $next = $this->getTargetToken('/* testNotAVariable */', T_RETURN);
-        BCFile::getMemberProperties(self::$phpcsFile, $next);
+        $testClass::getMemberProperties(self::$phpcsFile, $next);
     }
 }
