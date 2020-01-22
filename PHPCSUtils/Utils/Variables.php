@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Utils\Scopes;
 
 /**
  * Utility functions for use when examining variables.
@@ -43,6 +44,11 @@ class Variables
      *   );
      * </code>
      *
+     * Main differences with the PHPCS version:
+     * - Removed the parse error warning for properties in interfaces.
+     *   This will now throw the same "$stackPtr is not a class member var" runtime exception as
+     *   other non-property variables passed to the method.
+     *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
      *
@@ -66,42 +72,8 @@ class Variables
             throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
         }
 
-        $conditions = \array_keys($tokens[$stackPtr]['conditions']);
-        $ptr        = \array_pop($conditions);
-        if (isset($tokens[$ptr]) === false
-            || ($tokens[$ptr]['code'] !== \T_CLASS
-            && $tokens[$ptr]['code'] !== \T_ANON_CLASS
-            && $tokens[$ptr]['code'] !== \T_TRAIT)
-        ) {
-            if (isset($tokens[$ptr]) === true
-                && $tokens[$ptr]['code'] === \T_INTERFACE
-            ) {
-                // T_VARIABLEs in interfaces can actually be method arguments
-                // but they wont be seen as being inside the method because there
-                // are no scope openers and closers for abstract methods. If it is in
-                // parentheses, we can be pretty sure it is a method argument.
-                if (isset($tokens[$stackPtr]['nested_parenthesis']) === false
-                    || empty($tokens[$stackPtr]['nested_parenthesis']) === true
-                ) {
-                    $error = 'Possible parse error: interfaces may not include member vars';
-                    $phpcsFile->addWarning($error, $stackPtr, 'Internal.ParseError.InterfaceHasMemberVar');
-                    return [];
-                }
-            } else {
-                throw new RuntimeException('$stackPtr is not a class member var');
-            }
-        }
-
-        // Make sure it's not a method parameter.
-        if (empty($tokens[$stackPtr]['nested_parenthesis']) === false) {
-            $parenthesis = \array_keys($tokens[$stackPtr]['nested_parenthesis']);
-            $deepestOpen = \array_pop($parenthesis);
-            if ($deepestOpen > $ptr
-                && isset($tokens[$deepestOpen]['parenthesis_owner']) === true
-                && $tokens[$tokens[$deepestOpen]['parenthesis_owner']]['code'] === \T_FUNCTION
-            ) {
-                throw new RuntimeException('$stackPtr is not a class member var');
-            }
+        if (Scopes::isOOProperty($phpcsFile, $stackPtr) === false) {
+            throw new RuntimeException('$stackPtr is not a class member var');
         }
 
         $valid = [

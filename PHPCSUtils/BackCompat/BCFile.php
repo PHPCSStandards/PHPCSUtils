@@ -687,6 +687,7 @@ class BCFile
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
+     * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *
