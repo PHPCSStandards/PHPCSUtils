@@ -122,6 +122,15 @@ abstract class UtilityMethodTestCase extends TestCase
     protected static $caseFile = '';
 
     /**
+     * The tab width setting to use when tokenizing the file.
+     *
+     * This allows for test case files to use a different tab width than the default.
+     *
+     * @var int
+     */
+    protected static $tabWidth = 4;
+
+    /**
      * The {@see \PHP_CodeSniffer\Files\File} object containing the parsed contents of the test case file.
      *
      * @since 1.0.0
@@ -194,7 +203,7 @@ abstract class UtilityMethodTestCase extends TestCase
             $config->cache = false;
 
             // Also set a tab-width to enable testing tab-replaced vs `orig_content`.
-            $config->tabWidth = 4;
+            $config->tabWidth = static::$tabWidth;
 
             $ruleset = new \PHP_CodeSniffer\Ruleset($config);
 
@@ -213,7 +222,7 @@ abstract class UtilityMethodTestCase extends TestCase
             }
         } else {
             // PHPCS 2.x.
-            $phpcs           = new \PHP_CodeSniffer(null, 4); // Tab width set to 4.
+            $phpcs           = new \PHP_CodeSniffer(null, static::$tabWidth);
             self::$phpcsFile = new \PHP_CodeSniffer_File(
                 $caseFile,
                 [],
