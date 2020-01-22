@@ -130,6 +130,37 @@ class Collections
     ];
 
     /**
+     * Modifier keywords which can be used for a property declaration.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $propertyModifierKeywords = [
+        \T_PUBLIC    => \T_PUBLIC,
+        \T_PRIVATE   => \T_PRIVATE,
+        \T_PROTECTED => \T_PROTECTED,
+        \T_STATIC    => \T_STATIC,
+        \T_VAR       => \T_VAR,
+    ];
+
+    /**
+     * Token types which can be encountered in a property type declaration.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $propertyTypeTokens = [
+        \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 3.3.0.
+        \T_CALLABLE     => \T_CALLABLE,
+        \T_SELF         => \T_SELF,
+        \T_PARENT       => \T_PARENT,
+        \T_STRING       => \T_STRING,
+        \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+    ];
+
+    /**
      * Token types which can be encountered in a return type declaration.
      *
      * @since 1.0.0

@@ -687,6 +687,7 @@ class BCFile
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
+     * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
      *
@@ -746,14 +747,7 @@ class BCFile
             }
         }
 
-        $valid = [
-            T_PUBLIC    => T_PUBLIC,
-            T_PRIVATE   => T_PRIVATE,
-            T_PROTECTED => T_PROTECTED,
-            T_STATIC    => T_STATIC,
-            T_VAR       => T_VAR,
-        ];
-
+        $valid  = Collections::$propertyModifierKeywords;
         $valid += Tokens::$emptyTokens;
 
         $scope          = 'public';
@@ -800,15 +794,6 @@ class BCFile
 
         if ($i < $stackPtr) {
             // We've found a type.
-            $valid = [
-                T_STRING       => T_STRING,
-                T_CALLABLE     => T_CALLABLE,
-                T_SELF         => T_SELF,
-                T_PARENT       => T_PARENT,
-                T_NS_SEPARATOR => T_NS_SEPARATOR,
-                T_ARRAY_HINT   => T_ARRAY_HINT, // Array property type declarations in PHPCS < 3.3.0.
-            ];
-
             for ($i; $i < $stackPtr; $i++) {
                 if ($tokens[$i]['code'] === T_VARIABLE) {
                     // Hit another variable in a group definition.
@@ -822,7 +807,7 @@ class BCFile
                     $nullableType = true;
                 }
 
-                if (isset($valid[$tokens[$i]['code']]) === true) {
+                if (isset(Collections::$propertyTypeTokens[$tokens[$i]['code']]) === true) {
                     $typeEndToken = $i;
                     if ($typeToken === false) {
                         $typeToken = $i;

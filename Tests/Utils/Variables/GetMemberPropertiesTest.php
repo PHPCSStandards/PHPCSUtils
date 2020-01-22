@@ -55,4 +55,29 @@ class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
         self::$caseFile = \dirname(\dirname(__DIR__)) . '/BackCompat/BCFile/GetMemberPropertiesTest.inc';
         parent::setUpTestFile();
     }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetMemberProperties()
+     *
+     * @return array
+     */
+    public function dataGetMemberProperties()
+    {
+        $data = parent::dataGetMemberProperties();
+
+        /*
+         * Remove the data set related to the invalid interface property.
+         * This will now throw an exception instead.
+         */
+        foreach ($data as $key => $value) {
+            if ($value[0] === '/* testInterfaceProperty */') {
+                unset($data[$key]);
+                break;
+            }
+        }
+
+        return $data;
+    }
 }

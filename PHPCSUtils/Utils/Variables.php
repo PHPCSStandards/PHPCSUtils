@@ -13,6 +13,8 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\Scopes;
 
 /**
  * Utility functions for use when examining variables.
@@ -43,6 +45,12 @@ class Variables
      *   );
      * </code>
      *
+     * Main differences with the PHPCS version:
+     * - Removed the parse error warning for properties in interfaces.
+     *   This will now throw the same "$stackPtr is not a class member var" runtime exception as
+     *   other non-property variables passed to the method.
+     * - Defensive coding against incorrect calls to this method.
+     *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
      *
@@ -62,57 +70,15 @@ class Variables
     {
         $tokens = $phpcsFile->getTokens();
 
-        if ($tokens[$stackPtr]['code'] !== \T_VARIABLE) {
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_VARIABLE) {
             throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
         }
 
-        $conditions = \array_keys($tokens[$stackPtr]['conditions']);
-        $ptr        = \array_pop($conditions);
-        if (isset($tokens[$ptr]) === false
-            || ($tokens[$ptr]['code'] !== \T_CLASS
-            && $tokens[$ptr]['code'] !== \T_ANON_CLASS
-            && $tokens[$ptr]['code'] !== \T_TRAIT)
-        ) {
-            if (isset($tokens[$ptr]) === true
-                && $tokens[$ptr]['code'] === \T_INTERFACE
-            ) {
-                // T_VARIABLEs in interfaces can actually be method arguments
-                // but they wont be seen as being inside the method because there
-                // are no scope openers and closers for abstract methods. If it is in
-                // parentheses, we can be pretty sure it is a method argument.
-                if (isset($tokens[$stackPtr]['nested_parenthesis']) === false
-                    || empty($tokens[$stackPtr]['nested_parenthesis']) === true
-                ) {
-                    $error = 'Possible parse error: interfaces may not include member vars';
-                    $phpcsFile->addWarning($error, $stackPtr, 'Internal.ParseError.InterfaceHasMemberVar');
-                    return [];
-                }
-            } else {
-                throw new RuntimeException('$stackPtr is not a class member var');
-            }
+        if (Scopes::isOOProperty($phpcsFile, $stackPtr) === false) {
+            throw new RuntimeException('$stackPtr is not a class member var');
         }
 
-        // Make sure it's not a method parameter.
-        if (empty($tokens[$stackPtr]['nested_parenthesis']) === false) {
-            $parenthesis = \array_keys($tokens[$stackPtr]['nested_parenthesis']);
-            $deepestOpen = \array_pop($parenthesis);
-            if ($deepestOpen > $ptr
-                && isset($tokens[$deepestOpen]['parenthesis_owner']) === true
-                && $tokens[$tokens[$deepestOpen]['parenthesis_owner']]['code'] === \T_FUNCTION
-            ) {
-                throw new RuntimeException('$stackPtr is not a class member var');
-            }
-        }
-
-        $valid = [
-            \T_PUBLIC    => \T_PUBLIC,
-            \T_PRIVATE   => \T_PRIVATE,
-            \T_PROTECTED => \T_PROTECTED,
-            \T_STATIC    => \T_STATIC,
-            \T_VAR       => \T_VAR,
-        ];
-
-        $valid += Tokens::$emptyTokens;
+        $valid = Collections::$propertyModifierKeywords + Tokens::$emptyTokens;
 
         $scope          = 'public';
         $scopeSpecified = false;
@@ -158,15 +124,6 @@ class Variables
 
         if ($i < $stackPtr) {
             // We've found a type.
-            $valid = [
-                \T_STRING       => \T_STRING,
-                \T_CALLABLE     => \T_CALLABLE,
-                \T_SELF         => \T_SELF,
-                \T_PARENT       => \T_PARENT,
-                \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-                \T_ARRAY_HINT   => \T_ARRAY_HINT, // Array property type declarations in PHPCS < 3.3.0.
-            ];
-
             for ($i; $i < $stackPtr; $i++) {
                 if ($tokens[$i]['code'] === \T_VARIABLE) {
                     // Hit another variable in a group definition.
@@ -180,7 +137,7 @@ class Variables
                     $nullableType = true;
                 }
 
-                if (isset($valid[$tokens[$i]['code']]) === true) {
+                if (isset(Collections::$propertyTypeTokens[$tokens[$i]['code']]) === true) {
                     $typeEndToken = $i;
                     if ($typeToken === false) {
                         $typeToken = $i;
