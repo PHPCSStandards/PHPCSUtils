@@ -90,6 +90,24 @@ class Arrays
                     return false;
                 }
             }
+
+            if (\version_compare($phpcsVersion, '2.8.0', '<')) {
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS < 2.8.0 where a `[` would be
+                 * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
+                 * preceded by a close curly of a control structure.
+                 *
+                 * If we have square brackets which are not that specific situation, they are just plain
+                 * square brackets.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
+                 */
+                if ($tokens[$prevNonEmpty]['code'] !== \T_CLOSE_CURLY_BRACKET
+                    || isset($tokens[$prevNonEmpty]['scope_condition']) === false
+                ) {
+                    return false;
+                }
+            }
         } else {
             /*
              * Deal with short array brackets which may be incorrectly tokenized plain square brackets.
