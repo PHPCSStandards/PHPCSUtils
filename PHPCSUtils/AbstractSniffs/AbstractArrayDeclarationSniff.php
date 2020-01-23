@@ -13,8 +13,12 @@ namespace PHPCSUtils\AbstractSniffs;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Utils\Arrays;
+use PHPCSUtils\Utils\Numbers;
 use PHPCSUtils\Utils\PassedParameters;
+use PHPCSUtils\Utils\TextStrings;
 
 /**
  * Abstract sniff to easily examine all parts of an array declaration.
@@ -92,6 +96,48 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @var bool
      */
     protected $singleLine;
+
+    /**
+     * List of tokens which can safely be used with an eval() expression.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    private $acceptedTokens = [
+        \T_NULL                     => \T_NULL,
+        \T_TRUE                     => \T_TRUE,
+        \T_FALSE                    => \T_FALSE,
+        \T_LNUMBER                  => \T_LNUMBER,
+        \T_DNUMBER                  => \T_DNUMBER,
+        \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
+        \T_STRING_CONCAT            => \T_STRING_CONCAT,
+        \T_INLINE_THEN              => \T_INLINE_THEN,
+        \T_INLINE_ELSE              => \T_INLINE_ELSE,
+        \T_BOOLEAN_NOT              => \T_BOOLEAN_NOT,
+    ];
+
+    /**
+     * Set up this class.
+     *
+     * @since 1.0.0
+     *
+     * @codeCoverageIgnore
+     *
+     * @return void
+     */
+    final public function __construct()
+    {
+        // Enhance the list of accepted tokens.
+        $this->acceptedTokens += BCTokens::assignmentTokens();
+        $this->acceptedTokens += BCTokens::comparisonTokens();
+        $this->acceptedTokens += BCTokens::arithmeticTokens();
+        $this->acceptedTokens += BCTokens::operators();
+        $this->acceptedTokens += BCTokens::booleanOperators();
+        $this->acceptedTokens += BCTokens::castTokens();
+        $this->acceptedTokens += BCTokens::bracketTokens();
+        $this->acceptedTokens += BCTokens::heredocTokens();
+    }
 
     /**
      * Returns an array of tokens this test wants to listen for.
@@ -243,6 +289,8 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      *
      * @codeCoverageIgnore
      *
+     * @see \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff::getActualArrayKey() Optional helper function.
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the
      *                                               token was found.
      * @param int                         $startPtr  The stack pointer to the first token in the "key" part of
@@ -348,5 +396,122 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      */
     public function processComma(File $phpcsFile, $commaPtr, $itemNr)
     {
+    }
+
+    /**
+     * Determine what the actual array key would be.
+     *
+     * Optional helper function for processsing array keys in the processKey() function.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the
+     *                                               token was found.
+     * @param int                         $startPtr  The stack pointer to the first token in the "key" part of
+     *                                               an array item.
+     * @param int                         $endPtr    The stack pointer to the last token in the "key" part of
+     *                                               an array item.
+     *
+     * @return string|int|void The string or integer array key or void if the array key could not
+     *                         reliably be determined.
+     */
+    public function getActualArrayKey(File $phpcsFile, $startPtr, $endPtr)
+    {
+        /*
+         * Determine the value of the key.
+         */
+        $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $startPtr, null, true);
+        $lastNonEmpty  = $phpcsFile->findPrevious(Tokens::$emptyTokens, $endPtr, null, true);
+
+        $content = '';
+
+        for ($i = $firstNonEmpty; $i <= $lastNonEmpty; $i++) {
+            if (isset(Tokens::$commentTokens[$this->tokens[$i]['code']]) === true) {
+                continue;
+            }
+
+            if ($this->tokens[$i]['code'] === \T_WHITESPACE) {
+                $content .= ' ';
+                continue;
+            }
+
+            if (isset($this->acceptedTokens[$this->tokens[$i]['code']]) === false) {
+                // This is not a key we can evaluate. Might be a variable or constant.
+                return;
+            }
+
+            // Take PHP 7.4 numeric literal separators into account.
+            if ($this->tokens[$i]['code'] === \T_LNUMBER || $this->tokens[$i]['code'] === \T_DNUMBER) {
+                try {
+                    $number   = Numbers::getCompleteNumber($phpcsFile, $i);
+                    $content .= $number['content'];
+                    $i        = $number['last_token'];
+                } catch (RuntimeException $e) {
+                    // This must be PHP 3.5.3 with the broken backfill. Let's presume it's a ordinary number.
+                    // If it's not, the sniff will bow out on the following T_STRING anyway if the
+                    // backfill was broken.
+                    $content .= \str_replace('_', '', $this->tokens[$i]['content']);
+                }
+                continue;
+            }
+
+            // Account for heredoc with vars.
+            if ($this->tokens[$i]['code'] === \T_START_HEREDOC) {
+                $text = TextStrings::getCompleteTextString($phpcsFile, $i);
+
+                // Check if there's a variable in the heredoc.
+                if (\preg_match('`(?<![\\\\])\$`', $text) === 1) {
+                    return;
+                }
+
+                for ($j = $i; $j <= $this->tokens[$i]['scope_closer']; $j++) {
+                    $content .= $this->tokens[$j]['content'];
+                }
+
+                $i = $this->tokens[$i]['scope_closer'];
+                continue;
+            }
+
+            $content .= $this->tokens[$i]['content'];
+        }
+
+        // The PHP_EOL is to prevent getting parse errors when the key is a heredoc/nowdoc.
+        $key = eval('return ' . $content . ';' . \PHP_EOL);
+
+        /*
+         * Ok, so now we know the base value of the key, let's determine whether it is
+         * an acceptable index key for an array and if not, what it would turn into.
+         */
+
+        $integerKey = false;
+
+        switch (\gettype($key)) {
+            case 'NULL':
+                // An array key of `null` will become an empty string.
+                return '';
+
+            case 'boolean':
+                return ($key === true) ? 1 : 0;
+
+            case 'integer':
+                return $key;
+
+            case 'double':
+                return (int) $key; // Will automatically cut off the decimal part.
+
+            case 'string':
+                if (Numbers::isDecimalInt($key) === true) {
+                    return (int) $key;
+                }
+
+                return $key;
+
+            default:
+                /*
+                 * Shouldn't be possible. Either way, if it's not one of the above types,
+                 * this is not a key we can handle.
+                 */
+                return;
+        }
     }
 }
