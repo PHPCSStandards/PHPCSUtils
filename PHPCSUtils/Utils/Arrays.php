@@ -90,6 +90,30 @@ class Arrays
                     return false;
                 }
             }
+        } else {
+            /*
+             * Deal with short array brackets which may be incorrectly tokenized plain square brackets.
+             */
+            if (\version_compare($phpcsVersion, '2.9.0', '<')) {
+                $opener = $stackPtr;
+                if ($tokens[$stackPtr]['code'] === \T_CLOSE_SHORT_ARRAY) {
+                    $opener = $tokens[$stackPtr]['bracket_opener'];
+                }
+
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS < 2.9.0 where array dereferencing
+                 * of short array and string literals would be incorrectly tokenized as short array.
+                 * I.e. the square brackets in `'PHP'[0]` would be tokenized as short array.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1381
+                 */
+                $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
+                if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
+                    || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
+                ) {
+                    return false;
+                }
+            }
         }
 
         // In all other circumstances, make sure this isn't a short list instead of a short array.
