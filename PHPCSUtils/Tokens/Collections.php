@@ -41,6 +41,27 @@ class Collections
     ];
 
     /**
+     * Tokens which are used to create arrays.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
+     *                                                          for short arrays (cross-version).
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $arrayTokensBC = [
+        \T_ARRAY                => \T_ARRAY,
+        \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY    => \T_CLOSE_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
+        \T_CLOSE_SQUARE_BRACKET => \T_CLOSE_SQUARE_BRACKET,
+    ];
+
+    /**
      * Modifier keywords which can be used for a class declaration.
      *
      * @since 1.0.0
@@ -255,6 +276,26 @@ class Collections
     public static $shortArrayTokens = [
         \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
         \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
+    ];
+
+    /**
+     * Tokens which are used for short arrays.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC Related property containing all tokens used for arrays
+     *                                                    (cross-version).
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $shortArrayTokensBC = [
+        \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY    => \T_CLOSE_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
+        \T_CLOSE_SQUARE_BRACKET => \T_CLOSE_SQUARE_BRACKET,
     ];
 
     /**
