@@ -331,4 +331,18 @@ class Collections
         \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
         \T_CLOSE_SQUARE_BRACKET => \T_CLOSE_SQUARE_BRACKET,
     ];
+
+    /**
+     * Tokens which can start a - potentially multi-line - text string.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $textStingStartTokens = [
+        \T_START_HEREDOC            => \T_START_HEREDOC,
+        \T_START_NOWDOC             => \T_START_NOWDOC,
+        \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
+        \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
+    ];
 }
