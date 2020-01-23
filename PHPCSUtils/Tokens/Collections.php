@@ -25,6 +25,22 @@ class Collections
 {
 
     /**
+     * Tokens which are used to create arrays.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
+     *                                                        for short arrays.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $arrayTokens = [
+        \T_ARRAY             => \T_ARRAY,
+        \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
+    ];
+
+    /**
      * Modifier keywords which can be used for a class declaration.
      *
      * @since 1.0.0
@@ -225,6 +241,20 @@ class Collections
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
         \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
         \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
+    ];
+
+    /**
+     * Tokens which are used for short arrays.
+     *
+     * @since 1.0.0
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$arrayTokens Related property containing all tokens used for arrays.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $shortArrayTokens = [
+        \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
+        \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
     ];
 
     /**
