@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Utils;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
@@ -23,6 +24,17 @@ use PHPCSUtils\Utils\Lists;
  */
 class Arrays
 {
+
+    /**
+     * The tokens to target to find the double arrow in an array item.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    private static $doubleArrowTargets = [
+        \T_DOUBLE_ARROW     => \T_DOUBLE_ARROW,
+        \T_ARRAY            => \T_ARRAY,
+        \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY,
+    ];
 
     /**
      * Determine whether a `T_OPEN/CLOSE_SHORT_ARRAY` token is a short array() construct
@@ -214,6 +226,65 @@ class Arrays
                 'closer' => $closer,
             ];
         }
+
+        return false;
+    }
+
+    /**
+     * Get the stack pointer position of the double arrow within an array item.
+     *
+     * Expects to be passed the array item start and end tokens as retrieved via
+     * {@see \PHPCSUtils\Utils\PassedParameters::getParameters()}.
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
+     * @param int                         $start     Stack pointer to the start of the array item.
+     * @param int                         $end       Stack pointer to the end of the array item (inclusive).
+     *
+     * @return int|false Stack pointer to the double arrow if this array item has a key or false otherwise.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the start or end positions are invalid.
+     */
+    public static function getDoubleArrowPtr(File $phpcsFile, $start, $end)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$start], $tokens[$end]) === false || $start > $end) {
+            throw new RuntimeException(
+                'Invalid start and/or end position passed to getDoubleArrowPtr().'
+                . ' Received: $start ' . $start . ', $end ' . $end
+            );
+        }
+
+        $targets = self::$doubleArrowTargets + Collections::$closedScopes;
+
+        $doubleArrow = ($start - 1);
+        ++$end;
+        do {
+            $doubleArrow = $phpcsFile->findNext(
+                $targets,
+                ($doubleArrow + 1),
+                $end
+            );
+
+            if ($doubleArrow === false) {
+                break;
+            }
+
+            if ($tokens[$doubleArrow]['code'] === \T_DOUBLE_ARROW) {
+                return $doubleArrow;
+            }
+
+            // Skip over closed scopes which may contain foreach structures or generators.
+            if (isset(Collections::$closedScopes[$tokens[$doubleArrow]['code']]) === true
+                && isset($tokens[$doubleArrow]['scope_closer']) === true
+            ) {
+                $doubleArrow = $tokens[$doubleArrow]['scope_closer'];
+                continue;
+            }
+
+            // Start of nested long/short array.
+            break;
+        } while ($doubleArrow < $end);
 
         return false;
     }
