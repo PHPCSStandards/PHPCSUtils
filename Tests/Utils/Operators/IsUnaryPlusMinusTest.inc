@@ -146,6 +146,24 @@ $a =
     /* testSequenceUnaryEnd */
     + /*comment*/ 10;
 
+/* testPHP74NumericLiteralFloatContainingPlus */
+$a = 6.674_083e+11;
+
+/* testPHP74NumericLiteralFloatContainingMinus */
+$a = 6.674_083e-1_1;
+
+/* testPHP74NumericLiteralIntCalc1 */
+$a = 667_083 - 11;
+
+/* testPHP74NumericLiteralIntCalc2 */
+$a = 74_083 + 1_1;
+
+/* testPHP74NumericLiteralFloatCalc1 */
+$a = 6.674_08e3 - 1_1;
+
+/* testPHP74NumericLiteralFloatCalc2 */
+$a = 6.674_08e3 + 11;
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 $a = -
