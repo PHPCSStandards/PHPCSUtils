@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Scopes;
+use PHPCSUtils\Utils\TextStrings;
 
 /**
  * Utility functions for use when examining variables.
@@ -277,7 +278,7 @@ class Variables
             }
 
             // Strip quotes.
-            $content = \preg_replace('`^([\'"])(.*)\1$`Ds', '$2', $content);
+            $content = TextStrings::stripQuotes($content);
         }
 
         return self::isSuperglobalName($content);
