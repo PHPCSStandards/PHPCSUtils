@@ -71,6 +71,24 @@ class HasParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test receiving an expected exception when T_OPEN_SHORT_ARRAY is passed but represents a short list.
+     *
+     * @return void
+     */
+    public function testNotAShortArray()
+    {
+        $this->expectPhpcsException(
+            'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+        );
+
+        $self = $this->getTargetToken(
+            '/* testShortListNotShortArray */',
+            [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+        );
+        PassedParameters::hasParameters(self::$phpcsFile, $self);
+    }
+
+    /**
      * Test correctly identifying whether parameters were passed to a function call or construct.
      *
      * @dataProvider dataHasParameters
