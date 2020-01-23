@@ -1,0 +1,209 @@
+<?php
+/**
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
+ */
+
+namespace PHPCSUtils\Tests\Fixers\SpacesFixer;
+
+use PHPCSUtils\Fixers\SpacesFixer;
+use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+
+/**
+ * Tests for the \PHPCSUtils\Fixers\SpacesFixer::checkAndFix() method.
+ *
+ * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
+ *
+ * @group fixers
+ *
+ * @since 1.0.0
+ */
+class TrailingCommentHandlingTest extends UtilityMethodTestCase
+{
+
+    /**
+     * Expected number of spaces to use for these tests.
+     *
+     * @var int|string
+     */
+    const SPACES = 1;
+
+    /**
+     * Dummy error message phrase to use for the test.
+     *
+     * @var string
+     */
+    const MSG = 'Expected: %s. Found: %s';
+
+    /**
+     * The expected replacement for the first placeholder.
+     *
+     * @var string
+     */
+    const MSG_REPLACEMENT_1 = '1 space';
+
+    /**
+     * Dummy error code to use for the test.
+     *
+     * Using the dummy full error code to force it to record.
+     *
+     * @var string
+     */
+    const CODE = 'PHPCSUtils.SpacerFixer.Test.Found';
+
+    /**
+     * Dummy metric name to use for the test.
+     *
+     * @var string
+     */
+    const METRIC = 'metric name';
+
+    /**
+     * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
+     *
+     * @var array
+     */
+    protected static $selectedSniff = ['PHPCSUtils.SpacerFixer.Test'];
+
+    /**
+     * Test that violations are correctly reported.
+     *
+     * @dataProvider dataCheckAndFix
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     * @param array  $expected   Expected error details.
+     * @param string $type       The message type to test: 'error' or 'warning'.
+     *
+     * @return void
+     */
+    public function testCheckAndFix($testMarker, $expected, $type)
+    {
+        $stackPtr  = $this->getTargetToken($testMarker, \T_COMMENT);
+        $secondPtr = $this->getTargetToken($testMarker, \T_LNUMBER, '3');
+
+        SpacesFixer::checkAndFix(
+            self::$phpcsFile,
+            $stackPtr,
+            $secondPtr,
+            self::SPACES,
+            self::MSG,
+            self::CODE,
+            $type,
+            8
+        );
+
+        if ($type === 'error') {
+            $result = self::$phpcsFile->getErrors();
+        } else {
+            $result = self::$phpcsFile->getWarnings();
+        }
+
+        $tokens = self::$phpcsFile->getTokens();
+
+        if (isset($result[$tokens[$stackPtr]['line']][$tokens[$stackPtr]['column']]) === false) {
+            $this->fail('Expected 1 violation. None found.');
+        }
+
+        $messages = $result[$tokens[$stackPtr]['line']][$tokens[$stackPtr]['column']];
+
+        // Expect one violation.
+        $this->assertCount(1, $messages, 'Expected 1 violation, found: ' . \count($messages));
+
+        /*
+         * Test the violation details.
+         */
+
+        $expectedMessage = \sprintf(self::MSG, self::MSG_REPLACEMENT_1, $expected['found']);
+        $this->assertSame($expectedMessage, $messages[0]['message'], 'Message comparison failed');
+
+        // PHPCS 2.x places `unknownSniff.` before the actual error code for utility tests with a dummy error code.
+        $errorCodeResult = \str_replace('unknownSniff.', '', $messages[0]['source']);
+        $this->assertSame(self::CODE, $errorCodeResult, 'Error code comparison failed');
+
+        $this->assertSame($expected['fixable'], $messages[0]['fixable'], 'Fixability comparison failed');
+
+        // Additional test checking changed severity.
+        $this->assertSame(8, $messages[0]['severity'], 'Severity comparison failed');
+
+        // Check that no metric is recorded.
+        $metrics = self::$phpcsFile->getMetrics();
+        $this->assertFalse(
+            isset($metrics[static::METRIC]['values'][$expected['found']]),
+            'Failed recorded metric check'
+        );
+    }
+
+    /**
+     * Test that the fixes are correctly made.
+     *
+     * @return void
+     */
+    public function testFixesMade()
+    {
+        self::$phpcsFile->fixer->startFile(self::$phpcsFile);
+        self::$phpcsFile->fixer->enabled = true;
+
+        $data = $this->dataCheckAndFix();
+        foreach ($data as $dataset) {
+            $stackPtr  = $this->getTargetToken($dataset[0], \T_COMMENT);
+            $secondPtr = $this->getTargetToken($dataset[0], \T_LNUMBER, '3');
+
+            SpacesFixer::checkAndFix(
+                self::$phpcsFile,
+                $stackPtr,
+                $secondPtr,
+                self::SPACES,
+                self::MSG,
+                self::CODE,
+                $dataset[1]
+            );
+        }
+
+        $fixedFile = __DIR__ . '/TrailingCommentHandlingTest.inc.fixed';
+        $expected  = \file_get_contents($fixedFile);
+        $result    = self::$phpcsFile->fixer->getContents();
+
+        $this->assertSame(
+            $expected,
+            $result,
+            \sprintf(
+                'Fixed version of %s does not match expected version in %s',
+                \basename(self::$caseFile),
+                \basename($fixedFile)
+            )
+        );
+    }
+
+    /**
+     * Data Provider.
+     *
+     * @see testCheckAndFix() For the array format.
+     *
+     * @return array
+     */
+    public function dataCheckAndFix()
+    {
+        return [
+            'trailing-comment-not-fixable' => [
+                '/* testTrailingOpenCommentAsPtrA */',
+                [
+                    'found'   => 'a new line',
+                    'fixable' => false,
+                ],
+                'error',
+            ],
+            'trailing-comment-fixable' => [
+                '/* testTrailingClosedCommentAsPtrA */',
+                [
+                    'found'   => 'a new line',
+                    'fixable' => true,
+                ],
+                'error',
+            ],
+        ];
+    }
+}
