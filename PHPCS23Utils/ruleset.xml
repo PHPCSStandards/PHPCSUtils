@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHPCS23Utils" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+    <description>Standard which makes the PHPCSUtils utility methods for external PHPCS standards available in PHPCS 2.x.</description>
+</ruleset>

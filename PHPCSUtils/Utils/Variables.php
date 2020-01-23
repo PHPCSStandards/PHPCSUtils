@@ -1,0 +1,312 @@
+<?php
+/**
+ * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
+ *
+ * @package   PHPCSUtils
+ * @copyright 2019 PHPCSUtils Contributors
+ * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
+ * @link      https://github.com/PHPCSStandards/PHPCSUtils
+ */
+
+namespace PHPCSUtils\Utils;
+
+use PHP_CodeSniffer\Exceptions\RuntimeException;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\Scopes;
+use PHPCSUtils\Utils\TextStrings;
+
+/**
+ * Utility functions for use when examining variables.
+ *
+ * @since 1.0.0 The `getMemberProperties()` method is based on and inspired by
+ *              the method of the same name in the PHPCS native `File` class.
+ *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ */
+class Variables
+{
+
+    /**
+     * List of PHP Reserved variables.
+     *
+     * The array keys are the variable names without the leading dollar sign, the values indicate
+     * whether the variable is a superglobal or not.
+     *
+     * {@internal The variables names are set without the leading dollar sign to allow this array
+     *            to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
+     *
+     * @since 1.0.0
+     *
+     * @link http://php.net/manual/en/reserved.variables.php
+     *
+     * @var array <string> => <bool>
+     */
+    public static $phpReservedVars = [
+        '_SERVER'              => true,
+        '_GET'                 => true,
+        '_POST'                => true,
+        '_REQUEST'             => true,
+        '_SESSION'             => true,
+        '_ENV'                 => true,
+        '_COOKIE'              => true,
+        '_FILES'               => true,
+        'GLOBALS'              => true,
+        'http_response_header' => false,
+        'argc'                 => false,
+        'argv'                 => false,
+
+        // Deprecated.
+        'php_errormsg'         => false,
+
+        // Removed PHP 5.4.0.
+        'HTTP_SERVER_VARS'     => false,
+        'HTTP_GET_VARS'        => false,
+        'HTTP_POST_VARS'       => false,
+        'HTTP_SESSION_VARS'    => false,
+        'HTTP_ENV_VARS'        => false,
+        'HTTP_COOKIE_VARS'     => false,
+        'HTTP_POST_FILES'      => false,
+
+        // Removed PHP 5.6.0.
+        'HTTP_RAW_POST_DATA'   => false,
+    ];
+
+    /**
+     * Retrieve the visibility and implementation properties of a class member var.
+     *
+     * The format of the return value is:
+     *
+     * <code>
+     *   array(
+     *    'scope'           => string,  // Public, private, or protected.
+     *    'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
+     *    'is_static'       => boolean, // TRUE if the static keyword was found.
+     *    'type'            => string,  // The type of the var (empty if no type specified).
+     *    'type_token'      => integer, // The stack pointer to the start of the type
+     *                                  // or FALSE if there is no type.
+     *    'type_end_token'  => integer, // The stack pointer to the end of the type
+     *                                  // or FALSE if there is no type.
+     *    'nullable_type'   => boolean, // TRUE if the type is nullable.
+     *   );
+     * </code>
+     *
+     * Main differences with the PHPCS version:
+     * - Removed the parse error warning for properties in interfaces.
+     *   This will now throw the same "$stackPtr is not a class member var" runtime exception as
+     *   other non-property variables passed to the method.
+     * - Defensive coding against incorrect calls to this method.
+     *
+     * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
+     * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position in the stack of the T_VARIABLE token to
+     *                                               acquire the properties for.
+     *
+     * @return array
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
+     *                                                      T_VARIABLE token, or if the position is not
+     *                                                      a class member variable.
+     */
+    public static function getMemberProperties(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_VARIABLE) {
+            throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
+        }
+
+        if (Scopes::isOOProperty($phpcsFile, $stackPtr) === false) {
+            throw new RuntimeException('$stackPtr is not a class member var');
+        }
+
+        $valid = Collections::$propertyModifierKeywords + Tokens::$emptyTokens;
+
+        $scope          = 'public';
+        $scopeSpecified = false;
+        $isStatic       = false;
+
+        $startOfStatement = $phpcsFile->findPrevious(
+            [
+                \T_SEMICOLON,
+                \T_OPEN_CURLY_BRACKET,
+                \T_CLOSE_CURLY_BRACKET,
+            ],
+            ($stackPtr - 1)
+        );
+
+        for ($i = ($startOfStatement + 1); $i < $stackPtr; $i++) {
+            if (isset($valid[$tokens[$i]['code']]) === false) {
+                break;
+            }
+
+            switch ($tokens[$i]['code']) {
+                case \T_PUBLIC:
+                    $scope          = 'public';
+                    $scopeSpecified = true;
+                    break;
+                case \T_PRIVATE:
+                    $scope          = 'private';
+                    $scopeSpecified = true;
+                    break;
+                case \T_PROTECTED:
+                    $scope          = 'protected';
+                    $scopeSpecified = true;
+                    break;
+                case \T_STATIC:
+                    $isStatic = true;
+                    break;
+            }
+        }
+
+        $type         = '';
+        $typeToken    = false;
+        $typeEndToken = false;
+        $nullableType = false;
+
+        if ($i < $stackPtr) {
+            // We've found a type.
+            for ($i; $i < $stackPtr; $i++) {
+                if ($tokens[$i]['code'] === \T_VARIABLE) {
+                    // Hit another variable in a group definition.
+                    break;
+                }
+
+                if ($tokens[$i]['type'] === 'T_NULLABLE'
+                    // Handle nullable types in PHPCS < 3.5.0 and for PHP-4 style `var` properties in PHPCS < 3.5.4.
+                    || $tokens[$i]['code'] === \T_INLINE_THEN
+                ) {
+                    $nullableType = true;
+                }
+
+                if (isset(Collections::$propertyTypeTokens[$tokens[$i]['code']]) === true) {
+                    $typeEndToken = $i;
+                    if ($typeToken === false) {
+                        $typeToken = $i;
+                    }
+
+                    $type .= $tokens[$i]['content'];
+                }
+            }
+
+            if ($type !== '' && $nullableType === true) {
+                $type = '?' . $type;
+            }
+        }
+
+        return [
+            'scope'           => $scope,
+            'scope_specified' => $scopeSpecified,
+            'is_static'       => $isStatic,
+            'type'            => $type,
+            'type_token'      => $typeToken,
+            'type_end_token'  => $typeEndToken,
+            'nullable_type'   => $nullableType,
+        ];
+    }
+
+    /**
+     * Verify if a given variable name is the name of a PHP reserved variable.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The full variable name with or without leading dollar sign.
+     *                     This allows for passing an array key variable name, such as
+     *                     '_GET' retrieved from $GLOBALS['_GET'].
+     *                     Note: when passing an array key, string quotes are expected
+     *                     to have been stripped already.
+     *
+     * @return bool
+     */
+    public static function isPHPReservedVarName($name)
+    {
+        if (\strpos($name, '$') === 0) {
+            $name = \substr($name, 1);
+        }
+
+        return (isset(self::$phpReservedVars[$name]) === true);
+    }
+
+    /**
+     * Verify if a given variable or array key token points to a PHP superglobal.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The position in the stack of a T_VARIABLE
+     *                                               token or of the T_CONSTANT_ENCAPSED_STRING
+     *                                               array key to a variable in `$GLOBALS`.
+     *
+     * @return bool True if this points to a superglobal. False when not; or when an unsupported
+     *              token has been passed; or when a T_CONSTANT_ENCAPSED_STRING is not an array
+     *              index key; or when it is, but not an index to the $GLOBALS variable.
+     */
+    public static function isSuperglobal(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_VARIABLE
+                && $tokens[$stackPtr]['code'] !== \T_CONSTANT_ENCAPSED_STRING)
+        ) {
+            return false;
+        }
+
+        $content = $tokens[$stackPtr]['content'];
+
+        if ($tokens[$stackPtr]['code'] === \T_CONSTANT_ENCAPSED_STRING) {
+            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+            $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            if (($prev === false || $tokens[$prev]['code'] !== \T_OPEN_SQUARE_BRACKET)
+                || ($next === false || $tokens[$next]['code'] !== \T_CLOSE_SQUARE_BRACKET)
+            ) {
+                // Not a single string array index key.
+                return false;
+            }
+
+            $pprev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($prev - 1), null, true);
+            if ($pprev === false
+                || $tokens[$pprev]['code'] !== \T_VARIABLE
+                || $tokens[$pprev]['content'] !== '$GLOBALS'
+            ) {
+                // Not accessing the `$GLOBALS` array.
+                return false;
+            }
+
+            // Strip quotes.
+            $content = TextStrings::stripQuotes($content);
+        }
+
+        return self::isSuperglobalName($content);
+    }
+
+    /**
+     * Verify if a given variable name is the name of a PHP superglobal.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The full variable name with or without leading dollar sign.
+     *                     This allows for passing an array key variable name, such as
+     *                     '_GET' retrieved from $GLOBALS['_GET'].
+     *                     Note: when passing an array key, string quotes are expected
+     *                     to have been stripped already.
+     *
+     * @return bool
+     */
+    public static function isSuperglobalName($name)
+    {
+        if (\strpos($name, '$') === 0) {
+            $name = \substr($name, 1);
+        }
+
+        if (isset(self::$phpReservedVars[$name]) === false) {
+            return false;
+        }
+
+        return self::$phpReservedVars[$name];
+    }
+}

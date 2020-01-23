@@ -21,10 +21,59 @@
     },
     "require" : {
         "php" : ">=5.4",
-        "squizlabs/php_codesniffer" : "^2.6.0 || ^3.0.2",
-        "dealerdirect/phpcodesniffer-composer-installer" : "^0.5"
+        "squizlabs/php_codesniffer" : "^2.6.0 || ^3.1.0",
+        "dealerdirect/phpcodesniffer-composer-installer" : "^0.3 || ^0.4.1 || ^0.5 || ^0.6"
     },
     "require-dev" : {
-        "roave/security-advisories" : "dev-master"
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "jakub-onderka/php-console-highlighter": "^0.4",
+        "phpunit/phpunit" : "^4.5 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
+    },
+    "conflict": {
+        "squizlabs/php_codesniffer": "3.5.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "classmap": ["PHPCSUtils/"]
+    },
+    "autoload-dev" : {
+        "psr-4": {
+            "PHPCSUtils\\Tests\\": "Tests/"
+        }
+    },
+    "scripts" : {
+        "lint": [
+            "@php ./vendor/jakub-onderka/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
+        ],
+        "install-devtools": [
+            "composer require phpcsstandards/phpcsdevtools:\"^1.0 || dev-develop\" --no-suggest --update-no-dev"
+        ],
+        "remove-devtools": [
+            "composer remove phpcsstandards/phpcsdevtools --update-no-dev"
+        ],
+        "checkcs": [
+            "@install-devtools",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+            "@remove-devtools"
+        ],
+        "fixcs": [
+            "@install-devtools",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+            "@remove-devtools"
+        ],
+        "travis-checkcs": [
+            "@install-devtools",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+        ],
+        "test": [
+            "@php ./vendor/phpunit/phpunit/phpunit --no-coverage"
+        ],
+        "coverage": [
+            "@php ./vendor/phpunit/phpunit/phpunit"
+        ],
+        "coverage-local": [
+            "@php ./vendor/phpunit/phpunit/phpunit --coverage-html ./build/coverage-html"
+        ]
     }
 }

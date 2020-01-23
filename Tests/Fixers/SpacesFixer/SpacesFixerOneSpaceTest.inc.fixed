@@ -1,0 +1,29 @@
+<?php
+
+/* testNoSpace */
+$foo = array ();
+
+/* testOneSpace */
+$foo = array ();
+
+/* testTwoSpaces */
+$foo = array ();
+
+/* testMultipleSpaces */
+$foo = array ();
+
+/* testNewlineAndTrailingSpaces */
+$foo = array ();
+
+/* testMultipleNewlinesAndSpaces */
+$foo = array ();
+
+/* testCommentNoSpace */
+$foo = array/*comment*/();
+
+/* testCommentAndSpaces */
+$foo = array /*comment*/   ();
+
+/* testCommentAndNewline */
+$foo = array //comment
+    ();
