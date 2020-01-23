@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Utils;
 
+use PHPCSUtils\BackCompat\Helper;
+
 /**
  * Utility functions for checking the orthography of arbitrary text strings.
  *
@@ -97,15 +99,21 @@ class Orthography
      */
     public static function isLastCharPunctuation($string, $allowedChars = self::TERMINAL_POINTS)
     {
+        static $encoding;
+
+        if (isset($encoding) === false) {
+            $encoding = Helper::getConfigData('encoding');
+        }
+
         $string = \rtrim($string);
         if (\function_exists('iconv_substr') === true) {
-            $lastChar = \iconv_substr($string, -1);
+            $lastChar = \iconv_substr($string, -1, 1, $encoding);
         } else {
             $lastChar = \substr($string, -1);
         }
 
         if (\function_exists('iconv_strpos') === true) {
-            return (\iconv_strpos($allowedChars, $lastChar) !== false);
+            return (\iconv_strpos($allowedChars, $lastChar, 0, $encoding) !== false);
         } else {
             return (\strpos($allowedChars, $lastChar) !== false);
         }
