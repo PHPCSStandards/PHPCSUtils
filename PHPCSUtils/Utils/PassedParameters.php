@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
@@ -32,14 +33,16 @@ class PassedParameters
      * @var array <int|string> => <irrelevant>
      */
     private static $allowedConstructs = [
-        \T_STRING           => true,
-        \T_VARIABLE         => true,
-        \T_SELF             => true,
-        \T_STATIC           => true,
-        \T_ARRAY            => true,
-        \T_OPEN_SHORT_ARRAY => true,
-        \T_ISSET            => true,
-        \T_UNSET            => true,
+        \T_STRING              => true,
+        \T_VARIABLE            => true,
+        \T_SELF                => true,
+        \T_STATIC              => true,
+        \T_ARRAY               => true,
+        \T_OPEN_SHORT_ARRAY    => true,
+        \T_ISSET               => true,
+        \T_UNSET               => true,
+        // BC for various short array tokenizer issues. See the Arrays class for more details.
+        \T_OPEN_SQUARE_BRACKET => true,
     ];
 
     /**
@@ -101,13 +104,24 @@ class PassedParameters
             }
         }
 
+        if (($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
+            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET)
+            && Arrays::isShortArray($phpcsFile, $stackPtr) === false
+        ) {
+            throw new RuntimeException(
+                'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+            );
+        }
+
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
         if ($next === false) {
             return false;
         }
 
         // Deal with short array syntax.
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY) {
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
+            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
+        ) {
             if ($next === $tokens[$stackPtr]['bracket_closer']) {
                 // No parameters.
                 return false;
@@ -167,7 +181,9 @@ class PassedParameters
         $tokens = $phpcsFile->getTokens();
 
         // Mark the beginning and end tokens.
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY) {
+        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
+            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
+        ) {
             $opener = $stackPtr;
             $closer = $tokens[$stackPtr]['bracket_closer'];
         } else {

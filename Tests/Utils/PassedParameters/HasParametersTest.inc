@@ -10,6 +10,9 @@ class Foo {
     }
 }
 
+/* testShortListNotShortArray */
+[ $a, $b ] = $array;
+
 // Function calls: no parameters.
 
 /* testNoParamsFunctionCall1 */
