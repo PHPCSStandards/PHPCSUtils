@@ -153,4 +153,68 @@ class Arrays
         // In all other circumstances, make sure this isn't a short list instead of a short array.
         return (Lists::isShortList($phpcsFile, $stackPtr) === false);
     }
+
+    /**
+     * Find the array opener & closer based on a T_ARRAY or T_OPEN_SHORT_ARRAY token.
+     *
+     * This method also accepts `T_OPEN_SQUARE_BRACKET` tokens to allow it to be
+     * PHPCS cross-version compatible as the short array tokenizing has been plagued by
+     * a number of bugs over time, which affects the short array determination.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer_File $phpcsFile    The file being scanned.
+     * @param int                   $stackPtr     The position of the T_ARRAY or T_OPEN_SHORT_ARRAY
+     *                                            token in the stack.
+     * @param true|null             $isShortArray Short-circuit the short array check for T_OPEN_SHORT_ARRAY
+     *                                            tokens if it isn't necessary.
+     *                                            Efficiency tweak for when this has already been established,
+     *                                            i.e. when encountering a nested array while walking the
+     *                                            tokens in an array.
+     *                                            Use with care.
+     *
+     * @return array|false Array with two keys `opener`, `closer` or false if
+     *                     not a (short) array token or if the opener/closer
+     *                     could not be determined.
+     */
+    public static function getOpenClose(File $phpcsFile, $stackPtr, $isShortArray = null)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        // Is this one of the tokens this function handles ?
+        if (isset($tokens[$stackPtr]) === false
+            || isset(Collections::$arrayTokensBC[$tokens[$stackPtr]['code']]) === false
+        ) {
+            return false;
+        }
+
+        switch ($tokens[$stackPtr]['code']) {
+            case \T_ARRAY:
+                if (isset($tokens[$stackPtr]['parenthesis_opener'])) {
+                    $opener = $tokens[$stackPtr]['parenthesis_opener'];
+
+                    if (isset($tokens[$opener]['parenthesis_closer'])) {
+                        $closer = $tokens[$opener]['parenthesis_closer'];
+                    }
+                }
+                break;
+
+            case \T_OPEN_SHORT_ARRAY:
+            case \T_OPEN_SQUARE_BRACKET:
+                if ($isShortArray === true || self::isShortArray($phpcsFile, $stackPtr) === true) {
+                    $opener = $stackPtr;
+                    $closer = $tokens[$stackPtr]['bracket_closer'];
+                }
+                break;
+        }
+
+        if (isset($opener, $closer)) {
+            return [
+                'opener' => $opener,
+                'closer' => $closer,
+            ];
+        }
+
+        return false;
+    }
 }
