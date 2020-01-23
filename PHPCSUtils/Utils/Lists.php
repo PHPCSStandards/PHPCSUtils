@@ -141,4 +141,77 @@ class Lists
 
         return self::isShortList($phpcsFile, $parentOpen);
     }
+
+    /**
+     * Find the list opener & closer based on a T_LIST or T_OPEN_SHORT_ARRAY token.
+     *
+     * This method also accepts `T_OPEN_SQUARE_BRACKET` tokens to allow it to be
+     * PHPCS cross-version compatible as the short array tokenizing has been plagued by
+     * a number of bugs over time, which affects the short list determination.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer_File $phpcsFile   The file being scanned.
+     * @param int                   $stackPtr    The position of the T_LIST or T_OPEN_SHORT_ARRAY
+     *                                           token in the stack.
+     * @param true|null             $isShortList Short-circuit the short list check for T_OPEN_SHORT_ARRAY
+     *                                           tokens if it isn't necessary.
+     *                                           Efficiency tweak for when this has already been established,
+     *                                           i.e. when encountering a nested list while walking the
+     *                                           tokens in a list.
+     *                                           Use with care.
+     *
+     * @return array|false Array with two keys `opener`, `closer` or false if
+     *                     not a (short) list token or if the opener/closer
+     *                     could not be determined.
+     */
+    public static function getOpenClose(File $phpcsFile, $stackPtr, $isShortList = null)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        // Is this one of the tokens this function handles ?
+        if (isset($tokens[$stackPtr]) === false
+            || isset(Collections::$listTokensBC[$tokens[$stackPtr]['code']]) === false
+        ) {
+            return false;
+        }
+
+        switch ($tokens[ $stackPtr ]['code']) {
+            case \T_LIST:
+                if (isset($tokens[$stackPtr]['parenthesis_opener'])) {
+                    // PHPCS 3.5.0.
+                    $opener = $tokens[$stackPtr]['parenthesis_opener'];
+                } else {
+                    // PHPCS < 3.5.0.
+                    $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+                    if ($nextNonEmpty !== false
+                        && $tokens[$nextNonEmpty]['code'] === \T_OPEN_PARENTHESIS
+                    ) {
+                        $opener = $nextNonEmpty;
+                    }
+                }
+
+                if (isset($opener, $tokens[$opener]['parenthesis_closer'])) {
+                    $closer = $tokens[$opener]['parenthesis_closer'];
+                }
+                break;
+
+            case \T_OPEN_SHORT_ARRAY:
+            case \T_OPEN_SQUARE_BRACKET:
+                if ($isShortList === true || self::isShortList($phpcsFile, $stackPtr) === true) {
+                    $opener = $stackPtr;
+                    $closer = $tokens[$stackPtr]['bracket_closer'];
+                }
+                break;
+        }
+
+        if (isset($opener, $closer)) {
+            return [
+                'opener' => $opener,
+                'closer' => $closer,
+            ];
+        }
+
+        return false;
+    }
 }
