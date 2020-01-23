@@ -176,7 +176,7 @@ class Variables
                 }
 
                 if ($tokens[$i]['type'] === 'T_NULLABLE'
-                    // Handle nullable property types in PHPCS < 3.5.0.
+                    // Handle nullable types in PHPCS < 3.5.0 and for PHP-4 style `var` properties in PHPCS < 3.5.4.
                     || $tokens[$i]['code'] === \T_INLINE_THEN
                 ) {
                     $nullableType = true;
