@@ -113,6 +113,22 @@ class Arrays
                 ) {
                     return false;
                 }
+
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 and 2.8.1 where array dereferencing
+                 * of a variable variable would be incorrectly tokenized as short array.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
+                 */
+                if (\version_compare($phpcsVersion, '2.8.0', '>=')
+                    && $tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
+                ) {
+                    $openCurly     = $tokens[$prevNonEmpty]['bracket_opener'];
+                    $beforeCurlies = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($openCurly - 1), null, true);
+                    if ($tokens[$beforeCurlies]['code'] === \T_DOLLAR) {
+                        return false;
+                    }
+                }
             }
         }
 
