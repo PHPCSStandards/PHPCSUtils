@@ -25,6 +25,19 @@ class Collections
 {
 
     /**
+     * Alternative control structure syntax closer keyword tokens.
+     *
+     * @var array <int> => <int>
+     */
+    public static $alternativeControlStructureSyntaxCloserTokens = [
+        \T_ENDIF      => \T_ENDIF,
+        \T_ENDFOR     => \T_ENDFOR,
+        \T_ENDFOREACH => \T_ENDFOREACH,
+        \T_ENDWHILE   => \T_ENDWHILE,
+        \T_ENDSWITCH  => \T_ENDSWITCH,
+    ];
+
+    /**
      * Tokens which are used to create arrays.
      *
      * @since 1.0.0
