@@ -35,6 +35,7 @@ class Collections
         \T_ENDFOREACH => \T_ENDFOREACH,
         \T_ENDWHILE   => \T_ENDWHILE,
         \T_ENDSWITCH  => \T_ENDSWITCH,
+        \T_ENDDECLARE => \T_ENDDECLARE,
     ];
 
     /**
