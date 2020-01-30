@@ -25,6 +25,22 @@ class Collections
 {
 
     /**
+     * Control structures which can use the alternative control structure syntax.
+     *
+     * @var array <int> => <int>
+     */
+    public static $alternativeControlStructureSyntaxTokens = [
+        \T_IF      => \T_IF,
+        \T_ELSEIF  => \T_ELSEIF,
+        \T_ELSE    => \T_ELSE,
+        \T_FOR     => \T_FOR,
+        \T_FOREACH => \T_FOREACH,
+        \T_SWITCH  => \T_SWITCH,
+        \T_WHILE   => \T_WHILE,
+        \T_DECLARE => \T_DECLARE,
+    ];
+
+    /**
      * Alternative control structure syntax closer keyword tokens.
      *
      * @var array <int> => <int>
@@ -107,6 +123,23 @@ class Collections
         \T_TRAIT      => \T_TRAIT,
         \T_FUNCTION   => \T_FUNCTION,
         \T_CLOSURE    => \T_CLOSURE,
+    ];
+
+    /**
+     * Control structure tokens.
+     *
+     * @var array <int> => <int>
+     */
+    public static $controlStructureTokens = [
+        \T_IF      => \T_IF,
+        \T_ELSEIF  => \T_ELSEIF,
+        \T_ELSE    => \T_ELSE,
+        \T_FOR     => \T_FOR,
+        \T_FOREACH => \T_FOREACH,
+        \T_SWITCH  => \T_SWITCH,
+        \T_DO      => \T_DO,
+        \T_WHILE   => \T_WHILE,
+        \T_DECLARE => \T_DECLARE,
     ];
 
     /**
