@@ -1311,7 +1311,8 @@ class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 1.3.0.
-     * - This method has received no significant code updates since PHPCS 2.6.0.
+     * - PHPCS 3.5.4: New `$first` parameter which allows for the closest matching token to be returned.
+     *                By default, it continues to return the first matched token found from the top of the file.
      *
      * @see \PHP_CodeSniffer\Files\File::getCondition()  Original source.
      * @see \PHPCSUtils\Utils\Conditions::getCondition() More versatile alternative.
@@ -1321,13 +1322,40 @@ class BCFile
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      * @param int|string                  $type      The type of token to search for.
+     * @param bool                        $first     If TRUE, will return the matched condition
+     *                                               furthest away from the passed token.
+     *                                               If FALSE, will return the matched condition
+     *                                               closest to the passed token.
      *
      * @return int|false Integer stack pointer to the condition or FALSE if the token
      *                   does not have the condition.
      */
-    public static function getCondition(File $phpcsFile, $stackPtr, $type)
+    public static function getCondition(File $phpcsFile, $stackPtr, $type, $first = true)
     {
-        return $phpcsFile->getCondition($stackPtr, $type);
+        $tokens = $phpcsFile->getTokens();
+
+        // Check for the existence of the token.
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        // Make sure the token has conditions.
+        if (isset($tokens[$stackPtr]['conditions']) === false) {
+            return false;
+        }
+
+        $conditions = $tokens[$stackPtr]['conditions'];
+        if ($first === false) {
+            $conditions = array_reverse($conditions, true);
+        }
+
+        foreach ($conditions as $token => $condition) {
+            if ($condition === $type) {
+                return $token;
+            }
+        }
+
+        return false;
     }
 
     /**
