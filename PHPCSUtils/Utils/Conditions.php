@@ -26,31 +26,34 @@ class Conditions
     /**
      * Retrieve the position of a condition for the passed token.
      *
-     * If no types are specified, the first condition for the token - or if `$reverse=true`,
+     * If no types are specified, the first condition for the token - or if `$first=false`,
      * the last condition - will be returned.
      *
      * Main differences with the PHPCS version:
      * - The singular `$type` parameter has become the more flexible `$types` parameter allowing to
      *   search for several types of conditions in one go.
      * - The `$types` parameter is now optional.
-     * - Addition of the `$reverse` parameter.
      *
      * @see \PHP_CodeSniffer\Files\File::getCondition()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getCondition() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 The `$reverse` parameter has been renamed to `$first` and the meaning of the
+     *                     boolean reversed (true = first, false = last, was: true = last, false = first)
+     *                     to be in line with PHPCS itself which added the `$first` parameter in v 3.5.4
+     *                     to allow for the same/similar functionality as `$reverse` already offered.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      * @param int|string|array            $types     Optional. The type(s) of tokens to search for.
-     * @param bool                        $reverse   Optional. Whether to search for the first (outermost)
-     *                                               (false) or the last (innermost) condition (true) of
+     * @param bool                        $first     Optional. Whether to search for the first (outermost)
+     *                                               (true) or the last (innermost) condition (false) of
      *                                               the specified type(s).
      *
      * @return int|false Integer stack pointer to the condition or FALSE if the token
      *                   does not have the condition.
      */
-    public static function getCondition(File $phpcsFile, $stackPtr, $types = [], $reverse = false)
+    public static function getCondition(File $phpcsFile, $stackPtr, $types = [], $first = true)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -69,7 +72,7 @@ class Conditions
 
         if (empty($types) === true) {
             // No types specified, just return the first/last condition pointer.
-            if ($reverse === true) {
+            if ($first === false) {
                 \end($conditions);
             } else {
                 \reset($conditions);
@@ -78,7 +81,7 @@ class Conditions
             return \key($conditions);
         }
 
-        if ($reverse === true) {
+        if ($first === false) {
             $conditions = \array_reverse($conditions, true);
         }
 
@@ -131,7 +134,7 @@ class Conditions
      */
     public static function getFirstCondition(File $phpcsFile, $stackPtr, $types = [])
     {
-        return self::getCondition($phpcsFile, $stackPtr, $types, false);
+        return self::getCondition($phpcsFile, $stackPtr, $types, true);
     }
 
     /**
@@ -150,6 +153,6 @@ class Conditions
      */
     public static function getLastCondition(File $phpcsFile, $stackPtr, $types = [])
     {
-        return self::getCondition($phpcsFile, $stackPtr, $types, true);
+        return self::getCondition($phpcsFile, $stackPtr, $types, false);
     }
 }
