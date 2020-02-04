@@ -335,11 +335,14 @@ class FunctionDeclarations
      * - More efficient and more stable checking whether a T_USE token is a closure use.
      * - More efficient and more stable looping of the default value.
      * - Clearer exception message when a non-closure use token was passed to the function.
+     * - To allow for backward compatible handling of arrow functions, this method will also accept
+     *   `T_STRING` tokens and examine them to check if these are arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -359,7 +362,7 @@ class FunctionDeclarations
             || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
                 && $tokens[$stackPtr]['code'] !== \T_CLOSURE
                 && $tokens[$stackPtr]['code'] !== \T_USE
-                && $tokens[$stackPtr]['code'] !== \T_FN)
+                && self::isArrowFunction($phpcsFile, $stackPtr) === false)
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
@@ -371,6 +374,15 @@ class FunctionDeclarations
                 || UseStatements::isClosureUse($phpcsFile, $stackPtr) === false
             ) {
                 throw new RuntimeException('$stackPtr was not a valid closure T_USE');
+            }
+        } elseif ($tokens[$stackPtr]['code'] === \T_STRING || $tokens[$stackPtr]['type'] === 'T_FN') {
+            /*
+             * Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+             */
+            $opener = $phpcsFile->findNext((Tokens::$emptyTokens + [\T_BITWISE_AND]), ($stackPtr + 1), null, true);
+            if ($opener === false || $tokens[$opener]['code'] !== \T_OPEN_PARENTHESIS) {
+                // Live coding or syntax error, so no params to find.
+                return [];
             }
         } else {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {

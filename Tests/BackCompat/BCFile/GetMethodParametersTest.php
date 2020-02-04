@@ -96,7 +96,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testNoParams($commentString, $targetTokenType = [T_FUNCTION, T_CLOSURE, T_FN])
+    public function testNoParams($commentString, $targetTokenType = [T_FUNCTION, T_CLOSURE])
     {
         $target = $this->getTargetToken($commentString, $targetTokenType);
         $result = BCFile::getMethodParameters(self::$phpcsFile, $target);
@@ -113,11 +113,20 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      */
     public function dataNoParams()
     {
-        return [
+        $data = [
             'FunctionNoParams'   => ['/* testFunctionNoParams */'],
             'ClosureNoParams'    => ['/* testClosureNoParams */'],
             'ClosureUseNoParams' => ['/* testClosureUseNoParams */', T_USE],
         ];
+
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+
+        $data['ArrowFunctionLiveCoding'] = ['/* testArrowFunctionLiveCoding */', $arrowTokenType];
+
+        return $data;
     }
 
     /**
@@ -448,7 +457,41 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+    }
+
+    /**
+     * Verify that arrow functions are supported.
+     *
+     * @return void
+     */
+    public function testArrowFunctionReturnByRef()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 6, // Offset from the T_FN token.
+            'name'                => '$a',
+            'content'             => '?string $a',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?string',
+            'type_hint_token'     => 4, // Offset from the T_FN token.
+            'type_hint_end_token' => 4, // Offset from the T_FN token.
+            'nullable_type'       => true,
+            'comma_token'         => false,
+        ];
+
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
     }
 
     /**
@@ -891,6 +934,185 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify correctly recognizing all type declarations supported by PHP when used with an arrow function.
+     *
+     * @return void
+     */
+    public function testArrowFunctionWithAllTypes()
+    {
+        $expected     = [];
+        $expected[0]  = [
+            'token'               => 7, // Offset from the T_FN token.
+            'name'                => '$a',
+            'content'             => '?ClassName $a',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?ClassName',
+            'type_hint_token'     => 5, // Offset from the T_FN token.
+            'type_hint_end_token' => 5, // Offset from the T_FN token.
+            'nullable_type'       => true,
+            'comma_token'         => 8, // Offset from the T_FN token.
+        ];
+        $expected[1]  = [
+            'token'               => 13, // Offset from the T_FN token.
+            'name'                => '$b',
+            'content'             => 'self $b',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'self',
+            'type_hint_token'     => 11, // Offset from the T_FN token.
+            'type_hint_end_token' => 11, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 14, // Offset from the T_FN token.
+        ];
+        $expected[2]  = [
+            'token'               => 19, // Offset from the T_FN token.
+            'name'                => '$c',
+            'content'             => 'parent $c',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'parent',
+            'type_hint_token'     => 17, // Offset from the T_FN token.
+            'type_hint_end_token' => 17, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 20, // Offset from the T_FN token.
+        ];
+        $expected[3]  = [
+            'token'               => 25, // Offset from the T_FN token.
+            'name'                => '$d',
+            'content'             => 'object $d',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'object',
+            'type_hint_token'     => 23, // Offset from the T_FN token.
+            'type_hint_end_token' => 23, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 26, // Offset from the T_FN token.
+        ];
+        $expected[4]  = [
+            'token'               => 32, // Offset from the T_FN token.
+            'name'                => '$e',
+            'content'             => '?int $e',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?int',
+            'type_hint_token'     => 30, // Offset from the T_FN token.
+            'type_hint_end_token' => 30, // Offset from the T_FN token.
+            'nullable_type'       => true,
+            'comma_token'         => 33, // Offset from the T_FN token.
+        ];
+        $expected[5]  = [
+            'token'               => 39, // Offset from the T_FN token.
+            'name'                => '$f',
+            'content'             => 'string &$f',
+            'pass_by_reference'   => true,
+            'reference_token'     => 38, // Offset from the T_FN token.
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'string',
+            'type_hint_token'     => 36, // Offset from the T_FN token.
+            'type_hint_end_token' => 36, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 40, // Offset from the T_FN token.
+        ];
+        $expected[6]  = [
+            'token'               => 45, // Offset from the T_FN token.
+            'name'                => '$g',
+            'content'             => 'iterable $g',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'iterable',
+            'type_hint_token'     => 43, // Offset from the T_FN token.
+            'type_hint_end_token' => 43, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 46, // Offset from the T_FN token.
+        ];
+        $expected[7]  = [
+            'token'               => 51, // Offset from the T_FN token.
+            'name'                => '$h',
+            'content'             => 'bool $h = true',
+            'default'             => 'true',
+            'default_token'       => 55, // Offset from the T_FN token.
+            'default_equal_token' => 53, // Offset from the T_FN token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'bool',
+            'type_hint_token'     => 49, // Offset from the T_FN token.
+            'type_hint_end_token' => 49, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 56, // Offset from the T_FN token.
+        ];
+        $expected[8]  = [
+            'token'               => 61, // Offset from the T_FN token.
+            'name'                => '$i',
+            'content'             => 'callable $i = \'is_null\'',
+            'default'             => "'is_null'",
+            'default_token'       => 65, // Offset from the T_FN token.
+            'default_equal_token' => 63, // Offset from the T_FN token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'callable',
+            'type_hint_token'     => 59, // Offset from the T_FN token.
+            'type_hint_end_token' => 59, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 66, // Offset from the T_FN token.
+        ];
+        $expected[9]  = [
+            'token'               => 71, // Offset from the T_FN token.
+            'name'                => '$j',
+            'content'             => 'float $j = 1.1',
+            'default'             => '1.1',
+            'default_token'       => 75, // Offset from the T_FN token.
+            'default_equal_token' => 73, // Offset from the T_FN token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'float',
+            'type_hint_token'     => 69, // Offset from the T_FN token.
+            'type_hint_end_token' => 69, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 76, // Offset from the T_FN token.
+        ];
+        $expected[10] = [
+            'token'               => 82, // Offset from the T_FN token.
+            'name'                => '$k',
+            'content'             => 'array ...$k',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => true,
+            'variadic_token'      => 81, // Offset from the T_FN token.
+            'type_hint'           => 'array',
+            'type_hint_token'     => 79, // Offset from the T_FN token.
+            'type_hint_end_token' => 79, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+    }
+
+    /**
      * Verify handling of a declaration interlaced with whitespace and comments.
      *
      * @return void
@@ -1032,11 +1254,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    protected function getMethodParametersTestHelper(
-        $commentString,
-        $expected,
-        $targetType = [T_FUNCTION, T_CLOSURE, T_FN]
-    ) {
+    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
+    {
         $target = $this->getTargetToken($commentString, $targetType);
         $found  = BCFile::getMethodParameters(self::$phpcsFile, $target);
 

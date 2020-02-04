@@ -39,6 +39,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
  * PHPCS native utility functions.
@@ -244,6 +245,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -262,7 +264,7 @@ class BCFile
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
             && $tokens[$stackPtr]['code'] !== T_USE
-            && $tokens[$stackPtr]['code'] !== T_FN
+            && FunctionDeclarations::isArrowFunction($phpcsFile, $stackPtr) === false
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
@@ -271,6 +273,15 @@ class BCFile
             $opener = $phpcsFile->findNext(T_OPEN_PARENTHESIS, ($stackPtr + 1));
             if ($opener === false || isset($tokens[$opener]['parenthesis_owner']) === true) {
                 throw new RuntimeException('$stackPtr was not a valid T_USE');
+            }
+        } elseif ($tokens[$stackPtr]['code'] === \T_STRING || $tokens[$stackPtr]['type'] === 'T_FN') {
+            /*
+             * Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+             */
+            $opener = $phpcsFile->findNext((Tokens::$emptyTokens + [\T_BITWISE_AND]), ($stackPtr + 1), null, true);
+            if ($opener === false || $tokens[$opener]['code'] !== T_OPEN_PARENTHESIS) {
+                // Live coding or syntax error, so no params to find.
+                return [];
             }
         } else {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {

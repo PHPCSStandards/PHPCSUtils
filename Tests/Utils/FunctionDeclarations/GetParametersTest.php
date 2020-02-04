@@ -88,7 +88,7 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @return void
      */
-    public function testNoParams($commentString, $targetTokenType = [\T_FUNCTION, \T_CLOSURE, \T_FN])
+    public function testNoParams($commentString, $targetTokenType = [\T_FUNCTION, \T_CLOSURE])
     {
         $target = $this->getTargetToken($commentString, $targetTokenType);
         $result = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
@@ -106,11 +106,8 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @return void
      */
-    protected function getMethodParametersTestHelper(
-        $commentString,
-        $expected,
-        $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN]
-    ) {
+    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
+    {
         $target = $this->getTargetToken($commentString, $targetType);
         $found  = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
 

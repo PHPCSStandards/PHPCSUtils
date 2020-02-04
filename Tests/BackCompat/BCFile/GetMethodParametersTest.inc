@@ -56,6 +56,9 @@ function myFunction($a = 10 & 20) {}
 /* testArrowFunction */
 fn(int $a, ...$b) => $b;
 
+/* testArrowFunctionReturnByRef */
+fn&(?string $a) => $b;
+
 /* testArrayDefaultValues */
 function arrayDefaultValues($var1 = [], $var2 = array(1, 2, 3) ) {}
 
@@ -94,6 +97,21 @@ class testAllTypes {
     ) {}
 }
 
+/* testArrowFunctionWithAllTypes */
+$fn = fn(
+    ?ClassName $a,
+    self $b,
+    parent $c,
+    object $d,
+    ?int $e,
+    string &$f,
+    iterable $g,
+    bool $h = true,
+    callable $i = 'is_null',
+    float $j = 1.1,
+    array ...$k
+) => $something;
+
 /* testMessyDeclaration */
 function messyDeclaration(
     // comment
@@ -121,3 +139,7 @@ function() use( $foo, $bar ) {}
 
 /* testInvalidUse */
 function() use {} // Intentional parse error.
+
+/* testArrowFunctionLiveCoding */
+// Intentional parse error. This has to be the last test in the file.
+$fn = fn
