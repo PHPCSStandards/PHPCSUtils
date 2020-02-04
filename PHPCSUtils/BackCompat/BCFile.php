@@ -929,6 +929,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\Operators::isReference() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
@@ -947,7 +948,7 @@ class BCFile
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
         if ($tokens[$tokenBefore]['code'] === T_FUNCTION
-            || $tokens[$tokenBefore]['code'] === T_FN
+            || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
         ) {
             // Function returns a reference.
             return true;
