@@ -32,6 +32,8 @@ class Arrays
      * Note: this array does not contain the `T_FN` token as it may or may not exist.
      * If it exists, it will be added in the `getDoubleArrowPtr()` function.
      *
+     * @since 1.0.0
+     *
      * @var array <int|string> => <int|string>
      */
     private static $doubleArrowTargets = [
