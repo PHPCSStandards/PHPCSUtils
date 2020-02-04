@@ -1167,10 +1167,12 @@ class BCFile
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 2.1.0.
      * - PHPCS 2.6.2: New optional `$ignore` parameter to selectively ignore stop points.
+     * - PHPCS 3.5.5: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::findStartOfStatement() Original source.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
@@ -1209,6 +1211,7 @@ class BCFile
 
             if (isset($tokens[$i]['scope_opener']) === true
                 && $i === $tokens[$i]['scope_closer']
+                && $tokens[$i]['code'] !== T_CLOSE_PARENTHESIS
             ) {
                 // Found the end of the previous scope block.
                 return $lastNotEmpty;
