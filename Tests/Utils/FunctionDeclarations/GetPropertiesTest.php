@@ -61,6 +61,33 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
     }
 
     /**
+     * Test a arrow function live coding/parse error.
+     *
+     * @return void
+     */
+    public function testArrowFunctionLiveCoding()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => '',
+            'return_type_token'    => false,
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => false, // Different from original.
+        ];
+
+        $arrowTokenType = \T_STRING;
+        if (\defined('T_FN') === true) {
+            $arrowTokenType = \T_FN;
+        }
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+    }
+
+    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.
