@@ -42,7 +42,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testNotAFunctionException()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
 
         $next = $this->getTargetToken('/* testNotAFunction */', T_RETURN);
         BCFile::getMethodProperties(self::$phpcsFile, $next);
@@ -379,6 +379,28 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test a static arrow function.
+     *
+     * @return void
+     */
+    public function testArrowFunction()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => 'int',
+            'return_type_token'    => 9, // Offset from the T_FN token.
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => true,
+            'has_body'             => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264
@@ -412,7 +434,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     protected function getMethodPropertiesTestHelper($commentString, $expected)
     {
-        $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE]);
+        $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE, T_FN]);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
         if ($expected['return_type_token'] !== false) {

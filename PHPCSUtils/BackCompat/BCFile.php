@@ -522,6 +522,7 @@ class BCFile
      *                  or `true` otherwise.
      * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getProperties() PHPCSUtils native improved version.
@@ -535,7 +536,7 @@ class BCFile
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_FUNCTION or a T_CLOSURE token.
+     *                                                      T_FUNCTION, T_CLOSURE, or T_FN token.
      */
     public static function getMethodProperties(File $phpcsFile, $stackPtr)
     {
@@ -543,8 +544,9 @@ class BCFile
 
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
+            && $tokens[$stackPtr]['code'] !== T_FN
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
         }
 
         if ($tokens[$stackPtr]['code'] === T_FUNCTION) {
@@ -639,8 +641,14 @@ class BCFile
                 }
             }
 
-            $end     = $phpcsFile->findNext([T_OPEN_CURLY_BRACKET, T_SEMICOLON], $tokens[$stackPtr]['parenthesis_closer']);
-            $hasBody = $tokens[$end]['code'] === T_OPEN_CURLY_BRACKET;
+            if ($tokens[$stackPtr]['code'] === T_FN) {
+                $bodyToken = T_DOUBLE_ARROW;
+            } else {
+                $bodyToken = T_OPEN_CURLY_BRACKET;
+            }
+
+            $end     = $phpcsFile->findNext([$bodyToken, T_SEMICOLON], $tokens[$stackPtr]['parenthesis_closer']);
+            $hasBody = $tokens[$end]['code'] === $bodyToken;
         }
 
         if ($returnType !== '' && $nullableReturnType === true) {
