@@ -45,7 +45,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      */
     public function testUnexpectedTokenException()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
 
         $next = $this->getTargetToken('/* testNotAFunction */', [T_INTERFACE]);
         BCFile::getMethodParameters(self::$phpcsFile, $next);
@@ -96,7 +96,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testNoParams($commentString, $targetTokenType = [T_FUNCTION, T_CLOSURE])
+    public function testNoParams($commentString, $targetTokenType = [T_FUNCTION, T_CLOSURE, T_FN])
     {
         $target = $this->getTargetToken($commentString, $targetTokenType);
         $result = BCFile::getMethodParameters(self::$phpcsFile, $target);
@@ -400,6 +400,47 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'reference_token'     => false,
             'variable_length'     => false,
             'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify that arrow functions are supported.
+     *
+     * @return void
+     */
+    public function testArrowFunction()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4, // Offset from the T_FN token.
+            'name'                => '$a',
+            'content'             => 'int $a',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'int',
+            'type_hint_token'     => 2, // Offset from the T_FN token.
+            'type_hint_end_token' => 2, // Offset from the T_FN token.
+            'nullable_type'       => false,
+            'comma_token'         => 5, // Offset from the T_FN token.
+        ];
+
+        $expected[1] = [
+            'token'               => 8, // Offset from the T_FN token.
+            'name'                => '$b',
+            'content'             => '...$b',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => true,
+            'variadic_token'      => 7, // Offset from the T_FN token.
             'type_hint'           => '',
             'type_hint_token'     => false,
             'type_hint_end_token' => false,
@@ -991,8 +1032,11 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
-    {
+    protected function getMethodParametersTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [T_FUNCTION, T_CLOSURE, T_FN]
+    ) {
         $target = $this->getTargetToken($commentString, $targetType);
         $found  = BCFile::getMethodParameters(self::$phpcsFile, $target);
 

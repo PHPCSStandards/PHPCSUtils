@@ -348,7 +348,8 @@ class FunctionDeclarations
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_FUNCTION, T_CLOSURE, or T_USE.
+     *                                                      type T_FUNCTION, T_CLOSURE, T_USE,
+     *                                                      or T_FN.
      */
     public static function getParameters(File $phpcsFile, $stackPtr)
     {
@@ -357,9 +358,10 @@ class FunctionDeclarations
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
                 && $tokens[$stackPtr]['code'] !== \T_CLOSURE
-                && $tokens[$stackPtr]['code'] !== \T_USE)
+                && $tokens[$stackPtr]['code'] !== \T_USE
+                && $tokens[$stackPtr]['code'] !== \T_FN)
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
 
         if ($tokens[$stackPtr]['code'] === \T_USE) {

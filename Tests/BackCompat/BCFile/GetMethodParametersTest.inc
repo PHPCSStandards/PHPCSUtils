@@ -53,6 +53,9 @@ function defaultValues($var1=1, $var2='value') {}
 /* testBitwiseAndConstantExpressionDefaultValue */
 function myFunction($a = 10 & 20) {}
 
+/* testArrowFunction */
+fn(int $a, ...$b) => $b;
+
 /* testArrayDefaultValues */
 function arrayDefaultValues($var1 = [], $var2 = array(1, 2, 3) ) {}
 

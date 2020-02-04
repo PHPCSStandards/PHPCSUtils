@@ -54,7 +54,7 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     public function testUnexpectedTokenException()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
 
         $next = $this->getTargetToken('/* testNotAFunction */', [\T_INTERFACE]);
         FunctionDeclarations::getParameters(self::$phpcsFile, $next);
@@ -88,7 +88,7 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @return void
      */
-    public function testNoParams($commentString, $targetTokenType = [\T_FUNCTION, \T_CLOSURE])
+    public function testNoParams($commentString, $targetTokenType = [\T_FUNCTION, \T_CLOSURE, \T_FN])
     {
         $target = $this->getTargetToken($commentString, $targetTokenType);
         $result = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
@@ -106,8 +106,11 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @return void
      */
-    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
-    {
+    protected function getMethodParametersTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN]
+    ) {
         $target = $this->getTargetToken($commentString, $targetType);
         $found  = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
 

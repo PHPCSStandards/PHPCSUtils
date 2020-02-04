@@ -238,6 +238,7 @@ class BCFile
      *                  be set in a "variadic_token" array index.
      * - PHPCS 3.5.3: Fixed a bug where the "type_hint_end_token" array index for a type hinted
      *                parameter would bleed through to the next (non-type hinted) parameter.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
@@ -251,7 +252,8 @@ class BCFile
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_FUNCTION, T_CLOSURE, or T_USE.
+     *                                                      type T_FUNCTION, T_CLOSURE, T_USE,
+     *                                                      or T_FN.
      */
     public static function getMethodParameters(File $phpcsFile, $stackPtr)
     {
@@ -260,8 +262,9 @@ class BCFile
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
             && $tokens[$stackPtr]['code'] !== T_USE
+            && $tokens[$stackPtr]['code'] !== T_FN
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
 
         if ($tokens[$stackPtr]['code'] === T_USE) {
