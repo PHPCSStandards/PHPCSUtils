@@ -1244,6 +1244,8 @@ class BCFile
      * - PHPCS 2.7.1: Improved handling of short arrays, PHPCS #1203.
      * - PHPCS 3.3.0: Bug fix: end of statement detection when passed a scope opener, PHPCS #1863.
      * - PHPCS 3.5.0: Improved handling of group use statements.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
+     * - PHPCS 3.5.4: Improved support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::findEndOfStatement() Original source.
      *
@@ -1302,6 +1304,11 @@ class BCFile
                 && ($i === $tokens[$i]['scope_opener']
                 || $i === $tokens[$i]['scope_condition'])
             ) {
+                if ($tokens[$i]['code'] === T_FN) {
+                    $i = ($tokens[$i]['scope_closer'] - 1);
+                    continue;
+                }
+
                 if ($i === $start && isset(Tokens::$scopeOpeners[$tokens[$i]['code']]) === true) {
                     return $tokens[$i]['scope_closer'];
                 }

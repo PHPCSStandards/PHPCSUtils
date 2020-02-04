@@ -179,4 +179,48 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
         $tokens = self::$phpcsFile->getTokens();
         $this->assertSame($tokens[($start + 23)], $tokens[$found]);
     }
+
+    /**
+     * Test arrow function as array value.
+     *
+     * @return void
+     */
+    public function testArrowFunctionArrayValue()
+    {
+        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testArrowFunctionArrayValue */') + 7);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $tokens = self::$phpcsFile->getTokens();
+        $this->assertSame($tokens[($start + 9)], $tokens[$found]);
+    }
+
+    /**
+     * Test static arrow function.
+     *
+     * @return void
+     */
+    public function testStaticArrowFunction()
+    {
+        $static = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testStaticArrowFunction */') + 2);
+        $fn     = self::$phpcsFile->findNext(T_FN, ($static + 1));
+
+        $endOfStatementStatic = BCFile::findEndOfStatement(self::$phpcsFile, $static);
+        $endOfStatementFn     = BCFile::findEndOfStatement(self::$phpcsFile, $fn);
+
+        $this->assertSame($endOfStatementFn, $endOfStatementStatic);
+    }
+
+    /**
+     * Test arrow function with return value.
+     *
+     * @return void
+     */
+    public function testArrowFunctionReturnValue()
+    {
+        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testArrowFunctionReturnValue */') + 2);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $tokens = self::$phpcsFile->getTokens();
+        $this->assertSame(($start + 18), $found);
+    }
 }
