@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPCSUtils\Utils\Lists;
 
 /**
@@ -28,12 +29,16 @@ class Arrays
     /**
      * The tokens to target to find the double arrow in an array item.
      *
+     * Note: this array does not contain the `T_FN` token as it may or may not exist.
+     * If it exists, it will be added in the `getDoubleArrowPtr()` function.
+     *
      * @var array <int|string> => <int|string>
      */
     private static $doubleArrowTargets = [
         \T_DOUBLE_ARROW     => \T_DOUBLE_ARROW,
         \T_ARRAY            => \T_ARRAY,
         \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY,
+        \T_STRING           => \T_STRING, // BC for T_FN token in PHPCS < 3.5.3 icw PHP < 7.4.
     ];
 
     /**
@@ -236,6 +241,9 @@ class Arrays
      * Expects to be passed the array item start and end tokens as retrieved via
      * {@see \PHPCSUtils\Utils\PassedParameters::getParameters()}.
      *
+     * @since 1.0.0
+     * @since 1.0.0-alpha2 Now allows for arrow functions in arrays.
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
      * @param int                         $start     Stack pointer to the start of the array item.
      * @param int                         $end       Stack pointer to the end of the array item (inclusive).
@@ -256,6 +264,9 @@ class Arrays
         }
 
         $targets = self::$doubleArrowTargets + Collections::$closedScopes;
+        if (\defined('T_FN') === true) {
+            $targets[\T_FN] = \T_FN;
+        }
 
         $doubleArrow = ($start - 1);
         ++$end;
@@ -282,7 +293,15 @@ class Arrays
                 continue;
             }
 
-            // Start of nested long/short array.
+            // BC for PHP 7.4 arrow functions with PHPCS < 3.5.3.
+            if ($tokens[$doubleArrow]['code'] === \T_STRING
+                && FunctionDeclarations::isArrowFunction($phpcsFile, $doubleArrow) === false
+            ) {
+                // Not an arrow function, continue looking.
+                continue;
+            }
+
+            // Start of nested long/short array or arrow function.
             break;
         } while ($doubleArrow < $end);
 
