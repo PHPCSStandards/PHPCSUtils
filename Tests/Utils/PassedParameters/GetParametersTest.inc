@@ -96,6 +96,13 @@ $array = [
     },
 ];
 
+/* testLongArrayArrowFunctionWithYield */
+$array = array(
+          1 => '1',
+          2 => fn ($x) => yield 'a' => $x,
+          3 => '3',
+         );
+
 /* testVariableFunctionCall */
 $closure($a, (1 + 20), $a & $b );
 
