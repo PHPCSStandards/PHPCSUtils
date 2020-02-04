@@ -80,7 +80,9 @@ class Operators
 
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
-        if ($tokens[$tokenBefore]['code'] === \T_FUNCTION) {
+        if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
+            || $tokens[$tokenBefore]['code'] === \T_FN
+        ) {
             // Function returns a reference.
             return true;
         }
