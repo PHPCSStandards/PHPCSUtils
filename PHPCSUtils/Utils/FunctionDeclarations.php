@@ -533,6 +533,264 @@ class FunctionDeclarations
     }
 
     /**
+     * Check if an arbitrary token is a PHP 7.4 arrow function keyword token.
+     *
+     * Helper function for backward-compatibility with PHP < 7.4 in combination with PHPCS < 3.5.3/4
+     * in which the `T_FN` token is not yet backfilled.
+     *
+     * Note: While this function can determine whether a token should be regarded as `T_FN`, if the
+     * token isn't a PHP native `T_FN` or backfilled `T_FN` token, the token will still not have
+     * the `parenthesis_owner`, `parenthesis_opener`, `parenthesis_closer`, `scope_owner`
+     * `scope_opener` or `scope_closer` keys assigned in the tokens array.
+     * Use the `FunctionDeclarations::getArrowFunctionOpenClose()` utility method to retrieve
+     * these when they're needed.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The token to check. Typically a T_FN or
+     *                                               T_STRING token as those are the only two
+     *                                               tokens which can be the arrow function keyword.
+     *
+     * @return bool
+     */
+    public static function isArrowFunction(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['type'] === 'T_FN') {
+            // Either PHP 7.4 or PHPCS 3.5.3+. Check if this is not a real function called "fn".
+            $prevNonEmpty = $phpcsFile->findPrevious(
+                Tokens::$emptyTokens + [\T_BITWISE_AND],
+                ($stackPtr - 1),
+                null,
+                true
+            );
+            if ($tokens[$prevNonEmpty]['code'] === \T_FUNCTION) {
+                return false;
+            }
+
+            return true;
+        }
+
+        if (\defined('T_FN') === true) {
+            // If the token exists and isn't used, it's not an arrow function.
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_STRING
+            || \strtolower($tokens[$stackPtr]['content']) !== 'fn'
+        ) {
+            return false;
+        }
+
+        $nextNonEmpty = $phpcsFile->findNext((Tokens::$emptyTokens + [\T_BITWISE_AND]), ($stackPtr + 1), null, true);
+        if ($nextNonEmpty === false
+            || ($tokens[$nextNonEmpty]['code'] === \T_OPEN_PARENTHESIS
+            // Make sure it is not a real function called "fn".
+            && (isset($tokens[$nextNonEmpty]['parenthesis_owner']) === false
+            || $tokens[$tokens[$nextNonEmpty]['parenthesis_owner']]['code'] !== \T_FUNCTION))
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve the parenthesis opener, parenthesis closer, the scope opener and the scope closer
+     * for an arrow function.
+     *
+     * Helper function for backward-compatibility with PHP < 7.4 in combination with PHPCS < 3.5.3/4
+     * in which the `T_FN` token is not yet backfilled and does not have parenthesis opener/closer
+     * nor scope opener/closer indexes assigned in the `$tokens` array.
+     *
+     * Note: The backfill in PHPCS 3.5.3 is incomplete and this function will - in a limited set of
+     * circumstances - not work on PHPCS 3.5.3.
+     * As PHPCS 3.5.3 is not supported by PHPCSUtils due to the broken PHP 7.4 numeric literals backfill
+     * anyway, this will not be fixed.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
+     * @param int                         $stackPtr  The token to retrieve the opener/closers for.
+     *                                               Typically a T_FN or T_STRING token as those are the
+     *                                               only two tokens which can be the arrow function keyword.
+     *
+     * @return array An array with the token pointers or an empty array if this is not an arrow function.
+     *               The format of the return value is:
+     *               <code>
+     *               array(
+     *                 'parenthesis_opener' => integer|false, // Stack pointer or false if undetermined.
+     *                 'parenthesis_closer' => integer|false, // Stack pointer or false if undetermined.
+     *                 'scope_opener'       => integer|false, // Stack pointer or false if undetermined.
+     *                 'scope_closer'       => integer|false, // Stack pointer or false if undetermined.
+     *               )
+     *               </code>
+     */
+    public static function getArrowFunctionOpenClose(File $phpcsFile, $stackPtr)
+    {
+        if (self::isArrowFunction($phpcsFile, $stackPtr) === false) {
+            return [];
+        }
+
+        $returnValue = [
+            'parenthesis_opener' => false,
+            'parenthesis_closer' => false,
+            'scope_opener'       => false,
+            'scope_closer'       => false,
+        ];
+
+        $tokens = $phpcsFile->getTokens();
+
+        if ($tokens[$stackPtr]['type'] === 'T_FN'
+            && \version_compare(Helper::getVersion(), '3.5.3', '>=') === true
+        ) {
+            if (isset($tokens[$stackPtr]['parenthesis_opener']) === true) {
+                $returnValue['parenthesis_opener'] = $tokens[$stackPtr]['parenthesis_opener'];
+            }
+
+            if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
+                $returnValue['parenthesis_closer'] = $tokens[$stackPtr]['parenthesis_closer'];
+            }
+
+            if (isset($tokens[$stackPtr]['scope_opener']) === true) {
+                $returnValue['scope_opener'] = $tokens[$stackPtr]['scope_opener'];
+            }
+
+            if (isset($tokens[$stackPtr]['scope_closer']) === true) {
+                $returnValue['scope_closer'] = $tokens[$stackPtr]['scope_closer'];
+            }
+
+            return $returnValue;
+        }
+
+        /*
+         * Either a T_STRING token pre-PHP 7.4, or T_FN on PHP 7.4, in combination with PHPCS < 3.5.3.
+         * Now see about finding the relevant arrow function tokens.
+         */
+        $nextNonEmpty = $phpcsFile->findNext(
+            (Tokens::$emptyTokens + [\T_BITWISE_AND]),
+            ($stackPtr + 1),
+            null,
+            true
+        );
+        if ($nextNonEmpty === false || $tokens[$nextNonEmpty]['code'] !== \T_OPEN_PARENTHESIS) {
+            return $returnValue;
+        }
+
+        $returnValue['parenthesis_opener'] = $nextNonEmpty;
+        if (isset($tokens[$nextNonEmpty]['parenthesis_closer']) === false) {
+            return $returnValue;
+        }
+
+        $returnValue['parenthesis_closer'] = $tokens[$nextNonEmpty]['parenthesis_closer'];
+
+        $ignore                 = Tokens::$emptyTokens;
+        $ignore                += Collections::$returnTypeTokens;
+        $ignore[\T_COLON]       = \T_COLON;
+        $ignore[\T_INLINE_ELSE] = \T_INLINE_ELSE; // PHPCS < 2.9.1.
+        $ignore[\T_INLINE_THEN] = \T_INLINE_THEN; // PHPCS < 2.9.1.
+
+        if (\defined('T_NULLABLE') === true) {
+            $ignore[\T_NULLABLE] = \T_NULLABLE;
+        }
+
+        $arrow = $phpcsFile->findNext(
+            $ignore,
+            ($tokens[$nextNonEmpty]['parenthesis_closer'] + 1),
+            null,
+            true
+        );
+
+        if ($arrow === false
+            || $tokens[$arrow]['code'] !== \T_DOUBLE_ARROW
+        ) {
+            return $returnValue;
+        }
+
+        $returnValue['scope_opener'] = $arrow;
+
+        $endTokens = [
+            \T_COLON                => true,
+            \T_COMMA                => true,
+            \T_SEMICOLON            => true,
+            \T_CLOSE_PARENTHESIS    => true,
+            \T_CLOSE_SQUARE_BRACKET => true,
+            \T_CLOSE_CURLY_BRACKET  => true,
+            \T_CLOSE_SHORT_ARRAY    => true,
+            \T_OPEN_TAG             => true,
+            \T_CLOSE_TAG            => true,
+        ];
+
+        $inTernary = false;
+
+        for ($scopeCloser = ($arrow + 1); $scopeCloser < $phpcsFile->numTokens; $scopeCloser++) {
+            if (isset($endTokens[$tokens[$scopeCloser]['code']]) === true
+                && ($tokens[$scopeCloser]['code'] !== \T_COLON || $inTernary === false)
+            ) {
+                break;
+            }
+
+            if ($tokens[$scopeCloser]['type'] === 'T_FN'
+                || ($tokens[$scopeCloser]['code'] === \T_STRING
+                && $tokens[$scopeCloser]['content'] === 'fn')
+            ) {
+                $nested = self::getArrowFunctionOpenClose($phpcsFile, $scopeCloser);
+                if (isset($nested['scope_closer']) && $nested['scope_closer'] !== false) {
+                    // We minus 1 here in case the closer can be shared with us.
+                    $scopeCloser = ($nested['scope_closer'] - 1);
+                    continue;
+                }
+            }
+
+            if (isset($tokens[$scopeCloser]['scope_closer']) === true
+                && $tokens[$scopeCloser]['code'] !== \T_INLINE_ELSE
+            ) {
+                // We minus 1 here in case the closer can be shared with us.
+                $scopeCloser = ($tokens[$scopeCloser]['scope_closer'] - 1);
+                continue;
+            }
+
+            if (isset($tokens[$scopeCloser]['parenthesis_closer']) === true) {
+                $scopeCloser = $tokens[$scopeCloser]['parenthesis_closer'];
+                continue;
+            }
+
+            if (isset($tokens[$scopeCloser]['bracket_closer']) === true) {
+                $scopeCloser = $tokens[$scopeCloser]['bracket_closer'];
+                continue;
+            }
+
+            if ($tokens[$scopeCloser]['code'] === \T_INLINE_THEN) {
+                $inTernary = true;
+                continue;
+            }
+
+            if ($tokens[$scopeCloser]['code'] === \T_INLINE_ELSE) {
+                if ($inTernary === false) {
+                    break;
+                }
+
+                $inTernary = false;
+            }
+        }
+
+        if ($scopeCloser !== $phpcsFile->numTokens) {
+            $returnValue['scope_closer'] = $scopeCloser;
+        }
+
+        return $returnValue;
+    }
+
+    /**
      * Checks if a given function is a PHP magic function.
      *
      * @todo Add check for the function declaration being namespaced!
