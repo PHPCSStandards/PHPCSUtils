@@ -308,7 +308,8 @@ class Collections
         \T_PARENT       => \T_PARENT,
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
         \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
-        \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
+        \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0 / PHPCS < 3.5.3 for arrow functions.
+        \T_ARRAY        => \T_ARRAY, // PHPCS < 3.5.4 for select arrow functions.
     ];
 
     /**
