@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -166,11 +167,14 @@ class FunctionDeclarations
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
      * - New `return_type_end_token` (int|false) array index.
+     * - To allow for backward compatible handling of arrow functions, this method will also accept
+     *   `T_STRING` tokens and examine them to check if these are arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -183,12 +187,13 @@ class FunctionDeclarations
      */
     public static function getProperties(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
+        $tokens         = $phpcsFile->getTokens();
+        $arrowOpenClose = self::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
 
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
                 && $tokens[$stackPtr]['code'] !== \T_CLOSURE
-                && $tokens[$stackPtr]['code'] !== \T_FN)
+                && $arrowOpenClose === [])
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
         }
@@ -243,13 +248,24 @@ class FunctionDeclarations
         $nullableReturnType = false;
         $hasBody            = false;
 
+        $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
+            $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
+        } elseif ($arrowOpenClose !== [] && $arrowOpenClose['parenthesis_closer'] !== false) {
+            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+            $parenthesisCloser = $arrowOpenClose['parenthesis_closer'];
+        }
+
+        if (isset($parenthesisCloser) === true) {
             $scopeOpener = null;
             if (isset($tokens[$stackPtr]['scope_opener']) === true) {
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+            } elseif ($arrowOpenClose !== [] && $arrowOpenClose['scope_opener'] !== false) {
+                // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+                $scopeOpener = $arrowOpenClose['scope_opener'];
             }
 
-            for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
+            for ($i = $parenthesisCloser; $i < $phpcsFile->numTokens; $i++) {
                 if ($i === $scopeOpener) {
                     // End of function definition.
                     $hasBody = true;
@@ -264,6 +280,9 @@ class FunctionDeclarations
                 if ($tokens[$i]['type'] === 'T_NULLABLE'
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (\defined('T_NULLABLE') === false && $tokens[$i]['code'] === \T_INLINE_THEN)
+                    // Handle nullable tokens with arrow functions in PHPCS 2.8.0 - 2.9.0.
+                    || ($arrowOpenClose !== [] && $tokens[$i]['code'] === \T_INLINE_THEN
+                        && \version_compare(Helper::getVersion(), '2.9.1', '<') === true)
                 ) {
                     $nullableReturnType = true;
                 }

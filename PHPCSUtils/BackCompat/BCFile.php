@@ -38,6 +38,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
@@ -528,6 +529,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -540,11 +542,12 @@ class BCFile
      */
     public static function getMethodProperties(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
+        $tokens         = $phpcsFile->getTokens();
+        $arrowOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
 
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
-            && $tokens[$stackPtr]['code'] !== T_FN
+            && $arrowOpenClose === []
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
         }
@@ -611,13 +614,24 @@ class BCFile
         $nullableReturnType = false;
         $hasBody            = true;
 
+        $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
+            $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
+        } elseif ($arrowOpenClose !== [] && $arrowOpenClose['parenthesis_closer'] !== false) {
+            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+            $parenthesisCloser = $arrowOpenClose['parenthesis_closer'];
+        }
+
+        if (isset($parenthesisCloser) === true) {
             $scopeOpener = null;
             if (isset($tokens[$stackPtr]['scope_opener']) === true) {
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+            } elseif ($arrowOpenClose !== [] && $arrowOpenClose['scope_opener'] !== false) {
+                // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+                $scopeOpener = $arrowOpenClose['scope_opener'];
             }
 
-            for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
+            for ($i = $parenthesisCloser; $i < $phpcsFile->numTokens; $i++) {
                 if (($scopeOpener === null && $tokens[$i]['code'] === T_SEMICOLON)
                     || ($scopeOpener !== null && $i === $scopeOpener)
                 ) {
@@ -628,6 +642,9 @@ class BCFile
                 if ($tokens[$i]['type'] === 'T_NULLABLE'
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (defined('T_NULLABLE') === false && $tokens[$i]['code'] === T_INLINE_THEN)
+                    // Handle nullable tokens with arrow functions in PHPCS 2.8.0 - 2.9.0.
+                    || ($arrowOpenClose !== [] && $tokens[$i]['code'] === T_INLINE_THEN
+                        && version_compare(Helper::getVersion(), '2.9.1', '<') === true)
                 ) {
                     $nullableReturnType = true;
                 }
@@ -641,14 +658,17 @@ class BCFile
                 }
             }
 
-            if ($tokens[$stackPtr]['code'] === T_FN) {
-                $bodyToken = T_DOUBLE_ARROW;
-            } else {
-                $bodyToken = T_OPEN_CURLY_BRACKET;
+            $bodyTokens = [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET];
+            if ($arrowOpenClose !== []) {
+                $bodyTokens = [T_DOUBLE_ARROW => T_DOUBLE_ARROW];
+                if (defined('T_FN_ARROW') === true) {
+                    // PHPCS 3.5.3+.
+                    $bodyTokens = [T_FN_ARROW => T_FN_ARROW];
+                }
             }
 
-            $end     = $phpcsFile->findNext([$bodyToken, T_SEMICOLON], $tokens[$stackPtr]['parenthesis_closer']);
-            $hasBody = $tokens[$end]['code'] === $bodyToken;
+            $end     = $phpcsFile->findNext(($bodyTokens + [T_SEMICOLON]), $parenthesisCloser);
+            $hasBody = isset($bodyTokens[$tokens[$end]['code']]);
         }
 
         if ($returnType !== '' && $nullableReturnType === true) {

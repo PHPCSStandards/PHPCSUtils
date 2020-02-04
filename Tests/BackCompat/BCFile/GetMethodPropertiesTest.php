@@ -21,6 +21,7 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -397,7 +398,12 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
     }
 
     /**
@@ -425,16 +431,109 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test handling of incorrect tokenization of array return type declarations for arrow functions
+     * in a very specific code sample in PHPCS < 3.5.4.
+     *
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2773
+     *
+     * @return void
+     */
+    public function testArrowFunctionArrayReturnValue()
+    {
+        // Skip this test on unsupported PHPCS versions.
+        if (\version_compare(Helper::getVersion(), '3.5.3', '==') === true) {
+            $this->markTestSkipped(
+                'PHPCS 3.5.3 is not supported for this specific test due to a buggy arrow functions backfill.'
+            );
+        }
+
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => 'array',
+            'return_type_token'    => 5, // Offset from the T_FN token.
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+    }
+
+    /**
+     * Test handling of an arrow function returning by reference.
+     *
+     * @return void
+     */
+    public function testArrowFunctionReturnByRef()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => '?string',
+            'return_type_token'    => 12,
+            'nullable_return_type' => true,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+    }
+
+    /**
+     * Test an arrow function live coding/parse error.
+     *
+     * @return void
+     */
+    public function testArrowFunctionLiveCoding()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => '',
+            'return_type_token'    => false,
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $arrowTokenType = T_STRING;
+        if (defined('T_FN') === true) {
+            $arrowTokenType = T_FN;
+        }
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+    }
+
+    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.
      * @param array  $expected      The expected function output.
+     * @param array  $targetType    Optional. The token type to search for after $commentString.
+     *                              Defaults to the function/closure tokens.
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected)
+    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
     {
-        $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE, T_FN]);
+        $function = $this->getTargetToken($commentString, $targetType);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
         if ($expected['return_type_token'] !== false) {
