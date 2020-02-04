@@ -173,6 +173,10 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testClassWithCommentsAndNewLines */',
                 'ClassWithCommentsAndNewLines',
             ],
+            'function-named-fn' => [
+                '/* testFunctionFn */',
+                'fn',
+            ],
         ];
     }
 }

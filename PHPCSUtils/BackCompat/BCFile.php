@@ -96,6 +96,8 @@ class BCFile
      * - PHPCS 3.0.0: Added support for ES6 class/method syntax.
      * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.3: Allow for functions to be called `fn` for backwards compatibility.
+     *                Related to PHP 7.4 T_FN arrow functions.
      *
      * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
      *       this method will be accepted for JS files.
@@ -155,7 +157,9 @@ class BCFile
 
         $content = null;
         for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
-            if ($tokens[$i]['code'] === T_STRING) {
+            if ($tokens[$i]['code'] === T_STRING
+                || $tokens[$i]['code'] === T_FN
+            ) {
                 /*
                  * BC: In PHPCS 2.6.0, in case of live coding, the last token in a file will be tokenized
                  * as T_STRING, but won't have the `content` index set.
