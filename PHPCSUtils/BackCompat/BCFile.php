@@ -1250,6 +1250,7 @@ class BCFile
      * @see \PHP_CodeSniffer\Files\File::findEndOfStatement() Original source.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
@@ -1304,7 +1305,8 @@ class BCFile
                 && ($i === $tokens[$i]['scope_opener']
                 || $i === $tokens[$i]['scope_condition'])
             ) {
-                if ($tokens[$i]['code'] === T_FN) {
+                if ($tokens[$i]['type'] === 'T_FN') {
+                    // Minus 1 as the closer can be shared.
                     $i = ($tokens[$i]['scope_closer'] - 1);
                     continue;
                 }
@@ -1326,6 +1328,19 @@ class BCFile
                 $end = $phpcsFile->findNext(T_CLOSE_USE_GROUP, ($i + 1));
                 if ($end !== false) {
                     $i = $end;
+                }
+            } elseif ($tokens[$i]['code'] === T_STRING || $tokens[$i]['type'] === 'T_FN') {
+                // Potentially a PHP 7.4 arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/3.5.4.
+                $arrowFunctionOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $i);
+                if ($arrowFunctionOpenClose !== []
+                    && $arrowFunctionOpenClose['scope_closer'] !== false
+                ) {
+                    if ($i === $start) {
+                        return $arrowFunctionOpenClose['scope_closer'];
+                    }
+
+                    // Minus 1 as the closer can be shared.
+                    $i = ($arrowFunctionOpenClose['scope_closer'] - 1);
                 }
             }
 
