@@ -107,6 +107,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the declaration token
@@ -158,7 +159,7 @@ class BCFile
         $content = null;
         for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['code'] === T_STRING
-                || $tokens[$i]['code'] === T_FN
+                || $tokens[$i]['type'] === 'T_FN'
             ) {
                 /*
                  * BC: In PHPCS 2.6.0, in case of live coding, the last token in a file will be tokenized
