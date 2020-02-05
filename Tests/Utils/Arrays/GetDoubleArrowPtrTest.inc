@@ -71,4 +71,13 @@ $array = [
 
     /* testArrowKeyClosureYieldWithKey */
     function() { yield 'k' => $x }() => 'value',
+
+    /* testFnFunctionWithKey */
+    'fn' => fn ($x) => yield 'k' => $x,
+
+    /* testNoArrowValueFnFunction */
+    fn ($x) => yield 'k' => $x,
+
+    /* testTstringKeyNotFnFunction */
+    CONSTANT_NAME => 'value',
 ];

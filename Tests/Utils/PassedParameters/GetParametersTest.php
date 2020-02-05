@@ -411,6 +411,29 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
 
+            // Array arrow function and yield.
+            'long-array-nested-arrow-function-with-yield' => [
+                '/* testLongArrayArrowFunctionWithYield */',
+                \T_ARRAY,
+                [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 8,
+                        'raw'   => '1 => \'1\'',
+                    ],
+                    2 => [
+                        'start' => 10,
+                        'end'   => 30,
+                        'raw'   => '2 => fn ($x) => yield \'a\' => $x',
+                    ],
+                    3 => [
+                        'start' => 32,
+                        'end'   => 38,
+                        'raw'   => '3 => \'3\'',
+                    ],
+                ],
+            ],
+
             // Function calling closure in variable.
             'variable-function-call' => [
                 '/* testVariableFunctionCall */',

@@ -38,7 +38,9 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
  * PHPCS native utility functions.
@@ -94,6 +96,8 @@ class BCFile
      * - PHPCS 3.0.0: Added support for ES6 class/method syntax.
      * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.3: Allow for functions to be called `fn` for backwards compatibility.
+     *                Related to PHP 7.4 T_FN arrow functions.
      *
      * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
      *       this method will be accepted for JS files.
@@ -103,6 +107,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the declaration token
@@ -153,7 +158,9 @@ class BCFile
 
         $content = null;
         for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
-            if ($tokens[$i]['code'] === T_STRING) {
+            if ($tokens[$i]['code'] === T_STRING
+                || $tokens[$i]['type'] === 'T_FN'
+            ) {
                 /*
                  * BC: In PHPCS 2.6.0, in case of live coding, the last token in a file will be tokenized
                  * as T_STRING, but won't have the `content` index set.
@@ -238,11 +245,13 @@ class BCFile
      *                  be set in a "variadic_token" array index.
      * - PHPCS 3.5.3: Fixed a bug where the "type_hint_end_token" array index for a type hinted
      *                parameter would bleed through to the next (non-type hinted) parameter.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -251,7 +260,8 @@ class BCFile
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_FUNCTION, T_CLOSURE, or T_USE.
+     *                                                      type T_FUNCTION, T_CLOSURE, T_USE,
+     *                                                      or T_FN.
      */
     public static function getMethodParameters(File $phpcsFile, $stackPtr)
     {
@@ -260,14 +270,24 @@ class BCFile
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
             && $tokens[$stackPtr]['code'] !== T_USE
+            && FunctionDeclarations::isArrowFunction($phpcsFile, $stackPtr) === false
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
 
         if ($tokens[$stackPtr]['code'] === T_USE) {
             $opener = $phpcsFile->findNext(T_OPEN_PARENTHESIS, ($stackPtr + 1));
             if ($opener === false || isset($tokens[$opener]['parenthesis_owner']) === true) {
                 throw new RuntimeException('$stackPtr was not a valid T_USE');
+            }
+        } elseif ($tokens[$stackPtr]['code'] === \T_STRING || $tokens[$stackPtr]['type'] === 'T_FN') {
+            /*
+             * Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+             */
+            $opener = $phpcsFile->findNext((Tokens::$emptyTokens + [\T_BITWISE_AND]), ($stackPtr + 1), null, true);
+            if ($opener === false || $tokens[$opener]['code'] !== T_OPEN_PARENTHESIS) {
+                // Live coding or syntax error, so no params to find.
+                return [];
             }
         } else {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {
@@ -508,11 +528,13 @@ class BCFile
      *                  or `true` otherwise.
      * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -521,16 +543,18 @@ class BCFile
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_FUNCTION or a T_CLOSURE token.
+     *                                                      T_FUNCTION, T_CLOSURE, or T_FN token.
      */
     public static function getMethodProperties(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
+        $tokens         = $phpcsFile->getTokens();
+        $arrowOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
 
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
+            && $arrowOpenClose === []
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
         }
 
         if ($tokens[$stackPtr]['code'] === T_FUNCTION) {
@@ -595,13 +619,24 @@ class BCFile
         $nullableReturnType = false;
         $hasBody            = true;
 
+        $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
+            $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
+        } elseif ($arrowOpenClose !== [] && $arrowOpenClose['parenthesis_closer'] !== false) {
+            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+            $parenthesisCloser = $arrowOpenClose['parenthesis_closer'];
+        }
+
+        if (isset($parenthesisCloser) === true) {
             $scopeOpener = null;
             if (isset($tokens[$stackPtr]['scope_opener']) === true) {
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+            } elseif ($arrowOpenClose !== [] && $arrowOpenClose['scope_opener'] !== false) {
+                // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
+                $scopeOpener = $arrowOpenClose['scope_opener'];
             }
 
-            for ($i = $tokens[$stackPtr]['parenthesis_closer']; $i < $phpcsFile->numTokens; $i++) {
+            for ($i = $parenthesisCloser; $i < $phpcsFile->numTokens; $i++) {
                 if (($scopeOpener === null && $tokens[$i]['code'] === T_SEMICOLON)
                     || ($scopeOpener !== null && $i === $scopeOpener)
                 ) {
@@ -612,6 +647,9 @@ class BCFile
                 if ($tokens[$i]['type'] === 'T_NULLABLE'
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (defined('T_NULLABLE') === false && $tokens[$i]['code'] === T_INLINE_THEN)
+                    // Handle nullable tokens with arrow functions in PHPCS 2.8.0 - 2.9.0.
+                    || ($arrowOpenClose !== [] && $tokens[$i]['code'] === T_INLINE_THEN
+                        && version_compare(Helper::getVersion(), '2.9.1', '<') === true)
                 ) {
                     $nullableReturnType = true;
                 }
@@ -625,8 +663,17 @@ class BCFile
                 }
             }
 
-            $end     = $phpcsFile->findNext([T_OPEN_CURLY_BRACKET, T_SEMICOLON], $tokens[$stackPtr]['parenthesis_closer']);
-            $hasBody = $tokens[$end]['code'] === T_OPEN_CURLY_BRACKET;
+            $bodyTokens = [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET];
+            if ($arrowOpenClose !== []) {
+                $bodyTokens = [T_DOUBLE_ARROW => T_DOUBLE_ARROW];
+                if (defined('T_FN_ARROW') === true) {
+                    // PHPCS 3.5.3+.
+                    $bodyTokens = [T_FN_ARROW => T_FN_ARROW];
+                }
+            }
+
+            $end     = $phpcsFile->findNext(($bodyTokens + [T_SEMICOLON]), $parenthesisCloser);
+            $hasBody = isset($bodyTokens[$tokens[$end]['code']]);
         }
 
         if ($returnType !== '' && $nullableReturnType === true) {
@@ -923,11 +970,13 @@ class BCFile
      *                - New by reference was not recognized as a reference.
      *                - References to class properties with `self::`, `parent::`, `static::`,
      *                  `namespace\ClassName::`, `classname::` were not recognized as references.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions returning by reference.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference() Original source.
      * @see \PHPCSUtils\Utils\Operators::isReference() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
@@ -945,7 +994,9 @@ class BCFile
 
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
-        if ($tokens[$tokenBefore]['code'] === T_FUNCTION) {
+        if ($tokens[$tokenBefore]['code'] === T_FUNCTION
+            || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
+        ) {
             // Function returns a reference.
             return true;
         }
@@ -1116,10 +1167,12 @@ class BCFile
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 2.1.0.
      * - PHPCS 2.6.2: New optional `$ignore` parameter to selectively ignore stop points.
+     * - PHPCS 3.5.5: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::findStartOfStatement() Original source.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
@@ -1158,6 +1211,7 @@ class BCFile
 
             if (isset($tokens[$i]['scope_opener']) === true
                 && $i === $tokens[$i]['scope_closer']
+                && $tokens[$i]['code'] !== T_CLOSE_PARENTHESIS
             ) {
                 // Found the end of the previous scope block.
                 return $lastNotEmpty;
@@ -1193,10 +1247,13 @@ class BCFile
      * - PHPCS 2.7.1: Improved handling of short arrays, PHPCS #1203.
      * - PHPCS 3.3.0: Bug fix: end of statement detection when passed a scope opener, PHPCS #1863.
      * - PHPCS 3.5.0: Improved handling of group use statements.
+     * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
+     * - PHPCS 3.5.4: Improved support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::findEndOfStatement() Original source.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $start     The position to start searching from in the token stack.
@@ -1251,6 +1308,12 @@ class BCFile
                 && ($i === $tokens[$i]['scope_opener']
                 || $i === $tokens[$i]['scope_condition'])
             ) {
+                if ($tokens[$i]['type'] === 'T_FN') {
+                    // Minus 1 as the closer can be shared.
+                    $i = ($tokens[$i]['scope_closer'] - 1);
+                    continue;
+                }
+
                 if ($i === $start && isset(Tokens::$scopeOpeners[$tokens[$i]['code']]) === true) {
                     return $tokens[$i]['scope_closer'];
                 }
@@ -1268,6 +1331,19 @@ class BCFile
                 $end = $phpcsFile->findNext(T_CLOSE_USE_GROUP, ($i + 1));
                 if ($end !== false) {
                     $i = $end;
+                }
+            } elseif ($tokens[$i]['code'] === T_STRING || $tokens[$i]['type'] === 'T_FN') {
+                // Potentially a PHP 7.4 arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/3.5.4.
+                $arrowFunctionOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $i);
+                if ($arrowFunctionOpenClose !== []
+                    && $arrowFunctionOpenClose['scope_closer'] !== false
+                ) {
+                    if ($i === $start) {
+                        return $arrowFunctionOpenClose['scope_closer'];
+                    }
+
+                    // Minus 1 as the closer can be shared.
+                    $i = ($arrowFunctionOpenClose['scope_closer'] - 1);
                 }
             }
 

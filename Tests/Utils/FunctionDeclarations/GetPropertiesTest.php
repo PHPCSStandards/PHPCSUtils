@@ -54,10 +54,37 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      */
     public function testNotAFunctionException()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
 
         $next = $this->getTargetToken('/* testNotAFunction */', \T_RETURN);
         FunctionDeclarations::getProperties(self::$phpcsFile, $next);
+    }
+
+    /**
+     * Test a arrow function live coding/parse error.
+     *
+     * @return void
+     */
+    public function testArrowFunctionLiveCoding()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => '',
+            'return_type_token'    => false,
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => false, // Different from original.
+        ];
+
+        $arrowTokenType = \T_STRING;
+        if (\defined('T_FN') === true) {
+            $arrowTokenType = \T_FN;
+        }
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
     }
 
     /**
@@ -65,12 +92,14 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      *
      * @param string $commentString The comment which preceeds the test.
      * @param array  $expected      The expected function output.
+     * @param array  $targetType    Optional. The token type to search for after $commentString.
+     *                              Defaults to the function/closure tokens.
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected)
+    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
     {
-        $function = $this->getTargetToken($commentString, [\T_FUNCTION, \T_CLOSURE]);
+        $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 
         if ($expected['return_type_token'] !== false) {

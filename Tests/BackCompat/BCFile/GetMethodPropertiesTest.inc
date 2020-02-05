@@ -61,6 +61,12 @@ interface MyInterface
     function myFunction();
 }
 
+$result = array_map(
+    /* testArrowFunction */
+    static fn(int $number) : int => $number + 1,
+    $numbers
+);
+
 /* testNotAFunction */
 return true;
 
@@ -68,3 +74,13 @@ return true;
 function foo() : array {
     echo $foo;
 }
+
+/* testArrowFunctionArrayReturnValue */
+$fn = fn(): array => [a($a, $b)];
+
+/* testArrowFunctionReturnByRef */
+fn&(?string $a) : ?string => $b;
+
+/* testArrowFunctionLiveCoding */
+// Intentional parse error. This has to be the last test in the file.
+$fn = fn

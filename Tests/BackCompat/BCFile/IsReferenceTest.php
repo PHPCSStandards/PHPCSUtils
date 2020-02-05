@@ -308,6 +308,10 @@ class IsReferenceTest extends UtilityMethodTestCase
                 '/* testUseByReference */',
                 true,
             ],
+            [
+                '/* testArrowFunctionReturnByReference */',
+                true,
+            ],
         ];
     }
 }

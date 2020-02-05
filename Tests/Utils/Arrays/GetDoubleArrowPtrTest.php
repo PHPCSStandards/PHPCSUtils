@@ -196,6 +196,18 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 '/* testArrowKeyClosureYieldWithKey */',
                 24,
             ],
+            'test-arrow-value-fn-function' => [
+                '/* testFnFunctionWithKey */',
+                8,
+            ],
+            'test-no-arrow-value-fn-function' => [
+                '/* testNoArrowValueFnFunction */',
+                false,
+            ],
+            'test-arrow-tstring-key-not-fn-function' => [
+                '/* testTstringKeyNotFnFunction */',
+                8,
+            ],
         ];
     }
 }
