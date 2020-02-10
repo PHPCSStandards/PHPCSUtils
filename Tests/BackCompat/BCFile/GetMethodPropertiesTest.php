@@ -23,6 +23,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodProperties method.
@@ -398,12 +399,9 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
 
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**
@@ -459,12 +457,9 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
 
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**
@@ -486,12 +481,9 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
 
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**
@@ -513,12 +505,9 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'             => true,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
 
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**

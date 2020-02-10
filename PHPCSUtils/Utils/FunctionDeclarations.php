@@ -395,7 +395,7 @@ class FunctionDeclarations
             ) {
                 throw new RuntimeException('$stackPtr was not a valid closure T_USE');
             }
-        } elseif ($tokens[$stackPtr]['code'] === \T_STRING || $tokens[$stackPtr]['type'] === 'T_FN') {
+        } elseif (isset(Collections::arrowFunctionTokensBC()[$tokens[$stackPtr]['code']]) === true) {
             /*
              * Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
              */

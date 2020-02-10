@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -85,11 +86,7 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testIsArrowFunction($testMarker, $expected, $targetContent = null)
     {
-        $targets = [\T_STRING];
-        if (\defined('T_FN') === true) {
-            $targets[] = \T_FN;
-        }
-
+        $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
         $result   = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected['is'], $result);
@@ -119,11 +116,7 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
             );
         }
 
-        $targets = [\T_STRING];
-        if (\defined('T_FN') === true) {
-            $targets[] = \T_FN;
-        }
-
+        $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
 
         // Change from offsets to absolute token positions.

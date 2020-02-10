@@ -263,10 +263,8 @@ class Arrays
             );
         }
 
-        $targets = self::$doubleArrowTargets + Collections::$closedScopes;
-        if (\defined('T_FN') === true) {
-            $targets[\T_FN] = \T_FN;
-        }
+        $targets  = self::$doubleArrowTargets + Collections::$closedScopes;
+        $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
         ++$end;

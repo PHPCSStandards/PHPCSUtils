@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMethodPropertiesTest as BCFile_GetMethodPropertiesTest;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -79,12 +80,9 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
             'has_body'             => false, // Different from original.
         ];
 
-        $arrowTokenType = \T_STRING;
-        if (\defined('T_FN') === true) {
-            $arrowTokenType = \T_FN;
-        }
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
 
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**

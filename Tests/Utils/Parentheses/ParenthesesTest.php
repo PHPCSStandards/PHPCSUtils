@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\Utils\Parentheses;
 
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Parentheses;
 
 /**
@@ -1070,10 +1071,7 @@ class ParenthesesTest extends UtilityMethodTestCase
      */
     public function dataLastOwnerIn()
     {
-        $arrowFunctionOwners = [\T_STRING];
-        if (\defined('T_FN') === true) {
-            $arrowFunctionOwners = [\T_FN];
-        }
+        $arrowFunctionOwners = Collections::arrowFunctionTokensBC();
 
         return [
             'testElseIfWithClosure-$a-closure' => [

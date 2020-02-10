@@ -25,6 +25,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodParameters method.
@@ -119,12 +120,9 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'ClosureUseNoParams' => ['/* testClosureUseNoParams */', T_USE],
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
 
-        $data['ArrowFunctionLiveCoding'] = ['/* testArrowFunctionLiveCoding */', $arrowTokenType];
+        $data['ArrowFunctionLiveCoding'] = ['/* testArrowFunctionLiveCoding */', $arrowTokenTypes];
 
         return $data;
     }
@@ -457,11 +455,9 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**
@@ -487,11 +483,9 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**
@@ -1105,11 +1099,9 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenType = T_STRING;
-        if (defined('T_FN') === true) {
-            $arrowTokenType = T_FN;
-        }
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenType);
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
     }
 
     /**

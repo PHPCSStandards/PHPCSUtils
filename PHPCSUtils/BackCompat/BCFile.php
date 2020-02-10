@@ -1332,7 +1332,7 @@ class BCFile
                 if ($end !== false) {
                     $i = $end;
                 }
-            } elseif ($tokens[$i]['code'] === T_STRING || $tokens[$i]['type'] === 'T_FN') {
+            } elseif (isset(Collections::arrowFunctionTokensBC()[$tokens[$i]['code']]) === true) {
                 // Potentially a PHP 7.4 arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/3.5.4.
                 $arrowFunctionOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $i);
                 if ($arrowFunctionOpenClose !== []
