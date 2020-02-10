@@ -393,4 +393,27 @@ class Collections
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
     ];
+
+    /**
+     * Tokens which can represent the arrow function keyword.
+     *
+     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     *
+     * @since 1.0.0
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrowFunctionTokensBC()
+    {
+        $tokens = [
+            \T_STRING => \T_STRING,
+        ];
+
+        if (\defined('T_FN') === true) {
+            // PHP 7.4 or PHPCS 3.5.3+.
+            $tokens[\T_FN] = \T_FN;
+        }
+
+        return $tokens;
+    }
 }
