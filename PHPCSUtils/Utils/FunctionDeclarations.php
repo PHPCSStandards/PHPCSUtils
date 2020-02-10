@@ -112,6 +112,25 @@ class FunctionDeclarations
     ];
 
     /**
+     * Tokens which can be the end token of an arrow function.
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <true>
+     */
+    private static $arrowFunctionEndTokens = [
+        \T_COLON                => true,
+        \T_COMMA                => true,
+        \T_SEMICOLON            => true,
+        \T_CLOSE_PARENTHESIS    => true,
+        \T_CLOSE_SQUARE_BRACKET => true,
+        \T_CLOSE_CURLY_BRACKET  => true,
+        \T_CLOSE_SHORT_ARRAY    => true,
+        \T_OPEN_TAG             => true,
+        \T_CLOSE_TAG            => true,
+    ];
+
+    /**
      * Returns the declaration name for a function.
      *
      * Alias for the {@see \PHPCSUtils\Utils\ObjectDeclarations::getName()} method.
@@ -751,23 +770,10 @@ class FunctionDeclarations
         }
 
         $returnValue['scope_opener'] = $arrow;
-
-        $endTokens = [
-            \T_COLON                => true,
-            \T_COMMA                => true,
-            \T_SEMICOLON            => true,
-            \T_CLOSE_PARENTHESIS    => true,
-            \T_CLOSE_SQUARE_BRACKET => true,
-            \T_CLOSE_CURLY_BRACKET  => true,
-            \T_CLOSE_SHORT_ARRAY    => true,
-            \T_OPEN_TAG             => true,
-            \T_CLOSE_TAG            => true,
-        ];
-
-        $inTernary = false;
+        $inTernary                   = false;
 
         for ($scopeCloser = ($arrow + 1); $scopeCloser < $phpcsFile->numTokens; $scopeCloser++) {
-            if (isset($endTokens[$tokens[$scopeCloser]['code']]) === true
+            if (isset(self::$arrowFunctionEndTokens[$tokens[$scopeCloser]['code']]) === true
                 && ($tokens[$scopeCloser]['code'] !== \T_COLON || $inTernary === false)
             ) {
                 break;
