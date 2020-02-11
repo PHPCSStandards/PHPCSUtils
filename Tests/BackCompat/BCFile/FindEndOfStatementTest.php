@@ -223,7 +223,6 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
         $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testArrowFunctionReturnValue */') + 2);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
         $this->assertSame(($start + 18), $found);
     }
 }

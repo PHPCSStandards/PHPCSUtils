@@ -164,8 +164,7 @@ class Namespaces
             return false;
         }
 
-        $tokens = $phpcsFile->getTokens();
-        $next   = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), ($endOfStatement + 1), true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), ($endOfStatement + 1), true);
         if ($next === $endOfStatement) {
             // Declaration of global namespace. I.e.: namespace {}.
             // If not a scoped {} namespace declaration, no name/global declarations are invalid

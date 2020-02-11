@@ -52,7 +52,7 @@ class UseTypeTest extends UtilityMethodTestCase
     {
         $this->expectPhpcsException('$stackPtr must be of type T_USE');
 
-        $result = UseStatements::getType(self::$phpcsFile, 0);
+        UseStatements::getType(self::$phpcsFile, 0);
     }
 
     /**
