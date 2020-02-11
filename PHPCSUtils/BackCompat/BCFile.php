@@ -159,6 +159,7 @@ class BCFile
         $content = null;
         for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['code'] === T_STRING
+                // BC: PHPCS 3.5.3/3.5.4.
                 || $tokens[$i]['type'] === 'T_FN'
             ) {
                 /*
