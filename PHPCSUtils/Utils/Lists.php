@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
+use PHPCSUtils\Utils\Parentheses;
 
 /**
  * Utility functions to retrieve information when working with lists.

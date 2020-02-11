@@ -483,8 +483,6 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
          * an acceptable index key for an array and if not, what it would turn into.
          */
 
-        $integerKey = false;
-
         switch (\gettype($key)) {
             case 'NULL':
                 // An array key of `null` will become an empty string.
