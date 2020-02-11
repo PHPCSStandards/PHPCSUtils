@@ -48,7 +48,7 @@ class Parentheses
 
         /*
          * `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
-         * `T_FN` was only backfilled in PHPCS 3.5.3/4.
+         * `T_FN` was only backfilled in PHPCS 3.5.3/4/5.
          * - On PHP 7.4 with PHPCS < 3.5.3, T_FN will not yet be a parentheses owner.
          * - On PHP < 7.4 with PHPCS < 3.5.3, T_FN will be tokenized as T_STRING and not yet be a parentheses owner.
          *

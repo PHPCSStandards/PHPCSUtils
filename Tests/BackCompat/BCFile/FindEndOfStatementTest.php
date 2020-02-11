@@ -25,7 +25,6 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Tokens\Collections;
 
@@ -221,12 +220,6 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionReturnValue()
     {
-        // Skip this test on unsupported PHPCS version.
-        if (\version_compare(Helper::getVersion(), '3.5.3', '==') === true) {
-            $this->markTestSkipped(
-                'PHPCS 3.5.3 is not supported for this specific test due to a buggy arrow functions backfill.'
-            );
-        }
         $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testArrowFunctionReturnValue */') + 2);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 

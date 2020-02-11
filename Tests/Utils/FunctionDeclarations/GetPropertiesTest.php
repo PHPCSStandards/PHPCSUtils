@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMethodPropertiesTest as BCFile_GetMethodPropertiesTest;
-use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -51,38 +50,19 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
     /**
      * Test receiving an expected exception when a non function token is passed.
      *
-     * @return void
-     */
-    public function testNotAFunctionException()
-    {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
-
-        $next = $this->getTargetToken('/* testNotAFunction */', \T_RETURN);
-        FunctionDeclarations::getProperties(self::$phpcsFile, $next);
-    }
-
-    /**
-     * Test a arrow function live coding/parse error.
+     * @dataProvider dataNotAFunctionException
+     *
+     * @param string $commentString   The comment which preceeds the test.
+     * @param array  $targetTokenType The token type to search for after $commentString.
      *
      * @return void
      */
-    public function testArrowFunctionLiveCoding()
+    public function testNotAFunctionException($commentString, $targetTokenType)
     {
-        $expected = [
-            'scope'                => 'public',
-            'scope_specified'      => false,
-            'return_type'          => '',
-            'return_type_token'    => false,
-            'nullable_return_type' => false,
-            'is_abstract'          => false,
-            'is_final'             => false,
-            'is_static'            => false,
-            'has_body'             => false, // Different from original.
-        ];
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or an arrow function');
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $next = $this->getTargetToken($commentString, $targetTokenType);
+        FunctionDeclarations::getProperties(self::$phpcsFile, $next);
     }
 
     /**

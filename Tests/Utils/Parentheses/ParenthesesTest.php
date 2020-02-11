@@ -145,6 +145,10 @@ class ParenthesesTest extends UtilityMethodTestCase
             'code'    => \T_STRING,
             'content' => 'get',
         ],
+        'testMethodCalledFn-true' => [
+            'marker'  => '/* testFunctionCallFnPHPCS353-354 */',
+            'code'    => \T_TRUE,
+        ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
             'code'    => \T_LNUMBER,
@@ -713,6 +717,23 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => false,
                 ],
             ],
+            'testMethodCalledFn-true' => [
+                'testMethodCalledFn-true',
+                [
+                    'firstOpener'           => -1,
+                    'firstCloser'           => 1,
+                    'firstOwner'            => false,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => false,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
             'testParseError-1' => [
                 'testParseError-1',
                 [
@@ -903,6 +924,10 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'T_ARRAY' => true,
                     'T_FN'    => true,
                 ],
+            ],
+            'testMethodCalledFn-true' => [
+                'testMethodCalledFn-true',
+                [],
             ],
             'testParseError-1' => [
                 'testParseError-1',

@@ -35,7 +35,7 @@ class GetParametersDiffTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
 
         FunctionDeclarations::getParameters(self::$phpcsFile, 10000);
     }

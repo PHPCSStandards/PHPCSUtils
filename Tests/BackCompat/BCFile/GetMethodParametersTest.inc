@@ -125,6 +125,9 @@ function messyDeclaration(
         & /*test*/ ... /* phpcs:ignore */ $c
 ) {}
 
+/* testFunctionCallFnPHPCS353-354 */
+$value = $obj->fn(true);
+
 /* testClosureNoParams */
 function() {}
 

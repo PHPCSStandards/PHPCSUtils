@@ -42,14 +42,44 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when a non function/use token is passed.
      *
+     * @dataProvider dataUnexpectedTokenException
+     *
+     * @param string $commentString   The comment which preceeds the test.
+     * @param array  $targetTokenType The token type to search for after $commentString.
+     *
      * @return void
      */
-    public function testUnexpectedTokenException()
+    public function testUnexpectedTokenException($commentString, $targetTokenType)
     {
         $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
 
-        $next = $this->getTargetToken('/* testNotAFunction */', [T_INTERFACE]);
-        BCFile::getMethodParameters(self::$phpcsFile, $next);
+        $target = $this->getTargetToken($commentString, $targetTokenType);
+        BCFile::getMethodParameters(self::$phpcsFile, $target);
+    }
+
+    /**
+     * Data Provider.
+     *
+     * @see testUnexpectedTokenException() For the array format.
+     *
+     * @return array
+     */
+    public function dataUnexpectedTokenException()
+    {
+        return [
+            'interface' => [
+                '/* testNotAFunction */',
+                T_INTERFACE,
+            ],
+            'function-call-fn-phpcs-3.5.3-3.5.4' => [
+                '/* testFunctionCallFnPHPCS353-354 */',
+                Collections::arrowFunctionTokensBC(),
+            ],
+            'fn-live-coding' => [
+                '/* testArrowFunctionLiveCoding */',
+                Collections::arrowFunctionTokensBC(),
+            ],
+        ];
     }
 
     /**
@@ -114,17 +144,11 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      */
     public function dataNoParams()
     {
-        $data = [
+        return [
             'FunctionNoParams'   => ['/* testFunctionNoParams */'],
             'ClosureNoParams'    => ['/* testClosureNoParams */'],
             'ClosureUseNoParams' => ['/* testClosureUseNoParams */', T_USE],
         ];
-
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $data['ArrowFunctionLiveCoding'] = ['/* testArrowFunctionLiveCoding */', $arrowTokenTypes];
-
-        return $data;
     }
 
     /**

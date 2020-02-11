@@ -201,8 +201,8 @@ class FunctionDeclarations
      *
      * @return array
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_FUNCTION, T_CLOSURE, or T_FN token.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a T_FUNCTION
+     *                                                      or T_CLOSURE token nor an arrow function.
      */
     public static function getProperties(File $phpcsFile, $stackPtr)
     {
@@ -212,9 +212,9 @@ class FunctionDeclarations
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
                 && $tokens[$stackPtr]['code'] !== \T_CLOSURE
-                && $arrowOpenClose === [])
+                && $arrowOpenClose === false)
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or an arrow function');
         }
 
         if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
@@ -270,7 +270,7 @@ class FunctionDeclarations
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
             $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
-        } elseif ($arrowOpenClose !== [] && $arrowOpenClose['parenthesis_closer'] !== false) {
+        } elseif ($arrowOpenClose !== false) {
             // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
             $parenthesisCloser = $arrowOpenClose['parenthesis_closer'];
         }
@@ -279,7 +279,7 @@ class FunctionDeclarations
             $scopeOpener = null;
             if (isset($tokens[$stackPtr]['scope_opener']) === true) {
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
-            } elseif ($arrowOpenClose !== [] && $arrowOpenClose['scope_opener'] !== false) {
+            } elseif ($arrowOpenClose !== false) {
                 // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
                 $scopeOpener = $arrowOpenClose['scope_opener'];
             }
@@ -300,7 +300,7 @@ class FunctionDeclarations
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (\defined('T_NULLABLE') === false && $tokens[$i]['code'] === \T_INLINE_THEN)
                     // Handle nullable tokens with arrow functions in PHPCS 2.8.0 - 2.9.0.
-                    || ($arrowOpenClose !== [] && $tokens[$i]['code'] === \T_INLINE_THEN
+                    || ($arrowOpenClose !== false && $tokens[$i]['code'] === \T_INLINE_THEN
                         && \version_compare(Helper::getVersion(), '2.9.1', '<') === true)
                 ) {
                     $nullableReturnType = true;
@@ -390,20 +390,21 @@ class FunctionDeclarations
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_FUNCTION, T_CLOSURE, T_USE,
-     *                                                      or T_FN.
+     *                                                      type T_FUNCTION, T_CLOSURE or T_USE,
+     *                                                      nor an arrow function.
      */
     public static function getParameters(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
+        $tokens         = $phpcsFile->getTokens();
+        $arrowOpenClose = self::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
 
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
                 && $tokens[$stackPtr]['code'] !== \T_CLOSURE
                 && $tokens[$stackPtr]['code'] !== \T_USE
-                && self::isArrowFunction($phpcsFile, $stackPtr) === false)
+                && $arrowOpenClose === false)
         ) {
-            throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
+            throw new RuntimeException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
         }
 
         if ($tokens[$stackPtr]['code'] === \T_USE) {
@@ -414,15 +415,9 @@ class FunctionDeclarations
             ) {
                 throw new RuntimeException('$stackPtr was not a valid closure T_USE');
             }
-        } elseif (isset(Collections::arrowFunctionTokensBC()[$tokens[$stackPtr]['code']]) === true) {
-            /*
-             * Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
-             */
-            $opener = $phpcsFile->findNext((Tokens::$emptyTokens + [\T_BITWISE_AND]), ($stackPtr + 1), null, true);
-            if ($opener === false || $tokens[$opener]['code'] !== \T_OPEN_PARENTHESIS) {
-                // Live coding or syntax error, so no params to find.
-                return [];
-            }
+        } elseif ($arrowOpenClose !== false) {
+            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/4/5.
+            $opener = $arrowOpenClose['parenthesis_opener'];
         } else {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {
                 // Live coding or syntax error, so no params to find.

@@ -81,6 +81,9 @@ $fn = fn(): array => [a($a, $b)];
 /* testArrowFunctionReturnByRef */
 fn&(?string $a) : ?string => $b;
 
+/* testFunctionCallFnPHPCS353-354 */
+$value = $obj->fn(true);
+
 /* testArrowFunctionLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 $fn = fn

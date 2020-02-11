@@ -50,13 +50,18 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
     /**
      * Test receiving an expected exception when a non function/use token is passed.
      *
+     * @dataProvider dataUnexpectedTokenException
+     *
+     * @param string $commentString   The comment which preceeds the test.
+     * @param array  $targetTokenType The token type to search for after $commentString.
+     *
      * @return void
      */
-    public function testUnexpectedTokenException()
+    public function testUnexpectedTokenException($commentString, $targetTokenType)
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
 
-        $next = $this->getTargetToken('/* testNotAFunction */', [\T_INTERFACE]);
+        $next = $this->getTargetToken($commentString, $targetTokenType);
         FunctionDeclarations::getParameters(self::$phpcsFile, $next);
     }
 

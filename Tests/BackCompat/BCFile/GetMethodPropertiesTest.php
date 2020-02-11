@@ -21,7 +21,6 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Tokens\Collections;
 
@@ -40,14 +39,44 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when a non function token is passed.
      *
+     * @dataProvider dataNotAFunctionException
+     *
+     * @param string $commentString   The comment which preceeds the test.
+     * @param array  $targetTokenType The token type to search for after $commentString.
+     *
      * @return void
      */
-    public function testNotAFunctionException()
+    public function testNotAFunctionException($commentString, $targetTokenType)
     {
         $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
 
-        $next = $this->getTargetToken('/* testNotAFunction */', T_RETURN);
+        $next = $this->getTargetToken($commentString, $targetTokenType);
         BCFile::getMethodProperties(self::$phpcsFile, $next);
+    }
+
+    /**
+     * Data Provider.
+     *
+     * @see testNotAFunctionException() For the array format.
+     *
+     * @return array
+     */
+    public function dataNotAFunctionException()
+    {
+        return [
+            'return' => [
+                '/* testNotAFunction */',
+                T_RETURN,
+            ],
+            'function-call-fn-phpcs-3.5.3-3.5.4' => [
+                '/* testFunctionCallFnPHPCS353-354 */',
+                Collections::arrowFunctionTokensBC(),
+            ],
+            'fn-live-coding' => [
+                '/* testArrowFunctionLiveCoding */',
+                Collections::arrowFunctionTokensBC(),
+            ],
+        ];
     }
 
     /**
@@ -438,13 +467,6 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionArrayReturnValue()
     {
-        // Skip this test on unsupported PHPCS versions.
-        if (\version_compare(Helper::getVersion(), '3.5.3', '==') === true) {
-            $this->markTestSkipped(
-                'PHPCS 3.5.3 is not supported for this specific test due to a buggy arrow functions backfill.'
-            );
-        }
-
         $expected = [
             'scope'                => 'public',
             'scope_specified'      => false,
@@ -475,30 +497,6 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'return_type'          => '?string',
             'return_type_token'    => 12,
             'nullable_return_type' => true,
-            'is_abstract'          => false,
-            'is_final'             => false,
-            'is_static'            => false,
-            'has_body'             => true,
-        ];
-
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
-    }
-
-    /**
-     * Test an arrow function live coding/parse error.
-     *
-     * @return void
-     */
-    public function testArrowFunctionLiveCoding()
-    {
-        $expected = [
-            'scope'                => 'public',
-            'scope_specified'      => false,
-            'return_type'          => '',
-            'return_type_token'    => false,
-            'nullable_return_type' => false,
             'is_abstract'          => false,
             'is_final'             => false,
             'is_static'            => false,
