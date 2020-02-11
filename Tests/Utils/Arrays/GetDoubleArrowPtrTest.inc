@@ -80,4 +80,7 @@ $array = [
 
     /* testTstringKeyNotFnFunction */
     CONSTANT_NAME => 'value',
+
+    /* testPropertyAccessPHPCS353-354 */
+    ($obj->fn) => 'value',
 ];

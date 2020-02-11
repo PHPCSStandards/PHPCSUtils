@@ -263,10 +263,8 @@ class Arrays
             );
         }
 
-        $targets = self::$doubleArrowTargets + Collections::$closedScopes;
-        if (\defined('T_FN') === true) {
-            $targets[\T_FN] = \T_FN;
-        }
+        $targets  = self::$doubleArrowTargets + Collections::$closedScopes;
+        $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
         ++$end;
@@ -294,7 +292,7 @@ class Arrays
             }
 
             // BC for PHP 7.4 arrow functions with PHPCS < 3.5.3.
-            if ($tokens[$doubleArrow]['code'] === \T_STRING
+            if (isset(Collections::arrowFunctionTokensBC()[$tokens[$doubleArrow]['code']]) === true
                 && FunctionDeclarations::isArrowFunction($phpcsFile, $doubleArrow) === false
             ) {
                 // Not an arrow function, continue looking.

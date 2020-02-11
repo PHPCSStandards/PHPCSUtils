@@ -25,8 +25,8 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::findEndOfStatement method.
@@ -202,10 +202,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testStaticArrowFunction()
     {
-        $fnTargets = [\T_STRING];
-        if (\defined('T_FN') === true) {
-            $fnTargets[] = \T_FN;
-        }
+        $fnTargets = Collections::arrowFunctionTokensBC();
 
         $static = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testStaticArrowFunction */') + 2);
         $fn     = self::$phpcsFile->findNext($fnTargets, ($static + 1));
@@ -223,12 +220,6 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionReturnValue()
     {
-        // Skip this test on unsupported PHPCS version.
-        if (\version_compare(Helper::getVersion(), '3.5.3', '==') === true) {
-            $this->markTestSkipped(
-                'PHPCS 3.5.3 is not supported for this specific test due to a buggy arrow functions backfill.'
-            );
-        }
         $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testArrowFunctionReturnValue */') + 2);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 

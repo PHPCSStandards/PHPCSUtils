@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\Utils\Parentheses;
 
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Parentheses;
 
 /**
@@ -143,6 +144,10 @@ class ParenthesesTest extends UtilityMethodTestCase
             'marker'  => '/* testArrayFunctionCallWithArrowFunctionParam */',
             'code'    => \T_STRING,
             'content' => 'get',
+        ],
+        'testMethodCalledFn-true' => [
+            'marker'  => '/* testFunctionCallFnPHPCS353-354 */',
+            'code'    => \T_TRUE,
         ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
@@ -712,6 +717,23 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => false,
                 ],
             ],
+            'testMethodCalledFn-true' => [
+                'testMethodCalledFn-true',
+                [
+                    'firstOpener'           => -1,
+                    'firstCloser'           => 1,
+                    'firstOwner'            => false,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => false,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
             'testParseError-1' => [
                 'testParseError-1',
                 [
@@ -903,6 +925,10 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'T_FN'    => true,
                 ],
             ],
+            'testMethodCalledFn-true' => [
+                'testMethodCalledFn-true',
+                [],
+            ],
             'testParseError-1' => [
                 'testParseError-1',
                 [],
@@ -1070,10 +1096,7 @@ class ParenthesesTest extends UtilityMethodTestCase
      */
     public function dataLastOwnerIn()
     {
-        $arrowFunctionOwners = [\T_STRING];
-        if (\defined('T_FN') === true) {
-            $arrowFunctionOwners = [\T_FN];
-        }
+        $arrowFunctionOwners = Collections::arrowFunctionTokensBC();
 
         return [
             'testElseIfWithClosure-$a-closure' => [

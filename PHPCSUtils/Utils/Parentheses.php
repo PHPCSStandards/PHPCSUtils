@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -47,7 +48,7 @@ class Parentheses
 
         /*
          * `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
-         * `T_FN` was only backfilled in PHPCS 3.5.3/4.
+         * `T_FN` was only backfilled in PHPCS 3.5.3/4/5.
          * - On PHP 7.4 with PHPCS < 3.5.3, T_FN will not yet be a parentheses owner.
          * - On PHP < 7.4 with PHPCS < 3.5.3, T_FN will be tokenized as T_STRING and not yet be a parentheses owner.
          *
@@ -123,7 +124,7 @@ class Parentheses
          * Allow for T_FN token being tokenized as T_STRING before PHPCS 3.5.3.
          */
         if (\defined('T_FN') && \in_array(\T_FN, $validOwners, true)) {
-            $validOwners[] = \T_STRING;
+            $validOwners += Collections::arrowFunctionTokensBC();
         }
 
         return \in_array($tokens[$owner]['code'], $validOwners, true);

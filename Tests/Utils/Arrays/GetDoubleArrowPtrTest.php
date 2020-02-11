@@ -208,6 +208,11 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 '/* testTstringKeyNotFnFunction */',
                 8,
             ],
+            // Test specifically for PHPCS 3.5.3 and 3.5.4 in which all "fn" tokens were tokenized as T_FN.
+            'test-arrow-access-to-property-named-fn-as-key-phpcs-3.5.3-3.5.4' => [
+                '/* testPropertyAccessPHPCS353-354 */',
+                12,
+            ],
         ];
     }
 }

@@ -35,7 +35,7 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or an arrow function');
 
         FunctionDeclarations::getProperties(self::$phpcsFile, 10000);
     }

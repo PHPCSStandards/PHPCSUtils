@@ -3,9 +3,6 @@
 /* testNotTheRightContent */
 function_call();
 
-/* testNotAnArrowFunction */
-const FN = true;
-
 /* testStandard */
 $fn1 = fn($x) => $x + $y;
 
@@ -47,11 +44,37 @@ $result = array_map(
     $numbers
 );
 
+/* testReference */
+fn&($x) => $x;
+
+/* testGrouped */
+(fn($x) => $x) + $y;
+
+/* testArrayValue */
+$a = [
+    'a' => fn() => return 1,
+];
+
+/* testYield */
+$a = fn($x) => yield 'k' => $x;
+
 /* testReturnTypeNamespacedClass */
 $fn = fn($x) : ?\My\NS\ClassName => $x;
 
+/* testReturnTypeNullableFQNClass */
+$a = fn(?\DateTime $x) : ?\DateTime => $x;
+
+/* testReturnTypeSelf */
+$fn = fn(self $a) : ?self => $a;
+
+/* testReturnTypeParent */
+$fn = fn(parent $a) : parent => $a;
+
+/* testReturnTypeCallable */
+$fn = fn(callable $a) : callable => $a;
+
 /* testReturnTypeArray */
-$fn = fn($x) : array => $x;
+$fn = fn(array $a) : array => $a;
 
 /* testReturnTypeArrayBug2773 */
 $fn = fn(): array => [a($a, $b)];
@@ -62,23 +85,54 @@ array_map(
     []
 );
 
-/* testReturnTypeCallable */
-$fn = fn($x) : callable => $x;
-
-/* testReturnTypeSelf */
-$fn = fn($x) : ?self => $x;
-
-/* testReference */
-fn&($x) => $x;
-
-/* testGrouped */
-(fn($x) => $x) + $y;
-
-/* testYield */
-$a = fn($x) => yield 'k' => $x;
-
 /* testTernary */
 $fn = fn($a) => $a ? /* testTernaryThen */ fn() : string => 'a' : /* testTernaryElse */ fn() : string => 'b';
+
+/* testConstantDeclaration */
+const FN = 'a';
+
+/* testConstantDeclarationLower */
+const fn = 'a';
+
+class Foo {
+    /* testStaticMethodName */
+    public static function fn($param) {
+        /* testNestedInMethod */
+        $fn = fn($c) => $callable($factory($c), $c);
+    }
+
+    public function foo() {
+        /* testPropertyAssignment */
+        $this->fn = 'a';
+    }
+}
+
+$anon = new class() {
+    /* testAnonClassMethodName */
+    protected function fN($param) {
+    }
+}
+
+/* testNonArrowStaticMethodCall */
+$a = Foo::fn($param);
+
+/* testNonArrowConstantAccess */
+$a = MyClass::FN;
+
+/* testNonArrowConstantAccessDeref */
+$a = MyClass::Fn[$a];
+
+/* testNonArrowObjectMethodCall */
+$a = $obj->fn($param);
+
+/* testNonArrowObjectMethodCallUpper */
+$a = $obj->FN($param);
+
+/* testNonArrowNamespacedFunctionCall */
+$a = MyNS\Sub\Fn($param);
+
+/* testNonArrowNamespaceOperatorFunctionCall */
+$a = namespace\fn($param);
 
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.

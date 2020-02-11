@@ -47,6 +47,9 @@ function fn() {}
 /* testNoOwnerOnCloseParens */
 $a = ($b + $c);
 
+/* testFunctionCallFnPHPCS353-354 */
+$value = $obj->fn(true);
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 declare(ticks=1

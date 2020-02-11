@@ -63,6 +63,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *   array return type declarations.
  * - Typed properties were not recognized prior to PHPCS 3.5.0, including the
  *   `?` nullability token not being converted to `T_NULLABLE`.
+ * - Arrow functions were not recognized properly until PHPCS 3.5.3.
  * - General PHP cross-version incompatibilities.
  *
  * Most functions in this class will have a related twin-function in the relevant
@@ -98,6 +99,8 @@ class BCFile
      *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      * - PHPCS 3.5.3: Allow for functions to be called `fn` for backwards compatibility.
      *                Related to PHP 7.4 T_FN arrow functions.
+     * - PHPCS 3.5.5: Remove arrow function work-around which is no longer needed due to
+     *                a change in the tokenization of arrow functions.
      *
      * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
      *       this method will be accepted for JS files.
@@ -159,6 +162,7 @@ class BCFile
         $content = null;
         for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['code'] === T_STRING
+                // BC: PHPCS 3.5.3/3.5.4.
                 || $tokens[$i]['type'] === 'T_FN'
             ) {
                 /*
@@ -265,12 +269,13 @@ class BCFile
      */
     public static function getMethodParameters(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
+        $tokens         = $phpcsFile->getTokens();
+        $arrowOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
 
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
             && $tokens[$stackPtr]['code'] !== T_USE
-            && FunctionDeclarations::isArrowFunction($phpcsFile, $stackPtr) === false
+            && $arrowOpenClose === false
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
@@ -280,15 +285,9 @@ class BCFile
             if ($opener === false || isset($tokens[$opener]['parenthesis_owner']) === true) {
                 throw new RuntimeException('$stackPtr was not a valid T_USE');
             }
-        } elseif ($tokens[$stackPtr]['code'] === \T_STRING || $tokens[$stackPtr]['type'] === 'T_FN') {
-            /*
-             * Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
-             */
-            $opener = $phpcsFile->findNext((Tokens::$emptyTokens + [\T_BITWISE_AND]), ($stackPtr + 1), null, true);
-            if ($opener === false || $tokens[$opener]['code'] !== T_OPEN_PARENTHESIS) {
-                // Live coding or syntax error, so no params to find.
-                return [];
-            }
+        } elseif ($arrowOpenClose !== false) {
+            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/4/5.
+            $opener = $arrowOpenClose['parenthesis_opener'];
         } else {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {
                 // Live coding or syntax error, so no params to find.
@@ -552,7 +551,7 @@ class BCFile
 
         if ($tokens[$stackPtr]['code'] !== T_FUNCTION
             && $tokens[$stackPtr]['code'] !== T_CLOSURE
-            && $arrowOpenClose === []
+            && $arrowOpenClose === false
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
         }
@@ -622,7 +621,7 @@ class BCFile
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
             $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
-        } elseif ($arrowOpenClose !== [] && $arrowOpenClose['parenthesis_closer'] !== false) {
+        } elseif ($arrowOpenClose !== false) {
             // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
             $parenthesisCloser = $arrowOpenClose['parenthesis_closer'];
         }
@@ -631,7 +630,7 @@ class BCFile
             $scopeOpener = null;
             if (isset($tokens[$stackPtr]['scope_opener']) === true) {
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
-            } elseif ($arrowOpenClose !== [] && $arrowOpenClose['scope_opener'] !== false) {
+            } elseif ($arrowOpenClose !== false) {
                 // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
                 $scopeOpener = $arrowOpenClose['scope_opener'];
             }
@@ -648,7 +647,7 @@ class BCFile
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (defined('T_NULLABLE') === false && $tokens[$i]['code'] === T_INLINE_THEN)
                     // Handle nullable tokens with arrow functions in PHPCS 2.8.0 - 2.9.0.
-                    || ($arrowOpenClose !== [] && $tokens[$i]['code'] === T_INLINE_THEN
+                    || ($arrowOpenClose !== false && $tokens[$i]['code'] === T_INLINE_THEN
                         && version_compare(Helper::getVersion(), '2.9.1', '<') === true)
                 ) {
                     $nullableReturnType = true;
@@ -664,7 +663,7 @@ class BCFile
             }
 
             $bodyTokens = [T_OPEN_CURLY_BRACKET => T_OPEN_CURLY_BRACKET];
-            if ($arrowOpenClose !== []) {
+            if ($arrowOpenClose !== false) {
                 $bodyTokens = [T_DOUBLE_ARROW => T_DOUBLE_ARROW];
                 if (defined('T_FN_ARROW') === true) {
                     // PHPCS 3.5.3+.
@@ -1332,12 +1331,10 @@ class BCFile
                 if ($end !== false) {
                     $i = $end;
                 }
-            } elseif ($tokens[$i]['code'] === T_STRING || $tokens[$i]['type'] === 'T_FN') {
+            } elseif (isset(Collections::arrowFunctionTokensBC()[$tokens[$i]['code']]) === true) {
                 // Potentially a PHP 7.4 arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/3.5.4.
                 $arrowFunctionOpenClose = FunctionDeclarations::getArrowFunctionOpenClose($phpcsFile, $i);
-                if ($arrowFunctionOpenClose !== []
-                    && $arrowFunctionOpenClose['scope_closer'] !== false
-                ) {
+                if ($arrowFunctionOpenClose !== false) {
                     if ($i === $start) {
                         return $arrowFunctionOpenClose['scope_closer'];
                     }
