@@ -206,7 +206,7 @@ class ControlStructures
      * In the first case, the statement - correctly - won't have a scope opener/closer.
      * In the second case, the statement will have the scope opener/closer indexes.
      * In the last case, due to a bug in the PHPCS Tokenizer, it won't have the scope opener/closer indexes,
-     * while it really should. This bug is expected to be fixed in PHPCS 3.5.4.
+     * while it really should. This bug is fixed in PHPCS 3.5.4.
      *
      * In other words, if a sniff needs to support PHPCS < 3.5.4 and needs to take the alternative
      * control structure syntax into account, this method can be used to retrieve the

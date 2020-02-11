@@ -208,7 +208,7 @@ class BCFile
      *        )
      * </code>
      *
-     * Parameters with default values have an additional array indexs of:
+     * Parameters with default values have the following additional array indexes:
      *         'default'             => string,  // The full content of the default value.
      *         'default_token'       => integer, // The stack pointer to the start of the default value.
      *         'default_equal_token' => integer, // The stack pointer to the equals sign.
@@ -1391,6 +1391,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\Conditions::getCondition() More versatile alternative.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added support for the PHPCS 3.5.4 $first parameter.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.

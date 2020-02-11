@@ -6,8 +6,6 @@
  * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
-/**
- * Tests for the \PHP_CodeSniffer\Files\File:findEndOfStatement method.
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
