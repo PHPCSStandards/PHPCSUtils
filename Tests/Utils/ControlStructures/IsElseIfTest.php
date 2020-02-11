@@ -112,15 +112,15 @@ class IsElseIfTest extends UtilityMethodTestCase
             ],
 
             'inline-if' => [
-                '/* testAlternativeIf */',
+                '/* testInlineIf */',
                 false,
             ],
             'inline-elseif' => [
-                '/* testAlternativeElseIf */',
+                '/* testInlineElseIf */',
                 true,
             ],
             'inline-else' => [
-                '/* testAlternativeElse */',
+                '/* testInlineElse */',
                 false,
             ],
 
