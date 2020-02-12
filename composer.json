@@ -46,24 +46,24 @@
         "lint": [
             "@php ./vendor/jakub-onderka/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
         ],
-        "install-devtools": [
-            "composer require phpcsstandards/phpcsdevtools:\"^1.0 || dev-develop\" --no-suggest --update-no-dev"
+        "install-devcs": [
+            "composer require phpcsstandards/phpcsdevcs:\"^1.0\" --no-suggest --update-no-dev"
         ],
-        "remove-devtools": [
-            "composer remove phpcsstandards/phpcsdevtools --update-no-dev"
+        "remove-devcs": [
+            "composer remove phpcsstandards/phpcsdevcs --update-no-dev"
         ],
         "checkcs": [
-            "@install-devtools",
+            "@install-devcs",
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
-            "@remove-devtools"
+            "@remove-devcs"
         ],
         "fixcs": [
-            "@install-devtools",
+            "@install-devcs",
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
-            "@remove-devtools"
+            "@remove-devcs"
         ],
         "travis-checkcs": [
-            "@install-devtools",
+            "@install-devcs",
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
         ],
         "test": [
