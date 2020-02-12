@@ -154,15 +154,15 @@ class Lists
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer_File $phpcsFile   The file being scanned.
-     * @param int                   $stackPtr    The position of the T_LIST or T_OPEN_SHORT_ARRAY
-     *                                           token in the stack.
-     * @param true|null             $isShortList Short-circuit the short list check for T_OPEN_SHORT_ARRAY
-     *                                           tokens if it isn't necessary.
-     *                                           Efficiency tweak for when this has already been established,
-     *                                           i.e. when encountering a nested list while walking the
-     *                                           tokens in a list.
-     *                                           Use with care.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file being scanned.
+     * @param int                         $stackPtr    The position of the T_LIST or T_OPEN_SHORT_ARRAY
+     *                                                 token in the stack.
+     * @param true|null                   $isShortList Short-circuit the short list check for T_OPEN_SHORT_ARRAY
+     *                                                 tokens if it isn't necessary.
+     *                                                 Efficiency tweak for when this has already been established,
+     *                                                 i.e. when encountering a nested list while walking the
+     *                                                 tokens in a list.
+     *                                                 Use with care.
      *
      * @return array|false Array with two keys `opener`, `closer` or false if
      *                     not a (short) list token or if the opener/closer

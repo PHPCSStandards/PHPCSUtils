@@ -13,7 +13,7 @@ namespace PHPCS23Utils\Sniffs\Load;
 /*
  * Here be magic.
  *
- * This include allows for the Utility functions to work PHPCS cross-version.
+ * This `include` allows for the Utility functions to work in both PHPCS 2.x as well as PHPCS 3.x.
  */
 require_once \dirname(\dirname(\dirname(__DIR__))) . '/phpcsutils-autoload.php';
 
