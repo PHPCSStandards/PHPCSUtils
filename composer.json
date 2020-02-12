@@ -2,7 +2,7 @@
     "name" : "phpcsstandards/phpcsutils",
     "description" : "A suite of utility functions for use with PHP_CodeSniffer",
     "type" : "phpcodesniffer-standard",
-    "keywords" : [ "phpcs", "standards", "php_codesniffer", "phpcs2", "phpcs3", "tokens", "utility" ],
+    "keywords" : [ "phpcs", "phpcbf", "standards", "php_codesniffer", "phpcs2", "phpcs3", "tokens", "utility", "phpcodesniffer-standard" ],
     "license" : "LGPL-3.0-or-later",
     "homepage": "https://phpcsutils.com/",
     "authors" : [
@@ -24,7 +24,7 @@
     "require" : {
         "php" : ">=5.4",
         "squizlabs/php_codesniffer" : "^2.6.0 || ^3.1.0",
-        "dealerdirect/phpcodesniffer-composer-installer" : "^0.3 || ^0.4.1 || ^0.5 || ^0.6"
+        "dealerdirect/phpcodesniffer-composer-installer" : "^0.3 || ^0.4.1 || ^0.5 || ^0.6.2"
     },
     "require-dev" : {
         "jakub-onderka/php-parallel-lint": "^1.0",
