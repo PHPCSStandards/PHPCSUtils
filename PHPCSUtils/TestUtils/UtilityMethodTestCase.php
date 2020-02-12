@@ -177,14 +177,14 @@ abstract class UtilityMethodTestCase extends TestCase
         }
 
         if (\is_readable($caseFile) === false) {
-            self::fail("Test case file missing. Expected case file location: $caseFile");
+            parent::fail("Test case file missing. Expected case file location: $caseFile");
         }
 
         $contents = \file_get_contents($caseFile);
 
         if (\version_compare(Helper::getVersion(), '2.99.99', '>')) {
             // PHPCS 3.x.
-            $config = new \PHP_Codesniffer\Config();
+            $config = new \PHP_CodeSniffer\Config();
 
             /*
              * We just need to provide a standard so PHPCS will tokenize the file.
@@ -239,7 +239,7 @@ abstract class UtilityMethodTestCase extends TestCase
 
         // Fail the test if the case file failed to tokenize.
         if (self::$phpcsFile->numTokens === 0) {
-            self::fail("Tokenizing of the test case file failed for case file: $caseFile");
+            parent::fail("Tokenizing of the test case file failed for case file: $caseFile");
         }
     }
 
