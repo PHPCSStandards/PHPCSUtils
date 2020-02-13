@@ -265,7 +265,8 @@ class Arrays
             );
         }
 
-        $targets  = self::$doubleArrowTargets + Collections::$closedScopes;
+        $targets  = self::$doubleArrowTargets;
+        $targets += Collections::$closedScopes;
         $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
@@ -282,6 +283,14 @@ class Arrays
             }
 
             if ($tokens[$doubleArrow]['code'] === \T_DOUBLE_ARROW) {
+                return $doubleArrow;
+            }
+
+            /*
+             * BC: work-around a bug in PHPCS 3.5.4 where the double arrow is incorrectly tokenized as T_STRING.
+             * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2865
+             */
+            if ($tokens[$doubleArrow]['code'] === \T_STRING && $tokens[$doubleArrow]['content'] === '=>') {
                 return $doubleArrow;
             }
 

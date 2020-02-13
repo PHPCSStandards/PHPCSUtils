@@ -81,6 +81,9 @@ $array = [
     /* testTstringKeyNotFnFunction */
     CONSTANT_NAME => 'value',
 
-    /* testPropertyAccessPHPCS353-354 */
+    /* testKeyPropertyAccessFnPHPCS353-354 */
     ($obj->fn) => 'value',
+
+    /* testDoubleArrowTokenizedAsTstring-PHPCS2865 */
+    $obj->fn => 'value',
 ];
