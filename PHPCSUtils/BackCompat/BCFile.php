@@ -667,12 +667,12 @@ class BCFile
                 $bodyTokens = [T_DOUBLE_ARROW => T_DOUBLE_ARROW];
                 if (defined('T_FN_ARROW') === true) {
                     // PHPCS 3.5.3+.
-                    $bodyTokens = [T_FN_ARROW => T_FN_ARROW];
+                    $bodyTokens[T_FN_ARROW] = T_FN_ARROW;
                 }
             }
 
             $end     = $phpcsFile->findNext(($bodyTokens + [T_SEMICOLON]), $parenthesisCloser);
-            $hasBody = isset($bodyTokens[$tokens[$end]['code']]);
+            $hasBody = ($end !== false && isset($bodyTokens[$tokens[$end]['code']]));
         }
 
         if ($returnType !== '' && $nullableReturnType === true) {
