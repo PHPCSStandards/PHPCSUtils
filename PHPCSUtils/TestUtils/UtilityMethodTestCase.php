@@ -117,6 +117,8 @@ abstract class UtilityMethodTestCase extends TestCase
      * the same directory and named the same as the test class, but with an
      * `inc` file extension.
      *
+     * @since 1.0.0
+     *
      * @var string
      */
     protected static $caseFile = '';
@@ -125,6 +127,8 @@ abstract class UtilityMethodTestCase extends TestCase
      * The tab width setting to use when tokenizing the file.
      *
      * This allows for test case files to use a different tab width than the default.
+     *
+     * @since 1.0.0
      *
      * @var int
      */
@@ -320,6 +324,8 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit cross-version
      * compatible manner.
+     *
+     * @since 1.0.0
      *
      * @param string $msg  The expected exception message.
      * @param string $type The exception type to expect. Either 'runtime' or 'tokenizer'.
