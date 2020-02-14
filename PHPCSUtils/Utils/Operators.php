@@ -234,9 +234,9 @@ class Operators
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                   $stackPtr  The position of the ternary then/else
-     *                                         operator in the stack.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the ternary then/else
+     *                                               operator in the stack.
      *
      * @return bool True if short ternary, or false otherwise.
      */

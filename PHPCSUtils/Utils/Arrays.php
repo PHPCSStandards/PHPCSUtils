@@ -182,15 +182,15 @@ class Arrays
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                   $stackPtr     The position of the T_ARRAY or T_OPEN_SHORT_ARRAY
-     *                                            token in the stack.
-     * @param true|null             $isShortArray Short-circuit the short array check for T_OPEN_SHORT_ARRAY
-     *                                            tokens if it isn't necessary.
-     *                                            Efficiency tweak for when this has already been established,
-     *                                            i.e. when encountering a nested array while walking the
-     *                                            tokens in an array.
-     *                                            Use with care.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file being scanned.
+     * @param int                         $stackPtr     The position of the T_ARRAY or T_OPEN_SHORT_ARRAY
+     *                                                  token in the stack.
+     * @param true|null                   $isShortArray Short-circuit the short array check for T_OPEN_SHORT_ARRAY
+     *                                                  tokens if it isn't necessary.
+     *                                                  Efficiency tweak for when this has already been established,
+     *                                                  i.e. when encountering a nested array while walking the
+     *                                                  tokens in an array.
+     *                                                  Use with care.
      *
      * @return array|false Array with two keys `opener`, `closer` or false if
      *                     not a (short) array token or if the opener/closer
