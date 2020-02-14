@@ -189,7 +189,7 @@ class BCTokens
      */
     public static function arithmeticTokens()
     {
-        return Tokens::$arithmeticTokens + [ \T_POW => \T_POW ];
+        return Tokens::$arithmeticTokens + [\T_POW => \T_POW];
     }
 
     /**

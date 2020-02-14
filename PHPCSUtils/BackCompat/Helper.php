@@ -145,7 +145,7 @@ class Helper
     {
         $tabWidth = self::getCommandLineData($phpcsFile, 'tabWidth');
         if ($tabWidth > 0) {
-            return $tabWidth;
+            return (int) $tabWidth;
         }
 
         return self::DEFAULT_TABWIDTH;
