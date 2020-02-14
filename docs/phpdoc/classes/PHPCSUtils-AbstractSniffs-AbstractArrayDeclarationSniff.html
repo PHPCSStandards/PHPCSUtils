@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
+                    <li><a href="../namespaces/phpcsutils-abstractsniffs.html">AbstractSniffs</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            AbstractArrayDeclarationSniff
+                                                    <span class="phpdocumentor-class__implements">
+                    implements
+                                            <abbr title="\PHP_CodeSniffer\Sniffs\Sniff">Sniff</abbr>                                    </span>
+                                </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">28</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Abstract sniff to easily examine all parts of an array declaration.</p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_stackPtr">$stackPtr</a></th>
+                    <td class="phpdocumentor-cell">The stack pointer to the array keyword or the short array open token.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_tokens">$tokens</a></th>
+                    <td class="phpdocumentor-cell">The token stack for the current file being examined.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_arrayOpener">$arrayOpener</a></th>
+                    <td class="phpdocumentor-cell">The stack pointer to the array opener.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_arrayCloser">$arrayCloser</a></th>
+                    <td class="phpdocumentor-cell">The stack pointer to the array closer.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_arrayItems">$arrayItems</a></th>
+                    <td class="phpdocumentor-cell">A multi-dimentional array with information on each array item.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_itemCount">$itemCount</a></th>
+                    <td class="phpdocumentor-cell">How many items are in the array.</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_singleLine">$singleLine</a></th>
+                    <td class="phpdocumentor-cell">Whether or not the array is single line.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#property_acceptedTokens">$acceptedTokens</a></th>
+                    <td class="phpdocumentor-cell">List of tokens which can safely be used with an eval() expression.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Set up this class.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_register">register()</a></th>
+                    <td class="phpdocumentor-cell">Returns an array of tokens this test wants to listen for.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_process">process()</a></th>
+                    <td class="phpdocumentor-cell">Processes this test when one of its tokens is encountered.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processArray">processArray()</a></th>
+                    <td class="phpdocumentor-cell">Process every part of the array declaration.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processOpenClose">processOpenClose()</a></th>
+                    <td class="phpdocumentor-cell">Process the array opener and closer.</td>
+                    <td class="phpdocumentor-cell">bool|void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processKey">processKey()</a></th>
+                    <td class="phpdocumentor-cell">Process the tokens in an array key.</td>
+                    <td class="phpdocumentor-cell">bool|void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processNoKey">processNoKey()</a></th>
+                    <td class="phpdocumentor-cell">Process an array item without an array key.</td>
+                    <td class="phpdocumentor-cell">bool|void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processArrow">processArrow()</a></th>
+                    <td class="phpdocumentor-cell">Process the double arrow.</td>
+                    <td class="phpdocumentor-cell">bool|void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processValue">processValue()</a></th>
+                    <td class="phpdocumentor-cell">Process the tokens in an array value.</td>
+                    <td class="phpdocumentor-cell">bool|void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_processComma">processComma()</a></th>
+                    <td class="phpdocumentor-cell">Process the comma after an array item.</td>
+                    <td class="phpdocumentor-cell">bool|void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html#method_getActualArrayKey">getActualArrayKey()</a></th>
+                    <td class="phpdocumentor-cell">Determine what the actual array key would be.</td>
+                    <td class="phpdocumentor-cell">string|int|void</td>
+                </tr>
+                                            </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_stackPtr"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$stackPtr</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">38</span>
+    </aside>
+            <p class="phpdocumentor-summary">The stack pointer to the array keyword or the short array open token.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$stackPtr</span>
+            </code>
+    </article>
+                                    <a id="property_tokens"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$tokens</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+            <p class="phpdocumentor-summary">The token stack for the current file being examined.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$tokens</span>
+            </code>
+    </article>
+                                    <a id="property_arrayOpener"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$arrayOpener</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+            <p class="phpdocumentor-summary">The stack pointer to the array opener.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$arrayOpener</span>
+            </code>
+    </article>
+                                    <a id="property_arrayCloser"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$arrayCloser</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">65</span>
+    </aside>
+            <p class="phpdocumentor-summary">The stack pointer to the array closer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$arrayCloser</span>
+            </code>
+    </article>
+                                    <a id="property_arrayItems"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$arrayItems</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">80</span>
+    </aside>
+            <p class="phpdocumentor-summary">A multi-dimentional array with information on each array item.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$arrayItems</span>
+            </code>
+        <section class="phpdocumentor-description">The array index is 1-based and contains the following information on each array item:
+- &#039;start&#039; : The stack pointer to the first token in the array item.
+- &#039;end&#039;   : The stack pointer to the first token in the array item.
+- &#039;raw&#039;   : A string with the contents of all tokens between `start` and `end`.
+- &#039;clean&#039; : Same as `raw`, but all comment tokens have been stripped out.</section>
+    </article>
+                                    <a id="property_itemCount"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$itemCount</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">89</span>
+    </aside>
+            <p class="phpdocumentor-summary">How many items are in the array.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$itemCount</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_singleLine"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$singleLine</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">98</span>
+    </aside>
+            <p class="phpdocumentor-summary">Whether or not the array is single line.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$singleLine</span>
+            </code>
+    </article>
+                                    <a id="property_acceptedTokens"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$acceptedTokens</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">107</span>
+    </aside>
+            <p class="phpdocumentor-summary">List of tokens which can safely be used with an eval() expression.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$acceptedTokens</span>
+         = <span class="phpdocumentor-signature__default-value">[\T_NULL =&gt; \T_NULL, \T_TRUE =&gt; \T_TRUE, \T_FALSE =&gt; \T_FALSE, \T_LNUMBER =&gt; \T_LNUMBER, \T_DNUMBER =&gt; \T_DNUMBER, \T_CONSTANT_ENCAPSED_STRING =&gt; \T_CONSTANT_ENCAPSED_STRING, \T_STRING_CONCAT =&gt; \T_STRING_CONCAT, \T_INLINE_THEN =&gt; \T_INLINE_THEN, \T_INLINE_ELSE =&gt; \T_INLINE_ELSE, \T_BOOLEAN_NOT =&gt; \T_BOOLEAN_NOT]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">129</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set up this class.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+    
+</article>
+                                    <a id="method_register"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">register()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">151</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns an array of tokens this test wants to listen for.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">register</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_process"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">process()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">176</span>
+    </aside>
+        <p class="phpdocumentor-summary">Processes this test when one of its tokens is encountered.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">process</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This method fills the properties with relevant information for examining the array
+and then passes off to the <code class="prettyprint">processArray()</code> method.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the PHP_CodeSniffer
+file's token stack where the token
+was found.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+    
+</article>
+                                    <a id="method_processArray"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processArray()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">216</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process every part of the array declaration.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processArray</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>This contains the default logic for the sniff, but can be overloaded in a concrete child class
+if needed.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+    
+</article>
+                                    <a id="method_processOpenClose"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processOpenClose()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">276</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process the array opener and closer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processOpenClose</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$openPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$closePtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional method to be implemented in concrete child classes.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$openPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the array opener token in the token stack.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$closePtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the array closer token in the token stack.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Returning <code class="prettyprint">true</code> will short-circuit the sniff and stop processing.</p></span>
+            
+</article>
+                                    <a id="method_processKey"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processKey()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">305</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process the tokens in an array key.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processKey</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$startPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$endPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$itemNr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional method to be implemented in concrete child classes.</p>
+<p>The $startPtr and $endPtr do not discount whitespace or comments, but are all inclusive to
+allow examining all tokens in an array key.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the first token in the &quot;key&quot; part of
+an array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$endPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the last token in the &quot;key&quot; part of
+an array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$itemNr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Which item in the array is being handled.
+1-based, i.e. the first item is item 1, the second 2 etc.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Optional helper function.</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Returning <code class="prettyprint">true</code> will short-circuit the array item loop and stop processing.</p></span>
+            
+</article>
+                                    <a id="method_processNoKey"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processNoKey()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">328</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process an array item without an array key.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processNoKey</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$startPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$itemNr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional method to be implemented in concrete child classes.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the first token in the array item,
+which in this case will be the first token of the array
+value part of the array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$itemNr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Which item in the array is being handled.
+1-based, i.e. the first item is item 1, the second 2 etc.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Returning <code class="prettyprint">true</code> will short-circuit the array item loop and stop processing.</p></span>
+            
+</article>
+                                    <a id="method_processArrow"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processArrow()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">349</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process the double arrow.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processArrow</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$arrowPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$itemNr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional method to be implemented in concrete child classes.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$arrowPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the double arrow for the array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$itemNr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Which item in the array is being handled.
+1-based, i.e. the first item is item 1, the second 2 etc.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Returning <code class="prettyprint">true</code> will short-circuit the array item loop and stop processing.</p></span>
+            
+</article>
+                                    <a id="method_processValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">376</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process the tokens in an array value.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$startPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$endPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$itemNr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional method to be implemented in concrete child classes.</p>
+<p>The $startPtr and $endPtr do not discount whitespace or comments, but are all inclusive to
+allow examining all tokens in an array value.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the first token in the &quot;value&quot; part of
+an array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$endPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the last token in the &quot;value&quot; part of
+an array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$itemNr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Which item in the array is being handled.
+1-based, i.e. the first item is item 1, the second 2 etc.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Returning <code class="prettyprint">true</code> will short-circuit the array item loop and stop processing.</p></span>
+            
+</article>
+                                    <a id="method_processComma"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processComma()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">397</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process the comma after an array item.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">processComma</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$commaPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$itemNr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional method to be implemented in concrete child classes.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$commaPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the comma.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$itemNr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Which item in the array is being handled.
+1-based, i.e. the first item is item 1, the second 2 etc.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Returning <code class="prettyprint">true</code> will short-circuit the array item loop and stop processing.</p></span>
+            
+</article>
+                                    <a id="method_getActualArrayKey"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getActualArrayKey()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php"><a href="../files/phpcsutils-abstractsniffs-abstractarraydeclarationsniff.html"><abbr title="PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php">AbstractArrayDeclarationSniff.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">418</span>
+    </aside>
+        <p class="phpdocumentor-summary">Determine what the actual array key would be.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getActualArrayKey</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$startPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$endPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string|int|void</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Optional helper function for processsing array keys in the processKey() function.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHP_CodeSniffer file where the
+token was found.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$startPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the first token in the &quot;key&quot; part of
+an array item.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$endPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack pointer to the last token in the &quot;key&quot; part of
+an array item.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string|int|void</span>
+                    &mdash; <span class="phpdocumentor-description"><p>The string or integer array key or void if the array key could not
+reliably be determined.</p></span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
