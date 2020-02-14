@@ -27,6 +27,8 @@ class Collections
     /**
      * Control structures which can use the alternative control structure syntax.
      *
+     * @since 1.0.0-alpha2
+     *
      * @var array <int> => <int>
      */
     public static $alternativeControlStructureSyntaxTokens = [
@@ -42,6 +44,8 @@ class Collections
 
     /**
      * Alternative control structure syntax closer keyword tokens.
+     *
+     * @since 1.0.0-alpha2
      *
      * @var array <int> => <int>
      */
@@ -127,6 +131,8 @@ class Collections
 
     /**
      * Control structure tokens.
+     *
+     * @since 1.0.0-alpha2
      *
      * @var array <int> => <int>
      */
