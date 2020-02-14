@@ -72,9 +72,7 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
                 $this->markTestSkipped($skipMessage);
             }
 
-            $phpcsVersion           = Helper::getVersion();
-            $minVersionWithBackfill = \min(\array_keys(Numbers::$unsupportedPHPCSVersions));
-            if (\version_compare($phpcsVersion, $minVersionWithBackfill, '>=') === true) {
+            if (\version_compare(Helper::getVersion(), Numbers::UNSUPPORTED_PHPCS_VERSION, '>=') === true) {
                 $this->markTestSkipped($skipMessage);
             }
         }
