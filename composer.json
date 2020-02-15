@@ -4,6 +4,7 @@
     "type" : "phpcodesniffer-standard",
     "keywords" : [ "phpcs", "standards", "php_codesniffer", "phpcs2", "phpcs3", "tokens", "utility" ],
     "license" : "LGPL-3.0-or-later",
+    "homepage": "https://phpcsutils.com/",
     "authors" : [
         {
             "name" : "Juliette Reinders Folmer",
@@ -17,7 +18,8 @@
     ],
     "support" : {
         "issues" : "https://github.com/PHPCSStandards/PHPCSUtils/issues",
-        "source" : "https://github.com/PHPCSStandards/PHPCSUtils"
+        "source" : "https://github.com/PHPCSStandards/PHPCSUtils",
+        "docs"   : "https://phpcsutils.com/"
     },
     "require" : {
         "php" : ">=5.4",

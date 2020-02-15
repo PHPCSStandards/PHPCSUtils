@@ -3,5 +3,6 @@ vendor/
 /composer.lock
 /.phpcs.xml
 /phpcs.xml
+/phpdoc.xml
 /phpunit.xml
 /.phpunit.result.cache
