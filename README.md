@@ -228,14 +228,14 @@ PHPCS 3.x uses namespaces, while PHPCS 2.x does not. The `phpcsutils-autoload.ph
 
 #### Q: Why is PHP_CodeSniffer 3.5.3 not supported ?
 
-The backfill for PHP 7.4 numeric literals with underscores in PHP_CodeSniffer 3.5.3 is broken and there is no way to reliably provide support for anything to do with numbers or `T_STRING` tokens when using PHP_CodeSniffer 3.5.3 as the tokens returned by the tokenizer are unpredictable and unreliable.
+A: The backfill for PHP 7.4 numeric literals with underscores in PHP_CodeSniffer 3.5.3 is broken and there is no way to reliably provide support for anything to do with numbers or `T_STRING` tokens when using PHP_CodeSniffer 3.5.3 as the tokens returned by the tokenizer are unpredictable and unreliable.
 
 The backfill was fixed in PHP_CodeSniffer 3.5.4.
 
 
 Contributing
 -------
-Contributions to this project are welcome. Just clone the repo, branch off from `develop`, make your changes, commit them and send in a pull request.
+Contributions to this project are welcome. Clone the repo, branch off from `develop`, make your changes, commit them and send in a pull request.
 
 If unsure whether the changes you are proposing would be welcome, open an issue first to discuss your proposal.
 
