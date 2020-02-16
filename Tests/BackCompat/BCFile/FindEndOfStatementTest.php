@@ -3,11 +3,9 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
-/**
- * Tests for the \PHP_CodeSniffer\Files\File:findEndOfStatement method.
  *
  * This class is imported from the PHP_CodeSniffer project.
  *
@@ -26,6 +24,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::findEndOfStatement method.
@@ -44,11 +43,10 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testSimpleAssignment()
     {
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testSimpleAssignment */') + 2);
+        $start = $this->getTargetToken('/* testSimpleAssignment */', T_VARIABLE);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 5)], $tokens[$found]);
+        $this->assertSame(($start + 5), $found);
     }
 
     /**
@@ -58,11 +56,10 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testControlStructure()
     {
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testControlStructure */') + 2);
+        $start = $this->getTargetToken('/* testControlStructure */', T_WHILE);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 6)], $tokens[$found]);
+        $this->assertSame(($start + 6), $found);
     }
 
     /**
@@ -72,11 +69,10 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testClosureAssignment()
     {
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testClosureAssignment */') + 2);
+        $start = $this->getTargetToken('/* testClosureAssignment */', T_VARIABLE, '$a');
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 13)], $tokens[$found]);
+        $this->assertSame(($start + 13), $found);
     }
 
     /**
@@ -87,25 +83,22 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
     public function testHeredocFunctionArg()
     {
         // Find the end of the function.
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testHeredocFunctionArg */') + 2);
+        $start = $this->getTargetToken('/* testHeredocFunctionArg */', T_STRING, 'myFunction');
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 10)], $tokens[$found]);
+        $this->assertSame(($start + 10), $found);
 
         // Find the end of the heredoc.
         $start += 2;
         $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 4)], $tokens[$found]);
+        $this->assertSame(($start + 4), $found);
 
         // Find the end of the last arg.
         $start = ($found + 2);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[$start], $tokens[$found]);
+        $this->assertSame($start, $found);
     }
 
     /**
@@ -116,25 +109,22 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
     public function testSwitch()
     {
         // Find the end of the switch.
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testSwitch */') + 2);
+        $start = $this->getTargetToken('/* testSwitch */', T_SWITCH);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 28)], $tokens[$found]);
+        $this->assertSame(($start + 28), $found);
 
         // Find the end of the case.
         $start += 9;
         $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 8)], $tokens[$found]);
+        $this->assertSame(($start + 8), $found);
 
         // Find the end of default case.
         $start += 11;
         $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 6)], $tokens[$found]);
+        $this->assertSame(($start + 6), $found);
     }
 
     /**
@@ -145,25 +135,22 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
     public function testStatementAsArrayValue()
     {
         // Test short array syntax.
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testStatementAsArrayValue */') + 7);
+        $start = $this->getTargetToken('/* testStatementAsArrayValue */', T_NEW);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 2)], $tokens[$found]);
+        $this->assertSame(($start + 2), $found);
 
         // Test long array syntax.
         $start += 12;
         $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 2)], $tokens[$found]);
+        $this->assertSame(($start + 2), $found);
 
         // Test same statement outside of array.
         $start += 10;
         $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 3)], $tokens[$found]);
+        $this->assertSame(($start + 3), $found);
     }
 
     /**
@@ -173,10 +160,51 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testUseGroup()
     {
-        $start = (self::$phpcsFile->findNext(T_COMMENT, 0, null, false, '/* testUseGroup */') + 2);
+        $start = $this->getTargetToken('/* testUseGroup */', T_USE);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $tokens = self::$phpcsFile->getTokens();
-        $this->assertSame($tokens[($start + 23)], $tokens[$found]);
+        $this->assertSame(($start + 23), $found);
+    }
+
+    /**
+     * Test arrow function as array value.
+     *
+     * @return void
+     */
+    public function testArrowFunctionArrayValue()
+    {
+        $start = $this->getTargetToken('/* testArrowFunctionArrayValue */', Collections::arrowFunctionTokensBC());
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 9), $found);
+    }
+
+    /**
+     * Test static arrow function.
+     *
+     * @return void
+     */
+    public function testStaticArrowFunction()
+    {
+        $static = $this->getTargetToken('/* testStaticArrowFunction */', T_STATIC);
+        $fn     = $this->getTargetToken('/* testStaticArrowFunction */', Collections::arrowFunctionTokensBC());
+
+        $endOfStatementStatic = BCFile::findEndOfStatement(self::$phpcsFile, $static);
+        $endOfStatementFn     = BCFile::findEndOfStatement(self::$phpcsFile, $fn);
+
+        $this->assertSame($endOfStatementFn, $endOfStatementStatic);
+    }
+
+    /**
+     * Test arrow function with return value.
+     *
+     * @return void
+     */
+    public function testArrowFunctionReturnValue()
+    {
+        $start = $this->getTargetToken('/* testArrowFunctionReturnValue */', Collections::arrowFunctionTokensBC());
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 18), $found);
     }
 }

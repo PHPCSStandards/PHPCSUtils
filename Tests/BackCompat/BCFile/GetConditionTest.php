@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -302,6 +302,69 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Test retrieving a specific condition from a tokens "conditions" array.
+     *
+     * @dataProvider dataGetConditionReversed
+     *
+     * @param string $testMarker      The comment which prefaces the target token in the test file.
+     * @param array  $expectedResults Array with the condition token type to search for as key
+     *                                and the marker for the expected stack pointer result as a value.
+     *
+     * @return void
+     */
+    public function testGetConditionReversed($testMarker, $expectedResults)
+    {
+        $testClass = static::TEST_CLASS;
+        $stackPtr  = self::$testTokens[$testMarker];
+
+        // Add expected results for all test markers not listed in the data provider.
+        $expectedResults += $this->conditionDefaults;
+
+        foreach ($expectedResults as $conditionType => $expected) {
+            if ($expected !== false) {
+                $expected = self::$markerTokens[$expected];
+            }
+
+            $result = $testClass::getCondition(self::$phpcsFile, $stackPtr, \constant($conditionType), false);
+            $this->assertSame(
+                $expected,
+                $result,
+                "Assertion failed for test marker '{$testMarker}' with condition {$conditionType} (reversed)"
+            );
+        }
+    }
+
+    /**
+     * Data provider.
+     *
+     * Only the conditions which are expected to be *found* need to be listed here.
+     * All other potential conditions will automatically also be tested and will expect
+     * `false` as a result.
+     *
+     * @see testGetConditionReversed() For the array format.
+     *
+     * @return array
+     */
+    public static function dataGetConditionReversed()
+    {
+        $data = self::dataGetCondition();
+
+        // Set up the data for the reversed results.
+        $data['testSeriouslyNestedMethod'][1]['T_IF'] = '/* condition 4: if */';
+
+        $data['testDeepestNested'][1]['T_FUNCTION'] = '/* condition 12: nested anonymous class method */';
+        $data['testDeepestNested'][1]['T_IF']       = '/* condition 10-1: if */';
+
+        $data['testInException'][1]['T_FUNCTION'] = '/* condition 6: class method */';
+        $data['testInException'][1]['T_IF']       = '/* condition 4: if */';
+
+        $data['testInDefault'][1]['T_FUNCTION'] = '/* condition 6: class method */';
+        $data['testInDefault'][1]['T_IF']       = '/* condition 4: if */';
+
+        return $data;
     }
 
     /**

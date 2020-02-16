@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  *
@@ -22,6 +22,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodProperties method.
@@ -38,14 +39,44 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when a non function token is passed.
      *
+     * @dataProvider dataNotAFunctionException
+     *
+     * @param string $commentString   The comment which preceeds the test.
+     * @param array  $targetTokenType The token type to search for after $commentString.
+     *
      * @return void
      */
-    public function testNotAFunctionException()
+    public function testNotAFunctionException($commentString, $targetTokenType)
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
 
-        $next = $this->getTargetToken('/* testNotAFunction */', T_RETURN);
+        $next = $this->getTargetToken($commentString, $targetTokenType);
         BCFile::getMethodProperties(self::$phpcsFile, $next);
+    }
+
+    /**
+     * Data Provider.
+     *
+     * @see testNotAFunctionException() For the array format.
+     *
+     * @return array
+     */
+    public function dataNotAFunctionException()
+    {
+        return [
+            'return' => [
+                '/* testNotAFunction */',
+                T_RETURN,
+            ],
+            'function-call-fn-phpcs-3.5.3-3.5.4' => [
+                '/* testFunctionCallFnPHPCS353-354 */',
+                Collections::arrowFunctionTokensBC(),
+            ],
+            'fn-live-coding' => [
+                '/* testArrowFunctionLiveCoding */',
+                Collections::arrowFunctionTokensBC(),
+            ],
+        ];
     }
 
     /**
@@ -379,6 +410,30 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test a static arrow function.
+     *
+     * @return void
+     */
+    public function testArrowFunction()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => 'int',
+            'return_type_token'    => 9, // Offset from the T_FN token.
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => true,
+            'has_body'             => true,
+        ];
+
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+    }
+
+    /**
      * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264
@@ -403,16 +458,69 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test handling of incorrect tokenization of array return type declarations for arrow functions
+     * in a very specific code sample in PHPCS < 3.5.4.
+     *
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2773
+     *
+     * @return void
+     */
+    public function testArrowFunctionArrayReturnValue()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => 'array',
+            'return_type_token'    => 5, // Offset from the T_FN token.
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+    }
+
+    /**
+     * Test handling of an arrow function returning by reference.
+     *
+     * @return void
+     */
+    public function testArrowFunctionReturnByRef()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => '?string',
+            'return_type_token'    => 12,
+            'nullable_return_type' => true,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+    }
+
+    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.
      * @param array  $expected      The expected function output.
+     * @param array  $targetType    Optional. The token type to search for after $commentString.
+     *                              Defaults to the function/closure tokens.
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected)
+    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
     {
-        $function = $this->getTargetToken($commentString, [T_FUNCTION, T_CLOSURE]);
+        $function = $this->getTargetToken($commentString, $targetType);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
         if ($expected['return_type_token'] !== false) {

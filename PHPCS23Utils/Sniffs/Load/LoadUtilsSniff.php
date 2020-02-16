@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -13,7 +13,7 @@ namespace PHPCS23Utils\Sniffs\Load;
 /*
  * Here be magic.
  *
- * This include allows for the Utility functions to work PHPCS cross-version.
+ * This `include` allows for the Utility functions to work in both PHPCS 2.x as well as PHPCS 3.x.
  */
 require_once \dirname(\dirname(\dirname(__DIR__))) . '/phpcsutils-autoload.php';
 

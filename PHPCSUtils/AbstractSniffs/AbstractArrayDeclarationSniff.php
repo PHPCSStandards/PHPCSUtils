@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -482,8 +482,6 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
          * Ok, so now we know the base value of the key, let's determine whether it is
          * an acceptable index key for an array and if not, what it would turn into.
          */
-
-        $integerKey = false;
 
         switch (\gettype($key)) {
             case 'NULL':

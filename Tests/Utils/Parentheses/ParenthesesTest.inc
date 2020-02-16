@@ -38,8 +38,17 @@ $anonClass = new class(
 /* testListOnCloseParens */
 list($a, $b) = $array;
 
+/* testArrayFunctionCallWithArrowFunctionParam */
+$value = array(ClassName::functionCall('Text', fn($param) => $param->get()));
+
+/* testFunctionNamedFn */
+function fn() {}
+
 /* testNoOwnerOnCloseParens */
 $a = ($b + $c);
+
+/* testFunctionCallFnPHPCS353-354 */
+$value = $obj->fn(true);
 
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */

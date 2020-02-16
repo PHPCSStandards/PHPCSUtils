@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -164,8 +164,7 @@ class Namespaces
             return false;
         }
 
-        $tokens = $phpcsFile->getTokens();
-        $next   = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), ($endOfStatement + 1), true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), ($endOfStatement + 1), true);
         if ($next === $endOfStatement) {
             // Declaration of global namespace. I.e.: namespace {}.
             // If not a scoped {} namespace declaration, no name/global declarations are invalid

@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -195,6 +195,27 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
             'test-arrow-key-closure-with-keyed-yield' => [
                 '/* testArrowKeyClosureYieldWithKey */',
                 24,
+            ],
+            'test-arrow-value-fn-function' => [
+                '/* testFnFunctionWithKey */',
+                8,
+            ],
+            'test-no-arrow-value-fn-function' => [
+                '/* testNoArrowValueFnFunction */',
+                false,
+            ],
+            'test-arrow-tstring-key-not-fn-function' => [
+                '/* testTstringKeyNotFnFunction */',
+                8,
+            ],
+            // Test specifically for PHPCS 3.5.3 and 3.5.4 in which all "fn" tokens were tokenized as T_FN.
+            'test-arrow-access-to-property-named-fn-as-key-phpcs-3.5.3-3.5.4' => [
+                '/* testKeyPropertyAccessFnPHPCS353-354 */',
+                12,
+            ],
+            'test-double-arrow-incorrectly-tokenized-phpcs-issue-2865' => [
+                '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
+                10,
             ],
         ];
     }

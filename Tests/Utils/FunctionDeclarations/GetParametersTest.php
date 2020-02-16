@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -50,13 +50,18 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
     /**
      * Test receiving an expected exception when a non function/use token is passed.
      *
+     * @dataProvider dataUnexpectedTokenException
+     *
+     * @param string $commentString   The comment which preceeds the test.
+     * @param array  $targetTokenType The token type to search for after $commentString.
+     *
      * @return void
      */
-    public function testUnexpectedTokenException()
+    public function testUnexpectedTokenException($commentString, $targetTokenType)
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE');
+        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
 
-        $next = $this->getTargetToken('/* testNotAFunction */', [\T_INTERFACE]);
+        $next = $this->getTargetToken($commentString, $targetTokenType);
         FunctionDeclarations::getParameters(self::$phpcsFile, $next);
     }
 

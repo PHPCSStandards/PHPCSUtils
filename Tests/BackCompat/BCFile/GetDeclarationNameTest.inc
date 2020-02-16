@@ -60,6 +60,9 @@ class /* comment */
 // phpcs:ignore Standard.Cat.SniffName -- for reasons
     ClassWithCommentsAndNewLines {}
 
+/* testFunctionFn */
+function fn() {}
+
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 function // Comment.

@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -120,12 +120,12 @@ class Numbers
      * PHPCS versions in which the backfill for PHP 7.4 numeric literal separators is broken.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Changed from a property to a class constant.
+     *                     Changed from an array to a string.
      *
-     * @var array
+     * @var string
      */
-    public static $unsupportedPHPCSVersions = [
-        '3.5.3' => true,
-    ];
+    const UNSUPPORTED_PHPCS_VERSION = '3.5.3';
 
     /**
      * Valid tokens which could be part of a numeric literal sequence in PHP < 7.4.
@@ -177,7 +177,6 @@ class Numbers
      */
     public static function getCompleteNumber(File $phpcsFile, $stackPtr)
     {
-
         static $php74, $phpcsVersion, $phpcsWithBackfill;
 
         $tokens = $phpcsFile->getTokens();
@@ -193,8 +192,7 @@ class Numbers
         if (isset($php74, $phpcsVersion, $phpcsWithBackfill) === false) {
             $php74             = \version_compare(\PHP_VERSION_ID, '70399', '>');
             $phpcsVersion      = Helper::getVersion();
-            $maxUnsupported    = \max(\array_keys(self::$unsupportedPHPCSVersions));
-            $phpcsWithBackfill = \version_compare($phpcsVersion, $maxUnsupported, '>');
+            $phpcsWithBackfill = \version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '>');
         }
 
         /*
@@ -203,7 +201,7 @@ class Numbers
          *
          * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546
          */
-        if (isset(self::$unsupportedPHPCSVersions[$phpcsVersion]) === true) {
+        if (\version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
             throw new RuntimeException('The ' . __METHOD__ . '() method does not support PHPCS ' . $phpcsVersion);
         }
 

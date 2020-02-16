@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -117,6 +117,8 @@ abstract class UtilityMethodTestCase extends TestCase
      * the same directory and named the same as the test class, but with an
      * `inc` file extension.
      *
+     * @since 1.0.0
+     *
      * @var string
      */
     protected static $caseFile = '';
@@ -125,6 +127,8 @@ abstract class UtilityMethodTestCase extends TestCase
      * The tab width setting to use when tokenizing the file.
      *
      * This allows for test case files to use a different tab width than the default.
+     *
+     * @since 1.0.0
      *
      * @var int
      */
@@ -177,14 +181,14 @@ abstract class UtilityMethodTestCase extends TestCase
         }
 
         if (\is_readable($caseFile) === false) {
-            self::fail("Test case file missing. Expected case file location: $caseFile");
+            parent::fail("Test case file missing. Expected case file location: $caseFile");
         }
 
         $contents = \file_get_contents($caseFile);
 
         if (\version_compare(Helper::getVersion(), '2.99.99', '>')) {
             // PHPCS 3.x.
-            $config = new \PHP_Codesniffer\Config();
+            $config = new \PHP_CodeSniffer\Config();
 
             /*
              * We just need to provide a standard so PHPCS will tokenize the file.
@@ -239,7 +243,7 @@ abstract class UtilityMethodTestCase extends TestCase
 
         // Fail the test if the case file failed to tokenize.
         if (self::$phpcsFile->numTokens === 0) {
-            self::fail("Tokenizing of the test case file failed for case file: $caseFile");
+            parent::fail("Tokenizing of the test case file failed for case file: $caseFile");
         }
     }
 
@@ -320,6 +324,8 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit cross-version
      * compatible manner.
+     *
+     * @since 1.0.0
      *
      * @param string $msg  The expected exception message.
      * @param string $type The exception type to expect. Either 'runtime' or 'tokenizer'.

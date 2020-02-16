@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -145,7 +145,7 @@ class Helper
     {
         $tabWidth = self::getCommandLineData($phpcsFile, 'tabWidth');
         if ($tabWidth > 0) {
-            return $tabWidth;
+            return (int) $tabWidth;
         }
 
         return self::DEFAULT_TABWIDTH;

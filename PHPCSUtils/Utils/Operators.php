@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -63,6 +63,7 @@ class Operators
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
@@ -80,7 +81,9 @@ class Operators
 
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
-        if ($tokens[$tokenBefore]['code'] === \T_FUNCTION) {
+        if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
+            || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
+        ) {
             // Function returns a reference.
             return true;
         }
@@ -231,9 +234,9 @@ class Operators
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                   $stackPtr  The position of the ternary then/else
-     *                                         operator in the stack.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the ternary then/else
+     *                                               operator in the stack.
      *
      * @return bool True if short ternary, or false otherwise.
      */

@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -23,6 +23,40 @@ namespace PHPCSUtils\Tokens;
  */
 class Collections
 {
+
+    /**
+     * Control structures which can use the alternative control structure syntax.
+     *
+     * @since 1.0.0-alpha2
+     *
+     * @var array <int> => <int>
+     */
+    public static $alternativeControlStructureSyntaxTokens = [
+        \T_IF      => \T_IF,
+        \T_ELSEIF  => \T_ELSEIF,
+        \T_ELSE    => \T_ELSE,
+        \T_FOR     => \T_FOR,
+        \T_FOREACH => \T_FOREACH,
+        \T_SWITCH  => \T_SWITCH,
+        \T_WHILE   => \T_WHILE,
+        \T_DECLARE => \T_DECLARE,
+    ];
+
+    /**
+     * Alternative control structure syntax closer keyword tokens.
+     *
+     * @since 1.0.0-alpha2
+     *
+     * @var array <int> => <int>
+     */
+    public static $alternativeControlStructureSyntaxCloserTokens = [
+        \T_ENDIF      => \T_ENDIF,
+        \T_ENDFOR     => \T_ENDFOR,
+        \T_ENDFOREACH => \T_ENDFOREACH,
+        \T_ENDWHILE   => \T_ENDWHILE,
+        \T_ENDSWITCH  => \T_ENDSWITCH,
+        \T_ENDDECLARE => \T_ENDDECLARE,
+    ];
 
     /**
      * Tokens which are used to create arrays.
@@ -93,6 +127,25 @@ class Collections
         \T_TRAIT      => \T_TRAIT,
         \T_FUNCTION   => \T_FUNCTION,
         \T_CLOSURE    => \T_CLOSURE,
+    ];
+
+    /**
+     * Control structure tokens.
+     *
+     * @since 1.0.0-alpha2
+     *
+     * @var array <int> => <int>
+     */
+    public static $controlStructureTokens = [
+        \T_IF      => \T_IF,
+        \T_ELSEIF  => \T_ELSEIF,
+        \T_ELSE    => \T_ELSE,
+        \T_FOR     => \T_FOR,
+        \T_FOREACH => \T_FOREACH,
+        \T_SWITCH  => \T_SWITCH,
+        \T_DO      => \T_DO,
+        \T_WHILE   => \T_WHILE,
+        \T_DECLARE => \T_DECLARE,
     ];
 
     /**
@@ -261,7 +314,8 @@ class Collections
         \T_PARENT       => \T_PARENT,
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
         \T_RETURN_TYPE  => \T_RETURN_TYPE, // PHPCS 2.4.0 < 3.3.0.
-        \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0.
+        \T_ARRAY_HINT   => \T_ARRAY_HINT, // PHPCS < 2.8.0 / PHPCS < 3.5.3 for arrow functions.
+        \T_ARRAY        => \T_ARRAY, // PHPCS < 3.5.4 for select arrow functions.
     ];
 
     /**
@@ -345,4 +399,27 @@ class Collections
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
     ];
+
+    /**
+     * Tokens which can represent the arrow function keyword.
+     *
+     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     *
+     * @since 1.0.0
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrowFunctionTokensBC()
+    {
+        $tokens = [
+            \T_STRING => \T_STRING,
+        ];
+
+        if (\defined('T_FN') === true) {
+            // PHP 7.4 or PHPCS 3.5.3+.
+            $tokens[\T_FN] = \T_FN;
+        }
+
+        return $tokens;
+    }
 }

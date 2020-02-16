@@ -43,7 +43,7 @@ jobs:
   include:
     #### SNIFF STAGE ####
     - stage: sniff
-      php: 7.3
+      php: 7.4
       env: PHPCS_VERSION="dev-master"
       addons:
         apt:
@@ -165,12 +165,6 @@ install:
     if [[ $PHPCS_VERSION == "n/a" ]]; then
       # Don't install PHPUnit when it's not needed.
       composer remove --dev phpunit/phpunit --no-update --no-scripts
-    elif [[ "$PHPCS_VERSION" < "3.1.0" ]]; then
-      # PHPCS < 3.1.0 is not compatible with PHPUnit 6.x.
-      composer require --dev phpunit/phpunit:"^4.0||^5.0" --no-update --no-scripts
-    elif [[ "$PHPCS_VERSION" < "3.2.3" ]]; then
-      # PHPCS < 3.2.3 is not compatible with PHPUnit 7.x.
-      composer require --dev phpunit/phpunit:"^4.0||^5.0||^6.0" --no-update --no-scripts
     fi
 
   # --prefer-dist will allow for optimal use of the travis caching ability.

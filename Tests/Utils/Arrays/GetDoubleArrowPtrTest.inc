@@ -71,4 +71,19 @@ $array = [
 
     /* testArrowKeyClosureYieldWithKey */
     function() { yield 'k' => $x }() => 'value',
+
+    /* testFnFunctionWithKey */
+    'fn' => fn ($x) => yield 'k' => $x,
+
+    /* testNoArrowValueFnFunction */
+    fn ($x) => yield 'k' => $x,
+
+    /* testTstringKeyNotFnFunction */
+    CONSTANT_NAME => 'value',
+
+    /* testKeyPropertyAccessFnPHPCS353-354 */
+    ($obj->fn) => 'value',
+
+    /* testDoubleArrowTokenizedAsTstring-PHPCS2865 */
+    $obj->fn => 'value',
 ];

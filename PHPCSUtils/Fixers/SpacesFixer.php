@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -70,7 +70,7 @@ class SpacesFixer
      *                                                    same sniff.
      * @param string                      $errorType      Optional. Whether to report the issue as a
      *                                                    `warning` or an `error`. Defaults to `error`.
-     * @param string                      $errorSeverity  Optional. The severity level for this message.
+     * @param int                         $errorSeverity  Optional. The severity level for this message.
      *                                                    A value of 0 will be converted into the default
      *                                                    severity level.
      * @param string                      $metricName     Optional. The name of the metric to record.

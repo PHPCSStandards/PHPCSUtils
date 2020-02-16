@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
+use PHPCSUtils\Utils\Parentheses;
 
 /**
  * Utility functions to retrieve information when working with lists.
@@ -153,15 +154,15 @@ class Lists
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer_File $phpcsFile   The file being scanned.
-     * @param int                   $stackPtr    The position of the T_LIST or T_OPEN_SHORT_ARRAY
-     *                                           token in the stack.
-     * @param true|null             $isShortList Short-circuit the short list check for T_OPEN_SHORT_ARRAY
-     *                                           tokens if it isn't necessary.
-     *                                           Efficiency tweak for when this has already been established,
-     *                                           i.e. when encountering a nested list while walking the
-     *                                           tokens in a list.
-     *                                           Use with care.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file being scanned.
+     * @param int                         $stackPtr    The position of the T_LIST or T_OPEN_SHORT_ARRAY
+     *                                                 token in the stack.
+     * @param true|null                   $isShortList Short-circuit the short list check for T_OPEN_SHORT_ARRAY
+     *                                                 tokens if it isn't necessary.
+     *                                                 Efficiency tweak for when this has already been established,
+     *                                                 i.e. when encountering a nested list while walking the
+     *                                                 tokens in a list.
+     *                                                 Use with care.
      *
      * @return array|false Array with two keys `opener`, `closer` or false if
      *                     not a (short) list token or if the opener/closer

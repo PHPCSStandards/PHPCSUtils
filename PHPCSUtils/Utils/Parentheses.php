@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -13,6 +13,8 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
  * Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped in
@@ -27,6 +29,7 @@ class Parentheses
      * Get the pointer to the parentheses owner of an open/close parenthesis.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position of `T_OPEN/CLOSE_PARENTHESIS` token.
@@ -45,11 +48,14 @@ class Parentheses
 
         /*
          * `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
+         * `T_FN` was only backfilled in PHPCS 3.5.3/4/5.
+         * - On PHP 7.4 with PHPCS < 3.5.3, T_FN will not yet be a parentheses owner.
+         * - On PHP < 7.4 with PHPCS < 3.5.3, T_FN will be tokenized as T_STRING and not yet be a parentheses owner.
          *
          * {@internal As the 'parenthesis_owner' index is only set on parentheses, we didn't need to do any
          * input validation before, but now we do.}
          */
-        if (\version_compare(Helper::getVersion(), '3.5.0', '>=') === true) {
+        if (\version_compare(Helper::getVersion(), '3.5.4', '>=') === true) {
             return false;
         }
 
@@ -69,7 +75,9 @@ class Parentheses
             && ($tokens[$prevNonEmpty]['code'] === \T_LIST
             || $tokens[$prevNonEmpty]['code'] === \T_ANON_CLASS
             // Work-around: anon classes were, in certain circumstances, tokenized as T_CLASS prior to PHPCS 3.4.0.
-            || $tokens[$prevNonEmpty]['code'] === \T_CLASS)
+            || $tokens[$prevNonEmpty]['code'] === \T_CLASS
+            // Possibly an arrow function.
+            || FunctionDeclarations::isArrowFunction($phpcsFile, $prevNonEmpty) === true)
         ) {
             return $prevNonEmpty;
         }
@@ -82,6 +90,7 @@ class Parentheses
      * set of valid owners.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
      * @param int                         $stackPtr    The position of `T_OPEN/CLOSE_PARENTHESIS` token.
@@ -109,6 +118,13 @@ class Parentheses
          */
         if (\in_array(\T_ANON_CLASS, $validOwners, true)) {
             $validOwners[] = \T_CLASS;
+        }
+
+        /*
+         * Allow for T_FN token being tokenized as T_STRING before PHPCS 3.5.3.
+         */
+        if (\defined('T_FN') && \in_array(\T_FN, $validOwners, true)) {
+            $validOwners += Collections::arrowFunctionTokensBC();
         }
 
         return \in_array($tokens[$owner]['code'], $validOwners, true);

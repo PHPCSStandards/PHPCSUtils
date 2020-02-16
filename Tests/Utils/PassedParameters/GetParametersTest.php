@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -407,6 +407,29 @@ class GetParametersTest extends UtilityMethodTestCase
             echo $foo, $bar;
         }
     }',
+                    ],
+                ],
+            ],
+
+            // Array arrow function and yield.
+            'long-array-nested-arrow-function-with-yield' => [
+                '/* testLongArrayArrowFunctionWithYield */',
+                \T_ARRAY,
+                [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 8,
+                        'raw'   => '1 => \'1\'',
+                    ],
+                    2 => [
+                        'start' => 10,
+                        'end'   => 30,
+                        'raw'   => '2 => fn ($x) => yield \'a\' => $x',
+                    ],
+                    3 => [
+                        'start' => 32,
+                        'end'   => 38,
+                        'raw'   => '3 => \'3\'',
                     ],
                 ],
             ],

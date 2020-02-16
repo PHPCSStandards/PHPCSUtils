@@ -3,7 +3,7 @@
  * PHPCSUtils, utility functions and classes for PHP_CodeSniffer sniff developers.
  *
  * @package   PHPCSUtils
- * @copyright 2019 PHPCSUtils Contributors
+ * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
@@ -60,8 +60,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
 
         self::$phpcsVersion   = Helper::getVersion();
         self::$php74OrHigher  = \version_compare(\PHP_VERSION_ID, '70399', '>');
-        $maxUnsupported       = \max(\array_keys(Numbers::$unsupportedPHPCSVersions));
-        self::$usableBackfill = \version_compare(self::$phpcsVersion, $maxUnsupported, '>');
+        self::$usableBackfill = \version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>');
     }
 
     /**
@@ -85,7 +84,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     public function testUnsupportedPhpcsException()
     {
         self::setUpStaticProperties();
-        if (isset(Numbers::$unsupportedPHPCSVersions[self::$phpcsVersion]) === false) {
+        if (\version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '!=') === true) {
             $this->markTestSkipped('Test specific to a limited set of PHPCS versions');
         }
 
@@ -111,7 +110,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     {
         // Skip the test(s) on unsupported PHPCS versions.
         self::setUpStaticProperties();
-        if (isset(Numbers::$unsupportedPHPCSVersions[self::$phpcsVersion]) === true) {
+        if (\version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
             $this->markTestSkipped(
                 'PHPCS ' . self::$phpcsVersion . ' is not supported due to buggy numeric string literal backfill.'
             );

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
+                                    <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
+                    <li><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Numbers
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">32</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Utility functions for working with integer/float tokens.</p>
+        <section class="phpdocumentor-class__description"><p>PHP 7.4 introduced numeric literal separators which break number tokenization in older PHP versions.
+PHPCS backfills this since PHPCS 3.5.3/4.</p>
+<p>However, if an external standard intends to support PHPCS &lt; 3.5.4 and PHP &lt; 7.4, working with
+number tokens has suddenly become a challenge.</p>
+<p>The functions in this class have been put in place to ease that pain and it is
+<em>strongly</em> recommended to always use these functions when sniffing for and examining the
+contents of <code class="prettyprint">T_LNUMBER</code> or <code class="prettyprint">T_DNUMBER</code> tokens.</p></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_DECIMAL_INT">REGEX_DECIMAL_INT</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine whether the contents of an arbitrary string represents a decimal integer.</td>
+                    <td class="phpdocumentor-cell">&#039;`^(?:0|[1-9][0-9]*)$`D&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_OCTAL_INT">REGEX_OCTAL_INT</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine whether the contents of an arbitrary string represents an octal integer.</td>
+                    <td class="phpdocumentor-cell">&#039;`^0[0-7]+$`D&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_BINARY_INT">REGEX_BINARY_INT</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine whether the contents of an arbitrary string represents a binary integer.</td>
+                    <td class="phpdocumentor-cell">&#039;`^0b[0-1]+$`iD&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_HEX_INT">REGEX_HEX_INT</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine whether the contents of an arbitrary string represents a hexidecimal integer.</td>
+                    <td class="phpdocumentor-cell">&#039;`^0x[0-9A-F]+$`iD&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_FLOAT">REGEX_FLOAT</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine whether the contents of an arbitrary string represents a float.</td>
+                    <td class="phpdocumentor-cell">&#039;`
+        ^(?:
+            (?:
+                (?:
+                    (?P&lt;LNUM&gt;[0-9]+)
+                |
+                    (?P&lt;DNUM&gt;([0-9]*\\.(?P&gt;LNUM)|(?P&gt;LNUM)\\.[0-9]*))
+                )
+                [e][+-]?(?P&gt;LNUM)
+            )
+            |
+            (?P&gt;DNUM)
+            |
+            (?:0|[1-9][0-9]*)
+        )$
+        `ixD&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_NUMLIT_STRING">REGEX_NUMLIT_STRING</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.</td>
+                    <td class="phpdocumentor-cell">&#039;`^((?&lt;![\\.e])_[0-9][0-9e\\.]*)+$`iD&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_HEX_NUMLIT_STRING">REGEX_HEX_NUMLIT_STRING</a></th>
+                    <td class="phpdocumentor-cell">Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a hexidecimal numeric literal sequence.</td>
+                    <td class="phpdocumentor-cell">&#039;`^((?&lt;!\\.)_[0-9A-F]*)+$`iD&#039;</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#constant_UNSUPPORTED_PHPCS_VERSION">UNSUPPORTED_PHPCS_VERSION</a></th>
+                    <td class="phpdocumentor-cell">PHPCS versions in which the backfill for PHP 7.4 numeric literal separators is broken.</td>
+                    <td class="phpdocumentor-cell">&#039;3.5.3&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#property_numericLiteralAcceptedTokens">$numericLiteralAcceptedTokens</a></th>
+                    <td class="phpdocumentor-cell">Valid tokens which could be part of a numeric literal sequence in PHP &lt; 7.4.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_getCompleteNumber">getCompleteNumber()</a></th>
+                    <td class="phpdocumentor-cell">Helper function to deal with numeric literals, potentially with underscore separators.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_getDecimalValue">getDecimalValue()</a></th>
+                    <td class="phpdocumentor-cell">Get the decimal number value of a numeric string.</td>
+                    <td class="phpdocumentor-cell">string|bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_isDecimalInt">isDecimalInt()</a></th>
+                    <td class="phpdocumentor-cell">Verify whether the contents of an arbitrary string represents a decimal integer.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_isHexidecimalInt">isHexidecimalInt()</a></th>
+                    <td class="phpdocumentor-cell">Verify whether the contents of an arbitrary string represents a hexidecimal integer.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_isBinaryInt">isBinaryInt()</a></th>
+                    <td class="phpdocumentor-cell">Verify whether the contents of an arbitrary string represents a binary integer.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_isOctalInt">isOctalInt()</a></th>
+                    <td class="phpdocumentor-cell">Verify whether the contents of an arbitrary string represents an octal integer.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-Numbers.html#method_isFloat">isFloat()</a></th>
+                    <td class="phpdocumentor-cell">Verify whether the contents of an arbitrary string represents a floating point number.</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_REGEX_DECIMAL_INT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_DECIMAL_INT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">42</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine whether the contents of an arbitrary string represents a decimal integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_DECIMAL_INT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`^(?:0|[1-9][0-9]*)$`D&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_REGEX_OCTAL_INT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_OCTAL_INT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine whether the contents of an arbitrary string represents an octal integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_OCTAL_INT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`^0[0-7]+$`D&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_REGEX_BINARY_INT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_BINARY_INT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">60</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine whether the contents of an arbitrary string represents a binary integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_BINARY_INT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`^0b[0-1]+$`iD&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_REGEX_HEX_INT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_HEX_INT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine whether the contents of an arbitrary string represents a hexidecimal integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_HEX_INT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`^0x[0-9A-F]+$`iD&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_REGEX_FLOAT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_FLOAT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">80</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine whether the contents of an arbitrary string represents a float.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_FLOAT</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`
+        ^(?:
+            (?:
+                (?:
+                    (?P&lt;LNUM&gt;[0-9]+)
+                |
+                    (?P&lt;DNUM&gt;([0-9]*\\.(?P&gt;LNUM)|(?P&gt;LNUM)\\.[0-9]*))
+                )
+                [e][+-]?(?P&gt;LNUM)
+            )
+            |
+            (?P&gt;DNUM)
+            |
+            (?:0|[1-9][0-9]*)
+        )$
+        `ixD&#039;</span>
+    </code>
+    </article>
+                                    <a id="constant_REGEX_NUMLIT_STRING"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_NUMLIT_STRING</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">106</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_NUMLIT_STRING</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`^((?&lt;![\\.e])_[0-9][0-9e\\.]*)+$`iD&#039;</span>
+    </code>
+        <section class="phpdocumentor-description">PHP cross-version compat for PHP 7.4 numeric literals with underscore separators.</section>
+    </article>
+                                    <a id="constant_REGEX_HEX_NUMLIT_STRING"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REGEX_HEX_NUMLIT_STRING</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">117</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a hexidecimal numeric literal sequence.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$REGEX_HEX_NUMLIT_STRING</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;`^((?&lt;!\\.)_[0-9A-F]*)+$`iD&#039;</span>
+    </code>
+        <section class="phpdocumentor-description">PHP cross-version compat for PHP 7.4 numeric literals with underscore separators.</section>
+    </article>
+                                    <a id="constant_UNSUPPORTED_PHPCS_VERSION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">UNSUPPORTED_PHPCS_VERSION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">128</span>
+    </aside>
+            <p class="phpdocumentor-summary">PHPCS versions in which the backfill for PHP 7.4 numeric literal separators is broken.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$UNSUPPORTED_PHPCS_VERSION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;3.5.3&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_numericLiteralAcceptedTokens"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$numericLiteralAcceptedTokens</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">137</span>
+    </aside>
+            <p class="phpdocumentor-summary">Valid tokens which could be part of a numeric literal sequence in PHP &lt; 7.4.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$numericLiteralAcceptedTokens</span>
+         = <span class="phpdocumentor-signature__default-value">[\T_LNUMBER =&gt; true, \T_DNUMBER =&gt; true, \T_STRING =&gt; true]</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_getCompleteNumber"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getCompleteNumber()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">178</span>
+    </aside>
+        <p class="phpdocumentor-summary">Helper function to deal with numeric literals, potentially with underscore separators.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCompleteNumber</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>PHP &lt; 7.4 does not tokenize numeric literals containing underscores correctly.
+As of PHPCS 3.5.3, PHPCS contains a back-fill, but this backfill was buggy in the initial
+implementation. A fix for this broken backfill is included in PHPCS 3.5.4.</p>
+<p>Either way, this function provides a backfill for all PHPCS/PHP combinations where
+PHP 7.4 numbers with underscore separators are tokenized incorrectly - with the
+exception of PHPCS 3.5.3 as the buggyness of the original backfill implementation makes
+it impossible to provide reliable results.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of a T_LNUMBER or T_DNUMBER token.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">link</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">link</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">throws</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>If the specified token is not of type
+T_LNUMBER or T_DNUMBER.</p></section></dd>
+                                    <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">throws</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>If this function is called in combination
+with an unsupported PHPCS version.</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+                    &mdash; <span class="phpdocumentor-description"><p>An array with the following information about the number:</p>
+<ul>
+<li>'orig_content' string The (potentially concatenated) original content of the tokens;</li>
+<li>'content'      string The (potentially concatenated) content, underscore(s) removed;</li>
+<li>'code'         int    The token code of the number, either T_LNUMBER or T_DNUMBER.</li>
+<li>'type'         string The token type, either 'T_LNUMBER' or 'T_DNUMBER'.</li>
+<li>'decimal'      string The decimal value of the number;</li>
+<li>'last_token'   int    The stackPtr to the last token which was part of the number;
+This will be the same as the original stackPtr if it is not
+a PHP 7.4 number with underscores.</li>
+</ul></span>
+            
+</article>
+                                    <a id="method_getDecimalValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getDecimalValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">326</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get the decimal number value of a numeric string.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getDecimalValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$string</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string|bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Takes PHP 7.4 numeric literal separators in numbers into account.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Arbitrary token content string.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string|bool</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Decimal number as a string or false if the passed parameter
+was not a numeric string.
+Note: floating point numbers with exponent will not be expanded,
+but returned as-is.</p></span>
+            
+</article>
+                                    <a id="method_isDecimalInt"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">isDecimalInt()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">375</span>
+    </aside>
+        <p class="phpdocumentor-summary">Verify whether the contents of an arbitrary string represents a decimal integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isDecimalInt</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$string</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Takes PHP 7.4 numeric literal separators in numbers into account.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Arbitrary string.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_isHexidecimalInt"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">isHexidecimalInt()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">398</span>
+    </aside>
+        <p class="phpdocumentor-summary">Verify whether the contents of an arbitrary string represents a hexidecimal integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isHexidecimalInt</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$string</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Takes PHP 7.4 numeric literal separators in numbers into account.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Arbitrary string.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_isBinaryInt"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">isBinaryInt()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">421</span>
+    </aside>
+        <p class="phpdocumentor-summary">Verify whether the contents of an arbitrary string represents a binary integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isBinaryInt</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$string</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Takes PHP 7.4 numeric literal separators in numbers into account.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Arbitrary string.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_isOctalInt"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">isOctalInt()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">444</span>
+    </aside>
+        <p class="phpdocumentor-summary">Verify whether the contents of an arbitrary string represents an octal integer.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isOctalInt</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$string</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Takes PHP 7.4 numeric literal separators in numbers into account.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Arbitrary string.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_isFloat"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">isFloat()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Numbers.php"><a href="../files/phpcsutils-utils-numbers.html"><abbr title="PHPCSUtils/Utils/Numbers.php">Numbers.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">467</span>
+    </aside>
+        <p class="phpdocumentor-summary">Verify whether the contents of an arbitrary string represents a floating point number.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isFloat</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$string</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Takes PHP 7.4 numeric literal separators in numbers into account.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Arbitrary string.</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
