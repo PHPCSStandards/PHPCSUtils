@@ -197,3 +197,7 @@ $bar = ['a' => $a, 'b' => $b, 'c' => (isset($c) ? $c : null)];
 
 /* testShortArray8 */
 $bar = [0 => $a, 2 => $b, 6 => (isset($c) ? $c : null)];
+
+/* testArrayWithEmptyItem */
+// Intentional parse error.
+$bar = [0 => $a,, 2 => $b];
