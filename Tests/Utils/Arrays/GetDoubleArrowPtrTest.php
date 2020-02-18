@@ -217,6 +217,10 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
                 10,
             ],
+            'test-empty-array-item' => [
+                '/* testEmptyArrayItem */',
+                false,
+            ],
         ];
     }
 }
