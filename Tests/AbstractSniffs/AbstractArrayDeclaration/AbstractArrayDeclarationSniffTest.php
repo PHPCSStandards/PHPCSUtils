@@ -383,6 +383,40 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test the abstract sniff correctly ignores empty array items (parse error).
+     *
+     * @return void
+     */
+    public function testEmptyArrayItem()
+    {
+        $target = $this->getTargetToken(
+            '/* testEmptyArrayItem */',
+            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+        );
+
+        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
+            ->setMethods($this->methodsToMock)
+            ->getMockForAbstractClass();
+
+        $mockObj->expects($this->once())
+            ->method('processOpenClose');
+
+        $mockObj->expects($this->exactly(1))
+            ->method('processKey');
+
+        $mockObj->expects($this->exactly(1))
+            ->method('processNoKey');
+
+        $mockObj->expects($this->exactly(2))
+            ->method('processValue');
+
+        $mockObj->expects($this->once())
+            ->method('processComma');
+
+        $mockObj->process(self::$phpcsFile, $target);
+    }
+
+    /**
      * Test short-circuiting the sniff on the call to processOpenClose().
      *
      * @return void

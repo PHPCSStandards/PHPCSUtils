@@ -224,7 +224,12 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         }
 
         foreach ($this->arrayItems as $itemNr => $arrayItem) {
-            $arrowPtr = Arrays::getDoubleArrowPtr($phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            try {
+                $arrowPtr = Arrays::getDoubleArrowPtr($phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            } catch (RuntimeException $e) {
+                // Parse error: empty array item. Ignore.
+                continue;
+            }
 
             if ($arrowPtr !== false) {
                 if ($this->processKey($phpcsFile, $arrayItem['start'], ($arrowPtr - 1), $itemNr) === true) {
