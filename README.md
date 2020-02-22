@@ -61,7 +61,7 @@ These functions are, of course, compatible with PHPCS 2.6.0 up to PHPCS `master`
 ### Test utilities
 
 An abstract `UtilityMethodTestCase` class to allow for testing your own utility methods written for PHP_CodeSniffer with ease.
-Compatible with both PHPCS 2.x as well as 3.x. Supports PHPUnit 4.x up to 8.x.
+Compatible with both PHPCS 2.x as well as 3.x. Supports PHPUnit 4.x up to 9.x.
 
 ### Backward compatibility layer
 
