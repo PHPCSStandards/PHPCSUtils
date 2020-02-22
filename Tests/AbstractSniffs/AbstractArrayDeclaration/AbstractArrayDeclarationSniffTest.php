@@ -11,6 +11,9 @@
 namespace PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use Exception;
+use ReflectionException;
+use ReflectionObject;
 
 /**
  * Tests for the \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff class.
@@ -175,14 +178,12 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
 
-        // Note: these methods are deprecated in PHPUnit 8.x and removed in PHPUnit 9.x
-
         // Verify that the properties have been correctly set.
-        $this->assertAttributeSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeSame($target, 'arrayOpener', $mockObj);
-        $this->assertAttributeSame(($target + 5), 'arrayCloser', $mockObj);
-        $this->assertAttributeSame(2, 'itemCount', $mockObj);
-        $this->assertAttributeSame(true, 'singleLine', $mockObj);
+        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
+        $this->assertAttributeValueSame($target, 'arrayOpener', $mockObj);
+        $this->assertAttributeValueSame(($target + 5), 'arrayCloser', $mockObj);
+        $this->assertAttributeValueSame(2, 'itemCount', $mockObj);
+        $this->assertAttributeValueSame(true, 'singleLine', $mockObj);
     }
 
     /**
@@ -274,14 +275,12 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
 
-        // Note: these methods are deprecated in PHPUnit 8.x and removed in PHPUnit 9.x
-
         // Verify that the properties have been correctly set.
-        $this->assertAttributeSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeSame(($target + 1), 'arrayOpener', $mockObj);
-        $this->assertAttributeSame(($target + 35), 'arrayCloser', $mockObj);
-        $this->assertAttributeSame(4, 'itemCount', $mockObj);
-        $this->assertAttributeSame(false, 'singleLine', $mockObj);
+        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
+        $this->assertAttributeValueSame(($target + 1), 'arrayOpener', $mockObj);
+        $this->assertAttributeValueSame(($target + 35), 'arrayCloser', $mockObj);
+        $this->assertAttributeValueSame(4, 'itemCount', $mockObj);
+        $this->assertAttributeValueSame(false, 'singleLine', $mockObj);
     }
 
     /**
@@ -372,14 +371,12 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
 
-        // Note: these methods are deprecated in PHPUnit 8.x and removed in PHPUnit 9.x
-
         // Verify that the properties have been correctly set.
-        $this->assertAttributeSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeSame($target, 'arrayOpener', $mockObj);
-        $this->assertAttributeSame(($target + 22), 'arrayCloser', $mockObj);
-        $this->assertAttributeSame(3, 'itemCount', $mockObj);
-        $this->assertAttributeSame(false, 'singleLine', $mockObj);
+        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
+        $this->assertAttributeValueSame($target, 'arrayOpener', $mockObj);
+        $this->assertAttributeValueSame(($target + 22), 'arrayCloser', $mockObj);
+        $this->assertAttributeValueSame(3, 'itemCount', $mockObj);
+        $this->assertAttributeValueSame(false, 'singleLine', $mockObj);
     }
 
     /**
@@ -642,5 +639,73 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
             ->willReturn(true);
 
         $mockObj->process(self::$phpcsFile, $target);
+    }
+
+
+    /**
+     * PHPUnit cross-version helper method to test the value of the class properties.
+     *
+     * @param mixed  $expected      Expected property value.
+     * @param string $attributeName The name of the property to check.
+     * @param object $actualObject  The object on which to check the property value.
+     *
+     * @return void
+     */
+    public function assertAttributeValueSame($expected, $attributeName, $actualObject, $message = '')
+    {
+        // Will throw a warning on PHPUnit 8, but will still work.
+        if (method_exists($this, 'assertAttributeSame')) {
+            parent::assertAttributeSame($expected, $attributeName, $actualObject, $message);
+            return;
+        }
+
+        // PHPUnit 9.0+.
+        try {
+            $actual = $this->getObjectAttributeValue($actualObject, $attributeName);
+        } catch (\Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
+     * Retrieve the value of an object's attribute.
+     * This also works for attributes that are declared protected or private.
+     *
+     * @param object|string $object        The object or class on which to check the property value.
+     * @param string        $attributeName The name of the property to check.
+     *
+     * @return mixed Property value.
+     *
+     * @throws Exception
+     */
+    public static function getObjectAttributeValue($object, $attributeName)
+    {
+        $reflector = new ReflectionObject($object);
+
+        do {
+            try {
+                $attribute = $reflector->getProperty($attributeName);
+
+                if (!$attribute || $attribute->isPublic()) {
+                    return $object->$attributeName;
+                }
+
+                $attribute->setAccessible(true);
+                $value = $attribute->getValue($object);
+                $attribute->setAccessible(false);
+
+                return $value;
+            } catch (ReflectionException $e) {
+            }
+        } while ($reflector = $reflector->getParentClass());
+
+        throw new Exception(
+            \sprintf(
+                'Attribute "%s" not found in object.',
+                $attributeName
+            )
+        );
     }
 }
