@@ -21,7 +21,7 @@ use ReflectionClass;
  *
  * This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.
  *
- * This class is compatible with PHPUnit 4.5 - 8.x providing the PHPCSUtils autoload
+ * This class is compatible with PHPUnit 4.5 - 9.x providing the PHPCSUtils autoload
  * file is included in the test bootstrap.
  *
  * To allow for testing of tab vs space content, the tabWidth is set to `4` by default.
