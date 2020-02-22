@@ -10,8 +10,8 @@
 
 namespace PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use Exception;
+use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use ReflectionException;
 use ReflectionObject;
 
@@ -641,20 +641,20 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
         $mockObj->process(self::$phpcsFile, $target);
     }
 
-
     /**
      * PHPUnit cross-version helper method to test the value of the class properties.
      *
      * @param mixed  $expected      Expected property value.
      * @param string $attributeName The name of the property to check.
      * @param object $actualObject  The object on which to check the property value.
+     * @param string $message       Optional. Custom error message.
      *
      * @return void
      */
     public function assertAttributeValueSame($expected, $attributeName, $actualObject, $message = '')
     {
         // Will throw a warning on PHPUnit 8, but will still work.
-        if (method_exists($this, 'assertAttributeSame')) {
+        if (\method_exists($this, 'assertAttributeSame')) {
             parent::assertAttributeSame($expected, $attributeName, $actualObject, $message);
             return;
         }
@@ -662,11 +662,11 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
         // PHPUnit 9.0+.
         try {
             $actual = $this->getObjectAttributeValue($actualObject, $attributeName);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->fail($e->getMessage());
         }
 
-        $this->assertSame($expected, $actual);
+        $this->assertSame($expected, $actual, $message);
     }
 
     /**
@@ -678,7 +678,7 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
      *
      * @return mixed Property value.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public static function getObjectAttributeValue($object, $attributeName)
     {
