@@ -186,6 +186,26 @@ class Collections
     ];
 
     /**
+     * Tokens for the PHP magic constants.
+     *
+     * @since 1.0.0
+     *
+     * @link https://www.php.net/manual/en/language.constants.predefined.php.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $magicConstants = [
+        \T_CLASS_C  => \T_CLASS_C,
+        \T_DIR      => \T_DIR,
+        \T_FILE     => \T_FILE,
+        \T_FUNC_C   => \T_FUNC_C,
+        \T_LINE     => \T_LINE,
+        \T_METHOD_C => \T_METHOD_C,
+        \T_NS_C     => \T_NS_C,
+        \T_TRAIT_C  => \T_TRAIT_C,
+    ];
+
+    /**
      * List of tokens which can end a namespace declaration statement.
      *
      * @since 1.0.0
