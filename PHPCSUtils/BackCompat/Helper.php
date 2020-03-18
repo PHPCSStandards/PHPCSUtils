@@ -10,8 +10,8 @@
 
 namespace PHPCSUtils\BackCompat;
 
-use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
+use PHP_CodeSniffer\Files\File;
 
 /**
  * Utility methods to retrieve (configuration) information from PHP_CodeSniffer.
@@ -86,7 +86,7 @@ class Helper
             return $config->setConfigData($key, $value, $temp);
         }
 
-        if (version_compare(self::getVersion(), '3.99.99', '>') === true) {
+        if (\version_compare(self::getVersion(), '3.99.99', '>') === true) {
             throw new RuntimeException('Passing the $config parameter is required in PHPCS 4.x');
         }
 
@@ -183,7 +183,7 @@ class Helper
 
         if (isset($default) === false) {
             $default = 'utf-8';
-            if (version_compare(self::getVersion(), '2.99.99', '<=') === true) {
+            if (\version_compare(self::getVersion(), '2.99.99', '<=') === true) {
                 // In PHPCS 2.x, the default encoding is `iso-8859-1`.
                 $default = 'iso-8859-1';
             }

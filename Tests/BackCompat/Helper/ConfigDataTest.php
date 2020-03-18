@@ -34,7 +34,7 @@ class ConfigDataTest extends TestCase
      */
     public function testConfigData34()
     {
-        if (version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
+        if (\version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS > 2.x');
         }
 
@@ -59,7 +59,7 @@ class ConfigDataTest extends TestCase
      */
     public function testConfigDataPHPCS23()
     {
-        if (version_compare(Helper::getVersion(), '3.99.99', '>') === true) {
+        if (\version_compare(Helper::getVersion(), '3.99.99', '>') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS < 4.x');
         }
 
@@ -83,7 +83,7 @@ class ConfigDataTest extends TestCase
      */
     public function testConfigDataPHPCS4Exception()
     {
-        if (version_compare(Helper::getVersion(), '3.99.99', '<=') === true) {
+        if (\version_compare(Helper::getVersion(), '3.99.99', '<=') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS 4.x');
         }
 

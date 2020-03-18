@@ -66,7 +66,7 @@ class NamingConventions
      */
     public static function isValidIdentifierName($name)
     {
-        if (is_string($name) === false || $name === '' || \strpos($name, ' ') !== false) {
+        if (\is_string($name) === false || $name === '' || \strpos($name, ' ') !== false) {
             return false;
         }
 
