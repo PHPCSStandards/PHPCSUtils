@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -135,7 +134,7 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      */
     public function testGetDeclarationNameES6Method()
     {
-        if (\version_compare(Helper::getVersion(), '3.0.0', '<') === true) {
+        if (\version_compare(static::$phpcsVersion, '3.0.0', '<') === true) {
             $this->markTestSkipped('Support for JS ES6 method has not been backfilled for PHPCS 2.x (yet)');
         }
 
