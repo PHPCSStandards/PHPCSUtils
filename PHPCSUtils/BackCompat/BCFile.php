@@ -617,6 +617,7 @@ class BCFile
         $returnTypeToken    = false;
         $nullableReturnType = false;
         $hasBody            = true;
+        $returnTypeTokens   = Collections::returnTypeTokensBC();
 
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
@@ -653,7 +654,7 @@ class BCFile
                     $nullableReturnType = true;
                 }
 
-                if (isset(Collections::$returnTypeTokens[$tokens[$i]['code']]) === true) {
+                if (isset($returnTypeTokens[$tokens[$i]['code']]) === true) {
                     if ($returnTypeToken === false) {
                         $returnTypeToken = $i;
                     }

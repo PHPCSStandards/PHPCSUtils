@@ -266,6 +266,7 @@ class FunctionDeclarations
         $returnTypeEndToken = false;
         $nullableReturnType = false;
         $hasBody            = false;
+        $returnTypeTokens   = Collections::returnTypeTokensBC();
 
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
@@ -306,7 +307,7 @@ class FunctionDeclarations
                     $nullableReturnType = true;
                 }
 
-                if (isset(Collections::$returnTypeTokens[$tokens[$i]['code']]) === true) {
+                if (isset($returnTypeTokens[$tokens[$i]['code']]) === true) {
                     if ($returnTypeToken === false) {
                         $returnTypeToken = $i;
                     }
