@@ -259,6 +259,28 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
+     * Skip JS and CSS related tests on PHPCS 4.x.
+     *
+     * @since 1.0.0
+     *
+     * @before
+     *
+     * @return void
+     */
+    public function skipJSCSSTestsOnPHPCS4()
+    {
+        if (static::$fileExtension !== 'js' && static::$fileExtension !== 'css') {
+            return;
+        }
+
+        if (\version_compare(self::$phpcsVersion, '3.99.99', '<=')) {
+            return;
+        }
+
+        $this->markTestSkipped('JS and CSS support has been removed in PHPCS 4.');
+    }
+
+    /**
      * Clean up after finished test.
      *
      * @since 1.0.0
