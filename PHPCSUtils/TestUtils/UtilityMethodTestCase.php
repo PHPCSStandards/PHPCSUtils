@@ -99,6 +99,15 @@ abstract class UtilityMethodTestCase extends TestCase
 {
 
     /**
+     * The PHPCS version the tests are being run on.
+     *
+     * @since 1.0.0
+     *
+     * @var string
+     */
+    protected static $phpcsVersion = '0';
+
+    /**
      * The file extension of the test case file (without leading dot).
      *
      * This allows concrete test classes to overrule the default `inc` with, for instance,
@@ -173,6 +182,8 @@ abstract class UtilityMethodTestCase extends TestCase
     {
         parent::setUpBeforeClass();
 
+        self::$phpcsVersion = Helper::getVersion();
+
         $caseFile = static::$caseFile;
         if (\is_string($caseFile) === false || $caseFile === '') {
             $testClass = \get_called_class();
@@ -186,7 +197,7 @@ abstract class UtilityMethodTestCase extends TestCase
 
         $contents = \file_get_contents($caseFile);
 
-        if (\version_compare(Helper::getVersion(), '2.99.99', '>')) {
+        if (\version_compare(self::$phpcsVersion, '2.99.99', '>')) {
             // PHPCS 3.x.
             $config = new \PHP_CodeSniffer\Config();
 
