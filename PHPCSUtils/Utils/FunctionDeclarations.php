@@ -266,6 +266,7 @@ class FunctionDeclarations
         $returnTypeEndToken = false;
         $nullableReturnType = false;
         $hasBody            = false;
+        $returnTypeTokens   = Collections::returnTypeTokensBC();
 
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
@@ -306,7 +307,7 @@ class FunctionDeclarations
                     $nullableReturnType = true;
                 }
 
-                if (isset(Collections::$returnTypeTokens[$tokens[$i]['code']]) === true) {
+                if (isset($returnTypeTokens[$tokens[$i]['code']]) === true) {
                     if ($returnTypeToken === false) {
                         $returnTypeToken = $i;
                     }
@@ -712,7 +713,7 @@ class FunctionDeclarations
         $returnValue['parenthesis_closer'] = $tokens[$nextNonEmpty]['parenthesis_closer'];
 
         $ignore                 = Tokens::$emptyTokens;
-        $ignore                += Collections::$returnTypeTokens;
+        $ignore                += Collections::returnTypeTokensBC();
         $ignore[\T_COLON]       = \T_COLON;
         $ignore[\T_INLINE_ELSE] = \T_INLINE_ELSE; // Return type colon on PHPCS < 2.9.1.
         $ignore[\T_INLINE_THEN] = \T_INLINE_THEN; // Nullable type indicator on PHPCS < 2.9.1.

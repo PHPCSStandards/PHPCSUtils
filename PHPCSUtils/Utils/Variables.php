@@ -163,10 +163,11 @@ class Variables
             }
         }
 
-        $type         = '';
-        $typeToken    = false;
-        $typeEndToken = false;
-        $nullableType = false;
+        $type               = '';
+        $typeToken          = false;
+        $typeEndToken       = false;
+        $nullableType       = false;
+        $propertyTypeTokens = Collections::propertyTypeTokensBC();
 
         if ($i < $stackPtr) {
             // We've found a type.
@@ -183,7 +184,7 @@ class Variables
                     $nullableType = true;
                 }
 
-                if (isset(Collections::$propertyTypeTokens[$tokens[$i]['code']]) === true) {
+                if (isset($propertyTypeTokens[$tokens[$i]['code']]) === true) {
                     $typeEndToken = $i;
                     if ($typeToken === false) {
                         $typeToken = $i;
