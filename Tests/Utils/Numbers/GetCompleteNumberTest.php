@@ -31,7 +31,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
      *
      * @var string
      */
-    public static $phpcsVersion = null;
+    public static $phpcsVersion = '0';
 
     /**
      * Whether or not the tests are being run on PHP 7.4 or higher.
@@ -54,7 +54,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
      */
     public static function setUpStaticProperties()
     {
-        if (isset(self::$phpcsVersion)) {
+        if (self::$phpcsVersion !== '0') {
             return;
         }
 
@@ -83,8 +83,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
      */
     public function testUnsupportedPhpcsException()
     {
-        self::setUpStaticProperties();
-        if (\version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '!=') === true) {
+        if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '!=') === true) {
             $this->markTestSkipped('Test specific to a limited set of PHPCS versions');
         }
 
@@ -109,10 +108,9 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     public function testGetCompleteNumber($testMarker, $expected)
     {
         // Skip the test(s) on unsupported PHPCS versions.
-        self::setUpStaticProperties();
-        if (\version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
+        if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
             $this->markTestSkipped(
-                'PHPCS ' . self::$phpcsVersion . ' is not supported due to buggy numeric string literal backfill.'
+                'PHPCS ' . static::$phpcsVersion . ' is not supported due to buggy numeric string literal backfill.'
             );
         }
 

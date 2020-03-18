@@ -34,7 +34,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     {
         // Use the default values which are different across PHPCS versions.
         $expected = 'utf-8';
-        if (\version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '<=') === true) {
             // Will effectively come down to `iso-8859-1`.
             $expected = null;
         }
@@ -68,7 +68,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
         $result = Helper::getTabWidth(self::$phpcsFile);
         $this->assertSame(4, $result, 'Failed retrieving the default tab width');
 
-        if (\version_compare(Helper::getVersion(), '2.99.99', '>') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
             // PHPCS 3.x.
             self::$phpcsFile->config->tabWidth = 2;
         } else {
@@ -80,7 +80,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
         $this->assertSame(2, $result, 'Failed retrieving the custom set tab width');
 
         // Restore defaults before moving to the next test.
-        if (\version_compare(Helper::getVersion(), '2.99.99', '>') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
             self::$phpcsFile->config->restoreDefaults();
         } else {
             self::$phpcsFile->phpcs->cli->setCommandLineValues(['--tab-width=4']);
@@ -96,7 +96,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
      */
     public function testIgnoreAnnotationsV2()
     {
-        if (\version_compare(Helper::getVersion(), '2.99.99', '>') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS 2.x');
         }
 
@@ -112,7 +112,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
      */
     public function testIgnoreAnnotationsV3Default()
     {
-        if (\version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '<=') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS 3.x');
         }
 
@@ -135,7 +135,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
      */
     public function testIgnoreAnnotationsV3SetViaMethod()
     {
-        if (\version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '<=') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS 3.x');
         }
 
@@ -157,7 +157,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
      */
     public function testIgnoreAnnotationsV3SetViaProperty()
     {
-        if (\version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '<=') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS 3.x');
         }
 
