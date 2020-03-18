@@ -136,7 +136,8 @@ class BCFile
         /*
          * BC: Work-around JS ES6 classes not being tokenized as T_CLASS in PHPCS < 3.0.0.
          */
-        if ($phpcsFile->tokenizerType === 'JS'
+        if (isset($phpcsFile->tokenizerType)
+            && $phpcsFile->tokenizerType === 'JS'
             && $tokenCode === T_STRING
             && $tokens[$stackPtr]['content'] === 'class'
         ) {
