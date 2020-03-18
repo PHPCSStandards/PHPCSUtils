@@ -32,7 +32,7 @@ class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const DEVMASTER = '3.5.3';
+    const DEVMASTER = '3.5.4';
 
     /**
      * Test the method.
@@ -54,6 +54,8 @@ class GetVersionTest extends TestCase
 
         if ($expected === 'dev-master') {
             $this->assertTrue(\version_compare(self::DEVMASTER, $result, '<='));
+        } elseif ($expected === '4.0.x-dev@dev') {
+            $this->assertTrue(\version_compare('4.0.0', $result, '=='));
         } else {
             $this->assertSame($expected, $result);
         }
