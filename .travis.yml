@@ -109,6 +109,9 @@ jobs:
     - php: 7.2
       env: PHPCS_VERSION="3.2.0"
 
+    - php: 7.4
+      env: PHPCS_VERSION="4.0.x-dev@dev"
+
     - php: "nightly"
       env: PHPCS_VERSION="n/a" LINT=1
 
@@ -132,6 +135,7 @@ jobs:
   allow_failures:
     # Allow failures for unstable builds.
     - php: "nightly"
+    - env: PHPCS_VERSION="4.0.x-dev@dev"
 
 
 before_install:
