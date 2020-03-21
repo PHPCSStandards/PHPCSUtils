@@ -261,6 +261,21 @@ class Collections
     ];
 
     /**
+     * Tokens types used for "forwarding" calls within OO structures.
+     *
+     * @link https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $OOHierarchyKeywords = [
+        \T_PARENT => \T_PARENT,
+        \T_SELF   => \T_SELF,
+        \T_STATIC => \T_STATIC,
+    ];
+
+    /**
      * Tokens types which can be encountered in the fully/partially qualified name of an OO structure.
      *
      * Example: `echo namespace\Sub\ClassName::method();`
