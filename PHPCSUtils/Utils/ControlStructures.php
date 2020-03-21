@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Utils;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
@@ -334,5 +335,86 @@ class ControlStructures
         }
 
         return false;
+    }
+
+    /**
+     * Retrieve the exception(s) being caught in a CATCH condition.
+     *
+     * The returned array will contain the following information for each caught exception:
+     *
+     * <code>
+     *   0 => array(
+     *         'type'           => string,  // The type declaration for the exception being caught.
+     *         'type_token'     => integer, // The stack pointer to the start of the type declaration.
+     *         'type_end_token' => integer, // The stack pointer to the end of the type declaration.
+     *        )
+     * </code>
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the token we are checking.
+     *
+     * @return array
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
+     *                                                      type T_CATCH or doesn't exist or in case
+     *                                                      of a parse error.
+     */
+    public static function getCaughtExceptions(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false
+            || $tokens[$stackPtr]['code'] !== \T_CATCH
+        ) {
+            throw new RuntimeException('$stackPtr must be of type T_CATCH');
+        }
+
+        if (isset($tokens[$stackPtr]['parenthesis_opener'], $tokens[$stackPtr]['parenthesis_closer']) === false) {
+            throw new RuntimeException('Parentheses opener/closer of the T_CATCH could not be determined');
+        }
+
+        $opener     = $tokens[$stackPtr]['parenthesis_opener'];
+        $closer     = $tokens[$stackPtr]['parenthesis_closer'];
+        $exceptions = [];
+
+        $foundName  = '';
+        $firstToken = null;
+        $lastToken  = null;
+
+        for ($i = ($opener + 1); $i < $closer; $i++) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
+                continue;
+            }
+
+            if (isset(Collections::$OONameTokens[$tokens[$i]['code']]) === false) {
+                // Add the current exception to the result array.
+                $exceptions[] = [
+                    'type'           => $foundName,
+                    'type_token'     => $firstToken,
+                    'type_end_token' => $lastToken,
+                ];
+
+                if ($tokens[$i]['code'] === \T_BITWISE_OR) {
+                    // Multi-catch. Reset and continue.
+                    $foundName  = '';
+                    $firstToken = null;
+                    $lastToken  = null;
+                    continue;
+                }
+
+                break;
+            }
+
+            if (isset($firstToken) === false) {
+                $firstToken = $i;
+            }
+
+            $foundName .= $tokens[$i]['content'];
+            $lastToken  = $i;
+        }
+
+        return $exceptions;
     }
 }
