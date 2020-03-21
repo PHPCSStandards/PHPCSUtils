@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPCSUtils\Utils\Parentheses;
 
@@ -147,12 +148,10 @@ class Operators
                 return true;
             } else {
                 $skip   = Tokens::$emptyTokens;
-                $skip[] = \T_NS_SEPARATOR;
+                $skip  += Collections::$OONameTokens;
                 $skip[] = \T_SELF;
                 $skip[] = \T_PARENT;
                 $skip[] = \T_STATIC;
-                $skip[] = \T_STRING;
-                $skip[] = \T_NAMESPACE;
                 $skip[] = \T_DOUBLE_COLON;
 
                 $nextSignificantAfter = $phpcsFile->findNext(
