@@ -110,6 +110,13 @@ class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
                     '\testInterfaceC',
                 ],
             ],
+            'extends-using-namespace-operator' => [
+                '/* testExtendsUsingNamespaceOperator */',
+                [
+                    'namespace\BarInterface',
+                    'namespace\Sub\SomeOther',
+                ],
+            ],
             'parse-error' => [
                 '/* testParseError */',
                 false,

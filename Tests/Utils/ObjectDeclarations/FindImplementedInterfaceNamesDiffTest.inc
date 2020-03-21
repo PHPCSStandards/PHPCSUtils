@@ -13,5 +13,8 @@ class testDeclarationWithComments
         // comment
         InterfaceB {}
 
+/* testDeclarationMultiImplementedNamespaceOperator */
+class testMultiImplementedNSOperator implements namespace\testInterfaceA, namespace\testInterfaceB {}
+
 /* testMultiImplementedStrayComma */
 class testMultiImplementedStrayComma implements testInterfaceA, , testInterfaceB {} // Intentional parse error.

@@ -28,6 +28,9 @@ interface testMultiExtendedInterfaceWithComments
 {
 }
 
+/* testExtendsUsingNamespaceOperator */
+interface testWithNSOperator extends namespace\BarInterface, namespace\Sub\SomeOther {}
+
 // Intentional parse error. Has to be the last test in the file.
 /* testParseError */
 interface testParseError extends testInterface
