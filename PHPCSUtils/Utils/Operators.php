@@ -149,9 +149,7 @@ class Operators
             } else {
                 $skip   = Tokens::$emptyTokens;
                 $skip  += Collections::$OONameTokens;
-                $skip[] = \T_SELF;
-                $skip[] = \T_PARENT;
-                $skip[] = \T_STATIC;
+                $skip  += Collections::$OOHierarchyKeywords;
                 $skip[] = \T_DOUBLE_COLON;
 
                 $nextSignificantAfter = $phpcsFile->findNext(
