@@ -261,6 +261,21 @@ class Collections
     ];
 
     /**
+     * Tokens types which can be encountered in the fully/partially qualified name of an OO structure.
+     *
+     * Example: `echo namespace\Sub\ClassName::method();`
+     *
+     * @since 1.0.0
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $OONameTokens = [
+        \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        \T_STRING       => \T_STRING,
+        \T_NAMESPACE    => \T_NAMESPACE,
+    ];
+
+    /**
      * OO scopes in which properties can be declared.
      *
      * Note: interfaces can not declare properties.
