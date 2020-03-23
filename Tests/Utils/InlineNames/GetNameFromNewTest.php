@@ -120,6 +120,10 @@ class GetNameFromNewTest extends UtilityMethodTestCase
                 '/* testSelfWithParentheses */',
                 'SELF',
             ],
+            'self-keyword-phpcs-bug-1245' => [
+                '/* testSelfReturnPHPCS1245 */',
+                'self',
+            ],
             'static-keyword-without-parens' => [
                 '/* testStaticWithoutParentheses */',
                 'static',

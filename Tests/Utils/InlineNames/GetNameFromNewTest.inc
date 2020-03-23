@@ -38,6 +38,9 @@ class Foo extends Bar {
         /* testSelfWithParentheses */
         $a = new SELF();
 
+        /* testSelfReturnPHPCS1245 */
+        return new self;
+
         /* testStaticWithoutParentheses */
         $a = new static;
 
