@@ -37,4 +37,19 @@ class ResolveSelfNoNamespaceTest extends UtilityMethodTestCase
         $result   = InlineNames::resolveSelf(self::$phpcsFile, $stackPtr);
         $this->assertSame('\Foo', $result);
     }
+
+    /**
+     * Test resolving a T_SELF token to the fully qualified name of the current class/interface/trait
+     * in a file without a namespace declaration with the syntax specific to upstream PHPCS bug #1245.
+     *
+     * @link https://github.com/squizlabs/php_codesniffer/issues/1245
+     *
+     * @return void
+     */
+    public function testResolveSelfBug1245()
+    {
+        $stackPtr = $this->getTargetToken('/* testNewSelfReturnPHPCS1245 */', [\T_SELF, \T_STRING], 'self');
+        $result   = InlineNames::resolveSelf(self::$phpcsFile, $stackPtr);
+        $this->assertSame('\Foo', $result);
+    }
 }

@@ -7,4 +7,9 @@ class Foo {
         /* testGlobalClass */
         return self::ABC;
     }
+
+    public static function getInstance() {
+        /* testNewSelfReturnPHPCS1245 */
+        return new self;
+    }
 }

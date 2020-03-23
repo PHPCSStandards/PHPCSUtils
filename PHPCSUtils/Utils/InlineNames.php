@@ -235,6 +235,9 @@ class InlineNames
      * Note: User beware! This is imprecise as when `self` is used, it may invoke methods/properties
      * from a (grand-)parent if these have not been overloaded.
      *
+     * To support PHPCS < 2.8.0, passing a T_STRING token with as content `self` will also be accepted.
+     * {@link https://github.com/squizlabs/php_codesniffer/issues/1245 See upstream bug PHPCS #1245}
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer_File $phpcsFile        The file being scanned.
@@ -255,7 +258,10 @@ class InlineNames
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_SELF) {
+        if (isset($tokens[$stackPtr]) === false
+            || ($tokens[$stackPtr]['code'] !== \T_SELF && $tokens[$stackPtr]['code'] !== \T_STRING)
+            || ($tokens[$stackPtr]['code'] === \T_STRING && $tokens[$stackPtr]['content'] !== 'self')
+        ) {
             throw new RuntimeException('$stackPtr must be of type T_SELF');
         }
 
