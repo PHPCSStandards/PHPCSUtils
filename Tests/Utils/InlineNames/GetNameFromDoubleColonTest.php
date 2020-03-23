@@ -104,6 +104,18 @@ class GetNameFromDoubleColonTest extends UtilityMethodTestCase
                 '/* testNamespaceOperator */',
                 'namespace\Name',
             ],
+            'unqualified-yield' => [
+                '/* testUnqualifiedWithYield */',
+                'Name',
+            ],
+            'qualified-yield' => [
+                '/* testQualifiedWithYield */',
+                '\Name',
+            ],
+            'qualified-yield-from' => [
+                '/* testQualifiedWithYieldFrom */',
+                '\Name',
+            ],
             'self-keyword' => [
                 '/* testSelf */',
                 'self',

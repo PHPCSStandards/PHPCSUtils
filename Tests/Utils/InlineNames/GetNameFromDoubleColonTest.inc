@@ -24,6 +24,21 @@ $a = namespace\Sub\Name::$static_property;
 /* testNamespaceOperator */
 $a = namespace\Name::$static_property;
 
+function myGenerator() {
+    /* testUnqualifiedWithYield */
+    yield Name::$static_property[$key];
+}
+
+function myGeneratorX() {
+    /* testQualifiedWithYield */
+    yield \Name::$static_property[$key];
+}
+
+function myGeneratorFrom() {
+    /* testQualifiedWithYieldFrom */
+    yield from \Name::$static_property[$key];
+}
+
 class Foo extends Bar {
     public function baz() {
         /* testSelf */

@@ -387,6 +387,19 @@ class InlineNames
                 break;
             }
 
+            /*
+             * Work around missing tokenizer backfill for `yield` on PHP 5.4 with PHPCS < 3.1.0
+             * and `yield from` on PHP < 7.0 with PHPCS 3.1.0.
+             * Refs:
+             * - https://github.com/squizlabs/PHP_CodeSniffer/issues/1513
+             * - https://github.com/squizlabs/PHP_CodeSniffer/pull/1524
+             */
+            if ($tokens[$i]['code'] === \T_STRING
+                && ($tokens[$i]['content'] === 'yield' || $tokens[$i]['content'] === 'from')
+            ) {
+                break;
+            }
+
             $parts[]  = $tokens[$i]['content'];
             $lastCode = $tokens[$i]['code'];
         }
