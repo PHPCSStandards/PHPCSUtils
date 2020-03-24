@@ -344,4 +344,56 @@ class UseStatements
 
         return $statements;
     }
+
+    /**
+     * Split an import use statement into individual imports and merge it with an array of previously
+     * seen import use statements.
+     *
+     * Beware: this method should only be used to combine the import use statements found in *one* file.
+     * Do NOT combine the statements of multiple files as the result will be inaccurate and unreliable.
+     *
+     * In most cases when tempted to use this method, the AbstractFileContextSniff should be used instead.
+     *
+     * @see \PHPCSUtils\AbstractSniffs\AbstractFileContextSniff
+     * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile             The file where this token was found.
+     * @param int                         $stackPtr              The position in the stack of the T_USE token.
+     * @param array                       $previousUseStatements The import `use` statements collected so far.
+     *                                                           This should be either the output of a previous
+     *                                                           call to this method or the output of an earlier
+     *                                                           call to the UseStatements::splitImportUseStatement()
+     *                                                           method.
+     *
+     * @return array A multi-level array containing information about the current `use` statement combined with
+     *               the previously collected `use` statement information.
+     */
+    public static function splitAndMergeImportUseStatement(File $phpcsFile, $stackPtr, $previousUseStatements)
+    {
+        try {
+            $useStatements = self::splitImportUseStatement($phpcsFile, $stackPtr);
+
+            if (isset($previousUseStatements['name']) === false) {
+                $previousUseStatements['name'] = $useStatements['name'];
+            } else {
+                $previousUseStatements['name'] += $useStatements['name'];
+            }
+            if (isset($previousUseStatements['function']) === false) {
+                $previousUseStatements['function'] = $useStatements['function'];
+            } else {
+                $previousUseStatements['function'] += $useStatements['function'];
+            }
+            if (isset($previousUseStatements['const']) === false) {
+                $previousUseStatements['const'] = $useStatements['const'];
+            } else {
+                $previousUseStatements['const'] += $useStatements['const'];
+            }
+        } catch (RuntimeException $e) {
+            // Not an import use statement.
+        }
+
+        return $previousUseStatements;
+    }
 }
