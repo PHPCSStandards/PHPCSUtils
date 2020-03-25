@@ -152,6 +152,48 @@ class Helper
     }
 
     /**
+     * Get the applicable (file) encoding as passed to PHP_CodeSniffer from the
+     * command-line or the ruleset.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile Optional. The current file being processed.
+     *
+     * @return string Encoding. Defaults to the PHPCS native default, which is 'utf-8'
+     *                for PHPCS 3.x and was 'iso-8859-1' for PHPCS 2.x.
+     */
+    public static function getEncoding(File $phpcsFile = null)
+    {
+        static $default;
+
+        if (isset($default) === false) {
+            $default = 'utf-8';
+            if (version_compare(self::getVersion(), '2.99.99', '<=') === true) {
+                // In PHPCS 2.x, the default encoding is `iso-8859-1`.
+                $default = 'iso-8859-1';
+            }
+        }
+
+        if ($phpcsFile instanceof File) {
+            // Most reliable.
+            $encoding = self::getCommandLineData($phpcsFile, 'encoding');
+            if ($encoding === null) {
+                $encoding = $default;
+            }
+
+            return $encoding;
+        }
+
+        // Less reliable.
+        $encoding = self::getConfigData('encoding');
+        if ($encoding === null) {
+            $encoding = $default;
+        }
+
+        return $encoding;
+    }
+
+    /**
      * Check whether the `--ignore-annotations` option has been used.
      *
      * @since 1.0.0
