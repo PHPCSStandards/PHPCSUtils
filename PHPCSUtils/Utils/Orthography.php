@@ -102,7 +102,7 @@ class Orthography
         static $encoding;
 
         if (isset($encoding) === false) {
-            $encoding = Helper::getConfigData('encoding');
+            $encoding = Helper::getEncoding();
         }
 
         $string = \rtrim($string);
