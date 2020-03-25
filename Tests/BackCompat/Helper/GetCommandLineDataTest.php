@@ -88,6 +88,64 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test the getEncoding() method.
+     *
+     * @covers \PHPCSUtils\BackCompat\Helper::getEncoding
+     *
+     * @return void
+     */
+    public function testGetEncoding()
+    {
+        $result   = Helper::getEncoding(self::$phpcsFile);
+        $expected = \version_compare(static::$phpcsVersion, '2.99.99', '>') ? 'utf-8' : 'iso-8859-1';
+        $this->assertSame($expected, $result, 'Failed retrieving the default encoding');
+
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
+            // PHPCS 3.x.
+            self::$phpcsFile->config->encoding = 'utf-16';
+        } else {
+            // PHPCS 2.x.
+            self::$phpcsFile->phpcs->cli->setCommandLineValues(['--encoding=utf-16']);
+        }
+
+        $result = Helper::getEncoding(self::$phpcsFile);
+        $this->assertSame('utf-16', $result, 'Failed retrieving the custom set encoding');
+
+        // Restore defaults before moving to the next test.
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
+            self::$phpcsFile->config->restoreDefaults();
+        } else {
+            self::$phpcsFile->phpcs->cli->setCommandLineValues(['--encoding=iso-8859-1']);
+        }
+    }
+
+    /**
+     * Test the getEncoding() method when not passing the PHPCS file parameter.
+     *
+     * @covers \PHPCSUtils\BackCompat\Helper::getEncoding
+     *
+     * @return void
+     */
+    public function testGetEncodingWithoutPHPCSFile()
+    {
+        $result   = Helper::getEncoding();
+        $expected = \version_compare(static::$phpcsVersion, '2.99.99', '>') ? 'utf-8' : 'iso-8859-1';
+        $this->assertSame($expected, $result, 'Failed retrieving the default encoding');
+
+        Helper::setConfigData('encoding', 'utf-16', true);
+
+        $result = Helper::getEncoding();
+        $this->assertSame('utf-16', $result, 'Failed retrieving the custom set encoding');
+
+        // Restore defaults before moving to the next test.
+        if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
+            Helper::setConfigData('encoding', 'utf-8', true);
+        } else {
+            Helper::setConfigData('encoding', 'iso-8859-1', true);
+        }
+    }
+
+    /**
      * Test the ignoreAnnotations() method.
      *
      * @covers \PHPCSUtils\BackCompat\Helper::ignoreAnnotations
