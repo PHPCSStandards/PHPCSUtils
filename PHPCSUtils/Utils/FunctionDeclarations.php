@@ -16,7 +16,6 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
 use PHPCSUtils\Utils\Scopes;
@@ -819,7 +818,7 @@ class FunctionDeclarations
             return false;
         }
 
-        if (Conditions::hasCondition($phpcsFile, $stackPtr, BCTokens::ooScopeTokens()) === true) {
+        if (Scopes::isOOMethod($phpcsFile, $stackPtr) === true) {
             return false;
         }
 
