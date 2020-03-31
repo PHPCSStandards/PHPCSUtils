@@ -26,6 +26,27 @@ class Lists
 {
 
     /**
+     * Default values for individual list items.
+     *
+     * Used by the `getAssignments()` method.
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    private static $listItemDefaults = [
+        'raw'                  => '',
+        'assignment'           => '',
+        'is_empty'             => false,
+        'is_nested_list'       => false,
+        'variable'             => false,
+        'assignment_token'     => false,
+        'assignment_end_token' => false,
+        'assign_by_reference'  => false,
+        'reference_token'      => false,
+    ];
+
+    /**
      * Determine whether a `T_OPEN/CLOSE_SHORT_ARRAY` token is a short list() construct.
      *
      * This method also accepts `T_OPEN/CLOSE_SQUARE_BRACKET` tokens to allow it to be
@@ -229,27 +250,23 @@ class Lists
      *
      * <code>
      *   0 => array(
-     *         'raw'      => string, // The full content of the variable definition, including
-     *                               // whitespace and comments.
-     *                               // This may be an empty string when an item is being skipped.
-     *         'is_empty' => bool,   // Whether this is an empty list item, i.e. the
-     *                               // second item in `list($a, , $b)`.
-     *        )
-     * </code>
-     *
-     * Non-empty list items will have the following additional array indexes set:
-     * <code>
-     *         'assignment'           => string,       // The content of the assignment part, cleaned of comments.
-     *                                                 // This could be a nested list.
-     *         'nested_list'          => bool,         // Whether this is a nested list.
+     *         'raw'                  => string,       // The full content of the variable definition, including
+     *                                                 // whitespace and comments.
+     *                                                 // This may be an empty string when an item is being skipped.
+     *         'assignment'           => string,       // The content of the assignment part, _cleaned of comments_.
+     *                                                 // This may be an empty string for an empty list item;
+     *                                                 // it could also be a nested list represented as a string.
+     *         'is_empty'             => bool,         // Whether this is an empty list item, i.e. the
+     *                                                 // second item in `list($a, , $b)`.
+     *         'is_nested_list'       => bool,         // Whether this is a nested list.
+     *         'variable'             => string|false, // The base variable being assigned to or
+     *                                                 // FALSE in case of a nested list or avariable variable.
+     *                                                 // I.e. `$a` in `list($a['key'])`.
+     *         'assignment_token'     => int|false,    // The start pointer for the assignment.
+     *         'assignment_end_token' => int|false,    // The end pointer for the assignment.
      *         'assign_by_reference'  => bool,         // Is the variable assigned by reference?
      *         'reference_token'      => int|false,    // The stack pointer to the reference operator or
      *                                                 // FALSE when not a reference assignment.
-     *         'variable'             => string|false, // The base variable being assigned to or
-     *                                                 // FALSE in case of a nested list or variable variable.
-     *                                                 // I.e. `$a` in `list($a['key'])`.
-     *         'assignment_token'     => int,          // The start pointer for the assignment.
-     *         'assignment_end_token' => int,          // The end pointer for the assignment.
      * </code>
      *
      *
@@ -293,7 +310,7 @@ class Lists
         $reference    = null;
         $list         = null;
         $lastComma    = $opener;
-        $current      = [];
+        $keys         = [];
 
         for ($i = ($opener + 1); $i <= $closer; $i++) {
             if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
@@ -302,11 +319,10 @@ class Lists
 
             switch ($tokens[$i]['code']) {
                 case \T_DOUBLE_ARROW:
-                    $current['key'] = GetTokensAsString::compact($phpcsFile, $start, $lastNonEmpty, true);
-
-                    $current['key_token']          = $start;
-                    $current['key_end_token']      = $lastNonEmpty;
-                    $current['double_arrow_token'] = $i;
+                    $keys['key']                = GetTokensAsString::compact($phpcsFile, $start, $lastNonEmpty, true);
+                    $keys['key_token']          = $start;
+                    $keys['key_end_token']      = $lastNonEmpty;
+                    $keys['double_arrow_token'] = $i;
 
                     // Partial reset.
                     $start        = null;
@@ -316,6 +332,7 @@ class Lists
 
                 case \T_COMMA:
                 case $tokens[$closer]['code']:
+                    // Check if this is the end of the list or only a token with the same type as the list closer.
                     if ($tokens[$i]['code'] === $tokens[$closer]['code']) {
                         if ($i !== $closer) {
                             $lastNonEmpty = $i;
@@ -326,23 +343,17 @@ class Lists
                         }
                     }
 
+                    // Ok, so this is actually the end of the list item.
+                    $current        = self::$listItemDefaults;
                     $current['raw'] = \trim(GetTokensAsString::normal($phpcsFile, ($lastComma + 1), ($i - 1)));
 
                     if ($start === null) {
                         $current['is_empty'] = true;
                     } else {
-                        $current['is_empty']    = false;
-                        $current['assignment']  = \trim(
+                        $current['assignment']     = \trim(
                             GetTokensAsString::compact($phpcsFile, $start, $lastNonEmpty, true)
                         );
-                        $current['nested_list'] = isset($list);
-
-                        $current['assign_by_reference'] = false;
-                        $current['reference_token']     = false;
-                        if (isset($reference)) {
-                            $current['assign_by_reference'] = true;
-                            $current['reference_token']     = $reference;
-                        }
+                        $current['is_nested_list'] = isset($list);
 
                         $current['variable'] = false;
                         if (isset($list) === false && $tokens[$start]['code'] === \T_VARIABLE) {
@@ -350,6 +361,15 @@ class Lists
                         }
                         $current['assignment_token']     = $start;
                         $current['assignment_end_token'] = $lastNonEmpty;
+
+                        if (isset($reference)) {
+                            $current['assign_by_reference'] = true;
+                            $current['reference_token']     = $reference;
+                        }
+                    }
+
+                    if (empty($keys) === false) {
+                        $current += $keys;
                     }
 
                     $vars[] = $current;
@@ -360,7 +380,7 @@ class Lists
                     $reference    = null;
                     $list         = null;
                     $lastComma    = $i;
-                    $current      = [];
+                    $keys         = [];
 
                     break;
 
