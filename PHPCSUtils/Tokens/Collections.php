@@ -151,6 +151,18 @@ class Collections
     ];
 
     /**
+     * Increment/decrement operator tokens.
+     *
+     * @since 1.0.0-alpha3
+     *
+     * @var array <int> => <int>
+     */
+    public static $incrementDecrementOperators = [
+        \T_DEC => \T_DEC,
+        \T_INC => \T_INC,
+    ];
+
+    /**
      * Tokens which are used to create lists.
      *
      * @since 1.0.0
@@ -218,6 +230,18 @@ class Collections
         \T_SEMICOLON          => \T_SEMICOLON,
         \T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET,
         \T_CLOSE_TAG          => \T_CLOSE_TAG,
+    ];
+
+    /**
+     * Object operators.
+     *
+     * @since 1.0.0-alpha3
+     *
+     * @var array <int> => <int>
+     */
+    public static $objectOperators = [
+        \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
+        \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
     ];
 
     /**
