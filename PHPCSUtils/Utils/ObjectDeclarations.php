@@ -120,6 +120,7 @@ class ObjectDeclarations
         $exclude   = Tokens::$emptyTokens;
         $exclude[] = \T_OPEN_PARENTHESIS;
         $exclude[] = \T_OPEN_CURLY_BRACKET;
+        $exclude[] = \T_BITWISE_AND;
 
         $nameStart = $phpcsFile->findNext($exclude, ($stackPtr + 1), $stopPoint, true);
         if ($nameStart === false) {
