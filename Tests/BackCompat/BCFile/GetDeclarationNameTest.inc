@@ -27,6 +27,9 @@ $class = new class extends SomeClass {
 /* testFunction */
 function functionName() {}
 
+/* testFunctionReturnByRef */
+function & functionNameByRef();
+
 /* testClass */
 abstract class ClassName {
     /* testMethod */
@@ -34,6 +37,9 @@ abstract class ClassName {
 
     /* testAbstractMethod */
     abstract protected function abstractMethodName();
+
+    /* testMethodReturnByRef */
+    private function &MethodNameByRef();
 }
 
 /* testExtendedClass */
