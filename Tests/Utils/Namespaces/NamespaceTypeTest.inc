@@ -28,10 +28,23 @@ function closedScope() {
     echo namespace\ClassName::method();
 
     while( true ) {
-		/* testNamespaceOperatorInParentheses */
-	    function_call( namespace\ClassName::$property );
-	}
+        /* testNamespaceOperatorInParentheses */
+        function_call( namespace\ClassName::$property );
+    }
 }
+
+/* testNamespaceOperatorGlobalNamespaceStartOfStatementFunctionCall */
+namespace\functionCall();
+
+/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken1 */
+namespace\CONSTANT === 'test' or die();
+
+/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken2 */
+namespace\ClassName::$property++;
+
+/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken3 */
+namespace\CONSTANT['key'];
+
 
 /* testParseErrorScopedNamespaceDeclaration */
 function testScope() {
