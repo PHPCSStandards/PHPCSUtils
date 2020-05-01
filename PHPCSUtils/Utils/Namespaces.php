@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -46,6 +47,26 @@ class Namespaces
      */
     public static function getType(File $phpcsFile, $stackPtr)
     {
+        static $findAfter;
+
+        if (isset($findAfter) === false) {
+            /*
+             * Set up array of tokens which can only be used in combination with the keyword as operator
+             * and which cannot be confused with other keywords.
+             */
+            $findAfter = BCTokens::assignmentTokens()
+                + BCTokens::comparisonTokens()
+                + BCTokens::operators()
+                + Tokens::$castTokens
+                + Tokens::$blockOpeners
+                + Collections::$incrementDecrementOperators
+                + Collections::$objectOperators;
+
+            $findAfter[\T_OPEN_CURLY_BRACKET]  = \T_OPEN_CURLY_BRACKET;
+            $findAfter[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
+            $findAfter[\T_OPEN_SHORT_ARRAY]    = \T_OPEN_SHORT_ARRAY;
+        }
+
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_NAMESPACE) {
@@ -80,8 +101,9 @@ class Namespaces
             return 'declaration';
         }
 
-        if ($start !== $stackPtr
-            && $tokens[$next]['code'] === \T_NS_SEPARATOR
+        if ($tokens[$next]['code'] === \T_NS_SEPARATOR
+            && ($start !== $stackPtr
+                || $phpcsFile->findNext($findAfter, ($stackPtr + 1), null, false, null, true) !== false)
         ) {
             return 'operator';
         }
