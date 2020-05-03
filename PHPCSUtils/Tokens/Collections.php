@@ -532,6 +532,72 @@ class Collections
     }
 
     /**
+     * Tokens which can represent a keyword which starts a function declaration.
+     *
+     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     *
+     * Sister-method to the `functionDeclarationTokensBC()` method.
+     * This  method supports PHPCS 3.5.3 and up.
+     * The `functionDeclarationTokensBC()` method supports PHPCS 2.6.0 and up.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC() Related method (PHPCS 2.6.0+).
+     *
+     * @since 1.0.0
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function functionDeclarationTokens()
+    {
+        $tokens = [
+            \T_FUNCTION => \T_FUNCTION,
+            \T_CLOSURE  => \T_CLOSURE,
+        ];
+
+        if (\defined('T_FN') === true) {
+            // PHP 7.4 or PHPCS 3.5.3+.
+            $tokens[\T_FN] = \T_FN;
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * Tokens which can represent a keyword which starts a function declaration.
+     *
+     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     *
+     * Sister-method to the `functionDeclarationTokens()` method.
+     * The `functionDeclarationTokens()` method supports PHPCS 3.5.3 and up.
+     * This method supports PHPCS 2.6.0 and up.
+     *
+     * Notable difference:
+     * This method accounts for when the `T_FN` token doesn't exist.
+     * Note: if this method is used, the `FunctionDeclarations::isArrowFunction() method
+     * needs to be used on arrow function tokens to verify whether it really is an arrow function
+     * declaration or not.
+     *
+     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
+     * @see \PHPCSUtils\Tokens\FunctionDeclarations::isArrowFunction()  Arrow function verification.
+     *
+     * @since 1.0.0
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function functionDeclarationTokensBC()
+    {
+        $tokens = [
+            \T_FUNCTION => \T_FUNCTION,
+            \T_CLOSURE  => \T_CLOSURE,
+        ];
+
+        $tokens += self::arrowFunctionTokensBC();
+
+        return $tokens;
+    }
+
+    /**
      * Token types which can be encountered in a parameter type declaration (cross-version).
      *
      * Sister-method to the `$parameterTypeTokens` property.
