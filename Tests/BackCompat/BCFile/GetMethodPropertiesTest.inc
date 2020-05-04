@@ -67,6 +67,13 @@ $result = array_map(
     $numbers
 );
 
+class ReturnMe {
+    /* testReturnTypeStatic */
+    private function myFunction(): static {
+        return $this;
+    }
+}
+
 /* testNotAFunction */
 return true;
 
