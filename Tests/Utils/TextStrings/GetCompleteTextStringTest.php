@@ -156,26 +156,22 @@ fourth line"',
                 'first line
 second $line
 third line
-fourth line
-',
+fourth line',
                 'first line
 second $line
 third line
-fourth line
-',
+fourth line',
             ],
             'nowdoc' => [
                 '/* testNowdocString */',
                 'first line
 second line
 third line
-fourth line
-',
+fourth line',
                 'first line
 second line
 third line
-fourth line
-',
+fourth line',
             ],
             'text-string-at-end-of-file' => [
                 '/* testTextStringAtEndOfFile */',

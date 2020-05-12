@@ -62,17 +62,21 @@ class TextStrings
             }
         }
 
+        $stripNewline = false;
+
         switch ($tokens[$stackPtr]['code']) {
             case \T_START_HEREDOC:
-                $stripQuotes = false;
-                $targetType  = \T_HEREDOC;
-                $current     = ($stackPtr + 1);
+                $stripQuotes  = false;
+                $stripNewline = true;
+                $targetType   = \T_HEREDOC;
+                $current      = ($stackPtr + 1);
                 break;
 
             case \T_START_NOWDOC:
-                $stripQuotes = false;
-                $targetType  = \T_NOWDOC;
-                $current     = ($stackPtr + 1);
+                $stripQuotes  = false;
+                $stripNewline = true;
+                $targetType   = \T_NOWDOC;
+                $current      = ($stackPtr + 1);
                 break;
 
             default:
@@ -86,6 +90,11 @@ class TextStrings
             $string .= $tokens[$current]['content'];
             ++$current;
         } while (isset($tokens[$current]) && $tokens[$current]['code'] === $targetType);
+
+        if ($stripNewline === true) {
+            // Heredoc/nowdoc: strip the new line at the end of the string to emulate how PHP sees the string.
+            $string = rtrim($string, "\r\n");
+        }
 
         if ($stripQuotes === true) {
             return self::stripQuotes($string);
