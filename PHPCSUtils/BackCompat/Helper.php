@@ -11,6 +11,7 @@
 namespace PHPCSUtils\BackCompat;
 
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 
 /**
  * Utility methods to retrieve (configuration) information from PHP_CodeSniffer.
@@ -60,19 +61,33 @@ class Helper
      *
      * @since 1.0.0
      *
-     * @param string      $key   The name of the config value.
-     * @param string|null $value The value to set. If null, the config entry
-     *                           is deleted, reverting it to the default value.
-     * @param bool        $temp  Set this config data temporarily for this script run.
-     *                           This will not write the config data to the config file.
+     * @param string                  $key    The name of the config value.
+     * @param string|null             $value  The value to set. If null, the config entry
+     *                                        is deleted, reverting it to the default value.
+     * @param bool                    $temp   Set this config data temporarily for this script run.
+     *                                        This will not write the config data to the config file.
+     * @param \PHP_CodeSniffer\Config $config The PHPCS config object.
+     *                                        This parameter is required for PHPCS 4.x, optional
+     *                                        for PHPCS 3.x and not possible to pass for PHPCS 2.x.
+     *                                        Passing the `$phpcsFile->config` property should work
+     *                                        in PHPCS 3.x and higher.
      *
      * @return bool Whether the setting of the data was successfull.
      */
-    public static function setConfigData($key, $value, $temp = false)
+    public static function setConfigData($key, $value, $temp = false, $config = null)
     {
         if (\method_exists('\PHP_CodeSniffer\Config', 'setConfigData') === false) {
             // PHPCS 2.x.
             return \PHP_CodeSniffer::setConfigData($key, $value, $temp);
+        }
+
+        if (isset($config) === true) {
+            // PHPCS 3.x and 4.x.
+            return $config->setConfigData($key, $value, $temp);
+        }
+
+        if (version_compare(self::getVersion(), '3.99.99', '>') === true) {
+            throw new RuntimeException('Passing the $config parameter is required in PHPCS 4.x');
         }
 
         // PHPCS 3.x.

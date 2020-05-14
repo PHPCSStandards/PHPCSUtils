@@ -132,16 +132,21 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
         $expected = \version_compare(static::$phpcsVersion, '2.99.99', '>') ? 'utf-8' : 'iso-8859-1';
         $this->assertSame($expected, $result, 'Failed retrieving the default encoding');
 
-        Helper::setConfigData('encoding', 'utf-16', true);
+        $config = null;
+        if (isset(self::$phpcsFile->config) === true) {
+            $config = self::$phpcsFile->config;
+        }
+
+        Helper::setConfigData('encoding', 'utf-16', true, $config);
 
         $result = Helper::getEncoding();
         $this->assertSame('utf-16', $result, 'Failed retrieving the custom set encoding');
 
         // Restore defaults before moving to the next test.
         if (\version_compare(static::$phpcsVersion, '2.99.99', '>') === true) {
-            Helper::setConfigData('encoding', 'utf-8', true);
+            Helper::setConfigData('encoding', 'utf-8', true, $config);
         } else {
-            Helper::setConfigData('encoding', 'iso-8859-1', true);
+            Helper::setConfigData('encoding', 'iso-8859-1', true, $config);
         }
     }
 
@@ -197,13 +202,18 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
             $this->markTestSkipped('Test only applicable to PHPCS 3.x');
         }
 
-        Helper::setConfigData('annotations', false, true);
+        $config = null;
+        if (isset(self::$phpcsFile->config) === true) {
+            $config = self::$phpcsFile->config;
+        }
+
+        Helper::setConfigData('annotations', false, true, $config);
 
         $result = Helper::ignoreAnnotations();
         $this->assertTrue($result);
 
         // Restore defaults before moving to the next test.
-        Helper::setConfigData('annotations', true, true);
+        Helper::setConfigData('annotations', true, true, $config);
     }
 
     /**
