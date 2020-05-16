@@ -197,6 +197,21 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'non-capturing-catch' => [
+                'target'        => '/* testPHP8NonCapturingCatch */',
+                'expected'      => [
+                    [
+                        'type'           => 'RuntimeException',
+                        'type_token'     => 3,
+                        'type_end_token' => 3,
+                    ],
+                    [
+                        'type'           => 'AnotherException',
+                        'type_token'     => 7,
+                        'type_end_token' => 7,
+                    ],
+                ],
+            ],
         ];
     }
 }

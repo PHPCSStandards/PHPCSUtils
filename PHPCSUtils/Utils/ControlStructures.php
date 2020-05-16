@@ -383,7 +383,7 @@ class ControlStructures
         $firstToken = null;
         $lastToken  = null;
 
-        for ($i = ($opener + 1); $i < $closer; $i++) {
+        for ($i = ($opener + 1); $i <= $closer; $i++) {
             if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
                 continue;
             }

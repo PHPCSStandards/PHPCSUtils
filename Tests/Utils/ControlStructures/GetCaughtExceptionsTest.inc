@@ -27,6 +27,9 @@ try {
 /* testMultiCatchCompoundNames */
 } catch (\NS\RuntimeException | My\ParseErrorException | namespace \ AnotherException $e) {
 
+/* testPHP8NonCapturingCatch */
+} catch (RuntimeException | AnotherException) {
+
 /* testLiveCoding */
 // Intentional parse error.
 } catch (
