@@ -51,7 +51,7 @@ class BCTokens
      *
      * @var string[]
      */
-    protected static $phpcsCommentTokensTypes = [
+    private static $phpcsCommentTokensTypes = [
         'T_PHPCS_ENABLE',
         'T_PHPCS_DISABLE',
         'T_PHPCS_SET',
@@ -66,7 +66,7 @@ class BCTokens
      *
      * @var array <int|string> => <int|string>
      */
-    protected static $ooScopeTokens = [
+    private static $ooScopeTokens = [
         \T_CLASS      => \T_CLASS,
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_INTERFACE  => \T_INTERFACE,
@@ -80,7 +80,7 @@ class BCTokens
      *
      * @var array <int|string> => <int|string>
      */
-    protected static $textStringTokens = [
+    private static $textStringTokens = [
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
         \T_INLINE_HTML              => \T_INLINE_HTML,
