@@ -202,7 +202,7 @@ class Collections
     /**
      * Tokens for the PHP magic constants.
      *
-     * @link https://www.php.net/language.constants.predefined
+     * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
      *
      * @since 1.0.0
      *
@@ -287,7 +287,7 @@ class Collections
     /**
      * Tokens types used for "forwarding" calls within OO structures.
      *
-     * @link https://www.php.net/language.oop5.paamayim-nekudotayim
+     * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
      *
      * @since 1.0.0
      *

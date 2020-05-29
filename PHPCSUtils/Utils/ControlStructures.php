@@ -213,7 +213,7 @@ class ControlStructures
      * control structure syntax into account, this method can be used to retrieve the
      * scope opener/closer for the declare statement.
      *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2843
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2843 PHPCS PR #2843
      *
      * @since 1.0.0
      *
