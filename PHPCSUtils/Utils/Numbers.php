@@ -254,7 +254,7 @@ class Numbers
 
         while (isset($tokens[++$next], self::$numericLiteralAcceptedTokens[$tokens[$next]['code']]) === true) {
             if ($tokens[$next]['code'] === \T_STRING
-                && \preg_match($regex, $tokens[$next]['content'], $matches) !== 1
+                && \preg_match($regex, $tokens[$next]['content']) !== 1
             ) {
                 break;
             }

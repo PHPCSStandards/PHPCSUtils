@@ -53,7 +53,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
      *
      * @var string
      */
-    const CODE = 'PHPCSUtils.SpacerFixer.Test.Found';
+    const CODE = 'PHPCSUtils.SpacesFixer.Test.Found';
 
     /**
      * Dummy metric name to use for the test.
@@ -67,7 +67,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
      *
      * @var array
      */
-    protected static $selectedSniff = ['PHPCSUtils.SpacerFixer.Test'];
+    protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 
     /**
      * Test that violations are correctly reported.

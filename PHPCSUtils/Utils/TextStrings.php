@@ -93,7 +93,7 @@ class TextStrings
 
         if ($stripNewline === true) {
             // Heredoc/nowdoc: strip the new line at the end of the string to emulate how PHP sees the string.
-            $string = rtrim($string, "\r\n");
+            $string = \rtrim($string, "\r\n");
         }
 
         if ($stripQuotes === true) {

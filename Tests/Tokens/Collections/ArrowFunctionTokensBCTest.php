@@ -44,6 +44,6 @@ class ArrowFunctionTokensBCTest extends TestCase
             $expected[\T_FN] = \T_FN;
         }
 
-        $this->assertSame($expected, Collections::ArrowFunctionTokensBC());
+        $this->assertSame($expected, Collections::arrowFunctionTokensBC());
     }
 }
