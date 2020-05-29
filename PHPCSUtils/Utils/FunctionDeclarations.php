@@ -134,12 +134,12 @@ class FunctionDeclarations
      *
      * Alias for the {@see \PHPCSUtils\Utils\ObjectDeclarations::getName()} method.
      *
-     * @codeCoverageIgnore
-     *
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Original function.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()     PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     *
+     * @codeCoverageIgnore
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the declaration token
@@ -954,14 +954,14 @@ class FunctionDeclarations
     /**
      * Checks if a given function is a magic method or a PHP native double underscore method.
      *
+     * {@internal Not the most efficient way of checking this, but less efficient ways will get
+     *            less reliable results or introduce a lot of code duplication.}
+     *
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isSpecialMethodName() For when you already know the name of the
      *                                                                   method and scope checking is done in the
      *                                                                   sniff.
      *
      * @since 1.0.0
-     *
-     * {@internal Not the most efficient way of checking this, but less efficient ways will get
-     *            less reliable results or introduce a lot of code duplication.}
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The T_FUNCTION token to check.

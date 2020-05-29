@@ -63,10 +63,10 @@ class Collections
     /**
      * Tokens which are used to create arrays.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
      *                                                        for short arrays.
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -82,10 +82,10 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
      *                                                          for short arrays (cross-version).
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -165,10 +165,10 @@ class Collections
     /**
      * Tokens which are used to create lists.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related property containing only tokens used
      *                                                       for short lists.
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -184,10 +184,10 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related property containing only tokens used
      *                                                         for short lists (cross-version).
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -202,9 +202,9 @@ class Collections
     /**
      * Tokens for the PHP magic constants.
      *
-     * @since 1.0.0
-     *
      * @link https://www.php.net/language.constants.predefined
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -430,9 +430,9 @@ class Collections
     /**
      * Tokens which are used for short arrays.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$arrayTokens Related property containing all tokens used for arrays.
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -447,10 +447,10 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC Related property containing all tokens used for arrays
      *                                                    (cross-version).
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -464,9 +464,9 @@ class Collections
     /**
      * Tokens which are used for short lists.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$listTokens Related property containing all tokens used for lists.
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -481,10 +481,10 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @since 1.0.0
-     *
      * @see \PHPCSUtils\Tokens\Collections::$listTokensBC Related property containing all tokens used for lists
      *                                                    (cross-version).
+     *
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
