@@ -25,17 +25,25 @@ class TextStrings
     /**
      * Get the complete contents of a - potentially multi-line - text string.
      *
+     * PHPCS tokenizes multi-line text strings with a single token for each line.
+     * This method can be used to retrieve the text string as it would be received and
+     * processed in PHP itself.
+     *
+     * This method is particularly useful for sniffs which examine the contents of text strings,
+     * where the content matching might result in false positives/false negatives if the text
+     * were to be examined line by line.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
      * @param int                         $stackPtr    Pointer to the first text string token
-     *                                                 of a multi-line text string or to a
-     *                                                 Nowdoc/Heredoc opener.
+     *                                                 of a - potentially multi-line - text string
+     *                                                 or to a Nowdoc/Heredoc opener.
      * @param bool                        $stripQuotes Optional. Whether to strip text delimiter
      *                                                 quotes off the resulting text string.
      *                                                 Defaults to true.
      *
-     * @return string
+     * @return string The complete text string.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      valid text string token or if the

@@ -66,7 +66,7 @@ class PassedParameters
      *
      * - If passed a T_STRING or T_VARIABLE stack pointer, it will treat it as a function call.
      *   If a T_STRING or T_VARIABLE which is *not* a function call is passed, the behaviour is
-     *   unreliable.
+     *   undetermined.
      * - If passed a T_SELF or T_STATIC stack pointer, it will accept it as a
      *   function call when used like `new self()`.
      * - If passed a T_ARRAY or T_OPEN_SHORT_ARRAY stack pointer, it will detect
@@ -163,10 +163,18 @@ class PassedParameters
      * @param int                         $stackPtr  The position of the T_STRING, T_VARIABLE, T_ARRAY,
      *                                               T_OPEN_SHORT_ARRAY, T_ISSET, or T_UNSET token.
      *
-     * @return array Returns a multi-dimentional array with the "start" token pointer, "end" token
-     *               pointer, "raw" parameter value and "clean" (only code, no comments) parameter
-     *               value for all parameters. The array starts at index 1.
-     *               If no parameters are found, will return an empty array.
+     * @return array A multi-dimentional array information on each parameter/array item.
+     *               The information gathered about each parameter/array item is in the following format:
+     *               ```php
+     *               1 => array(
+     *                 'start' => int,    // The stack pointer to the first token in the parameter/array item.
+     *                 'end'   => int,    // The stack pointer to the last token in the parameter/array item.
+     *                 'raw'   => string, // A string with the contents of all tokens between `start` and `end`.
+     *                 'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
+     *               )
+     *               ```
+     *               _Note: The array starts at index 1._
+     *               If no parameters/array items are found, an empty array will be returned.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
@@ -279,10 +287,17 @@ class PassedParameters
      *                                                 T_OPEN_SHORT_ARRAY, T_ISSET or T_UNSET token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
      *
-     * @return array|false Returns an array with the "start" token pointer, "end" token pointer,
-     *                     "raw" parameter value and "clean" (only code, no comments) parameter
-     *                     value for the parameter at the specified offset.
-     *                     Or FALSE if the specified parameter is not found.
+     * @return array|false Array with information on the parameter/array item at the specified offset.
+     *                     Or `false` if the specified parameter/array item is not found.
+     *                     The format of the return value is:
+     *                     ```php
+     *                     array(
+     *                       'start' => int,    // The stack pointer to the first token in the parameter/array item.
+     *                       'end'   => int,    // The stack pointer to the last token in the parameter/array item.
+     *                       'raw'   => string, // A string with the contents of all tokens between `start` and `end`.
+     *                       'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
+     *                     )
+     *                     ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.

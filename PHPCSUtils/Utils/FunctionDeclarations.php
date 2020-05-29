@@ -24,9 +24,11 @@ use PHPCSUtils\Utils\UseStatements;
 /**
  * Utility functions for use when examining function declaration statements.
  *
- * @since 1.0.0 The `getProperties()` and the `getParameters()` methods are
- *              based on and inspired by respectively the `getMethodProperties()`
- *              and `getMethodParameters()` methods in the PHPCS native `File` class.
+ * @since 1.0.0 The `FunctionDeclarations::getProperties()` and the
+ *              `FunctionDeclarations::getParameters()` methods are based on and
+ *              inspired by respectively the `getMethodProperties()`
+ *              and `getMethodParameters()` methods in the PHPCS native
+ *              `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 class FunctionDeclarations
@@ -35,9 +37,9 @@ class FunctionDeclarations
     /**
      * A list of all PHP magic functions.
      *
-     * The array keys are the function names, the values as well, but without the double underscore.
+     * The array keys contain the function names. The values contain the name without the double underscore.
      *
-     * The function names are listed in lowercase as function names in PHP are case-insensitive
+     * The function names are listed in lowercase as these function names in PHP are case-insensitive
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
@@ -51,9 +53,9 @@ class FunctionDeclarations
     /**
      * A list of all PHP magic methods.
      *
-     * The array keys are the method names, the values as well, but without the double underscore.
+     * The array keys contain the method names. The values contain the name without the double underscore.
      *
-     * The method names are listed in lowercase as function names in PHP are case-insensitive
+     * The method names are listed in lowercase as these method names in PHP are case-insensitive
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
@@ -75,9 +77,9 @@ class FunctionDeclarations
         '__set_state'   => 'set_state',
         '__clone'       => 'clone',
         '__invoke'      => 'invoke',
-        '__debuginfo'   => 'debuginfo', // PHP 5.6.
-        '__serialize'   => 'serialize', // PHP 7.4.
-        '__unserialize' => 'unserialize', // PHP 7.4.
+        '__debuginfo'   => 'debuginfo',   // PHP >= 5.6.
+        '__serialize'   => 'serialize',   // PHP >= 7.4.
+        '__unserialize' => 'unserialize', // PHP >= 7.4.
     ];
 
     /**
@@ -85,7 +87,7 @@ class FunctionDeclarations
      *
      * These come from PHP modules such as SOAPClient.
      *
-     * The array keys are the method names, the values the name of the PHP extension containing
+     * The array keys are the method names, the values the name of the PHP class containing
      * the function.
      *
      * The method names are listed in lowercase as function names in PHP are case-insensitive
@@ -142,14 +144,13 @@ class FunctionDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the declaration token
-     *                                               which declared the function.
+     * @param int                         $stackPtr  The position of the function keyword token.
      *
      * @return string|null The name of the function; or NULL if the passed token doesn't exist,
      *                     the function is anonymous or in case of a parse error/live coding.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      T_FUNCTION, T_CLASS, T_TRAIT, or T_INTERFACE.
+     *                                                      T_FUNCTION.
      */
     public static function getName(File $phpcsFile, $stackPtr)
     {
@@ -392,6 +393,8 @@ class FunctionDeclarations
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
      *                                                      type T_FUNCTION, T_CLOSURE or T_USE,
      *                                                      nor an arrow function.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If a passed `T_USE` token is not a closure
+     *                                                      use token.
      */
     public static function getParameters(File $phpcsFile, $stackPtr)
     {
@@ -592,8 +595,14 @@ class FunctionDeclarations
      *   Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as T_FN are not 100% the same as those tokenized
      *   by PHP 7.4+ as T_FN.
      *
-     * Either way, the T_FN token is not a reliable indicator that something is in actual fact an arrow function.
-     * This function solves that and will give reliable results in the same way as this is now solved in PHPCS 3.5.5.
+     * Either way, the `T_FN` token is not a reliable search vector for finding or examining
+     * arrow functions, at least not until PHPCS 3.5.5.
+     * This function solves that and will give reliable results in the same way as this is now
+     * solved in PHPCS 3.5.5.
+     *
+     * > Note: Bugs are still being found and reported about how PHPCS tokenizes the arrow functions.
+     * This method will keep up with upstream changes and backport them, in as far possible, to allow
+     * for sniffing arrow functions in PHPCS < current.
      *
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose() Related function.
      *
@@ -604,8 +613,8 @@ class FunctionDeclarations
      *                                               T_STRING token as those are the only two
      *                                               tokens which can be the arrow function keyword.
      *
-     * @return bool TRUE if the token is the "fn" keyword for an arrow function. FALSE when not or
-     *              in case of live coding/parse error.
+     * @return bool TRUE if the token is the "fn" keyword for an arrow function. FALSE when it's not
+     *              or in case of live coding/parse error.
      */
     public static function isArrowFunction(File $phpcsFile, $stackPtr)
     {
@@ -813,6 +822,7 @@ class FunctionDeclarations
      *
      * @todo Add check for the function declaration being namespaced!
      *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions       List of names of magic functions.
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isMagicFunctionName() For when you already know the name of the
      *                                                                   function and scope checking is done in the
      *                                                                   sniff.
@@ -842,6 +852,8 @@ class FunctionDeclarations
     /**
      * Verify if a given function name is the name of a PHP magic function.
      *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions List of names of magic functions.
+     *
      * @since 1.0.0
      *
      * @param string $name The full function name.
@@ -857,6 +869,7 @@ class FunctionDeclarations
     /**
      * Checks if a given function is a PHP magic method.
      *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicMethods       List of names of magic methods.
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isMagicMethodName() For when you already know the name of the
      *                                                                 method and scope checking is done in the
      *                                                                 sniff.
@@ -881,6 +894,8 @@ class FunctionDeclarations
     /**
      * Verify if a given function name is the name of a PHP magic method.
      *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicMethods List of names of magic methods.
+     *
      * @since 1.0.0
      *
      * @param string $name The full function name.
@@ -894,8 +909,10 @@ class FunctionDeclarations
     }
 
     /**
-     * Checks if a given function is a PHP native double underscore method.
+     * Checks if a given function is a non-magic PHP native double underscore method.
      *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore          List of the PHP native non-magic
+     *                                                                               double underscore method names.
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isPHPDoubleUnderscoreMethodName() For when you already know the
      *                                                                               name of the method and scope
      *                                                                               checking is done in the sniff.
@@ -937,7 +954,10 @@ class FunctionDeclarations
     }
 
     /**
-     * Verify if a given function name is the name of a PHP native double underscore method.
+     * Verify if a given function name is the name of a non-magic PHP native double underscore method.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore List of the PHP native non-magic
+     *                                                                      double underscore method names.
      *
      * @since 1.0.0
      *

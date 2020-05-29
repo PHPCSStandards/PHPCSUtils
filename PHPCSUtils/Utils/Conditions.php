@@ -15,9 +15,9 @@ use PHP_CodeSniffer\Files\File;
 /**
  * Utility functions for use when examining token conditions.
  *
- * @since 1.0.0 The `getCondition()` and `hasCondition()` methods are based
- *              on and inspired by the methods of the same name in the
- *              PHPCS native `File` class.
+ * @since 1.0.0 The `Conditions::getCondition()` and `Conditions::hasCondition()`
+ *              methods are based on and inspired by the methods of the same name in the
+ *              PHPCS native `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 class Conditions
@@ -51,7 +51,7 @@ class Conditions
      *                                               the specified type(s).
      *
      * @return int|false Integer stack pointer to the condition or FALSE if the token
-     *                   does not have the condition.
+     *                   does not have the condition or has no conditions at all.
      */
     public static function getCondition(File $phpcsFile, $stackPtr, $types = [], $first = true)
     {
@@ -130,7 +130,8 @@ class Conditions
      * @param int                         $stackPtr  The position of the token we are checking.
      * @param int|string|array            $types     Optional. The type(s) of tokens to search for.
      *
-     * @return int|false StackPtr to the condition or false if the token does not have the condition.
+     * @return int|false Integer stack pointer to the condition; or `false` if the token
+     *                   does not have the condition or has no conditions at all.
      */
     public static function getFirstCondition(File $phpcsFile, $stackPtr, $types = [])
     {
@@ -149,7 +150,8 @@ class Conditions
      * @param int                         $stackPtr  The position of the token we are checking.
      * @param int|string|array            $types     Optional. The type(s) of tokens to search for.
      *
-     * @return int|false StackPtr to the condition or false if the token does not have the condition.
+     * @return int|false Integer stack pointer to the condition; or `false` if the token
+     *                   does not have the condition or has no conditions at all.
      */
     public static function getLastCondition(File $phpcsFile, $stackPtr, $types = [])
     {

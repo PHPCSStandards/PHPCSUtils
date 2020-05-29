@@ -13,8 +13,14 @@ namespace PHPCSUtils\Utils;
 /**
  * Utility functions for working with identifier names.
  *
- * Identifiers in PHP are namespace names, class/trait/interface names, function names,
- * variable names and constant names.
+ * Identifier names in PHP are:
+ * - {@link https://www.php.net/language.namespaces.definition namespace} names;
+ * - {@link https://www.php.net/language.oop5.basic class},
+ *   {@link https://www.php.net/language.oop5.traits trait} and
+ *   {@link https://www.php.net/language.oop5.interfaces interface} names;
+ * - {@link https://www.php.net/functions.user-defined function and method} names;
+ * - {@link https://www.php.net/language.variables.basics variable} names;
+ * - {@link https://www.php.net/language.constants constant} names.
  *
  * @since 1.0.0
  */
@@ -23,11 +29,6 @@ class NamingConventions
 
     /**
      * Regular expression to check if a given identifier name is valid for use in PHP.
-     *
-     * @link https://www.php.net/language.variables.basics
-     * @link https://www.php.net/language.constants
-     * @link https://www.php.net/functions.user-defined
-     * @link https://www.php.net/en/language.oop5.basic
      *
      * @since 1.0.0
      *
@@ -56,11 +57,11 @@ class NamingConventions
     /**
      * Verify whether an arbitrary text string is valid as an identifier name in PHP.
      *
-     * For variable names: the leading `$` needs to be removed prior to passing the name to this method.
-     *
      * @since 1.0.0
      *
-     * @param string $name The name.
+     * @param string $name The name to verify.
+     *                     > Note: for variable names, the leading dollar sign - `$` - needs to be
+     *                     removed prior to passing the name to this method.
      *
      * @return bool
      */
@@ -88,7 +89,8 @@ class NamingConventions
      * This method takes this case-(in)sensitivity into account when comparing identifier names.
      *
      * Note: this method does not check whether the passed names would be valid for identifiers!
-     * See the {@see \PHPCSUtils\Utils\NamingConventions::isValidIdentifierName()} method.
+     * The {@see \PHPCSUtils\Utils\NamingConventions::isValidIdentifierName()} method should be used
+     * to verify that, if necessary.
      *
      * @since 1.0.0
      *

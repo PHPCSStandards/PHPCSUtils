@@ -48,6 +48,7 @@ class Orthography
      *                       but also, for instance, a comment text.
      *                       Potential text delimiter quotes should be stripped
      *                       off a text string before passing it to this method.
+     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool True when the first character is a capital letter or a letter
      *              which doesn't have a concept of capitalization.
@@ -69,6 +70,7 @@ class Orthography
      *                       but also, for instance, a comment text.
      *                       Potential text delimiter quotes should be stripped
      *                       off a text string before passing it to this method.
+     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool True when the first character is a lowercase letter.
      *              False otherwise, including for letters which don't have a concept of
@@ -90,6 +92,7 @@ class Orthography
      *                             but also, for instance, a comment text.
      *                             Potential text delimiter quotes should be stripped
      *                             off a text string before passing it to this method.
+     *                             Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      * @param string $allowedChars Characters which are considered valid punctuation
      *                             to end the text string.
      *                             Defaults to '.?!', i.e. a full stop, question mark

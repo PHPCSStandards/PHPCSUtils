@@ -115,7 +115,7 @@ class Collections
      * I.e. anything declared within that scope - except for other closed scopes - is
      * outside of the global namespace.
      *
-     * This list doesn't contain `T_NAMESPACE` on purpose as variables declared
+     * This list doesn't contain the `T_NAMESPACE` token on purpose as variables declared
      * within a namespace scope are still global and not limited to that namespace.
      *
      * @since 1.0.0
@@ -340,7 +340,8 @@ class Collections
      * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
      *   This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
+     * It is recommended to use the property instead of the method if a standard supports does
+     * not need to support PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
      *
@@ -382,7 +383,8 @@ class Collections
      * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
      *   This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
+     * It is recommended to use the property instead of the method if a standard supports does
+     * not need to support PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC() Related method (cross-version).
      *
@@ -410,7 +412,8 @@ class Collections
      *   These token constants will no longer exist in PHPCS 4.x.
      * - The method will include the `T_ARRAY` token which is needed for select arrow functions in PHPCS < 3.5.4.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.5.4.
+     * It is recommended to use the property instead of the method if a standard supports does
+     * not need to support PHPCS < 3.5.4.
      *
      * @see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC() Related method (cross-version).
      *
@@ -512,7 +515,7 @@ class Collections
     /**
      * Tokens which can represent the arrow function keyword.
      *
-     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
      * @since 1.0.0
      *
@@ -535,7 +538,7 @@ class Collections
     /**
      * Tokens which can represent a keyword which starts a function declaration.
      *
-     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
      * Sister-method to the `functionDeclarationTokensBC()` method.
      * This  method supports PHPCS 3.5.3 and up.
@@ -565,7 +568,7 @@ class Collections
     /**
      * Tokens which can represent a keyword which starts a function declaration.
      *
-     * Note: this is a method, not a property as the `T_FN` token may not exist.
+     * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
      * Sister-method to the `functionDeclarationTokens()` method.
      * The `functionDeclarationTokens()` method supports PHPCS 3.5.3 and up.
@@ -577,7 +580,8 @@ class Collections
      * needs to be used on arrow function tokens to verify whether it really is an arrow function
      * declaration or not.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
+     * It is recommended to use the {@see Collections::functionDeclarationTokens()} method instead of
+     * this method if a standard supports does not need to support PHPCS < 3.5.3.
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
      * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()   Arrow function verification.
@@ -609,7 +613,8 @@ class Collections
      * The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
      * This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
+     * It is recommended to use the property instead of the method if a standard supports does
+     * not need to support PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::$parameterTypeTokens Related property (PHPCS 3.3.0+).
      *
@@ -640,7 +645,8 @@ class Collections
      * The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
      * This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
+     * It is recommended to use the property instead of the method if a standard supports does
+     * not need to support PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::$propertyTypeTokens Related property (PHPCS 3.3.0+).
      *
@@ -665,7 +671,8 @@ class Collections
      *   These token constants will no longer exist in PHPCS 4.x.
      * - The method will include the `T_ARRAY` token which is needed for select arrow functions in PHPCS < 3.5.4.
      *
-     * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.5.4.
+     * It is recommended to use the property instead of the method if a standard supports does
+     * not need to support PHPCS < 3.5.4.
      *
      * @see \PHPCSUtils\Tokens\Collections::$returnTypeTokens Related property (PHPCS 3.5.4+).
      *

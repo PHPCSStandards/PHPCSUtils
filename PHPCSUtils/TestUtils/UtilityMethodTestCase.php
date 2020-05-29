@@ -21,8 +21,9 @@ use ReflectionClass;
  *
  * This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.
  *
- * This class is compatible with PHPUnit 4.5 - 9.x providing the PHPCSUtils autoload
- * file is included in the test bootstrap.
+ * This class is compatible with {@link http://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
+ * autoload file is included in the test bootstrap. For more information about that, please consult
+ * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *
  * To allow for testing of tab vs space content, the tabWidth is set to `4` by default.
  *
@@ -71,7 +72,7 @@ use ReflectionClass;
  *    /**
  *     * Data Provider.
  *     *
- *     * @see testMyMethod() For the array format.
+ *     * @see ClassUnderTestUnitTest::testMyMethod() For the array format.
  *     *
  *     * @return array
  *     * /
@@ -170,7 +171,12 @@ abstract class UtilityMethodTestCase extends TestCase
      * Initialize PHPCS & tokenize the test case file.
      *
      * The test case file for a unit test class has to be in the same directory
-     * directory and use the same file name as the test class, using the .inc extension.
+     * directory and use the same file name as the test class, using the .inc extension
+     * or be explicitly set using the {@see UtilityMethodTestCase::$fileExtension}/
+     * {@see UtilityMethodTestCase::$caseFile} properties.
+     *
+     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUpBeforeClass()}
+     * method.
      *
      * @since 1.0.0
      *
@@ -261,6 +267,13 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * Skip JS and CSS related tests on PHPCS 4.x.
      *
+     * PHPCS 4.x drops support for the JS and CSS tokenizers.
+     * This method takes care of automatically skipping tests involving JS/CSS case files
+     * when the tests are being run with PHPCS 4.x.
+     *
+     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUp()}
+     * method.
+     *
      * @since 1.0.0
      *
      * @before
@@ -283,6 +296,9 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * Clean up after finished test.
      *
+     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::tearDownAfterClass()}
+     * method.
+     *
      * @since 1.0.0
      *
      * @afterClass
@@ -295,14 +311,17 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Get the token pointer for a target token based on a specific comment found on the line before.
+     * Get the token pointer for a target token based on a specific comment.
      *
      * Note: the test delimiter comment MUST start with "/* test" to allow this function to
      * distinguish between comments used *in* a test and test delimiters.
      *
+     * If the delimiter comment is not found, the test will automatically be failed.
+     *
      * @since 1.0.0
      *
-     * @param string           $commentString The delimiter comment to look for.
+     * @param string           $commentString The complete delimiter comment to look for as a string.
+     *                                        This string should include the comment opener and closer.
      * @param int|string|array $tokenType     The type of token(s) to look for.
      * @param string           $tokenContent  Optional. The token content for the target token.
      *
@@ -355,13 +374,13 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit cross-version
+     * Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit and PHPCS cross-version
      * compatible manner.
      *
      * @since 1.0.0
      *
      * @param string $msg  The expected exception message.
-     * @param string $type The exception type to expect. Either 'runtime' or 'tokenizer'.
+     * @param string $type The PHPCS native exception type to expect. Either 'runtime' or 'tokenizer'.
      *                     Defaults to 'runtime'.
      *
      * @return void

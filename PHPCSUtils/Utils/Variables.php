@@ -20,8 +20,8 @@ use PHPCSUtils\Utils\TextStrings;
 /**
  * Utility functions for use when examining variables.
  *
- * @since 1.0.0 The `getMemberProperties()` method is based on and inspired by
- *              the method of the same name in the PHPCS native `File` class.
+ * @since 1.0.0 The `Variables::getMemberProperties()` method is based on and inspired by
+ *              the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 class Variables
@@ -33,8 +33,8 @@ class Variables
      * The array keys are the variable names without the leading dollar sign, the values indicate
      * whether the variable is a superglobal or not.
      *
-     * {@internal The variables names are set without the leading dollar sign to allow this array
-     *            to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
+     * The variables names are set without the leading dollar sign to allow this array
+     * to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
      *
      * @since 1.0.0
      *
@@ -73,7 +73,7 @@ class Variables
     ];
 
     /**
-     * Retrieve the visibility and implementation properties of a class member var.
+     * Retrieve the visibility and implementation properties of a class member variable.
      *
      * The format of the return value is:
      *
@@ -213,6 +213,8 @@ class Variables
     /**
      * Verify if a given variable name is the name of a PHP reserved variable.
      *
+     * @see \PHPCSUtils\Utils\Variables::$phpReservedVars List of variables names reserved by PHP.
+     *
      * @since 1.0.0
      *
      * @param string $name The full variable name with or without leading dollar sign.
@@ -220,6 +222,7 @@ class Variables
      *                     '_GET' retrieved from $GLOBALS['_GET'].
      *                     Note: when passing an array key, string quotes are expected
      *                     to have been stripped already.
+     *                     Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool
      */
@@ -242,9 +245,10 @@ class Variables
      *                                               token or of the T_CONSTANT_ENCAPSED_STRING
      *                                               array key to a variable in `$GLOBALS`.
      *
-     * @return bool True if this points to a superglobal. False when not; or when an unsupported
-     *              token has been passed; or when a T_CONSTANT_ENCAPSED_STRING is not an array
-     *              index key; or when it is, but not an index to the $GLOBALS variable.
+     * @return bool True if this points to a superglobal. False when not.
+     *              Includes returning `false` when an unsupported token has been passed,
+     *              when a `T_CONSTANT_ENCAPSED_STRING` has been passed which is not an array
+     *              index key; or when it is, but is not an index to the `$GLOBALS` variable.
      */
     public static function isSuperglobal(File $phpcsFile, $stackPtr)
     {
@@ -295,6 +299,7 @@ class Variables
      *                     '_GET' retrieved from $GLOBALS['_GET'].
      *                     Note: when passing an array key, string quotes are expected
      *                     to have been stripped already.
+     *                     Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool
      */

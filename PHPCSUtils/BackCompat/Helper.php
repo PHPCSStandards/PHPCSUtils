@@ -97,6 +97,9 @@ class Helper
     /**
      * Get the value of a single PHP_CodeSniffer config key.
      *
+     * @see Helper::getCommandLineData() Alternative for the same which is more reliable
+     *                                   if the `$phpcsFile` object is available.
+     *
      * @since 1.0.0
      *
      * @param string $key The name of the config value.
