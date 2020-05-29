@@ -343,7 +343,7 @@ class Collections
      * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
-
+     *
      * @since 1.0.0
      *
      * @var array <int|string> => <int|string>

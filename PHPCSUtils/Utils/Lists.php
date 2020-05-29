@@ -269,7 +269,6 @@ class Lists
      *                                                 // FALSE when not a reference assignment.
      * </code>
      *
-     *
      * Assignments with keys will have the following additional array indexes set:
      * <code>
      *         'key'                 => string, // The content of the key, cleaned of comments.

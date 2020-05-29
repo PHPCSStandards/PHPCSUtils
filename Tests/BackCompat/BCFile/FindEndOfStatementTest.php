@@ -15,7 +15,7 @@
  *
  * With documentation contributions from:
  * @author    Phil Davis <phil@jankaritech.com>
-
+ *
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
