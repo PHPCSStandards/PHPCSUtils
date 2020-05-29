@@ -200,7 +200,7 @@ class ControlStructures
      * Get the scope opener and closer for a `declare` statement.
      *
      * A `declare` statement can be:
-     * - applied to the rest of the file, like `declare(ticks=1);`;
+     * - applied to the rest of the file, like `declare(ticks=1);`
      * - applied to a limited scope using curly braces;
      * - applied to a limited scope using the alternative control structure syntax.
      *
@@ -358,7 +358,7 @@ class ControlStructures
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_CATCH or doesn't exist or in case
+     *                                                      type T_CATCH, doesn't exist or in case
      *                                                      of a parse error.
      */
     public static function getCaughtExceptions(File $phpcsFile, $stackPtr)

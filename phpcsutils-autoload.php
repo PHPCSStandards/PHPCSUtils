@@ -102,7 +102,7 @@ if (defined('PHPCSUTILS_PHPUNIT_ALIASES_SET') === false) {
     /*
      * Alias the PHPUnit 4/5 TestCase class to its PHPUnit 6+ name.
      *
-     * This allows the both the PHPCSUtils native unit tests as well as the
+     * This allows both the PHPCSUtils native unit tests as well as the
      * `UtilityMethodTestCase` class to work cross-version with PHPUnit
      * below 6.x and above.
      *
