@@ -172,7 +172,7 @@ class Helper
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile Optional. The current file being processed.
+     * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *
      * @return string Encoding. Defaults to the PHPCS native default, which is 'utf-8'
      *                for PHPCS 3.x and was 'iso-8859-1' for PHPCS 2.x.
@@ -213,8 +213,7 @@ class Helper
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile Optional. The current file
-     *                                               being processed.
+     * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *
      * @return bool True if annotations should be ignored, false otherwise.
      */
