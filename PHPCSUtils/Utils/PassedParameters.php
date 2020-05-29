@@ -23,7 +23,6 @@ use PHPCSUtils\Utils\GetTokensAsString;
  * class instantiations, array declarations, isset and unset constructs.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class PassedParameters
 {
@@ -64,10 +63,6 @@ final class PassedParameters
      *   language constructs have "parameters".
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added the `$isShortArray` parameter.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
-     * @since 1.0.0-alpha4 Added defensive coding against PHP 8.1 first class callables
-     *                     being passed as if they were function calls.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
      * @param int                         $stackPtr     The position of function call name,
@@ -157,10 +152,6 @@ final class PassedParameters
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added the `$limit` and `$isShortArray` parameters.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by introducing
-     *                     the `'name'` and `'name_token'` index keys as well as using the name
-     *                     as the index for the top-level array for named parameters.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
      * @param int                         $stackPtr     The position of function call name,
@@ -365,7 +356,6 @@ final class PassedParameters
      *                                                already retrieved.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added the `$paramNames` parameter.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
      * @param int                         $stackPtr    The position of function call name,
@@ -455,7 +445,7 @@ final class PassedParameters
      *
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param array           $parameters  The output of a previous call to {@see PassedParameters::getParameters()}.
      * @param int             $paramOffset The 1-based index position of the parameter to retrieve.

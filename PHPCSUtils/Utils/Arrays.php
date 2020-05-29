@@ -20,7 +20,6 @@ use PHPCSUtils\Tokens\Collections;
  * Utility functions for use when examining arrays.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class Arrays
 {
@@ -144,9 +143,6 @@ final class Arrays
      * {@see \PHPCSUtils\Utils\PassedParameters::getParameters()}.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Now allows for arrow functions in arrays.
-     * @since 1.0.0-alpha4 Now allows for match expressions in arrays.
-     * @since 1.0.0-alpha4 Now allows for attributes in arrays.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
      * @param int                         $start     Stack pointer to the start of the array item.

@@ -23,13 +23,12 @@ use PHPCSUtils\Utils\UseStatements;
 /**
  * Utility functions for use when examining function declaration statements.
  *
- * @since 1.0.0        The `FunctionDeclarations::getProperties()` and the
- *                     `FunctionDeclarations::getParameters()` methods are based on and
- *                     inspired by respectively the `getMethodProperties()`
- *                     and `getMethodParameters()` methods in the PHPCS native
- *                     `PHP_CodeSniffer\Files\File` class.
- *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0 The `FunctionDeclarations::getProperties()` and the
+ *              `FunctionDeclarations::getParameters()` methods are based on and
+ *              inspired by respectively the `getMethodProperties()`
+ *              and `getMethodParameters()` methods in the PHPCS native
+ *              `PHP_CodeSniffer\Files\File` class.
+ *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 final class FunctionDeclarations
 {
@@ -155,11 +154,6 @@ final class FunctionDeclarations
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
-     * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.2 true type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -370,14 +364,6 @@ final class FunctionDeclarations
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 constructor property promotion.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 parameter attributes.
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 readonly keyword for constructor property promotion.
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.2 true type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token

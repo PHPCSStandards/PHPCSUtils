@@ -21,9 +21,6 @@ use PHP_CodeSniffer\Util\Tokens;
  * will be considered parentheses owners by the functions in this class.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Added support for `isset()`, `unset()`, `empty()`, `exit()`, `die()`
- *                     and `eval()` as parentheses owners to all applicable functions.
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class Parentheses
 {
@@ -35,7 +32,7 @@ final class Parentheses
      *    owners, but are considered such for the purposes of this class.
      *    Also see {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/3118 PHPCS#3118}.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
@@ -51,7 +48,6 @@ final class Parentheses
      * Get the stack pointer to the parentheses owner of an open/close parenthesis.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position of `T_OPEN/CLOSE_PARENTHESIS` token.
@@ -98,7 +94,6 @@ final class Parentheses
      * set of valid owners.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
      * @param int                         $stackPtr    The position of `T_OPEN/CLOSE_PARENTHESIS` token.

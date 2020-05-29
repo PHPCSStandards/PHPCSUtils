@@ -27,7 +27,6 @@ use PHPCSUtils\Utils\Parentheses;
  * @link https://www.php.net/language.namespaces PHP Manual on namespaces.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class Namespaces
 {
@@ -36,7 +35,6 @@ final class Namespaces
      * Determine what a T_NAMESPACE token is used for.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_NAMESPACE` token.

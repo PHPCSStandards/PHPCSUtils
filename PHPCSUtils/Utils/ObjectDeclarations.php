@@ -19,13 +19,12 @@ use PHPCSUtils\Utils\GetTokensAsString;
 /**
  * Utility functions for use when examining object declaration statements.
  *
- * @since 1.0.0        The `ObjectDeclarations::get(Declaration)Name()`,
- *                     `ObjectDeclarations::getClassProperties()`, `ObjectDeclarations::findExtendedClassName()`
- *                     and `ObjectDeclarations::findImplementedInterfaceNames()` methods are based on and
- *                     inspired by the methods of the same name in the PHPCS native
- *                     `PHP_CodeSniffer\Files\File` class.
- *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0 The `ObjectDeclarations::get(Declaration)Name()`,
+ *              `ObjectDeclarations::getClassProperties()`, `ObjectDeclarations::findExtendedClassName()`
+ *              and `ObjectDeclarations::findImplementedInterfaceNames()` methods are based on and
+ *              inspired by the methods of the same name in the PHPCS native
+ *              PHP_CodeSniffer\Files\File` class.
+ *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 final class ObjectDeclarations
 {
@@ -48,7 +47,6 @@ final class ObjectDeclarations
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 enums.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the declaration token
@@ -145,7 +143,6 @@ final class ObjectDeclarations
      * @see \PHPCSUtils\BackCompat\BCFile::getClassProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for the PHP 8.2 readonly keyword.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_CLASS`
@@ -272,7 +269,6 @@ final class ObjectDeclarations
      *                                                                     the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 enums.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class or enum token.
@@ -313,7 +309,6 @@ final class ObjectDeclarations
      * interfaces that the specific class/interface declaration extends/implements.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile  The file where this token was found.
      * @param int                         $stackPtr   The stack position of the

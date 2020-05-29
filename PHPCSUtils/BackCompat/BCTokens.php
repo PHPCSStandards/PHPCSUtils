@@ -42,7 +42,6 @@ use PHPCSUtils\Tokens\Collections;
  * the token arrays returned by this class.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  *
  * @method static array arithmeticTokens()         Tokens that represent arithmetic operators.
  * @method static array assignmentTokens()         Tokens that represent assignments.

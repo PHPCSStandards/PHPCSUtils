@@ -63,7 +63,6 @@ use PHPCSUtils\Tokens\Collections;
  * @see \PHP_CodeSniffer\Files\File Original source of these utility methods.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class BCFile
 {
@@ -155,8 +154,6 @@ final class BCFile
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token

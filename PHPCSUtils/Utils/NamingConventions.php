@@ -23,7 +23,7 @@ namespace PHPCSUtils\Utils;
  * - {@link https://www.php.net/language.variables.basics variable} names;
  * - {@link https://www.php.net/language.constants constant} names.
  *
- * @since 1.0.0-alpha3
+ * @since 1.0.0
  */
 final class NamingConventions
 {

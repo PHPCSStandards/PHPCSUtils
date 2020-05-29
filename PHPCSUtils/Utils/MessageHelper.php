@@ -23,7 +23,7 @@ final class MessageHelper
     /**
      * Add a PHPCS message to the output stack as either a warning or an error.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param string                      $message   The message.
@@ -59,7 +59,7 @@ final class MessageHelper
     /**
      * Add a PHPCS message to the output stack as either a fixable warning or a fixable error.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param string                      $message   The message.
@@ -97,7 +97,7 @@ final class MessageHelper
      *
      * Pre-empt issues in XML and PHP when arbitrary strings are being used as error codes.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $text       Arbitrary text string intended to be used in an error code.
      * @param bool   $strtolower Whether or not to convert the text string to lowercase.
@@ -129,7 +129,7 @@ final class MessageHelper
      * @see \PHPCSUtils\Utils\GetTokensToString             Methods to retrieve a multi-token code snippet.
      * @see \PHP_CodeSniffer\Util\Common\prepareForOutput() Similar PHPCS native method.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $text Arbitrary text string.
      *

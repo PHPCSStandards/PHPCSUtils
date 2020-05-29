@@ -15,7 +15,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 /**
  * Exception thrown when an non-existent token array is requested.
  *
- * @since 1.0.0-alpha4
+ * @since 1.0.0
  */
 final class InvalidTokenArray extends RuntimeException
 {
@@ -23,7 +23,7 @@ final class InvalidTokenArray extends RuntimeException
     /**
      * Create a new invalid token array exception with a standardized text.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $name The name of the token array requested.
      *

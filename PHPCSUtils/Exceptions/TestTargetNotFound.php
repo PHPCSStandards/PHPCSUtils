@@ -15,7 +15,7 @@ use OutOfBoundsException;
 /**
  * Exception thrown when a test target token can not be found in a test case file.
  *
- * @since 1.0.0-alpha4
+ * @since 1.0.0
  */
 final class TestTargetNotFound extends OutOfBoundsException
 {
@@ -23,7 +23,7 @@ final class TestTargetNotFound extends OutOfBoundsException
     /**
      * Create a new "test target token not found" exception with a standardized text.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $marker  The delimiter comment.
      * @param string $content The (optional) target token content.

@@ -15,7 +15,7 @@ use OutOfBoundsException;
 /**
  * Exception thrown when a delimiter comment can not be found in a test case file.
  *
- * @since 1.0.0-alpha4
+ * @since 1.0.0
  */
 final class TestMarkerNotFound extends OutOfBoundsException
 {
@@ -23,7 +23,7 @@ final class TestMarkerNotFound extends OutOfBoundsException
     /**
      * Create a new "test marker not found" exception with a standardized text.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $marker The delimiter comment.
      * @param string $file   The file in which the delimiter was not found.
