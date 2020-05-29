@@ -173,7 +173,7 @@ class Helper
      * Get the applicable (file) encoding as passed to PHP_CodeSniffer from the
      * command-line or the ruleset.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *

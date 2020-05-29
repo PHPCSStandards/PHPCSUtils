@@ -204,7 +204,7 @@ class Collections
      *
      * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @var array <int|string> => <int|string>
      */
@@ -289,7 +289,7 @@ class Collections
      *
      * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @var array <int|string> => <int|string>
      */
@@ -307,7 +307,7 @@ class Collections
      * echo namespace\Sub\ClassName::method();
      * ```
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @var array <int|string> => <int|string>
      */
@@ -520,7 +520,7 @@ class Collections
      *
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha2
      *
      * @return array <int|string> => <int|string>
      */
@@ -549,7 +549,7 @@ class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC() Related method (PHPCS 2.6.0+).
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @return array <int|string> => <int|string>
      */
@@ -590,7 +590,7 @@ class Collections
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
      * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()   Arrow function verification.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @return array <int|string> => <int|string>
      */
@@ -622,7 +622,7 @@ class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::$parameterTypeTokens Related property (PHPCS 3.3.0+).
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @return array <int|string> => <int|string>
      */
@@ -654,7 +654,7 @@ class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::$propertyTypeTokens Related property (PHPCS 3.3.0+).
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @return array <int|string> => <int|string>
      */
@@ -680,7 +680,7 @@ class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::$returnTypeTokens Related property (PHPCS 3.5.4+).
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @return array <int|string> => <int|string>
      */

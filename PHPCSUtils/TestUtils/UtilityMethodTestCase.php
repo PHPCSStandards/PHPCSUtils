@@ -103,7 +103,7 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * The PHPCS version the tests are being run on.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @var string
      */
@@ -275,7 +275,7 @@ abstract class UtilityMethodTestCase extends TestCase
      * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUp()}
      * method.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @before
      *
