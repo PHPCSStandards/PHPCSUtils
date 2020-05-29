@@ -64,6 +64,7 @@ class BCTokens
      * Token types that are comments containing PHPCS instructions.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
      * @var string[]
      */
@@ -79,6 +80,7 @@ class BCTokens
      * Tokens that open class and object scopes.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
      * @var array <int|string> => <int|string>
      */
@@ -93,6 +95,7 @@ class BCTokens
      * Tokens that represent text strings.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
      * @var array <int|string> => <int|string>
      */

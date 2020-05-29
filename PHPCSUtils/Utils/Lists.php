@@ -292,6 +292,8 @@ class Lists
      * ```
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 The returned value has been simplified with sensible defaults and always
+     *                     available keys.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
