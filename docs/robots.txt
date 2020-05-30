@@ -1,0 +1,5 @@
+# /robots.txt file for https://phpcsutils.com/
+
+User-agent: *
+Allow: /
+Sitemap: https://phpcsutils.com/sitemap.xml

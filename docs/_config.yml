@@ -1,0 +1,36 @@
+baseurl: /
+highlighter: rouge
+markdown: CommonMarkGhPages
+encoding: UTF-8
+theme: jekyll-theme-minimal
+repository: "PHPCSStandards/PHPCSUtils"
+github: [metadata]
+url: "https://phpcsutils.com"
+
+plugins:
+    - jekyll-github-metadata
+    - jemoji
+    - jekyll-mentions
+    - jekyll-seo-tag
+    - jekyll-sitemap
+
+phpcsutils:
+    packagist: phpcsstandards/phpcsutils
+
+# Theme info.
+title: PHPCSUtils
+description: "A suite of utility functions for use with PHP_CodeSniffer."
+logo: 
+show_downloads: false
+google_analytics:
+
+# SEO info.
+tagline: "PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer."
+twitter:
+  username: jrf_nl
+  card: summary
+  hashtags: PHPCSUtils
+author:
+  twitter: jrf_nl
+
+exclude: ['CNAME', '.gitignore', 'Gemfile', '*.bak', '*.orig']
