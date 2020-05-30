@@ -31,9 +31,11 @@ PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 Features
 -------------------------------------------
 
-This is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
+[PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
 This package offers the following features:
+
+<div id="feature-list">
 
 ### Use the latest version of PHP_CodeSniffer native utility functions.
 
@@ -71,6 +73,7 @@ A `PHPCS23Utils` standard which allows sniffs to work in both PHPCS 2.x and 3.x,
 
 To see detailed information about all the available abstract sniffs, utility functions and PHPCS helper functions, have a read through the [extensive documentation](https://phpcsutils.com/).
 
+</div>
 
 Minimum Requirements
 -------------------------------------------
@@ -216,6 +219,8 @@ Once that's done, you will need to make a small tweak to your own dev environmen
 Frequently Asked Questions
 -------
 
+<div id="faq">
+
 #### Q: How does this all work without an external standard needing to register an autoloader?
 
 A: As PHPCSUtils is registered with PHPCS as an external standard and PHPCSUtils complies with the naming requirements of PHPCS, the PHPCS native autoloader will automatically take care of loading the classes you use from PHPCSUtils.
@@ -232,6 +237,7 @@ A: The backfill for PHP 7.4 numeric literals with underscores in PHP_CodeSniffer
 
 The backfill was fixed in PHP_CodeSniffer 3.5.4.
 
+</div>
 
 Contributing
 -------
@@ -241,4 +247,4 @@ If you are unsure whether the changes you are proposing would be welcome, please
 
 License
 -------
-This code is released under the GNU Lesser General Public License (LGPLv3). For more information, visit http://www.gnu.org/copyleft/lesser.html
+This code is released under the [GNU Lesser General Public License (LGPLv3)](http://www.gnu.org/copyleft/lesser.html).
