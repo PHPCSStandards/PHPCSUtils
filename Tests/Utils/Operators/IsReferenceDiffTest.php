@@ -85,10 +85,6 @@ class IsReferenceDiffDiffTest extends UtilityMethodTestCase
                 '/* testTokenizerIssue1284PHPCSlt280C */',
                 true,
             ],
-            'closure-return-by-reference' => [
-                '/* testClosureReturnByReference */',
-                true,
-            ],
         ];
     }
 }

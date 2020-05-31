@@ -11,6 +11,3 @@ if ($foo) {}
 /* testTokenizerIssue1284PHPCSlt280C */
 if ($foo) {}
 [&$a, $b];
-
-/* testClosureReturnByReference */
-$closure = function &($param) use ($value) {};
