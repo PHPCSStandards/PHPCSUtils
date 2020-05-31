@@ -57,6 +57,8 @@ class Operators
      * Determine if the passed token is a reference operator.
      *
      * Main differences with the PHPCS version:
+     * - Bug fixed: the `&` for a closure declared to return by reference was not recognized as
+     *   a reference. {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/2977 Open PR upstream}
      * - Defensive coding against incorrect calls to this method.
      * - Improved handling of select tokenizer errors involving short lists/short arrays.
      *
@@ -83,6 +85,7 @@ class Operators
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
         if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
+            || $tokens[$tokenBefore]['code'] === T_CLOSURE
             || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
         ) {
             // Function returns a reference.
