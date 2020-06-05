@@ -92,7 +92,7 @@ class Operators
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
         if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
-            || $tokens[$tokenBefore]['code'] === T_CLOSURE
+            || $tokens[$tokenBefore]['code'] === \T_CLOSURE
             || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
         ) {
             // Function returns a reference.
