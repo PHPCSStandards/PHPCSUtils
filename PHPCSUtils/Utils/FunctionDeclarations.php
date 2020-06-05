@@ -765,6 +765,8 @@ class FunctionDeclarations
 
             if (isset($tokens[$scopeCloser]['scope_closer']) === true
                 && $tokens[$scopeCloser]['code'] !== \T_INLINE_ELSE
+                && $tokens[$scopeCloser]['code'] !== \T_END_HEREDOC
+                && $tokens[$scopeCloser]['code'] !== \T_END_NOWDOC
             ) {
                 // We minus 1 here in case the closer can be shared with us.
                 $scopeCloser = ($tokens[$scopeCloser]['scope_closer'] - 1);
