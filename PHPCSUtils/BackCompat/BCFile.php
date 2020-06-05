@@ -1251,6 +1251,7 @@ class BCFile
      * - PHPCS 3.5.0: Improved handling of group use statements.
      * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
      * - PHPCS 3.5.4: Improved support for PHP 7.4 T_FN arrow functions.
+     * - PHPCS 3.5.5: Improved support for PHP 7.4 T_FN arrow functions, PHPCS #2895.
      *
      * @see \PHP_CodeSniffer\Files\File::findEndOfStatement() Original source.
      *
@@ -1288,7 +1289,6 @@ class BCFile
         }
 
         $lastNotEmpty = $start;
-
         for ($i = $start; $i < $phpcsFile->numTokens; $i++) {
             if ($i !== $start && isset($endTokens[$tokens[$i]['code']]) === true) {
                 // Found the end of the statement.
@@ -1311,6 +1311,8 @@ class BCFile
                 || $i === $tokens[$i]['scope_condition'])
             ) {
                 if ($tokens[$i]['type'] === 'T_FN') {
+                    $lastNotEmpty = $tokens[$i]['scope_closer'];
+
                     // Minus 1 as the closer can be shared.
                     $i = ($tokens[$i]['scope_closer'] - 1);
                     continue;
@@ -1342,8 +1344,11 @@ class BCFile
                         return $arrowFunctionOpenClose['scope_closer'];
                     }
 
+                    $lastNotEmpty = $arrowFunctionOpenClose['scope_closer'];
+
                     // Minus 1 as the closer can be shared.
                     $i = ($arrowFunctionOpenClose['scope_closer'] - 1);
+                    continue;
                 }
             }
 
