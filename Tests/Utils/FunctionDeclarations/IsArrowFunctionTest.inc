@@ -88,6 +88,16 @@ array_map(
 /* testTernary */
 $fn = fn($a) => $a ? /* testTernaryThen */ fn() : string => 'a' : /* testTernaryElse */ fn() : string => 'b';
 
+$foo = foo(
+    /* testArrowFunctionAsArgument */
+    fn() => bar()
+);
+
+$foo = foo(
+    /* testArrowFunctionWithArrayAsArgument */
+    fn() => [$row[0], $row[3]]
+);
+
 /* testConstantDeclaration */
 const FN = 'a';
 

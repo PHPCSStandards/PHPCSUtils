@@ -676,6 +676,7 @@ class FunctionDeclarations
 
         if ($tokens[$stackPtr]['type'] === 'T_FN'
             && isset($tokens[$stackPtr]['scope_closer']) === true
+            && \version_compare(Helper::getVersion(), '3.5.4', '>') === true
         ) {
             // The keys will either all be set or none will be set, so no additional checks needed.
             return [
@@ -736,12 +737,20 @@ class FunctionDeclarations
 
         $returnValue['scope_opener'] = $arrow;
         $inTernary                   = false;
+        $lastEndToken                = null;
 
         for ($scopeCloser = ($arrow + 1); $scopeCloser < $phpcsFile->numTokens; $scopeCloser++) {
             if (isset(self::$arrowFunctionEndTokens[$tokens[$scopeCloser]['code']]) === true
                 // BC for misidentified ternary else in some PHPCS versions.
                 && ($tokens[$scopeCloser]['code'] !== \T_COLON || $inTernary === false)
             ) {
+                if ($lastEndToken !== null
+                    && $tokens[$scopeCloser]['code'] === \T_CLOSE_PARENTHESIS
+                    && $tokens[$scopeCloser]['parenthesis_opener'] < $arrow
+                ) {
+                    $scopeCloser = $lastEndToken;
+                }
+
                 break;
             }
 
@@ -763,12 +772,14 @@ class FunctionDeclarations
             }
 
             if (isset($tokens[$scopeCloser]['parenthesis_closer']) === true) {
-                $scopeCloser = $tokens[$scopeCloser]['parenthesis_closer'];
+                $scopeCloser  = $tokens[$scopeCloser]['parenthesis_closer'];
+                $lastEndToken = $scopeCloser;
                 continue;
             }
 
             if (isset($tokens[$scopeCloser]['bracket_closer']) === true) {
-                $scopeCloser = $tokens[$scopeCloser]['bracket_closer'];
+                $scopeCloser  = $tokens[$scopeCloser]['bracket_closer'];
+                $lastEndToken = $scopeCloser;
                 continue;
             }
 
