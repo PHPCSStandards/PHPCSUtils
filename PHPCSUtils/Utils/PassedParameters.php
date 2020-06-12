@@ -64,21 +64,21 @@ class PassedParameters
     /**
      * Checks if any parameters have been passed.
      *
-     * - If passed a T_STRING or T_VARIABLE stack pointer, it will treat it as a function call.
-     *   If a T_STRING or T_VARIABLE which is *not* a function call is passed, the behaviour is
+     * - If passed a `T_STRING` or `T_VARIABLE` stack pointer, it will treat it as a function call.
+     *   If a `T_STRING` or `T_VARIABLE` which is *not* a function call is passed, the behaviour is
      *   undetermined.
-     * - If passed a T_SELF or T_STATIC stack pointer, it will accept it as a
+     * - If passed a `T_SELF` or `T_STATIC` stack pointer, it will accept it as a
      *   function call when used like `new self()`.
-     * - If passed a T_ARRAY or T_OPEN_SHORT_ARRAY stack pointer, it will detect
+     * - If passed a `T_ARRAY` or `T_OPEN_SHORT_ARRAY` stack pointer, it will detect
      *   whether the array has values or is empty.
-     * - If passed a T_ISSET or T_UNSET stack pointer, it will detect whether those
+     * - If passed a `T_ISSET` or `T_UNSET` stack pointer, it will detect whether those
      *   language constructs have "parameters".
      *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the T_STRING, T_VARIABLE, T_ARRAY,
-     *                                               T_OPEN_SHORT_ARRAY, T_ISSET, or T_UNSET token.
+     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
+     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET`, or `T_UNSET` token.
      *
      * @return bool
      *
@@ -154,14 +154,13 @@ class PassedParameters
     /**
      * Get information on all parameters passed.
      *
-     * See {@see PHPCSUtils\Utils\PassedParameters::hasParameters()} for information on the supported
-     * constructs.
+     * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the T_STRING, T_VARIABLE, T_ARRAY,
-     *                                               T_OPEN_SHORT_ARRAY, T_ISSET, or T_UNSET token.
+     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
+     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET`, or `T_UNSET` token.
      *
      * @return array A multi-dimentional array information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
@@ -277,18 +276,17 @@ class PassedParameters
     /**
      * Get information on a specific parameter passed.
      *
-     * See {@see PHPCSUtils\Utils\PassedParameters::hasParameters()} for information on the supported
-     * constructs.
+     * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
-     * @param int                         $stackPtr    The position of the T_STRING, T_VARIABLE, T_ARRAY,
-     *                                                 T_OPEN_SHORT_ARRAY, T_ISSET or T_UNSET token.
+     * @param int                         $stackPtr    The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
+     *                                                 `T_OPEN_SHORT_ARRAY`, `T_ISSET` or `T_UNSET` token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
      *
      * @return array|false Array with information on the parameter/array item at the specified offset.
-     *                     Or `false` if the specified parameter/array item is not found.
+     *                     Or `FALSE` if the specified parameter/array item is not found.
      *                     The format of the return value is:
      *                     ```php
      *                     array(
@@ -316,14 +314,13 @@ class PassedParameters
     /**
      * Count the number of parameters which have been passed.
      *
-     * See {@see PHPCSUtils\Utils\PassedParameters::hasParameters()} for information on the supported
-     * constructs.
+     * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the T_STRING, T_VARIABLE, T_ARRAY,
-     *                                               T_OPEN_SHORT_ARRAY, T_ISSET or T_UNSET token.
+     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
+     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET` or `T_UNSET` token.
      *
      * @return int
      *

@@ -8,7 +8,7 @@
  * - If an external standard only supports PHPCS >= 3.1.0 and uses the PHPCS
  *   native unit test framework, this file does not need to be included.
  *
- * - When PHPCS 2.x support is desired, include the "PHPCS23Utils" standard
+ * - When PHPCS 2.x support is desired, include the `"PHPCS23Utils"` standard
  *   in the ruleset of the external standard and this file will be included
  *   automatically.
  *   Including this file will allow PHPCSUtils to work in both PHPCS 2.x
@@ -17,7 +17,7 @@
  * - If an external standard uses its own unit test setup, this file should
  *   be included from the unit test bootstrap file.
  *
- * - If an external standard uses the PHPCSUtils `UtilityMethodTestCase`
+ * - If an external standard uses the PHPCSUtils {@see PHPCSUtils\TestUtils\UtilityMethodTestCase}
  *   class to test their own utility methods, this file should be included from
  *   the unit test bootstrap file.
  *

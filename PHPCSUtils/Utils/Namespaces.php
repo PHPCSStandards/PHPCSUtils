@@ -37,15 +37,15 @@ class Namespaces
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_NAMESPACE token.
+     * @param int                         $stackPtr  The position of the `T_NAMESPACE` token.
      *
      * @return string Either `'declaration'`, `'operator'` or an empty string.
      *                An empty string will be returned if it couldn't be
-     *                reliably determined what the T_NAMESPACE token is used for,
+     *                reliably determined what the `T_NAMESPACE` token is used for,
      *                which, in most cases, will mean the code contains a parse/fatal error.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
-     *                                                      not a T_NAMESPACE token.
+     *                                                      not a `T_NAMESPACE` token.
      */
     public static function getType(File $phpcsFile, $stackPtr)
     {
@@ -119,13 +119,13 @@ class Namespaces
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of a T_NAMESPACE token.
+     * @param int                         $stackPtr  The position of a `T_NAMESPACE` token.
      *
-     * @return bool True if the token passed is the keyword for a namespace declaration.
-     *              False if not.
+     * @return bool `TRUE` if the token passed is the keyword for a namespace declaration.
+     *              `FALSE` if not.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
-     *                                                      not a T_NAMESPACE token.
+     *                                                      not a `T_NAMESPACE` token.
      */
     public static function isDeclaration(File $phpcsFile, $stackPtr)
     {
@@ -141,12 +141,12 @@ class Namespaces
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of a T_NAMESPACE token.
+     * @param int                         $stackPtr  The position of a `T_NAMESPACE` token.
      *
-     * @return bool True if the namespace token passed is used as an operator. False if not.
+     * @return bool `TRUE` if the namespace token passed is used as an operator. `FALSE` if not.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
-     *                                                      not a T_NAMESPACE token.
+     *                                                      not a `T_NAMESPACE` token.
      */
     public static function isOperator(File $phpcsFile, $stackPtr)
     {
@@ -162,15 +162,15 @@ class Namespaces
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of a T_NAMESPACE token.
+     * @param int                         $stackPtr  The position of a `T_NAMESPACE` token.
      * @param bool                        $clean     Optional. Whether to get the name stripped
      *                                               of potentially interlaced whitespace and/or
-     *                                               comments. Defaults to true.
+     *                                               comments. Defaults to `true`.
      *
-     * @return string|false The namespace name, or false if the specified position is not a
-     *                      T_NAMESPACE token, the token points to a namespace operator
+     * @return string|false The namespace name; or `FALSE` if the specified position is not a
+     *                      `T_NAMESPACE` token, the token points to a namespace operator
      *                      or when parse errors are encountered/during live coding.
-     *                      Note: The name can be an empty string for a valid global
+     *                      > Note: The name can be an empty string for a valid global
      *                      namespace declaration.
      */
     public static function getDeclaredName(File $phpcsFile, $stackPtr, $clean = true)
@@ -209,12 +209,12 @@ class Namespaces
     /**
      * Determine the namespace an arbitrary token lives in.
      *
-     * Note: when a namespace declaration token or a token which is part of the namespace
-     * name is passed to this method, the result will be `false` as technically, these tokens
-     * are not _within_ a namespace.
-     *
-     * Note: this method has no opinion on whether the token passed is actually _subject_
-     * to namespacing.
+     * Take note:
+     * 1. When a namespace declaration token or a token which is part of the namespace
+     *    name is passed to this method, the result will be `false` as technically, these tokens
+     *    are not _within_ a namespace.
+     * 2. This method has no opinion on whether the token passed is actually _subject_
+     *    to namespacing.
      *
      * @since 1.0.0
      *
@@ -223,7 +223,7 @@ class Namespaces
      *                                               the namespace.
      *
      * @return int|false Token pointer to the namespace keyword for the applicable namespace
-     *                   declaration; or `false` if it couldn't be determined or
+     *                   declaration; or `FALSE` if it couldn't be determined or
      *                   if no namespace applies.
      */
     public static function findNamespacePtr(File $phpcsFile, $stackPtr)

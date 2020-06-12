@@ -26,8 +26,10 @@ class ControlStructures
     /**
      * Check whether a control structure has a body.
      *
-     * Some control structures - `while`, `for` and `declare` - can be declared without a body, like
-     * `while (++$i < 10);`.
+     * Some control structures - `while`, `for` and `declare` - can be declared without a body, like:
+     * ```php
+     * while (++$i < 10);
+     * ```
      *
      * All other control structures will always have a body, though the body may be empty, where "empty" means:
      * no _code_ is found in the body. If a control structure body only contains a comment, it will be
@@ -41,9 +43,9 @@ class ControlStructures
      *                                                still be considered as having a body.
      *                                                Defaults to `true`.
      *
-     * @return bool True when the control structure has a body, or when `$allowEmpty` is set to `false`
+     * @return bool `TRUE` when the control structure has a body, or in case `$allowEmpty` is set to `FALSE`:
      *              when it has a non-empty body.
-     *              False in all other cases, including when a non-control structure token has been passed.
+     *              `FALSE` in all other cases, including when a non-control structure token has been passed.
      */
     public static function hasBody(File $phpcsFile, $stackPtr, $allowEmpty = true)
     {
@@ -147,7 +149,7 @@ class ControlStructures
     }
 
     /**
-     * Check whether an IF or ELSE token is part of an `else if`.
+     * Check whether an IF or ELSE token is part of an "else if".
      *
      * @since 1.0.0
      *
@@ -197,7 +199,7 @@ class ControlStructures
     }
 
     /**
-     * Get the scope opener and closer for a `declare` statement.
+     * Get the scope opener and closer for a DECLARE statement.
      *
      * A `declare` statement can be:
      * - applied to the rest of the file, like `declare(ticks=1);`
@@ -347,14 +349,13 @@ class ControlStructures
      * Retrieve the exception(s) being caught in a CATCH condition.
      *
      * The returned array will contain the following information for each caught exception:
-     *
-     * <code>
-     *   0 => array(
-     *         'type'           => string,  // The type declaration for the exception being caught.
-     *         'type_token'     => integer, // The stack pointer to the start of the type declaration.
-     *         'type_end_token' => integer, // The stack pointer to the end of the type declaration.
-     *        )
-     * </code>
+     * ```php
+     * 0 => array(
+     *   'type'           => string,  // The type declaration for the exception being caught.
+     *   'type_token'     => integer, // The stack pointer to the start of the type declaration.
+     *   'type_end_token' => integer, // The stack pointer to the end of the type declaration.
+     * )
+     * ```
      *
      * @since 1.0.0
      *

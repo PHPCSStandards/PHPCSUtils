@@ -165,18 +165,29 @@ class Numbers
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of a T_LNUMBER or T_DNUMBER token.
      *
-     * @return array An array with the following information about the number:
-     *               - 'orig_content' string The (potentially concatenated) original content of the tokens;
-     *               - 'content'      string The (potentially concatenated) content, underscore(s) removed;
-     *               - 'code'         int    The token code of the number, either T_LNUMBER or T_DNUMBER.
-     *               - 'type'         string The token type, either 'T_LNUMBER' or 'T_DNUMBER'.
-     *               - 'decimal'      string The decimal value of the number;
-     *               - 'last_token'   int    The stackPtr to the last token which was part of the number;
-     *                                       This will be the same as the original stackPtr if it is not
-     *                                       a PHP 7.4 number with underscores.
+     * @return array An array with information about the number.
+     *               The format of the array return value is:
+     *               ```php
+     *               array(
+     *                 'orig_content' => string, // The (potentially concatenated) original
+     *                                           // content of the tokens;
+     *                 'content'      => string, // The (potentially concatenated) content,
+     *                                           // underscore(s) removed;
+     *                 'code'         => int,    // The token code of the number, either
+     *                                           // T_LNUMBER or T_DNUMBER.
+     *                 'type'         => string, // The token type, either 'T_LNUMBER'
+     *                                           // or 'T_DNUMBER'.
+     *                 'decimal'      => string, // The decimal value of the number;
+     *                 'last_token'   => int,    // The stackPtr to the last token which was
+     *                                           // part of the number.
+     *                                           // This will be the same as the original
+     *                                           // stackPtr if it is not a PHP 7.4 number
+     *                                           // with underscores.
+     *               )
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      T_LNUMBER or T_DNUMBER.
+     *                                                      `T_LNUMBER` or `T_DNUMBER`.
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If this function is called in combination
      *                                                      with an unsupported PHPCS version.
      */
@@ -323,9 +334,9 @@ class Numbers
      *
      * @param string $string Arbitrary token content string.
      *
-     * @return string|false Decimal number as a string or false if the passed parameter
+     * @return string|false Decimal number as a string or `FALSE` if the passed parameter
      *                      was not a numeric string.
-     *                      Note: floating point numbers with exponent will not be expanded,
+     *                      > Note: floating point numbers with exponent will not be expanded,
      *                      but returned as-is.
      */
     public static function getDecimalValue($string)

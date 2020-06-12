@@ -36,7 +36,7 @@ class Scopes
      * @param int|string|array            $validScopes Array of token constants representing
      *                                                 the scopes considered valid.
      *
-     * @return int|false Integer stack pointer to the valid direct scope or false if
+     * @return int|false Integer stack pointer to the valid direct scope; or `FALSE` if
      *                   no valid direct scope was found.
      */
     public static function validDirectScope(File $phpcsFile, $stackPtr, $validScopes)
@@ -56,7 +56,7 @@ class Scopes
     }
 
     /**
-     * Check whether a `T_CONST` token is a class/interface constant declaration.
+     * Check whether a T_CONST token is a class/interface constant declaration.
      *
      * @since 1.0.0
      *
@@ -82,7 +82,7 @@ class Scopes
     }
 
     /**
-     * Check whether a `T_VARIABLE` token is a class/trait property declaration.
+     * Check whether a T_VARIABLE token is a class/trait property declaration.
      *
      * @since 1.0.0
      *
@@ -116,7 +116,7 @@ class Scopes
     }
 
     /**
-     * Check whether a `T_FUNCTION` token is a class/interface/trait method declaration.
+     * Check whether a T_FUNCTION token is a class/interface/trait method declaration.
      *
      * @since 1.0.0
      *

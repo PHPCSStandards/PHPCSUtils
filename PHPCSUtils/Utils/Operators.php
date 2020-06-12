@@ -72,10 +72,10 @@ class Operators
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
+     * @param int                         $stackPtr  The position of the `T_BITWISE_AND` token.
      *
-     * @return bool TRUE if the specified token position represents a reference.
-     *              FALSE if the token represents a bitwise operator.
+     * @return bool `TRUE` if the specified token position represents a reference.
+     *              `FALSE` if the token represents a bitwise operator.
      */
     public static function isReference(File $phpcsFile, $stackPtr)
     {
@@ -181,8 +181,8 @@ class Operators
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the plus/minus token.
      *
-     * @return bool True if the token passed is a unary operator.
-     *              False otherwise, i.e. if the token is an arithmetic operator,
+     * @return bool `TRUE` if the token passed is a unary operator.
+     *              `FALSE` otherwise, i.e. if the token is an arithmetic operator,
      *              or if the token is not a `T_PLUS`/`T_MINUS` token.
      */
     public static function isUnaryPlusMinus(File $phpcsFile, $stackPtr)
@@ -242,7 +242,7 @@ class Operators
      * @param int                         $stackPtr  The position of the ternary then/else
      *                                               operator in the stack.
      *
-     * @return bool True if short ternary, or false otherwise.
+     * @return bool `TRUE` if short ternary; or `FALSE` otherwise.
      */
     public static function isShortTernary(File $phpcsFile, $stackPtr)
     {

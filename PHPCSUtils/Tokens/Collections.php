@@ -245,7 +245,7 @@ class Collections
     ];
 
     /**
-     * OO structures which can use the `extends` keyword.
+     * OO structures which can use the "extends" keyword.
      *
      * @since 1.0.0
      *
@@ -258,7 +258,7 @@ class Collections
     ];
 
     /**
-     * OO structures which can use the `implements` keyword.
+     * OO structures which can use the "implements" keyword.
      *
      * @since 1.0.0
      *
@@ -302,7 +302,10 @@ class Collections
     /**
      * Tokens types which can be encountered in the fully/partially qualified name of an OO structure.
      *
-     * Example: `echo namespace\Sub\ClassName::method();`
+     * Example:
+     * ```php
+     * echo namespace\Sub\ClassName::method();
+     * ```
      *
      * @since 1.0.0
      *
@@ -332,7 +335,7 @@ class Collections
     /**
      * Token types which can be encountered in a parameter type declaration.
      *
-     * Sister-property to the `Collections::parameterTypeTokensBC()` method.
+     * Sister-property to the {@see Collections::parameterTypeTokensBC()} method.
      * The property supports PHPCS 3.3.0 and up.
      * The method supports PHPCS 2.6.0 and up.
      *
@@ -375,7 +378,7 @@ class Collections
     /**
      * Token types which can be encountered in a property type declaration.
      *
-     * Sister-property to the `Collections::propertyTypeTokensBC()` method.
+     * Sister-property to the {@see Collections::propertyTypeTokensBC()} method.
      * The property supports PHPCS 3.3.0 and up.
      * The method supports PHPCS 2.6.0 and up.
      *
@@ -403,7 +406,7 @@ class Collections
     /**
      * Token types which can be encountered in a return type declaration.
      *
-     * Sister-property to the `Collections::returnTypeTokensBC()` method.
+     * Sister-property to the {@see Collections::returnTypeTokensBC()} method.
      * The property supports PHPCS 3.5.4 and up.
      * The method supports PHPCS 2.6.0 and up.
      *
@@ -540,9 +543,9 @@ class Collections
      *
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
-     * Sister-method to the `functionDeclarationTokensBC()` method.
+     * Sister-method to the {@see Collections::functionDeclarationTokensBC()} method.
      * This  method supports PHPCS 3.5.3 and up.
-     * The `functionDeclarationTokensBC()` method supports PHPCS 2.6.0 and up.
+     * The {@see Collections::functionDeclarationTokensBC()} method supports PHPCS 2.6.0 and up.
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC() Related method (PHPCS 2.6.0+).
      *
@@ -570,14 +573,15 @@ class Collections
      *
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
-     * Sister-method to the `functionDeclarationTokens()` method.
-     * The `functionDeclarationTokens()` method supports PHPCS 3.5.3 and up.
+     * Sister-method to the {@see Collections::functionDeclarationTokens()} method.
+     * The {@see Collections::functionDeclarationTokens()} method supports PHPCS 3.5.3 and up.
      * This method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
-     * This method accounts for when the `T_FN` token doesn't exist.
-     * Note: if this method is used, the `FunctionDeclarations::isArrowFunction() method
-     * needs to be used on arrow function tokens to verify whether it really is an arrow function
+     * - This method accounts for when the `T_FN` token doesn't exist.
+     *
+     * Note: if this method is used, the {@see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()}
+     * method needs to be used on arrow function tokens to verify whether it really is an arrow function
      * declaration or not.
      *
      * It is recommended to use the {@see Collections::functionDeclarationTokens()} method instead of
@@ -605,13 +609,13 @@ class Collections
     /**
      * Token types which can be encountered in a parameter type declaration (cross-version).
      *
-     * Sister-method to the `$parameterTypeTokens` property.
+     * Sister-method to the {@see Collections::$parameterTypeTokens} property.
      * The property supports PHPCS 3.3.0 and up.
      * The method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
-     * The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     * This token constant will no longer exist in PHPCS 4.x.
+     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     *   This token constant will no longer exist in PHPCS 4.x.
      *
      * It is recommended to use the property instead of the method if a standard supports does
      * not need to support PHPCS < 3.3.0.
@@ -637,13 +641,13 @@ class Collections
     /**
      * Token types which can be encountered in a property type declaration (cross-version).
      *
-     * Sister-method to the `$propertyTypeTokens` property.
+     * Sister-method to the {@see Collections::$propertyTypeTokens} property.
      * The property supports PHPCS 3.3.0 and up.
      * The method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
-     * The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     * This token constant will no longer exist in PHPCS 4.x.
+     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     *   This token constant will no longer exist in PHPCS 4.x.
      *
      * It is recommended to use the property instead of the method if a standard supports does
      * not need to support PHPCS < 3.3.0.
@@ -662,7 +666,7 @@ class Collections
     /**
      * Token types which can be encountered in a return type declaration (cross-version).
      *
-     * Sister-property to the `Collections::returnTypeTokensBC()` method.
+     * Sister-property to the {@see Collections::returnTypeTokensBC()} method.
      * The property supports PHPCS 3.5.4 and up.
      * The method supports PHPCS 2.6.0 and up.
      *

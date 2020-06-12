@@ -168,7 +168,7 @@ class GetTokensAsString
      * @param int                         $start         The position to start from in the token stack.
      * @param int                         $end           The position to end at in the token stack (inclusive).
      * @param bool                        $stripComments Whether comments should be stripped from the contents.
-     *                                                   Defaults to false.
+     *                                                   Defaults to `false`.
      *
      * @return string The token contents with compacted whitespace and optionally stripped off comments.
      *
@@ -190,11 +190,11 @@ class GetTokensAsString
      * @param int                         $end             The position to end at in the token stack (inclusive).
      * @param bool                        $origContent     Whether the original content or the tab replaced
      *                                                     content should be used.
-     *                                                     Defaults to false (= tabs replaced with spaces).
+     *                                                     Defaults to `false` (= tabs replaced with spaces).
      * @param bool                        $stripComments   Whether comments should be stripped from the contents.
-     *                                                     Defaults to false.
+     *                                                     Defaults to `false`.
      * @param bool                        $stripWhitespace Whether whitespace should be stripped from the contents.
-     *                                                     Defaults to false.
+     *                                                     Defaults to `false`.
      * @param bool                        $compact         Whether all consecutive whitespace tokens should be
      *                                                     replaced with a single space. Defaults to `false`.
      *

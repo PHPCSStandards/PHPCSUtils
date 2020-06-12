@@ -32,9 +32,9 @@ use PHP_CodeSniffer\Util\Tokens;
  * across PHPCS versions.
  *
  * The names of the PHPCS native token arrays translate one-on-one to the methods in this class:
- * `PHP_CodeSniffer\Util\Tokens::$emptyTokens` => `PHPCSUtils\BackCompat\BCTokens::emptyTokens()`
- * `PHP_CodeSniffer\Util\Tokens::$operators`   => `PHPCSUtils\BackCompat\BCTokens::operators()`
- * ... etc
+ * - `PHP_CodeSniffer\Util\Tokens::$emptyTokens` => `PHPCSUtils\BackCompat\BCTokens::emptyTokens()`
+ * - `PHP_CodeSniffer\Util\Tokens::$operators`   => `PHPCSUtils\BackCompat\BCTokens::operators()`
+ * - ... etc
  *
  * The order of the tokens in the arrays may differ between the PHPCS native token arrays and
  * the token arrays returned by this class.

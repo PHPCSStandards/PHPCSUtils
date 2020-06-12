@@ -31,16 +31,16 @@ class UseStatements
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_USE token.
+     * @param int                         $stackPtr  The position of the `T_USE` token.
      *
-     * @return string Either 'closure', 'import' or 'trait'.
+     * @return string Either `'closure'`, `'import'` or `'trait'`.
      *                An empty string will be returned if the token is used in an
      *                invalid context or if it couldn't be reliably determined what
      *                the `T_USE` token is used for. An empty string being returned will
      *                normally mean the code being examined contains a parse error.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_USE token.
+     *                                                      `T_USE` token.
      */
     public static function getType(File $phpcsFile, $stackPtr)
     {
@@ -88,13 +88,13 @@ class UseStatements
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_USE token.
+     * @param int                         $stackPtr  The position of the `T_USE` token.
      *
-     * @return bool True if the token passed is a closure use statement.
-     *              False if it's not.
+     * @return bool `TRUE` if the token passed is a closure use statement.
+     *              `FALSE` if it's not.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_USE token.
+     *                                                      `T_USE` token.
      */
     public static function isClosureUse(File $phpcsFile, $stackPtr)
     {
@@ -107,13 +107,13 @@ class UseStatements
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_USE token.
+     * @param int                         $stackPtr  The position of the `T_USE` token.
      *
-     * @return bool True if the token passed is an import use statement.
-     *              False if it's not.
+     * @return bool `TRUE` if the token passed is an import use statement.
+     *              `FALSE` if it's not.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_USE token.
+     *                                                      `T_USE` token.
      */
     public static function isImportUse(File $phpcsFile, $stackPtr)
     {
@@ -126,13 +126,13 @@ class UseStatements
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_USE token.
+     * @param int                         $stackPtr  The position of the `T_USE` token.
      *
-     * @return bool True if the token passed is a trait use statement.
-     *              False if it's not.
+     * @return bool `TRUE` if the token passed is a trait use statement.
+     *              `FALSE` if it's not.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_USE token.
+     *                                                      `T_USE` token.
      */
     public static function isTraitUse(File $phpcsFile, $stackPtr)
     {
@@ -147,26 +147,33 @@ class UseStatements
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position in the stack of the T_USE token.
+     * @param int                         $stackPtr  The position in the stack of the `T_USE` token.
      *
      * @return array A multi-level array containing information about the use statement.
-     *               The first level is 'name', 'function' and 'const'. These keys will always exist.
+     *               The first level is `'name'`, `'function'` and `'const'`. These keys will always exist.
      *               If any statements are found for any of these categories, the second level
      *               will contain the alias/name as the key and the full original use name as the
      *               value for each of the found imports or an empty array if no imports were found
      *               in this use statement for a particular category.
      *
      *               For example, for this function group use statement:
-     *               `use function Vendor\Package\{LevelA\Name as Alias, LevelB\Another_Name}`
+     *               ```php
+     *               use function Vendor\Package\{
+     *                   LevelA\Name as Alias,
+     *                   LevelB\Another_Name,
+     *               };
+     *               ```
      *               the return value would look like this:
-     *               `[
-     *                 'name'     => [],
-     *                 'function' => [
+     *               ```php
+     *               array(
+     *                 'name'     => array(),
+     *                 'function' => array(
      *                   'Alias'        => 'Vendor\Package\LevelA\Name',
      *                   'Another_Name' => 'Vendor\Package\LevelB\Another_Name',
-     *                 ],
-     *                 'const'    => [],
-     *               ]`
+     *                 ),
+     *                 'const'    => array(),
+     *               )
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      `T_USE` token.
@@ -364,11 +371,12 @@ class UseStatements
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile             The file where this token was found.
-     * @param int                         $stackPtr              The position in the stack of the T_USE token.
+     * @param int                         $stackPtr              The position in the stack of the `T_USE` token.
      * @param array                       $previousUseStatements The import `use` statements collected so far.
-     *                                                           This should be either the output of a previous
-     *                                                           call to this method or the output of an earlier
-     *                                                           call to the UseStatements::splitImportUseStatement()
+     *                                                           This should be either the output of a
+     *                                                           previous call to this method or the output of
+     *                                                           an earlier call to the
+     *                                                           {@see UseStatements::splitImportUseStatement()}
      *                                                           method.
      *
      * @return array A multi-level array containing information about the current `use` statement combined with

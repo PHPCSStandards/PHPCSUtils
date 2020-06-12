@@ -30,18 +30,19 @@ class SpacesFixer
      * Note:
      * - This method will not auto-fix if there is anything but whitespace between the two
      *   tokens. In that case, it will throw a non-fixable error/warning.
-     * - If 'newline' is expected and _no_ new line is encountered, a new line will be added,
+     * - If `'newline'` is expected and _no_ new line is encountered, a new line will be added,
      *   but no assumptions will be made about the intended indentation of the code.
      *   This should be handled by a (separate) indentation sniff.
-     * - If 'newline' is expected and multiple new lines are encountered, this will be accepted
+     * - If `'newline'` is expected and multiple new lines are encountered, this will be accepted
      *   as valid.
      *   No assumptions are made about whether additional blank lines are allowed or not.
-     *   If _exactly_ one line is desired, combine this Fixer with the BlankLineFixer.
+     *   If _exactly_ one line is desired, combine this fixer with the {@see \PHPCSUtils\Fixers\BlankLineFixer}
+     *   (upcoming).
      * - The fixer will not leave behind any trailing spaces on the original line when fixing
-     *   to 'newline', but it will not correct _existing_ trailing spaces when there already
+     *   to `'newline'`, but it will not correct _existing_ trailing spaces when there already
      *   is a new line in place.
      * - This method can optionally record a metric for this check which will be displayed
-     *   when the end-user requests the `info` report.
+     *   when the end-user requests the "info" report.
      *
      * @since 1.0.0
      *
@@ -49,29 +50,29 @@ class SpacesFixer
      * @param int                         $stackPtr       The position of the token which should be used
      *                                                    when reporting an issue.
      * @param int                         $secondPtr      The stack pointer to the second token.
-     *                                                    This token can be before or after the $stackPtr,
-     *                                                    but should only be seperated from the $stackPtr
+     *                                                    This token can be before or after the `$stackPtr`,
+     *                                                    but should only be seperated from the `$stackPtr`
      *                                                    by whitespace and/or comments/annotations.
      * @param string|int                  $expectedSpaces Number of spaces to enforce.
      *                                                    Valid values:
-     *                                                    - (int) Number of spaces. Must be 0 or more.
-     *                                                    - (string) 'newline'.
-     * @param string                      $errorTemplate  Error message template. This string should contain
-     *                                                    two placeholders:
-     *                                                    %1$s = expected spaces phrase.
-     *                                                    %2$s = found spaces phrase.
-     *                                                    Note: _The replacement phrase will be in human
-     *                                                    readable English and include "spaces"/"new line",
-     *                                                    so no need to include that in the template._
+     *                                                    - (int) Number of spaces. Must be `0` or more.
+     *                                                    - (string) `'newline'`.
+     * @param string                      $errorTemplate  Error message template.
+     *                                                    Note: _The placeholder replacement phrase will be
+     *                                                    in human readable English and include "spaces"/
+     *                                                    "new line", so no need to include that in the template._
+     *                                                    This string should contain two placeholders:
+     *                                                    - `%1$s` = expected spaces phrase.
+     *                                                    - `%2$s` = found spaces phrase.
      * @param string                      $errorCode      A violation code unique to the sniff message.
-     *                                                    Defaults to `Found`.
+     *                                                    Defaults to `"Found"`.
      *                                                    It is strongly recommended to change this if
      *                                                    this fixer is used for different errors in the
      *                                                    same sniff.
      * @param string                      $errorType      Optional. Whether to report the issue as a
-     *                                                    `warning` or an `error`. Defaults to `error`.
+     *                                                    `"warning"` or an `"error"`. Defaults to `"error"`.
      * @param int                         $errorSeverity  Optional. The severity level for this message.
-     *                                                    A value of 0 will be converted into the default
+     *                                                    A value of `0` will be converted into the default
      *                                                    severity level.
      * @param string                      $metricName     Optional. The name of the metric to record.
      *                                                    This can be a short description phrase.
@@ -81,7 +82,7 @@ class SpacesFixer
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the tokens passed do not exist or are whitespace
      *                                                      tokens.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If $expectedSpaces is not a valid value.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If `$expectedSpaces` is not a valid value.
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the tokens passed are separated by more than just
      *                                                      empty (whitespace + comments/annotations) tokens.
      */

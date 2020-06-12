@@ -81,7 +81,8 @@ class NamingConventions
      * when comparing namespace, class/trait/interface and function names.
      *
      * Variable and constant names in PHP are case-sensitive, except for constants explicitely
-     * declared case-insensitive using the third parameter for `define()`.
+     * declared case-insensitive using the third parameter for
+     * {@link https://www.php.net/function.define `define()`}.
      *
      * All other names are case-insensitive for the most part, but as it's PHP, not completely.
      * Basically ASCII chars used are case-insensitive, but anything from 0x80 up is case-sensitive.
@@ -97,7 +98,7 @@ class NamingConventions
      * @param string $nameA The first identifier name.
      * @param string $nameB The second identifier name.
      *
-     * @return bool TRUE if these names would be considered the same in PHP, FALSE otherwise.
+     * @return bool `TRUE` if these names would be considered the same in PHP; `FALSE` otherwise.
      */
     public static function isEqual($nameA, $nameB)
     {
