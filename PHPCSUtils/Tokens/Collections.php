@@ -204,7 +204,7 @@ class Collections
      *
      * @since 1.0.0
      *
-     * @link https://www.php.net/manual/en/language.constants.predefined.php.
+     * @link https://www.php.net/language.constants.predefined
      *
      * @var array <int|string> => <int|string>
      */
@@ -287,7 +287,7 @@ class Collections
     /**
      * Tokens types used for "forwarding" calls within OO structures.
      *
-     * @link https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php
+     * @link https://www.php.net/language.oop5.paamayim-nekudotayim
      *
      * @since 1.0.0
      *

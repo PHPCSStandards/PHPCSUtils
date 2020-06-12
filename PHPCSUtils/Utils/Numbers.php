@@ -71,7 +71,7 @@ class Numbers
     /**
      * Regex to determine whether the contents of an arbitrary string represents a float.
      *
-     * @link https://www.php.net/manual/en/language.types.float.php
+     * @link https://www.php.net/language.types.float
      *
      * @since 1.0.0
      *

@@ -24,10 +24,10 @@ class NamingConventions
     /**
      * Regular expression to check if a given identifier name is valid for use in PHP.
      *
-     * @link http://php.net/manual/en/language.variables.basics.php
-     * @link http://php.net/manual/en/language.constants.php
-     * @link http://php.net/manual/en/functions.user-defined.php
-     * @link http://php.net/manual/en/language.oop5.basic.php
+     * @link https://www.php.net/language.variables.basics
+     * @link https://www.php.net/language.constants
+     * @link https://www.php.net/functions.user-defined
+     * @link https://www.php.net/en/language.oop5.basic
      *
      * @since 1.0.0
      *
