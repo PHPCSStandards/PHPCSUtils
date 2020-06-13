@@ -153,14 +153,6 @@ class ObjectDeclarations
     /**
      * Retrieves the implementation properties of a class.
      *
-     * The format of the return value is:
-     * ```php
-     * array(
-     *   'is_abstract' => false, // TRUE if the abstract keyword was found.
-     *   'is_final'    => false, // TRUE if the final keyword was found.
-     * );
-     * ```
-     *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
@@ -177,7 +169,14 @@ class ObjectDeclarations
      * @param int                         $stackPtr  The position in the stack of the `T_CLASS`
      *                                               token to acquire the properties for.
      *
-     * @return array
+     * @return array Array with implementation properties of a class.
+     *               The format of the return value is:
+     *               ```php
+     *               array(
+     *                 'is_abstract' => false, // TRUE if the abstract keyword was found.
+     *                 'is_final'    => false, // TRUE if the final keyword was found.
+     *               );
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      `T_CLASS` token.
