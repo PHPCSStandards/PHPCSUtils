@@ -201,7 +201,7 @@ class FunctionDeclarations
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a T_FUNCTION
-     *                                                      or T_CLOSURE token nor an arrow function.
+     *                                                      or T_CLOSURE token, nor an arrow function.
      */
     public static function getProperties(File $phpcsFile, $stackPtr)
     {
@@ -604,7 +604,7 @@ class FunctionDeclarations
      *                                               T_STRING token as those are the only two
      *                                               tokens which can be the arrow function keyword.
      *
-     * @return bool TRUE is the token is the "fn" keyword for an arrow function. FALSE when not or
+     * @return bool TRUE if the token is the "fn" keyword for an arrow function. FALSE when not or
      *              in case of live coding/parse error.
      */
     public static function isArrowFunction(File $phpcsFile, $stackPtr)

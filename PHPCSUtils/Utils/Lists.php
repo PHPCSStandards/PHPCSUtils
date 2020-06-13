@@ -260,7 +260,7 @@ class Lists
      *                                                 // second item in `list($a, , $b)`.
      *         'is_nested_list'       => bool,         // Whether this is a nested list.
      *         'variable'             => string|false, // The base variable being assigned to or
-     *                                                 // FALSE in case of a nested list or avariable variable.
+     *                                                 // FALSE in case of a nested list or a variable variable.
      *                                                 // I.e. `$a` in `list($a['key'])`.
      *         'assignment_token'     => int|false,    // The start pointer for the assignment.
      *         'assignment_end_token' => int|false,    // The end pointer for the assignment.
@@ -268,7 +268,6 @@ class Lists
      *         'reference_token'      => int|false,    // The stack pointer to the reference operator or
      *                                                 // FALSE when not a reference assignment.
      * </code>
-     *
      *
      * Assignments with keys will have the following additional array indexes set:
      * <code>

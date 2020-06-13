@@ -219,7 +219,7 @@ class ObjectDeclarations
      * Works for classes, anonymous classes and interfaces, though it is strongly recommended
      * to use the {@see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedInterfaceNames()}
      * method to examine interfaces instead. Interfaces can extend multiple parent interfaces,
-     * and that use case is not handled by this method.
+     * and that use-case is not handled by this method.
      *
      * Main differences with the PHPCS version:
      * - Bugs fixed:

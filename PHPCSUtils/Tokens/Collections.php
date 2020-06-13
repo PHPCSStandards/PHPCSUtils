@@ -343,7 +343,7 @@ class Collections
      * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
-
+     *
      * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
@@ -406,7 +406,7 @@ class Collections
      * The method supports PHPCS 2.6.0 and up.
      *
      * Notable differences:
-     * - The method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE tokens when used with PHPCS 2.x and 3.x.
+     * - The method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE` tokens when used with PHPCS 2.x and 3.x.
      *   These token constants will no longer exist in PHPCS 4.x.
      * - The method will include the `T_ARRAY` token which is needed for select arrow functions in PHPCS < 3.5.4.
      *
@@ -580,7 +580,7 @@ class Collections
      * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
-     * @see \PHPCSUtils\Tokens\FunctionDeclarations::isArrowFunction()  Arrow function verification.
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()   Arrow function verification.
      *
      * @since 1.0.0
      *
@@ -661,7 +661,7 @@ class Collections
      * The method supports PHPCS 2.6.0 and up.
      *
      * Notable differences:
-     * - The method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE tokens when used with PHPCS 2.x and 3.x.
+     * - The method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE` tokens when used with PHPCS 2.x and 3.x.
      *   These token constants will no longer exist in PHPCS 4.x.
      * - The method will include the `T_ARRAY` token which is needed for select arrow functions in PHPCS < 3.5.4.
      *

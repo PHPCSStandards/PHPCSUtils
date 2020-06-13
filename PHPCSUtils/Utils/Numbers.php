@@ -95,7 +95,7 @@ class Numbers
         `ixD';
 
     /**
-     * Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.
+     * Regex to determine if a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.
      *
      * PHP cross-version compat for PHP 7.4 numeric literals with underscore separators.
      *
@@ -144,7 +144,7 @@ class Numbers
      * Helper function to deal with numeric literals, potentially with underscore separators.
      *
      * PHP < 7.4 does not tokenize numeric literals containing underscores correctly.
-     * As of PHPCS 3.5.3, PHPCS contains a back-fill, but this backfill was buggy in the initial
+     * As of PHPCS 3.5.3, PHPCS contains a backfill, but this backfill was buggy in the initial
      * implementation. A fix for this broken backfill is included in PHPCS 3.5.4.
      *
      * Either way, this function provides a backfill for all PHPCS/PHP combinations where
