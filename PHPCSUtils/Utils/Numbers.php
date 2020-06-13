@@ -74,7 +74,7 @@ class Numbers
     /**
      * Regex to determine whether the contents of an arbitrary string represents a float.
      *
-     * @link https://www.php.net/language.types.float
+     * @link https://www.php.net/language.types.float PHP Manual on floats
      *
      * @since 1.0.0
      *
@@ -157,8 +157,8 @@ class Numbers
      * are tokenized incorrectly - with the exception of PHPCS 3.5.3 as the buggyness of the original
      * backfill implementation makes it impossible to provide reliable results.
      *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546 PHPCS issue #2546
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771   PHPCS PR #2771
      *
      * @since 1.0.0
      *

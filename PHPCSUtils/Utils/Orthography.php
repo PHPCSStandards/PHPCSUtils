@@ -27,7 +27,7 @@ class Orthography
     /**
      * Characters which are considered terminal points for a sentence.
      *
-     * @link https://www.thepunctuationguide.com/terminal-points.html
+     * @link https://www.thepunctuationguide.com/terminal-points.html Punctuation guide on terminal points.
      *
      * @since 1.0.0
      *
