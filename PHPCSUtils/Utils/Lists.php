@@ -47,7 +47,7 @@ class Lists
     ];
 
     /**
-     * Determine whether a `T_OPEN/CLOSE_SHORT_ARRAY` token is a short list() construct.
+     * Determine whether a T_OPEN/CLOSE_SHORT_ARRAY token is a short list() construct.
      *
      * This method also accepts `T_OPEN/CLOSE_SQUARE_BRACKET` tokens to allow it to be
      * PHPCS cross-version compatible as the short array tokenizing has been plagued by
@@ -58,8 +58,8 @@ class Lists
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array bracket token.
      *
-     * @return bool True if the token passed is the open/close bracket of a short list.
-     *              False if the token is a short array bracket or plain square bracket
+     * @return bool `TRUE` if the token passed is the open/close bracket of a short list.
+     *              `FALSE` if the token is a short array bracket or plain square bracket
      *              or not one of the accepted tokens.
      */
     public static function isShortList(File $phpcsFile, $stackPtr)
@@ -254,37 +254,42 @@ class Lists
      *
      * The returned array will contain the following basic information for each assignment:
      *
-     * <code>
-     *   0 => array(
-     *         'raw'                  => string,       // The full content of the variable definition, including
-     *                                                 // whitespace and comments.
-     *                                                 // This may be an empty string when a list
-     *                                                 // item is being skipped.
-     *         'assignment'           => string,       // The content of the assignment part, _cleaned of comments_.
-     *                                                 // This may be an empty string for an empty list item;
-     *                                                 // it could also be a nested list represented as a string.
-     *         'is_empty'             => bool,         // Whether this is an empty list item, i.e. the
-     *                                                 // second item in `list($a, , $b)`.
-     *         'is_nested_list'       => bool,         // Whether this is a nested list.
-     *         'variable'             => string|false, // The base variable being assigned to or
-     *                                                 // FALSE in case of a nested list or a variable variable.
-     *                                                 // I.e. `$a` in `list($a['key'])`.
-     *         'assignment_token'     => int|false,    // The start pointer for the assignment.
-     *                                                 // For a nested list, this will be the pointer to the `list`
-     *                                                 // keyword or the open square bracket in case of a short list.
-     *         'assignment_end_token' => int|false,    // The end pointer for the assignment.
-     *         'assign_by_reference'  => bool,         // Is the variable assigned by reference?
-     *         'reference_token'      => int|false,    // The stack pointer to the reference operator;
-     *                                                 // or FALSE when not a reference assignment.
-     * </code>
+     * ```php
+     * 0 => array(
+     *   'raw'                  => string,       // The full content of the variable definition,
+     *                                           // including whitespace and comments.
+     *                                           // This may be an empty string when a list
+     *                                           // item is being skipped.
+     *   'assignment'           => string,       // The content of the assignment part,
+     *                                           // cleaned of comments.
+     *                                           // This may be an empty string for an empty
+     *                                           // list item; it could also be a nested list
+     *                                           // represented as a string.
+     *   'is_empty'             => bool,         // Whether this is an empty list item, i.e.
+     *                                           // the second item in `list($a, , $b)`.
+     *   'is_nested_list'       => bool,         // Whether this is a nested list.
+     *   'variable'             => string|false, // The base variable being assigned to; or
+     *                                           // FALSE in case of a nested list or
+     *                                           // a variable variable.
+     *                                           // I.e. `$a` in `list($a['key'])`.
+     *   'assignment_token'     => int|false,    // The start pointer for the assignment.
+     *                                           // For a nested list, this will be the pointer
+     *                                           // to the `list` keyword or the open square
+     *                                           // bracket in case of a short list.
+     *   'assignment_end_token' => int|false,    // The end pointer for the assignment.
+     *   'assign_by_reference'  => bool,         // Is the variable assigned by reference?
+     *   'reference_token'      => int|false,    // The stack pointer to the reference operator;
+     *                                           // or FALSE when not a reference assignment.
+     * )
+     * ```
      *
      * Assignments with keys will have the following additional array indexes set:
-     * <code>
-     *         'key'                 => string, // The content of the key, cleaned of comments.
-     *         'key_token'           => int,    // The stack pointer to the start of the key.
-     *         'key_end_token'       => int,    // The stack pointer to the end of the key.
-     *         'double_arrow_token'  => int,    // The stack pointer to the double arrow.
-     * </code>
+     * ```php
+     *   'key'                 => string, // The content of the key, cleaned of comments.
+     *   'key_token'           => int,    // The stack pointer to the start of the key.
+     *   'key_end_token'       => int,    // The stack pointer to the end of the key.
+     *   'double_arrow_token'  => int,    // The stack pointer to the double arrow.
+     * ```
      *
      * @since 1.0.0
      *

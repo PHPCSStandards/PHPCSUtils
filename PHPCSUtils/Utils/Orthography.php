@@ -50,9 +50,9 @@ class Orthography
      *                       off a text string before passing it to this method.
      *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
-     * @return bool True when the first character is a capital letter or a letter
+     * @return bool `TRUE` when the first character is a capital letter or a letter
      *              which doesn't have a concept of capitalization.
-     *              False otherwise, including for non-letter characters.
+     *              `FALSE` otherwise, including for non-letter characters.
      */
     public static function isFirstCharCapitalized($string)
     {
@@ -72,8 +72,8 @@ class Orthography
      *                       off a text string before passing it to this method.
      *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
-     * @return bool True when the first character is a lowercase letter.
-     *              False otherwise, including for letters which don't have a concept of
+     * @return bool `TRUE` when the first character is a lowercase letter.
+     *              `FALSE` otherwise, including for letters which don't have a concept of
      *              capitalization and for non-letter characters.
      */
     public static function isFirstCharLowercase($string)
@@ -95,7 +95,7 @@ class Orthography
      *                             Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      * @param string $allowedChars Characters which are considered valid punctuation
      *                             to end the text string.
-     *                             Defaults to '.?!', i.e. a full stop, question mark
+     *                             Defaults to `'.?!'`, i.e. a full stop, question mark
      *                             or exclamation mark.
      *
      * @return bool

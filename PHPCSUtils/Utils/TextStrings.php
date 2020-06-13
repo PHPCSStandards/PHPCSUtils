@@ -41,7 +41,7 @@ class TextStrings
      *                                                 or to a Nowdoc/Heredoc opener.
      * @param bool                        $stripQuotes Optional. Whether to strip text delimiter
      *                                                 quotes off the resulting text string.
-     *                                                 Defaults to true.
+     *                                                 Defaults to `true`.
      *
      * @return string The complete text string.
      *
@@ -115,10 +115,10 @@ class TextStrings
     /**
      * Strip text delimiter quotes from an arbitrary string.
      *
-     * Intended for use with the "contents" of a T_CONSTANT_ENCAPSED_STRING / T_DOUBLE_QUOTED_STRING.
+     * Intended for use with the "contents" of a `T_CONSTANT_ENCAPSED_STRING` / `T_DOUBLE_QUOTED_STRING`.
      *
-     * Prevents stripping mis-matched quotes.
-     * Prevents stripping quotes from the textual content of the string.
+     * - Prevents stripping mis-matched quotes.
+     * - Prevents stripping quotes from the textual content of the string.
      *
      * @since 1.0.0
      *

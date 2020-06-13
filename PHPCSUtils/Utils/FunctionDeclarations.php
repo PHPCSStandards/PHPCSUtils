@@ -146,11 +146,11 @@ class FunctionDeclarations
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the function keyword token.
      *
-     * @return string|null The name of the function; or NULL if the passed token doesn't exist,
+     * @return string|null The name of the function; or `NULL` if the passed token doesn't exist,
      *                     the function is anonymous or in case of a parse error/live coding.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      T_FUNCTION.
+     *                                                      `T_FUNCTION`.
      */
     public static function getName(File $phpcsFile, $stackPtr)
     {
@@ -161,31 +161,31 @@ class FunctionDeclarations
      * Retrieves the visibility and implementation properties of a method.
      *
      * The format of the return value is:
-     * <code>
-     *   array(
-     *    'scope'                 => 'public', // Public, private, or protected
-     *    'scope_specified'       => true,     // TRUE if the scope keyword was found.
-     *    'return_type'           => '',       // The return type of the method.
-     *    'return_type_token'     => integer,  // The stack pointer to the start of the return type
-     *                                         // or FALSE if there is no return type.
-     *    'return_type_end_token' => integer,  // The stack pointer to the end of the return type
-     *                                         // or FALSE if there is no return type.
-     *    'nullable_return_type'  => false,    // TRUE if the return type is nullable.
-     *    'is_abstract'           => false,    // TRUE if the abstract keyword was found.
-     *    'is_final'              => false,    // TRUE if the final keyword was found.
-     *    'is_static'             => false,    // TRUE if the static keyword was found.
-     *    'has_body'              => false,    // TRUE if the method has a body
-     *   );
-     * </code>
+     * ```php
+     * array(
+     *   'scope'                 => 'public', // Public, private, or protected
+     *   'scope_specified'       => true,     // TRUE if the scope keyword was found.
+     *   'return_type'           => '',       // The return type of the method.
+     *   'return_type_token'     => integer,  // The stack pointer to the start of the return type
+     *                                        // or FALSE if there is no return type.
+     *   'return_type_end_token' => integer,  // The stack pointer to the end of the return type
+     *                                        // or FALSE if there is no return type.
+     *   'nullable_return_type'  => false,    // TRUE if the return type is nullable.
+     *   'is_abstract'           => false,    // TRUE if the abstract keyword was found.
+     *   'is_final'              => false,    // TRUE if the final keyword was found.
+     *   'is_static'             => false,    // TRUE if the static keyword was found.
+     *   'has_body'              => false,    // TRUE if the method has a body
+     * );
+     * ```
      *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
-     *   - `has_body` index could be set to `true` for functions without body in the case of
+     *   - `"has_body"` index could be set to `true` for functions without body in the case of
      *      parse errors or live coding.
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
-     * - New `return_type_end_token` (int|false) array index.
+     * - New `"return_type_end_token"` (int|false) array index.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      *
@@ -339,40 +339,42 @@ class FunctionDeclarations
     /**
      * Retrieves the method parameters for the specified function token.
      *
-     * Also supports passing in a USE token for a closure use group.
+     * Also supports passing in a `T_USE` token for a closure use group.
      *
      * The returned array will contain the following information for each parameter:
      *
-     * <code>
-     *   0 => array(
-     *         'name'                => '$var',  // The variable name.
-     *         'token'               => integer, // The stack pointer to the variable name.
-     *         'content'             => string,  // The full content of the variable definition.
-     *         'pass_by_reference'   => boolean, // Is the variable passed by reference?
-     *         'reference_token'     => integer, // The stack pointer to the reference operator
-     *                                           // or FALSE if the param is not passed by reference.
-     *         'variable_length'     => boolean, // Is the param of variable length through use of `...` ?
-     *         'variadic_token'      => integer, // The stack pointer to the ... operator
-     *                                           // or FALSE if the param is not variable length.
-     *         'type_hint'           => string,  // The type hint for the variable.
-     *         'type_hint_token'     => integer, // The stack pointer to the start of the type hint
-     *                                           // or FALSE if there is no type hint.
-     *         'type_hint_end_token' => integer, // The stack pointer to the end of the type hint
-     *                                           // or FALSE if there is no type hint.
-     *         'nullable_type'       => boolean, // TRUE if the var type is nullable.
-     *         'comma_token'         => integer, // The stack pointer to the comma after the param
-     *                                           // or FALSE if this is the last param.
-     *        )
-     * </code>
+     * ```php
+     * 0 => array(
+     *   'name'                => '$var',  // The variable name.
+     *   'token'               => integer, // The stack pointer to the variable name.
+     *   'content'             => string,  // The full content of the variable definition.
+     *   'pass_by_reference'   => boolean, // Is the variable passed by reference?
+     *   'reference_token'     => integer, // The stack pointer to the reference operator
+     *                                     // or FALSE if the param is not passed by reference.
+     *   'variable_length'     => boolean, // Is the param of variable length through use of `...` ?
+     *   'variadic_token'      => integer, // The stack pointer to the ... operator
+     *                                     // or FALSE if the param is not variable length.
+     *   'type_hint'           => string,  // The type hint for the variable.
+     *   'type_hint_token'     => integer, // The stack pointer to the start of the type hint
+     *                                     // or FALSE if there is no type hint.
+     *   'type_hint_end_token' => integer, // The stack pointer to the end of the type hint
+     *                                     // or FALSE if there is no type hint.
+     *   'nullable_type'       => boolean, // TRUE if the var type is nullable.
+     *   'comma_token'         => integer, // The stack pointer to the comma after the param
+     *                                     // or FALSE if this is the last param.
+     * )
+     * ```
      *
      * Parameters with default values have the following additional array indexes:
-     *         'default'             => string,  // The full content of the default value.
-     *         'default_token'       => integer, // The stack pointer to the start of the default value.
-     *         'default_equal_token' => integer, // The stack pointer to the equals sign.
+     * ```php
+     *   'default'             => string,  // The full content of the default value.
+     *   'default_token'       => integer, // The stack pointer to the start of the default value.
+     *   'default_equal_token' => integer, // The stack pointer to the equals sign.
+     * ```
      *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
-     * - More efficient and more stable checking whether a T_USE token is a closure use.
+     * - More efficient and more stable checking whether a `T_USE` token is a closure use.
      * - More efficient and more stable looping of the default value.
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
@@ -391,7 +393,7 @@ class FunctionDeclarations
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_FUNCTION, T_CLOSURE or T_USE,
+     *                                                      type `T_FUNCTION`, `T_CLOSURE` or `T_USE`,
      *                                                      nor an arrow function.
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If a passed `T_USE` token is not a closure
      *                                                      use token.
@@ -587,13 +589,13 @@ class FunctionDeclarations
      * Check if an arbitrary token is the "fn" keyword for a PHP 7.4 arrow function.
      *
      * Helper function for cross-version compatibility with both PHP as well as PHPCS.
-     * - PHP 7.4+ will tokenize most tokens with the content "fn" as T_FN, even when it isn't an arrow function.
-     * - PHPCS < 3.5.3 will tokenize arrow functions keywords as T_STRING.
+     * - PHP 7.4+ will tokenize most tokens with the content "fn" as `T_FN`, even when it isn't an arrow function.
+     * - PHPCS < 3.5.3 will tokenize arrow functions keywords as `T_STRING`.
      * - PHPCS 3.5.3/3.5.4 will tokenize the keyword differently depending on which PHP version is used
-     *   and similar to PHP will tokenize most tokens with the content "fn" as T_FN, even when it's not an
+     *   and similar to PHP will tokenize most tokens with the content "fn" as `T_FN`, even when it's not an
      *   arrow function.
-     *   Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as T_FN are not 100% the same as those tokenized
-     *   by PHP 7.4+ as T_FN.
+     *   > Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as `T_FN` are not 100% the same as those tokenized
+     *   by PHP 7.4+ as `T_FN`.
      *
      * Either way, the `T_FN` token is not a reliable search vector for finding or examining
      * arrow functions, at least not until PHPCS 3.5.5.
@@ -613,7 +615,7 @@ class FunctionDeclarations
      *                                               T_STRING token as those are the only two
      *                                               tokens which can be the arrow function keyword.
      *
-     * @return bool TRUE if the token is the "fn" keyword for an arrow function. FALSE when it's not
+     * @return bool `TRUE` if the token is the "fn" keyword for an arrow function. `FALSE` when it's not
      *              or in case of live coding/parse error.
      */
     public static function isArrowFunction(File $phpcsFile, $stackPtr)
@@ -658,19 +660,19 @@ class FunctionDeclarations
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The token to retrieve the openers/closers for.
-     *                                               Typically a T_FN or T_STRING token as those are the
+     *                                               Typically a `T_FN` or `T_STRING` token as those are the
      *                                               only two tokens which can be the arrow function keyword.
      *
-     * @return array|false An array with the token pointers or FALSE if this is not an arrow function.
+     * @return array|false An array with the token pointers or `FALSE` if this is not an arrow function.
      *                     The format of the return value is:
-     *                     <code>
+     *                     ```php
      *                     array(
      *                       'parenthesis_opener' => integer, // Stack pointer to the parenthesis opener.
      *                       'parenthesis_closer' => integer, // Stack pointer to the parenthesis closer.
      *                       'scope_opener'       => integer, // Stack pointer to the scope opener (arrow).
      *                       'scope_closer'       => integer, // Stack pointer to the scope closer.
      *                     )
-     *                     </code>
+     *                     ```
      */
     public static function getArrowFunctionOpenClose(File $phpcsFile, $stackPtr)
     {
@@ -830,7 +832,7 @@ class FunctionDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     * @param int                         $stackPtr  The `T_FUNCTION` token to check.
      *
      * @return bool
      */
@@ -877,7 +879,7 @@ class FunctionDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     * @param int                         $stackPtr  The `T_FUNCTION` token to check.
      *
      * @return bool
      */
@@ -920,7 +922,7 @@ class FunctionDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     * @param int                         $stackPtr  The `T_FUNCTION` token to check.
      *
      * @return bool
      */
@@ -984,7 +986,7 @@ class FunctionDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The T_FUNCTION token to check.
+     * @param int                         $stackPtr  The `T_FUNCTION` token to check.
      *
      * @return bool
      */

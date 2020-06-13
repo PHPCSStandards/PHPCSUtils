@@ -68,10 +68,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * A multi-dimentional array with information on each array item.
      *
      * The array index is 1-based and contains the following information on each array item:
-     * - 'start' : The stack pointer to the first token in the array item.
-     * - 'end'   : The stack pointer to the last token in the array item.
-     * - 'raw'   : A string with the contents of all tokens between `start` and `end`.
-     * - 'clean' : Same as `raw`, but all comment tokens have been stripped out.
+     * ```php
+     * 1 => array(
+     *   'start' => int,    // The stack pointer to the first token in the array item.
+     *   'end'   => int,    // The stack pointer to the last token in the array item.
+     *   'raw'   => string, // A string with the contents of all tokens between `start` and `end`.
+     *   'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
+     * )
+     * ```
      *
      * @since 1.0.0
      *
@@ -163,7 +167,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * Processes this test when one of its tokens is encountered.
      *
      * This method fills the properties with relevant information for examining the array
-     * and then passes off to the `processArray()` method.
+     * and then passes off to the {@see AbstractArrayDeclarationSniff::processArray()} method.
      *
      * @since 1.0.0
      *
@@ -290,9 +294,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $openPtr   The position of the array opener token in the token stack.
      * @param int                         $closePtr  The position of the array closer token in the token stack.
      *
-     * @return true|void Returning `true` will short-circuit the sniff and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the sniff and stop processing.
      *                   In effect, this means that the sniff will not examine the individual
-     *                   array items if `true` is returned.
+     *                   array items if `TRUE` is returned.
      */
     public function processOpenClose(File $phpcsFile, $openPtr, $closePtr)
     {
@@ -321,7 +325,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
      *                   In effect, this means that the sniff will not examine the double arrow, the array
      *                   value or comma for this array item and will not process any array items after this one.
      */
@@ -351,7 +355,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
      *                   In effect, this means that the sniff will not examine the array value or
      *                   comma for this array item and will not process any array items after this one.
      */
@@ -374,7 +378,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
      *                   In effect, this means that the sniff will not examine the array value or
      *                   comma for this array item and will not process any array items after this one.
      */
@@ -403,7 +407,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
      *                   In effect, this means that the sniff will not examine the comma for this
      *                   array item and will not process any array items after this one.
      */
@@ -426,7 +430,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
      *                   In effect, this means that the sniff will not process any array items
      *                   after this one.
      */

@@ -25,7 +25,7 @@ use ReflectionClass;
  * autoload file is included in the test bootstrap. For more information about that, please consult
  * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *
- * To allow for testing of tab vs space content, the tabWidth is set to `4` by default.
+ * To allow for testing of tab vs space content, the `tabWidth` is set to `4` by default.
  *
  * Typical usage:
  *
@@ -58,38 +58,39 @@ use ReflectionClass;
  *      *
  *      * @return void
  *      * /
- *    public function testMyMethod($commentString, $expected)
- *    {
- *        $stackPtr = $this->getTargetToken($commentString, [\T_TOKEN_CONSTANT, \T_ANOTHER_TOKEN]);
- *        $class    = new ClassUnderTest();
- *        $result   = $class->MyMethod(self::$phpcsFile, $stackPtr);
- *        // Or for static utility methods:
- *        $result   = ClassUnderTest::MyMethod(self::$phpcsFile, $stackPtr);
+ *     public function testMyMethod($commentString, $expected)
+ *     {
+ *         $stackPtr = $this->getTargetToken($commentString, [\T_TOKEN_CONSTANT, \T_ANOTHER_TOKEN]);
+ *         $class    = new ClassUnderTest();
+ *         $result   = $class->MyMethod(self::$phpcsFile, $stackPtr);
+ *         // Or for static utility methods:
+ *         $result   = ClassUnderTest::MyMethod(self::$phpcsFile, $stackPtr);
  *
- *        $this->assertSame($expected, $result);
- *    }
+ *         $this->assertSame($expected, $result);
+ *     }
  *
- *    /**
- *     * Data Provider.
- *     *
- *     * @see ClassUnderTestUnitTest::testMyMethod() For the array format.
- *     *
- *     * @return array
- *     * /
- *    public function dataMyMethod()
- *    {
- *        return array(
- *            array('/* testTestCaseDescription * /', false),
- *        );
- *    }
+ *     /**
+ *      * Data Provider.
+ *      *
+ *      * @see ClassUnderTestUnitTest::testMyMethod() For the array format.
+ *      *
+ *      * @return array
+ *      * /
+ *     public function dataMyMethod()
+ *     {
+ *         return array(
+ *             array('/* testTestCaseDescription * /', false),
+ *         );
+ *     }
  * }
  * ```
  *
  * Note:
  * - Remove the space between the comment closers `* /` for a working example.
  * - Each test case separator comment MUST start with `/* test`.
- *   This is to allow the `getTargetToken()` method to distinquish between the
- *   test separation comments and comments which may be part of the test case.
+ *   This is to allow the {@see UtilityMethodTestCase::getTargetToken()} method to
+ *   distinquish between the test separation comments and comments which may be part
+ *   of the test case.
  * - The test case file and unit test file should be placed in the same directory.
  * - For working examples using this abstract class, have a look at the unit tests
  *   for the PHPCSUtils utility functions themselves.
@@ -111,8 +112,8 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * The file extension of the test case file (without leading dot).
      *
-     * This allows concrete test classes to overrule the default `inc` with, for instance,
-     * `js` or `css` when applicable.
+     * This allows concrete test classes to overrule the default `"inc"` with, for instance,
+     * `"js"` or `"css"` when applicable.
      *
      * @since 1.0.0
      *
@@ -125,7 +126,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * Optional. If left empty, the case file will be presumed to be in
      * the same directory and named the same as the test class, but with an
-     * `inc` file extension.
+     * `"inc"` file extension.
      *
      * @since 1.0.0
      *
@@ -145,7 +146,7 @@ abstract class UtilityMethodTestCase extends TestCase
     protected static $tabWidth = 4;
 
     /**
-     * The {@see \PHP_CodeSniffer\Files\File} object containing the parsed contents of the test case file.
+     * The \PHP_CodeSniffer\Files\File object containing the parsed contents of the test case file.
      *
      * @since 1.0.0
      *
@@ -171,7 +172,7 @@ abstract class UtilityMethodTestCase extends TestCase
      * Initialize PHPCS & tokenize the test case file.
      *
      * The test case file for a unit test class has to be in the same directory
-     * directory and use the same file name as the test class, using the .inc extension
+     * directory and use the same file name as the test class, using the `.inc` extension
      * or be explicitly set using the {@see UtilityMethodTestCase::$fileExtension}/
      * {@see UtilityMethodTestCase::$caseFile} properties.
      *
@@ -313,7 +314,7 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * Get the token pointer for a target token based on a specific comment.
      *
-     * Note: the test delimiter comment MUST start with "/* test" to allow this function to
+     * Note: the test delimiter comment MUST start with `/* test` to allow this function to
      * distinguish between comments used *in* a test and test delimiters.
      *
      * If the delimiter comment is not found, the test will automatically be failed.

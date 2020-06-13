@@ -34,7 +34,7 @@ class Parentheses
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position of `T_OPEN/CLOSE_PARENTHESIS` token.
      *
-     * @return int|false Integer stack pointer to the parentheses owner or false if the
+     * @return int|false Integer stack pointer to the parentheses owner; or `FALSE` if the
      *                   parenthesis does not have a (direct) owner or if the token passed
      *                   was not a parenthesis.
      */
@@ -97,7 +97,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return bool True if the owner is within the list of `$validOwners`, false if not and
+     * @return bool `TRUE` if the owner is within the list of `$validOwners`; `FALSE` if not and
      *              if the parenthesis does not have a (direct) owner.
      */
     public static function isOwnerIn(File $phpcsFile, $stackPtr, $validOwners)
@@ -161,7 +161,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the parentheses opener or false if the token
+     * @return int|false Integer stack pointer to the parentheses opener; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */
@@ -184,7 +184,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the parentheses closer or false if the token
+     * @return int|false Integer stack pointer to the parentheses closer; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */
@@ -204,7 +204,7 @@ class Parentheses
      * arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.
      *
      * If no `$validOwners` are specified, the owner to the first set of parentheses surrounding
-     * the token will be returned or false if the first set of parentheses does not have an owner.
+     * the token will be returned or `false` if the first set of parentheses does not have an owner.
      *
      * @since 1.0.0
      *
@@ -213,7 +213,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer  to the parentheses owner or false if the token
+     * @return int|false Integer stack pointer to the parentheses owner; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */
@@ -241,7 +241,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the parentheses opener or false if the token
+     * @return int|false Integer stack pointer to the parentheses opener; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */
@@ -264,7 +264,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the parentheses closer or false if the token
+     * @return int|false Integer stack pointer to the parentheses closer; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */
@@ -284,7 +284,7 @@ class Parentheses
      * arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.
      *
      * If no `$validOwners` are specified, the owner to the last set of parentheses surrounding
-     * the token will be returned or false if the last set of parentheses does not have an owner.
+     * the token will be returned or `false` if the last set of parentheses does not have an owner.
      *
      * @since 1.0.0
      *
@@ -293,7 +293,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the parentheses owner or false if the token
+     * @return int|false Integer stack pointer to the parentheses owner; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */
@@ -319,7 +319,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the valid parentheses owner or false if
+     * @return int|false Integer stack pointer to the valid parentheses owner; or `FALSE` if
      *                   the token was not wrapped in parentheses or if the outermost set
      *                   of parentheses in which the token is wrapped does not have an owner
      *                   within the set of owners considered valid.
@@ -347,7 +347,7 @@ class Parentheses
      * @param int|string|array            $validOwners Array of token constants for the owners
      *                                                 which should be considered valid.
      *
-     * @return int|false Integer stack pointer to the valid parentheses owner or false if
+     * @return int|false Integer stack pointer to the valid parentheses owner; or `FALSE` if
      *                   the token was not wrapped in parentheses or if the innermost set
      *                   of parentheses in which the token is wrapped does not have an owner
      *                   within the set of owners considered valid.
@@ -367,7 +367,7 @@ class Parentheses
      * Helper method. Retrieve the position of a parentheses opener for an arbitrary passed token.
      *
      * If no `$validOwners` are specified, the opener to the first set of parentheses surrounding
-     * the token - or if `$reverse=true`, the last set of parentheses - will be returned.
+     * the token - or if `$reverse = true`, the last set of parentheses - will be returned.
      *
      * @since 1.0.0
      *
@@ -376,10 +376,10 @@ class Parentheses
      * @param int|string|array            $validOwners Optional. Array of token constants for the owners
      *                                                 which should be considered valid.
      * @param bool                        $reverse     Optional. Whether to search for the first/outermost
-     *                                                 (false) or the last/innermost (true) set of
+     *                                                 (`false`) or the last/innermost (`true`) set of
      *                                                 parentheses with the specified owner(s).
      *
-     * @return int|false Integer stack pointer to the parentheses opener or false if the token
+     * @return int|false Integer stack pointer to the parentheses opener; or `FALSE` if the token
      *                   does not have parentheses owned by any of the valid owners or if
      *                   the token is not nested in parentheses at all.
      */

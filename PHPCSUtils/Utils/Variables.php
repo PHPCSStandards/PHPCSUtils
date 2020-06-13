@@ -76,24 +76,23 @@ class Variables
      * Retrieve the visibility and implementation properties of a class member variable.
      *
      * The format of the return value is:
-     *
-     * <code>
-     *   array(
-     *    'scope'           => string,  // Public, private, or protected.
-     *    'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
-     *    'is_static'       => boolean, // TRUE if the static keyword was found.
-     *    'type'            => string,  // The type of the var (empty if no type specified).
-     *    'type_token'      => integer, // The stack pointer to the start of the type
-     *                                  // or FALSE if there is no type.
-     *    'type_end_token'  => integer, // The stack pointer to the end of the type
-     *                                  // or FALSE if there is no type.
-     *    'nullable_type'   => boolean, // TRUE if the type is nullable.
-     *   );
-     * </code>
+     * ```php
+     * array(
+     *   'scope'           => string,  // Public, private, or protected.
+     *   'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
+     *   'is_static'       => boolean, // TRUE if the static keyword was found.
+     *   'type'            => string,  // The type of the var (empty if no type specified).
+     *   'type_token'      => integer, // The stack pointer to the start of the type
+     *                                 // or FALSE if there is no type.
+     *   'type_end_token'  => integer, // The stack pointer to the end of the type
+     *                                 // or FALSE if there is no type.
+     *   'nullable_type'   => boolean, // TRUE if the type is nullable.
+     * );
+     * ```
      *
      * Main differences with the PHPCS version:
      * - Removed the parse error warning for properties in interfaces.
-     *   This will now throw the same "$stackPtr is not a class member var" runtime exception as
+     *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
      *
@@ -103,13 +102,13 @@ class Variables
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position in the stack of the T_VARIABLE token to
-     *                                               acquire the properties for.
+     * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
+     *                                               to acquire the properties for.
      *
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_VARIABLE token.
+     *                                                      `T_VARIABLE` token.
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      class member variable.
      */
@@ -220,8 +219,8 @@ class Variables
      *
      * @param string $name The full variable name with or without leading dollar sign.
      *                     This allows for passing an array key variable name, such as
-     *                     '_GET' retrieved from $GLOBALS['_GET'].
-     *                     Note: when passing an array key, string quotes are expected
+     *                     `'_GET'` retrieved from `$GLOBALS['_GET']`.
+     *                     > Note: when passing an array key, string quotes are expected
      *                     to have been stripped already.
      *                     Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
@@ -242,14 +241,15 @@ class Variables
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position in the stack of a T_VARIABLE
-     *                                               token or of the T_CONSTANT_ENCAPSED_STRING
+     * @param int                         $stackPtr  The position in the stack of a `T_VARIABLE`
+     *                                               token or of the `T_CONSTANT_ENCAPSED_STRING`
      *                                               array key to a variable in `$GLOBALS`.
      *
-     * @return bool True if this points to a superglobal. False when not.
-     *              Includes returning `false` when an unsupported token has been passed,
-     *              when a `T_CONSTANT_ENCAPSED_STRING` has been passed which is not an array
-     *              index key; or when it is, but is not an index to the `$GLOBALS` variable.
+     * @return bool `TRUE` if this points to a superglobal; `FALSE` when not.
+     *              > Note: This includes returning `FALSE` when an unsupported token has
+     *              been passed, when a `T_CONSTANT_ENCAPSED_STRING` has been passed which
+     *              is not an array index key; or when it is, but is not an index to the
+     *              `$GLOBALS` variable.
      */
     public static function isSuperglobal(File $phpcsFile, $stackPtr)
     {
@@ -297,8 +297,8 @@ class Variables
      *
      * @param string $name The full variable name with or without leading dollar sign.
      *                     This allows for passing an array key variable name, such as
-     *                     '_GET' retrieved from $GLOBALS['_GET'].
-     *                     Note: when passing an array key, string quotes are expected
+     *                     `'_GET'` retrieved from `$GLOBALS['_GET']`.
+     *                     > Note: when passing an array key, string quotes are expected
      *                     to have been stripped already.
      *                     Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *

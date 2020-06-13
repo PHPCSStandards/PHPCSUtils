@@ -62,7 +62,7 @@ class Helper
      * @since 1.0.0
      *
      * @param string                  $key    The name of the config value.
-     * @param string|null             $value  The value to set. If null, the config entry
+     * @param string|null             $value  The value to set. If `null`, the config entry
      *                                        is deleted, reverting it to the default value.
      * @param bool                    $temp   Set this config data temporarily for this script run.
      *                                        This will not write the config data to the config file.
@@ -212,13 +212,13 @@ class Helper
     }
 
     /**
-     * Check whether the `--ignore-annotations` option has been used.
+     * Check whether the "--ignore-annotations" option is in effect.
      *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *
-     * @return bool True if annotations should be ignored, false otherwise.
+     * @return bool `TRUE` if annotations should be ignored, `FALSE` otherwise.
      */
     public static function ignoreAnnotations(File $phpcsFile = null)
     {
