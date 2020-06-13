@@ -160,24 +160,6 @@ class FunctionDeclarations
     /**
      * Retrieves the visibility and implementation properties of a method.
      *
-     * The format of the return value is:
-     * ```php
-     * array(
-     *   'scope'                 => 'public', // Public, private, or protected
-     *   'scope_specified'       => true,     // TRUE if the scope keyword was found.
-     *   'return_type'           => '',       // The return type of the method.
-     *   'return_type_token'     => integer,  // The stack pointer to the start of the return type
-     *                                        // or FALSE if there is no return type.
-     *   'return_type_end_token' => integer,  // The stack pointer to the end of the return type
-     *                                        // or FALSE if there is no return type.
-     *   'nullable_return_type'  => false,    // TRUE if the return type is nullable.
-     *   'is_abstract'           => false,    // TRUE if the abstract keyword was found.
-     *   'is_final'              => false,    // TRUE if the final keyword was found.
-     *   'is_static'             => false,    // TRUE if the static keyword was found.
-     *   'has_body'              => false,    // TRUE if the method has a body
-     * );
-     * ```
-     *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
@@ -199,7 +181,24 @@ class FunctionDeclarations
      * @param int                         $stackPtr  The position in the stack of the function token to
      *                                               acquire the properties for.
      *
-     * @return array
+     * @return array Array with information about a function declaration.
+     *               The format of the return value is:
+     *               ```php
+     *               array(
+     *                 'scope'                 => 'public', // Public, private, or protected
+     *                 'scope_specified'       => true,     // TRUE if the scope keyword was found.
+     *                 'return_type'           => '',       // The return type of the method.
+     *                 'return_type_token'     => integer,  // The stack pointer to the start of the return type
+     *                                                      // or FALSE if there is no return type.
+     *                 'return_type_end_token' => integer,  // The stack pointer to the end of the return type
+     *                                                      // or FALSE if there is no return type.
+     *                 'nullable_return_type'  => false,    // TRUE if the return type is nullable.
+     *                 'is_abstract'           => false,    // TRUE if the abstract keyword was found.
+     *                 'is_final'              => false,    // TRUE if the final keyword was found.
+     *                 'is_static'             => false,    // TRUE if the static keyword was found.
+     *                 'has_body'              => false,    // TRUE if the method has a body
+     *               );
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a T_FUNCTION
      *                                                      or T_CLOSURE token, nor an arrow function.

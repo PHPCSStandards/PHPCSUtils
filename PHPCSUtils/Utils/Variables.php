@@ -75,21 +75,6 @@ class Variables
     /**
      * Retrieve the visibility and implementation properties of a class member variable.
      *
-     * The format of the return value is:
-     * ```php
-     * array(
-     *   'scope'           => string,  // Public, private, or protected.
-     *   'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
-     *   'is_static'       => boolean, // TRUE if the static keyword was found.
-     *   'type'            => string,  // The type of the var (empty if no type specified).
-     *   'type_token'      => integer, // The stack pointer to the start of the type
-     *                                 // or FALSE if there is no type.
-     *   'type_end_token'  => integer, // The stack pointer to the end of the type
-     *                                 // or FALSE if there is no type.
-     *   'nullable_type'   => boolean, // TRUE if the type is nullable.
-     * );
-     * ```
-     *
      * Main differences with the PHPCS version:
      * - Removed the parse error warning for properties in interfaces.
      *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
@@ -105,7 +90,21 @@ class Variables
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
      *                                               to acquire the properties for.
      *
-     * @return array
+     * @return array Array with information about the class member variable.
+     *               The format of the return value is:
+     *               ```php
+     *               array(
+     *                 'scope'           => string,  // Public, private, or protected.
+     *                 'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
+     *                 'is_static'       => boolean, // TRUE if the static keyword was found.
+     *                 'type'            => string,  // The type of the var (empty if no type specified).
+     *                 'type_token'      => integer, // The stack pointer to the start of the type
+     *                                               // or FALSE if there is no type.
+     *                 'type_end_token'  => integer, // The stack pointer to the end of the type
+     *                                               // or FALSE if there is no type.
+     *                 'nullable_type'   => boolean, // TRUE if the type is nullable.
+     *               );
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      `T_VARIABLE` token.

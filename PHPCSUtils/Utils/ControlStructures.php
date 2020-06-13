@@ -348,21 +348,21 @@ class ControlStructures
     /**
      * Retrieve the exception(s) being caught in a CATCH condition.
      *
-     * The returned array will contain the following information for each caught exception:
-     * ```php
-     * 0 => array(
-     *   'type'           => string,  // The type declaration for the exception being caught.
-     *   'type_token'     => integer, // The stack pointer to the start of the type declaration.
-     *   'type_end_token' => integer, // The stack pointer to the end of the type declaration.
-     * )
-     * ```
-     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      *
-     * @return array
+     * @return array Array with information about the caught Exception(s).
+     *               The returned array will contain the following information for
+     *               each caught exception:
+     *               ```php
+     *               0 => array(
+     *                 'type'           => string,  // The type declaration for the exception being caught.
+     *                 'type_token'     => integer, // The stack pointer to the start of the type declaration.
+     *                 'type_end_token' => integer, // The stack pointer to the end of the type declaration.
+     *               )
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified `$stackPtr` is not of
      *                                                      type `T_CATCH` or doesn't exist.
