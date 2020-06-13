@@ -580,7 +580,7 @@ class Collections
      * It is recommended to use the method instead of the property if a standard supports PHPCS < 3.3.0.
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
-     * @see \PHPCSUtils\Tokens\FunctionDeclarations::isArrowFunction()  Arrow function verification.
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()   Arrow function verification.
      *
      * @since 1.0.0
      *
