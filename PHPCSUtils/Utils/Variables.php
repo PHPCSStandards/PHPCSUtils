@@ -38,7 +38,7 @@ class Variables
      *
      * @since 1.0.0
      *
-     * @link http://php.net/manual/en/reserved.variables.php
+     * @link http://php.net/reserved.variables
      *
      * @var array <string> => <bool>
      */
