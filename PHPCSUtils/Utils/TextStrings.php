@@ -46,8 +46,9 @@ class TextStrings
      * @return string The complete text string.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      valid text string token or if the
-     *                                                      token is not the first text string token.
+     *                                                      valid text string token.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not the _first_
+     *                                                      token in a text string.
      */
     public static function getCompleteTextString(File $phpcsFile, $stackPtr, $stripQuotes = true)
     {

@@ -169,7 +169,9 @@ class UseStatements
      *               ]`
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_USE token or not an import use statement.
+     *                                                      `T_USE` token.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the `T_USE` token is not for an import
+     *                                                      use statement.
      */
     public static function splitImportUseStatement(File $phpcsFile, $stackPtr)
     {

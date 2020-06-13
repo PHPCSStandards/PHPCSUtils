@@ -109,8 +109,9 @@ class Variables
      * @return array
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_VARIABLE token, or if the position is not
-     *                                                      a class member variable.
+     *                                                      T_VARIABLE token.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
+     *                                                      class member variable.
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
