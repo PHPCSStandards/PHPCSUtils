@@ -363,9 +363,10 @@ class ControlStructures
      *
      * @return array
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
-     *                                                      type T_CATCH, doesn't exist or in case
-     *                                                      of a parse error.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified `$stackPtr` is not of
+     *                                                      type `T_CATCH` or doesn't exist.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If no parenthesis opener or closer can be
+     *                                                      determined (parse error).
      */
     public static function getCaughtExceptions(File $phpcsFile, $stackPtr)
     {
