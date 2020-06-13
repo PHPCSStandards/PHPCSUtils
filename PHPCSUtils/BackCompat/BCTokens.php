@@ -40,6 +40,22 @@ use PHP_CodeSniffer\Util\Tokens;
  * the token arrays returned by this class.
  *
  * @since 1.0.0
+ *
+ * @method static array blockOpeners()     Tokens that open code blocks.
+ * @method static array booleanOperators() Tokens that perform boolean operations.
+ * @method static array bracketTokens()    Tokens that represent brackets and parenthesis.
+ * @method static array castTokens()       Tokens that represent type casting.
+ * @method static array commentTokens()    Tokens that are comments.
+ * @method static array emptyTokens()      Tokens that don't represent code.
+ * @method static array equalityTokens()   Tokens that represent equality comparisons.
+ * @method static array heredocTokens()    Tokens that make up a heredoc string.
+ * @method static array includeTokens()    Tokens that include files.
+ * @method static array methodPrefixes()   Tokens that can prefix a method name.
+ * @method static array scopeModifiers()   Tokens that represent scope modifiers.
+ * @method static array scopeOpeners()     Tokens that are allowed to open scopes.
+ * @method static array stringTokens()     Tokens that represent strings.
+ *                                         Note that `T_STRINGS` are NOT represented in this list as this list
+ *                                         is about _text_ strings.
  */
 class BCTokens
 {
