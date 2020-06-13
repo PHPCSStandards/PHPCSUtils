@@ -24,6 +24,8 @@ use PHPCSUtils\Utils\Parentheses;
  * Utility functions for use when examining T_NAMESPACE tokens and to determine the
  * namespace of arbitrary tokens.
  *
+ * @link https://www.php.net/language.namespaces PHP Manual on namespaces.
+ *
  * @since 1.0.0
  */
 class Namespaces
@@ -37,10 +39,10 @@ class Namespaces
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the T_NAMESPACE token.
      *
-     * @return string Either 'declaration', 'operator'.
+     * @return string Either `'declaration'`, `'operator'` or an empty string.
      *                An empty string will be returned if it couldn't be
      *                reliably determined what the T_NAMESPACE token is used for,
-     *                which will normally mean the code contains a parse/fatal error.
+     *                which, in most cases, will mean the code contains a parse/fatal error.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
      *                                                      not a T_NAMESPACE token.
@@ -133,12 +135,15 @@ class Namespaces
     /**
      * Determine whether a T_NAMESPACE token is used as an operator.
      *
+     * @link https://www.php.net/language.namespaces.nsconstants PHP Manual about the use of the
+     *                                                           namespace keyword as an operator.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of a T_NAMESPACE token.
      *
-     * @return bool True if the token passed is used as an operator. False if not.
+     * @return bool True if the namespace token passed is used as an operator. False if not.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
      *                                                      not a T_NAMESPACE token.
@@ -151,8 +156,8 @@ class Namespaces
     /**
      * Get the complete namespace name as declared.
      *
-     * For hierarchical namespaces, the name will be composed of several tokens,
-     * i.e. MyProject\Sub\Level which will be returned together as one string.
+     * For hierarchical namespaces, the namespace name will be composed of several tokens,
+     * i.e. "MyProject\Sub\Level", which will be returned together as one string.
      *
      * @since 1.0.0
      *
@@ -205,8 +210,8 @@ class Namespaces
      * Determine the namespace an arbitrary token lives in.
      *
      * Note: when a namespace declaration token or a token which is part of the namespace
-     * name is passed to this method, the result will be false as technically, they are not
-     * **within** a namespace.
+     * name is passed to this method, the result will be `false` as technically, these tokens
+     * are not _within_ a namespace.
      *
      * Note: this method has no opinion on whether the token passed is actually _subject_
      * to namespacing.
@@ -217,8 +222,9 @@ class Namespaces
      * @param int                         $stackPtr  The token for which to determine
      *                                               the namespace.
      *
-     * @return int|false Token pointer to the applicable namespace keyword or
-     *                   false if it couldn't be determined or no namespace applies.
+     * @return int|false Token pointer to the namespace keyword for the applicable namespace
+     *                   declaration; or `false` if it couldn't be determined or
+     *                   if no namespace applies.
      */
     public static function findNamespacePtr(File $phpcsFile, $stackPtr)
     {
@@ -353,8 +359,8 @@ class Namespaces
      * @param int                         $stackPtr  The token for which to determine
      *                                               the namespace.
      *
-     * @return string Namespace name or empty string if it couldn't be determined
-     *                or no namespace applies.
+     * @return string Namespace name; or an empty string if the namespace couldn't be
+     *                determined or when no namespace applies.
      */
     public static function determineNamespace(File $phpcsFile, $stackPtr)
     {

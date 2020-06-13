@@ -63,7 +63,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *   array return type declarations.
  * - Typed properties were not recognized prior to PHPCS 3.5.0, including the
  *   `?` nullability token not being converted to `T_NULLABLE`.
- * - Arrow functions were not recognized properly until PHPCS 3.5.3.
+ * - Arrow functions were not recognized properly until PHPCS 3.5.3/4.
  * - General PHP cross-version incompatibilities.
  *
  * Most functions in this class will have a related twin-function in the relevant
@@ -76,7 +76,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  * The differences between the functions here and the twin functions are documented
  * in the docblock of the respective twin-function.
  *
- * @see \PHP_CodeSniffer\Files\File Source of these utility methods.
+ * @see \PHP_CodeSniffer\Files\File Original source of these utility methods.
  *
  * @since 1.0.0
  */
@@ -104,7 +104,8 @@ class BCFile
      *
      * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
      *       this method will be accepted for JS files.
-     * Note: support for JS ES6 method syntax has not been back-filled for PHPCS < 3.0.0.
+     * Note: Support for JS ES6 method syntax has not been back-filled for PHPCS < 3.0.0.
+     *       and sniffing JS files is not officially supported by PHPCSUtils.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
@@ -232,8 +233,8 @@ class BCFile
      * - PHPCS 3.3.0: The return array now contains a new "type_hint_token" array index.
      *                - Provides the position in the token stack of the first token in the type declaration.
      * - PHPCS 3.3.1: Fixed incompatibility with PHP 7.3.
-     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
-     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
+     *                to `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      * - PHPCS 3.5.0: Added support for closure USE groups.
      * - PHPCS 3.5.0: The return array now contains yet more more information.
      *                - If a type hint is specified, the position of the last token in the hint will be
@@ -526,8 +527,8 @@ class BCFile
      * - PHPCS 3.4.0: New `has_body` array index.
      *                - `false` if the method has no body (as with abstract and interface methods)
      *                  or `true` otherwise.
-     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
-     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
+     *                to `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      * - PHPCS 3.5.3: Added support for PHP 7.4 T_FN arrow functions.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()      Original source.
@@ -731,8 +732,8 @@ class BCFile
      *                - If the type is nullable, a `nullable_type` array index will also be set to TRUE.
      *                - If the type contains namespace information, it will be cleaned of whitespace
      *                  and comments in the `type` value.
-     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
-     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
+     *                to `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
      * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
@@ -899,8 +900,8 @@ class BCFile
      * - Introduced in PHPCS 1.3.0.
      * - PHPCS 3.0.0: The Exception thrown changed from a `PHP_CodeSniffer_Exception` to
      *                `\PHP_CodeSniffer\Exceptions\TokenizerException`.
-     * - PHPCS 3.5.0: The Exception thrown changed from a `TokenizerException` to
-     *                `\PHP_CodeSniffer\Exceptions\RuntimeException`.
+     * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
+     *                to`\PHP_CodeSniffer\Exceptions\RuntimeException`.
      *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()          Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getClassProperties() PHPCSUtils native improved version.

@@ -20,6 +20,8 @@ use PHPCSUtils\Utils\Parentheses;
 /**
  * Utility functions for use when working with operators.
  *
+ * @link https://www.php.net/language.operators PHP manual on operators.
+ *
  * @since 1.0.0 The `isReference()` method is based on and inspired by
  *              the method of the same name in the PHPCS native `File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
@@ -57,8 +59,9 @@ class Operators
      * Determine if the passed token is a reference operator.
      *
      * Main differences with the PHPCS version:
-     * - Bug fixed: the `&` for a closure declared to return by reference was not recognized as
-     *   a reference. {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/2977 Open PR upstream}
+     * - Bug fixed: the reference operator for closures declared to return by reference was not
+     *   recognized as a reference.
+     *   {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/2977 Open PR upstream}
      * - Defensive coding against incorrect calls to this method.
      * - Improved handling of select tokenizer errors involving short lists/short arrays.
      *
@@ -179,7 +182,8 @@ class Operators
      * @param int                         $stackPtr  The position of the plus/minus token.
      *
      * @return bool True if the token passed is a unary operator.
-     *              False otherwise or if the token is not a T_PLUS/T_MINUS token.
+     *              False otherwise, i.e. if the token is an arithmetic operator,
+     *              or if the token is not a `T_PLUS`/`T_MINUS` token.
      */
     public static function isUnaryPlusMinus(File $phpcsFile, $stackPtr)
     {

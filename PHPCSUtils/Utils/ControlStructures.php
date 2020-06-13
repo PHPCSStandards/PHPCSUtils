@@ -220,9 +220,15 @@ class ControlStructures
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      *
-     * @return array|false Array with two keys `opener`, `closer` or false if
-     *                     not a `declare` token or if the opener/closer
-     *                     could not be determined.
+     * @return array|false An array with the token pointers; or `FALSE` if not a `DECLARE` token
+     *                     or if the opener/closer could not be determined.
+     *                     The format of the array return value is:
+     *                     ```php
+     *                     array(
+     *                       'opener' => integer, // Stack pointer to the scope opener.
+     *                       'closer' => integer, // Stack pointer to the scope closer.
+     *                     )
+     *                     ```
      */
     public static function getDeclareScopeOpenClose(File $phpcsFile, $stackPtr)
     {

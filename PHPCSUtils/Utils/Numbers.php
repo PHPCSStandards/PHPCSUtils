@@ -20,12 +20,15 @@ use PHPCSUtils\BackCompat\Helper;
  * PHP 7.4 introduced numeric literal separators which break number tokenization in older PHP versions.
  * PHPCS backfills this since PHPCS 3.5.3/4.
  *
- * However, if an external standard intends to support PHPCS < 3.5.4 and PHP < 7.4, working with
- * number tokens has suddenly become a challenge.
+ * In other words, if an external standard intends to support PHPCS < 3.5.4 and PHP < 7.4, working
+ * with number tokens has suddenly become a challenge.
  *
  * The functions in this class have been put in place to ease that pain and it is
  * *strongly* recommended to always use these functions when sniffing for and examining the
  * contents of `T_LNUMBER` or `T_DNUMBER` tokens.
+ *
+ * @link https://www.php.net/migration74.new-features.php#migration74.new-features.core.numeric-literal-separator
+ *       PHP Manual on numeric literal separators.
  *
  * @since 1.0.0
  */
@@ -97,7 +100,7 @@ class Numbers
     /**
      * Regex to determine if a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.
      *
-     * PHP cross-version compat for PHP 7.4 numeric literals with underscore separators.
+     * Cross-version compatibility helper for PHP 7.4 numeric literals with underscore separators.
      *
      * @since 1.0.0
      *
@@ -108,7 +111,7 @@ class Numbers
     /**
      * Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a hexidecimal numeric literal sequence.
      *
-     * PHP cross-version compat for PHP 7.4 numeric literals with underscore separators.
+     * Cross-version compatibility helper for PHP 7.4 numeric literals with underscore separators.
      *
      * @since 1.0.0
      *
@@ -141,16 +144,18 @@ class Numbers
     ];
 
     /**
+     * Retrieve information about a number token in a cross-version compatible manner.
+     *
      * Helper function to deal with numeric literals, potentially with underscore separators.
      *
      * PHP < 7.4 does not tokenize numeric literals containing underscores correctly.
      * As of PHPCS 3.5.3, PHPCS contains a backfill, but this backfill was buggy in the initial
      * implementation. A fix for this broken backfill is included in PHPCS 3.5.4.
      *
-     * Either way, this function provides a backfill for all PHPCS/PHP combinations where
-     * PHP 7.4 numbers with underscore separators are tokenized incorrectly - with the
-     * exception of PHPCS 3.5.3 as the buggyness of the original backfill implementation makes
-     * it impossible to provide reliable results.
+     * Either way, this function can be used with all PHPCS/PHP combinations and will, if necessary,
+     * provide a backfill for PHPCS/PHP combinations where PHP 7.4 numbers with underscore separators
+     * are tokenized incorrectly - with the exception of PHPCS 3.5.3 as the buggyness of the original
+     * backfill implementation makes it impossible to provide reliable results.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771

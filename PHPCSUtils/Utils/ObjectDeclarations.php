@@ -19,10 +19,11 @@ use PHPCSUtils\Utils\GetTokensAsString;
 /**
  * Utility functions for use when examining object declaration statements.
  *
- * @since 1.0.0 The `get(Declaration)Name()`, `getClassProperties()`, `findExtendedClassName()`
- *              and `findImplementedInterfaceNames()` methods are based on and
+ * @since 1.0.0 The `ObjectDeclarations::get(Declaration)Name()`,
+ *              `ObjectDeclarations::getClassProperties()`, `ObjectDeclarations::findExtendedClassName()`
+ *              and `ObjectDeclarations::findImplementedInterfaceNames()` methods are based on and
  *              inspired by the methods of the same name in the PHPCS native
- *              `File` class.
+ *              `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 class ObjectDeclarations

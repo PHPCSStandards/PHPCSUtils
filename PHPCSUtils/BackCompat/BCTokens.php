@@ -111,6 +111,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent assignment operators.
+     *
      * Retrieve the PHPCS assignment tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -146,6 +148,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent comparison operators.
+     *
      * Retrieve the PHPCS comparison tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -173,6 +177,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent arithmetic operators.
+     *
      * Retrieve the PHPCS arithmetic tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -193,6 +199,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that perform operations.
+     *
      * Retrieve the PHPCS operator tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -228,6 +236,8 @@ class BCTokens
     }
 
     /**
+     * Token types that open parentheses.
+     *
      * Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -236,9 +246,14 @@ class BCTokens
      *
      * Note: While `T_LIST` and `T_ANON_CLASS` will be included in the return value for this
      * method, the associated parentheses will not have the `'parenthesis_owner'` index set
-     * until PHPCS 3.5.0.
+     * until PHPCS 3.5.0. Use the {@see \PHPCSUtils\Utils\Parentheses::getOwner()}
+     * or {@see \PHPCSUtils\Utils\Parentheses::hasOwner()} methods if you need to check for
+     * a `T_LIST` or `T_ANON_CLASS` parentheses owner.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$parenthesisOpeners Original array.
+     * @see \PHPCSUtils\Utils\Parentheses                     Class holding utility methods for
+     *                                                        working with the `'parenthesis_...'`
+     *                                                        index keys in a token array.
      *
      * @since 1.0.0
      *
@@ -254,10 +269,13 @@ class BCTokens
     }
 
     /**
+     * Tokens that are comments containing PHPCS instructions.
+     *
      * Retrieve the PHPCS comment tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
-     * - Introduced in PHPCS 3.2.3.
+     * - Introduced in PHPCS 3.2.3. The PHPCS comment tokens, however, were introduced in
+     *   PHPCS 3.2.0.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens Original array.
      *
@@ -290,6 +308,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent text strings.
+     *
      * Retrieve the PHPCS text string tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -311,6 +331,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent the names of called functions.
+     *
      * Retrieve the PHPCS function name tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -333,6 +355,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that open class and object scopes.
+     *
      * Retrieve the OO scope tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:

@@ -35,8 +35,9 @@ class UseStatements
      *
      * @return string Either 'closure', 'import' or 'trait'.
      *                An empty string will be returned if the token is used in an
-     *                invalid context or if it couldn't be reliably determined
-     *                what the T_USE token is used for.
+     *                invalid context or if it couldn't be reliably determined what
+     *                the `T_USE` token is used for. An empty string being returned will
+     *                normally mean the code being examined contains a parse error.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      T_USE token.
@@ -141,7 +142,7 @@ class UseStatements
     /**
      * Split an import use statement into individual imports.
      *
-     * Handles single import, multi-import and group-import statements.
+     * Handles single import, multi-import and group-import use statements.
      *
      * @since 1.0.0
      *
@@ -153,7 +154,7 @@ class UseStatements
      *               If any statements are found for any of these categories, the second level
      *               will contain the alias/name as the key and the full original use name as the
      *               value for each of the found imports or an empty array if no imports were found
-     *               in this use statement for this category.
+     *               in this use statement for a particular category.
      *
      *               For example, for this function group use statement:
      *               `use function Vendor\Package\{LevelA\Name as Alias, LevelB\Another_Name}`
@@ -352,7 +353,8 @@ class UseStatements
      * Beware: this method should only be used to combine the import use statements found in *one* file.
      * Do NOT combine the statements of multiple files as the result will be inaccurate and unreliable.
      *
-     * In most cases when tempted to use this method, the AbstractFileContextSniff should be used instead.
+     * In most cases when tempted to use this method, the {@see \PHPCSUtils\AbstractSniffs\AbstractFileContextSniff}
+     * (upcoming) should be used instead.
      *
      * @see \PHPCSUtils\AbstractSniffs\AbstractFileContextSniff
      * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
@@ -369,6 +371,7 @@ class UseStatements
      *
      * @return array A multi-level array containing information about the current `use` statement combined with
      *               the previously collected `use` statement information.
+     *               See {@see UseStatements::splitImportUseStatement()} for more details about the array format.
      */
     public static function splitAndMergeImportUseStatement(File $phpcsFile, $stackPtr, $previousUseStatements)
     {

@@ -167,7 +167,7 @@ class Lists
     }
 
     /**
-     * Find the list opener & closer based on a T_LIST or T_OPEN_SHORT_ARRAY token.
+     * Find the list opener and closer based on a T_LIST or T_OPEN_SHORT_ARRAY token.
      *
      * This method also accepts `T_OPEN_SQUARE_BRACKET` tokens to allow it to be
      * PHPCS cross-version compatible as the short array tokenizing has been plagued by
@@ -185,9 +185,15 @@ class Lists
      *                                                 tokens in a list.
      *                                                 Use with care.
      *
-     * @return array|false Array with two keys `opener`, `closer` or false if
-     *                     not a (short) list token or if the opener/closer
-     *                     could not be determined.
+     * @return array|false An array with the token pointers; or `FALSE` if this is not a (short) list
+     *                     token or if the opener/closer could not be determined.
+     *                     The format of the array return value is:
+     *                     ```php
+     *                     array(
+     *                       'opener' => integer, // Stack pointer to the list open bracket.
+     *                       'closer' => integer, // Stack pointer to the list close bracket.
+     *                     )
+     *                     ```
      */
     public static function getOpenClose(File $phpcsFile, $stackPtr, $isShortList = null)
     {
@@ -252,7 +258,8 @@ class Lists
      *   0 => array(
      *         'raw'                  => string,       // The full content of the variable definition, including
      *                                                 // whitespace and comments.
-     *                                                 // This may be an empty string when an item is being skipped.
+     *                                                 // This may be an empty string when a list
+     *                                                 // item is being skipped.
      *         'assignment'           => string,       // The content of the assignment part, _cleaned of comments_.
      *                                                 // This may be an empty string for an empty list item;
      *                                                 // it could also be a nested list represented as a string.
@@ -263,10 +270,12 @@ class Lists
      *                                                 // FALSE in case of a nested list or a variable variable.
      *                                                 // I.e. `$a` in `list($a['key'])`.
      *         'assignment_token'     => int|false,    // The start pointer for the assignment.
+     *                                                 // For a nested list, this will be the pointer to the `list`
+     *                                                 // keyword or the open square bracket in case of a short list.
      *         'assignment_end_token' => int|false,    // The end pointer for the assignment.
      *         'assign_by_reference'  => bool,         // Is the variable assigned by reference?
-     *         'reference_token'      => int|false,    // The stack pointer to the reference operator or
-     *                                                 // FALSE when not a reference assignment.
+     *         'reference_token'      => int|false,    // The stack pointer to the reference operator;
+     *                                                 // or FALSE when not a reference assignment.
      * </code>
      *
      * Assignments with keys will have the following additional array indexes set:
@@ -284,7 +293,7 @@ class Lists
      *                                               to acquire the parameters for.
      *
      * @return array An array with information on each assignment made, including skipped assignments (empty),
-     *               or an empty array if no assignments are made at all (fatal error in PHP 7+).
+     *               or an empty array if no assignments are made at all (fatal error in PHP >= 7.0).
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
      *                                                      type T_LIST, T_OPEN_SHORT_ARRAY or
