@@ -19,6 +19,9 @@
                 <path>phpcsutils-autoload.php</path>
                 <path>PHPCSUtils</path>
             </source>
+            <ignore hidden="true" symlinks="true">
+                <path>PHPCSUtils/**/usage-examples/**/*</path>
+            </ignore>
         </api>
     </version>
 
