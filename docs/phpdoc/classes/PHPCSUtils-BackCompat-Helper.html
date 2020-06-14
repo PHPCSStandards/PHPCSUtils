@@ -2,468 +2,576 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
+    <title>PHPCSUtils</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="../js/search.js"></script>
+        <script defer src="../js/searchIndex.js"></script>
     </head>
 <body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <nav class="phpdocumentor-topnav">
+    </nav>
 </header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
+    <label class="phpdocumentor-label">
+        <span class="visually-hidden">Search for</span>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
-                            </ul>
-            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
+                                    </ul>
+                        </section>
+
     
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
-                    <li><a href="../namespaces/phpcsutils-backcompat.html">BackCompat</a></li>
-            </ul>
+            <div class="eight phpdocumentor-columns phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-backcompat.html">BackCompat</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            Helper
-                                                        </h2>
-        <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">28</span>
-        </aside>
+    Helper
 
-        <p class="phpdocumentor-class__summary">Utility methods to retrieve (configuration) information from PHP_CodeSniffer.</p>
-        <section class="phpdocumentor-class__description"><p>PHP_CodeSniffer cross-version compatibility helper for PHPCS 2.x vs PHPCS 3.x.</p>
+    
+    
+    
+    </h2>
+
+        <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Utility methods to retrieve (configuration) information from PHP_CodeSniffer.</p>
+<section class="phpdocumentor-description"><p>PHP_CodeSniffer cross-version compatibility helper for PHPCS 2.x vs PHPCS 3.x.</p>
 <p>A number of PHPCS classes were split up into several classes in PHPCS 3.x
 Those classes cannot be aliased as they don't represent the same object.
 This class provides helper methods for functions which were contained in
 one of these classes and which are commonly used by external standards.</p></section>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#constant_DEFAULT_TABWIDTH">DEFAULT_TABWIDTH</a></th>
-                    <td class="phpdocumentor-cell">The default tab width used by PHP_CodeSniffer.</td>
-                    <td class="phpdocumentor-cell">4</td>
-                </tr>
-                                                                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getVersion">getVersion()</a></th>
-                    <td class="phpdocumentor-cell">Get the PHP_CodeSniffer version number.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_setConfigData">setConfigData()</a></th>
-                    <td class="phpdocumentor-cell">Pass config data to PHP_CodeSniffer.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getConfigData">getConfigData()</a></th>
-                    <td class="phpdocumentor-cell">Get the value of a single PHP_CodeSniffer config key.</td>
-                    <td class="phpdocumentor-cell">string|null</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getCommandLineData">getCommandLineData()</a></th>
-                    <td class="phpdocumentor-cell">Get the value of a CLI overrulable single PHP_CodeSniffer config key.</td>
-                    <td class="phpdocumentor-cell">string|null</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getTabWidth">getTabWidth()</a></th>
-                    <td class="phpdocumentor-cell">Get the applicable tab width as passed to PHP_CodeSniffer from the
-command-line or the ruleset.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_ignoreAnnotations">ignoreAnnotations()</a></th>
-                    <td class="phpdocumentor-cell">Check whether the `--ignore-annotations` option has been used.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                                            </table>
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"><p>The initial methods in this class have been ported over from
+the external PHPCompatibility &amp; WPCS standards.</p></section>
+                </dd>
+                        </dl>
 
-                    <section>
-                <h3 class="phpdocumentor-constants__header">Constants</h3>
-                                    <a id="constant_DEFAULT_TABWIDTH"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">DEFAULT_TABWIDTH</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">38</span>
-    </aside>
-            <p class="phpdocumentor-summary">The default tab width used by PHP_CodeSniffer.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$DEFAULT_TABWIDTH</span>
-        = <span class="phpdocumentor-signature__default-value">4</span>
-    </code>
-    </article>
-                                            </section>
+
+
+
+
+
+<h3>Table of Contents</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#constant_DEFAULT_TABWIDTH">DEFAULT_TABWIDTH</a>
+     = 4        </dt>
+<dd>The default tab width used by PHP_CodeSniffer.</dd>
+
+                    <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getVersion">getVersion()</a>
+             : string</dt>
+<dd>Get the PHP_CodeSniffer version number.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_setConfigData">setConfigData()</a>
+             : bool</dt>
+<dd>Pass config data to PHP_CodeSniffer.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getConfigData">getConfigData()</a>
+             : string|null</dt>
+<dd>Get the value of a single PHP_CodeSniffer config key.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getCommandLineData">getCommandLineData()</a>
+             : string|null</dt>
+<dd>Get the value of a CLI overrulable single PHP_CodeSniffer config key.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getTabWidth">getTabWidth()</a>
+             : int</dt>
+<dd>Get the applicable tab width as passed to PHP_CodeSniffer from the
+command-line or the ruleset.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_getEncoding">getEncoding()</a>
+             : string</dt>
+<dd>Get the applicable (file) encoding as passed to PHP_CodeSniffer from the
+command-line or the ruleset.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-Helper.html#method_ignoreAnnotations">ignoreAnnotations()</a>
+             : bool</dt>
+<dd>Check whether the &quot;--ignore-annotations&quot; option is in effect.</dd>
+
+        </dl>
+
+
+
         
-        
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_getVersion"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getVersion()</h4>
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-constants__header">Constants</h3>
+                    <a id="constant_DEFAULT_TABWIDTH"></a>
+<article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name">DEFAULT_TABWIDTH</h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">47</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">39</span>
+</aside>
+
+        <p class="phpdocumentor-summary">The default tab width used by PHP_CodeSniffer.</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$DEFAULT_TABWIDTH</span>
+    = <span class="phpdocumentor-signature__default-value">4</span>
+</code>
+
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+</article>
+            </section>
+
+        
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-methods__header">Methods</h3>
+                    <a id="method_getVersion"></a>
+<article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name">getVersion()</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">48</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get the PHP_CodeSniffer version number.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getVersion</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getVersion</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+    
 </article>
-                                    <a id="method_setConfigData"></a>
+                    <a id="method_setConfigData"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">setConfigData()</h4>
+    <h4 class="phpdocumentor-element__name">setConfigData()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">71</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">77</span>
+</aside>
+
         <p class="phpdocumentor-summary">Pass config data to PHP_CodeSniffer.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">setConfigData</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$key</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$temp</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setConfigData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$temp</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Config">Config</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$key</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the config value.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The value to set. If null, the config entry
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the config value.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The value to set. If <code class="prettyprint">null</code>, the config entry
 is deleted, reverting it to the default value.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$temp</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Set this config data temporarily for this script run.
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$temp</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Set this config data temporarily for this script run.
 This will not write the config data to the config file.</p></section></dd>
-                    </dl>
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Whether the setting of the data was successfull.</p></span>
-            
-</article>
-                                    <a id="method_getConfigData"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getConfigData()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get the value of a single PHP_CodeSniffer config key.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConfigData</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$key</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string|null</span>
-    </code>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$config</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Config">Config</abbr></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHPCS config object.
+This parameter is required for PHPCS 4.x, optional
+for PHPCS 3.x and not possible to pass for PHPCS 2.x.
+Passing the <code class="prettyprint">$phpcsFile-&gt;config</code> property should work
+in PHPCS 3.x and higher.</p></section></dd>
+            </dl>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$key</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the config value.</p></section></dd>
-                    </dl>
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash; <span class="phpdocumentor-description"><p>Whether the setting of the data was successfull.</p></span>
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|null</span>
-            
 </article>
-                                    <a id="method_getCommandLineData"></a>
+                    <a id="method_getConfigData"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">getCommandLineData()</h4>
+    <h4 class="phpdocumentor-element__name">getConfigData()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">115</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">109</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the value of a single PHP_CodeSniffer config key.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getConfigData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the config value.</p></section></dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\BackCompat\Helper::getCommandLineData()"><abbr title="\PHPCSUtils\BackCompat\Helper::getCommandLineData()">Helper::getCommandLineData()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Alternative for the same which is more reliable
+if the <code class="prettyprint">$phpcsFile</code> object is available.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string|null</span>
+    
+</article>
+                    <a id="method_getCommandLineData"></a>
+<article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name">getCommandLineData()</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">133</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get the value of a CLI overrulable single PHP_CodeSniffer config key.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCommandLineData</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$key</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string|null</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getCommandLineData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
         <section class="phpdocumentor-description"><p>Use this for config keys which can be set in the <code class="prettyprint">CodeSniffer.conf</code> file,
 on the command-line or in a ruleset.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being processed.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the config value.</p></section></dd>
+            </dl>
+
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being processed.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$key</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the config value.</p></section></dd>
-                    </dl>
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string|null</span>
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|null</span>
-            
 </article>
-                                    <a id="method_getTabWidth"></a>
+                    <a id="method_getTabWidth"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">getTabWidth()</h4>
+    <h4 class="phpdocumentor-element__name">getTabWidth()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">144</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">162</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get the applicable tab width as passed to PHP_CodeSniffer from the
 command-line or the ruleset.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getTabWidth</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getTabWidth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being processed.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being processed.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash; <span class="phpdocumentor-description"><p>Tab width. Defaults to the PHPCS native default of 4.</p></span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Tab width. Defaults to the PHPCS native default of 4.</p></span>
-            
 </article>
-                                    <a id="method_ignoreAnnotations"></a>
+                    <a id="method_getEncoding"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">ignoreAnnotations()</h4>
+    <h4 class="phpdocumentor-element__name">getEncoding()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">164</span>
-    </aside>
-        <p class="phpdocumentor-summary">Check whether the `--ignore-annotations` option has been used.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ignoreAnnotations</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">183</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the applicable (file) encoding as passed to PHP_CodeSniffer from the
+command-line or the ruleset.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getEncoding</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Optional. The current file
-being processed.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Optional. The current file being processed.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash; <span class="phpdocumentor-description"><p>Encoding. Defaults to the PHPCS native default, which is 'utf-8'
+for PHPCS 3.x and was 'iso-8859-1' for PHPCS 2.x.</p></span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-                    &mdash; <span class="phpdocumentor-description"><p>True if annotations should be ignored, false otherwise.</p></span>
-            
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <a id="method_ignoreAnnotations"></a>
+<article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name">ignoreAnnotations()</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/Helper.php"><a href="../files/phpcsutils-backcompat-helper.html"><abbr title="PHPCSUtils/BackCompat/Helper.php">Helper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">223</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">Check whether the &quot;--ignore-annotations&quot; option is in effect.</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">ignoreAnnotations</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Optional. The current file being processed.</p></section></dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if annotations should be ignored, <code class="prettyprint">FALSE</code> otherwise.</p></span>
+    
+</article>
+            </section>
+
+    </article>
+                <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+    <h2>Search results</h2>
+    <ul class="phpdocumentor-search-results__entries">
+    </ul>
+</div>
             </div>
         </div>
-    </div>
-</main>
-
+    </main>
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

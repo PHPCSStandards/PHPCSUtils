@@ -2,213 +2,268 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
+    <title>PHPCSUtils</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="../js/search.js"></script>
+        <script defer src="../js/searchIndex.js"></script>
     </head>
 <body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <nav class="phpdocumentor-topnav">
+    </nav>
 </header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
+    <label class="phpdocumentor-label">
+        <span class="visually-hidden">Search for</span>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
-                            </ul>
-            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
+                                    </ul>
+                        </section>
+
     
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
-                    <li><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
-            </ul>
+            <div class="eight phpdocumentor-columns phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            FunctionDeclarations
-                                                        </h2>
+    FunctionDeclarations
+
+    
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">33</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+</aside>
 
-        <p class="phpdocumentor-class__summary">Utility functions for use when examining function declaration statements.</p>
-        <section class="phpdocumentor-class__description"></section>
+        <p class="phpdocumentor-summary">Utility functions for use when examining function declaration statements.</p>
+<section class="phpdocumentor-description"></section>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_magicFunctions">$magicFunctions</a></th>
-                    <td class="phpdocumentor-cell">A list of all PHP magic functions.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_magicMethods">$magicMethods</a></th>
-                    <td class="phpdocumentor-cell">A list of all PHP magic methods.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_methodsDoubleUnderscore">$methodsDoubleUnderscore</a></th>
-                    <td class="phpdocumentor-cell">A list of all PHP native non-magic methods starting with a double underscore.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_arrowFunctionEndTokens">$arrowFunctionEndTokens</a></th>
-                    <td class="phpdocumentor-cell">Tokens which can be the end token of an arrow function.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getName">getName()</a></th>
-                    <td class="phpdocumentor-cell">Returns the declaration name for a function.</td>
-                    <td class="phpdocumentor-cell">string|null</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getProperties">getProperties()</a></th>
-                    <td class="phpdocumentor-cell">Retrieves the visibility and implementation properties of a method.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getParameters">getParameters()</a></th>
-                    <td class="phpdocumentor-cell">Retrieves the method parameters for the specified function token.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction">isArrowFunction()</a></th>
-                    <td class="phpdocumentor-cell">Check if an arbitrary token is the &quot;fn&quot; keyword for a PHP 7.4 arrow function.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose">getArrowFunctionOpenClose()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the parenthesis opener, parenthesis closer, the scope opener and the scope closer
-for an arrow function.</td>
-                    <td class="phpdocumentor-cell">array|bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicFunction">isMagicFunction()</a></th>
-                    <td class="phpdocumentor-cell">Checks if a given function is a PHP magic function.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicFunctionName">isMagicFunctionName()</a></th>
-                    <td class="phpdocumentor-cell">Verify if a given function name is the name of a PHP magic function.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicMethod">isMagicMethod()</a></th>
-                    <td class="phpdocumentor-cell">Checks if a given function is a PHP magic method.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicMethodName">isMagicMethodName()</a></th>
-                    <td class="phpdocumentor-cell">Verify if a given function name is the name of a PHP magic method.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isPHPDoubleUnderscoreMethod">isPHPDoubleUnderscoreMethod()</a></th>
-                    <td class="phpdocumentor-cell">Checks if a given function is a PHP native double underscore method.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isPHPDoubleUnderscoreMethodName">isPHPDoubleUnderscoreMethodName()</a></th>
-                    <td class="phpdocumentor-cell">Verify if a given function name is the name of a PHP native double underscore method.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isSpecialMethod">isSpecialMethod()</a></th>
-                    <td class="phpdocumentor-cell">Checks if a given function is a magic method or a PHP native double underscore method.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isSpecialMethodName">isSpecialMethodName()</a></th>
-                    <td class="phpdocumentor-cell">Verify if a given function name is the name of a magic method or a PHP native double underscore method.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                                            </table>
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"><p>The <code class="prettyprint">FunctionDeclarations::getProperties()</code> and the
+<code class="prettyprint">FunctionDeclarations::getParameters()</code> methods are based on and
+inspired by respectively the <code class="prettyprint">getMethodProperties()</code>
+and <code class="prettyprint">getMethodParameters()</code> methods in the PHPCS native
+<code class="prettyprint">PHP_CodeSniffer\Files\File</code> class.
+Also see {@see \PHPCSUtils\BackCompat\BCFile}.</p></section>
+                </dd>
+                        </dl>
+
+
+
+
+
+
+<h3>Table of Contents</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_magicFunctions">$magicFunctions</a>
+         : array    </dt>
+<dd>A list of all PHP magic functions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_magicMethods">$magicMethods</a>
+         : array    </dt>
+<dd>A list of all PHP magic methods.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#property_methodsDoubleUnderscore">$methodsDoubleUnderscore</a>
+         : array    </dt>
+<dd>A list of all PHP native non-magic methods starting with a double underscore.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getName">getName()</a>
+             : string|null</dt>
+<dd>Returns the declaration name for a function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getProperties">getProperties()</a>
+             : array</dt>
+<dd>Retrieves the visibility and implementation properties of a method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getParameters">getParameters()</a>
+             : array</dt>
+<dd>Retrieves the method parameters for the specified function token.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction">isArrowFunction()</a>
+             : bool</dt>
+<dd>Check if an arbitrary token is the &quot;fn&quot; keyword for a PHP 7.4 arrow function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose">getArrowFunctionOpenClose()</a>
+             : array|bool</dt>
+<dd>Retrieve the parenthesis opener, parenthesis closer, the scope opener and the scope closer
+for an arrow function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicFunction">isMagicFunction()</a>
+             : bool</dt>
+<dd>Checks if a given function is a PHP magic function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicFunctionName">isMagicFunctionName()</a>
+             : bool</dt>
+<dd>Verify if a given function name is the name of a PHP magic function.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicMethod">isMagicMethod()</a>
+             : bool</dt>
+<dd>Checks if a given function is a PHP magic method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isMagicMethodName">isMagicMethodName()</a>
+             : bool</dt>
+<dd>Verify if a given function name is the name of a PHP magic method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isPHPDoubleUnderscoreMethod">isPHPDoubleUnderscoreMethod()</a>
+             : bool</dt>
+<dd>Checks if a given function is a non-magic PHP native double underscore method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isPHPDoubleUnderscoreMethodName">isPHPDoubleUnderscoreMethodName()</a>
+             : bool</dt>
+<dd>Verify if a given function name is the name of a non-magic PHP native double underscore method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isSpecialMethod">isSpecialMethod()</a>
+             : bool</dt>
+<dd>Checks if a given function is a magic method or a PHP native double underscore method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isSpecialMethodName">isSpecialMethodName()</a>
+             : bool</dt>
+<dd>Verify if a given function name is the name of a magic method or a PHP native double underscore method.</dd>
+
+        </dl>
+
+
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_magicFunctions"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$magicFunctions</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">48</span>
-    </aside>
-            <p class="phpdocumentor-summary">A list of all PHP magic functions.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$magicFunctions</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;__autoload&#039; =&gt; &#039;autoload&#039;]</span>    </code>
-        <section class="phpdocumentor-description">The array keys are the function names, the values as well, but without the double underscore.
 
-The function names are listed in lowercase as function names in PHP are case-insensitive
-and comparisons against this list should therefore always be done in a case-insensitive manner.</section>
-    </article>
-                                    <a id="property_magicMethods"></a>
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-properties__header">Properties</h3>
+                    <a id="property_magicFunctions"></a>
 <article
         class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
+            phpdocumentor-element
+            -property
+            -public
+            -static                    "
 >
-    <h4 class="phpdocumentor-property__name">$magicMethods</h4>
+    <h4 class="phpdocumentor-element__name">$magicFunctions</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">64</span>
-    </aside>
-            <p class="phpdocumentor-summary">A list of all PHP magic methods.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$magicMethods</span>
-         = <span class="phpdocumentor-signature__default-value">[
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">49</span>
+</aside>
+
+        <p class="phpdocumentor-summary">A list of all PHP magic functions.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
+    <span class="phpdocumentor-signature__name">$magicFunctions</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;__autoload&#039; =&gt; &#039;autoload&#039;]</span></code>
+
+        <section class="phpdocumentor-description"><p>The array keys contain the function names. The values contain the name without the double underscore.</p>
+<p>The function names are listed in lowercase as these function names in PHP are case-insensitive
+and comparisons against this list should therefore always be done in a case-insensitive manner.</p></section>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+</article>
+                    <a id="property_magicMethods"></a>
+<article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+            -static                    "
+>
+    <h4 class="phpdocumentor-element__name">$magicMethods</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">65</span>
+</aside>
+
+        <p class="phpdocumentor-summary">A list of all PHP magic methods.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
+    <span class="phpdocumentor-signature__name">$magicMethods</span>
+     = <span class="phpdocumentor-signature__default-value">[
     &#039;__construct&#039; =&gt; &#039;construct&#039;,
     &#039;__destruct&#039; =&gt; &#039;destruct&#039;,
     &#039;__call&#039; =&gt; &#039;call&#039;,
@@ -224,966 +279,1045 @@ and comparisons against this list should therefore always be done in a case-inse
     &#039;__clone&#039; =&gt; &#039;clone&#039;,
     &#039;__invoke&#039; =&gt; &#039;invoke&#039;,
     &#039;__debuginfo&#039; =&gt; &#039;debuginfo&#039;,
-    // PHP 5.6.
+    // PHP &gt;= 5.6.
     &#039;__serialize&#039; =&gt; &#039;serialize&#039;,
-    // PHP 7.4.
+    // PHP &gt;= 7.4.
     &#039;__unserialize&#039; =&gt; &#039;unserialize&#039;,
-]</span>    </code>
-        <section class="phpdocumentor-description">The array keys are the method names, the values as well, but without the double underscore.
+]</span></code>
 
-The method names are listed in lowercase as function names in PHP are case-insensitive
-and comparisons against this list should therefore always be done in a case-insensitive manner.</section>
-    </article>
-                                    <a id="property_methodsDoubleUnderscore"></a>
+        <section class="phpdocumentor-description"><p>The array keys contain the method names. The values contain the name without the double underscore.</p>
+<p>The method names are listed in lowercase as these method names in PHP are case-insensitive
+and comparisons against this list should therefore always be done in a case-insensitive manner.</p></section>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+</article>
+                    <a id="property_methodsDoubleUnderscore"></a>
 <article
         class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
+            phpdocumentor-element
+            -property
+            -public
+            -static                    "
 >
-    <h4 class="phpdocumentor-property__name">$methodsDoubleUnderscore</h4>
+    <h4 class="phpdocumentor-element__name">$methodsDoubleUnderscore</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">99</span>
-    </aside>
-            <p class="phpdocumentor-summary">A list of all PHP native non-magic methods starting with a double underscore.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$methodsDoubleUnderscore</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;__dorequest&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getcookies&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getfunctions&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastrequest&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastrequestheaders&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastresponse&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastresponseheaders&#039; =&gt; &#039;SOAPClient&#039;, &#039;__gettypes&#039; =&gt; &#039;SOAPClient&#039;, &#039;__setcookie&#039; =&gt; &#039;SOAPClient&#039;, &#039;__setlocation&#039; =&gt; &#039;SOAPClient&#039;, &#039;__setsoapheaders&#039; =&gt; &#039;SOAPClient&#039;, &#039;__soapcall&#039; =&gt; &#039;SOAPClient&#039;]</span>    </code>
-        <section class="phpdocumentor-description">These come from PHP modules such as SOAPClient.
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">100</span>
+</aside>
 
-The array keys are the method names, the values the name of the PHP extension containing
-the function.
+        <p class="phpdocumentor-summary">A list of all PHP native non-magic methods starting with a double underscore.</p>
 
-The method names are listed in lowercase as function names in PHP are case-insensitive
-and comparisons against this list should therefore always be done in a case-insensitive manner.</section>
-    </article>
-                                    <a id="property_arrowFunctionEndTokens"></a>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
+    <span class="phpdocumentor-signature__name">$methodsDoubleUnderscore</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;__dorequest&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getcookies&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getfunctions&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastrequest&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastrequestheaders&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastresponse&#039; =&gt; &#039;SOAPClient&#039;, &#039;__getlastresponseheaders&#039; =&gt; &#039;SOAPClient&#039;, &#039;__gettypes&#039; =&gt; &#039;SOAPClient&#039;, &#039;__setcookie&#039; =&gt; &#039;SOAPClient&#039;, &#039;__setlocation&#039; =&gt; &#039;SOAPClient&#039;, &#039;__setsoapheaders&#039; =&gt; &#039;SOAPClient&#039;, &#039;__soapcall&#039; =&gt; &#039;SOAPClient&#039;]</span></code>
+
+        <section class="phpdocumentor-description"><p>These come from PHP modules such as SOAPClient.</p>
+<p>The array keys are the method names, the values the name of the PHP class containing
+the function.</p>
+<p>The method names are listed in lowercase as function names in PHP are case-insensitive
+and comparisons against this list should therefore always be done in a case-insensitive manner.</p></section>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-methods__header">Methods</h3>
+                    <a id="method_getName"></a>
 <article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-property__name">$arrowFunctionEndTokens</h4>
+    <h4 class="phpdocumentor-element__name">getName()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">121</span>
-    </aside>
-            <p class="phpdocumentor-summary">Tokens which can be the end token of an arrow function.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$arrowFunctionEndTokens</span>
-         = <span class="phpdocumentor-signature__default-value">[\T_COLON =&gt; true, \T_COMMA =&gt; true, \T_SEMICOLON =&gt; true, \T_CLOSE_PARENTHESIS =&gt; true, \T_CLOSE_SQUARE_BRACKET =&gt; true, \T_CLOSE_CURLY_BRACKET =&gt; true, \T_CLOSE_SHORT_ARRAY =&gt; true, \T_OPEN_TAG =&gt; true, \T_CLOSE_TAG =&gt; true]</span>    </code>
-    </article>
-                                                            </section>
-        
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_getName"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getName()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">155</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">155</span>
+</aside>
+
         <p class="phpdocumentor-summary">Returns the declaration name for a function.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string|null</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
         <section class="phpdocumentor-description"><p>Alias for the <a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_getName">\PHPCSUtils\Utils\ObjectDeclarations::getName()</a> method.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the declaration token
-which declared the function.</p></section></dd>
-                    </dl>
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original function.</p></section></dd>
-                                    <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">throws</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>If the specified token is not of type
-T_FUNCTION, T_CLASS, T_TRAIT, or T_INTERFACE.</p></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|null</span>
-                    &mdash; <span class="phpdocumentor-description"><p>The name of the function; or NULL if the passed token doesn't exist,
-the function is anonymous or in case of a parse error/live coding.</p></span>
-            
-</article>
-                                    <a id="method_getProperties"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getProperties()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">207</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieves the visibility and implementation properties of a method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getProperties</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>The format of the return value is:
-<code class="prettyprint">
-array(
-'scope'                 =&gt; 'public', // Public, private, or protected
-'scope_specified'       =&gt; true,     // TRUE if the scope keyword was found.
-'return_type'           =&gt; '',       // The return type of the method.
-'return_type_token'     =&gt; integer,  // The stack pointer to the start of the return type
-// or FALSE if there is no return type.
-'return_type_end_token' =&gt; integer,  // The stack pointer to the end of the return type
-// or FALSE if there is no return type.
-'nullable_return_type'  =&gt; false,    // TRUE if the return type is nullable.
-'is_abstract'           =&gt; false,    // TRUE if the abstract keyword was found.
-'is_final'              =&gt; false,    // TRUE if the final keyword was found.
-'is_static'             =&gt; false,    // TRUE if the static keyword was found.
-'has_body'              =&gt; false,    // TRUE if the method has a body
-);
-</code></p>
-<p>Main differences with the PHPCS version:</p>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the function keyword token.</p></section></dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\BackCompat\BCFile::getDeclarationName()"><abbr title="\PHPCSUtils\BackCompat\BCFile::getDeclarationName()">BCFile::getDeclarationName()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Original function.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\ObjectDeclarations::getName()"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::getName()">ObjectDeclarations::getName()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                <section class="phpdocumentor-description"><p>If the specified token is not of type
+<code class="prettyprint">T_FUNCTION</code>.</p></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string|null</span>
+            &mdash; <span class="phpdocumentor-description"><p>The name of the function; or <code class="prettyprint">NULL</code> if the passed token doesn't exist,
+the function is anonymous or in case of a parse error/live coding.</p></span>
+    
+</article>
+                    <a id="method_getProperties"></a>
+<article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name">getProperties()</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">207</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieves the visibility and implementation properties of a method.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Main differences with the PHPCS version:</p>
 <ul>
 <li>Bugs fixed:
 <ul>
 <li>Handling of PHPCS annotations.</li>
-<li><code class="prettyprint">has_body</code> index could be set to <code class="prettyprint">true</code> for functions without body in the case of
+<li><code class="prettyprint">"has_body"</code> index could be set to <code class="prettyprint">true</code> for functions without body in the case of
 parse errors or live coding.</li>
 </ul></li>
 <li>Defensive coding against incorrect calls to this method.</li>
 <li>More efficient checking whether a function has a body.</li>
-<li>New <code class="prettyprint">return_type_end_token</code> (int|false) array index.</li>
+<li>New <code class="prettyprint">"return_type_end_token"</code> (int|false) array index.</li>
 <li>To allow for backward compatible handling of arrow functions, this method will also accept
 <code class="prettyprint">T_STRING</code> tokens and examine them to check if these are arrow functions.</li>
 </ul></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the function token to
-acquire the properties for.</p></section></dd>
-                    </dl>
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original source.</p></section></dd>
-                                    <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">throws</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>If the specified position is not a T_FUNCTION
-or T_CLOSURE token nor an arrow function.</p></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getParameters"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getParameters()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">396</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieves the method parameters for the specified function token.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getParameters</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>Also supports passing in a USE token for a closure use group.</p>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the function token to
+acquire the properties for.</p></section></dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHP_CodeSniffer\Files\File::getMethodProperties()"><abbr title="\PHP_CodeSniffer\Files\File::getMethodProperties()">File::getMethodProperties()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\BackCompat\BCFile::getMethodProperties()"><abbr title="\PHPCSUtils\BackCompat\BCFile::getMethodProperties()">BCFile::getMethodProperties()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
+                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
+                                                                                                    <section class="phpdocumentor-description"><p>Added support for PHP 8.0 static return type.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                <section class="phpdocumentor-description"><p>If the specified position is not a T_FUNCTION
+or T_CLOSURE token, nor an arrow function.</p></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash; <span class="phpdocumentor-description"><p>Array with information about a function declaration.
+The format of the return value is:</p>
+<pre class="prettyprint"><code class="language-php">array(
+  'scope'                 =&gt; 'public', // Public, private, or protected
+  'scope_specified'       =&gt; true,     // TRUE if the scope keyword was found.
+  'return_type'           =&gt; '',       // The return type of the method.
+  'return_type_token'     =&gt; integer,  // The stack pointer to the start of the return type
+                                       // or FALSE if there is no return type.
+  'return_type_end_token' =&gt; integer,  // The stack pointer to the end of the return type
+                                       // or FALSE if there is no return type.
+  'nullable_return_type'  =&gt; false,    // TRUE if the return type is nullable.
+  'is_abstract'           =&gt; false,    // TRUE if the abstract keyword was found.
+  'is_final'              =&gt; false,    // TRUE if the final keyword was found.
+  'is_static'             =&gt; false,    // TRUE if the static keyword was found.
+  'has_body'              =&gt; false,    // TRUE if the method has a body
+);</code></pre></span>
+    
+</article>
+                    <a id="method_getParameters"></a>
+<article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name">getParameters()</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">401</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieves the method parameters for the specified function token.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Also supports passing in a <code class="prettyprint">T_USE</code> token for a closure use group.</p>
 <p>The returned array will contain the following information for each parameter:</p>
-<p><code class="prettyprint">
-0 =&gt; array(
-'name'                =&gt; '$var',  // The variable name.
-'token'               =&gt; integer, // The stack pointer to the variable name.
-'content'             =&gt; string,  // The full content of the variable definition.
-'pass_by_reference'   =&gt; boolean, // Is the variable passed by reference?
-'reference_token'     =&gt; integer, // The stack pointer to the reference operator
-// or FALSE if the param is not passed by reference.
-'variable_length'     =&gt; boolean, // Is the param of variable length through use of <code class="prettyprint">...</code> ?
-'variadic_token'      =&gt; integer, // The stack pointer to the ... operator
-// or FALSE if the param is not variable length.
-'type_hint'           =&gt; string,  // The type hint for the variable.
-'type_hint_token'     =&gt; integer, // The stack pointer to the start of the type hint
-// or FALSE if there is no type hint.
-'type_hint_end_token' =&gt; integer, // The stack pointer to the end of the type hint
-// or FALSE if there is no type hint.
-'nullable_type'       =&gt; boolean, // TRUE if the var type is nullable.
-'comma_token'         =&gt; integer, // The stack pointer to the comma after the param
-// or FALSE if this is the last param.
-)
-</code></p>
-<p>Parameters with default values have the following additional array indexes:
-'default'             =&gt; string,  // The full content of the default value.
-'default_token'       =&gt; integer, // The stack pointer to the start of the default value.
-'default_equal_token' =&gt; integer, // The stack pointer to the equals sign.</p>
+<pre class="prettyprint"><code class="language-php">0 =&gt; array(
+  'name'                =&gt; '$var',  // The variable name.
+  'token'               =&gt; integer, // The stack pointer to the variable name.
+  'content'             =&gt; string,  // The full content of the variable definition.
+  'pass_by_reference'   =&gt; boolean, // Is the variable passed by reference?
+  'reference_token'     =&gt; integer, // The stack pointer to the reference operator
+                                    // or FALSE if the param is not passed by reference.
+  'variable_length'     =&gt; boolean, // Is the param of variable length through use of `...` ?
+  'variadic_token'      =&gt; integer, // The stack pointer to the ... operator
+                                    // or FALSE if the param is not variable length.
+  'type_hint'           =&gt; string,  // The type hint for the variable.
+  'type_hint_token'     =&gt; integer, // The stack pointer to the start of the type hint
+                                    // or FALSE if there is no type hint.
+  'type_hint_end_token' =&gt; integer, // The stack pointer to the end of the type hint
+                                    // or FALSE if there is no type hint.
+  'nullable_type'       =&gt; boolean, // TRUE if the var type is nullable.
+  'comma_token'         =&gt; integer, // The stack pointer to the comma after the param
+                                    // or FALSE if this is the last param.
+)</code></pre>
+<p>Parameters with default values have the following additional array indexes:</p>
+<pre class="prettyprint"><code class="language-php">  'default'             =&gt; string,  // The full content of the default value.
+  'default_token'       =&gt; integer, // The stack pointer to the start of the default value.
+  'default_equal_token' =&gt; integer, // The stack pointer to the equals sign.</code></pre>
 <p>Main differences with the PHPCS version:</p>
 <ul>
 <li>Defensive coding against incorrect calls to this method.</li>
-<li>More efficient and more stable checking whether a T_USE token is a closure use.</li>
+<li>More efficient and more stable checking whether a <code class="prettyprint">T_USE</code> token is a closure use.</li>
 <li>More efficient and more stable looping of the default value.</li>
 <li>Clearer exception message when a non-closure use token was passed to the function.</li>
 <li>To allow for backward compatible handling of arrow functions, this method will also accept
 <code class="prettyprint">T_STRING</code> tokens and examine them to check if these are arrow functions.</li>
 </ul></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the function token
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the function token
 to acquire the parameters for.</p></section></dd>
-                    </dl>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHP_CodeSniffer\Files\File::getMethodParameters()"><abbr title="\PHP_CodeSniffer\Files\File::getMethodParameters()">File::getMethodParameters()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\BackCompat\BCFile::getMethodParameters()"><abbr title="\PHPCSUtils\BackCompat\BCFile::getMethodParameters()">BCFile::getMethodParameters()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original source.</p></section></dd>
-                                    <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">throws</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>If the specified $stackPtr is not of
-type T_FUNCTION, T_CLOSURE or T_USE,
-nor an arrow function.</p></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
+                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                <section class="phpdocumentor-description"><p>If the specified $stackPtr is not of
+type <code class="prettyprint">T_FUNCTION</code>, <code class="prettyprint">T_CLOSURE</code> or <code class="prettyprint">T_USE</code>,
+nor an arrow function.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                <section class="phpdocumentor-description"><p>If a passed <code class="prettyprint">T_USE</code> token is not a closure
+use token.</p></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
 </article>
-                                    <a id="method_isArrowFunction"></a>
+                    <a id="method_isArrowFunction"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isArrowFunction()</h4>
+    <h4 class="phpdocumentor-element__name">isArrowFunction()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">610</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">621</span>
+</aside>
+
         <p class="phpdocumentor-summary">Check if an arbitrary token is the &quot;fn&quot; keyword for a PHP 7.4 arrow function.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isArrowFunction</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isArrowFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"><p>Helper function for cross-version compatibility with both PHP as well as PHPCS.</p>
 <ul>
-<li>PHP 7.4+ will tokenize most tokens with the content &quot;fn&quot; as T_FN, even when it isn't an arrow function.</li>
-<li>PHPCS &lt; 3.5.3 will tokenize arrow functions keywords as T_STRING.</li>
+<li>PHP 7.4+ will tokenize most tokens with the content &quot;fn&quot; as <code class="prettyprint">T_FN</code>, even when it isn't an arrow function.</li>
+<li>PHPCS &lt; 3.5.3 will tokenize arrow functions keywords as <code class="prettyprint">T_STRING</code>.</li>
 <li>PHPCS 3.5.3/3.5.4 will tokenize the keyword differently depending on which PHP version is used
-and similar to PHP will tokenize most tokens with the content &quot;fn&quot; as T_FN, even when it's not an
+and similar to PHP will tokenize most tokens with the content &quot;fn&quot; as <code class="prettyprint">T_FN</code>, even when it's not an
 arrow function.
-Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as T_FN are not 100% the same as those tokenized
-by PHP 7.4+ as T_FN.</li>
+<blockquote>
+<p>Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as <code class="prettyprint">T_FN</code> are not 100% the same as those tokenized
+by PHP 7.4+ as <code class="prettyprint">T_FN</code>.</p>
+</blockquote></li>
 </ul>
-<p>Either way, the T_FN token is not a reliable indicator that something is in actual fact an arrow function.
-This function solves that and will give reliable results in the same way as this is now solved in PHPCS 3.5.5.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The token to check. Typically a T_FN or
+<p>Either way, the <code class="prettyprint">T_FN</code> token is not a reliable search vector for finding or examining
+arrow functions, at least not until PHPCS 3.5.5.
+This function solves that and will give reliable results in the same way as this is now
+solved in PHPCS 3.5.5.</p>
+<blockquote>
+<p>Note: Bugs are still being found and reported about how PHPCS tokenizes the arrow functions.
+This method will keep up with upstream changes and backport them, in as far possible, to allow
+for sniffing arrow functions in PHPCS &lt; current.</p>
+</blockquote></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The token to check. Typically a T_FN or
 T_STRING token as those are the only two
 tokens which can be the arrow function keyword.</p></section></dd>
-                    </dl>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()"><abbr title="\PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()">FunctionDeclarations::getArrowFunctionOpenClose()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Related function.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Related function.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the token is the &quot;fn&quot; keyword for an arrow function. <code class="prettyprint">FALSE</code> when it's not
+or in case of live coding/parse error.</p></span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-                    &mdash; <span class="phpdocumentor-description"><p>TRUE is the token is the &quot;fn&quot; keyword for an arrow function. FALSE when not or
-in case of live coding/parse error.</p></span>
-            
 </article>
-                                    <a id="method_getArrowFunctionOpenClose"></a>
+                    <a id="method_getArrowFunctionOpenClose"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">getArrowFunctionOpenClose()</h4>
+    <h4 class="phpdocumentor-element__name">getArrowFunctionOpenClose()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">666</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">677</span>
+</aside>
+
         <p class="phpdocumentor-summary">Retrieve the parenthesis opener, parenthesis closer, the scope opener and the scope closer
 for an arrow function.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getArrowFunctionOpenClose</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array|bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getArrowFunctionOpenClose</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array|bool</span></code>
 
         <section class="phpdocumentor-description"><p>Helper function for cross-version compatibility with both PHP as well as PHPCS.
 In PHPCS versions prior to PHPCS 3.5.3/3.5.4, the <code class="prettyprint">T_FN</code> token is not yet backfilled
 and does not have parenthesis opener/closer nor scope opener/closer indexes assigned
 in the <code class="prettyprint">$tokens</code> array.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The token to retrieve the openers/closers for.
-Typically a T_FN or T_STRING token as those are the
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The token to retrieve the openers/closers for.
+Typically a <code class="prettyprint">T_FN</code> or <code class="prettyprint">T_STRING</code> token as those are the
 only two tokens which can be the arrow function keyword.</p></section></dd>
-                    </dl>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()"><abbr title="\PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()">FunctionDeclarations::isArrowFunction()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>Related function.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Related function.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array|bool</span>
+            &mdash; <span class="phpdocumentor-description"><p>An array with the token pointers or <code class="prettyprint">FALSE</code> if this is not an arrow function.
+The format of the return value is:</p>
+<pre class="prettyprint"><code class="language-php">array(
+  'parenthesis_opener' =&gt; integer, // Stack pointer to the parenthesis opener.
+  'parenthesis_closer' =&gt; integer, // Stack pointer to the parenthesis closer.
+  'scope_opener'       =&gt; integer, // Stack pointer to the scope opener (arrow).
+  'scope_closer'       =&gt; integer, // Stack pointer to the scope closer.
+)</code></pre></span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array|bool</span>
-                    &mdash; <span class="phpdocumentor-description"><p>An array with the token pointers or FALSE if this is not an arrow function.
-The format of the return value is:
-<code class="prettyprint">
-array(
-'parenthesis_opener' =&gt; integer, // Stack pointer to the parenthesis opener.
-'parenthesis_closer' =&gt; integer, // Stack pointer to the parenthesis closer.
-'scope_opener'       =&gt; integer, // Stack pointer to the scope opener (arrow).
-'scope_closer'       =&gt; integer, // Stack pointer to the scope closer.
-)
-</code></p></span>
-            
 </article>
-                                    <a id="method_isMagicFunction"></a>
+                    <a id="method_isMagicFunction"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isMagicFunction()</h4>
+    <h4 class="phpdocumentor-element__name">isMagicFunction()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">814</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">839</span>
+</aside>
+
         <p class="phpdocumentor-summary">Checks if a given function is a PHP magic function.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isMagicFunction</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isMagicFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The T_FUNCTION token to check.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The <code class="prettyprint">T_FUNCTION</code> token to check.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">todo</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                    <section class="phpdocumentor-description"><p>Add check for the function declaration being namespaced!</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">todo</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Add check for the function declaration being namespaced!</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>For when you already know the name of the
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions">FunctionDeclaration::$magicFunctions</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>List of names of magic functions.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::isMagicFunctionName()"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::isMagicFunctionName()">FunctionDeclaration::isMagicFunctionName()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>For when you already know the name of the
 function and scope checking is done in the
-sniff.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+sniff.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_isMagicFunctionName"></a>
+                    <a id="method_isMagicFunctionName"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isMagicFunctionName()</h4>
+    <h4 class="phpdocumentor-element__name">isMagicFunctionName()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">838</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">865</span>
+</aside>
+
         <p class="phpdocumentor-summary">Verify if a given function name is the name of a PHP magic function.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isMagicFunctionName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isMagicFunctionName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions">FunctionDeclaration::$magicFunctions</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>List of names of magic functions.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_isMagicMethod"></a>
+                    <a id="method_isMagicMethod"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isMagicMethod()</h4>
+    <h4 class="phpdocumentor-element__name">isMagicMethod()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">858</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">886</span>
+</aside>
+
         <p class="phpdocumentor-summary">Checks if a given function is a PHP magic method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isMagicMethod</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isMagicMethod</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The T_FUNCTION token to check.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The <code class="prettyprint">T_FUNCTION</code> token to check.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>For when you already know the name of the
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::$magicMethods"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::$magicMethods">FunctionDeclaration::$magicMethods</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>List of names of magic methods.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::isMagicMethodName()"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::isMagicMethodName()">FunctionDeclaration::isMagicMethodName()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>For when you already know the name of the
 method and scope checking is done in the
-sniff.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+sniff.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_isMagicMethodName"></a>
+                    <a id="method_isMagicMethodName"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isMagicMethodName()</h4>
+    <h4 class="phpdocumentor-element__name">isMagicMethodName()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">877</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">907</span>
+</aside>
+
         <p class="phpdocumentor-summary">Verify if a given function name is the name of a PHP magic method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isMagicMethodName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isMagicMethodName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::$magicMethods"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::$magicMethods">FunctionDeclaration::$magicMethods</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>List of names of magic methods.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_isPHPDoubleUnderscoreMethod"></a>
+                    <a id="method_isPHPDoubleUnderscoreMethod"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isPHPDoubleUnderscoreMethod()</h4>
+    <h4 class="phpdocumentor-element__name">isPHPDoubleUnderscoreMethod()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">897</span>
-    </aside>
-        <p class="phpdocumentor-summary">Checks if a given function is a PHP native double underscore method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isPHPDoubleUnderscoreMethod</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">929</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Checks if a given function is a non-magic PHP native double underscore method.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isPHPDoubleUnderscoreMethod</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The T_FUNCTION token to check.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The <code class="prettyprint">T_FUNCTION</code> token to check.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>For when you already know the
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore">FunctionDeclaration::$methodsDoubleUnderscore</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>List of the PHP native non-magic
+double underscore method names.</p></section>
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::isPHPDoubleUnderscoreMethodName()"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::isPHPDoubleUnderscoreMethodName()">FunctionDeclaration::isPHPDoubleUnderscoreMethodName()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>For when you already know the
 name of the method and scope
-checking is done in the sniff.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+checking is done in the sniff.</p></section>
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_isPHPDoubleUnderscoreMethodName"></a>
+                    <a id="method_isPHPDoubleUnderscoreMethodName"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isPHPDoubleUnderscoreMethodName()</h4>
+    <h4 class="phpdocumentor-element__name">isPHPDoubleUnderscoreMethodName()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">935</span>
-    </aside>
-        <p class="phpdocumentor-summary">Verify if a given function name is the name of a PHP native double underscore method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isPHPDoubleUnderscoreMethodName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">970</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Verify if a given function name is the name of a non-magic PHP native double underscore method.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isPHPDoubleUnderscoreMethodName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore">FunctionDeclaration::$methodsDoubleUnderscore</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>List of the PHP native non-magic
+double underscore method names.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_isSpecialMethod"></a>
+                    <a id="method_isSpecialMethod"></a>
 <article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">isSpecialMethod()</h4>
+    <h4 class="phpdocumentor-element__name">isSpecialMethod()</h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">958</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">993</span>
+</aside>
+
         <p class="phpdocumentor-summary">Checks if a given function is a magic method or a PHP native double underscore method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isSpecialMethod</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$phpcsFile</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isSpecialMethod</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"><p>{@internal Not the most efficient way of checking this, but less efficient ways will get
+less reliable results or introduce a lot of code duplication.}</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The <code class="prettyprint">T_FUNCTION</code> token to check.</p></section></dd>
+            </dl>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The T_FUNCTION token to check.</p></section></dd>
-                    </dl>
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>For when you already know the name of the
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="\PHPCSUtils\Utils\FunctionDeclaration::isSpecialMethodName()"><abbr title="\PHPCSUtils\Utils\FunctionDeclaration::isSpecialMethodName()">FunctionDeclaration::isSpecialMethodName()</abbr></a></span>
+                                                            <section class="phpdocumentor-description"><p>For when you already know the name of the
 method and scope checking is done in the
-sniff.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>{@internal Not the most efficient way of checking this, but less efficient ways will get
-less reliable results or introduce a lot of code duplication.}</p></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_isSpecialMethodName"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">isSpecialMethodName()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">980</span>
-    </aside>
-        <p class="phpdocumentor-summary">Verify if a given function name is the name of a magic method or a PHP native double underscore method.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isSpecialMethodName</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
-                    </dl>
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+sniff.</p></section>
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <a id="method_isSpecialMethodName"></a>
+<article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name">isSpecialMethodName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="../files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1015</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">Verify if a given function name is the name of a magic method or a PHP native double underscore method.</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isSpecialMethodName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full function name.</p></section></dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    <section class="phpdocumentor-description"></section>
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+    
+</article>
+            </section>
+
+    </article>
+                <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+    <h2>Search results</h2>
+    <ul class="phpdocumentor-search-results__entries">
+    </ul>
+</div>
             </div>
         </div>
-    </div>
-</main>
-
+    </main>
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>
