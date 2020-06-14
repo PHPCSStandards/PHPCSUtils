@@ -31,11 +31,11 @@ use ReflectionClass;
  *
  * Test case file `path/to/ClassUnderTestUnitTest.inc`:
  *
- * {@example usage-examples/ClassUnderTestUnitTest.inc Example test case file.}
+ * {@example UtilityMethodTestCase/ClassUnderTestUnitTest.inc Example test case file.}
  *
  * Test file `path/to/ClassUnderTestUnitTest.php`:
  *
- * {@example "usage-examples/ClassUnderTestUnitTest.php" Example test file.}
+ * {@example "UtilityMethodTestCase/ClassUnderTestUnitTest.php" Example test file.}
  *
  * Note:
  * - Remove the space between the comment closers `* /` for a working example.
