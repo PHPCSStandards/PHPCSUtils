@@ -12,7 +12,7 @@ seo:
 Features
 -------------------------------------------
 
-[PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
+[PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) (or "PHPCS" for short).
 
 This package offers the following features:
 
@@ -28,14 +28,14 @@ Now you won't have to anymore. This package allows you to use the latest version
 
 These classes take most of the heavy lifting away for some frequently occurring sniff types.
 
-### A collection of static properties for often-used token groups.
+### A collection of static properties and methods for often-used token groups.
 
 Collections of related tokens often-used and needed for sniffs.
 These are additional "token groups" to compliment the ones available through the PHPCS native `PHP_CodeSniffer\Util\Tokens` class.
 
 ### An ever-growing number of utility functions for use with PHP_CodeSniffer.
 
-Whether you need to split an `array` into the individual items, are trying to determine which variables are being assigned to in a `list()` or are figuring out whether a function has a DocBlock, PHPCSUtils has you covered!
+Whether you need to split an `array` into the individual items, are trying to determine which variables are being assigned to in a `list()` or are figuring out whether a function has a DocBlock, PHPCSUtils has got you covered!
 
 Includes improved versions of the PHPCS native utility functions and plenty of new utility functions.
 
@@ -61,6 +61,8 @@ Minimum Requirements
 
 * PHP 5.4 or higher.
 * [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) 2.6.0+, 3.1.0+ (with the exception of PHPCS 3.5.3).
+* Recommended PHP extensions for optimal functionality:
+    - PCRE with Unicode support (normally enabled by default)
 
 
 Integrating PHPCSUtils in your external PHPCS standard
@@ -102,7 +104,7 @@ In addition to that, add the following to the `ruleset.xml` file of your standar
 <rule ref="PHPCS23Utils"/>
 ```
 
-> :information_source: The `PHPCS23Utils` "standard" does not add any real sniffs, it just makes sure that the Utility functions will work in PHPCS 2.x as well.
+> :information_source: The `PHPCS23Utils` "standard" does not add any real sniffs, it only makes sure that the Utility functions will work in PHPCS 2.x as well.
 
 #### Running your unit tests
 
@@ -119,7 +121,7 @@ Frequently Asked Questions
 
 #### Q: How does this all work without an external standard needing to register an autoloader?
 
-A: As PHPCSUtils is registered with PHPCS as an external standard and PHPCSUtils complies with the naming requirements of PHPCS, the PHPCS native autoloader will automatically take care of loading the classes you use from PHPCSUtils.
+A: As PHPCSUtils is registered with PHPCS as an external standard and PHPCSUtils complies with the naming requirements of PHPCS, the PHPCS native autoloader will automatically take care of loading the classes used from PHPCSUtils.
 
 #### Q: What does the `PHPCS23Utils` standard do?
 
@@ -133,7 +135,56 @@ A: The backfill for PHP 7.4 numeric literals with underscores in PHP_CodeSniffer
 
 The backfill was fixed in PHP_CodeSniffer 3.5.4.
 
+#### Q: Any other problematic PHPCS versions?
+
+A: Well, the arrow function backfill which was added in PHPCS 3.5.3 is still causing problems. In a very limited set of circumstances, it will even hang the Tokenizer. A fix for [one particular such problem](https://github.com/squizlabs/php_codesniffer/issues/2926) has been committed to `master`, but is not (yet) in a released version. It is expected to be released in PHP_CodeSniffer 3.5.6.
+
+As the Tokenizer hanging is a problem unrelated to PHPCSUtils and not something which can be mitigated from within PHPCSUtils in any conceivable way, PHPCSUtils won't block installation in combination with PHPCS 3.5.4 and 3.5.5.
+
+There are several other issues which can not be worked around, like scope closers being set incorrectly and throwing the scope setting off for the rest of the file, so not withstanding that PHPCSUtils can work around a lot of issues, it is still highly recommended to advise your end-users to always use the latest version of PHPCS for the most reliable results.
+
+#### Q: Does using PHPCSUtils have any effect on the PHPCS native sniffs?
+
+A: No. PHPCSUtils will only work for those sniffs which explicitly use the PHPCSUtils functionality.
+
+If your standard includes both PHPCS native sniffs as well as your own sniffs, your own sniffs can benefit from the back-compat layer offered by PHPCSUtils, as well as from the additional utility functions. However, the PHPCS native sniffs will not receive those benefits, as PHPCS itself does not use PHPCSUtils.
+
+#### Q: Do the utilities work with javascript/CSS files?
+
+A: JS/CSS support will be removed from PHP_CodeSniffer in PHPCS 4.x.
+While at this time, some of the utilies _may_ work with JS/CSS files, PHPCSUtils does not offer formal support for JS/CSS sniffing with PHP_CodeSniffer and will stop any existing support once PHPCS 4.x has been released.
+
+#### Q: Are all file encodings supported?
+
+A: No. The UTF-8 file encoding is the only officially supported encoding. Support for other encodings may incidentally work, but is not officially supported.
+
+> **It is recommended to advise your users to save their files as UTF-8 encoded for the best results.**
+
+PHP_CodeSniffer 3.x will default to UTF-8 as the expected file encoding.
+If your standard supports PHP_CodeSniffer 2.x, it is recommended to set the expected encoding in the ruleset to `utf-8`, like so: `<arg name="encoding" value="utf-8"/>` or to advise users to use the CLI option `--encoding=utf-8`.
+
+
+Potential Support Questions from your End-Users
+-------
+
+#### Q: A user reports a fatal "class not found" error for a class from PHPCSUtils.
+
+1. Check that the version of PHPCSUtils the user has installed complies with the minimum version of PHPCSUtils your standard requires. If not, they will need to upgrade.
+2. If the version is correct, this indicates that the end-user does not have PHPCSUtils installed and/or registered with PHP_CodeSniffer.
+    - Please review your standard's installation instructions to make sure that PHPCSUtils will be installed when those are followed.
+    - Inform the user to install PHPCSUtils and register it with PHP_CodeSniffer.
+
+> :bulb: **Pro-tip**: if you want to prevent the fatal error and show a _friendlier_ error message instead, add `<rule ref="PHPCSUtils"/>` to your standard's `ruleset.xml` file.
+>
+> With that in place, PHP_CodeSniffer will show a _"ERROR: the "PHPCSUtils" coding standard is not installed."_ message if PHPCSUtils is missing as soon as the ruleset loading is finished.
+
+> :bulb: **Pro-tip**: provide upgrade instructions for your end-users. For Composer-based installs, those should look like this:
+> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer update <span class="s">your/cs-package</span> <span class="mf">--with-dependencies</span>
+> </code></pre></div></div>
+> That way, when the user updates your coding standards package, they will automatically also update PHPCSUtils.
+
 </div>
+
 
 Contributing
 -------
