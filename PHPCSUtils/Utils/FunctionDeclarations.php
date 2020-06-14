@@ -176,6 +176,7 @@ class FunctionDeclarations
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to

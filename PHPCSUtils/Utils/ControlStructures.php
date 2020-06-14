@@ -348,7 +348,7 @@ class ControlStructures
     /**
      * Retrieve the exception(s) being caught in a CATCH condition.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.

@@ -368,7 +368,7 @@ class UseStatements
      * @see \PHPCSUtils\AbstractSniffs\AbstractFileContextSniff
      * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha3
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile             The file where this token was found.
      * @param int                         $stackPtr              The position in the stack of the `T_USE` token.
