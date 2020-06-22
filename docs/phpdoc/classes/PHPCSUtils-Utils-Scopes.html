@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
@@ -85,17 +84,21 @@
     <span class="phpdocumentor-element-found-in__line">24</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Utility functions for use when examining token scopes.</p>
-<section class="phpdocumentor-description"></section>
+            <p class="phpdocumentor-summary">Utility functions for use when examining token scopes.</p>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -104,23 +107,25 @@
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Scopes.html#method_validDirectScope">validDirectScope()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Check whether the direct wrapping scope of a token is within a limited set of
-acceptable tokens.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-Scopes.html#method_isOOConstant">isOOConstant()</a>
     <span>
                         &nbsp;: bool    </span>
 </dt>
 <dd>Check whether a T_CONST token is a class/interface constant declaration.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Scopes.html#method_isOOMethod">isOOMethod()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Check whether a T_FUNCTION token is a class/interface/trait method declaration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-Scopes.html#method_isOOProperty">isOOProperty()</a>
@@ -130,11 +135,12 @@ acceptable tokens.</dd>
 <dd>Check whether a T_VARIABLE token is a class/trait property declaration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Scopes.html#method_isOOMethod">isOOMethod()</a>
+    <a href="../classes/PHPCSUtils-Utils-Scopes.html#method_validDirectScope">validDirectScope()</a>
     <span>
-                        &nbsp;: bool    </span>
+                        &nbsp;: int|false    </span>
 </dt>
-<dd>Check whether a T_FUNCTION token is a class/interface/trait method declaration.</dd>
+<dd>Check whether the direct wrapping scope of a token is within a limited set of
+acceptable tokens.</dd>
 
         </dl>
 
@@ -145,76 +151,20 @@ acceptable tokens.</dd>
         
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_validDirectScope"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">validDirectScope()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="../files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">42</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Check whether the direct wrapping scope of a token is within a limited set of
-acceptable tokens.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">validDirectScope</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validScopes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the
-token to verify.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validScopes</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants representing
-the scopes considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the valid direct scope; or <code class="prettyprint">FALSE</code> if
-no valid direct scope was found.</p></span>
-    
-</article>
-                    <a id="method_isOOConstant"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">isOOConstant()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isOOConstant">
+        isOOConstant()
+        <a href="#method_isOOConstant" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="../files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
     :
@@ -234,91 +184,52 @@ no valid direct scope was found.</p></span>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the
-<code class="prettyprint">T_CONST</code> token to verify.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the
+<code class="prettyprint">T_CONST</code> token to verify.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
     
 </article>
-                    <a id="method_isOOProperty"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isOOProperty()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="../files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">95</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Check whether a T_VARIABLE token is a class/trait property declaration.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isOOProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the
-<code class="prettyprint">T_VARIABLE</code> token to verify.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-    
-</article>
-                    <a id="method_isOOMethod"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">isOOMethod()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isOOMethod">
+        isOOMethod()
+        <a href="#method_isOOMethod" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="../files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
     :
@@ -338,29 +249,182 @@ no valid direct scope was found.</p></span>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the
-<code class="prettyprint">T_FUNCTION</code> token to verify.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the
+<code class="prettyprint">T_FUNCTION</code> token to verify.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isOOProperty">
+        isOOProperty()
+        <a href="#method_isOOProperty" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="../files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">95</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Check whether a T_VARIABLE token is a class/trait property declaration.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isOOProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the
+<code class="prettyprint">T_VARIABLE</code> token to verify.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_validDirectScope">
+        validDirectScope()
+        <a href="#method_validDirectScope" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="../files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Check whether the direct wrapping scope of a token is within a limited set of
+acceptable tokens.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">validDirectScope</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validScopes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the
+token to verify.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validScopes</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants representing
+the scopes considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the valid direct scope; or <code class="prettyprint">FALSE</code> if
+no valid direct scope was found.</p></section>
+
     
 </article>
             </section>
@@ -374,7 +438,10 @@ no valid direct scope was found.</p></span>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

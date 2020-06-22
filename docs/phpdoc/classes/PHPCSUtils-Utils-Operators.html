@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
@@ -85,28 +84,34 @@
     <span class="phpdocumentor-element-found-in__line">31</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Utility functions for use when working with operators.</p>
-<section class="phpdocumentor-description"></section>
+            <p class="phpdocumentor-summary">Utility functions for use when working with operators.</p>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">link</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                                         <a class="phpdocumentor-tag-link" href="https://www.php.net/language.operators">https://www.php.net/language.operators</a>
-                                        <section class="phpdocumentor-description"><p>PHP manual on operators.</p></section>
+                                            <section class="phpdocumentor-description"><p>PHP manual on operators.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"><p>The <code class="prettyprint">isReference()</code> method is based on and inspired by
+                                                                                                        <section class="phpdocumentor-description"><p>The <code class="prettyprint">isReference()</code> method is based on and inspired by
 the method of the same name in the PHPCS native <code class="prettyprint">File</code> class.
 Also see {@see \PHPCSUtils\BackCompat\BCFile}.
 The <code class="prettyprint">isUnaryPlusMinus()</code> method is, in part, inspired by the
 <code class="prettyprint">Squiz.WhiteSpace.OperatorSpacing</code> sniff.</p></section>
+
                 </dd>
                         </dl>
 
@@ -115,7 +120,10 @@ The <code class="prettyprint">isUnaryPlusMinus()</code> method is, in part, insp
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -126,18 +134,18 @@ The <code class="prettyprint">isUnaryPlusMinus()</code> method is, in part, insp
 <dd>Determine if the passed token is a reference operator.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Operators.html#method_isUnaryPlusMinus">isUnaryPlusMinus()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Determine whether a T_MINUS/T_PLUS token is a unary operator.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-Operators.html#method_isShortTernary">isShortTernary()</a>
     <span>
                         &nbsp;: bool    </span>
 </dt>
 <dd>Determine whether a ternary is a short ternary/elvis operator, i.e. without &quot;middle&quot;.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Operators.html#method_isUnaryPlusMinus">isUnaryPlusMinus()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Determine whether a T_MINUS/T_PLUS token is a unary operator.</dd>
 
         </dl>
 
@@ -148,19 +156,24 @@ The <code class="prettyprint">isUnaryPlusMinus()</code> method is, in part, insp
         
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_isReference"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isReference()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isReference">
+        isReference()
+        <a href="#method_isReference" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Operators.php"><a href="../files/phpcsutils-utils-operators.html"><abbr title="PHPCSUtils/Utils/Operators.php">Operators.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 </aside>
 
         <p class="phpdocumentor-summary">Determine if the passed token is a reference operator.</p>
@@ -171,9 +184,6 @@ The <code class="prettyprint">isUnaryPlusMinus()</code> method is, in part, insp
 
         <section class="phpdocumentor-description"><p>Main differences with the PHPCS version:</p>
 <ul>
-<li>Bug fixed: the reference operator for closures declared to return by reference was not
-recognized as a reference.
-<a href="https://github.com/squizlabs/PHP_CodeSniffer/pull/2977">Open PR upstream</a></li>
 <li>Defensive coding against incorrect calls to this method.</li>
 <li>Improved handling of select tokenizer errors involving short lists/short arrays.</li>
 </ul></section>
@@ -184,119 +194,81 @@ recognized as a reference.
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_BITWISE_AND</code> token.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_BITWISE_AND</code> token.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::isReference()">File::isReference()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_isReference"><abbr title="\PHPCSUtils\BackCompat\BCFile::isReference()">BCFile::isReference()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the specified token position represents a reference.
-<code class="prettyprint">FALSE</code> if the token represents a bitwise operator.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the specified token position represents a reference.
+<code class="prettyprint">FALSE</code> if the token represents a bitwise operator.</p></section>
+
     
 </article>
-                    <a id="method_isUnaryPlusMinus"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isUnaryPlusMinus()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isShortTernary">
+        isShortTernary()
+        <a href="#method_isShortTernary" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Operators.php"><a href="../files/phpcsutils-utils-operators.html"><abbr title="PHPCSUtils/Utils/Operators.php">Operators.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Determine whether a T_MINUS/T_PLUS token is a unary operator.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isUnaryPlusMinus</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the plus/minus token.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the token passed is a unary operator.
-<code class="prettyprint">FALSE</code> otherwise, i.e. if the token is an arithmetic operator,
-or if the token is not a <code class="prettyprint">T_PLUS</code>/<code class="prettyprint">T_MINUS</code> token.</p></span>
-    
-</article>
-                    <a id="method_isShortTernary"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">isShortTernary()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Operators.php"><a href="../files/phpcsutils-utils-operators.html"><abbr title="PHPCSUtils/Utils/Operators.php">Operators.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">247</span>
+    <span class="phpdocumentor-element-found-in__line">244</span>
 </aside>
 
         <p class="phpdocumentor-summary">Determine whether a ternary is a short ternary/elvis operator, i.e. without &quot;middle&quot;.</p>
@@ -312,30 +284,108 @@ or if the token is not a <code class="prettyprint">T_PLUS</code>/<code class="pr
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the ternary then/else
-operator in the stack.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the ternary then/else
+operator in the stack.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if short ternary; or <code class="prettyprint">FALSE</code> otherwise.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if short ternary; or <code class="prettyprint">FALSE</code> otherwise.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isUnaryPlusMinus">
+        isUnaryPlusMinus()
+        <a href="#method_isUnaryPlusMinus" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Operators.php"><a href="../files/phpcsutils-utils-operators.html"><abbr title="PHPCSUtils/Utils/Operators.php">Operators.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">185</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Determine whether a T_MINUS/T_PLUS token is a unary operator.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isUnaryPlusMinus</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the plus/minus token.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the token passed is a unary operator.
+<code class="prettyprint">FALSE</code> otherwise, i.e. if the token is an arithmetic operator,
+or if the token is not a <code class="prettyprint">T_PLUS</code>/<code class="prettyprint">T_MINUS</code> token.</p></section>
+
     
 </article>
             </section>
@@ -349,7 +399,10 @@ operator in the stack.</p></section></dd>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

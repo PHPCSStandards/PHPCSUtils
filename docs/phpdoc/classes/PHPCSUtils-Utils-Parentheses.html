@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
@@ -85,18 +84,22 @@
     <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped in
+            <p class="phpdocumentor-summary">Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped in
 parentheses.</p>
-<section class="phpdocumentor-description"></section>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -105,15 +108,81 @@ parentheses.</p>
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_firstOwnerIn">firstOwnerIn()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Check whether the owner of a outermost wrapping set of parentheses of an arbitrary token
+is within a limited set of acceptable token types.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstCloser">getFirstCloser()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Retrieve the position of the closer to the first (outer) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstOpener">getFirstOpener()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Retrieve the position of the opener to the first (outer) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstOwner">getFirstOwner()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Retrieve the position of the parentheses owner to the first (outer) set of parentheses an
+arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getLastCloser">getLastCloser()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Retrieve the position of the closer to the last (inner) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getLastOpener">getLastOpener()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Retrieve the position of the opener to the last (inner) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getLastOwner">getLastOwner()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Retrieve the position of the parentheses owner to the last (inner) set of parentheses an
+arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getOwner">getOwner()</a>
     <span>
-                        &nbsp;: int|bool    </span>
+                        &nbsp;: int|false    </span>
 </dt>
 <dd>Get the pointer to the parentheses owner of an open/close parenthesis.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_hasOwner">hasOwner()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Check whether the passed token is nested within parentheses owned by one of the valid owners.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_isOwnerIn">isOwnerIn()</a>
@@ -124,72 +193,9 @@ parentheses.</p>
 set of valid owners.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_hasOwner">hasOwner()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Check whether the passed token is nested within parentheses owned by one of the valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstOpener">getFirstOpener()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Retrieve the position of the opener to the first (outer) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstCloser">getFirstCloser()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Retrieve the position of the closer to the first (outer) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstOwner">getFirstOwner()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Retrieve the position of the parentheses owner to the first (outer) set of parentheses an
-arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getLastOpener">getLastOpener()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Retrieve the position of the opener to the last (inner) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getLastCloser">getLastCloser()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Retrieve the position of the closer to the last (inner) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getLastOwner">getLastOwner()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Retrieve the position of the parentheses owner to the last (inner) set of parentheses an
-arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_firstOwnerIn">firstOwnerIn()</a>
-    <span>
-                        &nbsp;: int|bool    </span>
-</dt>
-<dd>Check whether the owner of a outermost wrapping set of parentheses of an arbitrary token
-is within a limited set of acceptable token types.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_lastOwnerIn">lastOwnerIn()</a>
     <span>
-                        &nbsp;: int|bool    </span>
+                        &nbsp;: int|false    </span>
 </dt>
 <dd>Check whether the owner of a innermost wrapping set of parentheses of an arbitrary token
 is within a limited set of acceptable token types.</dd>
@@ -203,15 +209,573 @@ is within a limited set of acceptable token types.</dd>
         
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_getOwner"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getOwner()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_firstOwnerIn">
+        firstOwnerIn()
+        <a href="#method_firstOwnerIn" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">327</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Check whether the owner of a outermost wrapping set of parentheses of an arbitrary token
+is within a limited set of acceptable token types.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">firstOwnerIn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the
+token to verify.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the valid parentheses owner; or <code class="prettyprint">FALSE</code> if
+the token was not wrapped in parentheses or if the outermost set
+of parentheses in which the token is wrapped does not have an owner
+within the set of owners considered valid.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getFirstCloser">
+        getFirstCloser()
+        <a href="#method_getFirstCloser" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">191</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the position of the closer to the first (outer) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getFirstCloser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the closer to the first set of parentheses surrounding
+the token will be returned.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses closer; or <code class="prettyprint">FALSE</code> if the token
+does not have parentheses owned by any of the valid owners or if
+the token is not nested in parentheses at all.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getFirstOpener">
+        getFirstOpener()
+        <a href="#method_getFirstOpener" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">168</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the position of the opener to the first (outer) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getFirstOpener</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the opener to the first set of parentheses surrounding
+the token will be returned.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses opener; or <code class="prettyprint">FALSE</code> if the token
+does not have parentheses owned by any of the valid owners or if
+the token is not nested in parentheses at all.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getFirstOwner">
+        getFirstOwner()
+        <a href="#method_getFirstOwner" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">220</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the position of the parentheses owner to the first (outer) set of parentheses an
+arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getFirstOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the owner to the first set of parentheses surrounding
+the token will be returned or <code class="prettyprint">false</code> if the first set of parentheses does not have an owner.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses owner; or <code class="prettyprint">FALSE</code> if the token
+does not have parentheses owned by any of the valid owners or if
+the token is not nested in parentheses at all.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getLastCloser">
+        getLastCloser()
+        <a href="#method_getLastCloser" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">271</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the position of the closer to the last (inner) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLastCloser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the closer to the last set of parentheses surrounding
+the token will be returned.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses closer; or <code class="prettyprint">FALSE</code> if the token
+does not have parentheses owned by any of the valid owners or if
+the token is not nested in parentheses at all.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getLastOpener">
+        getLastOpener()
+        <a href="#method_getLastOpener" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">248</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the position of the opener to the last (inner) set of parentheses an arbitrary
+token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLastOpener</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the opener to the last set of parentheses surrounding
+the token will be returned.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses opener; or <code class="prettyprint">FALSE</code> if the token
+does not have parentheses owned by any of the valid owners or if
+the token is not nested in parentheses at all.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getLastOwner">
+        getLastOwner()
+        <a href="#method_getLastOwner" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">300</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the position of the parentheses owner to the last (inner) set of parentheses an
+arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLastOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the owner to the last set of parentheses surrounding
+the token will be returned or <code class="prettyprint">false</code> if the last set of parentheses does not have an owner.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses owner; or <code class="prettyprint">FALSE</code> if the token
+does not have parentheses owned by any of the valid owners or if
+the token is not nested in parentheses at all.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getOwner">
+        getOwner()
+        <a href="#method_getOwner" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
     :
@@ -222,7 +786,7 @@ is within a limited set of acceptable token types.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -231,48 +795,135 @@ is within a limited set of acceptable token types.</dd>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of <code class="prettyprint">T_OPEN/CLOSE_PARENTHESIS</code> token.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of <code class="prettyprint">T_OPEN/CLOSE_PARENTHESIS</code> token.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses owner; or <code class="prettyprint">FALSE</code> if the
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the parentheses owner; or <code class="prettyprint">FALSE</code> if the
 parenthesis does not have a (direct) owner or if the token passed
-was not a parenthesis.</p></span>
+was not a parenthesis.</p></section>
+
     
 </article>
-                    <a id="method_isOwnerIn"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isOwnerIn()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_hasOwner">
+        hasOwner()
+        <a href="#method_hasOwner" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">145</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Check whether the passed token is nested within parentheses owned by one of the valid owners.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">hasOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isOwnerIn">
+        isOwnerIn()
+        <a href="#method_isOwnerIn" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
     :
@@ -293,551 +944,70 @@ set of valid owners.</p>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of <code class="prettyprint">T_OPEN/CLOSE_PARENTHESIS</code> token.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of <code class="prettyprint">T_OPEN/CLOSE_PARENTHESIS</code> token.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$validOwners</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the owner is within the list of <code class="prettyprint">$validOwners</code>; <code class="prettyprint">FALSE</code> if not and
-if the parenthesis does not have a (direct) owner.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the owner is within the list of <code class="prettyprint">$validOwners</code>; <code class="prettyprint">FALSE</code> if not and
+if the parenthesis does not have a (direct) owner.</p></section>
+
     
 </article>
-                    <a id="method_hasOwner"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">hasOwner()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">145</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Check whether the passed token is nested within parentheses owned by one of the valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">hasOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-    
-</article>
-                    <a id="method_getFirstOpener"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getFirstOpener()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">168</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the position of the opener to the first (outer) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getFirstOpener</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the opener to the first set of parentheses surrounding
-the token will be returned.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses opener; or <code class="prettyprint">FALSE</code> if the token
-does not have parentheses owned by any of the valid owners or if
-the token is not nested in parentheses at all.</p></span>
-    
-</article>
-                    <a id="method_getFirstCloser"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getFirstCloser()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">191</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the position of the closer to the first (outer) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getFirstCloser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the closer to the first set of parentheses surrounding
-the token will be returned.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses closer; or <code class="prettyprint">FALSE</code> if the token
-does not have parentheses owned by any of the valid owners or if
-the token is not nested in parentheses at all.</p></span>
-    
-</article>
-                    <a id="method_getFirstOwner"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getFirstOwner()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">220</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the position of the parentheses owner to the first (outer) set of parentheses an
-arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getFirstOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the owner to the first set of parentheses surrounding
-the token will be returned or <code class="prettyprint">false</code> if the first set of parentheses does not have an owner.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses owner; or <code class="prettyprint">FALSE</code> if the token
-does not have parentheses owned by any of the valid owners or if
-the token is not nested in parentheses at all.</p></span>
-    
-</article>
-                    <a id="method_getLastOpener"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getLastOpener()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">248</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the position of the opener to the last (inner) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLastOpener</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the opener to the last set of parentheses surrounding
-the token will be returned.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses opener; or <code class="prettyprint">FALSE</code> if the token
-does not have parentheses owned by any of the valid owners or if
-the token is not nested in parentheses at all.</p></span>
-    
-</article>
-                    <a id="method_getLastCloser"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getLastCloser()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">271</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the position of the closer to the last (inner) set of parentheses an arbitrary
-token is wrapped in, where the parentheses owner is within the set of valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLastCloser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the closer to the last set of parentheses surrounding
-the token will be returned.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses closer; or <code class="prettyprint">FALSE</code> if the token
-does not have parentheses owned by any of the valid owners or if
-the token is not nested in parentheses at all.</p></span>
-    
-</article>
-                    <a id="method_getLastOwner"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getLastOwner()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">300</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the position of the parentheses owner to the last (inner) set of parentheses an
-arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLastOwner</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>If no <code class="prettyprint">$validOwners</code> are specified, the owner to the last set of parentheses surrounding
-the token will be returned or <code class="prettyprint">false</code> if the last set of parentheses does not have an owner.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the parentheses owner; or <code class="prettyprint">FALSE</code> if the token
-does not have parentheses owned by any of the valid owners or if
-the token is not nested in parentheses at all.</p></span>
-    
-</article>
-                    <a id="method_firstOwnerIn"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">firstOwnerIn()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">327</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Check whether the owner of a outermost wrapping set of parentheses of an arbitrary token
-is within a limited set of acceptable token types.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">firstOwnerIn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the
-token to verify.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$validOwners</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the valid parentheses owner; or <code class="prettyprint">FALSE</code> if
-the token was not wrapped in parentheses or if the outermost set
-of parentheses in which the token is wrapped does not have an owner
-within the set of owners considered valid.</p></span>
-    
-</article>
-                    <a id="method_lastOwnerIn"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">lastOwnerIn()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_lastOwnerIn">
+        lastOwnerIn()
+        <a href="#method_lastOwnerIn" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Parentheses.php"><a href="../files/phpcsutils-utils-parentheses.html"><abbr title="PHPCSUtils/Utils/Parentheses.php">Parentheses.php</abbr></a></abbr>
     :
@@ -849,7 +1019,7 @@ is within a limited set of acceptable token types.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">lastOwnerIn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">lastOwnerIn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validOwners</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -858,39 +1028,53 @@ is within a limited set of acceptable token types.</p>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the
-token to verify.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the
+token to verify.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$validOwners</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Array of token constants for the owners
-which should be considered valid.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Array of token constants for the owners
+which should be considered valid.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the valid parentheses owner; or <code class="prettyprint">FALSE</code> if
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the valid parentheses owner; or <code class="prettyprint">FALSE</code> if
 the token was not wrapped in parentheses or if the innermost set
 of parentheses in which the token is wrapped does not have an owner
-within the set of owners considered valid.</p></span>
+within the set of owners considered valid.</p></section>
+
     
 </article>
             </section>
@@ -904,7 +1088,10 @@ within the set of owners considered valid.</p></span>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

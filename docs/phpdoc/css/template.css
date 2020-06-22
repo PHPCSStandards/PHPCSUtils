@@ -8,6 +8,10 @@
     position: relative;
 }
 
+.phpdocumentor .phpdocumentor-element__name {
+    line-height: 1;
+}
+
 .phpdocumentor-element__package,
 .phpdocumentor-element__extends,
 .phpdocumentor-element__implements {
@@ -28,6 +32,15 @@
 
 .phpdocumentor-element.-deprecated .phpdocumentor-element__name {
     text-decoration: line-through;
+}
+
+.phpdocumentor-element__modifier {
+    font-size: var(--text-xxs);
+    padding: calc(var(--spacing-base-size) / 4) calc(var(--spacing-base-size) / 2);
+    color: var(--text-color);
+    background-color: var(--light-gray);
+    border-radius: 3px;
+    text-transform: uppercase;
 }
 .phpdocumentor-signature {
     display: inline-block;
@@ -133,6 +146,10 @@
     font-style: italic;
     margin-left: 2rem;
 }
+.phpdocumentor-content {
+    position: relative;
+}
+
 .phpdocumentor-search-results {
     backdrop-filter: blur(5px);
     background: var(--popover-background-color);
@@ -199,37 +216,4 @@
 
 .phpdocumentor-tag-link {
     margin-right: var(--spacing-sm);
-}
-.phpdocumentor-search {
-    position: relative;
-    display: none; /** disable by default for non-js flow */
-    opacity: .3; /** white-out default for loading indication */
-    transition: opacity .3s, background .3s;
-}
-.phpdocumentor-search:before {
-    content: '';
-    background: transparent;
-    left: calc(-1 * var(--spacing-md));
-    height: 100%;
-    position: absolute;
-    right: -15px;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity .3s, background .3s;
-}
-
-.phpdocumentor-search--enabled {
-    display: block;
-}
-
-.phpdocumentor-search--active {
-    opacity: 1;
-}
-.phpdocumentor-search--has-results:before {
-    background: var(--popover-background-color);
-    opacity: 1;
-}
-
-.phpdocumentor-search input:disabled {
-    background-color: lightgray;
 }

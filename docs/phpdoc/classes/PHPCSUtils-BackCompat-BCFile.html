@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-backcompat.html">BackCompat</a></li>
@@ -85,8 +84,9 @@
     <span class="phpdocumentor-element-found-in__line">83</span>
 </aside>
 
-        <p class="phpdocumentor-summary">PHPCS native utility functions.</p>
-<section class="phpdocumentor-description"><p>Backport of the latest versions of PHPCS native utility functions to make them
+            <p class="phpdocumentor-summary">PHPCS native utility functions.</p>
+
+    <section class="phpdocumentor-description"><p>Backport of the latest versions of PHPCS native utility functions to make them
 available in older PHPCS versions without the bugs and other quirks that the
 older versions of the native functions had.</p>
 <p>Additionally, this class works round the following tokenizer issues for
@@ -116,21 +116,26 @@ native functions.
 The differences between the functions here and the twin functions are documented
 in the docblock of the respective twin-function.</p></section>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source of these utility methods.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source of these utility methods.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -139,15 +144,67 @@ in the docblock of the respective twin-function.</p></section>
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findEndOfStatement">findEndOfStatement()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Returns the position of the last non-whitespace token in a statement.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findExtendedClassName">findExtendedClassName()</a>
+    <span>
+                        &nbsp;: string|false    </span>
+</dt>
+<dd>Returns the name of the class that the specified class extends.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findImplementedInterfaceNames">findImplementedInterfaceNames()</a>
+    <span>
+                        &nbsp;: array|false    </span>
+</dt>
+<dd>Returns the names of the interfaces that the specified class implements.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findStartOfStatement">findStartOfStatement()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Returns the position of the first non-whitespace token in a statement.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getClassProperties">getClassProperties()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Returns the implementation properties of a class.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getCondition">getCondition()</a>
+    <span>
+                        &nbsp;: int|false    </span>
+</dt>
+<dd>Return the position of the condition for the passed token.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getDeclarationName">getDeclarationName()</a>
     <span>
                         &nbsp;: string|null    </span>
 </dt>
 <dd>Returns the declaration names for classes, interfaces, traits, and functions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getMemberProperties">getMemberProperties()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Returns the visibility and implementation properties of a class member var.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getMethodParameters">getMethodParameters()</a>
@@ -164,47 +221,12 @@ in the docblock of the respective twin-function.</p></section>
 <dd>Returns the visibility and implementation properties of a method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getMemberProperties">getMemberProperties()</a>
-    <span>
-                        &nbsp;: array    </span>
-</dt>
-<dd>Returns the visibility and implementation properties of a class member var.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getClassProperties">getClassProperties()</a>
-    <span>
-                        &nbsp;: array    </span>
-</dt>
-<dd>Returns the implementation properties of a class.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_isReference">isReference()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Determine if the passed token is a reference operator.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getTokensAsString">getTokensAsString()</a>
     <span>
                         &nbsp;: string    </span>
 </dt>
 <dd>Returns the content of the tokens from the specified start position in
 the token stack for the specified length.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findStartOfStatement">findStartOfStatement()</a>
-    <span>
-                        &nbsp;: int    </span>
-</dt>
-<dd>Returns the position of the first non-whitespace token in a statement.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findEndOfStatement">findEndOfStatement()</a>
-    <span>
-                        &nbsp;: int    </span>
-</dt>
-<dd>Returns the position of the last non-whitespace token in a statement.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_hasCondition">hasCondition()</a>
@@ -214,25 +236,11 @@ the token stack for the specified length.</dd>
 <dd>Determine if the passed token has a condition of one of the passed types.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getCondition">getCondition()</a>
+    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_isReference">isReference()</a>
     <span>
-                        &nbsp;: int|bool    </span>
+                        &nbsp;: bool    </span>
 </dt>
-<dd>Return the position of the condition for the passed token.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findExtendedClassName">findExtendedClassName()</a>
-    <span>
-                        &nbsp;: string|bool    </span>
-</dt>
-<dd>Returns the name of the class that the specified class extends.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_findImplementedInterfaceNames">findImplementedInterfaceNames()</a>
-    <span>
-                        &nbsp;: array|bool    </span>
-</dt>
-<dd>Returns the names of the interfaces that the specified class implements.</dd>
+<dd>Determine if the passed token is a reference operator.</dd>
 
         </dl>
 
@@ -243,15 +251,615 @@ the token stack for the specified length.</dd>
         
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_getDeclarationName"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getDeclarationName()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_findEndOfStatement">
+        findEndOfStatement()
+        <a href="#method_findEndOfStatement" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1274</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Returns the position of the last non-whitespace token in a statement.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findEndOfStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignore</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the `File::findEndOfStatement()  method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 2.1.0.</li>
+<li>PHPCS 2.6.2: New optional <code class="prettyprint">$ignore</code> parameter to selectively ignore stop points.</li>
+<li>PHPCS 2.7.1: Improved handling of short arrays, PHPCS #1203.</li>
+<li>PHPCS 3.3.0: Bug fix: end of statement detection when passed a scope opener, PHPCS #1863.</li>
+<li>PHPCS 3.5.0: Improved handling of group use statements.</li>
+<li>PHPCS 3.5.3: Added support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions.</li>
+<li>PHPCS 3.5.4: Improved support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions.</li>
+<li>PHPCS 3.5.5: Improved support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions, PHPCS #2895.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start searching from in the token stack.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$ignore</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Token types that should not be considered stop points.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findEndOfStatement()">File::findEndOfStatement()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_findExtendedClassName">
+        findExtendedClassName()
+        <a href="#method_findExtendedClassName" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1474</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Returns the name of the class that the specified class extends.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findExtendedClassName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|false</span></code>
+
+        <section class="phpdocumentor-description"><p>(works for classes, anonymous classes and interfaces)</p>
+<p>PHPCS cross-version compatible version of the <code class="prettyprint">File::findExtendedClassName()</code> method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 1.2.0.</li>
+<li>PHPCS 2.8.0: Now supports anonymous classes.</li>
+<li>PHPCS 3.1.0: Now supports interfaces extending interfaces (incorrectly, only supporting
+single interface extension).</li>
+<li>PHPCS 3.3.2: Fixed bug causing bleed through with nested classes, PHPCS#2127.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The stack position of the class or interface.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findExtendedClassName()">File::findExtendedClassName()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_findExtendedClassName"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName()">ObjectDeclarations::findExtendedClassName()</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The extended class name or <code class="prettyprint">FALSE</code> on error or if there
+is no extended class name.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_findImplementedInterfaceNames">
+        findImplementedInterfaceNames()
+        <a href="#method_findImplementedInterfaceNames" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1537</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Returns the names of the interfaces that the specified class implements.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findImplementedInterfaceNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array|false</span></code>
+
+        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::findImplementedInterfaceNames()</code> method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 2.7.0.</li>
+<li>PHPCS 2.8.0: Now supports anonymous classes.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The stack position of the class.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()">File::findImplementedInterfaceNames()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_findImplementedInterfaceNames"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames()">ObjectDeclarations::findImplementedInterfaceNames()</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Array with names of the implemented interfaces or <code class="prettyprint">FALSE</code> on
+error or if there are no implemented interface names.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_findStartOfStatement">
+        findStartOfStatement()
+        <a href="#method_findStartOfStatement" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1192</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Returns the position of the first non-whitespace token in a statement.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findStartOfStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignore</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::findStartOfStatement()</code> method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 2.1.0.</li>
+<li>PHPCS 2.6.2: New optional <code class="prettyprint">$ignore</code> parameter to selectively ignore stop points.</li>
+<li>PHPCS 3.5.5: Added support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start searching from in the token stack.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$ignore</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Token types that should not be considered stop points.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findStartOfStatement()">File::findStartOfStatement()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getClassProperties">
+        getClassProperties()
+        <a href="#method_getClassProperties" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">922</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Returns the implementation properties of a class.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getClassProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>The format of the return value is:</p>
+<pre class="prettyprint"><code class="language-php">array(
+  'is_abstract' =&gt; false, // TRUE if the abstract keyword was found.
+  'is_final'    =&gt; false, // TRUE if the final keyword was found.
+);</code></pre>
+<p>PHPCS cross-version compatible version of the <code class="prettyprint">File::getClassProperties()</code> method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 1.3.0.</li>
+<li>PHPCS 3.0.0: The Exception thrown changed from a <code class="prettyprint">PHP_CodeSniffer_Exception</code> to
+<code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>.</li>
+<li>PHPCS 3.5.0: The Exception thrown changed from a <code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>
+to<code class="prettyprint">\PHP_CodeSniffer\Exceptions\RuntimeException</code>.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_CLASS</code>
+token to acquire the properties for.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getClassProperties()">File::getClassProperties()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_getClassProperties"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::getClassProperties()">ObjectDeclarations::getClassProperties()</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_CLASS</code> token.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getCondition">
+        getCondition()
+        <a href="#method_getCondition" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1422</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Return the position of the condition for the passed token.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getCondition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$first</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|false</span></code>
+
+        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::getCondition()</code> method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 1.3.0.</li>
+<li>PHPCS 3.5.4: New <code class="prettyprint">$first</code> parameter which allows for the closest matching token to be returned.
+By default, it continues to return the first matched token found from the top of the file.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$type</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The type of token to search for.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$first</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>If <code class="prettyprint">true</code>, will return the matched condition
+furthest away from the passed token.
+If <code class="prettyprint">false</code>, will return the matched condition
+closest to the passed token.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getCondition()">File::getCondition()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Conditions.html#method_getCondition"><abbr title="\PHPCSUtils\Utils\Conditions::getCondition()">Conditions::getCondition()</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>More versatile alternative.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
+                                                                                                        <section class="phpdocumentor-description"><p>Added support for the PHPCS 3.5.4 <code class="prettyprint">$first</code> parameter.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Integer stack pointer to the condition or <code class="prettyprint">FALSE</code> if the token
+does not have the condition.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getDeclarationName">
+        getDeclarationName()
+        <a href="#method_getDeclarationName" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
     :
@@ -294,72 +902,215 @@ and sniffing JS files is not officially supported by PHPCSUtils.</li>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the declaration token
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the declaration token
 which declared the class, interface,
-trait, or function.</p></section></dd>
+trait, or function.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getDeclarationName()">File::getDeclarationName()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_getName"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::getName()">ObjectDeclarations::getName()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified token is not of type
+                                                                                    <section class="phpdocumentor-description"><p>If the specified token is not of type
 <code class="prettyprint">T_FUNCTION</code>, <code class="prettyprint">T_CLASS</code>, <code class="prettyprint">T_TRAIT</code>, or <code class="prettyprint">T_INTERFACE</code>.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string|null</span>
-            &mdash; <span class="phpdocumentor-description"><p>The name of the class, interface, trait, or function;
+            &mdash;
+            <section class="phpdocumentor-description"><p>The name of the class, interface, trait, or function;
 or <code class="prettyprint">NULL</code> if the function or class is anonymous or
-in case of a parse error/live coding.</p></span>
+in case of a parse error/live coding.</p></section>
+
     
 </article>
-                    <a id="method_getMethodParameters"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getMethodParameters()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getMemberProperties">
+        getMemberProperties()
+        <a href="#method_getMemberProperties" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">755</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Returns the visibility and implementation properties of a class member var.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getMemberProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>The format of the return value is:</p>
+<pre class="prettyprint"><code class="language-php">array(
+  'scope'           =&gt; string,  // Public, private, or protected.
+  'scope_specified' =&gt; boolean, // TRUE if the scope was explicitly specified.
+  'is_static'       =&gt; boolean, // TRUE if the static keyword was found.
+  'type'            =&gt; string,  // The type of the var (empty if no type specified).
+  'type_token'      =&gt; integer, // The stack pointer to the start of the type
+                                // or FALSE if there is no type.
+  'type_end_token'  =&gt; integer, // The stack pointer to the end of the type
+                                // or FALSE if there is no type.
+  'nullable_type'   =&gt; boolean, // TRUE if the type is nullable.
+);</code></pre>
+<p>PHPCS cross-version compatible version of the `File::getMemberProperties()  method.</p>
+<p>Changelog for the PHPCS native function:</p>
+<ul>
+<li>Introduced in PHPCS 0.0.5.</li>
+<li>PHPCS 3.0.0: The Exception thrown changed from a <code class="prettyprint">PHP_CodeSniffer_Exception</code> to
+<code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>.</li>
+<li>PHPCS 3.4.0: Fixed method params being recognized as properties, PHPCS#2214.</li>
+<li>PHPCS 3.5.0: New <code class="prettyprint">"type"</code>, <code class="prettyprint">"type_token"</code>, <code class="prettyprint">"type_end_token"</code> and <code class="prettyprint">"nullable_type"</code> array indexes.
+<ul>
+<li>The <code class="prettyprint">"type"</code> index contains the type of the member var, or a blank string
+if not specified.</li>
+<li>If the type is nullable, <code class="prettyprint">"type"</code> will contain the leading <code class="prettyprint">?</code>.</li>
+<li>If a type is specified, the position of the first token in the type will
+be set in a <code class="prettyprint">"type_token"</code> array index.</li>
+<li>If a type is specified, the position of the last token in the type will
+be set in a <code class="prettyprint">"type_end_token"</code> array index.</li>
+<li>If the type is nullable, a <code class="prettyprint">"nullable_type"</code> array index will also be set to <code class="prettyprint">true</code>.</li>
+<li>If the type contains namespace information, it will be cleaned of whitespace
+and comments in the <code class="prettyprint">"type"</code> value.</li>
+</ul></li>
+<li>PHPCS 3.5.0: The Exception thrown changed from a <code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>
+to <code class="prettyprint">\PHP_CodeSniffer\Exceptions\RuntimeException</code>.</li>
+</ul></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_VARIABLE</code> token to
+acquire the properties for.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getMemberProperties()">File::getMemberProperties()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Variables.html#method_getMemberProperties"><abbr title="\PHPCSUtils\Utils\Variables::getMemberProperties()">Variables::getMemberProperties()</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_VARIABLE</code> token, or if the position is not
+a class member variable.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getMethodParameters">
+        getMethodParameters()
+        <a href="#method_getMethodParameters" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
     :
@@ -444,69 +1195,86 @@ parameter would bleed through to the next (non-type hinted) parameter.</li>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the function token
-to acquire the parameters for.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the function token
+to acquire the parameters for.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getMethodParameters()">File::getMethodParameters()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getParameters"><abbr title="\PHPCSUtils\Utils\FunctionDeclarations::getParameters()">FunctionDeclarations::getParameters()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified <code class="prettyprint">$stackPtr</code> is not of
+                                                                                    <section class="phpdocumentor-description"><p>If the specified <code class="prettyprint">$stackPtr</code> is not of
 type <code class="prettyprint">T_FUNCTION</code>, <code class="prettyprint">T_CLOSURE</code>, <code class="prettyprint">T_USE</code>,
 or <code class="prettyprint">T_FN</code>.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
     
 </article>
-                    <a id="method_getMethodProperties"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getMethodProperties()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getMethodProperties">
+        getMethodProperties()
+        <a href="#method_getMethodProperties" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
     :
@@ -563,367 +1331,97 @@ to <code class="prettyprint">\PHP_CodeSniffer\Exceptions\RuntimeException</code>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the function token to
-acquire the properties for.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the function token to
+acquire the properties for.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getMethodProperties()">File::getMethodProperties()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getProperties"><abbr title="\PHPCSUtils\Utils\FunctionDeclarations::getProperties()">FunctionDeclarations::getProperties()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added support for PHP 8.0 static return type (expected in future PHPCS release).</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added support for PHP 8.0 static return type (expected in future PHPCS release).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified position is not a
+                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
 <code class="prettyprint">T_FUNCTION</code>, <code class="prettyprint">T_CLOSURE</code>, or <code class="prettyprint">T_FN</code> token.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
     
 </article>
-                    <a id="method_getMemberProperties"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getMemberProperties()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getTokensAsString">
+        getTokensAsString()
+        <a href="#method_getTokensAsString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">755</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Returns the visibility and implementation properties of a class member var.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getMemberProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
-
-        <section class="phpdocumentor-description"><p>The format of the return value is:</p>
-<pre class="prettyprint"><code class="language-php">array(
-  'scope'           =&gt; string,  // Public, private, or protected.
-  'scope_specified' =&gt; boolean, // TRUE if the scope was explicitly specified.
-  'is_static'       =&gt; boolean, // TRUE if the static keyword was found.
-  'type'            =&gt; string,  // The type of the var (empty if no type specified).
-  'type_token'      =&gt; integer, // The stack pointer to the start of the type
-                                // or FALSE if there is no type.
-  'type_end_token'  =&gt; integer, // The stack pointer to the end of the type
-                                // or FALSE if there is no type.
-  'nullable_type'   =&gt; boolean, // TRUE if the type is nullable.
-);</code></pre>
-<p>PHPCS cross-version compatible version of the `File::getMemberProperties()  method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 0.0.5.</li>
-<li>PHPCS 3.0.0: The Exception thrown changed from a <code class="prettyprint">PHP_CodeSniffer_Exception</code> to
-<code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>.</li>
-<li>PHPCS 3.4.0: Fixed method params being recognized as properties, PHPCS#2214.</li>
-<li>PHPCS 3.5.0: New <code class="prettyprint">"type"</code>, <code class="prettyprint">"type_token"</code>, <code class="prettyprint">"type_end_token"</code> and <code class="prettyprint">"nullable_type"</code> array indexes.
-<ul>
-<li>The <code class="prettyprint">"type"</code> index contains the type of the member var, or a blank string
-if not specified.</li>
-<li>If the type is nullable, <code class="prettyprint">"type"</code> will contain the leading <code class="prettyprint">?</code>.</li>
-<li>If a type is specified, the position of the first token in the type will
-be set in a <code class="prettyprint">"type_token"</code> array index.</li>
-<li>If a type is specified, the position of the last token in the type will
-be set in a <code class="prettyprint">"type_end_token"</code> array index.</li>
-<li>If the type is nullable, a <code class="prettyprint">"nullable_type"</code> array index will also be set to <code class="prettyprint">true</code>.</li>
-<li>If the type contains namespace information, it will be cleaned of whitespace
-and comments in the <code class="prettyprint">"type"</code> value.</li>
-</ul></li>
-<li>PHPCS 3.5.0: The Exception thrown changed from a <code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>
-to <code class="prettyprint">\PHP_CodeSniffer\Exceptions\RuntimeException</code>.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_VARIABLE</code> token to
-acquire the properties for.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getMemberProperties()">File::getMemberProperties()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Variables.html#method_getMemberProperties"><abbr title="\PHPCSUtils\Utils\Variables::getMemberProperties()">Variables::getMemberProperties()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_VARIABLE</code> token, or if the position is not
-a class member variable.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array</span>
-    
-</article>
-                    <a id="method_getClassProperties"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getClassProperties()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">922</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Returns the implementation properties of a class.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getClassProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
-
-        <section class="phpdocumentor-description"><p>The format of the return value is:</p>
-<pre class="prettyprint"><code class="language-php">array(
-  'is_abstract' =&gt; false, // TRUE if the abstract keyword was found.
-  'is_final'    =&gt; false, // TRUE if the final keyword was found.
-);</code></pre>
-<p>PHPCS cross-version compatible version of the <code class="prettyprint">File::getClassProperties()</code> method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 1.3.0.</li>
-<li>PHPCS 3.0.0: The Exception thrown changed from a <code class="prettyprint">PHP_CodeSniffer_Exception</code> to
-<code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>.</li>
-<li>PHPCS 3.5.0: The Exception thrown changed from a <code class="prettyprint">\PHP_CodeSniffer\Exceptions\TokenizerException</code>
-to<code class="prettyprint">\PHP_CodeSniffer\Exceptions\RuntimeException</code>.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_CLASS</code>
-token to acquire the properties for.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getClassProperties()">File::getClassProperties()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_getClassProperties"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::getClassProperties()">ObjectDeclarations::getClassProperties()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_CLASS</code> token.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array</span>
-    
-</article>
-                    <a id="method_isReference"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">isReference()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">992</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Determine if the passed token is a reference operator.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isReference</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::isReference()</code> method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 0.0.5.</li>
-<li>PHPCS 3.1.1: Bug fix: misidentification of reference vs bitwise operator, PHPCS#1604/#1609.
-<ul>
-<li>An array assignment of a calculated value with a bitwise and operator in it,
-was being misidentified as a reference.</li>
-<li>A calculated default value for a function parameter with a bitwise and operator
-in it, was being misidentified as a reference.</li>
-<li>New by reference was not recognized as a reference.</li>
-<li>References to class properties with <code class="prettyprint">self::</code>, <code class="prettyprint">parent::</code>, <code class="prettyprint">static::</code>,
-<code class="prettyprint">namespace\ClassName::</code>, <code class="prettyprint">classname::</code> were not recognized as references.</li>
-</ul></li>
-<li>PHPCS 3.5.3: Added support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions returning by reference.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_BITWISE_AND</code> token.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::isReference()">File::isReference()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Operators.html#method_isReference"><abbr title="\PHPCSUtils\Utils\Operators::isReference()">Operators::isReference()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the specified token position represents a reference.
-<code class="prettyprint">FALSE</code> if the token represents a bitwise operator.</p></span>
-    
-</article>
-                    <a id="method_getTokensAsString"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getTokensAsString()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1137</span>
+    <span class="phpdocumentor-element-found-in__line">1140</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns the content of the tokens from the specified start position in
@@ -953,234 +1451,97 @@ This stops an infinite loop when the function is passed invalid data.</li>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$start</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$length</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The length of tokens to traverse from the start pos.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The length of tokens to traverse from the start pos.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$origContent</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Whether the original content or the tab replaced
-content should be used.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Whether the original content or the tab replaced
+content should be used.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html"><abbr title="\PHPCSUtils\Utils\GetTokensAsString">GetTokensAsString</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related set of functions.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related set of functions.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents.</p></section>
+
     
 </article>
-                    <a id="method_findStartOfStatement"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">findStartOfStatement()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_hasCondition">
+        hasCondition()
+        <a href="#method_hasCondition" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1189</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Returns the position of the first non-whitespace token in a statement.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findStartOfStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignore</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
-
-        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::findStartOfStatement()</code> method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 2.1.0.</li>
-<li>PHPCS 2.6.2: New optional <code class="prettyprint">$ignore</code> parameter to selectively ignore stop points.</li>
-<li>PHPCS 3.5.5: Added support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start searching from in the token stack.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$ignore</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Token types that should not be considered stop points.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findStartOfStatement()">File::findStartOfStatement()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
-    
-</article>
-                    <a id="method_findEndOfStatement"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">findEndOfStatement()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1271</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Returns the position of the last non-whitespace token in a statement.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findEndOfStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ignore</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
-
-        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the `File::findEndOfStatement()  method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 2.1.0.</li>
-<li>PHPCS 2.6.2: New optional <code class="prettyprint">$ignore</code> parameter to selectively ignore stop points.</li>
-<li>PHPCS 2.7.1: Improved handling of short arrays, PHPCS #1203.</li>
-<li>PHPCS 3.3.0: Bug fix: end of statement detection when passed a scope opener, PHPCS #1863.</li>
-<li>PHPCS 3.5.0: Improved handling of group use statements.</li>
-<li>PHPCS 3.5.3: Added support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions.</li>
-<li>PHPCS 3.5.4: Improved support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions.</li>
-<li>PHPCS 3.5.5: Improved support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions, PHPCS #2895.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start searching from in the token stack.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$ignore</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Token types that should not be considered stop points.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findEndOfStatement()">File::findEndOfStatement()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
-    
-</article>
-                    <a id="method_hasCondition"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">hasCondition()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1387</span>
+    <span class="phpdocumentor-element-found-in__line">1390</span>
 </aside>
 
         <p class="phpdocumentor-summary">Determine if the passed token has a condition of one of the passed types.</p>
@@ -1202,75 +1563,104 @@ content should be used.</p></section></dd>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$types</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The type(s) of tokens to search for.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The type(s) of tokens to search for.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::hasCondition()">File::hasCondition()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Conditions.html#method_hasCondition"><abbr title="\PHPCSUtils\Utils\Conditions::hasCondition()">Conditions::hasCondition()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native alternative.</p></section>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native alternative.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
     
 </article>
-                    <a id="method_getCondition"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getCondition()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isReference">
+        isReference()
+        <a href="#method_isReference" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1419</span>
+    <span class="phpdocumentor-element-found-in__line">994</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Return the position of the condition for the passed token.</p>
+        <p class="phpdocumentor-summary">Determine if the passed token is a reference operator.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getCondition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$first</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isReference</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::getCondition()</code> method.</p>
+        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::isReference()</code> method.</p>
 <p>Changelog for the PHPCS native function:</p>
 <ul>
-<li>Introduced in PHPCS 1.3.0.</li>
-<li>PHPCS 3.5.4: New <code class="prettyprint">$first</code> parameter which allows for the closest matching token to be returned.
-By default, it continues to return the first matched token found from the top of the file.</li>
+<li>Introduced in PHPCS 0.0.5.</li>
+<li>PHPCS 3.1.1: Bug fix: misidentification of reference vs bitwise operator, PHPCS#1604/#1609.
+<ul>
+<li>An array assignment of a calculated value with a bitwise and operator in it,
+was being misidentified as a reference.</li>
+<li>A calculated default value for a function parameter with a bitwise and operator
+in it, was being misidentified as a reference.</li>
+<li>New by reference was not recognized as a reference.</li>
+<li>References to class properties with <code class="prettyprint">self::</code>, <code class="prettyprint">parent::</code>, <code class="prettyprint">static::</code>,
+<code class="prettyprint">namespace\ClassName::</code>, <code class="prettyprint">classname::</code> were not recognized as references.</li>
+</ul></li>
+<li>PHPCS 3.5.3: Added support for PHP 7.4 <code class="prettyprint">T_FN</code> arrow functions returning by reference.</li>
+<li>PHPCS 3.5.6: Bug fix: the reference operator for closures declared to return by reference was
+not recognized as a reference. PHPCS#2977.</li>
 </ul></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1279,214 +1669,65 @@ By default, it continues to return the first matched token found from the top of
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the token we are checking.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The type of token to search for.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$first</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>If <code class="prettyprint">true</code>, will return the matched condition
-furthest away from the passed token.
-If <code class="prettyprint">false</code>, will return the matched condition
-closest to the passed token.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_BITWISE_AND</code> token.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getCondition()">File::getCondition()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::isReference()">File::isReference()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Conditions.html#method_getCondition"><abbr title="\PHPCSUtils\Utils\Conditions::getCondition()">Conditions::getCondition()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>More versatile alternative.</p></section>
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Operators.html#method_isReference"><abbr title="\PHPCSUtils\Utils\Operators::isReference()">Operators::isReference()</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"><p>Added support for the PHPCS 3.5.4 <code class="prettyprint">$first</code> parameter.</p></section>
+                                                                                                        <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Integer stack pointer to the condition or <code class="prettyprint">FALSE</code> if the token
-does not have the condition.</p></span>
-    
-</article>
-                    <a id="method_findExtendedClassName"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">findExtendedClassName()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1471</span>
-</aside>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the specified token position represents a reference.
+<code class="prettyprint">FALSE</code> if the token represents a bitwise operator.</p></section>
 
-        <p class="phpdocumentor-summary">Returns the name of the class that the specified class extends.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findExtendedClassName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>(works for classes, anonymous classes and interfaces)</p>
-<p>PHPCS cross-version compatible version of the <code class="prettyprint">File::findExtendedClassName()</code> method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 1.2.0.</li>
-<li>PHPCS 2.8.0: Now supports anonymous classes.</li>
-<li>PHPCS 3.1.0: Now supports interfaces extending interfaces (incorrectly, only supporting
-single interface extension).</li>
-<li>PHPCS 3.3.2: Fixed bug causing bleed through with nested classes, PHPCS#2127.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack position of the class or interface.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findExtendedClassName()">File::findExtendedClassName()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_findExtendedClassName"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName()">ObjectDeclarations::findExtendedClassName()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>The extended class name or <code class="prettyprint">FALSE</code> on error or if there
-is no extended class name.</p></span>
-    
-</article>
-                    <a id="method_findImplementedInterfaceNames"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">findImplementedInterfaceNames()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCFile.php"><a href="../files/phpcsutils-backcompat-bcfile.html"><abbr title="PHPCSUtils/BackCompat/BCFile.php">BCFile.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">1534</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Returns the names of the interfaces that the specified class implements.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">findImplementedInterfaceNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>PHPCS cross-version compatible version of the <code class="prettyprint">File::findImplementedInterfaceNames()</code> method.</p>
-<p>Changelog for the PHPCS native function:</p>
-<ul>
-<li>Introduced in PHPCS 2.7.0.</li>
-<li>PHPCS 2.8.0: Now supports anonymous classes.</li>
-</ul></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The stack position of the class.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()">File::findImplementedInterfaceNames()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
-                </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_findImplementedInterfaceNames"><abbr title="\PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames()">ObjectDeclarations::findImplementedInterfaceNames()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCSUtils native improved version.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Array with names of the implemented interfaces or <code class="prettyprint">FALSE</code> on
-error or if there are no implemented interface names.</p></span>
     
 </article>
             </section>
@@ -1500,7 +1741,10 @@ error or if there are no implemented interface names.</p></span>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

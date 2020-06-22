@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
@@ -85,22 +84,28 @@
     <span class="phpdocumentor-element-found-in__line">29</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Utility functions to retrieve the content of a set of tokens as a string.</p>
-<section class="phpdocumentor-description"><p>In contrast to the PHPCS native \PHP_CodeSniffer\Files\File::getTokensAsString() method,
+            <p class="phpdocumentor-summary">Utility functions to retrieve the content of a set of tokens as a string.</p>
+
+    <section class="phpdocumentor-description"><p>In contrast to the PHPCS native \PHP_CodeSniffer\Files\File::getTokensAsString() method,
 which has <code class="prettyprint">$length</code> as the third parameter, all methods in this class expect a stack pointer to
 an <code class="prettyprint">$end</code> token (inclusive) as the third parameter.</p></section>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"><p>The principle of this class is loosely based on and inspired by the
+                                                                                                        <section class="phpdocumentor-description"><p>The principle of this class is loosely based on and inspired by the
 {@see \PHP_CodeSniffer\Files\File::getTokensAsString()} method in the
 PHPCS native <code class="prettyprint">File</code> class.
 Also see {@see \PHPCSUtils\BackCompat\BCFile::getTokensAsString()}.</p></section>
+
                 </dd>
                         </dl>
 
@@ -109,32 +114,20 @@ Also see {@see \PHPCSUtils\BackCompat\BCFile::getTokensAsString()}.</p></section
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_normal">normal()</a>
+    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_compact">compact()</a>
     <span>
                         &nbsp;: string    </span>
 </dt>
-<dd>Retrieve the tab-replaced content of the tokens from the specified start position in
-the token stack to the specified end position (inclusive).</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_tabReplaced">tabReplaced()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd>Retrieve the tab-replaced content of the tokens from the specified start position in
-the token stack to the specified end position (inclusive).</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_origContent">origContent()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd>Retrieve the original content of the tokens from the specified start position in
-the token stack to the specified end position (inclusive).</dd>
+<dd>Retrieve the content of the tokens from the specified start position in the token
+stack to the specified end position (inclusive) with all consecutive whitespace tokens - tabs,
+new lines, multiple spaces - replaced by a single space and optionally without comments.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_noComments">noComments()</a>
@@ -153,13 +146,28 @@ stack to the specified end position (inclusive) without comments.</dd>
 in the token stack to the specified end position (inclusive) without whitespace or comments.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_compact">compact()</a>
+    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_normal">normal()</a>
     <span>
                         &nbsp;: string    </span>
 </dt>
-<dd>Retrieve the content of the tokens from the specified start position in the token
-stack to the specified end position (inclusive) with all consecutive whitespace tokens - tabs,
-new lines, multiple spaces - replaced by a single space and optionally without comments.</dd>
+<dd>Retrieve the tab-replaced content of the tokens from the specified start position in
+the token stack to the specified end position (inclusive).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_origContent">origContent()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Retrieve the original content of the tokens from the specified start position in
+the token stack to the specified end position (inclusive).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_tabReplaced">tabReplaced()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Retrieve the tab-replaced content of the tokens from the specified start position in
+the token stack to the specified end position (inclusive).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_getString">getString()</a>
@@ -178,15 +186,302 @@ to the specified end position (inclusive).</dd>
         
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_normal"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">normal()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_compact">
+        compact()
+        <a href="#method_compact" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">177</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the content of the tokens from the specified start position in the token
+stack to the specified end position (inclusive) with all consecutive whitespace tokens - tabs,
+new lines, multiple spaces - replaced by a single space and optionally without comments.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">compact</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stripComments</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$end</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stripComments</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Whether comments should be stripped from the contents.
+Defaults to <code class="prettyprint">false</code>.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Loosely related function.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents with compacted whitespace and optionally stripped off comments.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_noComments">
+        noComments()
+        <a href="#method_noComments" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">129</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the content of the tokens from the specified start position in the token
+stack to the specified end position (inclusive) without comments.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">noComments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$end</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Loosely related function.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents stripped off comments.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_noEmpties">
+        noEmpties()
+        <a href="#method_noEmpties" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">153</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Retrieve the code-tokens only content of the tokens from the specified start position
+in the token stack to the specified end position (inclusive) without whitespace or comments.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">noEmpties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"><p>This is, for instance, useful to retrieve a namespace name without stray whitespace or comments.
+Use this function selectively and with care!</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$end</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Loosely related function.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents stripped off comments and whitespace.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_normal">
+        normal()
+        <a href="#method_normal" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
     :
@@ -212,131 +507,84 @@ The <code class="prettyprint">'orig_content'</code> index key in the <code class
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$start</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$end</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Similar length-based function.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Similar length-based function.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getTokensAsString"><abbr title="\PHPCSUtils\BackCompat\BCFile::getTokensAsString()">BCFile::getTokensAsString()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents.</p></section>
+
     
 </article>
-                    <a id="method_tabReplaced"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">tabReplaced()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">77</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the tab-replaced content of the tokens from the specified start position in
-the token stack to the specified end position (inclusive).</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">tabReplaced</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"><p>Alias for the <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_normal">\PHPCSUtils\Utils\GetTokensAsString::normal()</a> method.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$end</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents.</p></span>
-    
-</article>
-                    <a id="method_origContent"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">origContent()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_origContent">
+        origContent()
+        <a href="#method_origContent" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
     :
@@ -364,152 +612,98 @@ value for the <code class="prettyprint">$origContent</code> parameter.</p></sect
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$start</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$end</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Similar length-based function.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Similar length-based function.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getTokensAsString"><abbr title="\PHPCSUtils\BackCompat\BCFile::getTokensAsString()">BCFile::getTokensAsString()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents.</p></section>
+
     
 </article>
-                    <a id="method_noComments"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">noComments()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_tabReplaced">
+        tabReplaced()
+        <a href="#method_tabReplaced" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Retrieve the content of the tokens from the specified start position in the token
-stack to the specified end position (inclusive) without comments.</p>
+        <p class="phpdocumentor-summary">Retrieve the tab-replaced content of the tokens from the specified start position in
+the token stack to the specified end position (inclusive).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">noComments</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">tabReplaced</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$end</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Loosely related function.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents stripped off comments.</p></span>
-    
-</article>
-                    <a id="method_noEmpties"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">noEmpties()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">153</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the code-tokens only content of the tokens from the specified start position
-in the token stack to the specified end position (inclusive) without whitespace or comments.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">noEmpties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"><p>This is, for instance, useful to retrieve a namespace name without stray whitespace or comments.
-Use this function selectively and with care!</p></section>
+        <section class="phpdocumentor-description"><p>Alias for the <a href="../classes/PHPCSUtils-Utils-GetTokensAsString.html#method_normal">\PHPCSUtils\Utils\GetTokensAsString::normal()</a> method.</p></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -517,137 +711,68 @@ Use this function selectively and with care!</p></section>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$start</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$end</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Loosely related function.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents stripped off comments and whitespace.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents.</p></section>
+
     
 </article>
-                    <a id="method_compact"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">compact()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">177</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Retrieve the content of the tokens from the specified start position in the token
-stack to the specified end position (inclusive) with all consecutive whitespace tokens - tabs,
-new lines, multiple spaces - replaced by a single space and optionally without comments.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">compact</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stripComments</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$end</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stripComments</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Whether comments should be stripped from the contents.
-Defaults to <code class="prettyprint">false</code>.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Loosely related function.</p></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents with compacted whitespace and optionally stripped off comments.</p></span>
-    
-</article>
-                    <a id="method_getString"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -protected
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getString()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getString">
+        getString()
+        <a href="#method_getString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="../files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
     :
@@ -668,66 +793,93 @@ to the specified end position (inclusive).</p>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$start</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to start from in the token stack.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$end</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position to end at in the token stack (inclusive).</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$origContent</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Whether the original content or the tab replaced
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Whether the original content or the tab replaced
 content should be used.
-Defaults to <code class="prettyprint">false</code> (= tabs replaced with spaces).</p></section></dd>
+Defaults to <code class="prettyprint">false</code> (= tabs replaced with spaces).</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stripComments</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Whether comments should be stripped from the contents.
-Defaults to <code class="prettyprint">false</code>.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Whether comments should be stripped from the contents.
+Defaults to <code class="prettyprint">false</code>.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stripWhitespace</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Whether whitespace should be stripped from the contents.
-Defaults to <code class="prettyprint">false</code>.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Whether whitespace should be stripped from the contents.
+Defaults to <code class="prettyprint">false</code>.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$compact</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Whether all consecutive whitespace tokens should be
-replaced with a single space. Defaults to <code class="prettyprint">false</code>.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Whether all consecutive whitespace tokens should be
+replaced with a single space. Defaults to <code class="prettyprint">false</code>.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+                                                                                    <section class="phpdocumentor-description"><p>If the specified start position does not exist.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash; <span class="phpdocumentor-description"><p>The token contents.</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The token contents.</p></section>
+
     
 </article>
             </section>
@@ -741,7 +893,10 @@ replaced with a single space. Defaults to <code class="prettyprint">false</code>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
@@ -85,18 +84,22 @@
     <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Utility functions to retrieve information about parameters passed to function calls,
+            <p class="phpdocumentor-summary">Utility functions to retrieve information about parameters passed to function calls,
 array declarations, isset and unset constructs.</p>
-<section class="phpdocumentor-description"></section>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -105,27 +108,16 @@ array declarations, isset and unset constructs.</p>
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">hasParameters()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Checks if any parameters have been passed.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters">getParameters()</a>
-    <span>
-                        &nbsp;: array    </span>
-</dt>
-<dd>Get information on all parameters passed.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameter">getParameter()</a>
     <span>
-                        &nbsp;: array|bool    </span>
+                        &nbsp;: array|false    </span>
 </dt>
 <dd>Get information on a specific parameter passed.</dd>
 
@@ -136,6 +128,20 @@ array declarations, isset and unset constructs.</p>
 </dt>
 <dd>Count the number of parameters which have been passed.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters">getParameters()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Get information on all parameters passed.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">hasParameters()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Checks if any parameters have been passed.</dd>
+
         </dl>
 
 
@@ -145,15 +151,272 @@ array declarations, isset and unset constructs.</p>
         
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_hasParameters"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">hasParameters()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getParameter">
+        getParameter()
+        <a href="#method_getParameter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">303</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get information on a specific parameter passed.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array|false</span></code>
+
+        <section class="phpdocumentor-description"><p>See <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">\PHPCSUtils\Utils\PassedParameters::hasParameters()</a> for information on the supported constructs.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
+<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> token.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$paramOffset</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The 1-based index position of the parameter to retrieve.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the token passed is not one of the
+accepted types or doesn't exist.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Array with information on the parameter/array item at the specified offset.
+Or <code class="prettyprint">FALSE</code> if the specified parameter/array item is not found.
+The format of the return value is:</p>
+<pre class="prettyprint"><code class="language-php">array(
+  'start' =&gt; int,    // The stack pointer to the first token in the parameter/array item.
+  'end'   =&gt; int,    // The stack pointer to the last token in the parameter/array item.
+  'raw'   =&gt; string, // A string with the contents of all tokens between `start` and `end`.
+  'clean' =&gt; string, // Same as `raw`, but all comment tokens have been stripped out.
+)</code></pre></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParameterCount">
+        getParameterCount()
+        <a href="#method_getParameterCount" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">330</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Count the number of parameters which have been passed.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameterCount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"><p>See <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">\PHPCSUtils\Utils\PassedParameters::hasParameters()</a> for information on the supported constructs.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
+<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> token.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the token passed is not one of the
+accepted types or doesn't exist.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParameters">
+        getParameters()
+        <a href="#method_getParameters" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">181</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get information on all parameters passed.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>See <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">\PHPCSUtils\Utils\PassedParameters::hasParameters()</a> for information on the supported constructs.</p></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
+<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code>, or <code class="prettyprint">T_UNSET</code> token.</p></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                                                    <section class="phpdocumentor-description"><p>If the token passed is not one of the
+accepted types or doesn't exist.</p></section>
+
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>A multi-dimentional array information on each parameter/array item.
+The information gathered about each parameter/array item is in the following format:</p>
+<pre class="prettyprint"><code class="language-php">1 =&gt; array(
+  'start' =&gt; int,    // The stack pointer to the first token in the parameter/array item.
+  'end'   =&gt; int,    // The stack pointer to the last token in the parameter/array item.
+  'raw'   =&gt; string, // A string with the contents of all tokens between `start` and `end`.
+  'clean' =&gt; string, // Same as `raw`, but all comment tokens have been stripped out.
+)</code></pre>
+<p><em>Note: The array starts at index 1.</em>
+If no parameters/array items are found, an empty array will be returned.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasParameters">
+        hasParameters()
+        <a href="#method_hasParameters" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
     :
@@ -184,244 +447,49 @@ language constructs have &quot;parameters&quot;.</li>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code>, or <code class="prettyprint">T_UNSET</code> token.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
+<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code>, or <code class="prettyprint">T_UNSET</code> token.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the token passed is not one of the
+                                                                                    <section class="phpdocumentor-description"><p>If the token passed is not one of the
 accepted types or doesn't exist.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
-    
-</article>
-                    <a id="method_getParameters"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getParameters()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">181</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get information on all parameters passed.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
-
-        <section class="phpdocumentor-description"><p>See <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">\PHPCSUtils\Utils\PassedParameters::hasParameters()</a> for information on the supported constructs.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code>, or <code class="prettyprint">T_UNSET</code> token.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the token passed is not one of the
-accepted types or doesn't exist.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>A multi-dimentional array information on each parameter/array item.
-The information gathered about each parameter/array item is in the following format:</p>
-<pre class="prettyprint"><code class="language-php">1 =&gt; array(
-  'start' =&gt; int,    // The stack pointer to the first token in the parameter/array item.
-  'end'   =&gt; int,    // The stack pointer to the last token in the parameter/array item.
-  'raw'   =&gt; string, // A string with the contents of all tokens between `start` and `end`.
-  'clean' =&gt; string, // Same as `raw`, but all comment tokens have been stripped out.
-)</code></pre>
-<p><em>Note: The array starts at index 1.</em>
-If no parameters/array items are found, an empty array will be returned.</p></span>
-    
-</article>
-                    <a id="method_getParameter"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getParameter()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">303</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get information on a specific parameter passed.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array|bool</span></code>
-
-        <section class="phpdocumentor-description"><p>See <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">\PHPCSUtils\Utils\PassedParameters::hasParameters()</a> for information on the supported constructs.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> token.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$paramOffset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The 1-based index position of the parameter to retrieve.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the token passed is not one of the
-accepted types or doesn't exist.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array|bool</span>
-            &mdash; <span class="phpdocumentor-description"><p>Array with information on the parameter/array item at the specified offset.
-Or <code class="prettyprint">FALSE</code> if the specified parameter/array item is not found.
-The format of the return value is:</p>
-<pre class="prettyprint"><code class="language-php">array(
-  'start' =&gt; int,    // The stack pointer to the first token in the parameter/array item.
-  'end'   =&gt; int,    // The stack pointer to the last token in the parameter/array item.
-  'raw'   =&gt; string, // A string with the contents of all tokens between `start` and `end`.
-  'clean' =&gt; string, // Same as `raw`, but all comment tokens have been stripped out.
-)</code></pre></span>
-    
-</article>
-                    <a id="method_getParameterCount"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">getParameterCount()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="../files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">330</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Count the number of parameters which have been passed.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getParameterCount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
-
-        <section class="phpdocumentor-description"><p>See <a href="../classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters">\PHPCSUtils\Utils\PassedParameters::hasParameters()</a> for information on the supported constructs.</p></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> token.</p></section></dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the token passed is not one of the
-accepted types or doesn't exist.</p></section>
-                </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
     
 </article>
             </section>
@@ -435,7 +503,10 @@ accepted types or doesn't exist.</p></section>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-tokens.html">Tokens</a></li>
@@ -85,32 +84,39 @@
     <span class="phpdocumentor-element-found-in__line">26</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Collections of related tokens as often used and needed for sniffs.</p>
-<section class="phpdocumentor-description"><p>These are additional &quot;token groups&quot; to compliment the ones available through the PHPCS
+            <p class="phpdocumentor-summary">Collections of related tokens as often used and needed for sniffs.</p>
+
+    <section class="phpdocumentor-description"><p>These are additional &quot;token groups&quot; to compliment the ones available through the PHPCS
 native \PHP_CodeSniffer\Util\Tokens class.</p></section>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens">Tokens</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>PHPCS native token groups.</p></section>
+                                                                <section class="phpdocumentor-description"><p>PHPCS native token groups.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html"><abbr title="\PHPCSUtils\BackCompat\BCTokens">BCTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Backward compatible version of the PHPCS native token groups.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Backward compatible version of the PHPCS native token groups.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -119,22 +125,25 @@ native \PHP_CodeSniffer\Util\Tokens class.</p></section>
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="../classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxTokens">$alternativeControlStructureSyntaxTokens</a>
-    <span>
-                &nbsp;: array            </span>
-</dt>
-<dd>Control structures which can use the alternative control structure syntax.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="../classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxCloserTokens">$alternativeControlStructureSyntaxCloserTokens</a>
     <span>
                 &nbsp;: array            </span>
 </dt>
 <dd>Alternative control structure syntax closer keyword tokens.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="../classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxTokens">$alternativeControlStructureSyntaxTokens</a>
+    <span>
+                &nbsp;: array            </span>
+</dt>
+<dd>Control structures which can use the alternative control structure syntax.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="../classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokens">$arrayTokens</a>
@@ -368,53 +377,23 @@ native \PHP_CodeSniffer\Util\Tokens class.</p></section>
 
         
     <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-properties__header">Properties</h3>
-                    <a id="property_alternativeControlStructureSyntaxTokens"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$alternativeControlStructureSyntaxTokens</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">36</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Control structures which can use the alternative control structure syntax.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
-    <span class="phpdocumentor-signature__name">$alternativeControlStructureSyntaxTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_IF =&gt; \T_IF, \T_ELSEIF =&gt; \T_ELSEIF, \T_ELSE =&gt; \T_ELSE, \T_FOR =&gt; \T_FOR, \T_FOREACH =&gt; \T_FOREACH, \T_SWITCH =&gt; \T_SWITCH, \T_WHILE =&gt; \T_WHILE, \T_DECLARE =&gt; \T_DECLARE]</span></code>
-
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-</article>
-                    <a id="property_alternativeControlStructureSyntaxCloserTokens"></a>
-<article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-            -static                    "
->
-    <h4 class="phpdocumentor-element__name">$alternativeControlStructureSyntaxCloserTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_alternativeControlStructureSyntaxCloserTokens">
+        $alternativeControlStructureSyntaxCloserTokens
+        <a href="#property_alternativeControlStructureSyntaxCloserTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -427,31 +406,82 @@ native \PHP_CodeSniffer\Util\Tokens class.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$alternativeControlStructureSyntaxCloserTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_ENDIF =&gt; \T_ENDIF, \T_ENDFOR =&gt; \T_ENDFOR, \T_ENDFOREACH =&gt; \T_ENDFOREACH, \T_ENDWHILE =&gt; \T_ENDWHILE, \T_ENDSWITCH =&gt; \T_ENDSWITCH, \T_ENDDECLARE =&gt; \T_ENDDECLARE]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_ENDIF =&gt; T_ENDIF, T_ENDFOR =&gt; T_ENDFOR, T_ENDFOREACH =&gt; T_ENDFOREACH, T_ENDWHILE =&gt; T_ENDWHILE, T_ENDSWITCH =&gt; T_ENDSWITCH, T_ENDDECLARE =&gt; T_ENDDECLARE]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_arrayTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$arrayTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_alternativeControlStructureSyntaxTokens">
+        $alternativeControlStructureSyntaxTokens
+        <a href="#property_alternativeControlStructureSyntaxTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Control structures which can use the alternative control structure syntax.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
+    <span class="phpdocumentor-signature__name">$alternativeControlStructureSyntaxTokens</span>
+     = <span class="phpdocumentor-signature__default-value">[T_IF =&gt; T_IF, T_ELSEIF =&gt; T_ELSEIF, T_ELSE =&gt; T_ELSE, T_FOR =&gt; T_FOR, T_FOREACH =&gt; T_FOREACH, T_SWITCH =&gt; T_SWITCH, T_WHILE =&gt; T_WHILE, T_DECLARE =&gt; T_DECLARE]</span></code>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_arrayTokens">
+        $arrayTokens
+        <a href="#property_arrayTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -464,39 +494,47 @@ native \PHP_CodeSniffer\Util\Tokens class.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$arrayTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_ARRAY =&gt; \T_ARRAY, \T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_ARRAY =&gt; T_ARRAY, T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_shortArrayTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$shortArrayTokens">Collections::$shortArrayTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing only tokens used
+                                                                <section class="phpdocumentor-description"><p>Related property containing only tokens used
 for short arrays.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_arrayTokensBC"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$arrayTokensBC</h4>
+    <h4 class="phpdocumentor-element__name" id="property_arrayTokensBC">
+        $arrayTokensBC
+        <a href="#property_arrayTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -509,41 +547,49 @@ for short arrays.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$arrayTokensBC</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_ARRAY =&gt; \T_ARRAY, \T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET =&gt; \T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET =&gt; \T_CLOSE_SQUARE_BRACKET]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_ARRAY =&gt; T_ARRAY, T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY, T_OPEN_SQUARE_BRACKET =&gt; T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET =&gt; T_CLOSE_SQUARE_BRACKET]</span></code>
 
         <section class="phpdocumentor-description"><p>List which is backward-compatible with PHPCS &lt; 3.3.0.
 Should only be used selectively.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_shortArrayTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::$shortArrayTokensBC">Collections::$shortArrayTokensBC</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing only tokens used
+                                                                <section class="phpdocumentor-description"><p>Related property containing only tokens used
 for short arrays (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_classModifierKeywords"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$classModifierKeywords</h4>
+    <h4 class="phpdocumentor-element__name" id="property_classModifierKeywords">
+        $classModifierKeywords
+        <a href="#property_classModifierKeywords" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -556,31 +602,38 @@ for short arrays (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$classModifierKeywords</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_FINAL =&gt; \T_FINAL, \T_ABSTRACT =&gt; \T_ABSTRACT]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_FINAL =&gt; T_FINAL, T_ABSTRACT =&gt; T_ABSTRACT]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_closedScopes"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$closedScopes</h4>
+    <h4 class="phpdocumentor-element__name" id="property_closedScopes">
+        $closedScopes
+        <a href="#property_closedScopes" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -593,7 +646,7 @@ for short arrays (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$closedScopes</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CLASS =&gt; \T_CLASS, \T_ANON_CLASS =&gt; \T_ANON_CLASS, \T_INTERFACE =&gt; \T_INTERFACE, \T_TRAIT =&gt; \T_TRAIT, \T_FUNCTION =&gt; \T_FUNCTION, \T_CLOSURE =&gt; \T_CLOSURE]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CLASS =&gt; T_CLASS, T_ANON_CLASS =&gt; T_ANON_CLASS, T_INTERFACE =&gt; T_INTERFACE, T_TRAIT =&gt; T_TRAIT, T_FUNCTION =&gt; T_FUNCTION, T_CLOSURE =&gt; T_CLOSURE]</span></code>
 
         <section class="phpdocumentor-description"><p>I.e. anything declared within that scope - except for other closed scopes - is
 outside of the global namespace.</p>
@@ -601,27 +654,34 @@ outside of the global namespace.</p>
 within a namespace scope are still global and not limited to that namespace.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_controlStructureTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$controlStructureTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_controlStructureTokens">
+        $controlStructureTokens
+        <a href="#property_controlStructureTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -634,31 +694,38 @@ within a namespace scope are still global and not limited to that namespace.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$controlStructureTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_IF =&gt; \T_IF, \T_ELSEIF =&gt; \T_ELSEIF, \T_ELSE =&gt; \T_ELSE, \T_FOR =&gt; \T_FOR, \T_FOREACH =&gt; \T_FOREACH, \T_SWITCH =&gt; \T_SWITCH, \T_DO =&gt; \T_DO, \T_WHILE =&gt; \T_WHILE, \T_DECLARE =&gt; \T_DECLARE]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_IF =&gt; T_IF, T_ELSEIF =&gt; T_ELSEIF, T_ELSE =&gt; T_ELSE, T_FOR =&gt; T_FOR, T_FOREACH =&gt; T_FOREACH, T_SWITCH =&gt; T_SWITCH, T_DO =&gt; T_DO, T_WHILE =&gt; T_WHILE, T_DECLARE =&gt; T_DECLARE]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_incrementDecrementOperators"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$incrementDecrementOperators</h4>
+    <h4 class="phpdocumentor-element__name" id="property_incrementDecrementOperators">
+        $incrementDecrementOperators
+        <a href="#property_incrementDecrementOperators" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -671,31 +738,38 @@ within a namespace scope are still global and not limited to that namespace.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$incrementDecrementOperators</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_DEC =&gt; \T_DEC, \T_INC =&gt; \T_INC]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_DEC =&gt; T_DEC, T_INC =&gt; T_INC]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_listTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$listTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_listTokens">
+        $listTokens
+        <a href="#property_listTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -708,39 +782,47 @@ within a namespace scope are still global and not limited to that namespace.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$listTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_LIST =&gt; \T_LIST, \T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_LIST =&gt; T_LIST, T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_shortListTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$shortListTokens">Collections::$shortListTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing only tokens used
+                                                                <section class="phpdocumentor-description"><p>Related property containing only tokens used
 for short lists.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_listTokensBC"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$listTokensBC</h4>
+    <h4 class="phpdocumentor-element__name" id="property_listTokensBC">
+        $listTokensBC
+        <a href="#property_listTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -753,41 +835,49 @@ for short lists.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$listTokensBC</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_LIST =&gt; \T_LIST, \T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET =&gt; \T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET =&gt; \T_CLOSE_SQUARE_BRACKET]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_LIST =&gt; T_LIST, T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY, T_OPEN_SQUARE_BRACKET =&gt; T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET =&gt; T_CLOSE_SQUARE_BRACKET]</span></code>
 
         <section class="phpdocumentor-description"><p>List which is backward-compatible with PHPCS &lt; 3.3.0.
 Should only be used selectively.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_shortListTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::$shortListTokensBC">Collections::$shortListTokensBC</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing only tokens used
+                                                                <section class="phpdocumentor-description"><p>Related property containing only tokens used
 for short lists (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_magicConstants"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$magicConstants</h4>
+    <h4 class="phpdocumentor-element__name" id="property_magicConstants">
+        $magicConstants
+        <a href="#property_magicConstants" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -800,38 +890,46 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$magicConstants</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CLASS_C =&gt; \T_CLASS_C, \T_DIR =&gt; \T_DIR, \T_FILE =&gt; \T_FILE, \T_FUNC_C =&gt; \T_FUNC_C, \T_LINE =&gt; \T_LINE, \T_METHOD_C =&gt; \T_METHOD_C, \T_NS_C =&gt; \T_NS_C, \T_TRAIT_C =&gt; \T_TRAIT_C]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CLASS_C =&gt; T_CLASS_C, T_DIR =&gt; T_DIR, T_FILE =&gt; T_FILE, T_FUNC_C =&gt; T_FUNC_C, T_LINE =&gt; T_LINE, T_METHOD_C =&gt; T_METHOD_C, T_NS_C =&gt; T_NS_C, T_TRAIT_C =&gt; T_TRAIT_C]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">link</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                                         <a class="phpdocumentor-tag-link" href="https://www.php.net/language.constants.predefined">https://www.php.net/language.constants.predefined</a>
-                                        <section class="phpdocumentor-description"><p>PHP Manual on magic constants</p></section>
+                                            <section class="phpdocumentor-description"><p>PHP Manual on magic constants</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_namespaceDeclarationClosers"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$namespaceDeclarationClosers</h4>
+    <h4 class="phpdocumentor-element__name" id="property_namespaceDeclarationClosers">
+        $namespaceDeclarationClosers
+        <a href="#property_namespaceDeclarationClosers" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -844,31 +942,38 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$namespaceDeclarationClosers</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_SEMICOLON =&gt; \T_SEMICOLON, \T_OPEN_CURLY_BRACKET =&gt; \T_OPEN_CURLY_BRACKET, \T_CLOSE_TAG =&gt; \T_CLOSE_TAG]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_SEMICOLON =&gt; T_SEMICOLON, T_OPEN_CURLY_BRACKET =&gt; T_OPEN_CURLY_BRACKET, T_CLOSE_TAG =&gt; T_CLOSE_TAG]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_objectOperators"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$objectOperators</h4>
+    <h4 class="phpdocumentor-element__name" id="property_objectOperators">
+        $objectOperators
+        <a href="#property_objectOperators" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -881,31 +986,38 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$objectOperators</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_OBJECT_OPERATOR =&gt; \T_OBJECT_OPERATOR, \T_DOUBLE_COLON =&gt; \T_DOUBLE_COLON]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_OBJECT_OPERATOR =&gt; T_OBJECT_OPERATOR, T_DOUBLE_COLON =&gt; T_DOUBLE_COLON]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_OOCanExtend"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$OOCanExtend</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OOCanExtend">
+        $OOCanExtend
+        <a href="#property_OOCanExtend" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -918,31 +1030,38 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$OOCanExtend</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CLASS =&gt; \T_CLASS, \T_ANON_CLASS =&gt; \T_ANON_CLASS, \T_INTERFACE =&gt; \T_INTERFACE]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CLASS =&gt; T_CLASS, T_ANON_CLASS =&gt; T_ANON_CLASS, T_INTERFACE =&gt; T_INTERFACE]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_OOCanImplement"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$OOCanImplement</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OOCanImplement">
+        $OOCanImplement
+        <a href="#property_OOCanImplement" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -955,31 +1074,38 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$OOCanImplement</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CLASS =&gt; \T_CLASS, \T_ANON_CLASS =&gt; \T_ANON_CLASS]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CLASS =&gt; T_CLASS, T_ANON_CLASS =&gt; T_ANON_CLASS]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_OOConstantScopes"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$OOConstantScopes</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OOConstantScopes">
+        $OOConstantScopes
+        <a href="#property_OOConstantScopes" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -992,32 +1118,39 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$OOConstantScopes</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CLASS =&gt; \T_CLASS, \T_ANON_CLASS =&gt; \T_ANON_CLASS, \T_INTERFACE =&gt; \T_INTERFACE]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CLASS =&gt; T_CLASS, T_ANON_CLASS =&gt; T_ANON_CLASS, T_INTERFACE =&gt; T_INTERFACE]</span></code>
 
         <section class="phpdocumentor-description"><p>Note: traits can not declare constants.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_OOHierarchyKeywords"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$OOHierarchyKeywords</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OOHierarchyKeywords">
+        $OOHierarchyKeywords
+        <a href="#property_OOHierarchyKeywords" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1030,38 +1163,46 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$OOHierarchyKeywords</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_PARENT =&gt; \T_PARENT, \T_SELF =&gt; \T_SELF, \T_STATIC =&gt; \T_STATIC]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_PARENT =&gt; T_PARENT, T_SELF =&gt; T_SELF, T_STATIC =&gt; T_STATIC]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">link</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                                         <a class="phpdocumentor-tag-link" href="https://www.php.net/language.oop5.paamayim-nekudotayim">https://www.php.net/language.oop5.paamayim-nekudotayim</a>
-                                        <section class="phpdocumentor-description"><p>PHP Manual on OO forwarding calls</p></section>
+                                            <section class="phpdocumentor-description"><p>PHP Manual on OO forwarding calls</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_OONameTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$OONameTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OONameTokens">
+        $OONameTokens
+        <a href="#property_OONameTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1074,33 +1215,40 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$OONameTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_NS_SEPARATOR =&gt; \T_NS_SEPARATOR, \T_STRING =&gt; \T_STRING, \T_NAMESPACE =&gt; \T_NAMESPACE]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_NS_SEPARATOR =&gt; T_NS_SEPARATOR, T_STRING =&gt; T_STRING, T_NAMESPACE =&gt; T_NAMESPACE]</span></code>
 
         <section class="phpdocumentor-description"><p>Example:</p>
 <pre class="prettyprint"><code class="language-php">echo namespace\Sub\ClassName::method();</code></pre></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_OOPropertyScopes"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$OOPropertyScopes</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OOPropertyScopes">
+        $OOPropertyScopes
+        <a href="#property_OOPropertyScopes" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1113,32 +1261,39 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$OOPropertyScopes</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CLASS =&gt; \T_CLASS, \T_ANON_CLASS =&gt; \T_ANON_CLASS, \T_TRAIT =&gt; \T_TRAIT]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CLASS =&gt; T_CLASS, T_ANON_CLASS =&gt; T_ANON_CLASS, T_TRAIT =&gt; T_TRAIT]</span></code>
 
         <section class="phpdocumentor-description"><p>Note: interfaces can not declare properties.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_parameterTypeTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$parameterTypeTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_parameterTypeTokens">
+        $parameterTypeTokens
+        <a href="#property_parameterTypeTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1151,7 +1306,7 @@ for short lists (cross-version).</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$parameterTypeTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CALLABLE =&gt; \T_CALLABLE, \T_SELF =&gt; \T_SELF, \T_PARENT =&gt; \T_PARENT, \T_STRING =&gt; \T_STRING, \T_NS_SEPARATOR =&gt; \T_NS_SEPARATOR]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CALLABLE =&gt; T_CALLABLE, T_SELF =&gt; T_SELF, T_PARENT =&gt; T_PARENT, T_STRING =&gt; T_STRING, T_NS_SEPARATOR =&gt; T_NS_SEPARATOR]</span></code>
 
         <section class="phpdocumentor-description"><p>Sister-property to the <a href="../classes/PHPCSUtils-Tokens-Collections.html#method_parameterTypeTokensBC">\PHPCSUtils\Tokens\Collections::parameterTypeTokensBC()</a> method.
 The property supports PHPCS 3.3.0 and up.
@@ -1165,34 +1320,42 @@ This token constant will no longer exist in PHPCS 4.x.</li>
 not need to support PHPCS &lt; 3.3.0.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#method_parameterTypeTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::parameterTypeTokensBC()">Collections::parameterTypeTokensBC()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related method (cross-version).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related method (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_propertyModifierKeywords"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$propertyModifierKeywords</h4>
+    <h4 class="phpdocumentor-element__name" id="property_propertyModifierKeywords">
+        $propertyModifierKeywords
+        <a href="#property_propertyModifierKeywords" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1205,31 +1368,38 @@ not need to support PHPCS &lt; 3.3.0.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$propertyModifierKeywords</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_PUBLIC =&gt; \T_PUBLIC, \T_PRIVATE =&gt; \T_PRIVATE, \T_PROTECTED =&gt; \T_PROTECTED, \T_STATIC =&gt; \T_STATIC, \T_VAR =&gt; \T_VAR]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_PUBLIC =&gt; T_PUBLIC, T_PRIVATE =&gt; T_PRIVATE, T_PROTECTED =&gt; T_PROTECTED, T_STATIC =&gt; T_STATIC, T_VAR =&gt; T_VAR]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_propertyTypeTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$propertyTypeTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_propertyTypeTokens">
+        $propertyTypeTokens
+        <a href="#property_propertyTypeTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1242,7 +1412,7 @@ not need to support PHPCS &lt; 3.3.0.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$propertyTypeTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_CALLABLE =&gt; \T_CALLABLE, \T_SELF =&gt; \T_SELF, \T_PARENT =&gt; \T_PARENT, \T_STRING =&gt; \T_STRING, \T_NS_SEPARATOR =&gt; \T_NS_SEPARATOR]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_CALLABLE =&gt; T_CALLABLE, T_SELF =&gt; T_SELF, T_PARENT =&gt; T_PARENT, T_STRING =&gt; T_STRING, T_NS_SEPARATOR =&gt; T_NS_SEPARATOR]</span></code>
 
         <section class="phpdocumentor-description"><p>Sister-property to the <a href="../classes/PHPCSUtils-Tokens-Collections.html#method_propertyTypeTokensBC">\PHPCSUtils\Tokens\Collections::propertyTypeTokensBC()</a> method.
 The property supports PHPCS 3.3.0 and up.
@@ -1256,34 +1426,42 @@ This token constant will no longer exist in PHPCS 4.x.</li>
 not need to support PHPCS &lt; 3.3.0.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#method_propertyTypeTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::propertyTypeTokensBC()">Collections::propertyTypeTokensBC()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related method (cross-version).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related method (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_returnTypeTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$returnTypeTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_returnTypeTokens">
+        $returnTypeTokens
+        <a href="#property_returnTypeTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1296,7 +1474,7 @@ not need to support PHPCS &lt; 3.3.0.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$returnTypeTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_STRING =&gt; \T_STRING, \T_CALLABLE =&gt; \T_CALLABLE, \T_SELF =&gt; \T_SELF, \T_PARENT =&gt; \T_PARENT, \T_STATIC =&gt; \T_STATIC, \T_NS_SEPARATOR =&gt; \T_NS_SEPARATOR]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_STRING =&gt; T_STRING, T_CALLABLE =&gt; T_CALLABLE, T_SELF =&gt; T_SELF, T_PARENT =&gt; T_PARENT, T_STATIC =&gt; T_STATIC, T_NS_SEPARATOR =&gt; T_NS_SEPARATOR]</span></code>
 
         <section class="phpdocumentor-description"><p>Sister-property to the <a href="../classes/PHPCSUtils-Tokens-Collections.html#method_returnTypeTokensBC">\PHPCSUtils\Tokens\Collections::returnTypeTokensBC()</a> method.
 The property supports PHPCS 3.5.4 and up.
@@ -1311,34 +1489,42 @@ These token constants will no longer exist in PHPCS 4.x.</li>
 not need to support PHPCS &lt; 3.5.4.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#method_returnTypeTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::returnTypeTokensBC()">Collections::returnTypeTokensBC()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related method (cross-version).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related method (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_shortArrayTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$shortArrayTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_shortArrayTokens">
+        $shortArrayTokens
+        <a href="#property_shortArrayTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1351,38 +1537,46 @@ not need to support PHPCS &lt; 3.5.4.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$shortArrayTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$arrayTokens">Collections::$arrayTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing all tokens used for arrays.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related property containing all tokens used for arrays.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_shortArrayTokensBC"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$shortArrayTokensBC</h4>
+    <h4 class="phpdocumentor-element__name" id="property_shortArrayTokensBC">
+        $shortArrayTokensBC
+        <a href="#property_shortArrayTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1395,41 +1589,49 @@ not need to support PHPCS &lt; 3.5.4.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$shortArrayTokensBC</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET =&gt; \T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET =&gt; \T_CLOSE_SQUARE_BRACKET]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY, T_OPEN_SQUARE_BRACKET =&gt; T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET =&gt; T_CLOSE_SQUARE_BRACKET]</span></code>
 
         <section class="phpdocumentor-description"><p>List which is backward-compatible with PHPCS &lt; 3.3.0.
 Should only be used selectively.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::$arrayTokensBC">Collections::$arrayTokensBC</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing all tokens used for arrays
+                                                                <section class="phpdocumentor-description"><p>Related property containing all tokens used for arrays
 (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_shortListTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$shortListTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_shortListTokens">
+        $shortListTokens
+        <a href="#property_shortListTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1442,38 +1644,46 @@ Should only be used selectively.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$shortListTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_listTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$listTokens">Collections::$listTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing all tokens used for lists.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related property containing all tokens used for lists.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_shortListTokensBC"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$shortListTokensBC</h4>
+    <h4 class="phpdocumentor-element__name" id="property_shortListTokensBC">
+        $shortListTokensBC
+        <a href="#property_shortListTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1486,41 +1696,49 @@ Should only be used selectively.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$shortListTokensBC</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_OPEN_SHORT_ARRAY =&gt; \T_OPEN_SHORT_ARRAY, \T_CLOSE_SHORT_ARRAY =&gt; \T_CLOSE_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET =&gt; \T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET =&gt; \T_CLOSE_SQUARE_BRACKET]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_OPEN_SHORT_ARRAY =&gt; T_OPEN_SHORT_ARRAY, T_CLOSE_SHORT_ARRAY =&gt; T_CLOSE_SHORT_ARRAY, T_OPEN_SQUARE_BRACKET =&gt; T_OPEN_SQUARE_BRACKET, T_CLOSE_SQUARE_BRACKET =&gt; T_CLOSE_SQUARE_BRACKET]</span></code>
 
         <section class="phpdocumentor-description"><p>List which is backward-compatible with PHPCS &lt; 3.3.0.
 Should only be used selectively.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_listTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::$listTokensBC">Collections::$listTokensBC</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property containing all tokens used for lists
+                                                                <section class="phpdocumentor-description"><p>Related property containing all tokens used for lists
 (cross-version).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_textStingStartTokens"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$textStingStartTokens</h4>
+    <h4 class="phpdocumentor-element__name" id="property_textStingStartTokens">
+        $textStingStartTokens
+        <a href="#property_textStingStartTokens" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1533,18 +1751,21 @@ Should only be used selectively.</p></section>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array</span>
     <span class="phpdocumentor-signature__name">$textStingStartTokens</span>
-     = <span class="phpdocumentor-signature__default-value">[\T_START_HEREDOC =&gt; \T_START_HEREDOC, \T_START_NOWDOC =&gt; \T_START_NOWDOC, \T_CONSTANT_ENCAPSED_STRING =&gt; \T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_QUOTED_STRING =&gt; \T_DOUBLE_QUOTED_STRING]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[T_START_HEREDOC =&gt; T_START_HEREDOC, T_START_NOWDOC =&gt; T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING =&gt; T_CONSTANT_ENCAPSED_STRING, T_DOUBLE_QUOTED_STRING =&gt; T_DOUBLE_QUOTED_STRING]</span></code>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -1552,15 +1773,20 @@ Should only be used selectively.</p></section>
             </section>
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_arrowFunctionTokensBC"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">arrowFunctionTokensBC()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_arrowFunctionTokensBC">
+        arrowFunctionTokensBC()
+        <a href="#method_arrowFunctionTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1577,30 +1803,37 @@ Should only be used selectively.</p></section>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></section>
+
     
 </article>
-                    <a id="method_functionDeclarationTokens"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">functionDeclarationTokens()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_functionDeclarationTokens">
+        functionDeclarationTokens()
+        <a href="#method_functionDeclarationTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1620,37 +1853,45 @@ The <a href="../classes/PHPCSUtils-Tokens-Collections.html#method_functionDeclar
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#method_functionDeclarationTokensBC"><abbr title="\PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC()">Collections::functionDeclarationTokensBC()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related method (PHPCS 2.6.0+).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related method (PHPCS 2.6.0+).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></section>
+
     
 </article>
-                    <a id="method_functionDeclarationTokensBC"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">functionDeclarationTokensBC()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_functionDeclarationTokensBC">
+        functionDeclarationTokensBC()
+        <a href="#method_functionDeclarationTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1679,44 +1920,53 @@ this method if a standard supports does not need to support PHPCS &lt; 3.5.3.</p
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#method_functionDeclarationTokens"><abbr title="\PHPCSUtils\Tokens\Collections::functionDeclarationTokens()">Collections::functionDeclarationTokens()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related method (PHPCS 3.5.3+).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related method (PHPCS 3.5.3+).</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction"><abbr title="\PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()">FunctionDeclarations::isArrowFunction()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Arrow function verification.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Arrow function verification.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></section>
+
     
 </article>
-                    <a id="method_parameterTypeTokensBC"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">parameterTypeTokensBC()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_parameterTypeTokensBC">
+        parameterTypeTokensBC()
+        <a href="#method_parameterTypeTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1742,37 +1992,45 @@ not need to support PHPCS &lt; 3.3.0.</p></section>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_parameterTypeTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$parameterTypeTokens">Collections::$parameterTypeTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property (PHPCS 3.3.0+).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related property (PHPCS 3.3.0+).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></section>
+
     
 </article>
-                    <a id="method_propertyTypeTokensBC"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">propertyTypeTokensBC()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_propertyTypeTokensBC">
+        propertyTypeTokensBC()
+        <a href="#method_propertyTypeTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1798,37 +2056,45 @@ not need to support PHPCS &lt; 3.3.0.</p></section>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_propertyTypeTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$propertyTypeTokens">Collections::$propertyTypeTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property (PHPCS 3.3.0+).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related property (PHPCS 3.3.0+).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></section>
+
     
 </article>
-                    <a id="method_returnTypeTokensBC"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">returnTypeTokensBC()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_returnTypeTokensBC">
+        returnTypeTokensBC()
+        <a href="#method_returnTypeTokensBC" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Tokens/Collections.php"><a href="../files/phpcsutils-tokens-collections.html"><abbr title="PHPCSUtils/Tokens/Collections.php">Collections.php</abbr></a></abbr>
     :
@@ -1855,27 +2121,33 @@ not need to support PHPCS &lt; 3.5.4.</p></section>
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Tokens-Collections.html#property_returnTypeTokens"><abbr title="\PHPCSUtils\Tokens\Collections::$returnTypeTokens">Collections::$returnTypeTokens</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Related property (PHPCS 3.5.4+).</p></section>
+                                                                <section class="phpdocumentor-description"><p>Related property (PHPCS 3.5.4+).</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt;</p></section>
+
     
 </article>
             </section>
@@ -1889,7 +2161,10 @@ not need to support PHPCS &lt; 3.5.4.</p></section>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

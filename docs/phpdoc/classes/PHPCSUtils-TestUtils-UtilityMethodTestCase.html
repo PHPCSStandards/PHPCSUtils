@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-testutils.html">TestUtils</a></li>
@@ -88,8 +87,9 @@
     <span class="phpdocumentor-element-found-in__line">100</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Base class for use when testing utility methods for PHP_CodeSniffer.</p>
-<section class="phpdocumentor-description"><p>This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.</p>
+            <p class="phpdocumentor-summary">Base class for use when testing utility methods for PHP_CodeSniffer.</p>
+
+    <section class="phpdocumentor-description"><p>This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.</p>
 <p>This class is compatible with <a href="http://phpunit.de/">PHPUnit</a> 4.5 - 9.x providing the PHPCSUtils
 autoload file is included in the test bootstrap. For more information about that, please consult
 the project's <a href="https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md">README</a>.</p>
@@ -157,14 +157,18 @@ of the test case.</li>
 for the PHPCSUtils utility functions themselves.</li>
 </ul></section>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -173,15 +177,18 @@ for the PHPCSUtils utility functions themselves.</li>
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                 <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_phpcsVersion">$phpcsVersion</a>
+    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_caseFile">$caseFile</a>
     <span>
                 &nbsp;: string            </span>
 </dt>
-<dd>The PHPCS version the tests are being run on.</dd>
+<dd>Full path to the test case file associated with the concrete test class.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_fileExtension">$fileExtension</a>
@@ -191,25 +198,18 @@ for the PHPCSUtils utility functions themselves.</li>
 <dd>The file extension of the test case file (without leading dot).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_caseFile">$caseFile</a>
-    <span>
-                &nbsp;: string            </span>
-</dt>
-<dd>Full path to the test case file associated with the concrete test class.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_tabWidth">$tabWidth</a>
-    <span>
-                &nbsp;: int            </span>
-</dt>
-<dd>The tab width setting to use when tokenizing the file.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_phpcsFile">$phpcsFile</a>
     <span>
                 &nbsp;: <abbr title="\PHP_CodeSniffer\Files\File">File</abbr>            </span>
 </dt>
 <dd>The \PHP_CodeSniffer\Files\File object containing the parsed contents of the test case file.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_phpcsVersion">$phpcsVersion</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>The PHPCS version the tests are being run on.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_selectedSniff">$selectedSniff</a>
@@ -218,7 +218,36 @@ for the PHPCSUtils utility functions themselves.</li>
 </dt>
 <dd>Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_tabWidth">$tabWidth</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>The tab width setting to use when tokenizing the file.</dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_expectPhpcsException">expectPhpcsException()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit and PHPCS cross-version
+compatible manner.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_getTargetToken">getTargetToken()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get the token pointer for a target token based on a specific comment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_resetTestFile">resetTestFile()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Clean up after finished test.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_setUpTestFile">setUpTestFile()</a>
     <span>
                         &nbsp;: void    </span>
@@ -232,28 +261,6 @@ for the PHPCSUtils utility functions themselves.</li>
 </dt>
 <dd>Skip JS and CSS related tests on PHPCS 4.x.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_resetTestFile">resetTestFile()</a>
-    <span>
-                        &nbsp;: void    </span>
-</dt>
-<dd>Clean up after finished test.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_getTargetToken">getTargetToken()</a>
-    <span>
-                        &nbsp;: int    </span>
-</dt>
-<dd>Get the token pointer for a target token based on a specific comment.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_expectPhpcsException">expectPhpcsException()</a>
-    <span>
-                        &nbsp;: void    </span>
-</dt>
-<dd>Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit and PHPCS cross-version
-compatible manner.</dd>
-
         </dl>
 
 
@@ -262,92 +269,23 @@ compatible manner.</dd>
 
         
     <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-properties__header">Properties</h3>
-                    <a id="property_phpcsVersion"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
             phpdocumentor-element
             -property
             -protected
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$phpcsVersion</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">110</span>
-</aside>
-
-        <p class="phpdocumentor-summary">The PHPCS version the tests are being run on.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$phpcsVersion</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;0&#039;</span></code>
-
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-</article>
-                    <a id="property_fileExtension"></a>
-<article
-        class="
-            phpdocumentor-element
-            -property
-            -protected
-            -static                    "
->
-    <h4 class="phpdocumentor-element__name">$fileExtension</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">122</span>
-</aside>
-
-        <p class="phpdocumentor-summary">The file extension of the test case file (without leading dot).</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$fileExtension</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;inc&#039;</span></code>
-
-        <section class="phpdocumentor-description"><p>This allows concrete test classes to overrule the default <code class="prettyprint">"inc"</code> with, for instance,
-<code class="prettyprint">"js"</code> or <code class="prettyprint">"css"</code> when applicable.</p></section>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-</article>
-                    <a id="property_caseFile"></a>
-<article
-        class="
-            phpdocumentor-element
-            -property
-            -protected
-            -static                    "
->
-    <h4 class="phpdocumentor-element__name">$caseFile</h4>
+    <h4 class="phpdocumentor-element__name" id="property_caseFile">
+        $caseFile
+        <a href="#property_caseFile" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
@@ -367,65 +305,80 @@ the same directory and named the same as the test class, but with an
 <code class="prettyprint">"inc"</code> file extension.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_tabWidth"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -protected
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$tabWidth</h4>
+    <h4 class="phpdocumentor-element__name" id="property_fileExtension">
+        $fileExtension
+        <a href="#property_fileExtension" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 </aside>
 
-        <p class="phpdocumentor-summary">The tab width setting to use when tokenizing the file.</p>
+        <p class="phpdocumentor-summary">The file extension of the test case file (without leading dot).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$tabWidth</span>
-     = <span class="phpdocumentor-signature__default-value">4</span></code>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$fileExtension</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;inc&#039;</span></code>
 
-        <section class="phpdocumentor-description"><p>This allows for test case files to use a different tab width than the default.</p></section>
+        <section class="phpdocumentor-description"><p>This allows concrete test classes to overrule the default <code class="prettyprint">"inc"</code> with, for instance,
+<code class="prettyprint">"js"</code> or <code class="prettyprint">"css"</code> when applicable.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_phpcsFile"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -protected
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$phpcsFile</h4>
+    <h4 class="phpdocumentor-element__name" id="property_phpcsFile">
+        $phpcsFile
+        <a href="#property_phpcsFile" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
@@ -442,27 +395,78 @@ the same directory and named the same as the test class, but with an
 
     
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
 </article>
-                    <a id="property_selectedSniff"></a>
-<article
+                    <article
         class="
             phpdocumentor-element
             -property
             -protected
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$selectedSniff</h4>
+    <h4 class="phpdocumentor-element__name" id="property_phpcsVersion">
+        $phpcsVersion
+        <a href="#property_phpcsVersion" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">110</span>
+</aside>
+
+        <p class="phpdocumentor-summary">The PHPCS version the tests are being run on.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$phpcsVersion</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;0&#039;</span></code>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_selectedSniff">
+        $selectedSniff
+        <a href="#property_selectedSniff" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
@@ -483,14 +487,62 @@ in the error code for <code class="prettyprint">addError()</code>/<code class="p
 the recording of these violations, as well as testing the fixer.</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
+                </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_tabWidth">
+        $tabWidth
+        <a href="#property_tabWidth" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">146</span>
+</aside>
+
+        <p class="phpdocumentor-summary">The tab width setting to use when tokenizing the file.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$tabWidth</span>
+     = <span class="phpdocumentor-signature__default-value">4</span></code>
+
+        <section class="phpdocumentor-description"><p>This allows for test case files to use a different tab width than the default.</p></section>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -498,154 +550,82 @@ the recording of these violations, as well as testing the fixer.</p></section>
             </section>
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_setUpTestFile"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name">setUpTestFile()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_expectPhpcsException">
+        expectPhpcsException()
+        <a href="#method_expectPhpcsException" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">389</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Initialize PHPCS &amp; tokenize the test case file.</p>
+        <p class="phpdocumentor-summary">Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit and PHPCS cross-version
+compatible manner.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setUpTestFile</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-        <section class="phpdocumentor-description"><p>The test case file for a unit test class has to be in the same directory
-directory and use the same file name as the test class, using the <code class="prettyprint">.inc</code> extension
-or be explicitly set using the <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_fileExtension">\PHPCSUtils\TestUtils\UtilityMethodTestCase::$fileExtension</a>/
-<a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_caseFile">\PHPCSUtils\TestUtils\UtilityMethodTestCase::$caseFile</a> properties.</p>
-<p>Note: This is a PHPUnit cross-version compatible \PHPUnit\Framework\TestCase::setUpBeforeClass()
-method.</p></section>
+                <span class="phpdocumentor-signature__name">expectPhpcsException</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$msg</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;runtime&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$msg</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The expected exception message.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$type</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;runtime&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The PHPCS native exception type to expect. Either 'runtime' or 'tokenizer'.
+Defaults to 'runtime'.</p></section>
+
+            </dd>
+            </dl>
+
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">beforeClass</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
     
 </article>
-                    <a id="method_skipJSCSSTestsOnPHPCS4"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name">skipJSCSSTestsOnPHPCS4()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">284</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Skip JS and CSS related tests on PHPCS 4.x.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">skipJSCSSTestsOnPHPCS4</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-        <section class="phpdocumentor-description"><p>PHPCS 4.x drops support for the JS and CSS tokenizers.
-This method takes care of automatically skipping tests involving JS/CSS case files
-when the tests are being run with PHPCS 4.x.</p>
-<p>Note: This is a PHPUnit cross-version compatible \PHPUnit\Framework\TestCase::setUp()
-method.</p></section>
-
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">before</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-    
-</article>
-                    <a id="method_resetTestFile"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name">resetTestFile()</h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">309</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Clean up after finished test.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">resetTestFile</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-        <section class="phpdocumentor-description"><p>Note: This is a PHPUnit cross-version compatible \PHPUnit\Framework\TestCase::tearDownAfterClass()
-method.</p></section>
-
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">afterClass</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                                    <section class="phpdocumentor-description"></section>
-                </dd>
-                        </dl>
-
-    
-</article>
-                    <a id="method_getTargetToken"></a>
-<article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name">getTargetToken()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getTargetToken">
+        getTargetToken()
+        <a href="#method_getTargetToken" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
@@ -668,82 +648,199 @@ distinguish between comments used <em>in</em> a test and test delimiters.</p>
                 <span class="phpdocumentor-signature__argument__name">$commentString</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The complete delimiter comment to look for as a string.
-This string should include the comment opener and closer.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The complete delimiter comment to look for as a string.
+This string should include the comment opener and closer.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$tokenType</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int|string|array</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The type of token(s) to look for.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The type of token(s) to look for.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$tokenContent</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Optional. The token content for the target token.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Optional. The token content for the target token.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
     
 </article>
-                    <a id="method_expectPhpcsException"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-element__name">expectPhpcsException()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_resetTestFile">
+        resetTestFile()
+        <a href="#method_resetTestFile" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">389</span>
+    <span class="phpdocumentor-element-found-in__line">309</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit and PHPCS cross-version
-compatible manner.</p>
+        <p class="phpdocumentor-summary">Clean up after finished test.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">expectPhpcsException</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$msg</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;runtime&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">resetTestFile</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"><p>Note: This is a PHPUnit cross-version compatible \PHPUnit\Framework\TestCase::tearDownAfterClass()
+method.</p></section>
 
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$msg</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The expected exception message.</p></section></dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;runtime&#039;</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The PHPCS native exception type to expect. Either 'runtime' or 'tokenizer'.
-Defaults to 'runtime'.</p></section></dd>
-            </dl>
-
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">afterClass</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                    
+                </dd>
+                        </dl>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setUpTestFile">
+        setUpTestFile()
+        <a href="#method_setUpTestFile" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">188</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Initialize PHPCS &amp; tokenize the test case file.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setUpTestFile</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"><p>The test case file for a unit test class has to be in the same directory
+directory and use the same file name as the test class, using the <code class="prettyprint">.inc</code> extension
+or be explicitly set using the <a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_fileExtension">\PHPCSUtils\TestUtils\UtilityMethodTestCase::$fileExtension</a>/
+<a href="../classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#property_caseFile">\PHPCSUtils\TestUtils\UtilityMethodTestCase::$caseFile</a> properties.</p>
+<p>Note: This is a PHPUnit cross-version compatible \PHPUnit\Framework\TestCase::setUpBeforeClass()
+method.</p></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">beforeClass</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                    
+                </dd>
+                        </dl>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_skipJSCSSTestsOnPHPCS4">
+        skipJSCSSTestsOnPHPCS4()
+        <a href="#method_skipJSCSSTestsOnPHPCS4" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="../files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">284</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Skip JS and CSS related tests on PHPCS 4.x.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">skipJSCSSTestsOnPHPCS4</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"><p>PHPCS 4.x drops support for the JS and CSS tokenizers.
+This method takes care of automatically skipping tests involving JS/CSS case files
+when the tests are being run with PHPCS 4.x.</p>
+<p>Note: This is a PHPUnit cross-version compatible \PHPUnit\Framework\TestCase::setUp()
+method.</p></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
+                                                                                                    
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">before</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                    
                 </dd>
                         </dl>
 
@@ -760,7 +857,10 @@ Defaults to 'runtime'.</p></section></dd>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

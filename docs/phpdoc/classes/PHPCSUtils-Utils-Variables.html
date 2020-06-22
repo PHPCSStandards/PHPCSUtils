@@ -16,16 +16,16 @@
         <script src="../js/search.js"></script>
         <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title">PHPCSUtils</h1>
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
     <nav class="phpdocumentor-topnav">
     </nav>
 </header>
 
     <main class="phpdocumentor">
         <div class="phpdocumentor-section">
-            <aside class="four phpdocumentor-columns phpdocumentor-sidebar">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
     <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
     <label class="phpdocumentor-label">
@@ -38,8 +38,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                            <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
                                             <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
@@ -64,7 +63,7 @@
     </section>
 </aside>
 
-            <div class="eight phpdocumentor-columns phpdocumentor-content">
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
@@ -85,19 +84,24 @@
     <span class="phpdocumentor-element-found-in__line">27</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Utility functions for use when examining variables.</p>
-<section class="phpdocumentor-description"></section>
+            <p class="phpdocumentor-summary">Utility functions for use when examining variables.</p>
 
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"><p>The <code class="prettyprint">Variables::getMemberProperties()</code> method is based on and inspired by
+                                                                                                        <section class="phpdocumentor-description"><p>The <code class="prettyprint">Variables::getMemberProperties()</code> method is based on and inspired by
 the method of the same name in the PHPCS native <code class="prettyprint">PHP_CodeSniffer\Files\File</code> class.
 Also see {@see \PHPCSUtils\BackCompat\BCFile}.</p></section>
+
                 </dd>
                         </dl>
 
@@ -106,7 +110,10 @@ Also see {@see \PHPCSUtils\BackCompat\BCFile}.</p></section>
 
 
 
-<h3>Table of Contents</h3>
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
 
 <dl class="phpdocumentor-table-of-contents">
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
@@ -152,16 +159,23 @@ Also see {@see \PHPCSUtils\BackCompat\BCFile}.</p></section>
 
         
     <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-properties__header">Properties</h3>
-                    <a id="property_phpReservedVars"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
             phpdocumentor-element
             -property
             -public
-            -static                    "
+            -static                                            "
 >
-    <h4 class="phpdocumentor-element__name">$phpReservedVars</h4>
+    <h4 class="phpdocumentor-element__name" id="property_phpReservedVars">
+        $phpReservedVars
+        <a href="#property_phpReservedVars" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Variables.php"><a href="../files/phpcsutils-utils-variables.html"><abbr title="PHPCSUtils/Utils/Variables.php">Variables.php</abbr></a></abbr>
     :
@@ -207,21 +221,25 @@ whether the variable is a superglobal or not.</p>
 to be used with array index keys as well. Think: <code class="prettyprint">'_GET'</code> in <code class="prettyprint">$GLOBALS['_GET']</code>.}</p></section>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">link</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                                         <a class="phpdocumentor-tag-link" href="http://php.net/reserved.variables">http://php.net/reserved.variables</a>
-                                        <section class="phpdocumentor-description"><p>PHP Manual on reserved variables</p></section>
+                                            <section class="phpdocumentor-description"><p>PHP Manual on reserved variables</p></section>
+
                 </dd>
                         </dl>
 
@@ -229,15 +247,20 @@ to be used with array index keys as well. Think: <code class="prettyprint">'_GET
             </section>
 
             <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-methods__header">Methods</h3>
-                    <a id="method_getMemberProperties"></a>
-<article
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">getMemberProperties()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getMemberProperties">
+        getMemberProperties()
+        <a href="#method_getMemberProperties" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Variables.php"><a href="../files/phpcsutils-utils-variables.html"><abbr title="PHPCSUtils/Utils/Variables.php">Variables.php</abbr></a></abbr>
     :
@@ -264,60 +287,74 @@ other non-property variables passed to the method.</li>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file being scanned.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_VARIABLE</code> token
-to acquire the properties for.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_VARIABLE</code> token
+to acquire the properties for.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getMemberProperties()">File::getMemberProperties()</abbr></span>
-                                                            <section class="phpdocumentor-description"><p>Original source.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Original source.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-BackCompat-BCFile.html#method_getMemberProperties"><abbr title="\PHPCSUtils\BackCompat\BCFile::getMemberProperties()">BCFile::getMemberProperties()</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+                                                                <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified position is not a
+                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
 <code class="prettyprint">T_VARIABLE</code> token.</p></section>
+
                 </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                <section class="phpdocumentor-description"><p>If the specified position is not a
+                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
 class member variable.</p></section>
+
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array</span>
-            &mdash; <span class="phpdocumentor-description"><p>Array with information about the class member variable.
+            &mdash;
+            <section class="phpdocumentor-description"><p>Array with information about the class member variable.
 The format of the return value is:</p>
 <pre class="prettyprint"><code class="language-php">array(
   'scope'           =&gt; string,  // Public, private, or protected.
@@ -329,17 +366,20 @@ The format of the return value is:</p>
   'type_end_token'  =&gt; integer, // The stack pointer to the end of the type
                                 // or FALSE if there is no type.
   'nullable_type'   =&gt; boolean, // TRUE if the type is nullable.
-);</code></pre></span>
+);</code></pre></section>
+
     
 </article>
-                    <a id="method_isPHPReservedVarName"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isPHPReservedVarName()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isPHPReservedVarName">
+        isPHPReservedVarName()
+        <a href="#method_isPHPReservedVarName" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Variables.php"><a href="../files/phpcsutils-utils-variables.html"><abbr title="PHPCSUtils/Utils/Variables.php">Variables.php</abbr></a></abbr>
     :
@@ -359,47 +399,58 @@ The format of the return value is:</p>
                 <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full variable name with or without leading dollar sign.
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The full variable name with or without leading dollar sign.
 This allows for passing an array key variable name, such as
 <code class="prettyprint">'_GET'</code> retrieved from <code class="prettyprint">$GLOBALS['_GET']</code>.</p>
 <blockquote>
 <p>Note: when passing an array key, string quotes are expected
 to have been stripped already.
 Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.</p>
-</blockquote></section></dd>
+</blockquote></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Variables.html#property_phpReservedVars"><abbr title="\PHPCSUtils\Utils\Variables::$phpReservedVars">Variables::$phpReservedVars</abbr></a></span>
-                                                            <section class="phpdocumentor-description"><p>List of variables names reserved by PHP.</p></section>
+                                                                <section class="phpdocumentor-description"><p>List of variables names reserved by PHP.</p></section>
+
                 </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
     
 </article>
-                    <a id="method_isSuperglobal"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isSuperglobal()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isSuperglobal">
+        isSuperglobal()
+        <a href="#method_isSuperglobal" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Variables.php"><a href="../files/phpcsutils-utils-variables.html"><abbr title="PHPCSUtils/Utils/Variables.php">Variables.php</abbr></a></abbr>
     :
@@ -419,47 +470,60 @@ Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.</p>
                 <span class="phpdocumentor-signature__argument__name">$phpcsFile</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The file where this token was found.</p></section></dd>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stackPtr</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The position in the stack of a <code class="prettyprint">T_VARIABLE</code>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The position in the stack of a <code class="prettyprint">T_VARIABLE</code>
 token or of the <code class="prettyprint">T_CONSTANT_ENCAPSED_STRING</code>
-array key to a variable in <code class="prettyprint">$GLOBALS</code>.</p></section></dd>
+array key to a variable in <code class="prettyprint">$GLOBALS</code>.</p></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash; <span class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if this points to a superglobal; <code class="prettyprint">FALSE</code> when not.</p>
+            &mdash;
+            <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if this points to a superglobal; <code class="prettyprint">FALSE</code> when not.</p>
 <blockquote>
 <p>Note: This includes returning <code class="prettyprint">FALSE</code> when an unsupported token has
 been passed, when a <code class="prettyprint">T_CONSTANT_ENCAPSED_STRING</code> has been passed which
 is not an array index key; or when it is, but is not an index to the
 <code class="prettyprint">$GLOBALS</code> variable.</p>
-</blockquote></span>
+</blockquote></section>
+
     
 </article>
-                    <a id="method_isSuperglobalName"></a>
-<article
+                    <article
         class="phpdocumentor-element
             -method
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name">isSuperglobalName()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_isSuperglobalName">
+        isSuperglobalName()
+        <a href="#method_isSuperglobalName" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Variables.php"><a href="../files/phpcsutils-utils-variables.html"><abbr title="PHPCSUtils/Utils/Variables.php">Variables.php</abbr></a></abbr>
     :
@@ -479,30 +543,38 @@ is not an array index key; or when it is, but is not an index to the
                 <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
-            <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The full variable name with or without leading dollar sign.
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The full variable name with or without leading dollar sign.
 This allows for passing an array key variable name, such as
 <code class="prettyprint">'_GET'</code> retrieved from <code class="prettyprint">$GLOBALS['_GET']</code>.</p>
 <blockquote>
 <p>Note: when passing an array key, string quotes are expected
 to have been stripped already.
 Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.</p>
-</blockquote></section></dd>
+</blockquote></section>
+
+            </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    <section class="phpdocumentor-description"></section>
+                                                                                                    
                 </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
     
 </article>
             </section>
@@ -516,7 +588,10 @@ Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.</p>
 </div>
             </div>
         </div>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
     </main>
+
     <script>
         cssVars({});
     </script>

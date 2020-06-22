@@ -26,6 +26,7 @@
     --primary-color-lighten: hsl(96, 57%, 80%);
     --primary-color-lighter: hsl(96, 57%, 97%);
     --dark-gray: #d1d1d1;
+    --light-gray: #f0f0f0;
 
     --text-color: #4b3b40;
 
@@ -51,7 +52,7 @@
     --sidebar-border-color: var(--primary-color-lighten);
 
     /* Grid */
-    --container-width: 1200px;
+    --container-width: 1400px;
 
     /* Spacing */
     --spacing-base-size: 1rem;
@@ -135,27 +136,28 @@ body {
     margin-top: var(--spacing-md);
 }
 
-.phpdocumentor-content h1 .headerlink,
-.phpdocumentor-content h2 .headerlink,
-.phpdocumentor-content h3 .headerlink,
-.phpdocumentor-content h4 .headerlink,
-.phpdocumentor-content h5 .headerlink,
-.phpdocumentor-content h6 .headerlink
+.phpdocumentor h1 .headerlink,
+.phpdocumentor h2 .headerlink,
+.phpdocumentor h3 .headerlink,
+.phpdocumentor h4 .headerlink,
+.phpdocumentor h5 .headerlink,
+.phpdocumentor h6 .headerlink
 {
-    display: none;
-    padding-left: 10px;
+    transition: all .3s ease-in-out;
+    opacity: 0;
     text-decoration: none;
     color: silver;
+    font-size: 80%;
 }
 
-.phpdocumentor-content h1:hover .headerlink,
-.phpdocumentor-content h2:hover .headerlink,
-.phpdocumentor-content h3:hover .headerlink,
-.phpdocumentor-content h4:hover .headerlink,
-.phpdocumentor-content h5:hover .headerlink,
-.phpdocumentor-content h6:hover .headerlink
+.phpdocumentor h1:hover .headerlink,
+.phpdocumentor h2:hover .headerlink,
+.phpdocumentor h3:hover .headerlink,
+.phpdocumentor h4:hover .headerlink,
+.phpdocumentor h5:hover .headerlink,
+.phpdocumentor h6:hover .headerlink
 {
-    display: initial;
+    opacity: 1;
 }
 .phpdocumentor p {
     margin-top: 0;
@@ -179,170 +181,148 @@ body {
     width: 100%;
 }
 
-@media (min-width: 400px) {
+@media (min-width: 1200px) {
     .phpdocumentor-section {
         padding: 0;
+        width: 95%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .phpdocumentor-section {
         width: 85%;
     }
 }
-
-@media (min-width: 550px) {
-    .phpdocumentor-section {
-        width: 80%;
-    }
-}
-.phpdocumentor-content {
-    position: relative;
-}
-
-.phpdocumentor-column,
-.phpdocumentor-columns {
+.phpdocumentor-column {
     box-sizing: border-box;
     float: left;
     width: 100%;
 }
 
 @media (min-width: 550px) {
-    .phpdocumentor-column,
-    .phpdocumentor-columns {
+    .phpdocumentor-column {
         margin-left: 4%;
     }
 
-    .phpdocumentor-column:first-child,
-    .phpdocumentor-columns:first-child {
+    .phpdocumentor-column:first-child {
         margin-left: 0;
     }
 
-    .one.phpdocumentor-column,
-    .one.phpdocumentor-columns {
+    .-one.phpdocumentor-column {
         width: 4.66666666667%;
     }
 
-    .two.phpdocumentor-columns {
+    .-two.phpdocumentor-column {
         width: 13.3333333333%;
     }
 
-    .three.phpdocumentor-columns {
+    .-three.phpdocumentor-column {
         width: 22%;
     }
 
-    .four.phpdocumentor-columns {
+    .-four.phpdocumentor-column {
         width: 30.6666666667%;
     }
 
-    .five.phpdocumentor-columns {
+    .-five.phpdocumentor-column {
         width: 39.3333333333%;
     }
 
-    .six.phpdocumentor-columns {
+    .-six.phpdocumentor-column {
         width: 48%;
     }
 
-    .seven.phpdocumentor-columns {
+    .-seven.phpdocumentor-column {
         width: 56.6666666667%;
     }
 
-    .eight.phpdocumentor-columns {
+    .-eight.phpdocumentor-column {
         width: 65.3333333333%;
     }
 
-    .nine.phpdocumentor-columns {
+    .-nine.phpdocumentor-column {
         width: 74.0%;
     }
 
-    .ten.phpdocumentor-columns {
+    .-ten.phpdocumentor-column {
         width: 82.6666666667%;
     }
 
-    .eleven.phpdocumentor-columns {
+    .-eleven.phpdocumentor-column {
         width: 91.3333333333%;
     }
 
-    .twelve.phpdocumentor-columns {
+    .-twelve.phpdocumentor-column {
         margin-left: 0;
         width: 100%;
     }
 
-    .one-third.phpdocumentor-column {
+    .-one-third.phpdocumentor-column {
         width: 30.6666666667%;
     }
 
-    .two-thirds.phpdocumentor-column {
+    .-two-thirds.phpdocumentor-column {
         width: 65.3333333333%;
     }
 
-    .one-half.phpdocumentor-column {
+    .-one-half.phpdocumentor-column {
         width: 48%;
     }
 
     /* Offsets */
-    .offset-by-one.phpdocumentor-column,
-    .offset-by-one.phpdocumentor-columns {
+    .-offset-by-one.phpdocumentor-column {
         margin-left: 8.66666666667%;
     }
 
-    .offset-by-two.phpdocumentor-column,
-    .offset-by-two.phpdocumentor-columns {
+    .-offset-by-two.phpdocumentor-column {
         margin-left: 17.3333333333%;
     }
 
-    .offset-by-three.phpdocumentor-column,
-    .offset-by-three.phpdocumentor-columns {
+    .-offset-by-three.phpdocumentor-column {
         margin-left: 26%;
     }
 
-    .offset-by-four.phpdocumentor-column,
-    .offset-by-four.phpdocumentor-columns {
+    .-offset-by-four.phpdocumentor-column {
         margin-left: 34.6666666667%;
     }
 
-    .offset-by-five.phpdocumentor-column,
-    .offset-by-five.phpdocumentor-columns {
+    .-offset-by-five.phpdocumentor-column {
         margin-left: 43.3333333333%;
     }
 
-    .offset-by-six.phpdocumentor-column,
-    .offset-by-six.phpdocumentor-columns {
+    .-offset-by-six.phpdocumentor-column {
         margin-left: 52%;
     }
 
-    .offset-by-seven.phpdocumentor-column,
-    .offset-by-seven.phpdocumentor-columns {
+    .-offset-by-seven.phpdocumentor-column {
         margin-left: 60.6666666667%;
     }
 
-    .offset-by-eight.phpdocumentor-column,
-    .offset-by-eight.phpdocumentor-columns {
+    .-offset-by-eight.phpdocumentor-column {
         margin-left: 69.3333333333%;
     }
 
-    .offset-by-nine.phpdocumentor-column,
-    .offset-by-nine.phpdocumentor-columns {
+    .-offset-by-nine.phpdocumentor-column {
         margin-left: 78.0%;
     }
 
-    .offset-by-ten.phpdocumentor-column,
-    .offset-by-ten.phpdocumentor-columns {
+    .-offset-by-ten.phpdocumentor-column {
         margin-left: 86.6666666667%;
     }
 
-    .offset-by-eleven.phpdocumentor-column,
-    .offset-by-eleven.phpdocumentor-columns {
+    .-offset-by-eleven.phpdocumentor-column {
         margin-left: 95.3333333333%;
     }
 
-    .offset-by-one-third.phpdocumentor-column,
-    .offset-by-one-third.phpdocumentor-columns {
+    .-offset-by-one-third.phpdocumentor-column {
         margin-left: 34.6666666667%;
     }
 
-    .offset-by-two-thirds.phpdocumentor-column,
-    .offset-by-two-thirds.phpdocumentor-columns {
+    .-offset-by-two-thirds.phpdocumentor-column {
         margin-left: 69.3333333333%;
     }
 
-    .offset-by-one-half.phpdocumentor-column,
-    .offset-by-one-half.phpdocumentor-columns {
+    .-offset-by-one-half.phpdocumentor-column {
         margin-left: 52%;
     }
 }
@@ -371,9 +351,10 @@ body {
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
+    margin-bottom: var(--spacing-md);
 }
 
-.phpdocumentor-button--wide {
+.phpdocumentor-button .-wide {
     width: 100%;
 }
 
@@ -384,21 +365,17 @@ body {
     outline: 0;
 }
 
-.phpdocumentor-button.button-primary {
+.phpdocumentor-button.-primary {
     background-color: var(--button-color-primary);
     border-color: var(--button-color-primary);
     color: var(--button-text-color-primary);
 }
 
-.phpdocumentor-button.phpdocumentor-button--primary:hover,
-.phpdocumentor-button.phpdocumentor-button--primary:focus {
+.phpdocumentor-button.-primary:hover,
+.phpdocumentor-button.-primary:focus {
     background-color: var(--link-color-primary);
     border-color: var(--link-color-primary);
     color: var(--button-text-color-primary);
-}
-
-.phpdocumentor-button {
-    margin-bottom: var(--spacing-md);
 }
 .phpdocumentor form {
     margin-bottom: var(--spacing-md);
@@ -453,12 +430,6 @@ textarea {
 input[type="checkbox"].phpdocumentor-field,
 input[type="radio"].phpdocumentor-field {
     display: inline;
-}
-
-.phpdocumentor-label > .phpdocumentor-label--body {
-    display: inline-block;
-    font-weight: normal;
-    margin-left: var(--spacing-xs);
 }
 div.phpdocumentor-list > ul,
 ul.phpdocumentor-list {
@@ -539,11 +510,10 @@ td.phpdocumentor-cell:last-child {
 }
 
 .phpdocumentor-header > * {
-    line-height: var(--header-height);
+    height: var(--header-height);
 }
 .phpdocumentor-title {
     box-sizing: border-box;
-
     color: var(--title-text-color);
     font-size: var(--text-xxl);
     letter-spacing: .05rem;
@@ -551,15 +521,42 @@ td.phpdocumentor-cell:last-child {
     width: 30.6666666667%;
     margin: 0;
     border-right: var(--sidebar-border-color) solid 1px;
+    display: flex;
+    align-items: center;
+}
+
+.phpdocumentor-title__link {
+    transition: all .3s ease-out;
+    display: block;
+    color: var(--title-text-color);
+    text-decoration: none;
+    font-weight: normal;
+    white-space: nowrap;
+    transform: scale(.75);
+    transform-origin: left;
+}
+
+.phpdocumentor-title__link:hover {
+    transform: perspective(15rem) translateX(.5rem);
+    font-weight: 600;
+}
+
+@media (min-width: 1000px) {
+    .phpdocumentor-title__link {
+        transform: scale(.85);
+    }
+}
+
+@media (min-width: 1200px) {
+    .phpdocumentor-title__link {
+        transform: scale(1);
+    }
 }
 .phpdocumentor-topnav {
     display: flex;
     flex: 1;
     margin-left: 4%;
-}
-
-.phpdocumentor-topnav__menu.-social {
-    margin-left: auto;
+    align-items: center;
 }
 
 .phpdocumentor-topnav__menu {
@@ -567,6 +564,12 @@ td.phpdocumentor-cell:last-child {
     list-style: none;
     margin: 0;
     padding: 0;
+    flex: 1;
+}
+
+.phpdocumentor-topnav__menu.-social {
+    margin-left: auto;
+    flex: 0 auto;
 }
 
 .phpdocumentor-topnav__menu-item {
@@ -680,6 +683,52 @@ td.phpdocumentor-cell:last-child {
     color: var(--dark-gray);
     content: "\\\A0";
     padding: 0;
+}
+.phpdocumentor .phpdocumentor-back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    font-size: 2.5rem;
+    opacity: .25;
+    transition: all .3s ease-in-out;
+    right: 2rem;
+}
+
+.phpdocumentor .phpdocumentor-back-to-top:hover {
+    color: var(--link-color-primary);
+    opacity: 1;
+}
+.phpdocumentor-search {
+    position: relative;
+    display: none; /** disable by default for non-js flow */
+    opacity: .3; /** white-out default for loading indication */
+    transition: opacity .3s, background .3s;
+}
+.phpdocumentor-search:before {
+    content: '';
+    background: transparent;
+    left: calc(-1 * var(--spacing-md));
+    height: 100%;
+    position: absolute;
+    right: -15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity .3s, background .3s;
+}
+
+.phpdocumentor-search--enabled {
+    display: block;
+}
+
+.phpdocumentor-search--active {
+    opacity: 1;
+}
+.phpdocumentor-search--has-results:before {
+    background: var(--popover-background-color);
+    opacity: 1;
+}
+
+.phpdocumentor-search input:disabled {
+    background-color: lightgray;
 }
 
 /* Used for screen readers and such */
