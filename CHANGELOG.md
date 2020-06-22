@@ -27,7 +27,7 @@ Notes:
 * New [`PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement()`](https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement) method. [#117](https://github.com/PHPCSStandards/PHPCSUtils/pull/117)
 
 #### PHPCS Backcompat
-* `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134](https://github.com/PHPCSStandards/PHPCSUtils/pull/134)
+* `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134](https://github.com/PHPCSStandards/PHPCSUtils/pull/134) [PHPCS#2952](https://github.com/squizlabs/PHP_CodeSniffer/pull/2952)
 
 #### TestUtils
 * [`UtilityMethodTestCase`]: new public `$phpcsVersion` property for use in tests. [#107](https://github.com/PHPCSStandards/PHPCSUtils/pull/107)
@@ -99,6 +99,7 @@ Notes:
 
 #### PHPCS Backcompat
 * `BCFile::findEndOfStatement()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143](https://github.com/PHPCSStandards/PHPCSUtils/pull/143)
+* `BcFile::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#160](https://github.com/PHPCSStandards/PHPCSUtils/pull/160) [PHPCS#2977](https://github.com/squizlabs/PHP_CodeSniffer/pull/2977)
 
 #### Utils
 * `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143](https://github.com/PHPCSStandards/PHPCSUtils/pull/143)

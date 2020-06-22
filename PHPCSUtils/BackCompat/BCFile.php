@@ -976,6 +976,8 @@ class BCFile
      *                - References to class properties with `self::`, `parent::`, `static::`,
      *                  `namespace\ClassName::`, `classname::` were not recognized as references.
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions returning by reference.
+     * - PHPCS 3.5.6: Bug fix: the reference operator for closures declared to return by reference was
+     *                not recognized as a reference. PHPCS#2977.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference() Original source.
      * @see \PHPCSUtils\Utils\Operators::isReference() PHPCSUtils native improved version.
@@ -1000,6 +1002,7 @@ class BCFile
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
         if ($tokens[$tokenBefore]['code'] === T_FUNCTION
+            || $tokens[$tokenBefore]['code'] === T_CLOSURE
             || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
         ) {
             // Function returns a reference.
