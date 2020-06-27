@@ -10,7 +10,7 @@ This projects adheres to [Keep a CHANGELOG](http://keepachangelog.com/) and uses
 _Nothing yet._
 
 
-## [1.0.0-alpha3] - 2020-06-14
+## [1.0.0-alpha3] - 2020-06-29
 
 Notes:
 * While still in alpha, some BC-breaks may be introduced. These are clearly indicated in the changelog with the :warning: symbol.
@@ -86,6 +86,7 @@ Notes:
 
 #### Other
 * Composer: PHPCSUtils can now be installed in combination with PHPCS `4.0.x-dev@dev` for testing purposes.
+* Composer: The version requirements for the [DealerDirect Composer PHPCS plugin] have been widened to allow for version 0.7.0 which supports Composer 2.0.0.
 * Readme/website homepage: textual improvements. Props [@GaryJones]. [#121](https://github.com/PHPCSStandards/PHPCSUtils/pull/121)
 * Readme/website homepage: added additional FAQ question & answers. [#157](https://github.com/PHPCSStandards/PHPCSUtils/pull/157)
 * The website homepage is now generated using the GitHub Pages gem with Jekyll, making maintenance easier. [#141](https://github.com/PHPCSStandards/PHPCSUtils/pull/141)
