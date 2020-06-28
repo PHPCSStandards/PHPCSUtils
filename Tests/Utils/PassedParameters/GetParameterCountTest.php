@@ -317,6 +317,11 @@ class GetParameterCountTest extends UtilityMethodTestCase
                 '/* testShortArray8 */',
                 3,
             ],
+
+            'array-with-empty-item' => [
+                '/* testArrayWithEmptyItem */',
+                3,
+            ],
         ];
     }
 }

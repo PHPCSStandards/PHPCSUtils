@@ -21,6 +21,10 @@ $array = [
     'string' => 'string key',
 ];
 
+/* testEmptyArrayItem */
+// Intentional parse error.
+$array = array(1,, 'a' => 2);
+
 /* testShortCircuit */
 $array = [1, 'a' => 2, ];
 

@@ -94,3 +94,16 @@ interface MagicInterface
     /* testMethodInInterfaceNotMagicName */
     function __myFunction();
 }
+
+// Verify that nested functions are correctly seen as declared in the global namespace.
+class FunctionsDeclaredNestedInMethod extends \SoapClient {
+    /* testNonMagicMethod */
+    public function methodName() {
+        /* testNestedFunctionDeclarationMagicFunction */
+        function __autoload($class) {}
+        /* testNestedFunctionDeclarationNonMagicFunction */
+        function __isset() {}
+        /* testNestedFunctionDeclarationNonSpecialFunction */
+        function __getLastResponse() {}
+    }
+}

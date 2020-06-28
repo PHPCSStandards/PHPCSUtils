@@ -1,3 +1,4 @@
+os: linux
 dist: trusty
 
 language: php
@@ -10,6 +11,7 @@ cache:
     - $HOME/.composer/cache/files
     # Cache directory for more recent Composer versions.
     - $HOME/.cache/composer/files
+    - /home/travis/.rvm/
 
 php:
   - 5.5
@@ -31,6 +33,8 @@ env:
 # See: https://docs.travis-ci.com/user/conditions-v1
 stages:
   - name: sniff
+  - name: docs
+    if: branch IN (master)
   - name: quicktest
     if: type = push AND branch NOT IN (master, develop)
   - name: test
@@ -66,6 +70,23 @@ jobs:
         # Check the code-style consistency of the xml files.
         - diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
         - diff -B ./PHPCS23Utils/ruleset.xml <(xmllint --format "./PHPCS23Utils/ruleset.xml")
+      after_success: skip
+
+    #### DOCUMENTATION SITE TESTING STAGE ####
+    - stage: docs
+      language: ruby
+      cache: bundler
+      rvm: 2.5.8
+      before_install: skip
+      install:
+        - cd ./docs
+        - gem install bundler
+        - bundle install
+      before_script: skip
+      script:
+        # Test the documentation generation.
+        - bundle exec jekyll build
+      after_success: skip
 
     #### QUICK TEST STAGE ####
     # This is a much quicker test which only runs the unit tests and linting against the low/high
@@ -109,6 +130,9 @@ jobs:
     - php: 7.2
       env: PHPCS_VERSION="3.2.0"
 
+    - php: 7.4
+      env: PHPCS_VERSION="4.0.x-dev@dev"
+
     - php: "nightly"
       env: PHPCS_VERSION="n/a" LINT=1
 
@@ -132,19 +156,20 @@ jobs:
   allow_failures:
     # Allow failures for unstable builds.
     - php: "nightly"
+    - env: PHPCS_VERSION="4.0.x-dev@dev"
 
 
 before_install:
   # Speed up build time by disabling Xdebug when its not needed.
   - |
-    if [[ "$TRAVIS_BUILD_STAGE_NAME" != "Coverage" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" != "Coverage" ]]; then
       phpenv config-rm xdebug.ini || echo 'No xdebug config.'
     fi
 
   # On stable PHPCS versions, allow for PHP deprecation notices.
   # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
   - |
-    if [[ "$TRAVIS_BUILD_STAGE_NAME" != "Sniff" && $PHPCS_VERSION != "dev-master" && "$PHPCS_VERSION" != "n/a" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" != "Sniff" && $PHPCS_VERSION != "dev-master" && "$PHPCS_VERSION" != "n/a" ]]; then
       echo 'error_reporting = E_ALL & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     fi
 
@@ -158,7 +183,7 @@ install:
       composer require --no-update --no-scripts squizlabs/php_codesniffer:${PHPCS_VERSION}
     fi
   - |
-    if [[ "$TRAVIS_BUILD_STAGE_NAME" == "Coverage" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then
       composer require --dev --no-update --no-suggest --no-scripts php-coveralls/php-coveralls:${COVERALLS_VERSION}
     fi
   - |
@@ -173,7 +198,7 @@ install:
 
 
 before_script:
-  - if [[ "$TRAVIS_BUILD_STAGE_NAME" == "Coverage" ]]; then mkdir -p build/logs; fi
+  - if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then mkdir -p build/logs; fi
   - phpenv rehash
 
 
@@ -183,18 +208,18 @@ script:
 
   # Run the unit tests.
   - |
-    if [[ $PHPCS_VERSION != "n/a" && "$TRAVIS_BUILD_STAGE_NAME" != "Coverage" ]]; then
+    if [[ $PHPCS_VERSION != "n/a" && "${TRAVIS_BUILD_STAGE_NAME^}" != "Coverage" ]]; then
       composer test
-    elif [[ $PHPCS_VERSION != "n/a" && "$TRAVIS_BUILD_STAGE_NAME" == "Coverage" ]]; then
+    elif [[ $PHPCS_VERSION != "n/a" && "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then
       composer coverage
     fi
 
 after_success:
   - |
-    if [[ "$TRAVIS_BUILD_STAGE_NAME" == "Coverage" && $COVERALLS_VERSION == "^1.0" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" && $COVERALLS_VERSION == "^1.0" ]]; then
       php vendor/bin/coveralls -v -x build/logs/clover.xml
     fi
   - |
-    if [[ "$TRAVIS_BUILD_STAGE_NAME" == "Coverage" && $COVERALLS_VERSION == "^2.0" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" && $COVERALLS_VERSION == "^2.0" ]]; then
       php vendor/bin/php-coveralls -v -x build/logs/clover.xml
     fi

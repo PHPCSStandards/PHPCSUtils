@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\BackCompat;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 
 /**
@@ -60,19 +61,33 @@ class Helper
      *
      * @since 1.0.0
      *
-     * @param string      $key   The name of the config value.
-     * @param string|null $value The value to set. If null, the config entry
-     *                           is deleted, reverting it to the default value.
-     * @param bool        $temp  Set this config data temporarily for this script run.
-     *                           This will not write the config data to the config file.
+     * @param string                  $key    The name of the config value.
+     * @param string|null             $value  The value to set. If `null`, the config entry
+     *                                        is deleted, reverting it to the default value.
+     * @param bool                    $temp   Set this config data temporarily for this script run.
+     *                                        This will not write the config data to the config file.
+     * @param \PHP_CodeSniffer\Config $config The PHPCS config object.
+     *                                        This parameter is required for PHPCS 4.x, optional
+     *                                        for PHPCS 3.x and not possible to pass for PHPCS 2.x.
+     *                                        Passing the `$phpcsFile->config` property should work
+     *                                        in PHPCS 3.x and higher.
      *
      * @return bool Whether the setting of the data was successfull.
      */
-    public static function setConfigData($key, $value, $temp = false)
+    public static function setConfigData($key, $value, $temp = false, $config = null)
     {
         if (\method_exists('\PHP_CodeSniffer\Config', 'setConfigData') === false) {
             // PHPCS 2.x.
             return \PHP_CodeSniffer::setConfigData($key, $value, $temp);
+        }
+
+        if (isset($config) === true) {
+            // PHPCS 3.x and 4.x.
+            return $config->setConfigData($key, $value, $temp);
+        }
+
+        if (\version_compare(self::getVersion(), '3.99.99', '>') === true) {
+            throw new RuntimeException('Passing the $config parameter is required in PHPCS 4.x');
         }
 
         // PHPCS 3.x.
@@ -81,6 +96,9 @@ class Helper
 
     /**
      * Get the value of a single PHP_CodeSniffer config key.
+     *
+     * @see Helper::getCommandLineData() Alternative for the same which is more reliable
+     *                                   if the `$phpcsFile` object is available.
      *
      * @since 1.0.0
      *
@@ -152,14 +170,55 @@ class Helper
     }
 
     /**
-     * Check whether the `--ignore-annotations` option has been used.
+     * Get the applicable (file) encoding as passed to PHP_CodeSniffer from the
+     * command-line or the ruleset.
+     *
+     * @since 1.0.0-alpha3
+     *
+     * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
+     *
+     * @return string Encoding. Defaults to the PHPCS native default, which is 'utf-8'
+     *                for PHPCS 3.x and was 'iso-8859-1' for PHPCS 2.x.
+     */
+    public static function getEncoding(File $phpcsFile = null)
+    {
+        static $default;
+
+        if (isset($default) === false) {
+            $default = 'utf-8';
+            if (\version_compare(self::getVersion(), '2.99.99', '<=') === true) {
+                // In PHPCS 2.x, the default encoding is `iso-8859-1`.
+                $default = 'iso-8859-1';
+            }
+        }
+
+        if ($phpcsFile instanceof File) {
+            // Most reliable.
+            $encoding = self::getCommandLineData($phpcsFile, 'encoding');
+            if ($encoding === null) {
+                $encoding = $default;
+            }
+
+            return $encoding;
+        }
+
+        // Less reliable.
+        $encoding = self::getConfigData('encoding');
+        if ($encoding === null) {
+            $encoding = $default;
+        }
+
+        return $encoding;
+    }
+
+    /**
+     * Check whether the "--ignore-annotations" option is in effect.
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile Optional. The current file
-     *                                               being processed.
+     * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *
-     * @return bool True if annotations should be ignored, false otherwise.
+     * @return bool `TRUE` if annotations should be ignored, `FALSE` otherwise.
      */
     public static function ignoreAnnotations(File $phpcsFile = null)
     {

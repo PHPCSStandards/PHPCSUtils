@@ -35,7 +35,7 @@ class GetTokensAsString
      *
      * This is the default behaviour for PHPCS.
      *
-     * If the tab width is set, either via a (custom) ruleset, the config file or by passing it
+     * If the `tabWidth` is set, either via a (custom) ruleset, the config file or by passing it
      * on the command-line, PHPCS will automatically replace tabs with spaces.
      * The `'content'` index key in the `$tokens` array will contain the tab-replaced content.
      * The `'orig_content'` index key in the `$tokens` array will contain the original content.
@@ -83,8 +83,14 @@ class GetTokensAsString
      * Retrieve the original content of the tokens from the specified start position in
      * the token stack to the specified end position (inclusive).
      *
-     * If the original content contained tabs, the return value of this function will
-     * also contain tabs.
+     * In contrast to the {@see GetTokensAsString::normal()} method, this method will return
+     * the original token content for the specified tokens.
+     * That means that if the original content contained tabs, the return value of this function
+     * will also contain tabs.
+     *
+     * The same can be achieved in PHPCS since version 3.3.0, by calling the
+     * {@see \PHP_CodeSniffer\Files\File::getTokensAsString()} method and passing `true` as the
+     * value for the `$origContent` parameter.
      *
      * @see \PHP_CodeSniffer\Files\File::getTokensAsString()   Similar length-based function.
      * @see \PHPCSUtils\BackCompat\BCFile::getTokensAsString() Cross-version compatible version of the original.
@@ -116,7 +122,7 @@ class GetTokensAsString
      * @param int                         $start     The position to start from in the token stack.
      * @param int                         $end       The position to end at in the token stack (inclusive).
      *
-     * @return string The token contents.
+     * @return string The token contents stripped off comments.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
      */
@@ -140,7 +146,7 @@ class GetTokensAsString
      * @param int                         $start     The position to start from in the token stack.
      * @param int                         $end       The position to end at in the token stack (inclusive).
      *
-     * @return string The token contents.
+     * @return string The token contents stripped off comments and whitespace.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
      */
@@ -151,7 +157,7 @@ class GetTokensAsString
 
     /**
      * Retrieve the content of the tokens from the specified start position in the token
-     * stack to the specified end position (inclusive) with all whitespace tokens - tabs,
+     * stack to the specified end position (inclusive) with all consecutive whitespace tokens - tabs,
      * new lines, multiple spaces - replaced by a single space and optionally without comments.
      *
      * @see \PHP_CodeSniffer\Files\File::getTokensAsString() Loosely related function.
@@ -162,9 +168,9 @@ class GetTokensAsString
      * @param int                         $start         The position to start from in the token stack.
      * @param int                         $end           The position to end at in the token stack (inclusive).
      * @param bool                        $stripComments Whether comments should be stripped from the contents.
-     *                                                   Defaults to false.
+     *                                                   Defaults to `false`.
      *
-     * @return string The token contents.
+     * @return string The token contents with compacted whitespace and optionally stripped off comments.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
      */
@@ -184,13 +190,13 @@ class GetTokensAsString
      * @param int                         $end             The position to end at in the token stack (inclusive).
      * @param bool                        $origContent     Whether the original content or the tab replaced
      *                                                     content should be used.
-     *                                                     Defaults to false (= tabs replaced with spaces).
+     *                                                     Defaults to `false` (= tabs replaced with spaces).
      * @param bool                        $stripComments   Whether comments should be stripped from the contents.
-     *                                                     Defaults to false.
+     *                                                     Defaults to `false`.
      * @param bool                        $stripWhitespace Whether whitespace should be stripped from the contents.
-     *                                                     Defaults to false.
-     * @param bool                        $compact         Whether all whitespace tokens should be replaced with a
-     *                                                     single space. Defaults to false.
+     *                                                     Defaults to `false`.
+     * @param bool                        $compact         Whether all consecutive whitespace tokens should be
+     *                                                     replaced with a single space. Defaults to `false`.
      *
      * @return string The token contents.
      *

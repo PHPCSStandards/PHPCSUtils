@@ -68,10 +68,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * A multi-dimentional array with information on each array item.
      *
      * The array index is 1-based and contains the following information on each array item:
-     * - 'start' : The stack pointer to the first token in the array item.
-     * - 'end'   : The stack pointer to the first token in the array item.
-     * - 'raw'   : A string with the contents of all tokens between `start` and `end`.
-     * - 'clean' : Same as `raw`, but all comment tokens have been stripped out.
+     * ```php
+     * 1 => array(
+     *   'start' => int,    // The stack pointer to the first token in the array item.
+     *   'end'   => int,    // The stack pointer to the last token in the array item.
+     *   'raw'   => string, // A string with the contents of all tokens between `start` and `end`.
+     *   'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
+     * )
+     * ```
      *
      * @since 1.0.0
      *
@@ -99,6 +103,8 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
 
     /**
      * List of tokens which can safely be used with an eval() expression.
+     *
+     * This list gets enhanced with additional token groups in the constructor.
      *
      * @since 1.0.0
      *
@@ -161,7 +167,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * Processes this test when one of its tokens is encountered.
      *
      * This method fills the properties with relevant information for examining the array
-     * and then passes off to the `processArray()` method.
+     * and then passes off to the {@see AbstractArrayDeclarationSniff::processArray()} method.
      *
      * @since 1.0.0
      *
@@ -203,7 +209,19 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process every part of the array declaration.
      *
-     * This contains the default logic for the sniff, but can be overloaded in a concrete child class
+     * Controller which calls the individual `process...()` methods for each part of the array.
+     *
+     * The method starts by calling the {@see AbstractArrayDeclarationSniff::processOpenClose()} method
+     * and subsequently calls the following methods for each array item:
+     *
+     * Unkeyed arrays | Keyed arrays
+     * -------------- | ------------
+     * processNoKey() | processKey()
+     * -              | processArrow()
+     * processValue() | processValue()
+     * processComma() | processComma()
+     *
+     * This is the default logic for the sniff, but can be overloaded in a concrete child class
      * if needed.
      *
      * @since 1.0.0
@@ -224,7 +242,12 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         }
 
         foreach ($this->arrayItems as $itemNr => $arrayItem) {
-            $arrowPtr = Arrays::getDoubleArrowPtr($phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            try {
+                $arrowPtr = Arrays::getDoubleArrowPtr($phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            } catch (RuntimeException $e) {
+                // Parse error: empty array item. Ignore.
+                continue;
+            }
 
             if ($arrowPtr !== false) {
                 if ($this->processKey($phpcsFile, $arrayItem['start'], ($arrowPtr - 1), $itemNr) === true) {
@@ -260,7 +283,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process the array opener and closer.
      *
-     * Optional method to be implemented in concrete child classes.
+     * Optional method to be implemented in concrete child classes. By default, this method does nothing.
      *
      * @since 1.0.0
      *
@@ -271,7 +294,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $openPtr   The position of the array opener token in the token stack.
      * @param int                         $closePtr  The position of the array closer token in the token stack.
      *
-     * @return true|void Returning `true` will short-circuit the sniff and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the sniff and stop processing.
+     *                   In effect, this means that the sniff will not examine the individual
+     *                   array items if `TRUE` is returned.
      */
     public function processOpenClose(File $phpcsFile, $openPtr, $closePtr)
     {
@@ -280,10 +305,10 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process the tokens in an array key.
      *
-     * Optional method to be implemented in concrete child classes.
+     * Optional method to be implemented in concrete child classes. By default, this method does nothing.
      *
-     * The $startPtr and $endPtr do not discount whitespace or comments, but are all inclusive to
-     * allow examining all tokens in an array key.
+     * Note: The `$startPtr` and `$endPtr` do not discount whitespace or comments, but are all inclusive
+     * to allow for examining all tokens in an array key.
      *
      * @since 1.0.0
      *
@@ -300,7 +325,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
+     *                   In effect, this means that the sniff will not examine the double arrow, the array
+     *                   value or comma for this array item and will not process any array items after this one.
      */
     public function processKey(File $phpcsFile, $startPtr, $endPtr, $itemNr)
     {
@@ -309,11 +336,16 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process an array item without an array key.
      *
-     * Optional method to be implemented in concrete child classes.
+     * Optional method to be implemented in concrete child classes. By default, this method does nothing.
+     *
+     * Note: This method is _not_ intended for processing the array _value_. Use the
+     * {@see AbstractArrayDeclarationSniff::processValue()} method to implement processing of the array value.
      *
      * @since 1.0.0
      *
      * @codeCoverageIgnore
+     *
+     * @see \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff::processValue() Method to process the array value.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the
      *                                               token was found.
@@ -323,7 +355,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
+     *                   In effect, this means that the sniff will not examine the array value or
+     *                   comma for this array item and will not process any array items after this one.
      */
     public function processNoKey(File $phpcsFile, $startPtr, $itemNr)
     {
@@ -332,7 +366,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process the double arrow.
      *
-     * Optional method to be implemented in concrete child classes.
+     * Optional method to be implemented in concrete child classes. By default, this method does nothing.
      *
      * @since 1.0.0
      *
@@ -344,7 +378,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
+     *                   In effect, this means that the sniff will not examine the array value or
+     *                   comma for this array item and will not process any array items after this one.
      */
     public function processArrow(File $phpcsFile, $arrowPtr, $itemNr)
     {
@@ -353,10 +389,10 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process the tokens in an array value.
      *
-     * Optional method to be implemented in concrete child classes.
+     * Optional method to be implemented in concrete child classes. By default, this method does nothing.
      *
-     * The $startPtr and $endPtr do not discount whitespace or comments, but are all inclusive to
-     * allow examining all tokens in an array value.
+     * Note: The `$startPtr` and `$endPtr` do not discount whitespace or comments, but are all inclusive
+     * to allow for examining all tokens in an array value.
      *
      * @since 1.0.0
      *
@@ -371,7 +407,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
+     *                   In effect, this means that the sniff will not examine the comma for this
+     *                   array item and will not process any array items after this one.
      */
     public function processValue(File $phpcsFile, $startPtr, $endPtr, $itemNr)
     {
@@ -380,7 +418,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Process the comma after an array item.
      *
-     * Optional method to be implemented in concrete child classes.
+     * Optional method to be implemented in concrete child classes. By default, this method does nothing.
      *
      * @since 1.0.0
      *
@@ -392,7 +430,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      * @param int                         $itemNr    Which item in the array is being handled.
      *                                               1-based, i.e. the first item is item 1, the second 2 etc.
      *
-     * @return true|void Returning `true` will short-circuit the array item loop and stop processing.
+     * @return true|void Returning `TRUE` will short-circuit the array item loop and stop processing.
+     *                   In effect, this means that the sniff will not process any array items
+     *                   after this one.
      */
     public function processComma(File $phpcsFile, $commaPtr, $itemNr)
     {
@@ -401,7 +441,8 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     /**
      * Determine what the actual array key would be.
      *
-     * Optional helper function for processsing array keys in the processKey() function.
+     * Helper function for processsing array keys in the processKey() function.
+     * Using this method is up to the sniff implementation in the child class.
      *
      * @since 1.0.0
      *

@@ -456,6 +456,30 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'arrow-function-as-function-call-argument' => [
+                '/* testArrowFunctionAsArgument */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 2,
+                        'scope_opener'       => 4,
+                        'scope_closer'       => 8,
+                    ],
+                ],
+            ],
+            'arrow-function-as-function-call-argument-with-array-return' => [
+                '/* testArrowFunctionWithArrayAsArgument */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 2,
+                        'scope_opener'       => 4,
+                        'scope_closer'       => 17,
+                    ],
+                ],
+            ],
             'arrow-function-nested-in-method' => [
                 '/* testNestedInMethod */',
                 [

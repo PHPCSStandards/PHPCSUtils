@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration;
 
+use PHPCSUtils\Tests\AssertAttributeSame;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -23,6 +24,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  */
 class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 {
+    // Backfill for the assertAttributeSame() method on PHPUnit 9.x.
+    use AssertAttributeSame;
 
     /**
      * List of methods in the abstract which should be mocked.
@@ -175,14 +178,12 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
 
-        // Note: these methods are deprecated in PHPUnit 8.x and removed in PHPUnit 9.x
-
         // Verify that the properties have been correctly set.
-        $this->assertAttributeSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeSame($target, 'arrayOpener', $mockObj);
-        $this->assertAttributeSame(($target + 5), 'arrayCloser', $mockObj);
-        $this->assertAttributeSame(2, 'itemCount', $mockObj);
-        $this->assertAttributeSame(true, 'singleLine', $mockObj);
+        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
+        $this->assertAttributeValueSame($target, 'arrayOpener', $mockObj);
+        $this->assertAttributeValueSame(($target + 5), 'arrayCloser', $mockObj);
+        $this->assertAttributeValueSame(2, 'itemCount', $mockObj);
+        $this->assertAttributeValueSame(true, 'singleLine', $mockObj);
     }
 
     /**
@@ -274,14 +275,12 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
 
-        // Note: these methods are deprecated in PHPUnit 8.x and removed in PHPUnit 9.x
-
         // Verify that the properties have been correctly set.
-        $this->assertAttributeSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeSame(($target + 1), 'arrayOpener', $mockObj);
-        $this->assertAttributeSame(($target + 35), 'arrayCloser', $mockObj);
-        $this->assertAttributeSame(4, 'itemCount', $mockObj);
-        $this->assertAttributeSame(false, 'singleLine', $mockObj);
+        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
+        $this->assertAttributeValueSame(($target + 1), 'arrayOpener', $mockObj);
+        $this->assertAttributeValueSame(($target + 35), 'arrayCloser', $mockObj);
+        $this->assertAttributeValueSame(4, 'itemCount', $mockObj);
+        $this->assertAttributeValueSame(false, 'singleLine', $mockObj);
     }
 
     /**
@@ -372,14 +371,46 @@ class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
 
-        // Note: these methods are deprecated in PHPUnit 8.x and removed in PHPUnit 9.x
-
         // Verify that the properties have been correctly set.
-        $this->assertAttributeSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeSame($target, 'arrayOpener', $mockObj);
-        $this->assertAttributeSame(($target + 22), 'arrayCloser', $mockObj);
-        $this->assertAttributeSame(3, 'itemCount', $mockObj);
-        $this->assertAttributeSame(false, 'singleLine', $mockObj);
+        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
+        $this->assertAttributeValueSame($target, 'arrayOpener', $mockObj);
+        $this->assertAttributeValueSame(($target + 22), 'arrayCloser', $mockObj);
+        $this->assertAttributeValueSame(3, 'itemCount', $mockObj);
+        $this->assertAttributeValueSame(false, 'singleLine', $mockObj);
+    }
+
+    /**
+     * Test the abstract sniff correctly ignores empty array items (parse error).
+     *
+     * @return void
+     */
+    public function testEmptyArrayItem()
+    {
+        $target = $this->getTargetToken(
+            '/* testEmptyArrayItem */',
+            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+        );
+
+        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
+            ->setMethods($this->methodsToMock)
+            ->getMockForAbstractClass();
+
+        $mockObj->expects($this->once())
+            ->method('processOpenClose');
+
+        $mockObj->expects($this->exactly(1))
+            ->method('processKey');
+
+        $mockObj->expects($this->exactly(1))
+            ->method('processNoKey');
+
+        $mockObj->expects($this->exactly(2))
+            ->method('processValue');
+
+        $mockObj->expects($this->once())
+            ->method('processComma');
+
+        $mockObj->process(self::$phpcsFile, $target);
     }
 
     /**

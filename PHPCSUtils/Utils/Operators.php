@@ -13,11 +13,14 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPCSUtils\Utils\Parentheses;
 
 /**
  * Utility functions for use when working with operators.
+ *
+ * @link https://www.php.net/language.operators PHP manual on operators.
  *
  * @since 1.0.0 The `isReference()` method is based on and inspired by
  *              the method of the same name in the PHPCS native `File` class.
@@ -66,10 +69,10 @@ class Operators
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the T_BITWISE_AND token.
+     * @param int                         $stackPtr  The position of the `T_BITWISE_AND` token.
      *
-     * @return bool TRUE if the specified token position represents a reference.
-     *              FALSE if the token represents a bitwise operator.
+     * @return bool `TRUE` if the specified token position represents a reference.
+     *              `FALSE` if the token represents a bitwise operator.
      */
     public static function isReference(File $phpcsFile, $stackPtr)
     {
@@ -82,6 +85,7 @@ class Operators
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
         if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
+            || $tokens[$tokenBefore]['code'] === T_CLOSURE
             || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
         ) {
             // Function returns a reference.
@@ -147,12 +151,8 @@ class Operators
                 return true;
             } else {
                 $skip   = Tokens::$emptyTokens;
-                $skip[] = \T_NS_SEPARATOR;
-                $skip[] = \T_SELF;
-                $skip[] = \T_PARENT;
-                $skip[] = \T_STATIC;
-                $skip[] = \T_STRING;
-                $skip[] = \T_NAMESPACE;
+                $skip  += Collections::$OONameTokens;
+                $skip  += Collections::$OOHierarchyKeywords;
                 $skip[] = \T_DOUBLE_COLON;
 
                 $nextSignificantAfter = $phpcsFile->findNext(
@@ -178,8 +178,9 @@ class Operators
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the plus/minus token.
      *
-     * @return bool True if the token passed is a unary operator.
-     *              False otherwise or if the token is not a T_PLUS/T_MINUS token.
+     * @return bool `TRUE` if the token passed is a unary operator.
+     *              `FALSE` otherwise, i.e. if the token is an arithmetic operator,
+     *              or if the token is not a `T_PLUS`/`T_MINUS` token.
      */
     public static function isUnaryPlusMinus(File $phpcsFile, $stackPtr)
     {
@@ -238,7 +239,7 @@ class Operators
      * @param int                         $stackPtr  The position of the ternary then/else
      *                                               operator in the stack.
      *
-     * @return bool True if short ternary, or false otherwise.
+     * @return bool `TRUE` if short ternary; or `FALSE` otherwise.
      */
     public static function isShortTernary(File $phpcsFile, $stackPtr)
     {

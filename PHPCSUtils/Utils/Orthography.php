@@ -27,7 +27,7 @@ class Orthography
     /**
      * Characters which are considered terminal points for a sentence.
      *
-     * @link https://www.thepunctuationguide.com/terminal-points.html
+     * @link https://www.thepunctuationguide.com/terminal-points.html Punctuation guide on terminal points.
      *
      * @since 1.0.0
      *
@@ -48,10 +48,11 @@ class Orthography
      *                       but also, for instance, a comment text.
      *                       Potential text delimiter quotes should be stripped
      *                       off a text string before passing it to this method.
+     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
-     * @return bool True when the first character is a capital letter or a letter
+     * @return bool `TRUE` when the first character is a capital letter or a letter
      *              which doesn't have a concept of capitalization.
-     *              False otherwise, including for non-letter characters.
+     *              `FALSE` otherwise, including for non-letter characters.
      */
     public static function isFirstCharCapitalized($string)
     {
@@ -69,9 +70,10 @@ class Orthography
      *                       but also, for instance, a comment text.
      *                       Potential text delimiter quotes should be stripped
      *                       off a text string before passing it to this method.
+     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
-     * @return bool True when the first character is a lowercase letter.
-     *              False otherwise, including for letters which don't have a concept of
+     * @return bool `TRUE` when the first character is a lowercase letter.
+     *              `FALSE` otherwise, including for letters which don't have a concept of
      *              capitalization and for non-letter characters.
      */
     public static function isFirstCharLowercase($string)
@@ -90,9 +92,10 @@ class Orthography
      *                             but also, for instance, a comment text.
      *                             Potential text delimiter quotes should be stripped
      *                             off a text string before passing it to this method.
+     *                             Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      * @param string $allowedChars Characters which are considered valid punctuation
      *                             to end the text string.
-     *                             Defaults to '.?!', i.e. a full stop, question mark
+     *                             Defaults to `'.?!'`, i.e. a full stop, question mark
      *                             or exclamation mark.
      *
      * @return bool
@@ -102,7 +105,7 @@ class Orthography
         static $encoding;
 
         if (isset($encoding) === false) {
-            $encoding = Helper::getConfigData('encoding');
+            $encoding = Helper::getEncoding();
         }
 
         $string = \rtrim($string);

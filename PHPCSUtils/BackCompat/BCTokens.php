@@ -32,14 +32,30 @@ use PHP_CodeSniffer\Util\Tokens;
  * across PHPCS versions.
  *
  * The names of the PHPCS native token arrays translate one-on-one to the methods in this class:
- * `PHP_CodeSniffer\Util\Tokens::$emptyTokens` => `PHPCSUtils\BackCompat\BCTokens::emptyTokens()`
- * `PHP_CodeSniffer\Util\Tokens::$operators`   => `PHPCSUtils\BackCompat\BCTokens::operators()`
- * ... etc
+ * - `PHP_CodeSniffer\Util\Tokens::$emptyTokens` => `PHPCSUtils\BackCompat\BCTokens::emptyTokens()`
+ * - `PHP_CodeSniffer\Util\Tokens::$operators`   => `PHPCSUtils\BackCompat\BCTokens::operators()`
+ * - ... etc
  *
  * The order of the tokens in the arrays may differ between the PHPCS native token arrays and
  * the token arrays returned by this class.
  *
  * @since 1.0.0
+ *
+ * @method static array blockOpeners()     Tokens that open code blocks.
+ * @method static array booleanOperators() Tokens that perform boolean operations.
+ * @method static array bracketTokens()    Tokens that represent brackets and parenthesis.
+ * @method static array castTokens()       Tokens that represent type casting.
+ * @method static array commentTokens()    Tokens that are comments.
+ * @method static array emptyTokens()      Tokens that don't represent code.
+ * @method static array equalityTokens()   Tokens that represent equality comparisons.
+ * @method static array heredocTokens()    Tokens that make up a heredoc string.
+ * @method static array includeTokens()    Tokens that include files.
+ * @method static array methodPrefixes()   Tokens that can prefix a method name.
+ * @method static array scopeModifiers()   Tokens that represent scope modifiers.
+ * @method static array scopeOpeners()     Tokens that are allowed to open scopes.
+ * @method static array stringTokens()     Tokens that represent strings.
+ *                                         Note that `T_STRINGS` are NOT represented in this list as this list
+ *                                         is about _text_ strings.
  */
 class BCTokens
 {
@@ -48,10 +64,11 @@ class BCTokens
      * Token types that are comments containing PHPCS instructions.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
      * @var string[]
      */
-    protected static $phpcsCommentTokensTypes = [
+    private static $phpcsCommentTokensTypes = [
         'T_PHPCS_ENABLE',
         'T_PHPCS_DISABLE',
         'T_PHPCS_SET',
@@ -63,10 +80,11 @@ class BCTokens
      * Tokens that open class and object scopes.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
      * @var array <int|string> => <int|string>
      */
-    protected static $ooScopeTokens = [
+    private static $ooScopeTokens = [
         \T_CLASS      => \T_CLASS,
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_INTERFACE  => \T_INTERFACE,
@@ -77,10 +95,11 @@ class BCTokens
      * Tokens that represent text strings.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
      * @var array <int|string> => <int|string>
      */
-    protected static $textStringTokens = [
+    private static $textStringTokens = [
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
         \T_INLINE_HTML              => \T_INLINE_HTML,
@@ -111,6 +130,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent assignment operators.
+     *
      * Retrieve the PHPCS assignment tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -146,6 +167,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent comparison operators.
+     *
      * Retrieve the PHPCS comparison tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -173,6 +196,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent arithmetic operators.
+     *
      * Retrieve the PHPCS arithmetic tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -193,6 +218,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that perform operations.
+     *
      * Retrieve the PHPCS operator tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -228,6 +255,8 @@ class BCTokens
     }
 
     /**
+     * Token types that open parentheses.
+     *
      * Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -236,9 +265,14 @@ class BCTokens
      *
      * Note: While `T_LIST` and `T_ANON_CLASS` will be included in the return value for this
      * method, the associated parentheses will not have the `'parenthesis_owner'` index set
-     * until PHPCS 3.5.0.
+     * until PHPCS 3.5.0. Use the {@see \PHPCSUtils\Utils\Parentheses::getOwner()}
+     * or {@see \PHPCSUtils\Utils\Parentheses::hasOwner()} methods if you need to check for
+     * a `T_LIST` or `T_ANON_CLASS` parentheses owner.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$parenthesisOpeners Original array.
+     * @see \PHPCSUtils\Utils\Parentheses                     Class holding utility methods for
+     *                                                        working with the `'parenthesis_...'`
+     *                                                        index keys in a token array.
      *
      * @since 1.0.0
      *
@@ -254,10 +288,13 @@ class BCTokens
     }
 
     /**
+     * Tokens that are comments containing PHPCS instructions.
+     *
      * Retrieve the PHPCS comment tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
-     * - Introduced in PHPCS 3.2.3.
+     * - Introduced in PHPCS 3.2.3. The PHPCS comment tokens, however, were introduced in
+     *   PHPCS 3.2.0.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens Original array.
      *
@@ -290,6 +327,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent text strings.
+     *
      * Retrieve the PHPCS text string tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -311,6 +350,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that represent the names of called functions.
+     *
      * Retrieve the PHPCS function name tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:
@@ -333,6 +374,8 @@ class BCTokens
     }
 
     /**
+     * Tokens that open class and object scopes.
+     *
      * Retrieve the OO scope tokens array in a cross-version compatible manner.
      *
      * Changelog for the PHPCS native array:

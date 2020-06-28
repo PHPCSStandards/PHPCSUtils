@@ -21,10 +21,11 @@ use ReflectionClass;
  *
  * This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.
  *
- * This class is compatible with PHPUnit 4.5 - 8.x providing the PHPCSUtils autoload
- * file is included in the test bootstrap.
+ * This class is compatible with {@link http://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
+ * autoload file is included in the test bootstrap. For more information about that, please consult
+ * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *
- * To allow for testing of tab vs space content, the tabWidth is set to `4` by default.
+ * To allow for testing of tab vs space content, the `tabWidth` is set to `4` by default.
  *
  * Typical usage:
  *
@@ -57,38 +58,39 @@ use ReflectionClass;
  *      *
  *      * @return void
  *      * /
- *    public function testMyMethod($commentString, $expected)
- *    {
- *        $stackPtr = $this->getTargetToken($commentString, [\T_TOKEN_CONSTANT, \T_ANOTHER_TOKEN]);
- *        $class    = new ClassUnderTest();
- *        $result   = $class->MyMethod(self::$phpcsFile, $stackPtr);
- *        // Or for static utility methods:
- *        $result   = ClassUnderTest::MyMethod(self::$phpcsFile, $stackPtr);
+ *     public function testMyMethod($commentString, $expected)
+ *     {
+ *         $stackPtr = $this->getTargetToken($commentString, [\T_TOKEN_CONSTANT, \T_ANOTHER_TOKEN]);
+ *         $class    = new ClassUnderTest();
+ *         $result   = $class->MyMethod(self::$phpcsFile, $stackPtr);
+ *         // Or for static utility methods:
+ *         $result   = ClassUnderTest::MyMethod(self::$phpcsFile, $stackPtr);
  *
- *        $this->assertSame($expected, $result);
- *    }
+ *         $this->assertSame($expected, $result);
+ *     }
  *
- *    /**
- *     * Data Provider.
- *     *
- *     * @see testMyMethod() For the array format.
- *     *
- *     * @return array
- *     * /
- *    public function dataMyMethod()
- *    {
- *        return array(
- *            array('/* testTestCaseDescription * /', false),
- *        );
- *    }
+ *     /**
+ *      * Data Provider.
+ *      *
+ *      * @see ClassUnderTestUnitTest::testMyMethod() For the array format.
+ *      *
+ *      * @return array
+ *      * /
+ *     public function dataMyMethod()
+ *     {
+ *         return array(
+ *             array('/* testTestCaseDescription * /', false),
+ *         );
+ *     }
  * }
  * ```
  *
  * Note:
  * - Remove the space between the comment closers `* /` for a working example.
  * - Each test case separator comment MUST start with `/* test`.
- *   This is to allow the `getTargetToken()` method to distinquish between the
- *   test separation comments and comments which may be part of the test case.
+ *   This is to allow the {@see UtilityMethodTestCase::getTargetToken()} method to
+ *   distinquish between the test separation comments and comments which may be part
+ *   of the test case.
  * - The test case file and unit test file should be placed in the same directory.
  * - For working examples using this abstract class, have a look at the unit tests
  *   for the PHPCSUtils utility functions themselves.
@@ -99,10 +101,19 @@ abstract class UtilityMethodTestCase extends TestCase
 {
 
     /**
+     * The PHPCS version the tests are being run on.
+     *
+     * @since 1.0.0-alpha3
+     *
+     * @var string
+     */
+    protected static $phpcsVersion = '0';
+
+    /**
      * The file extension of the test case file (without leading dot).
      *
-     * This allows concrete test classes to overrule the default `inc` with, for instance,
-     * `js` or `css` when applicable.
+     * This allows concrete test classes to overrule the default `"inc"` with, for instance,
+     * `"js"` or `"css"` when applicable.
      *
      * @since 1.0.0
      *
@@ -115,7 +126,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * Optional. If left empty, the case file will be presumed to be in
      * the same directory and named the same as the test class, but with an
-     * `inc` file extension.
+     * `"inc"` file extension.
      *
      * @since 1.0.0
      *
@@ -135,7 +146,7 @@ abstract class UtilityMethodTestCase extends TestCase
     protected static $tabWidth = 4;
 
     /**
-     * The {@see \PHP_CodeSniffer\Files\File} object containing the parsed contents of the test case file.
+     * The \PHP_CodeSniffer\Files\File object containing the parsed contents of the test case file.
      *
      * @since 1.0.0
      *
@@ -161,7 +172,12 @@ abstract class UtilityMethodTestCase extends TestCase
      * Initialize PHPCS & tokenize the test case file.
      *
      * The test case file for a unit test class has to be in the same directory
-     * directory and use the same file name as the test class, using the .inc extension.
+     * directory and use the same file name as the test class, using the `.inc` extension
+     * or be explicitly set using the {@see UtilityMethodTestCase::$fileExtension}/
+     * {@see UtilityMethodTestCase::$caseFile} properties.
+     *
+     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUpBeforeClass()}
+     * method.
      *
      * @since 1.0.0
      *
@@ -172,6 +188,8 @@ abstract class UtilityMethodTestCase extends TestCase
     public static function setUpTestFile()
     {
         parent::setUpBeforeClass();
+
+        self::$phpcsVersion = Helper::getVersion();
 
         $caseFile = static::$caseFile;
         if (\is_string($caseFile) === false || $caseFile === '') {
@@ -186,7 +204,7 @@ abstract class UtilityMethodTestCase extends TestCase
 
         $contents = \file_get_contents($caseFile);
 
-        if (\version_compare(Helper::getVersion(), '2.99.99', '>')) {
+        if (\version_compare(self::$phpcsVersion, '2.99.99', '>')) {
             // PHPCS 3.x.
             $config = new \PHP_CodeSniffer\Config();
 
@@ -248,7 +266,39 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
+     * Skip JS and CSS related tests on PHPCS 4.x.
+     *
+     * PHPCS 4.x drops support for the JS and CSS tokenizers.
+     * This method takes care of automatically skipping tests involving JS/CSS case files
+     * when the tests are being run with PHPCS 4.x.
+     *
+     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUp()}
+     * method.
+     *
+     * @since 1.0.0-alpha3
+     *
+     * @before
+     *
+     * @return void
+     */
+    public function skipJSCSSTestsOnPHPCS4()
+    {
+        if (static::$fileExtension !== 'js' && static::$fileExtension !== 'css') {
+            return;
+        }
+
+        if (\version_compare(self::$phpcsVersion, '3.99.99', '<=')) {
+            return;
+        }
+
+        $this->markTestSkipped('JS and CSS support has been removed in PHPCS 4.');
+    }
+
+    /**
      * Clean up after finished test.
+     *
+     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::tearDownAfterClass()}
+     * method.
      *
      * @since 1.0.0
      *
@@ -262,14 +312,17 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Get the token pointer for a target token based on a specific comment found on the line before.
+     * Get the token pointer for a target token based on a specific comment.
      *
-     * Note: the test delimiter comment MUST start with "/* test" to allow this function to
+     * Note: the test delimiter comment MUST start with `/* test` to allow this function to
      * distinguish between comments used *in* a test and test delimiters.
+     *
+     * If the delimiter comment is not found, the test will automatically be failed.
      *
      * @since 1.0.0
      *
-     * @param string           $commentString The delimiter comment to look for.
+     * @param string           $commentString The complete delimiter comment to look for as a string.
+     *                                        This string should include the comment opener and closer.
      * @param int|string|array $tokenType     The type of token(s) to look for.
      * @param string           $tokenContent  Optional. The token content for the target token.
      *
@@ -322,13 +375,13 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit cross-version
+     * Helper method to tell PHPUnit to expect a PHPCS Exception in a PHPUnit and PHPCS cross-version
      * compatible manner.
      *
      * @since 1.0.0
      *
      * @param string $msg  The expected exception message.
-     * @param string $type The exception type to expect. Either 'runtime' or 'tokenizer'.
+     * @param string $type The PHPCS native exception type to expect. Either 'runtime' or 'tokenizer'.
      *                     Defaults to 'runtime'.
      *
      * @return void

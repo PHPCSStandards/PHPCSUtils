@@ -19,10 +19,11 @@ use PHPCSUtils\Utils\GetTokensAsString;
 /**
  * Utility functions for use when examining object declaration statements.
  *
- * @since 1.0.0 The `get(Declaration)Name()`, `getClassProperties()`, `findExtendedClassName()`
- *              and `findImplementedInterfaceNames()` methods are based on and
+ * @since 1.0.0 The `ObjectDeclarations::get(Declaration)Name()`,
+ *              `ObjectDeclarations::getClassProperties()`, `ObjectDeclarations::findExtendedClassName()`
+ *              and `ObjectDeclarations::findImplementedInterfaceNames()` methods are based on and
  *              inspired by the methods of the same name in the PHPCS native
- *              `File` class.
+ *              `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 class ObjectDeclarations
@@ -30,10 +31,6 @@ class ObjectDeclarations
 
     /**
      * Retrieves the declaration name for classes, interfaces, traits, and functions.
-     *
-     * Note: For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
-     *       this method will be accepted for JS files.
-     * Note: support for JS ES6 method syntax has not (yet) been back-filled for PHPCS < 3.0.0.
      *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
@@ -46,6 +43,11 @@ class ObjectDeclarations
      *   Using this version of the utility method, either the complete name (invalid or not) will
      *   be returned or `null` in case of no name (parse error).
      *
+     * Note:
+     * - For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
+     *   this method will be accepted for JS files.
+     * - Support for JS ES6 method syntax has not been back-filled for PHPCS < 3.0.0.
+     *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Cross-version compatible version of the original.
      *
@@ -57,11 +59,11 @@ class ObjectDeclarations
      *                                               trait, or function.
      *
      * @return string|null The name of the class, interface, trait, or function;
-     *                     or NULL if the passed token doesn't exist, the function or
+     *                     or `NULL` if the passed token doesn't exist, the function or
      *                     class is anonymous or in case of a parse error/live coding.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      T_FUNCTION, T_CLASS, T_TRAIT, or T_INTERFACE.
+     *                                                      `T_FUNCTION`, `T_CLASS`, `T_TRAIT`, or `T_INTERFACE`.
      */
     public static function getName(File $phpcsFile, $stackPtr)
     {
@@ -78,7 +80,8 @@ class ObjectDeclarations
         /*
          * BC: Work-around JS ES6 classes not being tokenized as T_CLASS in PHPCS < 3.0.0.
          */
-        if ($phpcsFile->tokenizerType === 'JS'
+        if (isset($phpcsFile->tokenizerType)
+            && $phpcsFile->tokenizerType === 'JS'
             && $tokenCode === \T_STRING
             && $tokens[$stackPtr]['content'] === 'class'
         ) {
@@ -119,6 +122,7 @@ class ObjectDeclarations
         $exclude   = Tokens::$emptyTokens;
         $exclude[] = \T_OPEN_PARENTHESIS;
         $exclude[] = \T_OPEN_CURLY_BRACKET;
+        $exclude[] = \T_BITWISE_AND;
 
         $nameStart = $phpcsFile->findNext($exclude, ($stackPtr + 1), $stopPoint, true);
         if ($nameStart === false) {
@@ -149,14 +153,6 @@ class ObjectDeclarations
     /**
      * Retrieves the implementation properties of a class.
      *
-     * The format of the return value is:
-     * <code>
-     *   array(
-     *    'is_abstract' => false, // true if the abstract keyword was found.
-     *    'is_final'    => false, // true if the final keyword was found.
-     *   );
-     * </code>
-     *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
@@ -170,13 +166,20 @@ class ObjectDeclarations
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position in the stack of the T_CLASS
+     * @param int                         $stackPtr  The position in the stack of the `T_CLASS`
      *                                               token to acquire the properties for.
      *
-     * @return array
+     * @return array Array with implementation properties of a class.
+     *               The format of the return value is:
+     *               ```php
+     *               array(
+     *                 'is_abstract' => false, // TRUE if the abstract keyword was found.
+     *                 'is_final'    => false, // TRUE if the final keyword was found.
+     *               );
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_CLASS token.
+     *                                                      `T_CLASS` token.
      */
     public static function getClassProperties(File $phpcsFile, $stackPtr)
     {
@@ -217,7 +220,7 @@ class ObjectDeclarations
      * Works for classes, anonymous classes and interfaces, though it is strongly recommended
      * to use the {@see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedInterfaceNames()}
      * method to examine interfaces instead. Interfaces can extend multiple parent interfaces,
-     * and that use case is not handled by this method.
+     * and that use-case is not handled by this method.
      *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
@@ -236,7 +239,7 @@ class ObjectDeclarations
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class or interface.
      *
-     * @return string|false The extended class name or FALSE on error or if there
+     * @return string|false The extended class name or `FALSE` on error or if there
      *                      is no extended class name.
      */
     public static function findExtendedClassName(File $phpcsFile, $stackPtr)
@@ -269,7 +272,7 @@ class ObjectDeclarations
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class.
      *
-     * @return array|false Array with names of the implemented interfaces or FALSE on
+     * @return array|false Array with names of the implemented interfaces or `FALSE` on
      *                     error or if there are no implemented interface names.
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
@@ -287,7 +290,7 @@ class ObjectDeclarations
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The stack position of the interface keyword.
      *
-     * @return array|false Array with names of the extended interfaces or FALSE on
+     * @return array|false Array with names of the extended interfaces or `FALSE` on
      *                     error or if there are no extended interface names.
      */
     public static function findExtendedInterfaceNames(File $phpcsFile, $stackPtr)
@@ -314,7 +317,7 @@ class ObjectDeclarations
      * @param array                       $allowedFor Array of OO types for which use of the keyword
      *                                                is allowed.
      *
-     * @return array|false Returns an array of names or false on error or when the object
+     * @return array|false Returns an array of names or `FALSE` on error or when the object
      *                     being declared does not extend/implement another object.
      */
     private static function findNames(File $phpcsFile, $stackPtr, $keyword, $allowedFor)

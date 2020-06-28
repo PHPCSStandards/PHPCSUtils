@@ -20,8 +20,8 @@ use PHPCSUtils\Utils\TextStrings;
 /**
  * Utility functions for use when examining variables.
  *
- * @since 1.0.0 The `getMemberProperties()` method is based on and inspired by
- *              the method of the same name in the PHPCS native `File` class.
+ * @since 1.0.0 The `Variables::getMemberProperties()` method is based on and inspired by
+ *              the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 class Variables
@@ -33,12 +33,12 @@ class Variables
      * The array keys are the variable names without the leading dollar sign, the values indicate
      * whether the variable is a superglobal or not.
      *
-     * {@internal The variables names are set without the leading dollar sign to allow this array
-     *            to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
+     * The variables names are set without the leading dollar sign to allow this array
+     * to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
      *
      * @since 1.0.0
      *
-     * @link http://php.net/manual/en/reserved.variables.php
+     * @link http://php.net/reserved.variables PHP Manual on reserved variables
      *
      * @var array <string> => <bool>
      */
@@ -73,27 +73,11 @@ class Variables
     ];
 
     /**
-     * Retrieve the visibility and implementation properties of a class member var.
-     *
-     * The format of the return value is:
-     *
-     * <code>
-     *   array(
-     *    'scope'           => string,  // Public, private, or protected.
-     *    'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
-     *    'is_static'       => boolean, // TRUE if the static keyword was found.
-     *    'type'            => string,  // The type of the var (empty if no type specified).
-     *    'type_token'      => integer, // The stack pointer to the start of the type
-     *                                  // or FALSE if there is no type.
-     *    'type_end_token'  => integer, // The stack pointer to the end of the type
-     *                                  // or FALSE if there is no type.
-     *    'nullable_type'   => boolean, // TRUE if the type is nullable.
-     *   );
-     * </code>
+     * Retrieve the visibility and implementation properties of a class member variable.
      *
      * Main differences with the PHPCS version:
      * - Removed the parse error warning for properties in interfaces.
-     *   This will now throw the same "$stackPtr is not a class member var" runtime exception as
+     *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
      *
@@ -103,14 +87,29 @@ class Variables
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position in the stack of the T_VARIABLE token to
-     *                                               acquire the properties for.
+     * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
+     *                                               to acquire the properties for.
      *
-     * @return array
+     * @return array Array with information about the class member variable.
+     *               The format of the return value is:
+     *               ```php
+     *               array(
+     *                 'scope'           => string,  // Public, private, or protected.
+     *                 'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
+     *                 'is_static'       => boolean, // TRUE if the static keyword was found.
+     *                 'type'            => string,  // The type of the var (empty if no type specified).
+     *                 'type_token'      => integer, // The stack pointer to the start of the type
+     *                                               // or FALSE if there is no type.
+     *                 'type_end_token'  => integer, // The stack pointer to the end of the type
+     *                                               // or FALSE if there is no type.
+     *                 'nullable_type'   => boolean, // TRUE if the type is nullable.
+     *               );
+     *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      T_VARIABLE token, or if the position is not
-     *                                                      a class member variable.
+     *                                                      `T_VARIABLE` token.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
+     *                                                      class member variable.
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
@@ -163,10 +162,11 @@ class Variables
             }
         }
 
-        $type         = '';
-        $typeToken    = false;
-        $typeEndToken = false;
-        $nullableType = false;
+        $type               = '';
+        $typeToken          = false;
+        $typeEndToken       = false;
+        $nullableType       = false;
+        $propertyTypeTokens = Collections::propertyTypeTokensBC();
 
         if ($i < $stackPtr) {
             // We've found a type.
@@ -183,7 +183,7 @@ class Variables
                     $nullableType = true;
                 }
 
-                if (isset(Collections::$propertyTypeTokens[$tokens[$i]['code']]) === true) {
+                if (isset($propertyTypeTokens[$tokens[$i]['code']]) === true) {
                     $typeEndToken = $i;
                     if ($typeToken === false) {
                         $typeToken = $i;
@@ -212,13 +212,16 @@ class Variables
     /**
      * Verify if a given variable name is the name of a PHP reserved variable.
      *
+     * @see \PHPCSUtils\Utils\Variables::$phpReservedVars List of variables names reserved by PHP.
+     *
      * @since 1.0.0
      *
      * @param string $name The full variable name with or without leading dollar sign.
      *                     This allows for passing an array key variable name, such as
-     *                     '_GET' retrieved from $GLOBALS['_GET'].
-     *                     Note: when passing an array key, string quotes are expected
+     *                     `'_GET'` retrieved from `$GLOBALS['_GET']`.
+     *                     > Note: when passing an array key, string quotes are expected
      *                     to have been stripped already.
+     *                     Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool
      */
@@ -237,13 +240,15 @@ class Variables
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position in the stack of a T_VARIABLE
-     *                                               token or of the T_CONSTANT_ENCAPSED_STRING
+     * @param int                         $stackPtr  The position in the stack of a `T_VARIABLE`
+     *                                               token or of the `T_CONSTANT_ENCAPSED_STRING`
      *                                               array key to a variable in `$GLOBALS`.
      *
-     * @return bool True if this points to a superglobal. False when not; or when an unsupported
-     *              token has been passed; or when a T_CONSTANT_ENCAPSED_STRING is not an array
-     *              index key; or when it is, but not an index to the $GLOBALS variable.
+     * @return bool `TRUE` if this points to a superglobal; `FALSE` when not.
+     *              > Note: This includes returning `FALSE` when an unsupported token has
+     *              been passed, when a `T_CONSTANT_ENCAPSED_STRING` has been passed which
+     *              is not an array index key; or when it is, but is not an index to the
+     *              `$GLOBALS` variable.
      */
     public static function isSuperglobal(File $phpcsFile, $stackPtr)
     {
@@ -291,9 +296,10 @@ class Variables
      *
      * @param string $name The full variable name with or without leading dollar sign.
      *                     This allows for passing an array key variable name, such as
-     *                     '_GET' retrieved from $GLOBALS['_GET'].
-     *                     Note: when passing an array key, string quotes are expected
+     *                     `'_GET'` retrieved from `$GLOBALS['_GET']`.
+     *                     > Note: when passing an array key, string quotes are expected
      *                     to have been stripped already.
+     *                     Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool
      */

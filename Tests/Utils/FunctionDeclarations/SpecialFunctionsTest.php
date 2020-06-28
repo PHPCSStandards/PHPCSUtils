@@ -391,6 +391,43 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                     'special'  => false,
                 ],
             ],
+
+            'NonMagicMethod' => [
+                '/* testNonMagicMethod */',
+                [
+                    'function' => false,
+                    'method'   => false,
+                    'double'   => false,
+                    'special'  => false,
+                ],
+            ],
+            'NestedFunctionDeclarationMagicFunction' => [
+                '/* testNestedFunctionDeclarationMagicFunction */',
+                [
+                    'function' => true,
+                    'method'   => false,
+                    'double'   => false,
+                    'special'  => false,
+                ],
+            ],
+            'NestedFunctionDeclarationNonMagicFunction' => [
+                '/* testNestedFunctionDeclarationNonMagicFunction */',
+                [
+                    'function' => false,
+                    'method'   => false,
+                    'double'   => false,
+                    'special'  => false,
+                ],
+            ],
+            'NestedFunctionDeclarationNonSpecialFunction' => [
+                '/* testNestedFunctionDeclarationNonSpecialFunction */',
+                [
+                    'function' => false,
+                    'method'   => false,
+                    'double'   => false,
+                    'special'  => false,
+                ],
+            ],
         ];
     }
 }

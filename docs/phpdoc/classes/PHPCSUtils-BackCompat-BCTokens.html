@@ -2,76 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
+    <title>PHPCSUtils</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="../js/search.js"></script>
+        <script defer src="../js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
+    <nav class="phpdocumentor-topnav">
+    </nav>
 </header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
+    <label class="phpdocumentor-label">
+        <span class="visually-hidden">Search for</span>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
-                                    <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
-                            </ul>
-            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
+                                            <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
+                                    </ul>
+                        </section>
+
     
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="../indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
-                    <li><a href="../namespaces/phpcsutils-backcompat.html">BackCompat</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-backcompat.html">BackCompat</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            BCTokens
-                                                        </h2>
-        <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">44</span>
-        </aside>
+    BCTokens
 
-        <p class="phpdocumentor-class__summary">Token arrays related utility methods.</p>
-        <section class="phpdocumentor-class__description"><p>PHPCS provides a number of static token arrays in the \PHP_CodeSniffer\Util\Tokens
+    
+    
+    
+    </h2>
+
+        <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+</aside>
+
+            <p class="phpdocumentor-summary">Token arrays related utility methods.</p>
+
+    <section class="phpdocumentor-description"><p>PHPCS provides a number of static token arrays in the \PHP_CodeSniffer\Util\Tokens
 class.
 Some of these token arrays will not be available in older PHPCS versions.
 Some will not contain the same set of tokens across PHPCS versions.</p>
@@ -83,231 +98,369 @@ Only use the methods in this class when needed. I.e. when your sniff unit tests 
 a PHPCS cross-version compatibility issue related to inconsistent token arrays.</p>
 <p>All PHPCS token arrays are supported, though only a limited number of them are different
 across PHPCS versions.</p>
-<p>The names of the PHPCS native token arrays translate one-on-one to the methods in this class:
-<code class="prettyprint">PHP_CodeSniffer\Util\Tokens::$emptyTokens</code> =&gt; <code class="prettyprint">PHPCSUtils\BackCompat\BCTokens::emptyTokens()</code>
-<code class="prettyprint">PHP_CodeSniffer\Util\Tokens::$operators</code>   =&gt; <code class="prettyprint">PHPCSUtils\BackCompat\BCTokens::operators()</code>
-... etc</p>
+<p>The names of the PHPCS native token arrays translate one-on-one to the methods in this class:</p>
+<ul>
+<li><code class="prettyprint">PHP_CodeSniffer\Util\Tokens::$emptyTokens</code> =&gt; <code class="prettyprint">PHPCSUtils\BackCompat\BCTokens::emptyTokens()</code></li>
+<li><code class="prettyprint">PHP_CodeSniffer\Util\Tokens::$operators</code>   =&gt; <code class="prettyprint">PHPCSUtils\BackCompat\BCTokens::operators()</code></li>
+<li>... etc</li>
+</ul>
 <p>The order of the tokens in the arrays may differ between the PHPCS native token arrays and
 the token arrays returned by this class.</p></section>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#property_phpcsCommentTokensTypes">$phpcsCommentTokensTypes</a></th>
-                    <td class="phpdocumentor-cell">Token types that are comments containing PHPCS instructions.</td>
-                    <td class="phpdocumentor-cell">string[]</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#property_ooScopeTokens">$ooScopeTokens</a></th>
-                    <td class="phpdocumentor-cell">Tokens that open class and object scopes.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#property_textStringTokens">$textStringTokens</a></th>
-                    <td class="phpdocumentor-cell">Tokens that represent text strings.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method___callStatic">__callStatic()</a></th>
-                    <td class="phpdocumentor-cell">Handle calls to (undeclared) methods for token arrays which haven&#039;t received any
-changes since PHPCS 2.6.0.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_assignmentTokens">assignmentTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS assignment tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_comparisonTokens">comparisonTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS comparison tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_arithmeticTokens">arithmeticTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS arithmetic tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_operators">operators()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS operator tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_parenthesisOpeners">parenthesisOpeners()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_phpcsCommentTokens">phpcsCommentTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS comment tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_textStringTokens">textStringTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS text string tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_functionNameTokens">functionNameTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the PHPCS function name tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_ooScopeTokens">ooScopeTokens()</a></th>
-                    <td class="phpdocumentor-cell">Retrieve the OO scope tokens array in a cross-version compatible manner.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                                            </table>
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method___callStatic">__callStatic()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Handle calls to (undeclared) methods for token arrays which haven&#039;t received any
+changes since PHPCS 2.6.0.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_arithmeticTokens">arithmeticTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that represent arithmetic operators.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_assignmentTokens">assignmentTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that represent assignment operators.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_blockOpeners">blockOpeners()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_booleanOperators">booleanOperators()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_bracketTokens">bracketTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_castTokens">castTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_commentTokens">commentTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_comparisonTokens">comparisonTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that represent comparison operators.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_emptyTokens">emptyTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_equalityTokens">equalityTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_functionNameTokens">functionNameTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that represent the names of called functions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_heredocTokens">heredocTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_includeTokens">includeTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_methodPrefixes">methodPrefixes()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_ooScopeTokens">ooScopeTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that open class and object scopes.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_operators">operators()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that perform operations.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_parenthesisOpeners">parenthesisOpeners()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Token types that open parentheses.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_phpcsCommentTokens">phpcsCommentTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that are comments containing PHPCS instructions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_scopeModifiers">scopeModifiers()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_scopeOpeners">scopeOpeners()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_stringTokens">stringTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="../classes/PHPCSUtils-BackCompat-BCTokens.html#method_textStringTokens">textStringTokens()</a>
+    <span>
+                        &nbsp;: array    </span>
+</dt>
+<dd>Tokens that represent text strings.</dd>
+
+        </dl>
+
+
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_phpcsCommentTokensTypes"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$phpcsCommentTokensTypes</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">54</span>
-    </aside>
-            <p class="phpdocumentor-summary">Token types that are comments containing PHPCS instructions.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string[]</span>
-        <span class="phpdocumentor-signature__name">$phpcsCommentTokensTypes</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;T_PHPCS_ENABLE&#039;, &#039;T_PHPCS_DISABLE&#039;, &#039;T_PHPCS_SET&#039;, &#039;T_PHPCS_IGNORE&#039;, &#039;T_PHPCS_IGNORE_FILE&#039;]</span>    </code>
-    </article>
-                                    <a id="property_ooScopeTokens"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$ooScopeTokens</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">69</span>
-    </aside>
-            <p class="phpdocumentor-summary">Tokens that open class and object scopes.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$ooScopeTokens</span>
-         = <span class="phpdocumentor-signature__default-value">[\T_CLASS =&gt; \T_CLASS, \T_ANON_CLASS =&gt; \T_ANON_CLASS, \T_INTERFACE =&gt; \T_INTERFACE, \T_TRAIT =&gt; \T_TRAIT]</span>    </code>
-    </article>
-                                    <a id="property_textStringTokens"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$textStringTokens</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">83</span>
-    </aside>
-            <p class="phpdocumentor-summary">Tokens that represent text strings.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$textStringTokens</span>
-         = <span class="phpdocumentor-signature__default-value">[\T_CONSTANT_ENCAPSED_STRING =&gt; \T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_QUOTED_STRING =&gt; \T_DOUBLE_QUOTED_STRING, \T_INLINE_HTML =&gt; \T_INLINE_HTML, \T_HEREDOC =&gt; \T_HEREDOC, \T_NOWDOC =&gt; \T_NOWDOC]</span>    </code>
-    </article>
-                                                            </section>
+
         
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method___callStatic"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">__callStatic()</h4>
+    <h4 class="phpdocumentor-element__name" id="method___callStatic">
+        __callStatic()
+        <a href="#method___callStatic" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">103</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">122</span>
+</aside>
+
         <p class="phpdocumentor-summary">Handle calls to (undeclared) methods for token arrays which haven&#039;t received any
 changes since PHPCS 2.6.0.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">__callStatic</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$name</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$args</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">__callStatic</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$name</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The name of the method which has been called.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$args</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Any arguments passed to the method.
-Unused as none of the methods take arguments.</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The name of the method which has been called.</p></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$args</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Any arguments passed to the method.
+Unused as none of the methods take arguments.</p></section>
+
+            </dd>
+            </dl>
+
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array</p></section>
+
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array</p></span>
-            
 </article>
-                                    <a id="method_assignmentTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">assignmentTokens()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_arithmeticTokens">
+        arithmeticTokens()
+        <a href="#method_arithmeticTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">129</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS assignment tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">assignmentTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">215</span>
+</aside>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+        <p class="phpdocumentor-summary">Tokens that represent arithmetic operators.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">arithmeticTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS arithmetic tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
+<ul>
+<li>Introduced in PHPCS 0.5.0.</li>
+<li>PHPCS 2.9.0: The PHP 5.6 <code class="prettyprint">T_POW</code> token was added to the array.
+The <code class="prettyprint">T_POW</code> token was introduced in PHPCS 2.4.0.</li>
+</ul></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$arithmeticTokens">Tokens::$arithmeticTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array or an empty array for PHPCS versions in
+which the PHPCS native comment tokens did not exist yet.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_assignmentTokens">
+        assignmentTokens()
+        <a href="#method_assignmentTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">150</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that represent assignment operators.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">assignmentTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS assignment tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
 <li>Introduced in PHPCS 0.0.5.</li>
 <li>PHPCS 2.9.0: The PHP 7.4 <code class="prettyprint">T_COALESCE_EQUAL</code> token was added to the array.
@@ -315,47 +468,222 @@ The <code class="prettyprint">T_COALESCE_EQUAL</code> token was introduced in PH
 <li>PHPCS 3.2.0: The JS <code class="prettyprint">T_ZSR_EQUAL</code> token was added to the array.
 The <code class="prettyprint">T_ZSR_EQUAL</code> token was introduced in PHPCS 2.8.0.</li>
 </ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
-</article>
-                                    <a id="method_comparisonTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">comparisonTokens()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">164</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS comparison tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">comparisonTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$assignmentTokens">Tokens::$assignmentTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_blockOpeners">
+        blockOpeners()
+        <a href="#method_blockOpeners" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">blockOpeners</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that open code blocks.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_booleanOperators">
+        booleanOperators()
+        <a href="#method_booleanOperators" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">booleanOperators</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that perform boolean operations.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_bracketTokens">
+        bracketTokens()
+        <a href="#method_bracketTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">bracketTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that represent brackets and parenthesis.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_castTokens">
+        castTokens()
+        <a href="#method_castTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">castTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that represent type casting.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_commentTokens">
+        commentTokens()
+        <a href="#method_commentTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">commentTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that are comments.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_comparisonTokens">
+        comparisonTokens()
+        <a href="#method_comparisonTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">187</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that represent comparison operators.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">comparisonTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS comparison tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
 <li>Introduced in PHPCS 0.5.0.</li>
 <li>PHPCS 2.9.0: The PHP 7.0 <code class="prettyprint">T_COALESCE</code> token was added to the array.
@@ -363,94 +691,341 @@ The <code class="prettyprint">T_COALESCE</code> token was introduced in PHPCS 2.
 <li>PHPCS 2.9.0: The PHP 7.0 <code class="prettyprint">T_SPACESHIP</code> token was added to the array.
 The <code class="prettyprint">T_SPACESHIP</code> token was introduced in PHPCS 2.5.1.</li>
 </ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
-</article>
-                                    <a id="method_arithmeticTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">arithmeticTokens()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">190</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS arithmetic tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">arithmeticTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$comparisonTokens">Tokens::$comparisonTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_emptyTokens">
+        emptyTokens()
+        <a href="#method_emptyTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">emptyTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that don't represent code.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_equalityTokens">
+        equalityTokens()
+        <a href="#method_equalityTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">equalityTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that represent equality comparisons.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_functionNameTokens">
+        functionNameTokens()
+        <a href="#method_functionNameTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">367</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that represent the names of called functions.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">functionNameTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS function name tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
-<li>Introduced in PHPCS 0.5.0.</li>
-<li>PHPCS 2.9.0: The PHP 5.6 <code class="prettyprint">T_POW</code> token was added to the array.
-The <code class="prettyprint">T_POW</code> token was introduced in PHPCS 2.4.0.</li>
+<li>Introduced in PHPCS 2.3.3.</li>
+<li>PHPCS 3.1.0: <code class="prettyprint">T_SELF</code> and <code class="prettyprint">T_STATIC</code> added to the array.</li>
 </ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array or an empty array for PHPCS versions in
-which the PHPCS native comment tokens did not exist yet.</p></span>
-            
-</article>
-                                    <a id="method_operators"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">operators()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">211</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS operator tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">operators</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$functionNameTokens">Tokens::$functionNameTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_heredocTokens">
+        heredocTokens()
+        <a href="#method_heredocTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">heredocTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that make up a heredoc string.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_includeTokens">
+        includeTokens()
+        <a href="#method_includeTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">includeTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that include files.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_methodPrefixes">
+        methodPrefixes()
+        <a href="#method_methodPrefixes" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">methodPrefixes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that can prefix a method name.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_ooScopeTokens">
+        ooScopeTokens()
+        <a href="#method_ooScopeTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">390</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that open class and object scopes.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">ooScopeTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the OO scope tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
+<ul>
+<li>Introduced in PHPCS 3.1.0.</li>
+</ul></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens">Tokens::$ooScopeTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_operators">
+        operators()
+        <a href="#method_operators" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">238</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that perform operations.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">operators</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS operator tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
 <li>Introduced in PHPCS 0.0.5.</li>
 <li>PHPCS 2.6.1: The PHP 7.0 <code class="prettyprint">T_COALESCE</code> token was backfilled and added to the array.</li>
@@ -458,264 +1033,349 @@ which the PHPCS native comment tokens did not exist yet.</p></span>
 added to the array.</li>
 <li>PHPCS 2.9.0: The <code class="prettyprint">T_COALESCE_EQUAL</code> token was removed from the array.</li>
 </ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
-</article>
-                                    <a id="method_parenthesisOpeners"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">parenthesisOpeners()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">247</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">parenthesisOpeners</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$operators">Tokens::$operators</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_parenthesisOpeners">
+        parenthesisOpeners()
+        <a href="#method_parenthesisOpeners" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">281</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Token types that open parentheses.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">parenthesisOpeners</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
 <li>Introduced in PHPCS 0.0.5.</li>
 <li>PHPCS 3.5.0: <code class="prettyprint">T_LIST</code> and <code class="prettyprint">T_ANON_CLASS</code> added to the array.</li>
 </ul>
 <p>Note: While <code class="prettyprint">T_LIST</code> and <code class="prettyprint">T_ANON_CLASS</code> will be included in the return value for this
 method, the associated parentheses will not have the <code class="prettyprint">'parenthesis_owner'</code> index set
-until PHPCS 3.5.0.</p></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
-</article>
-                                    <a id="method_phpcsCommentTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">phpcsCommentTokens()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">270</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS comment tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">phpcsCommentTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+until PHPCS 3.5.0. Use the <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_getOwner">\PHPCSUtils\Utils\Parentheses::getOwner()</a>
+or <a href="../classes/PHPCSUtils-Utils-Parentheses.html#method_hasOwner">\PHPCSUtils\Utils\Parentheses::hasOwner()</a> methods if you need to check for
+a <code class="prettyprint">T_LIST</code> or <code class="prettyprint">T_ANON_CLASS</code> parentheses owner.</p></section>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$parenthesisOpeners">Tokens::$parenthesisOpeners</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-Parentheses.html"><abbr title="\PHPCSUtils\Utils\Parentheses">Parentheses</abbr></a></span>
+                                                                <section class="phpdocumentor-description"><p>Class holding utility methods for
+working with the <code class="prettyprint">'parenthesis_...'</code>
+index keys in a token array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_phpcsCommentTokens">
+        phpcsCommentTokens()
+        <a href="#method_phpcsCommentTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">307</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that are comments containing PHPCS instructions.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">phpcsCommentTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS comment tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
-<li>Introduced in PHPCS 3.2.3.</li>
+<li>Introduced in PHPCS 3.2.3. The PHPCS comment tokens, however, were introduced in
+PHPCS 3.2.0.</li>
 </ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><string> => <string> Token array or an empty array for PHPCS
-versions in which the PHPCS native annotation
-tokens did not exist yet.</span>
-            
-</article>
-                                    <a id="method_textStringTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">textStringTokens()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">304</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS text string tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">textStringTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens">Tokens::$phpcsCommentTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;string&gt; =&gt; &lt;string&gt; Token array or an empty array for PHPCS
+versions in which the PHPCS native annotation
+tokens did not exist yet.</p></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_scopeModifiers">
+        scopeModifiers()
+        <a href="#method_scopeModifiers" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">scopeModifiers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that represent scope modifiers.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_scopeOpeners">
+        scopeOpeners()
+        <a href="#method_scopeOpeners" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">scopeOpeners</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that are allowed to open scopes.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_stringTokens">
+        stringTokens()
+        <a href="#method_stringTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">stringTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Tokens that represent strings.
+Note that <code class="prettyprint">T_STRINGS</code> are NOT represented in this list as this list
+is about <em>text</em> strings.</p></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_textStringTokens">
+        textStringTokens()
+        <a href="#method_textStringTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">343</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Tokens that represent text strings.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">textStringTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+
+        <section class="phpdocumentor-description"><p>Retrieve the PHPCS text string tokens array in a cross-version compatible manner.</p>
+<p>Changelog for the PHPCS native array:</p>
 <ul>
 <li>Introduced in PHPCS 2.9.0.</li>
 </ul></section>
+
     
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Util\Tokens::$textStringTokens">Tokens::$textStringTokens</abbr></span>
+                                                                <section class="phpdocumentor-description"><p>Original array.</p></section>
+
+                </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                                    
+                </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></section>
+
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
 </article>
-                                    <a id="method_functionNameTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">functionNameTokens()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">326</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the PHPCS function name tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">functionNameTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+            </section>
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
-<ul>
-<li>Introduced in PHPCS 2.3.3.</li>
-<li>PHPCS 3.1.0: <code class="prettyprint">T_SELF</code> and <code class="prettyprint">T_STATIC</code> added to the array.</li>
-</ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
-</article>
-                                    <a id="method_ooScopeTokens"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">ooScopeTokens()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/BackCompat/BCTokens.php"><a href="../files/phpcsutils-backcompat-bctokens.html"><abbr title="PHPCSUtils/BackCompat/BCTokens.php">BCTokens.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">347</span>
-    </aside>
-        <p class="phpdocumentor-summary">Retrieve the OO scope tokens array in a cross-version compatible manner.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ooScopeTokens</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+    </article>
+                <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
 
-        <section class="phpdocumentor-description"><p>Changelog for the PHPCS native array:</p>
-<ul>
-<li>Introduced in PHPCS 3.1.0.</li>
-</ul></section>
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">see</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Original array.</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>&lt;int|string&gt; =&gt; &lt;int|string&gt; Token array.</p></span>
-            
-</article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
-
-                </ul>
+    <h2>Search results</h2>
+    <ul class="phpdocumentor-search-results__entries">
+    </ul>
+</div>
             </div>
         </div>
-    </div>
-</main>
+        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

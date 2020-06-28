@@ -86,4 +86,8 @@ $array = [
 
     /* testDoubleArrowTokenizedAsTstring-PHPCS2865 */
     $obj->fn => 'value',
+
+    /* testEmptyArrayItem */
+    // Intentional parse error.
+    ,
 ];

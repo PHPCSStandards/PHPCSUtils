@@ -44,7 +44,7 @@ class Arrays
     ];
 
     /**
-     * Determine whether a `T_OPEN/CLOSE_SHORT_ARRAY` token is a short array() construct
+     * Determine whether a T_OPEN/CLOSE_SHORT_ARRAY token is a short array construct
      * and not a short list.
      *
      * This method also accepts `T_OPEN/CLOSE_SQUARE_BRACKET` tokens to allow it to be
@@ -56,8 +56,8 @@ class Arrays
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array bracket token.
      *
-     * @return bool True if the token passed is the open/close bracket of a short array.
-     *              False if the token is a short list bracket, a plain square bracket
+     * @return bool `TRUE` if the token passed is the open/close bracket of a short array.
+     *              `FALSE` if the token is a short list bracket, a plain square bracket
      *              or not one of the accepted tokens.
      */
     public static function isShortArray(File $phpcsFile, $stackPtr)
@@ -174,7 +174,7 @@ class Arrays
     }
 
     /**
-     * Find the array opener & closer based on a T_ARRAY or T_OPEN_SHORT_ARRAY token.
+     * Find the array opener and closer based on a T_ARRAY or T_OPEN_SHORT_ARRAY token.
      *
      * This method also accepts `T_OPEN_SQUARE_BRACKET` tokens to allow it to be
      * PHPCS cross-version compatible as the short array tokenizing has been plagued by
@@ -183,18 +183,24 @@ class Arrays
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file being scanned.
-     * @param int                         $stackPtr     The position of the T_ARRAY or T_OPEN_SHORT_ARRAY
+     * @param int                         $stackPtr     The position of the `T_ARRAY` or `T_OPEN_SHORT_ARRAY`
      *                                                  token in the stack.
-     * @param true|null                   $isShortArray Short-circuit the short array check for T_OPEN_SHORT_ARRAY
+     * @param true|null                   $isShortArray Short-circuit the short array check for `T_OPEN_SHORT_ARRAY`
      *                                                  tokens if it isn't necessary.
      *                                                  Efficiency tweak for when this has already been established,
      *                                                  i.e. when encountering a nested array while walking the
      *                                                  tokens in an array.
      *                                                  Use with care.
      *
-     * @return array|false Array with two keys `opener`, `closer` or false if
-     *                     not a (short) array token or if the opener/closer
-     *                     could not be determined.
+     * @return array|false An array with the token pointers; or `FALSE` if this is not a
+     *                     (short) array token or if the opener/closer could not be determined.
+     *                     The format of the array return value is:
+     *                     ```php
+     *                     array(
+     *                       'opener' => integer, // Stack pointer to the array open bracket.
+     *                       'closer' => integer, // Stack pointer to the array close bracket.
+     *                     )
+     *                     ```
      */
     public static function getOpenClose(File $phpcsFile, $stackPtr, $isShortArray = null)
     {
@@ -248,9 +254,9 @@ class Arrays
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
      * @param int                         $start     Stack pointer to the start of the array item.
-     * @param int                         $end       Stack pointer to the end of the array item (inclusive).
+     * @param int                         $end       Stack pointer to the last token in the array item.
      *
-     * @return int|false Stack pointer to the double arrow if this array item has a key or false otherwise.
+     * @return int|false Stack pointer to the double arrow if this array item has a key; or `FALSE` otherwise.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the start or end positions are invalid.
      */
@@ -288,6 +294,7 @@ class Arrays
 
             /*
              * BC: work-around a bug in PHPCS 3.5.4 where the double arrow is incorrectly tokenized as T_STRING.
+             *
              * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2865
              */
             if ($tokens[$doubleArrow]['code'] === \T_STRING && $tokens[$doubleArrow]['content'] === '=>') {

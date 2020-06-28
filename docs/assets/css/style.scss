@@ -1,0 +1,125 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+p, ul, ol, table, pre, #feature-list {
+    margin:0 0 15px;
+}
+
+h1, h2 {
+    margin-top: 1.5em;
+}
+header h1, h2#features {
+    margin-top: 0em;
+}
+
+h2 {
+    font-size:28px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 14px;
+    margin-top: 1.5em;
+}
+
+blockquote{
+    border-left:2px solid #e5e5e5;
+    border-right:2px solid #e5e5e5;
+    margin:5px 20px 20px 10px;
+    padding:0 10px 0 20px;
+}
+blockquote p {
+    margin:2px 0 8px;
+}
+
+p code {
+    background:#f8f8f8;
+    display:inline-block;
+}
+
+/* First section: feature list */
+#feature-list h3 {
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+    line-height: 1.5;
+}
+
+#feature-list p {
+    margin:2px 0 8px 40px;
+}
+
+/* Packagist install code sample left column. */
+.install pre.highlight {
+    padding: 6px 10px;
+    text-align: center;
+    font-size: 89%;
+}
+
+/* "Read the docs" button. */
+.docs {
+    box-shadow:inset 0px 1px 0px 0px #97c4fe;
+    background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+    background-color:#267CB9;
+    border-radius:6px;
+    border:1px solid #337fed;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:8px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #1570cd;
+}
+.docs:hover {
+    background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+    background-color:#1e62d0;
+}
+.docs:active {
+    position:relative;
+    top:1px;
+}
+.docs a {
+    color: #ffffff;
+}
+
+/* FAQ */
+#faq h4 {
+    font-size: 18px;
+    line-height: 1.1;
+    margin-top: 0;
+}
+
+#faq h4::first-letter, #faq h4 + p::first-letter {
+    color:#267CB9;
+    font-weight: bold;
+}
+
+.twitter-share-button {
+    font-size: 70%;
+    margin: 0;
+    padding-top: 1em;
+}
+
+/* General space usage/layout */
+.wrapper{
+    width:100%;
+}
+
+header {
+    width:28%;
+}
+section {
+    width:60%;
+    padding-right: 50px;
+}
+
+footer {
+    width:28%;
+    bottom:20px;
+}

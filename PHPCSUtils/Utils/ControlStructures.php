@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Utils;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
@@ -25,8 +26,10 @@ class ControlStructures
     /**
      * Check whether a control structure has a body.
      *
-     * Some control structures - `while`, `for` and `declare` - can be declared without a body, like
-     * `while (++$i < 10);`.
+     * Some control structures - `while`, `for` and `declare` - can be declared without a body, like:
+     * ```php
+     * while (++$i < 10);
+     * ```
      *
      * All other control structures will always have a body, though the body may be empty, where "empty" means:
      * no _code_ is found in the body. If a control structure body only contains a comment, it will be
@@ -40,9 +43,9 @@ class ControlStructures
      *                                                still be considered as having a body.
      *                                                Defaults to `true`.
      *
-     * @return bool True when the control structure has a body, or when `$allowEmpty` is set to `false`
+     * @return bool `TRUE` when the control structure has a body, or in case `$allowEmpty` is set to `FALSE`:
      *              when it has a non-empty body.
-     *              False in all other cases, including when a non-control structure token has been passed.
+     *              `FALSE` in all other cases, including when a non-control structure token has been passed.
      */
     public static function hasBody(File $phpcsFile, $stackPtr, $allowEmpty = true)
     {
@@ -146,7 +149,7 @@ class ControlStructures
     }
 
     /**
-     * Check whether an IF or ELSE token is part of an `else if`.
+     * Check whether an IF or ELSE token is part of an "else if".
      *
      * @since 1.0.0
      *
@@ -196,10 +199,10 @@ class ControlStructures
     }
 
     /**
-     * Get the scope opener and closer for a `declare` statement.
+     * Get the scope opener and closer for a DECLARE statement.
      *
      * A `declare` statement can be:
-     * - applied to the rest of the file, like `declare(ticks=1);`;
+     * - applied to the rest of the file, like `declare(ticks=1);`
      * - applied to a limited scope using curly braces;
      * - applied to a limited scope using the alternative control structure syntax.
      *
@@ -212,16 +215,22 @@ class ControlStructures
      * control structure syntax into account, this method can be used to retrieve the
      * scope opener/closer for the declare statement.
      *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2843
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2843 PHPCS PR #2843
      *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
      *
-     * @return array|false Array with two keys `opener`, `closer` or false if
-     *                     not a `declare` token or if the opener/closer
-     *                     could not be determined.
+     * @return array|false An array with the token pointers; or `FALSE` if not a `DECLARE` token
+     *                     or if the opener/closer could not be determined.
+     *                     The format of the array return value is:
+     *                     ```php
+     *                     array(
+     *                       'opener' => integer, // Stack pointer to the scope opener.
+     *                       'closer' => integer, // Stack pointer to the scope closer.
+     *                     )
+     *                     ```
      */
     public static function getDeclareScopeOpenClose(File $phpcsFile, $stackPtr)
     {
@@ -334,5 +343,86 @@ class ControlStructures
         }
 
         return false;
+    }
+
+    /**
+     * Retrieve the exception(s) being caught in a CATCH condition.
+     *
+     * @since 1.0.0-alpha3
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the token we are checking.
+     *
+     * @return array Array with information about the caught Exception(s).
+     *               The returned array will contain the following information for
+     *               each caught exception:
+     *               ```php
+     *               0 => array(
+     *                 'type'           => string,  // The type declaration for the exception being caught.
+     *                 'type_token'     => integer, // The stack pointer to the start of the type declaration.
+     *                 'type_end_token' => integer, // The stack pointer to the end of the type declaration.
+     *               )
+     *               ```
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified `$stackPtr` is not of
+     *                                                      type `T_CATCH` or doesn't exist.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If no parenthesis opener or closer can be
+     *                                                      determined (parse error).
+     */
+    public static function getCaughtExceptions(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false
+            || $tokens[$stackPtr]['code'] !== \T_CATCH
+        ) {
+            throw new RuntimeException('$stackPtr must be of type T_CATCH');
+        }
+
+        if (isset($tokens[$stackPtr]['parenthesis_opener'], $tokens[$stackPtr]['parenthesis_closer']) === false) {
+            throw new RuntimeException('Parentheses opener/closer of the T_CATCH could not be determined');
+        }
+
+        $opener     = $tokens[$stackPtr]['parenthesis_opener'];
+        $closer     = $tokens[$stackPtr]['parenthesis_closer'];
+        $exceptions = [];
+
+        $foundName  = '';
+        $firstToken = null;
+        $lastToken  = null;
+
+        for ($i = ($opener + 1); $i <= $closer; $i++) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
+                continue;
+            }
+
+            if (isset(Collections::$OONameTokens[$tokens[$i]['code']]) === false) {
+                // Add the current exception to the result array.
+                $exceptions[] = [
+                    'type'           => $foundName,
+                    'type_token'     => $firstToken,
+                    'type_end_token' => $lastToken,
+                ];
+
+                if ($tokens[$i]['code'] === \T_BITWISE_OR) {
+                    // Multi-catch. Reset and continue.
+                    $foundName  = '';
+                    $firstToken = null;
+                    $lastToken  = null;
+                    continue;
+                }
+
+                break;
+            }
+
+            if (isset($firstToken) === false) {
+                $firstToken = $i;
+            }
+
+            $foundName .= $tokens[$i]['content'];
+            $lastToken  = $i;
+        }
+
+        return $exceptions;
     }
 }

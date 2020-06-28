@@ -133,6 +133,10 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testFunction */',
                 'functionName',
             ],
+            'function-return-by-reference' => [
+                '/* testFunctionReturnByRef */',
+                'functionNameByRef',
+            ],
             'class' => [
                 '/* testClass */',
                 'ClassName',
@@ -144,6 +148,10 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
             'abstract-method' => [
                 '/* testAbstractMethod */',
                 'abstractMethodName',
+            ],
+            'method-return-by-reference' => [
+                '/* testMethodReturnByRef */',
+                'MethodNameByRef',
             ],
             'extended-class' => [
                 '/* testExtendedClass */',

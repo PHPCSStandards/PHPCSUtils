@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Utils\Operators;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Numbers;
 use PHPCSUtils\Utils\Operators;
@@ -72,7 +71,7 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
                 $this->markTestSkipped($skipMessage);
             }
 
-            if (\version_compare(Helper::getVersion(), Numbers::UNSUPPORTED_PHPCS_VERSION, '>=') === true) {
+            if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>=') === true) {
                 $this->markTestSkipped($skipMessage);
             }
         }
