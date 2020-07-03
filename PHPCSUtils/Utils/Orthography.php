@@ -83,6 +83,74 @@ class Orthography
     }
 
     /**
+     * Capitalize the first character of an arbitrary text string if it is a lowercase letter.
+     *
+     * Multibyte safe version of ucfirst(), which takes the file encoding, as set in a PHPCS ruleset,
+     * into account.
+     *
+     * @since 1.0.0
+     *
+     * @param string $string The text string to transform.
+     *                       This can be the contents of a text string token,
+     *                       but also, for instance, a comment text.
+     *                       Potential text delimiter quotes should be stripped
+     *                       off a text string before passing it to this method.
+     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
+     *
+     * @return string|false The transformed string or the unchanged string if the first character
+     *                      was not a lowercase letter.
+     *                      `FALSE` if a transformation is warranted, but not possible due to
+     *                      the MBString extension not being available and the first character
+     *                      being non-ascii or if the transformation would result in an
+     *                      invalid text string for the current encoding.
+     */
+    public static function capitalizeFirstChar($string)
+    {
+        static $mbstring = null, $encoding = null;
+
+        // Cache the results of MbString check and encoding. These values won't change during a run.
+        if (isset($mbstring) === false) {
+            $mbstring = \function_exists('mb_ereg_replace_callback');
+        }
+
+        if (isset($encoding) === false) {
+            $encoding = Helper::getEncoding();
+        }
+
+        if (self::isFirstCharLowercase($string) === false) {
+            // First character is not a lowercase letter, so attempting to change it won't have any effect anyway.
+            return $string;
+        }
+
+        if ($mbstring === true) {
+            \mb_regex_set_options('z');
+            \mb_regex_encoding($encoding);
+
+            // phpcs:ignore PHPCompatibility.FunctionUse.NewFunctions.mb_ereg_replace_callbackFound -- Available since PHP 5.4.1.
+            $ucfirst = \mb_ereg_replace_callback(
+                '^\s*\p{Ll}',
+                function ($matches) use ($encoding) {
+                    return \mb_strtoupper($matches[0], $encoding);
+                },
+                $string
+            );
+
+            // Make sure the output is actually a valid text string for the given encoding.
+            if (\mb_check_encoding($ucfirst, $encoding) === true) {
+                return $ucfirst;
+            }
+        }
+
+        // MBString is not available. Try ucfirst() - should only change strings which the locale can handle.
+        $ucfirst = \ucfirst($string);
+        if ($string !== $ucfirst) {
+            return $ucfirst;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if the last character of an arbitrary text string is a valid punctuation character.
      *
      * @since 1.0.0
