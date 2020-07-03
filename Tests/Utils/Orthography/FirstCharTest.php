@@ -14,11 +14,13 @@ use PHPCSUtils\Utils\Orthography;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for the \PHPCSUtils\Utils\Orthography::isFirstCharCapitalized()
- * and the \PHPCSUtils\Utils\Orthography::isFirstCharLowercase() methods.
+ * Tests for the \PHPCSUtils\Utils\Orthography::isFirstCharCapitalized(),
+ * the \PHPCSUtils\Utils\Orthography::isFirstCharLowercase() and the
+ * \PHPCSUtils\Utils\Orthography::capitalizeFirstChar() methods.
  *
  * @covers \PHPCSUtils\Utils\Orthography::isFirstCharCapitalized
  * @covers \PHPCSUtils\Utils\Orthography::isFirstCharLowercase
+ * @covers \PHPCSUtils\Utils\Orthography::capitalizeFirstChar
  *
  * @since 1.0.0
  */
@@ -37,7 +39,7 @@ final class FirstCharTest extends TestCase
      */
     public function testIsFirstCharCapitalized($input, $expected)
     {
-        $this->assertSame($expected['capitalized'], Orthography::isFirstCharCapitalized($input));
+        $this->assertSame($expected['is_capitalized'], Orthography::isFirstCharCapitalized($input));
     }
 
     /**
@@ -52,7 +54,26 @@ final class FirstCharTest extends TestCase
      */
     public function testIsFirstCharLowercase($input, $expected)
     {
-        $this->assertSame($expected['lowercase'], Orthography::isFirstCharLowercase($input));
+        $this->assertSame($expected['is_lowercase'], Orthography::isFirstCharLowercase($input));
+    }
+
+    /**
+     * Test correctly transforming the first character of a phrase to uppercase.
+     *
+     * @dataProvider dataFirstChar
+     *
+     * @param string $input    The input string.
+     * @param array  $expected The expected function output for the respective functions.
+     *
+     * @return void
+     */
+    public function testCapitalizeFirstChar($input, $expected)
+    {
+        if (isset($expected['ucfirst']) === false) {
+            $this->markTestSkipped('Capitalization for this test case is not stable.');
+        }
+
+        $this->assertSame($expected['ucfirst'], Orthography::capitalizeFirstChar($input));
     }
 
     /**
@@ -70,15 +91,17 @@ final class FirstCharTest extends TestCase
             'double-quoted' => [
                 'input'    => '"This is a test"',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => false,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => '"This is a test"',
                 ],
             ],
             'single-quoted' => [
                 'input'    => "'This is a test'",
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => false,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => "'This is a test'",
                 ],
             ],
 
@@ -86,15 +109,17 @@ final class FirstCharTest extends TestCase
             'start-numeric' => [
                 'input'    => '12 Foostreet',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => false,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => '12 Foostreet',
                 ],
             ],
             'start-bracket' => [
                 'input'    => '[Optional]',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => false,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => '[Optional]',
                 ],
             ],
 
@@ -103,16 +128,20 @@ final class FirstCharTest extends TestCase
                 'input'    => '
                 this is a test',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => '
+                This is a test',
                 ],
             ],
             'english-propercase-leading-whitespace' => [
                 'input'    => '
                 This is a test',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => '
+                This is a test',
                 ],
             ],
 
@@ -120,43 +149,49 @@ final class FirstCharTest extends TestCase
             'english-lowercase' => [
                 'input'    => 'this is a test',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => 'This is a test',
                 ],
             ],
             'russian-lowercase' => [
                 'input'    => 'предназначена для‎',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => 'Предназначена для‎',
                 ],
             ],
             'latvian-lowercase' => [
                 'input'    => 'ir domāta',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => 'Ir domāta',
                 ],
             ],
             'armenian-lowercase' => [
                 'input'    => 'սա թեստ է',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => 'Սա թեստ է',
                 ],
             ],
             'mandinka-lowercase' => [
                 'input'    => 'ŋanniya',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => 'Ŋanniya',
                 ],
             ],
             'greek-lowercase' => [
                 'input'    => 'δημιουργήθηκε από',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
+                    'ucfirst'        => 'Δημιουργήθηκε από',
                 ],
             ],
 
@@ -164,43 +199,49 @@ final class FirstCharTest extends TestCase
             'english-propercase' => [
                 'input'    => 'This is a test',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'This is a test',
                 ],
             ],
             'russian-propercase' => [
                 'input'    => 'Дата написания этой книги',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'Дата написания этой книги',
                 ],
             ],
             'latvian-propercase' => [
                 'input'    => 'Šodienas datums',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'Šodienas datums',
                 ],
             ],
             'armenian-propercase' => [
                 'input'    => 'Սա թեստ է',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'Սա թեստ է',
                 ],
             ],
             'igbo-propercase' => [
                 'input'    => 'Ụbọchị tata bụ',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'Ụbọchị tata bụ',
                 ],
             ],
             'greek-propercase' => [
                 'input'    => 'Η σημερινή ημερομηνία',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'Η σημερινή ημερομηνία',
                 ],
             ],
 
@@ -208,36 +249,41 @@ final class FirstCharTest extends TestCase
             'arabic' => [
                 'input'    => 'هذا اختبار',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'هذا اختبار',
                 ],
             ],
             'pashto' => [
                 'input'    => 'دا یوه آزموینه ده',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'دا یوه آزموینه ده',
                 ],
             ],
             'hebrew' => [
                 'input'    => 'זה מבחן',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'זה מבחן',
                 ],
             ],
             'chinese-traditional' => [
                 'input'    => '這是一個測試',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => '這是一個測試',
                 ],
             ],
             'urdu' => [
                 'input'    => 'کا منشاء برائے',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'کا منشاء برائے',
                 ],
             ],
         ];
@@ -257,16 +303,17 @@ final class FirstCharTest extends TestCase
             $data['georgian'] = [
                 'input'    => 'ეს ტესტია',
                 'expected' => [
-                    'capitalized' => false,
-                    'lowercase'   => true,
+                    'is_capitalized' => false,
+                    'is_lowercase'   => true,
                 ],
             ];
         } else {
             $data['georgian'] = [
                 'input'    => 'ეს ტესტია',
                 'expected' => [
-                    'capitalized' => true,
-                    'lowercase'   => false,
+                    'is_capitalized' => true,
+                    'is_lowercase'   => false,
+                    'ucfirst'        => 'ეს ტესტია',
                 ],
             ];
         }

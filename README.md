@@ -77,7 +77,7 @@ To see detailed information about all the available abstract sniffs, utility fun
 
 ## Minimum Requirements
 
-* PHP 5.4 or higher.
+* PHP 5.4.1 or higher.
 * [PHP_CodeSniffer] 3.13.3+/4.0.0+.
 * Recommended PHP extensions for optimal functionality:
     - PCRE with Unicode support (normally enabled by default)
