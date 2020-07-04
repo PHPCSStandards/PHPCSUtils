@@ -74,6 +74,13 @@ class ReturnMe {
     }
 }
 
+/* testPHP8MixedTypeHint */
+function mixedTypeHint() :mixed {}
+
+/* testPHP8MixedTypeHintNullable */
+// Intentional fatal error - nullability is not allowed with mixed, but that's not the concern of the method.
+function mixedTypeHintNullable(): ?mixed {}
+
 /* testNotAFunction */
 return true;
 
