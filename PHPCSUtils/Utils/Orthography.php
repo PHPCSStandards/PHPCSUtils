@@ -108,9 +108,9 @@ class Orthography
     {
         static $mbstring = null, $encoding = null;
 
-        // Cache the results of MbString check and encoding. These values won't change during a run.
+        // Cache the results of MBString check and encoding. These values won't change during a run.
         if (isset($mbstring) === false) {
-            $mbstring = \function_exists('mb_ereg_replace_callback');
+            $mbstring = \function_exists('mb_strtoupper');
         }
 
         if (isset($encoding) === false) {
@@ -123,12 +123,8 @@ class Orthography
         }
 
         if ($mbstring === true) {
-            \mb_regex_set_options('z');
-            \mb_regex_encoding($encoding);
-
-            // phpcs:ignore PHPCompatibility.FunctionUse.NewFunctions.mb_ereg_replace_callbackFound -- Available since PHP 5.4.1.
-            $ucfirst = \mb_ereg_replace_callback(
-                '^\s*\p{Ll}',
+            $ucfirst = \preg_replace_callback(
+                '`^\s*\p{Ll}`u',
                 function ($matches) use ($encoding) {
                     return \mb_strtoupper($matches[0], $encoding);
                 },
