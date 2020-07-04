@@ -47,6 +47,7 @@ final class FirstCharTest extends TestCase
     public static function setEncoding()
     {
         self::$originalEncoding = Helper::getConfigData('encoding');
+// Test won't work for PHPCS 4.x - needs config, so needs phpcsFile, so needs file tokenizatin for the test
         Helper::setConfigData('encoding', 'utf-8', true);
     }
 
@@ -59,6 +60,7 @@ final class FirstCharTest extends TestCase
      */
     public static function resetEncoding()
     {
+// Test won't work for PHPCS 4.x - needs config, so needs phpcsFile, so needs file tokenizatin for the test
         Helper::setConfigData('encoding', self::$originalEncoding, true);
     }
 

@@ -114,6 +114,7 @@ final class Orthography
         }
 
         if (isset($encoding) === false) {
+// TODO: this needs $config (well, PHPCSFile) for PHPCS 4.x support
             $encoding = Helper::getEncoding();
         }
 
