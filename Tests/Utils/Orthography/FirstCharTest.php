@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Orthography;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Utils\Orthography;
 use PHPUnit\Framework\TestCase;
 
@@ -28,6 +29,40 @@ use PHPUnit\Framework\TestCase;
  */
 class FirstCharTest extends TestCase
 {
+
+    /**
+     * Original encoding.
+     *
+     * @var string
+     */
+    public static $originalEncoding;
+
+    /**
+     * Set the PHPCS encoding for this test file to UTF-8.
+     *
+     * As the default encoding for PHPCS 2.x isn't UTF-8, the tests would fail otherwise.
+     *
+     * @beforeClass
+     *
+     * @return void
+     */
+    public static function setEncoding()
+    {
+        self::$originalEncoding = Helper::getConfigData('encoding');
+        Helper::setConfigData('encoding', 'utf-8', true);
+    }
+
+    /**
+     * Set the PHPCS encoding for this test file to UTF-8.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetEncoding()
+    {
+        Helper::setConfigData('encoding', self::$originalEncoding, true);
+    }
 
     /**
      * Test correctly detecting whether the first character of a phrase is capitalized.
