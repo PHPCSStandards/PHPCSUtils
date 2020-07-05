@@ -19,6 +19,7 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - "nightly"
 
 env:
   - PHPCS_VERSION="dev-master" LINT=1
@@ -133,9 +134,6 @@ jobs:
     - php: 7.4
       env: PHPCS_VERSION="4.0.x-dev@dev"
 
-    - php: "nightly"
-      env: PHPCS_VERSION="n/a" LINT=1
-
     #### CODE COVERAGE STAGE ####
     # N.B.: Coverage is only checked on the lowest and highest stable PHP versions for all PHPCS versions.
     # These builds are left out off the "test" stage so as not to duplicate test runs.
@@ -169,7 +167,7 @@ before_install:
   # On stable PHPCS versions, allow for PHP deprecation notices.
   # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
   - |
-    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" != "Sniff" && $PHPCS_VERSION != "dev-master" && "$PHPCS_VERSION" != "n/a" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" != "Sniff" && $PHPCS_VERSION != "dev-master" ]]; then
       echo 'error_reporting = E_ALL & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     fi
 
@@ -178,23 +176,28 @@ before_install:
 
 install:
   # Set up test environment using Composer.
-  - |
-    if [[ $PHPCS_VERSION != "n/a" ]]; then
-      composer require --no-update --no-scripts squizlabs/php_codesniffer:${PHPCS_VERSION}
-    fi
+  - composer require --no-update --no-scripts squizlabs/php_codesniffer:${PHPCS_VERSION}
   - |
     if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then
       composer require --dev --no-update --no-suggest --no-scripts php-coveralls/php-coveralls:${COVERALLS_VERSION}
     fi
   - |
-    if [[ $PHPCS_VERSION == "n/a" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Sniff" ]]; then
       # Don't install PHPUnit when it's not needed.
       composer remove --dev phpunit/phpunit --no-update --no-scripts
     fi
 
   # --prefer-dist will allow for optimal use of the travis caching ability.
   # The Composer PHPCS plugin takes care of setting the installed_paths for PHPCS.
-  - composer install --prefer-dist --no-suggest
+  - |
+    if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+      # PHPUnit 9.x does not (yet) allow for installation on PHP 8, so ignore platform
+      # requirements to get PHPUnit 9.x to install on nightly.
+      composer install --prefer-dist --no-suggest --ignore-platform-reqs
+    else
+      # Do a normal dev install in all other cases.
+      composer install --prefer-dist --no-suggest
+    fi
 
 
 before_script:
@@ -208,9 +211,9 @@ script:
 
   # Run the unit tests.
   - |
-    if [[ $PHPCS_VERSION != "n/a" && "${TRAVIS_BUILD_STAGE_NAME^}" != "Coverage" ]]; then
+    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" != "Coverage" ]]; then
       composer test
-    elif [[ $PHPCS_VERSION != "n/a" && "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then
+    elif [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then
       composer coverage
     fi
 
