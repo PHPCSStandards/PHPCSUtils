@@ -209,6 +209,57 @@ class UseTypeTest extends UtilityMethodTestCase
                     'trait'   => false,
                 ],
             ],
+
+            // Tests related to a specific issue with scope setting in PHPCS 2.x.
+            'parse-error-import-use-case-no-switch-1' => [
+                '/* testUseImportPHPCS2CaseNoSwitchA */',
+                [
+                    'closure' => false,
+                    'import'  => true,
+                    'trait'   => false,
+                ],
+            ],
+            'parse-error-import-use-case-no-switch-2' => [
+                '/* testUseImportPHPCS2CaseNoSwitchB */',
+                [
+                    'closure' => false,
+                    'import'  => true,
+                    'trait'   => false,
+                ],
+            ],
+            'parse-error-import-use-default-no-switch' => [
+                '/* testUseImportPHPCS2DefaultNoSwitchA */',
+                [
+                    'closure' => false,
+                    'import'  => true,
+                    'trait'   => false,
+                ],
+            ],
+            'parse-error-trait-use-case-no-switch-1' => [
+                '/* testUseImportPHPCS2CaseNoSwitchC */',
+                [
+                    'closure' => false,
+                    'import'  => false,
+                    'trait'   => true,
+                ],
+            ],
+            'parse-error-trait-use-case-no-switch-2' => [
+                '/* testUseImportPHPCS2CaseNoSwitchD */',
+                [
+                    'closure' => false,
+                    'import'  => false,
+                    'trait'   => true,
+                ],
+            ],
+            'parse-error-trait-use-default-no-switch' => [
+                '/* testUseImportPHPCS2DefaultNoSwitchB */',
+                [
+                    'closure' => false,
+                    'import'  => false,
+                    'trait'   => true,
+                ],
+            ],
+
             'live-coding' => [
                 '/* testLiveCoding */',
                 [
