@@ -195,7 +195,8 @@ class FunctionDeclarations
      *                                                      // or FALSE if there is no return type.
      *                 'return_type_end_token' => integer,  // The stack pointer to the end of the return type
      *                                                      // or FALSE if there is no return type.
-     *                 'nullable_return_type'  => false,    // TRUE if the return type is nullable.
+     *                 'nullable_return_type'  => false,    // TRUE if the return type is preceded
+     *                                                      // by the nullability operator.
      *                 'is_abstract'           => false,    // TRUE if the abstract keyword was found.
      *                 'is_final'              => false,    // TRUE if the final keyword was found.
      *                 'is_static'             => false,    // TRUE if the static keyword was found.
@@ -361,7 +362,8 @@ class FunctionDeclarations
      *                                     // or FALSE if there is no type hint.
      *   'type_hint_end_token' => integer, // The stack pointer to the end of the type hint
      *                                     // or FALSE if there is no type hint.
-     *   'nullable_type'       => boolean, // TRUE if the var type is nullable.
+     *   'nullable_type'       => boolean, // TRUE if the var type is preceded by the nullability
+     *                                     // operator.
      *   'comma_token'         => integer, // The stack pointer to the comma after the param
      *                                     // or FALSE if this is the last param.
      * )
