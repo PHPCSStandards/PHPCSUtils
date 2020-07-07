@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\Parentheses;
 
@@ -66,6 +67,14 @@ class UseStatements
         }
 
         $lastCondition = Conditions::getLastCondition($phpcsFile, $stackPtr);
+        if (($tokens[$lastCondition]['code'] === \T_CASE
+                || $tokens[$lastCondition]['code'] === \T_DEFAULT)
+            && \version_compare(Helper::getVersion(), '2.99.99', '<') === true
+            && Conditions::hasCondition($phpcsFile, $stackPtr, [\T_SWITCH]) === false
+        ) {
+            $lastCondition = Conditions::getLastCondition($phpcsFile, $lastCondition);
+        }
+
         if ($lastCondition === false || $tokens[$lastCondition]['code'] === \T_NAMESPACE) {
             // Global or scoped namespace and not a closure use statement.
             return 'import';

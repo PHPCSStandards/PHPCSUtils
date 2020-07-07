@@ -48,6 +48,28 @@ interface InterfaceUsingTrait {
     use SomeTrait;
 }
 
+/*
+ * Test specific issue with PHPCS < 3 where the case/default parse errors below would cause them
+ * to have a case/default condition, though without a switch.
+ */
+use FoobarA as Case;
+/* testUseImportPHPCS2CaseNoSwitchA */
+use FoobarB as Foo;
+/* testUseImportPHPCS2CaseNoSwitchB */
+use FoobarC as Default;
+/* testUseImportPHPCS2DefaultNoSwitchA */
+use FoobarD as Bar;
+
+class PHPCS2ScopeConditionIssue {
+    use TraitA { oldfunction as case; }
+    /* testUseImportPHPCS2CaseNoSwitchC */
+    use TraitB { oldfunction as Baz; }
+    /* testUseImportPHPCS2CaseNoSwitchD */
+    use TraitC { oldfunction as default; }
+    /* testUseImportPHPCS2DefaultNoSwitchB */
+    use TraitD { oldfunction as Fool; }
+}
+
 // Intentional parse error. Live coding. This has to be the last test in the file.
 /* testLiveCoding */
 use
