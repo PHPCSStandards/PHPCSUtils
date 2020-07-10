@@ -30,5 +30,5 @@ $foo = ${$bar}['key'];
 /* testTokenizerIssue1284PHPCSlt280D */
 $c->{$var}[ ] = 2;
 
-/* testTokenizerIssue3013PHPCSlt3xx */
+/* testTokenizerIssue3013PHPCSlt356 */
 $var = __FILE__[0];

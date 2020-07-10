@@ -71,7 +71,7 @@ class Arrays
             return false;
         }
 
-        // All known tokenizer bugs are in PHPCS versions before 3.x.x (?) - PHPCS#3013.
+        // All known tokenizer bugs are in PHPCS versions before 3.5.6.
         $phpcsVersion = Helper::getVersion();
 
         /*
@@ -138,18 +138,18 @@ class Arrays
 
             $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
 
-            // if (\version_compare($phpcsVersion, '3.x.x', '<')) {
+            if (\version_compare($phpcsVersion, '3.5.6', '<')) {
                 /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 3.x.x (?) where dereferencing
+                 * BC: Work around a bug in the tokenizer of PHPCS < 3.5.6 where dereferencing
                  * of magic constants (PHP 8+) would be incorrectly tokenized as short array.
                  * I.e. the square brackets in `__FILE__[0]` would be tokenized as short array.
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
-            if (isset(Collections::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
-                return false;
+                if (isset(Collections::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
+                    return false;
+                }
             }
-            // }
 
             if (\version_compare($phpcsVersion, '2.9.0', '<')) {
                 /*

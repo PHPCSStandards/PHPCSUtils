@@ -125,7 +125,7 @@ class IsShortArrayTokenizerBC1Test extends UtilityMethodTestCase
                 false,
             ],
             'issue-3013-magic-constant-dereferencing' => [
-                '/* testTokenizerIssue3013PHPCSlt3xx */',
+                '/* testTokenizerIssue3013PHPCSlt356 */',
                 false,
             ],
         ];
