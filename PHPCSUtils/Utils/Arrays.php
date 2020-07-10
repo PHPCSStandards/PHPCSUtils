@@ -71,7 +71,7 @@ class Arrays
             return false;
         }
 
-        // All known tokenizer bugs are in PHPCS versions before 3.3.0.
+        // All known tokenizer bugs are in PHPCS versions before 3.x.x (?) - PHPCS#3013.
         $phpcsVersion = Helper::getVersion();
 
         /*
@@ -131,12 +131,27 @@ class Arrays
             /*
              * Deal with short array brackets which may be incorrectly tokenized plain square brackets.
              */
-            if (\version_compare($phpcsVersion, '2.9.0', '<')) {
-                $opener = $stackPtr;
-                if ($tokens[$stackPtr]['code'] === \T_CLOSE_SHORT_ARRAY) {
-                    $opener = $tokens[$stackPtr]['bracket_opener'];
-                }
+            $opener = $stackPtr;
+            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SHORT_ARRAY) {
+                $opener = $tokens[$stackPtr]['bracket_opener'];
+            }
 
+            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
+
+            // if (\version_compare($phpcsVersion, '3.x.x', '<')) {
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS < 3.x.x (?) where dereferencing
+                 * of magic constants (PHP 8+) would be incorrectly tokenized as short array.
+                 * I.e. the square brackets in `__FILE__[0]` would be tokenized as short array.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
+                 */
+            if (isset(Collections::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
+                return false;
+            }
+            // }
+
+            if (\version_compare($phpcsVersion, '2.9.0', '<')) {
                 /*
                  * BC: Work around a bug in the tokenizer of PHPCS < 2.9.0 where array dereferencing
                  * of short array and string literals would be incorrectly tokenized as short array.
@@ -144,7 +159,6 @@ class Arrays
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1381
                  */
-                $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
                 if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
                     || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
                 ) {
