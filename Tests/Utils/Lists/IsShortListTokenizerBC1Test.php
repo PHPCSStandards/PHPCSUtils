@@ -102,6 +102,10 @@ class IsShortListTokenizerBC1Test extends UtilityMethodTestCase
                 '/* testTokenizerIssue1284PHPCSlt280D */',
                 false,
             ],
+            'issue-3013-magic-constant-dereferencing' => [
+                '/* testTokenizerIssue3013PHPCSlt3xx */',
+                false,
+            ],
         ];
     }
 }
