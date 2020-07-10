@@ -579,6 +579,30 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
+            [
+                '/* testPHP8MixedTypeHint */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => true,
+                    'type'            => 'miXed',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8MixedTypeHintNullable */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?mixed',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => true,
+                ],
+            ],
         ];
     }
 
