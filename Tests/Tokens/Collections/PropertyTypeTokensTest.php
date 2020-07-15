@@ -55,6 +55,10 @@ class PropertyTypeTokensTest extends TestCase
             $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
         }
 
+        if (\version_compare($version, '3.6.0', '>=') === true) {
+            $expected[\T_TYPE_UNION] = \T_TYPE_UNION;
+        }
+
         $this->assertSame($expected, Collections::propertyTypeTokens());
     }
 }

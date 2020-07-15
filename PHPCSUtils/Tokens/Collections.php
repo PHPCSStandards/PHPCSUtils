@@ -837,6 +837,8 @@ class Collections
     /**
      * Token types which can be encountered in a property type declaration.
      *
+     * Note: this is a method, not a property as the `T_TYPE_UNION` token for PHP 8.0 union types may not exist.
+     *
      * Sister-method to the {@see Collections::propertyTypeTokensBC()} method.
      * This method supports PHPCS 3.3.0 and up.
      * The {@see Collections::propertyTypeTokensBC()} method supports PHPCS 2.6.0 and up.
@@ -854,6 +856,7 @@ class Collections
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION token for union type support in PHPCS > 3.6.0.
      *
      * @return array <int|string> => <int|string>
      */
@@ -865,10 +868,15 @@ class Collections
             \T_PARENT     => \T_PARENT,
             \T_FALSE      => \T_FALSE,      // Union types only.
             \T_NULL       => \T_NULL,       // Union types only.
-            \T_BITWISE_OR => \T_BITWISE_OR, // Union types.
+            \T_BITWISE_OR => \T_BITWISE_OR, // Union types for PHPCS < 3.6.0.
         ];
 
         $tokens += self::namespacedNameTokens();
+
+        // PHPCS > 3.6.0: a new token was introduced for the union type separator.
+        if (\defined('T_TYPE_UNION') === true) {
+            $tokens[\T_TYPE_UNION] = \T_TYPE_UNION;
+        }
 
         return $tokens;
     }
