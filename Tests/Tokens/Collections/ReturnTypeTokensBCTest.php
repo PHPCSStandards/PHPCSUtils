@@ -41,10 +41,6 @@ class ReturnTypeTokensBCTest extends TestCase
             $expected[\T_ARRAY_HINT]  = \T_ARRAY_HINT;
         }
 
-        if (\version_compare($version, '3.5.3', '<=') === true) {
-            $expected[\T_ARRAY] = \T_ARRAY;
-        }
-
         $this->assertSame($expected, Collections::returnTypeTokensBC());
     }
 }

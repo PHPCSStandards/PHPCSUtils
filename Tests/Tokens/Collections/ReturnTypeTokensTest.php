@@ -38,7 +38,11 @@ class ReturnTypeTokensTest extends TestCase
             \T_SELF         => \T_SELF,
             \T_PARENT       => \T_PARENT,
             \T_STATIC       => \T_STATIC,
+            \T_FALSE        => \T_FALSE,
+            \T_NULL         => \T_NULL,
+            \T_ARRAY        => \T_ARRAY,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_BITWISE_OR   => \T_BITWISE_OR,
         ];
 
         $this->assertSame($expected, Collections::returnTypeTokens());
