@@ -34,7 +34,7 @@ class ReturnTypeTokensBCTest extends TestCase
     public function testReturnTypeTokensBC()
     {
         $version  = Helper::getVersion();
-        $expected = Collections::$returnTypeTokens;
+        $expected = Collections::returnTypeTokens();
 
         if (\version_compare($version, '3.99.99', '<=') === true) {
             $expected[\T_RETURN_TYPE] = \T_RETURN_TYPE;
