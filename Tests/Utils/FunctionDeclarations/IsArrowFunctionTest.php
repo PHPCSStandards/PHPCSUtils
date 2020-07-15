@@ -396,6 +396,18 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'arrow-function-with-return-type-static' => [
+                '/* testReturnTypeStatic */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 5,
+                        'scope_opener'       => 11,
+                        'scope_closer'       => 14,
+                    ],
+                ],
+            ],
             'arrow-function-with-return-type-array-bug-2773' => [
                 '/* testReturnTypeArrayBug2773 */',
                 [
