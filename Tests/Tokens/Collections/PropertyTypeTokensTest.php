@@ -10,20 +10,19 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC
+ * @covers \PHPCSUtils\Tokens\Collections::propertyTypeTokens
  *
  * @group collections
  *
  * @since 1.0.0
  */
-class PropertyTypeTokensBCTest extends TestCase
+class PropertyTypeTokensTest extends TestCase
 {
 
     /**
@@ -31,15 +30,16 @@ class PropertyTypeTokensBCTest extends TestCase
      *
      * @return void
      */
-    public function testPropertyTypeTokensBC()
+    public function testPropertyTypeTokens()
     {
-        $version  = Helper::getVersion();
-        $expected = Collections::propertyTypeTokens();
+        $expected = [
+            \T_CALLABLE     => \T_CALLABLE,
+            \T_SELF         => \T_SELF,
+            \T_PARENT       => \T_PARENT,
+            \T_STRING       => \T_STRING,
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        ];
 
-        if (\version_compare($version, '3.99.99', '<=') === true) {
-            $expected[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        $this->assertSame($expected, Collections::propertyTypeTokensBC());
+        $this->assertSame($expected, Collections::propertyTypeTokens());
     }
 }
