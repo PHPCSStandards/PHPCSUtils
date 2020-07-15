@@ -660,7 +660,14 @@ class Collections
      */
     public static function propertyTypeTokensBC()
     {
-        return self::parameterTypeTokensBC();
+        $tokens = self::$propertyTypeTokens;
+
+        // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. For PHPCS 3.3.0+ the constant is no longer used.
+        if (\defined('T_ARRAY_HINT') === true) {
+            $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
+        }
+
+        return $tokens;
     }
 
     /**
