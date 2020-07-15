@@ -76,6 +76,9 @@ $fn = fn(callable $a) : callable => $a;
 /* testReturnTypeArray */
 $fn = fn(array $a) : array => $a;
 
+/* testReturnTypeStatic */
+$fn = fn(array $a) : static => $a;
+
 /* testReturnTypeArrayBug2773 */
 $fn = fn(): array => [a($a, $b)];
 
