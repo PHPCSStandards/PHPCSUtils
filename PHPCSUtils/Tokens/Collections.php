@@ -675,6 +675,7 @@ class Collections
      * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC() Related method (cross-version).
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @return array <int|string> => <int|string>
      */
@@ -684,8 +685,11 @@ class Collections
             \T_CALLABLE     => \T_CALLABLE,
             \T_SELF         => \T_SELF,
             \T_PARENT       => \T_PARENT,
+            \T_FALSE        => \T_FALSE,      // Union types only.
+            \T_NULL         => \T_NULL,       // Union types only.
             \T_STRING       => \T_STRING,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
         ];
     }
 
@@ -706,6 +710,7 @@ class Collections
      * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @return array <int|string> => <int|string>
      */

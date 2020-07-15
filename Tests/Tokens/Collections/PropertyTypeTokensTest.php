@@ -36,8 +36,11 @@ class PropertyTypeTokensTest extends TestCase
             \T_CALLABLE     => \T_CALLABLE,
             \T_SELF         => \T_SELF,
             \T_PARENT       => \T_PARENT,
+            \T_FALSE        => \T_FALSE,
+            \T_NULL         => \T_NULL,
             \T_STRING       => \T_STRING,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_BITWISE_OR   => \T_BITWISE_OR,
         ];
 
         $this->assertSame($expected, Collections::propertyTypeTokens());
