@@ -333,22 +333,13 @@ class Collections
     ];
 
     /**
-     * Token types which can be encountered in a parameter type declaration.
-     *
-     * Sister-property to the {@see Collections::parameterTypeTokensBC()} method.
-     * The property supports PHPCS 3.3.0 and up.
-     * The method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.3.0.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
+     * DEPRECATED: Token types which can be encountered in a parameter type declaration.
      *
      * @since 1.0.0
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::parameterTypeTokens()}
+     *                          or {@see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC()}
+     *                          method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -607,20 +598,52 @@ class Collections
     }
 
     /**
-     * Token types which can be encountered in a parameter type declaration (cross-version).
+     * Token types which can be encountered in a parameter type declaration.
      *
-     * Sister-method to the {@see Collections::$parameterTypeTokens} property.
-     * The property supports PHPCS 3.3.0 and up.
-     * The method supports PHPCS 2.6.0 and up.
+     * Sister-method to the {@see Collections::parameterTypeTokensBC()} method.
+     * This method supports PHPCS 3.3.0 and up.
+     * The {@see Collections::parameterTypeTokensBC()} method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
-     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     * - The {@see Collections::parameterTypeTokensBC()} method will include the `T_ARRAY_HINT` token
+     *   when used with PHPCS 2.x and 3.x.
      *   This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.3.0.
+     * It is recommended to use this method instead of the {@see Collections::parameterTypeTokensBC()}
+     * method if a standard does not need to support PHPCS < 3.3.0.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$parameterTypeTokens Related property (PHPCS 3.3.0+).
+     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$parameterTypeTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function parameterTypeTokens()
+    {
+        return [
+            \T_CALLABLE     => \T_CALLABLE,
+            \T_SELF         => \T_SELF,
+            \T_PARENT       => \T_PARENT,
+            \T_STRING       => \T_STRING,
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        ];
+    }
+
+    /**
+     * Token types which can be encountered in a parameter type declaration (cross-version).
+     *
+     * Sister-method to the {@see Collections::parameterTypeTokens()} method.
+     * The {@see Collections::parameterTypeTokens()} method supports PHPCS 3.3.0 and up.
+     * This method supports PHPCS 2.6.0 and up.
+     *
+     * Notable difference:
+     * - This method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     *   This token constant will no longer exist in PHPCS 4.x.
+     *
+     * It is recommended to use {@see Collections::parameterTypeTokens()} method instead of
+     * this method if a standard does not need to support PHPCS < 3.3.0.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
      *
@@ -628,7 +651,7 @@ class Collections
      */
     public static function parameterTypeTokensBC()
     {
-        $tokens = self::$parameterTypeTokens;
+        $tokens = self::parameterTypeTokens();
 
         // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. For PHPCS 3.3.0+ the constant is no longer used.
         if (\defined('T_ARRAY_HINT') === true) {
