@@ -79,6 +79,12 @@ $fn = fn(array $a) : array => $a;
 /* testReturnTypeStatic */
 $fn = fn(array $a) : static => $a;
 
+/* testUnionParamType */
+$arrowWithUnionParam = fn(int|float $param) : SomeClass => new SomeClass($param);
+
+/* testUnionReturnType */
+$arrowWithUnionReturn = fn($param) : int|float => $param | 10;
+
 /* testReturnTypeArrayBug2773 */
 $fn = fn(): array => [a($a, $b)];
 
@@ -146,6 +152,9 @@ $a = MyNS\Sub\Fn($param);
 
 /* testNonArrowNamespaceOperatorFunctionCall */
 $a = namespace\fn($param);
+
+/* testNonArrowFunctionNameWithUnionTypes */
+function &fn(int|float $param) : string|null {}
 
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
