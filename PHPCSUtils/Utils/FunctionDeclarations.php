@@ -379,12 +379,14 @@ class FunctionDeclarations
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
+     * - Support for PHP 8.0 union types.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -476,8 +478,11 @@ class FunctionDeclarations
                 case 'T_SELF':
                 case 'T_PARENT':
                 case 'T_STATIC': // Self and parent are valid, static invalid, but was probably intended as type hint.
+                case 'T_FALSE': // Union types.
+                case 'T_NULL': // Union types.
                 case 'T_STRING':
                 case 'T_NS_SEPARATOR':
+                case 'T_BITWISE_OR': // Union type separator.
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
                     }
