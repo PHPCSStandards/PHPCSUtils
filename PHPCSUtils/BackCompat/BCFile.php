@@ -257,6 +257,7 @@ class BCFile
      *                parameter would bleed through to the next (non-type hinted) parameter.
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions.
      * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
+     * - PHPCS 3.6.0: Added support for PHP 8.0 union types. PHPCS#3032.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
@@ -422,6 +423,10 @@ class BCFile
                     break;
                 case 'T_NAMESPACE':
                 case 'T_NS_SEPARATOR':
+                case 'T_BITWISE_OR': // Union type separator PHPCS < 3.6.0.
+                case 'T_TYPE_UNION': // Union type separator PHPCS >= 3.6.0.
+                case 'T_FALSE':
+                case 'T_NULL':
                     // Part of a type hint or default value.
                     if ($defaultStart === null) {
                         if ($typeHintToken === false) {

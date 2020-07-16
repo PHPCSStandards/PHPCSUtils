@@ -400,7 +400,6 @@ class FunctionDeclarations
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
-     * - Support for PHP 8.0 union types.
      * - Support for PHP 8.0 constructor property promotion.
      * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      *
@@ -512,7 +511,8 @@ class FunctionDeclarations
                 case 'T_NAME_QUALIFIED':
                 case 'T_NAME_FULLY_QUALIFIED':
                 case 'T_NAME_RELATIVE':
-                case 'T_BITWISE_OR': // Union type separator.
+                case 'T_BITWISE_OR': // Union type separator PHPCS < 3.6.0.
+                case 'T_TYPE_UNION': // Union type separator PHPCS >= 3.6.0.
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
                     }
