@@ -57,7 +57,12 @@ class IsTypeUnionTest extends UtilityMethodTestCase
      */
     public function testIsTypeUnion($testMarker)
     {
-        $stackPtr = $this->getTargetToken($testMarker, [\T_BITWISE_OR]);
+        $targets = [\T_BITWISE_OR];
+        if (\defined('T_TYPE_UNION') === true) {
+            $targets[] = \T_TYPE_UNION;
+        }
+
+        $stackPtr = $this->getTargetToken($testMarker, $targets);
 
         $this->assertTrue(Operators::isTypeUnion(self::$phpcsFile, $stackPtr));
     }
@@ -115,7 +120,12 @@ class IsTypeUnionTest extends UtilityMethodTestCase
      */
     public function testBitwiseOr($testMarker)
     {
-        $stackPtr = $this->getTargetToken($testMarker, [\T_BITWISE_OR]);
+        $targets = [\T_BITWISE_OR];
+        if (\defined('T_TYPE_UNION') === true) {
+            $targets[] = \T_TYPE_UNION;
+        }
+
+        $stackPtr = $this->getTargetToken($testMarker, $targets);
 
         $this->assertFalse(Operators::isTypeUnion(self::$phpcsFile, $stackPtr));
     }

@@ -176,6 +176,12 @@ class Operators
      * The `T_BITWISE_OR` token is used in PHP as bitwise or, but as of PHP 8.0, also as the
      * separator in union type declarations.
      *
+     * As of PHPCS 3.6.0, the type union separator will be tokenized as `T_TYPE_UNION` in PHPCS.
+     * However, for any standard which needs to support PHPCS < 3.6.0, this method can analyze
+     * whether a T_BITWISE_OR token is a type union separator or an actual bitwise or operator.
+     *
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3032
+     *
      * @since 1.0.0-alpha4
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
@@ -188,7 +194,16 @@ class Operators
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_BITWISE_OR) {
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['type'] === 'T_TYPE_UNION') {
+            // Just in case.
+            return true;
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_BITWISE_OR) {
             return false;
         }
 
