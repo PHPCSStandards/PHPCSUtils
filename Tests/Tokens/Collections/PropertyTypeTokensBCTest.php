@@ -34,7 +34,7 @@ class PropertyTypeTokensBCTest extends TestCase
     public function testPropertyTypeTokensBC()
     {
         $version  = Helper::getVersion();
-        $expected = Collections::$propertyTypeTokens;
+        $expected = Collections::propertyTypeTokens();
 
         if (\version_compare($version, '3.99.99', '<=') === true) {
             $expected[\T_ARRAY_HINT] = \T_ARRAY_HINT;

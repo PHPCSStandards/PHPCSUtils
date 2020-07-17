@@ -34,7 +34,7 @@ class ParameterTypeTokensBCTest extends TestCase
     public function testParameterTypeTokensBC()
     {
         $version  = Helper::getVersion();
-        $expected = Collections::$parameterTypeTokens;
+        $expected = Collections::parameterTypeTokens();
 
         if (\version_compare($version, '3.99.99', '<=') === true) {
             $expected[\T_ARRAY_HINT] = \T_ARRAY_HINT;

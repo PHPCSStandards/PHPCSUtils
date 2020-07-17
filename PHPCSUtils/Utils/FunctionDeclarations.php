@@ -170,6 +170,7 @@ class FunctionDeclarations
      * - New `"return_type_end_token"` (int|false) array index.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
+     * - Support for PHP 8.0 union types.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -177,6 +178,7 @@ class FunctionDeclarations
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -193,7 +195,8 @@ class FunctionDeclarations
      *                                                      // or FALSE if there is no return type.
      *                 'return_type_end_token' => integer,  // The stack pointer to the end of the return type
      *                                                      // or FALSE if there is no return type.
-     *                 'nullable_return_type'  => false,    // TRUE if the return type is nullable.
+     *                 'nullable_return_type'  => false,    // TRUE if the return type is preceded
+     *                                                      // by the nullability operator.
      *                 'is_abstract'           => false,    // TRUE if the abstract keyword was found.
      *                 'is_final'              => false,    // TRUE if the final keyword was found.
      *                 'is_static'             => false,    // TRUE if the static keyword was found.
@@ -359,7 +362,8 @@ class FunctionDeclarations
      *                                     // or FALSE if there is no type hint.
      *   'type_hint_end_token' => integer, // The stack pointer to the end of the type hint
      *                                     // or FALSE if there is no type hint.
-     *   'nullable_type'       => boolean, // TRUE if the var type is nullable.
+     *   'nullable_type'       => boolean, // TRUE if the var type is preceded by the nullability
+     *                                     // operator.
      *   'comma_token'         => integer, // The stack pointer to the comma after the param
      *                                     // or FALSE if this is the last param.
      * )
@@ -379,12 +383,14 @@ class FunctionDeclarations
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
+     * - Support for PHP 8.0 union types.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -476,8 +482,11 @@ class FunctionDeclarations
                 case 'T_SELF':
                 case 'T_PARENT':
                 case 'T_STATIC': // Self and parent are valid, static invalid, but was probably intended as type hint.
+                case 'T_FALSE': // Union types.
+                case 'T_NULL': // Union types.
                 case 'T_STRING':
                 case 'T_NS_SEPARATOR':
+                case 'T_BITWISE_OR': // Union type separator.
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
                     }

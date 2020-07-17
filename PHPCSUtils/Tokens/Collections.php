@@ -10,8 +10,6 @@
 
 namespace PHPCSUtils\Tokens;
 
-use PHPCSUtils\BackCompat\Helper;
-
 /**
  * Collections of related tokens as often used and needed for sniffs.
  *
@@ -333,22 +331,13 @@ class Collections
     ];
 
     /**
-     * Token types which can be encountered in a parameter type declaration.
-     *
-     * Sister-property to the {@see Collections::parameterTypeTokensBC()} method.
-     * The property supports PHPCS 3.3.0 and up.
-     * The method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.3.0.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
+     * DEPRECATED: Token types which can be encountered in a parameter type declaration.
      *
      * @since 1.0.0
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::parameterTypeTokens()}
+     *                          or {@see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC()}
+     *                          method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -376,22 +365,13 @@ class Collections
     ];
 
     /**
-     * Token types which can be encountered in a property type declaration.
-     *
-     * Sister-property to the {@see Collections::propertyTypeTokensBC()} method.
-     * The property supports PHPCS 3.3.0 and up.
-     * The method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.3.0.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC() Related method (cross-version).
+     * DEPRECATED: Token types which can be encountered in a property type declaration.
      *
      * @since 1.0.0
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::propertyTypeTokens()}
+     *                          or {@see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC()}
+     *                          method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -404,23 +384,13 @@ class Collections
     ];
 
     /**
-     * Token types which can be encountered in a return type declaration.
-     *
-     * Sister-property to the {@see Collections::returnTypeTokensBC()} method.
-     * The property supports PHPCS 3.5.4 and up.
-     * The method supports PHPCS 2.6.0 and up.
-     *
-     * Notable differences:
-     * - The method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE` tokens when used with PHPCS 2.x and 3.x.
-     *   These token constants will no longer exist in PHPCS 4.x.
-     * - The method will include the `T_ARRAY` token which is needed for select arrow functions in PHPCS < 3.5.4.
-     *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.5.4.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC() Related method (cross-version).
+     * DEPRECATED: Token types which can be encountered in a return type declaration.
      *
      * @since 1.0.0
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::returnTypeTokens()}
+     *                          or {@see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC()}
+     *                          method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -607,28 +577,65 @@ class Collections
     }
 
     /**
-     * Token types which can be encountered in a parameter type declaration (cross-version).
+     * Token types which can be encountered in a parameter type declaration.
      *
-     * Sister-method to the {@see Collections::$parameterTypeTokens} property.
-     * The property supports PHPCS 3.3.0 and up.
-     * The method supports PHPCS 2.6.0 and up.
+     * Sister-method to the {@see Collections::parameterTypeTokensBC()} method.
+     * This method supports PHPCS 3.3.0 and up.
+     * The {@see Collections::parameterTypeTokensBC()} method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
-     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     * - The {@see Collections::parameterTypeTokensBC()} method will include the `T_ARRAY_HINT` token
+     *   when used with PHPCS 2.x and 3.x.
      *   This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.3.0.
+     * It is recommended to use this method instead of the {@see Collections::parameterTypeTokensBC()}
+     * method if a standard does not need to support PHPCS < 3.3.0.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$parameterTypeTokens Related property (PHPCS 3.3.0+).
+     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$parameterTypeTokens} property.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function parameterTypeTokens()
+    {
+        return [
+            \T_CALLABLE     => \T_CALLABLE,
+            \T_SELF         => \T_SELF,
+            \T_PARENT       => \T_PARENT,
+            \T_FALSE        => \T_FALSE,      // Union types only.
+            \T_NULL         => \T_NULL,       // Union types only.
+            \T_STRING       => \T_STRING,
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
+        ];
+    }
+
+    /**
+     * Token types which can be encountered in a parameter type declaration (cross-version).
+     *
+     * Sister-method to the {@see Collections::parameterTypeTokens()} method.
+     * The {@see Collections::parameterTypeTokens()} method supports PHPCS 3.3.0 and up.
+     * This method supports PHPCS 2.6.0 and up.
+     *
+     * Notable difference:
+     * - This method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     *   This token constant will no longer exist in PHPCS 4.x.
+     *
+     * It is recommended to use {@see Collections::parameterTypeTokens()} method instead of
+     * this method if a standard does not need to support PHPCS < 3.3.0.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @return array <int|string> => <int|string>
      */
     public static function parameterTypeTokensBC()
     {
-        $tokens = self::$parameterTypeTokens;
+        $tokens = self::parameterTypeTokens();
 
         // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. For PHPCS 3.3.0+ the constant is no longer used.
         if (\defined('T_ARRAY_HINT') === true) {
@@ -639,54 +646,137 @@ class Collections
     }
 
     /**
-     * Token types which can be encountered in a property type declaration (cross-version).
+     * Token types which can be encountered in a property type declaration.
      *
-     * Sister-method to the {@see Collections::$propertyTypeTokens} property.
-     * The property supports PHPCS 3.3.0 and up.
-     * The method supports PHPCS 2.6.0 and up.
+     * Sister-method to the {@see Collections::propertyTypeTokensBC()} method.
+     * This method supports PHPCS 3.3.0 and up.
+     * The {@see Collections::propertyTypeTokensBC()} method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
-     * - The method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     * - The {@see Collections::propertyTypeTokensBC()} method will include the `T_ARRAY_HINT` token
+     *   when used with PHPCS 2.x and 3.x.
      *   This token constant will no longer exist in PHPCS 4.x.
      *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.3.0.
+     * It is recommended to use this method instead of the {@see Collections::propertyTypeTokensBC()}
+     * method if a standard does not need to support PHPCS < 3.3.0.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$propertyTypeTokens Related property (PHPCS 3.3.0+).
+     * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC() Related method (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function propertyTypeTokens()
+    {
+        return [
+            \T_CALLABLE     => \T_CALLABLE,
+            \T_SELF         => \T_SELF,
+            \T_PARENT       => \T_PARENT,
+            \T_FALSE        => \T_FALSE,      // Union types only.
+            \T_NULL         => \T_NULL,       // Union types only.
+            \T_STRING       => \T_STRING,
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
+        ];
+    }
+
+    /**
+     * Token types which can be encountered in a property type declaration (cross-version).
+     *
+     * Sister-method to the {@see Collections::propertyTypeTokens()} method.
+     * The {@see Collections::propertyTypeTokens()} method supports PHPCS 3.3.0 and up.
+     * This method supports PHPCS 2.6.0 and up.
+     *
+     * Notable difference:
+     * - This method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
+     *   This token constant will no longer exist in PHPCS 4.x.
+     *
+     * It is recommended to use the {@see Collections::propertyTypeTokens()} method instead of
+     * this method if a standard does not need to support PHPCS < 3.3.0.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @return array <int|string> => <int|string>
      */
     public static function propertyTypeTokensBC()
     {
-        return self::parameterTypeTokensBC();
+        $tokens = self::propertyTypeTokens();
+
+        // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. For PHPCS 3.3.0+ the constant is no longer used.
+        if (\defined('T_ARRAY_HINT') === true) {
+            $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * Token types which can be encountered in a return type declaration.
+     *
+     * Sister-method to the {@see Collections::returnTypeTokensBC()} method.
+     * This method supports PHPCS 3.3.0 and up.
+     * The {@see Collections::returnTypeTokensBC()} method supports PHPCS 2.6.0 and up.
+     *
+     * Notable differences:
+     * - The {@see Collections::returnTypeTokensBC()} method will include the `T_ARRAY_HINT`
+     *   and the `T_RETURN_TYPE` tokens when used with PHPCS 2.x and 3.x.
+     *   These token constants will no longer exist in PHPCS 4.x.
+     *
+     * It is recommended to use this method instead of the {@see Collections::returnTypeTokensBC()}
+     * method if a standard does not need to support PHPCS < 3.3.0.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC() Related method (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$returnTypeTokens} property.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function returnTypeTokens()
+    {
+        return [
+            \T_STRING       => \T_STRING,
+            \T_CALLABLE     => \T_CALLABLE,
+            \T_SELF         => \T_SELF,
+            \T_PARENT       => \T_PARENT,
+            \T_STATIC       => \T_STATIC,
+            \T_FALSE        => \T_FALSE,      // Union types only.
+            \T_NULL         => \T_NULL,       // Union types only.
+            \T_ARRAY        => \T_ARRAY,      // Arrow functions PHPCS < 3.5.4 + union types.
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
+        ];
     }
 
     /**
      * Token types which can be encountered in a return type declaration (cross-version).
      *
-     * Sister-property to the {@see Collections::returnTypeTokensBC()} method.
-     * The property supports PHPCS 3.5.4 and up.
-     * The method supports PHPCS 2.6.0 and up.
+     * Sister-method to the {@see Collections::returnTypeTokens()} method.
+     * The {@see Collections::returnTypeTokens()} method supports PHPCS 3.3.0 and up.
+     * This method supports PHPCS 2.6.0 and up.
      *
      * Notable differences:
-     * - The method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE` tokens when used with PHPCS 2.x and 3.x.
+     * - This method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE` tokens when
+     *   used with PHPCS 2.x and 3.x.
      *   These token constants will no longer exist in PHPCS 4.x.
-     * - The method will include the `T_ARRAY` token which is needed for select arrow functions in PHPCS < 3.5.4.
      *
-     * It is recommended to use the property instead of the method if a standard supports does
-     * not need to support PHPCS < 3.5.4.
+     * It is recommended to use the {@see Collections::returnTypeTokens()} method instead of
+     * this method if a standard does not need to support PHPCS < 3.3.0.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$returnTypeTokens Related property (PHPCS 3.5.4+).
+     * @see \PHPCSUtils\Tokens\Collections::returnTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @return array <int|string> => <int|string>
      */
     public static function returnTypeTokensBC()
     {
-        $tokens = self::$returnTypeTokens;
+        $tokens = self::returnTypeTokens();
 
         /*
          * PHPCS < 4.0. Needed for support of PHPCS 2.4.0 < 3.3.0.
@@ -702,14 +792,6 @@ class Collections
          */
         if (\defined('T_ARRAY_HINT') === true) {
             $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        /*
-         * PHPCS < 3.5.4. Needed for support of PHPCS < 3.5.4 for select arrow functions.
-         * For PHPCS 3.5.4+ the constant is no longer used in return type tokenization.
-         */
-        if (\version_compare(Helper::getVersion(), '3.5.4', '<')) {
-            $tokens[\T_ARRAY] = \T_ARRAY;
         }
 
         return $tokens;

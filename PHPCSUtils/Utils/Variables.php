@@ -80,11 +80,13 @@ class Variables
      *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
+     * - Support for PHP 8.0 union types.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
@@ -102,7 +104,8 @@ class Variables
      *                                               // or FALSE if there is no type.
      *                 'type_end_token'  => integer, // The stack pointer to the end of the type
      *                                               // or FALSE if there is no type.
-     *                 'nullable_type'   => boolean, // TRUE if the type is nullable.
+     *                 'nullable_type'   => boolean, // TRUE if the type is preceded by the
+     *                                               // nullability operator.
      *               );
      *               ```
      *

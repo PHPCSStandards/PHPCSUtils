@@ -408,6 +408,31 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+
+            'arrow-function-with-union-param-type' => [
+                '/* testUnionParamType */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 7,
+                        'scope_opener'       => 13,
+                        'scope_closer'       => 21,
+                    ],
+                ],
+            ],
+            'arrow-function-with-union-return-type' => [
+                '/* testUnionReturnType */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 3,
+                        'scope_opener'       => 11,
+                        'scope_closer'       => 18,
+                    ],
+                ],
+            ],
             'arrow-function-with-return-type-array-bug-2773' => [
                 '/* testReturnTypeArrayBug2773 */',
                 [
@@ -593,6 +618,13 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
             ],
             'non-arrow-function-call-to-namespaced-function-using-namespace-operator' => [
                 '/* testNonArrowNamespaceOperatorFunctionCall */',
+                [
+                    'is'  => false,
+                    'get' => false,
+                ],
+            ],
+            'non-arrow-function-declaration-with-union-types' => [
+                '/* testNonArrowFunctionNameWithUnionTypes */',
                 [
                     'is'  => false,
                     'get' => false,
