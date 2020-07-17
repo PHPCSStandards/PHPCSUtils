@@ -52,4 +52,186 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
         $variable = $this->getTargetToken('/* testInterfaceProperty */', \T_VARIABLE);
         Variables::getMemberProperties(self::$phpcsFile, $variable);
     }
+
+    /**
+     * Test the getMemberProperties() method.
+     *
+     * @dataProvider dataGetMemberProperties
+     *
+     * @param string $identifier Comment which precedes the test case.
+     * @param bool   $expected   Expected function output.
+     *
+     * @return void
+     */
+    public function testGetMemberProperties($identifier, $expected)
+    {
+        $variable = $this->getTargetToken($identifier, \T_VARIABLE);
+        $result   = Variables::getMemberProperties(self::$phpcsFile, $variable);
+
+        if (isset($expected['type_token']) && $expected['type_token'] !== false) {
+            $expected['type_token'] += $variable;
+        }
+        if (isset($expected['type_end_token']) && $expected['type_end_token'] !== false) {
+            $expected['type_end_token'] += $variable;
+        }
+
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetMemberProperties()
+     *
+     * @return array
+     */
+    public function dataGetMemberProperties()
+    {
+        return [
+            [
+                '/* testPHP8UnionTypesSimple */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'int|float',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesTwoClasses */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'MyClassA|\Package\MyClassB',
+                    'type_token'      => -7, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesAllBaseTypes */',
+                [
+                    'scope'           => 'protected',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'array|bool|int|float|NULL|object|string',
+                    'type_token'      => -14, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesAllPseudoTypes */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => false,
+                    'is_static'       => false,
+                    'type'            => 'false|mixed|self|parent|iterable|Resource',
+                    'type_token'      => -12, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesIllegalTypes */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'callable||void', // Missing static, but that's OK as not an allowed syntax.
+                    'type_token'      => -6, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesNullable */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?int|float',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => true,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeNull */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'null',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeFalse */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'false',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeFalseAndBool */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'bool|FALSE',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8ObjectAndClass */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'object|ClassName',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeIterableAndArray */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'iterable|array|Traversable',
+                    'type_token'      => -6, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8DuplicateTypeInUnionWhitespaceAndComment */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'int|string|INT',
+                    'type_token'      => -10, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+        ];
+    }
 }
