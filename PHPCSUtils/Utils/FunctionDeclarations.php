@@ -376,6 +376,12 @@ class FunctionDeclarations
      *   'default_equal_token' => integer, // The stack pointer to the equals sign.
      * ```
      *
+     * Parameters declared using PHP 8 constructor property promotion, have these additional array indexes:
+     * ```php
+     *   'property_visibility' => string,  // The property visibility as declared.
+     *   'visibility_token'    => integer, // The stack pointer to the visibility modifier token.
+     * ```
+     *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
      * - More efficient and more stable checking whether a `T_USE` token is a closure use.
@@ -384,6 +390,7 @@ class FunctionDeclarations
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
+     * - Support for PHP 8.0 constructor property promotion.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -391,6 +398,7 @@ class FunctionDeclarations
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 constructor property promotion.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -459,6 +467,7 @@ class FunctionDeclarations
         $typeHintToken    = false;
         $typeHintEndToken = false;
         $nullableType     = false;
+        $visibilityToken  = null;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
             // Changed from checking 'code' to 'type' to allow for T_NULLABLE not existing in PHPCS < 2.8.0.
@@ -502,6 +511,12 @@ class FunctionDeclarations
                     $typeHintEndToken = $i;
                     break;
 
+                case 'T_PUBLIC':
+                case 'T_PROTECTED':
+                case 'T_PRIVATE':
+                    $visibilityToken = $i;
+                    break;
+
                 case 'T_CLOSE_PARENTHESIS':
                 case 'T_COMMA':
                     // If it's null, then there must be no parameters for this
@@ -534,6 +549,11 @@ class FunctionDeclarations
                     $vars[$paramCount]['type_hint_end_token'] = $typeHintEndToken;
                     $vars[$paramCount]['nullable_type']       = $nullableType;
 
+                    if ($visibilityToken !== null) {
+                        $vars[$paramCount]['property_visibility'] = $tokens[$visibilityToken]['content'];
+                        $vars[$paramCount]['visibility_token']    = $visibilityToken;
+                    }
+
                     if ($tokens[$i]['code'] === \T_COMMA) {
                         $vars[$paramCount]['comma_token'] = $i;
                     } else {
@@ -553,6 +573,7 @@ class FunctionDeclarations
                     $typeHintToken    = false;
                     $typeHintEndToken = false;
                     $nullableType     = false;
+                    $visibilityToken  = null;
 
                     $paramCount++;
                     break;
