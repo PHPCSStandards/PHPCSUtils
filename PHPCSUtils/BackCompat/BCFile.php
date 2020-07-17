@@ -219,6 +219,12 @@ class BCFile
      *   'default_equal_token' => integer, // The stack pointer to the equals sign.
      * ```
      *
+     * Parameters declared using PHP 8 constructor property promotion, have these additional array indexes:
+     * ```php
+     *   'property_visibility' => string,  // The property visibility as declared.
+     *   'visibility_token'    => integer, // The stack pointer to the visibility modifier token.
+     * ```
+     *
      * PHPCS cross-version compatible version of the `File::getMethodParameters()` method.
      *
      * Changelog for the PHPCS native function:
@@ -258,6 +264,7 @@ class BCFile
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions.
      * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
      * - PHPCS 3.6.0: Added support for PHP 8.0 union types. PHPCS#3032.
+     * - PHPCS 3.6.0: Added support for PHP 8.0 constructor property promotion. PHPCS#3152.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
@@ -327,6 +334,7 @@ class BCFile
         $typeHintToken    = false;
         $typeHintEndToken = false;
         $nullableType     = false;
+        $visibilityToken  = null;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
             // Check to see if this token has a parenthesis or bracket opener. If it does
@@ -445,6 +453,13 @@ class BCFile
                         $typeHintEndToken = $i;
                     }
                     break;
+                case 'T_PUBLIC':
+                case 'T_PROTECTED':
+                case 'T_PRIVATE':
+                    if ($defaultStart === null) {
+                        $visibilityToken = $i;
+                    }
+                    break;
                 case 'T_CLOSE_PARENTHESIS':
                 case 'T_COMMA':
                     // If it's null, then there must be no parameters for this
@@ -473,6 +488,11 @@ class BCFile
                     $vars[$paramCount]['type_hint_end_token'] = $typeHintEndToken;
                     $vars[$paramCount]['nullable_type']       = $nullableType;
 
+                    if ($visibilityToken !== null) {
+                        $vars[$paramCount]['property_visibility'] = $tokens[$visibilityToken]['content'];
+                        $vars[$paramCount]['visibility_token']    = $visibilityToken;
+                    }
+
                     if ($tokens[$i]['code'] === T_COMMA) {
                         $vars[$paramCount]['comma_token'] = $i;
                     } else {
@@ -492,6 +512,7 @@ class BCFile
                     $typeHintToken    = false;
                     $typeHintEndToken = false;
                     $nullableType     = false;
+                    $visibilityToken  = null;
 
                     $paramCount++;
                     break;

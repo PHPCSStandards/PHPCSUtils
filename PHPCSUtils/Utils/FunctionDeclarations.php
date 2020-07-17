@@ -399,7 +399,6 @@ class FunctionDeclarations
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
-     * - Support for PHP 8.0 constructor property promotion.
      * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
