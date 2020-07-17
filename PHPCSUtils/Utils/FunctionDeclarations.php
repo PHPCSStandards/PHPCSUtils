@@ -170,6 +170,7 @@ class FunctionDeclarations
      * - New `"return_type_end_token"` (int|false) array index.
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
+     * - Support for PHP 8.0 union types.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -177,6 +178,7 @@ class FunctionDeclarations
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
