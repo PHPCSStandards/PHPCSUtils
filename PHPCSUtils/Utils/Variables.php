@@ -80,7 +80,6 @@ class Variables
      *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
-     * - Support for PHP 8.0 union types.
      * - Support PHP 8.0 identifier name tokens in property types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.

@@ -764,6 +764,7 @@ class BCFile
      * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
      *                to `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
+     * - PHPCS 3.6.0: Added support for PHP 8.0 union types. PHPCS#3032.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
      * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
