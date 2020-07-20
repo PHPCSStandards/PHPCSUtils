@@ -11,6 +11,7 @@
 namespace PHPCSUtils\BackCompat;
 
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Token arrays related utility methods.
@@ -394,5 +395,31 @@ class BCTokens
         }
 
         return self::$ooScopeTokens;
+    }
+
+    /**
+     * Tokens representing PHP magic constants.
+     *
+     * Retrieve the PHP magic constants tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - Introduced in PHPCS 3.5.6.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::$magicConstants   Original array.
+     * @see \PHPCSUtils\Tokens\Collections::$magicConstants Same array, pre-dating the PHPCS change.
+     *
+     * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function magicConstants()
+    {
+        if (isset(Tokens::$magicConstants)) {
+            return Tokens::$magicConstants;
+        }
+
+        return Collections::$magicConstants;
     }
 }
