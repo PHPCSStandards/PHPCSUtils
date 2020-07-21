@@ -1,5 +1,5 @@
 os: linux
-dist: trusty
+dist: xenial
 
 language: php
 
@@ -14,7 +14,6 @@ cache:
     - /home/travis/.rvm/
 
 php:
-  - 5.5
   - 5.6
   - 7.0
   - 7.1
@@ -104,28 +103,44 @@ jobs:
 
     - stage: quicktest
       php: 5.4
+      dist: trusty
       env: PHPCS_VERSION="dev-master" LINT=1
     - stage: quicktest
       php: 5.4
+      dist: trusty
       env: PHPCS_VERSION="2.6.0"
 
     #### TEST STAGE ####
     # Additional builds to prevent issues with PHPCS versions incompatible with certain PHP versions.
     - stage: test
-      php: 7.3
+      # PHPCS is only compatible with PHP 7.4 as of version 3.5.0.
+      php: 7.4
+      env: PHPCS_VERSION="3.5.0"
+    - php: 7.3
       env: PHPCS_VERSION="dev-master" LINT=1
     - php: 7.3
       # PHPCS is only compatible with PHP 7.3 as of version 3.3.1/2.9.2.
       env: PHPCS_VERSION="3.3.1"
 
+    - php: 5.5
+      dist: trusty
+      env: PHPCS_VERSION="dev-master" LINT=1
+    - php: 5.5
+      dist: trusty
+      env: PHPCS_VERSION="3.1.0"
+    - php: 5.5
+      dist: trusty
+      env: PHPCS_VERSION="2.9.2"
+    - php: 5.5
+      dist: trusty
+      env: PHPCS_VERSION="2.6.0"
+
     - php: 5.4
+      dist: trusty
       env: PHPCS_VERSION="3.1.0"
     - php: 5.4
+      dist: trusty
       env: PHPCS_VERSION="2.9.2"
-
-    # PHPCS is only compatible with PHP 7.4 as of version 3.5.0.
-    - php: 7.4
-      env: PHPCS_VERSION="3.5.0"
 
     # One extra build to verify issues around PHPCS annotations when they weren't fully accounted for yet.
     - php: 7.2
@@ -146,8 +161,10 @@ jobs:
       env: PHPCS_VERSION="2.9.2" COVERALLS_VERSION="^2.0"
 
     - php: 5.4
+      dist: trusty
       env: PHPCS_VERSION="dev-master" LINT=1 COVERALLS_VERSION="^1.0"
     - php: 5.4
+      dist: trusty
       env: PHPCS_VERSION="2.6.0" COVERALLS_VERSION="^1.0"
 
 
