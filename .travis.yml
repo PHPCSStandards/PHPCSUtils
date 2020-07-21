@@ -18,7 +18,6 @@ php:
   - 7.0
   - 7.1
   - 7.2
-  - "nightly"
 
 env:
   - PHPCS_VERSION="dev-master" LINT=1
@@ -145,6 +144,10 @@ jobs:
     # One extra build to verify issues around PHPCS annotations when they weren't fully accounted for yet.
     - php: 7.2
       env: PHPCS_VERSION="3.2.0"
+
+    # Current lowest PHPCS version which _may_ run on PHP 8 is 3.5.0, so don't even try to test against older versions.
+    - php: "nightly"
+      env: PHPCS_VERSION="dev-master" LINT=1
 
     - php: 7.4
       env: PHPCS_VERSION="4.0.x-dev@dev"
