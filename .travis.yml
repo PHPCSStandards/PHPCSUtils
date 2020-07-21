@@ -211,6 +211,8 @@ install:
   # The Composer PHPCS plugin takes care of setting the installed_paths for PHPCS.
   - |
     if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+      # Temporary fix - PHPUnit 9.3 is supposed to officially support PHP 8.
+      composer require --no-update phpunit/phpunit:"^9.3"
       # PHPUnit 9.x does not (yet) allow for installation on PHP 8, so ignore platform
       # requirements to get PHPUnit 9.x to install on nightly.
       composer install --prefer-dist --no-suggest --ignore-platform-reqs
