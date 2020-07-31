@@ -585,14 +585,14 @@ class Collections
      * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
      *
      * Sister-method to the {@see Collections::objectOperatorsBC()} method.
-     * This method supports PHP 8.0 and up.
-     * The {@see Collections::objectOperatorsBC()} method supports PHP < 8.0.
+     * This method supports PHPCS 3.5.7 and up.
+     * The {@see Collections::objectOperatorsBC()} method supports PHPCS 2.6.0 and up.
      *
      * This method can also safely be used if the token collection is only used when looking back
      * via `$phpcsFile->findPrevious()` as in that case, a non-backfilled nullsafe object operator
      * will still match the "normal" object operator.
      *
-     * @see \PHPCSUtils\Tokens\Collections::objectOperatorsBC() Related method (PHP < 8.0).
+     * @see \PHPCSUtils\Tokens\Collections::objectOperatorsBC() Related method (PHPCS 2.6.0+).
      *
      * @since 1.0.0-alpha4
      *
@@ -606,7 +606,7 @@ class Collections
         ];
 
         if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
-            // PHP 8.0.
+            // PHP >= 8.0 or PHPCS >= 3.5.7.
             $tokens[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
         }
 
@@ -619,15 +619,15 @@ class Collections
      * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
      *
      * Sister-method to the {@see Collections::objectOperators()} method.
-     * The {@see Collections::objectOperators()} method supports PHP 8.0 and up.
-     * This method supports PHP < 8.0.
+     * The {@see Collections::objectOperators()} method supports PHPCS 3.5.7 and up.
+     * This method supports PHPCS 2.6.0 and up.
      *
      * Notable difference:
      * - This method accounts for tokens which may be encountered when the `T_NULLSAFE_OBJECT_OPERATOR` token
      *   doesn't exist.
      *
      * It is recommended to use the {@see Collections::objectOperators()} method instead of
-     * this method if a standard does not need to support PHP < 8.0.
+     * this method if a standard does not need to support PHPCS < 3.5.7.
      *
      * The {@see Collections::objectOperators()} method can also safely be used if the token collection
      * is only used when looking back via `$phpcsFile->findPrevious()` as in that case, a non-backfilled
@@ -637,11 +637,11 @@ class Collections
      * method needs to be used on potential nullsafe object operator tokens to verify whether it really
      * is a nullsafe object operator or not.
      *
-     * @see \PHPCSUtils\Tokens\Collections::objectOperators()          Related method (PHP 8.0+).
+     * @see \PHPCSUtils\Tokens\Collections::objectOperators()          Related method (PHPCS 3.5.7+).
      * @see \PHPCSUtils\Tokens\Collections::nullsafeObjectOperatorBC() Tokens which can represent a
      *                                                                 nullsafe object operator.
      * @see \PHPCSUtils\Utils\Operators::isNullsafeObjectOperator()    Nullsafe object operator detection for
-     *                                                                 PHP < 8.0.
+     *                                                                 PHPCS < 3.5.7.
      *
      * @since 1.0.0-alpha4
      *
@@ -671,7 +671,7 @@ class Collections
      * is a nullsafe object operator or not.
      *
      * @see \PHPCSUtils\Utils\Operators::isNullsafeObjectOperator() Nullsafe object operator detection for
-     *                                                              PHP < 8.0.
+     *                                                              PHPCS < 3.5.7.
      *
      * @since 1.0.0-alpha4
      *
@@ -680,7 +680,7 @@ class Collections
     public static function nullsafeObjectOperatorBC()
     {
         if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
-            // PHP 8.0.
+            // PHP >= 8.0 / PHPCS >= 3.5.7.
             return [
                 \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR,
             ];

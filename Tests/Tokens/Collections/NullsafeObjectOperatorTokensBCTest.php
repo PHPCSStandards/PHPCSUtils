@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -32,8 +33,10 @@ class NullsafeObjectOperatorBCTest extends TestCase
      */
     public function testNullsafeObjectOperatorBC()
     {
+        $version  = Helper::getVersion();
         $expected = [];
         if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
+            || \version_compare($version, '3.5.7', '>=') === true
         ) {
             $expected = [
                 \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR,
