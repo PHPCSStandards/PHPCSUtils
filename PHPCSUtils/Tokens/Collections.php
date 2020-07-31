@@ -231,9 +231,12 @@ class Collections
     ];
 
     /**
-     * Object operators.
+     * DEPRECATED: Object operators.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::objectOperators()}
+     *                          method instead.
      *
      * @var array <int> => <int>
      */
@@ -574,6 +577,21 @@ class Collections
         $tokens += self::arrowFunctionTokensBC();
 
         return $tokens;
+    }
+
+    /**
+     * Object operators.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function objectOperators()
+    {
+        return [
+            \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
+            \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
+        ];
     }
 
     /**
