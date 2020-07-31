@@ -37,6 +37,11 @@ class ObjectOperatorsTest extends TestCase
             \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
         ];
 
+        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
+        ) {
+            $expected[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
+        }
+
         $this->assertSame($expected, Collections::objectOperators());
     }
 }

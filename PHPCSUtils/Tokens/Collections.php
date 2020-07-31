@@ -582,16 +582,25 @@ class Collections
     /**
      * Object operators.
      *
+     * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
+     *
      * @since 1.0.0-alpha4
      *
      * @return array <int|string> => <int|string>
      */
     public static function objectOperators()
     {
-        return [
+        $tokens = [
             \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
             \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
         ];
+
+        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+            // PHP 8.0.
+            $tokens[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
+        }
+
+        return $tokens;
     }
 
     /**
