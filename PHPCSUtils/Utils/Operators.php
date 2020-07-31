@@ -316,6 +316,7 @@ class Operators
      *
      * Helper method for PHP < 8.0 in combination with PHPCS versions in which the
      * `T_NULLSAFE_OBJECT_OPERATOR` token is not yet backfilled.
+     * PHPCS backfills the token as of PHPCS 3.5.7.
      *
      * @since 1.0.0-alpha4
      *
@@ -332,7 +333,10 @@ class Operators
             return false;
         }
 
-        // Safeguard in case this method is used on PHP 8 and the nullsafe object operator would be passed.
+        /*
+         * Safeguard in case this method is used on PHP >= 8.0 or PHPCS >= 3.5.7
+         * and the nullsafe object operator would be passed.
+         */
         if ($tokens[$stackPtr]['type'] === 'T_NULLSAFE_OBJECT_OPERATOR') {
             return true;
         }
