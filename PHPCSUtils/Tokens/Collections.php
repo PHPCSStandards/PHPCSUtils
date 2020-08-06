@@ -584,6 +584,16 @@ class Collections
      *
      * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
      *
+     * Sister-method to the {@see Collections::objectOperatorsBC()} method.
+     * This method supports PHP 8.0 and up.
+     * The {@see Collections::objectOperatorsBC()} method supports PHP < 8.0.
+     *
+     * This method can also safely be used if the token collection is only used when looking back
+     * via `$phpcsFile->findPrevious()` as in that case, a non-backfilled nullsafe object operator
+     * will still match the "normal" object operator.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::objectOperatorsBC() Related method (PHP < 8.0).
+     *
      * @since 1.0.0-alpha4
      *
      * @return array <int|string> => <int|string>
@@ -598,6 +608,50 @@ class Collections
         if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
             // PHP 8.0.
             $tokens[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * Object operators.
+     *
+     * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
+     *
+     * Sister-method to the {@see Collections::objectOperators()} method.
+     * The {@see Collections::objectOperators()} method supports PHP 8.0 and up.
+     * This method supports PHP < 8.0.
+     *
+     * Notable difference:
+     * - This method accounts for tokens which may be encountered when the `T_NULLSAFE_OBJECT_OPERATOR` token
+     *   doesn't exist.
+     *
+     * It is recommended to use the {@see Collections::objectOperators()} method instead of
+     * this method if a standard does not need to support PHP < 8.0.
+     *
+     * The {@see Collections::objectOperators()} method can also safely be used if the token collection
+     * is only used when looking back via `$phpcsFile->findPrevious()` as in that case, a non-backfilled
+     * nullsafe object operator will still match the "normal" object operator.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::objectOperators() Related method (PHP 8.0+).
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function objectOperatorsBC()
+    {
+        $tokens = [
+            \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
+            \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
+        ];
+
+        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+            // PHP 8.0.
+            $tokens[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
+        } else {
+            // PHP < 8.0.
+            $tokens[\T_INLINE_THEN] = \T_INLINE_THEN;
         }
 
         return $tokens;
