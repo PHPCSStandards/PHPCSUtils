@@ -268,6 +268,9 @@ class InlineNames
         $ooStruct = Conditions::getLastCondition($phpcsFile, $stackPtr, BCTokens::ooScopeTokens());
         if ($ooStruct === false) {
             // Parse error. Use of 'self' outside class context.
+// TODO: check if I should make allowance for closures here which can be declared outside class context
+// and then bound to one.
+// Then again I wouldn't be able to resolve self in that case.
             return false;
         }
 
