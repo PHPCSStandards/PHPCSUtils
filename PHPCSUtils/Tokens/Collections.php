@@ -633,7 +633,9 @@ class Collections
      * is only used when looking back via `$phpcsFile->findPrevious()` as in that case, a non-backfilled
      * nullsafe object operator will still match the "normal" object operator.
      *
-     * @see \PHPCSUtils\Tokens\Collections::objectOperators() Related method (PHP 8.0+).
+     * @see \PHPCSUtils\Tokens\Collections::objectOperators()          Related method (PHP 8.0+).
+     * @see \PHPCSUtils\Tokens\Collections::nullsafeObjectOperatorBC() Tokens which can represent a
+     *                                                                 nullsafe object operator.
      *
      * @since 1.0.0-alpha4
      *
@@ -646,15 +648,35 @@ class Collections
             \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
         ];
 
-        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
-            // PHP 8.0.
-            $tokens[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
-        } else {
-            // PHP < 8.0.
-            $tokens[\T_INLINE_THEN] = \T_INLINE_THEN;
-        }
+        $tokens += self::nullsafeObjectOperatorBC();
 
         return $tokens;
+    }
+
+    /**
+     * Tokens which can represent the nullsafe object operator.
+     *
+     * This method will return the appropriate tokens based on the PHP/PHPCS version used.
+     *
+     * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function nullsafeObjectOperatorBC()
+    {
+        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+            // PHP 8.0.
+            return [
+                \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR,
+            ];
+        }
+
+        return [
+            \T_INLINE_THEN     => \T_INLINE_THEN,
+            \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
+        ];
     }
 
     /**
