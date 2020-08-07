@@ -184,6 +184,13 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'operator'    => true,
                 ],
             ],
+            'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-4' => [
+                '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken4 */',
+                [
+                    'declaration' => false,
+                    'operator'    => true,
+                ],
+            ],
             'parse-error-scoped-namespace-declaration' => [
                 '/* testParseErrorScopedNamespaceDeclaration */',
                 [

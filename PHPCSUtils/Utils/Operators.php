@@ -312,6 +312,56 @@ class Operators
     }
 
     /**
+     * Determine whether a token is (part of) a nullsafe object operator.
+     *
+     * Helper method for PHP < 8.0 in combination with PHPCS versions in which the
+     * `T_NULLSAFE_OBJECT_OPERATOR` token is not yet backfilled.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the T_INLINE_THEN or T_OBJECT_OPERATOR
+     *                                               token in the stack.
+     *
+     * @return bool `TRUE` if nullsafe object operator; or `FALSE` otherwise.
+     */
+    public static function isNullsafeObjectOperator(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        // Safeguard in case this method is used on PHP 8 and the nullsafe object operator would be passed.
+        if ($tokens[$stackPtr]['type'] === 'T_NULLSAFE_OBJECT_OPERATOR') {
+            return true;
+        }
+
+        if (isset(Collections::nullsafeObjectOperatorBC()[$tokens[$stackPtr]['code']]) === false) {
+            return false;
+        }
+
+        /*
+         * Note: not bypassing empty tokens as whitespace and comments are not allowed
+         * within an operator.
+         */
+        if ($tokens[$stackPtr]['code'] === \T_INLINE_THEN) {
+            if (isset($tokens[$stackPtr + 1]) && $tokens[$stackPtr + 1]['code'] === \T_OBJECT_OPERATOR) {
+                return true;
+            }
+        }
+
+        if ($tokens[$stackPtr]['code'] === \T_OBJECT_OPERATOR) {
+            if (isset($tokens[$stackPtr - 1])  && $tokens[$stackPtr - 1]['code'] === \T_INLINE_THEN) {
+                return true;
+            }
+        }
+
+        // Not a nullsafe object operator token.
+        return false;
+    }
+
+    /**
      * Determine whether a T_MINUS/T_PLUS token is a unary operator.
      *
      * @since 1.0.0

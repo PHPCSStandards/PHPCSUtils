@@ -45,6 +45,9 @@ namespace\ClassName::$property++;
 /* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken3 */
 namespace\CONSTANT['key'];
 
+/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken4 */
+namespace\functionReturningObj()?->chained();
+
 
 /* testParseErrorScopedNamespaceDeclaration */
 function testScope() {
