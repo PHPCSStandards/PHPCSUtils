@@ -14,9 +14,11 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\UseStatements;
 
 /**
- * Tests for the \PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement() method.
+ * Tests for the \PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement()
+ * and the \PHPCSUtils\Utils\UseStatements::mergeImportUseStatements() method.
  *
  * @covers \PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement
+ * @covers \PHPCSUtils\Utils\UseStatements::mergeImportUseStatements
  *
  * @group usestatements
  *
