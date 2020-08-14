@@ -17,6 +17,7 @@ use PHPCSUtils\Utils\InlineNames;
  * Tests for the \PHPCSUtils\Utils\InlineNames::getNameFromNew() method.
  *
  * @covers \PHPCSUtils\Utils\InlineNames::getNameFromNew
+ * @covers \PHPCSUtils\Utils\InlineNames::getNameAfterKeyword
  *
  * @group inlinenames
  *

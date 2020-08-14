@@ -16,10 +16,10 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
-use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\Namespaces;
 use PHPCSUtils\Utils\NamingConventions;
 use PHPCSUtils\Utils\ObjectDeclarations;
+use PHPCSUtils\Utils\TextStrings;
 
 /**
  * Utility functions for retrieving and resolving construct names used in inline code.
@@ -313,33 +313,232 @@ class InlineNames
             throw new RuntimeException('$stackPtr must be of type T_NEW');
         }
 
-        $endTokens = [\T_OPEN_PARENTHESIS, \T_SEMICOLON, \T_OPEN_CURLY_BRACKET];
-        $end       = $phpcsFile->findNext($endTokens, ($stackPtr + 1), null, false, null, true);
+        $endTokens = [\T_OPEN_PARENTHESIS, \T_SEMICOLON, \T_OPEN_CURLY_BRACKET, \T_CLOSE_TAG];
+
+        return self::getNameAfterKeyword($phpcsFile, $stackPtr, $endTokens);
+    }
+
+    /**
+     * Retrieve the class/interface/trait name as used in an instanceof comparison.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer_File $phpcsFile The file being scanned.
+     * @param int                   $stackPtr  The position of a T_INSTANCEOF token.
+     *
+     * @return string|false Class name or hierarchy keyword, or FALSE in case of a parse error or variable name.
+     *                      The returned value may contain the `namespace` keyword if used as an operator.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
+     *                                                      type T_INSTANCEOF or doesn't exist.
+     */
+    public static function getNameFromInstanceOf(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_INSTANCEOF) {
+            throw new RuntimeException('$stackPtr must be of type T_INSTANCEOF');
+        }
+
+        $endTokens  = [
+            \T_CLOSE_PARENTHESIS => \T_CLOSE_PARENTHESIS,
+            \T_SEMICOLON         => \T_SEMICOLON,
+            \T_COMMA             => \T_COMMA,
+            \T_CLOSE_TAG         => \T_CLOSE_TAG,
+            \T_COLON             => \T_COLON,
+            \T_INLINE_THEN       => \T_INLINE_THEN,
+            \T_INLINE_ELSE       => \T_INLINE_ELSE,
+        ];
+        $endTokens += BCTokens::comparisonTokens();
+        $endTokens += BCTokens::operators();
+        $endTokens += BCTokens::booleanOperators();
+
+        $name = self::getNameAfterKeyword($phpcsFile, $stackPtr, $endTokens);
+        if ($name !== false) {
+            return $name;
+        }
+
+        // Rare, but this may be a class name text string.
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        if ($next === false
+            || ($tokens[$next]['code'] !== \T_NS_C
+                && $tokens[$next]['code'] !== \T_CONSTANT_ENCAPSED_STRING)
+        ) {
+            return false;
+        }
+
+        $name = '';
+        if ($tokens[$next]['code'] === \T_NS_C) {
+            // For the purposes of name resolution, change it to namespace operator.
+            $name = 'namespace';
+        } else {
+            $name = TextStrings::stripQuotes($tokens[$next]['content']);
+        }
+
+        $lastTokenCode = $tokens[$next]['code'];
+        for ($next = ($next + 1); $next < $phpcsFile->numTokens; $next++) {
+            if (isset(Tokens::$emptyTokens[$tokens[$next]['code']]) === true) {
+                continue;
+            }
+
+            if (isset($endTokens[$tokens[$next]['code']]) === true) {
+                break;
+            }
+
+            if ($tokens[$next]['code'] === \T_STRING_CONCAT
+                && $lastTokenCode !== \T_STRING_CONCAT
+            ) {
+                $lastTokenCode = $tokens[$next]['code'];
+                continue;
+            }
+
+            if ($tokens[$next]['code'] === \T_CONSTANT_ENCAPSED_STRING
+                && $lastTokenCode !== \T_CONSTANT_ENCAPSED_STRING
+            ) {
+                $name         .= TextStrings::stripQuotes($tokens[$next]['content']);
+                $lastTokenCode = $tokens[$next]['code'];
+                continue;
+            }
+
+            // If we've reached this point, we encountered an unexpected token, so probably a variable name.
+            return false;
+        }
+
+        return $name;
+    }
+
+    /**
+     * Retrieve a identifier name as used after a specific keyword.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @param \PHP_CodeSniffer_File $phpcsFile The file being scanned.
+     * @param int                   $stackPtr  The position of a keyword token.
+     * @param int|string[]          $endTokens Array of tokens constants which should be considered
+     *                                         to end the statement/name.
+     *
+     * @return string|false Class name or hierarchy keyword, or FALSE in case of a parse error or variable name.
+     *                      The returned value may contain the `namespace` keyword if used as an operator.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr doesn't exist.
+     */
+    public static function getNameAfterKeyword(File $phpcsFile, $stackPtr, $endTokens)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        if (isset($tokens[$stackPtr]) === false) {
+            throw new RuntimeException('$stackPtr not found in this file');
+        }
+
+        $end = $phpcsFile->findNext($endTokens, ($stackPtr + 1), null, false, null, true);
         if ($end === false) {
             return false;
         }
 
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), $end, true);
-        if ($next === false) {
+        $name            = '';
+        $lastTokenCode   = null;
+        $tokenMustBeLast = false;
+        for ($i = ($stackPtr + 1); $i < $end; $i++) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
+                continue;
+            }
+
+            if (isset(Collections::$OOHierarchyKeywords[$tokens[$i]['code']]) === true
+                // Work around tokenizer bug where `static` after instanceof is not tokenized as T_STATIC.
+                || ($tokens[$i]['code'] === \T_STRING && $tokens[$i]['content'] === 'static')
+            ) {
+                if ($name === '') {
+                    $name           .= $tokens[$i]['content'];
+                    $lastTokenCode   = $tokens[$i]['code'];
+                    $tokenMustBeLast = true;
+                    continue;
+                }
+
+                // Hierarchy keywords are only "names" if it's the first and only token found.
+                return false;
+            }
+
+            if ($tokens[$i]['code'] === \T_ANON_CLASS) {
+                // Allow for `new class() {}`.
+                if ($name === '') {
+                    $lastTokenCode   = $tokens[$i]['code'];
+                    $tokenMustBeLast = true;
+                    continue;
+                }
+
+                // Anon classes are only "names" if it's the first and only token found.
+                return false;
+            }
+
+            if ($name === '' && $tokens[$i]['code'] === \T_NAMESPACE) {
+                if ($name === '') {
+                    $name         .= $tokens[$i]['content'];
+                    $lastTokenCode = $tokens[$i]['code'];
+                    continue;
+                }
+
+                // Namespace operator is only valid as part of a "name" if it's the first token found.
+                return false;
+            }
+
+            if ($tokens[$i]['code'] === \T_NS_SEPARATOR || $tokens[$i]['code'] === \T_STRING) {
+                // Do some error prevention.
+                if (isset($lastTokenCode) === true) {
+                    if ($tokens[$i]['code'] === $lastTokenCode) {
+                        // Parse error.
+                        return false;
+                    }
+
+                    if ($tokenMustBeLast === true) {
+                        // Previous token flagged as "must be last". Parse error.
+                        return false;
+                    }
+
+                    if ($lastTokenCode === \T_NAMESPACE && $tokens[$i]['code'] === \T_STRING) {
+                        // Parse error.
+                        return false;
+                    }
+                }
+
+                $name         .= $tokens[$i]['content'];
+                $lastTokenCode = $tokens[$i]['code'];
+                continue;
+            }
+
+            if ($tokens[$i]['code'] === \T_DOUBLE_COLON) {
+                // Allow for Name::class.
+                $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), $end, true);
+                if ($next === false) {
+                    // Parse error.
+                    return false;
+                }
+
+                /*
+                 * Look at the content instead of the code to work around a tokenizer issue
+                 * in PHPCS < 3.4.3.
+                 */
+                if ($tokens[$next]['content'] === 'class') {
+                    $lastTokenCode   = $tokens[$next]['code'];
+                    $tokenMustBeLast = true;
+                    $i               = $next;
+                    continue;
+                }
+            }
+
+            // Unexpected token encountered. This must be a dynamic name, not a static one.
             return false;
         }
 
-        if ($tokens[$next]['code'] === \T_ANON_CLASS) {
-            return '';
-        }
-
-        $allowed      = Collections::$OONameTokens + Collections::$OOHierarchyKeywords + Tokens::$emptyTokens;
-        $undetermined = $phpcsFile->findNext($allowed, $next, $end, true);
-        if ($undetermined !== false) {
-            // Name could not be determined. Probably a (partially) variable name.
+        if (isset($lastTokenCode) === false) {
+            // No usable name found.
             return false;
         }
 
-        return GetTokensAsString::noempties($phpcsFile, $next, ($end - 1));
+        return $name;
     }
 
     /**
-     * Retrieve the class name for static usage of a class.
+     * Retrieve the class/interface/trait name for static usage of a class.
      *
      * This can be a call to a method, the use of a property or constant; or the use of the magic ::class constant.
      *
@@ -349,7 +548,7 @@ class InlineNames
      * @param int                   $stackPtr  The position of a T_DOUBLE_COLON token.
      *
      * @return string|false Class name or hierarchy keyword, or FALSE in case of a parse error
-     *                       or variable name.
+     *                      or variable name.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
      *                                                      type T_DOUBLE_COLON or doesn't exist.

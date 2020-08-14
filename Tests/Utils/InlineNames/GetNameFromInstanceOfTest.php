@@ -17,6 +17,7 @@ use PHPCSUtils\Utils\InlineNames;
  * Tests for the \PHPCSUtils\Utils\InlineNames::getNameFromInstanceOf() method.
  *
  * @covers \PHPCSUtils\Utils\InlineNames::getNameFromInstanceOf
+ * @covers \PHPCSUtils\Utils\InlineNames::getNameAfterKeyword
  *
  * @group inlinenames
  *
@@ -32,36 +33,36 @@ class GetNameFromInstanceOfTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_NEW');
+        $this->expectPhpcsException('$stackPtr must be of type T_INSTANCEOF');
         InlineNames::getNameFromInstanceOf(self::$phpcsFile, 10000);
     }
 
     /**
-     * Test receiving an expected exception when a non-NEW token is passed.
+     * Test receiving an expected exception when a non-INSTANCEOF token is passed.
      *
      * @return void
      */
     public function testUnexpectedTokenException()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_NEW');
+        $this->expectPhpcsException('$stackPtr must be of type T_INSTANCEOF');
 
-        $target = $this->getTargetToken('/* testNotNew */', \T_ECHO);
+        $target = $this->getTargetToken('/* testNotInstanceOf */', \T_ECHO);
         InlineNames::getNameFromInstanceOf(self::$phpcsFile, $target);
     }
 
     /**
-     * Test retrieving the name used in an object instantiation.
+     * Test retrieving the name used in comparison with the instanceof operator.
      *
      * @dataProvider dataGetNameFromInstanceOf
      *
-     * @param string $commentString The comment which prefaces the T_NEW token in the test file.
+     * @param string $commentString The comment which prefaces the T_INSTANCEOF token in the test file.
      * @param string $expected      The expected function return value.
      *
      * @return void
      */
     public function testGetNameFromInstanceOf($commentString, $expected)
     {
-        $stackPtr = $this->getTargetToken($commentString, \T_NEW);
+        $stackPtr = $this->getTargetToken($commentString, \T_INSTANCEOF);
         $result   = InlineNames::getNameFromInstanceOf(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -76,76 +77,104 @@ class GetNameFromInstanceOfTest extends UtilityMethodTestCase
     public function dataGetNameFromInstanceOf()
     {
         return [
-            'anon-class-no-parens' => [
-                '/* testAnonClassWithoutParentheses */',
-                '',
+            'unqualified-name' => [
+                '/* testUnqualifiedName */',
+                'Name',
             ],
-            'anon-class-with-parens' => [
-                '/* testAnonClassWithParentheses */',
-                '',
+            'qualified-name-with-comments' => [
+                '/* testQualifiedNameAndComments */',
+                '\Name',
             ],
-            'fqn-without-parens' => [
-                '/* testFQNWithoutParentheses */',
-                '\Fully\Qualified\Name',
-            ],
-            'fqn-with-parens' => [
-                '/* testFQNWithParentheses */',
-                '\Fully\Qualified\Name',
-            ],
-            'partially-qualified-without-parens' => [
-                '/* testPartiallyQualifiedWithoutParentheses */',
+            'partially-qualified-name' => [
+                '/* testPartiallyQualifiedName */',
                 'Partially\Qualified\Name',
             ],
-            'partially-qualified-with-parens' => [
+            'partially-qualified-name-with-comments-and-whitespace' => [
                 '/* testPartiallyQualifiedWithParenthesesAndCommentsWhitespace */',
                 'Partially\Qualified\Name',
             ],
-            'unqualified-without-parens' => [
-                '/* testUnqualifiedWithoutParentheses */',
-                'Name',
+            'fully-qualified-name' => [
+                '/* testFullyQualifiedName */',
+                '\Fully\Qualified\Name',
             ],
-            'qualified-with-parens' => [
-                '/* testQualifiedWithParentheses */',
-                '\Name',
-            ],
-            'namespace-operator-without-parens' => [
-                '/* testNamespaceOperatorWithoutParentheses */',
-                'namespace\Sub\Name',
-            ],
-            'namespace-operator-with-parens' => [
-                '/* testNamespaceOperatorWithParentheses */',
+            'namespace-operator' => [
+                '/* testNamespaceOperator */',
                 'namespace\Name',
             ],
-            'self-keyword-with-parens' => [
-                '/* testSelfWithParentheses */',
-                'SELF',
+            'namespace-operator-with-sublevel' => [
+                '/* testNamespaceOperatorWithSubLevel */',
+                'namespace\Sub\Name',
             ],
-            'self-keyword-phpcs-bug-1245' => [
-                '/* testSelfReturnPHPCS1245 */',
+            'unqualified-name-with-class-constant' => [
+                '/* testUnqualifiedNameWithClassModifier */',
+                'Name',
+            ],
+            'self' => [
+                '/* testSelf */',
                 'self',
             ],
-            'static-keyword-without-parens' => [
-                '/* testStaticWithoutParentheses */',
-                'static',
-            ],
-            'parent-keyword-with-parens' => [
-                '/* testParentWithParentheses */',
+            'parent' => [
+                '/* testParent */',
                 'parent',
             ],
-            'variable-name-with-parens' => [
-                '/* testVariableClassNameWithParentheses */',
+            'static' => [
+                '/* testStatic */',
+                'static',
+            ],
+            'string-name' => [
+                '/* testStringName */',
+                'Name',
+            ],
+            'magic-namespace-constant-with-string-name' => [
+                '/* testMagicConstantWithStringName */',
+                'namespace\Name',
+            ],
+            'magic-namespace-constant-with-variable-name' => [
+                '/* testMagicConstantWithVariableName */',
                 false,
             ],
-            'variable-variable-name-with-parens' => [
-                '/* testVariableVariableClassNameWithParentheses */',
+            'magic-namespace-constant-with-double-quoted-variable-name' => [
+                '/* testMagicConstantWithDoubleQuotedStringVariableName */',
                 false,
             ],
-            'static-property-name-with-parens' => [
-                '/* testStaticPropertyClassNameWithParentheses */',
+            'anon-class' => [
+                '/* testAnonClass */',
                 false,
             ],
-            'self-constant-name-with-parens' => [
-                '/* testSelfConstantClassNameWithParentheses */',
+            'variable-name' => [
+                '/* testVariableName */',
+                false,
+            ],
+            'variable-variable-name' => [
+                '/* testVariableVariableName */',
+                false,
+            ],
+            'variable-property-name' => [
+                '/* testVariablePropertyName */',
+                false,
+            ],
+            'static-property-name' => [
+                '/* testStaticPropertyName */',
+                false,
+            ],
+            'class-constant-name' => [
+                '/* testClassConstantName */',
+                false,
+            ],
+            'self-property-name' => [
+                '/* testSelfPropertyClassName */',
+                false,
+            ],
+            'parent-constant-name' => [
+                '/* testParentConstantClassName */',
+                false,
+            ],
+            'static-property-class-name' => [
+                '/* testStaticPropertyClassName */',
+                false,
+            ],
+            'self-in-array-key' => [
+                '/* testSelfInArrayKey */',
                 false,
             ],
             'live-coding' => [
