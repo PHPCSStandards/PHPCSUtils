@@ -57,6 +57,10 @@ class ResolveSelfMultiNamespaceTest extends UtilityMethodTestCase
                 '/* testNamespacedInterface */',
                 '\Some\NamespaceName\Sub\Foo',
             ],
+            'scoped-global-namespace-trait-property-type' => [
+                '/* testGlobalTraitPropertyType */',
+                '\Foo',
+            ],
             'scoped-global-namespace-trait' => [
                 '/* testGlobalTrait */',
                 '\Foo',

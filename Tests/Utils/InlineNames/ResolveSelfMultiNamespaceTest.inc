@@ -14,7 +14,8 @@ namespace Some\NamespaceName\Sub {
 namespace {
 
     trait Foo {
-        public $property = 123;
+        /* testGlobalTraitPropertyType */
+        public self $property = 123;
 
         public function bar() {
             /* testGlobalTrait */
