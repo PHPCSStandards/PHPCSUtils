@@ -14,7 +14,7 @@ namespace Some\NamespaceName\Sub {
 namespace {
 
     trait Foo {
-        const ABC = 123;
+        public $property = 123;
 
         public function bar() {
             /* testGlobalTrait */
