@@ -28,7 +28,7 @@ $class = new class extends SomeClass {
 function functionName() {}
 
 /* testFunctionReturnByRef */
-function & functionNameByRef();
+function & functionNameByRef() {}
 
 /* testClass */
 abstract class ClassName {

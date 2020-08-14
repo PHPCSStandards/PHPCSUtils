@@ -136,19 +136,19 @@ function mixedTypeHintNullable(?Mixed $var1) {}
 $value = $obj->fn(true);
 
 /* testClosureNoParams */
-function() {}
+function() {};
 
 /* testClosure */
-function( $a = 'test' ) {}
+function( $a = 'test' ) {};
 
 /* testClosureUseNoParams */
-function() use() {}
+function() use() {};
 
 /* testClosureUse */
-function() use( $foo, $bar ) {}
+function() use( $foo, $bar ) {};
 
 /* testInvalidUse */
-function() use {} // Intentional parse error.
+function() use {}; // Intentional parse error.
 
 /* testArrowFunctionLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
