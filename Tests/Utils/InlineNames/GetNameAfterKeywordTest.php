@@ -32,6 +32,17 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
 {
 
     /**
+     * Tokens to consider as statement end tokens for the purposes of these tests.
+     *
+     * @var array
+     */
+    protected $endTokens = [
+        \T_SEMICOLON,
+        \T_OPEN_CURLY_BRACKET,
+        \T_OPEN_PARENTHESIS
+    ];
+
+    /**
      * Test receiving an expected exception when a non-existent token is passed.
      *
      * @return void
@@ -39,24 +50,25 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
     public function testNonExistentToken()
     {
         $this->expectPhpcsException('$stackPtr not found in this file');
-        InlineNames::getNameAfterKeyword(self::$phpcsFile, 10000);
+        InlineNames::getNameAfterKeyword(self::$phpcsFile, 10000, $this->endTokens);
     }
 
     /**
-     * Test retrieving the name used in an object instantiation.
+     * Test that `false` is returned in case an invalid name or dynamic name is encountered and
+     * when stumbling over a parse error.
      *
      * @dataProvider dataGetNameAfterKeyword
      *
-     * @param string $commentString The comment which prefaces the T_INSTANCEOF token in the test file.
-     * @param string $expected      The expected function return value.
+     * @param string    $commentString The comment which prefaces the target token in the test file.
+     * @param int|string $targetTypes  The token type constants for the test target token.
      *
      * @return void
      */
-    public function testGetNameAfterKeyword($commentString, $targetTypes, $expected)
+    public function testGetNameAfterKeyword($commentString, $targetTypes)
     {
-        $stackPtr = $this->getTargetToken($commentString, $targetTypes);
-        $result   = InlineNames::getNameAfterKeyword(self::$phpcsFile, $stackPtr);
-        $this->assertSame($expected, $result);
+        $stackPtr  = $this->getTargetToken($commentString, $targetTypes);
+        $result    = InlineNames::getNameAfterKeyword(self::$phpcsFile, $stackPtr, $this->endTokens);
+        $this->assertFalse($result);
     }
 
     /**
@@ -69,14 +81,45 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
     public function dataGetNameAfterKeyword()
     {
         return [
-            'unqualified-name' => [
-                '/* testUnqualifiedName */',
-                'Name',
+            'hierarchy-keyword-not-first-and-only-1' => [
+                '/* testHierarchyKeywordNotFirstAndOnlyParent */',
+                T_INSTANCEOF,
             ],
-
+            'hierarchy-keyword-not-first-and-only-2' => [
+                '/* testHierarchyKeywordNotFirstAndOnlyStatic */',
+                T_INSTANCEOF,
+            ],
+            'non-anon-class-reserved-keyword' => [
+                '/* testNonAnonClassUsingReservedClassKeyword */',
+                T_NEW,
+            ],
+            'namespace-operator-not-first-1' => [
+                '/* testNamespaceOperatorNotFirstExtends */',
+                T_EXTENDS,
+            ],
+            'namespace-operator-not-first-2' => [
+                '/* testNamespaceOperatorNotFirstArrayAccess */',
+                T_NEW,
+            ],
+            'parse-error-1' => [
+                '/* testParseError1 */',
+                T_INSTANCEOF,
+            ],
+            'parse-error-2' => [
+                '/* testParseError2 */',
+                T_INSTANCEOF,
+            ],
+            'parse-error-3' => [
+                '/* testParseError3 */',
+                T_INSTANCEOF,
+            ],
+            'parse-error-4' => [
+                '/* testParseError4 */',
+                T_INSTANCEOF,
+            ],
             'live-coding' => [
                 '/* testLiveCoding */',
-                false,
+                T_INSTANCEOF,
             ],
         ];
     }

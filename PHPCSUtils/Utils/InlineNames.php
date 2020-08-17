@@ -444,7 +444,7 @@ class InlineNames
             }
 
             if (isset(Collections::$OOHierarchyKeywords[$tokens[$i]['code']]) === true
-                // Work around tokenizer bug where `static` after instanceof is not tokenized as T_STATIC.
+                // Work around tokenizer peculiarity where `static` after instanceof is not tokenized as T_STATIC.
                 || ($tokens[$i]['code'] === \T_STRING && $tokens[$i]['content'] === 'static')
             ) {
                 if ($name === '') {

@@ -51,7 +51,7 @@ class GetNameFromInstanceOfTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test retrieving the name used in comparison with the instanceof operator.
+     * Test retrieving the name used in a comparison with the instanceof operator.
      *
      * @dataProvider dataGetNameFromInstanceOf
      *
