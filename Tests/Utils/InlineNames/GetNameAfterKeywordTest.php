@@ -39,7 +39,7 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
     protected $endTokens = [
         \T_SEMICOLON,
         \T_OPEN_CURLY_BRACKET,
-        \T_OPEN_PARENTHESIS
+        \T_OPEN_PARENTHESIS,
     ];
 
     /**
@@ -59,15 +59,15 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetNameAfterKeyword
      *
-     * @param string    $commentString The comment which prefaces the target token in the test file.
-     * @param int|string $targetTypes  The token type constants for the test target token.
+     * @param string     $commentString The comment which prefaces the target token in the test file.
+     * @param int|string $targetTypes   The token type constants for the test target token.
      *
      * @return void
      */
     public function testGetNameAfterKeyword($commentString, $targetTypes)
     {
-        $stackPtr  = $this->getTargetToken($commentString, $targetTypes);
-        $result    = InlineNames::getNameAfterKeyword(self::$phpcsFile, $stackPtr, $this->endTokens);
+        $stackPtr = $this->getTargetToken($commentString, $targetTypes);
+        $result   = InlineNames::getNameAfterKeyword(self::$phpcsFile, $stackPtr, $this->endTokens);
         $this->assertFalse($result);
     }
 
@@ -83,43 +83,43 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
         return [
             'hierarchy-keyword-not-first-and-only-1' => [
                 '/* testHierarchyKeywordNotFirstAndOnlyParent */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
             'hierarchy-keyword-not-first-and-only-2' => [
                 '/* testHierarchyKeywordNotFirstAndOnlyStatic */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
             'non-anon-class-reserved-keyword' => [
                 '/* testNonAnonClassUsingReservedClassKeyword */',
-                T_NEW,
+                \T_NEW,
             ],
             'namespace-operator-not-first-1' => [
                 '/* testNamespaceOperatorNotFirstExtends */',
-                T_EXTENDS,
+                \T_EXTENDS,
             ],
             'namespace-operator-not-first-2' => [
                 '/* testNamespaceOperatorNotFirstArrayAccess */',
-                T_NEW,
+                \T_NEW,
             ],
             'parse-error-1' => [
                 '/* testParseError1 */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
             'parse-error-2' => [
                 '/* testParseError2 */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
             'parse-error-3' => [
                 '/* testParseError3 */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
             'parse-error-4' => [
                 '/* testParseError4 */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
             'live-coding' => [
                 '/* testLiveCoding */',
-                T_INSTANCEOF,
+                \T_INSTANCEOF,
             ],
         ];
     }
