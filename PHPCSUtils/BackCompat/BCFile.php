@@ -1224,6 +1224,8 @@ class BCFile
             if (isset($tokens[$i]['scope_opener']) === true
                 && $i === $tokens[$i]['scope_closer']
                 && $tokens[$i]['code'] !== T_CLOSE_PARENTHESIS
+                && $tokens[$i]['code'] !== T_END_NOWDOC
+                && $tokens[$i]['code'] !== T_END_HEREDOC
             ) {
                 // Found the end of the previous scope block.
                 return $lastNotEmpty;
