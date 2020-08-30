@@ -313,7 +313,23 @@ class InlineNames
             throw new RuntimeException('$stackPtr must be of type T_NEW');
         }
 
-        $endTokens = [\T_OPEN_PARENTHESIS, \T_SEMICOLON, \T_OPEN_CURLY_BRACKET, \T_CLOSE_TAG];
+        $endTokens = [
+			\T_OPEN_PARENTHESIS   => \T_OPEN_PARENTHESIS,
+			\T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET,
+			\T_OPEN_SHORT_ARRAY   => \T_OPEN_SHORT_ARRAY,
+            \T_COLON              => \T_COLON,
+            \T_COMMA              => \T_COMMA,
+            \T_SEMICOLON          => \T_SEMICOLON,
+            \T_CLOSE_PARENTHESIS  => \T_CLOSE_PARENTHESIS,
+//            \T_CLOSE_SQUARE_BRACKET,
+			\T_CLOSE_SHORT_ARRAY  => \T_CLOSE_SHORT_ARRAY,
+            \T_CLOSE_TAG          => \T_CLOSE_TAG,
+            \T_INLINE_THEN        => \T_INLINE_THEN,
+            \T_INLINE_ELSE        => \T_INLINE_ELSE,
+		];
+        $endTokens += BCTokens::comparisonTokens();
+        $endTokens += BCTokens::operators();
+        $endTokens += BCTokens::booleanOperators();
 
         return self::getNameAfterKeyword($phpcsFile, $stackPtr, $endTokens);
     }
@@ -341,11 +357,12 @@ class InlineNames
         }
 
         $endTokens  = [
-            \T_CLOSE_PARENTHESIS => \T_CLOSE_PARENTHESIS,
-            \T_SEMICOLON         => \T_SEMICOLON,
-            \T_COMMA             => \T_COMMA,
-            \T_CLOSE_TAG         => \T_CLOSE_TAG,
             \T_COLON             => \T_COLON,
+            \T_COMMA             => \T_COMMA,
+            \T_SEMICOLON         => \T_SEMICOLON,
+            \T_CLOSE_PARENTHESIS => \T_CLOSE_PARENTHESIS,
+			\T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
+            \T_CLOSE_TAG         => \T_CLOSE_TAG,
             \T_INLINE_THEN       => \T_INLINE_THEN,
             \T_INLINE_ELSE       => \T_INLINE_ELSE,
         ];
@@ -470,7 +487,7 @@ class InlineNames
                 return false;
             }
 
-            if ($name === '' && $tokens[$i]['code'] === \T_NAMESPACE) {
+            if ($tokens[$i]['code'] === \T_NAMESPACE) {
                 if ($name === '') {
                     $name         .= $tokens[$i]['content'];
                     $lastTokenCode = $tokens[$i]['code'];

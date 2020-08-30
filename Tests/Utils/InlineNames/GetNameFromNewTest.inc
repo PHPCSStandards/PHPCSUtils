@@ -10,26 +10,27 @@ $anon = new class {};
 $anon = new class() {};
 
 /* testFQNWithoutParentheses */
-$a = new \Fully\Qualified\Name;
+$a = $true ? new \Fully\Qualified\Name : $somethingElse;
 
 /* testFQNWithParentheses */
 $a = new \Fully\Qualified\Name () ;
 
 /* testPartiallyQualifiedWithoutParentheses */
-$a = new Partially\Qualified\Name;
+$a = new Partially\Qualified\Name ?? $somethingElse;
 
 /* testPartiallyQualifiedWithParenthesesAndCommentsWhitespace */
 $a = new Partially\ /* comment */ Qualified \ Name();
 
 /* testUnqualifiedWithoutParentheses */
-$a = new Name ;
+$a = functionCall(new Name);
 
 /* testQualifiedWithParentheses */
 $a = new \Name();
 
 /* testNamespaceOperatorWithoutParentheses */
-$a = new namespace\Sub\Name;
+$a = new namespace\Sub\Name ?>
 
+<?php
 /* testNamespaceOperatorWithParentheses */
 $a = new namespace\Name();
 
@@ -39,13 +40,13 @@ class Foo extends Bar {
         $a = new SELF();
 
         /* testSelfReturnPHPCS1245 */
-        return new self;
+        return [new self];
 
         /* testStaticWithoutParentheses */
-        $a = new static;
+        $a = functionCall(new static, $somethingElse);
 
         /* testParentWithParentheses */
-        $a = new parent();
+        $a = new parent() instanceof SomeClass;
 
         /* testVariableClassNameWithParentheses */
         $a = new $name();

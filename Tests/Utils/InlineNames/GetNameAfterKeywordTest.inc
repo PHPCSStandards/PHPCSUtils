@@ -28,4 +28,4 @@ $a = $b instanceof self/*comment*/ClassName;
 $a = $b instanceof namespace ClassName;
 
 /* testLiveCoding */
-$a = $b instanceof ClassName
+$a = $b instanceof ClassName::
