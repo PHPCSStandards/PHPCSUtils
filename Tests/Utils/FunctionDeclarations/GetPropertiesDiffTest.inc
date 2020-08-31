@@ -65,3 +65,6 @@ interface FooBar {
 /* testPHP8DuplicateTypeInUnionWhitespaceAndComment */
 // Intentional fatal error - duplicate types are not allowed in union types, but that's not the concern of the method.
 function duplicateTypeInUnion(): int | /*comment*/ string | INT {}
+
+/* testNamespaceOperatorTypeHint */
+function namespaceOperatorTypeHint() : ?namespace\Name {}

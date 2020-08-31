@@ -171,6 +171,7 @@ class FunctionDeclarations
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
+     * - Support for namespace operator in type declarations.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -300,6 +301,16 @@ class FunctionDeclarations
                     break;
                 }
 
+                /*
+                 * Work-around for a scope map tokenizer bug in PHPCS.
+                 * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
+                 */
+                if ($scopeOpener === null && $tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
+                    // End of function definition for which the scope opener is incorrectly not set.
+                    $hasBody = true;
+                    break;
+                }
+
                 if ($tokens[$i]['type'] === 'T_NULLABLE'
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (\defined('T_NULLABLE') === false && $tokens[$i]['code'] === \T_INLINE_THEN)
@@ -391,6 +402,7 @@ class FunctionDeclarations
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
      * - Support for PHP 8.0 constructor property promotion.
+     * - Support for namespace operator in type declarations.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -494,6 +506,7 @@ class FunctionDeclarations
                 case 'T_FALSE': // Union types.
                 case 'T_NULL': // Union types.
                 case 'T_STRING':
+                case 'T_NAMESPACE':
                 case 'T_NS_SEPARATOR':
                 case 'T_BITWISE_OR': // Union type separator.
                     if ($typeHintToken === false) {

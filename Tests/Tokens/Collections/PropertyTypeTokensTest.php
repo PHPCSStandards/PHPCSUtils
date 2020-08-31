@@ -39,6 +39,7 @@ class PropertyTypeTokensTest extends TestCase
             \T_FALSE        => \T_FALSE,
             \T_NULL         => \T_NULL,
             \T_STRING       => \T_STRING,
+            \T_NAMESPACE    => \T_NAMESPACE,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_BITWISE_OR   => \T_BITWISE_OR,
         ];
