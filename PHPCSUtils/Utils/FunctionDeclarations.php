@@ -402,6 +402,7 @@ class FunctionDeclarations
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
      * - Support for PHP 8.0 constructor property promotion.
+     * - Support for namespace operator in type declarations.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -505,6 +506,7 @@ class FunctionDeclarations
                 case 'T_FALSE': // Union types.
                 case 'T_NULL': // Union types.
                 case 'T_STRING':
+                case 'T_NAMESPACE':
                 case 'T_NS_SEPARATOR':
                 case 'T_BITWISE_OR': // Union type separator.
                     if ($typeHintToken === false) {
