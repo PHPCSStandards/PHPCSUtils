@@ -723,6 +723,7 @@ class Collections
             \T_FALSE        => \T_FALSE,      // Union types only.
             \T_NULL         => \T_NULL,       // Union types only.
             \T_STRING       => \T_STRING,
+            \T_NAMESPACE    => \T_NAMESPACE,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
         ];
@@ -792,6 +793,7 @@ class Collections
             \T_FALSE        => \T_FALSE,      // Union types only.
             \T_NULL         => \T_NULL,       // Union types only.
             \T_STRING       => \T_STRING,
+            \T_NAMESPACE    => \T_NAMESPACE,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
         ];
@@ -863,6 +865,7 @@ class Collections
             \T_FALSE        => \T_FALSE,      // Union types only.
             \T_NULL         => \T_NULL,       // Union types only.
             \T_ARRAY        => \T_ARRAY,      // Arrow functions PHPCS < 3.5.4 + union types.
+            \T_NAMESPACE    => \T_NAMESPACE,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
         ];

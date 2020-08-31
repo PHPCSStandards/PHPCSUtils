@@ -41,6 +41,7 @@ class ReturnTypeTokensTest extends TestCase
             \T_FALSE        => \T_FALSE,
             \T_NULL         => \T_NULL,
             \T_ARRAY        => \T_ARRAY,
+            \T_NAMESPACE    => \T_NAMESPACE,
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_BITWISE_OR   => \T_BITWISE_OR,
         ];
