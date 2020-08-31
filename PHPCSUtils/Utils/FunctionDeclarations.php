@@ -171,6 +171,7 @@ class FunctionDeclarations
      * - To allow for backward compatible handling of arrow functions, this method will also accept
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
+     * - Support for namespace operator in type declarations.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -297,6 +298,16 @@ class FunctionDeclarations
 
                 if ($scopeOpener === null && $tokens[$i]['code'] === \T_SEMICOLON) {
                     // End of abstract/interface function definition.
+                    break;
+                }
+
+                /*
+                 * Work-around for a scope map tokenizer bug in PHPCS.
+                 * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
+                 */
+                if ($scopeOpener === null && $tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
+                    // End of function definition for which the scope opener is incorrectly not set.
+                    $hasBody = true;
                     break;
                 }
 
