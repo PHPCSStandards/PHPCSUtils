@@ -64,6 +64,9 @@ $fn = fn($x) : ?\My\NS\ClassName => $x;
 /* testReturnTypeNullableFQNClass */
 $a = fn(?\DateTime $x) : ?\DateTime => $x;
 
+/* testNamespaceOperatorInTypes */
+$fn = fn(namespace\Foo $a) : ?namespace\Foo => $a;
+
 /* testReturnTypeSelf */
 $fn = fn(self $a) : ?self => $a;
 

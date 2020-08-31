@@ -348,6 +348,18 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'arrow-function-with-namespace-operator-in-types' => [
+                '/* testNamespaceOperatorInTypes */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 7,
+                        'scope_opener'       => 16,
+                        'scope_closer'       => 19,
+                    ],
+                ],
+            ],
             'arrow-function-with-return-type-nullable-self' => [
                 '/* testReturnTypeSelf */',
                 [
