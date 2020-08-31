@@ -226,6 +226,7 @@ class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
+     *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name will be clean of superfluous whitespace and/or comments.
      *
@@ -260,6 +261,7 @@ class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
+     *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name(s) will be clean of superfluous whitespace and/or comments.
      *
@@ -326,23 +328,29 @@ class ObjectDeclarations
 
         if (isset($tokens[$stackPtr]) === false
             || isset($allowedFor[$tokens[$stackPtr]['code']]) === false
-            || isset($tokens[$stackPtr]['scope_opener']) === false
         ) {
             return false;
         }
 
-        $scopeOpener = $tokens[$stackPtr]['scope_opener'];
-        $keywordPtr  = $phpcsFile->findNext($keyword, ($stackPtr + 1), $scopeOpener);
+        if (isset($tokens[$stackPtr]['scope_opener']) === true) {
+            $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+        } else {
+            /*
+             * Work-around for a scope map tokenizer bug in PHPCS.
+             * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
+             */
+            $scopeOpener = $phpcsFile->findNext(\T_OPEN_CURLY_BRACKET, ($stackPtr + 1), null);
+            if ($scopeOpener === false) {
+                return false;
+            }
+        }
+
+        $keywordPtr = $phpcsFile->findNext($keyword, ($stackPtr + 1), $scopeOpener);
         if ($keywordPtr === false) {
             return false;
         }
 
-        $find  = [
-            \T_NS_SEPARATOR,
-            \T_STRING,
-        ];
-        $find += Tokens::$emptyTokens;
-
+        $find  = Collections::$OONameTokens + Tokens::$emptyTokens;
         $names = [];
         $end   = $keywordPtr;
         do {
