@@ -88,7 +88,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
     public function dataGetMemberProperties()
     {
         return [
-            [
+            'php8-union-types-simple' => [
                 '/* testPHP8UnionTypesSimple */',
                 [
                     'scope'           => 'public',
@@ -100,7 +100,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-two-classes' => [
                 '/* testPHP8UnionTypesTwoClasses */',
                 [
                     'scope'           => 'private',
@@ -112,7 +112,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-all-base-types' => [
                 '/* testPHP8UnionTypesAllBaseTypes */',
                 [
                     'scope'           => 'protected',
@@ -124,7 +124,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-all-pseudo-types' => [
                 '/* testPHP8UnionTypesAllPseudoTypes */',
                 [
                     'scope'           => 'public',
@@ -136,7 +136,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-illegal-types' => [
                 '/* testPHP8UnionTypesIllegalTypes */',
                 [
                     'scope'           => 'public',
@@ -148,7 +148,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-nullable' => [
                 '/* testPHP8UnionTypesNullable */',
                 [
                     'scope'           => 'public',
@@ -160,7 +160,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'php8-union-types-pseudo-type-null' => [
                 '/* testPHP8PseudoTypeNull */',
                 [
                     'scope'           => 'public',
@@ -172,7 +172,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-pseudo-type-false' => [
                 '/* testPHP8PseudoTypeFalse */',
                 [
                     'scope'           => 'public',
@@ -184,7 +184,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-pseudo-type-false-and-bool' => [
                 '/* testPHP8PseudoTypeFalseAndBool */',
                 [
                     'scope'           => 'public',
@@ -196,7 +196,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-object-and-class' => [
                 '/* testPHP8ObjectAndClass */',
                 [
                     'scope'           => 'public',
@@ -208,7 +208,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-pseudo-type-iterable-and-array' => [
                 '/* testPHP8PseudoTypeIterableAndArray */',
                 [
                     'scope'           => 'public',
@@ -220,7 +220,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-union-types-duplicate-type-with-whitespace-and-comments' => [
                 '/* testPHP8DuplicateTypeInUnionWhitespaceAndComment */',
                 [
                     'scope'           => 'public',
