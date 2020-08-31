@@ -194,7 +194,7 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
             ],
             'test-arrow-key-closure-with-keyed-yield' => [
                 '/* testArrowKeyClosureYieldWithKey */',
-                24,
+                25,
             ],
             'test-arrow-value-fn-function' => [
                 '/* testFnFunctionWithKey */',

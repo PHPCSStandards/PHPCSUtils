@@ -6,7 +6,7 @@ interface Base
     protected $anonymous;
 }
 
-$anon = class() {
+$anon = new class() {
     /* testPHP8UnionTypesSimple */
     public int|float $unionTypeSimple;
 

@@ -49,9 +49,9 @@ $a = new class {
     function __myFunction() {}
 };
 
-class MySoapImplementation extends \SoapClient {
+abstract class MySoapImplementation extends \SoapClient {
     /* testDoubleUnderscoreMethodInClass */
-    public function __getCookies() {}
+    abstract public function __getCookies();
 
     /* testDoubleUnderscoreMethodInClassMixedcase */
     public function __getLASTRequestHeaders() {}
@@ -86,7 +86,7 @@ interface MagicInterface
     function __set_state($name, $args);
 
     /* testDoubleUnderscoreMethodInInterface */
-    public function __setLocation() {}
+    public function __setLocation();
 
     /* testMagicFunctionInInterfaceNotGlobal */
     function __autoload();

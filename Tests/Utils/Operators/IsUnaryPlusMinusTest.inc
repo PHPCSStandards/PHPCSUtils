@@ -71,7 +71,7 @@ $a = $a ? -1 :
     + 10;
 
 /* testUnaryMinusCoalesce */
-$a = $a ?? -1 :
+$a = $a ?? -1 ;
 
 /* testUnaryPlusIntReturn */
 return +1;

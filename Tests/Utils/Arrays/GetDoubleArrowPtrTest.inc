@@ -67,10 +67,10 @@ $array = [
     },
 
     /* testNoArrowValueClosureYieldWithKey */
-    function() { yield 'k' => $x },
+    function() { yield 'k' => $x; },
 
     /* testArrowKeyClosureYieldWithKey */
-    function() { yield 'k' => $x }() => 'value',
+    function() { yield 'k' => $x; }() => 'value',
 
     /* testFnFunctionWithKey */
     'fn' => fn ($x) => yield 'k' => $x,
