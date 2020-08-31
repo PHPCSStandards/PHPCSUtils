@@ -52,3 +52,8 @@ $anon = class() {
     // Intentional fatal error - duplicate types are not allowed in union types, but that's not the concern of the method.
     public int |string| /*comment*/ INT $duplicateTypeInUnion;
 };
+
+class NSOperatorInType {
+    /* testNamespaceOperatorTypeHint */
+    public ?namespace\Name $prop;
+}
