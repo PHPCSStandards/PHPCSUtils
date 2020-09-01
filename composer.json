@@ -49,7 +49,7 @@
             "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
         ],
         "install-devcs": [
-            "composer require phpcsstandards/phpcsdevcs:\"^1.0\" --no-suggest --update-no-dev"
+            "composer require phpcsstandards/phpcsdevcs:\"^1.1\" --no-suggest --update-no-dev"
         ],
         "remove-devcs": [
             "composer remove phpcsstandards/phpcsdevcs --update-no-dev"
