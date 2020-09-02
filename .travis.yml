@@ -196,15 +196,15 @@ before_install:
 
 install:
   # Set up test environment using Composer.
-  - composer require --no-update --no-scripts squizlabs/php_codesniffer:${PHPCS_VERSION}
+  - travis_retry composer require --no-update --no-scripts squizlabs/php_codesniffer:${PHPCS_VERSION}
   - |
     if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Coverage" ]]; then
-      composer require --dev --no-update --no-suggest --no-scripts php-coveralls/php-coveralls:${COVERALLS_VERSION}
+      travis_retry composer require --dev --no-update --no-suggest --no-scripts php-coveralls/php-coveralls:${COVERALLS_VERSION}
     fi
   - |
     if [[ "${TRAVIS_BUILD_STAGE_NAME^}" == "Sniff" ]]; then
       # Don't install PHPUnit when it's not needed.
-      composer remove --dev phpunit/phpunit --no-update --no-scripts
+      travis_retry composer remove --dev phpunit/phpunit --no-update --no-scripts
     fi
 
   # --prefer-dist will allow for optimal use of the travis caching ability.
@@ -213,12 +213,12 @@ install:
     if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
       # Temporary fix - PHPUnit 9.3 is buggy when used for code coverage, so not allowed "normally".
       # As PHP 8 doesn't run code coverage, we can safely install it there though.
-      composer require --no-update phpunit/phpunit:"^9.3"
+      travis_retry composer require --no-update phpunit/phpunit:"^9.3"
       # Not all PHPUnit dependencies have stable releases yet allowing for PHP 8.0.
-      composer install --prefer-dist --no-suggest --ignore-platform-reqs
+      travis_retry composer install --prefer-dist --no-suggest --ignore-platform-reqs
     else
       # Do a normal dev install in all other cases.
-      composer install --prefer-dist --no-suggest
+      travis_retry composer install --prefer-dist --no-suggest
     fi
 
 
