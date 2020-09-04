@@ -79,6 +79,9 @@ return +1;
 /* testUnaryMinusFloatReturn */
 return -1.1;
 
+/* testUnaryPlusIntExit */
+exit -1;
+
 /* testUnaryPlusPrint */
 print +$b;
 
@@ -126,13 +129,13 @@ declare( ticks = +10 );
 switch ($a) {
     /* testUnaryPlusCase */
     case +20:
-        // Something.
-        break;
+        /* testUnaryPlusContinue */
+        continue +2;
 
     /* testUnaryMinusCase */
     case -1.23:
-        // Something.
-        break;
+        /* testUnaryPlusBreak */
+        break +1;
 }
 
 // Testing `$a = -+-+10`;

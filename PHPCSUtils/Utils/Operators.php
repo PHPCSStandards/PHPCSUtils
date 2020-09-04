@@ -43,6 +43,9 @@ class Operators
     private static $extraUnaryIndicators = [
         \T_STRING_CONCAT       => true,
         \T_RETURN              => true,
+        \T_EXIT                => true,
+        \T_CONTINUE            => true,
+        \T_BREAK               => true,
         \T_ECHO                => true,
         \T_PRINT               => true,
         \T_YIELD               => true,

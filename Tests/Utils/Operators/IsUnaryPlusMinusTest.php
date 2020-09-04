@@ -196,6 +196,10 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
                 '/* testUnaryMinusFloatReturn */',
                 true,
             ],
+            'unary-minus-int-exit' => [
+                '/* testUnaryPlusIntExit */',
+                true,
+            ],
             'unary-plus-print' => [
                 '/* testUnaryPlusPrint */',
                 true,
@@ -256,8 +260,16 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
                 '/* testUnaryPlusCase */',
                 true,
             ],
+            'unary-plus-continue' => [
+                '/* testUnaryPlusContinue */',
+                true,
+            ],
             'unary-minus-switch-case' => [
                 '/* testUnaryMinusCase */',
+                true,
+            ],
+            'unary-minus-break' => [
+                '/* testUnaryPlusBreak */',
                 true,
             ],
             'operator-sequence-non-unary-1' => [
