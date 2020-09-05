@@ -309,6 +309,14 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
+                '/* testUseByReferenceWithCommentFirstParam */',
+                true,
+            ],
+            [
+                '/* testUseByReferenceWithCommentSecondParam */',
+                true,
+            ],
+            [
                 '/* testArrowFunctionReturnByReference */',
                 true,
             ],
