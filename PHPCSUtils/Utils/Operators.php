@@ -124,7 +124,10 @@ class Operators
         if ($lastOpener !== false) {
             $lastOwner = Parentheses::getOwner($phpcsFile, $lastOpener);
 
-            if (isset(Collections::functionDeclarationTokensBC()[$tokens[$lastOwner]['code']]) === true) {
+            if (isset(Collections::functionDeclarationTokensBC()[$tokens[$lastOwner]['code']]) === true
+                // As of PHPCS 4.x, `T_USE` is a parenthesis owner.
+                || $tokens[$lastOwner]['code'] === \T_USE
+            ) {
                 $params = FunctionDeclarations::getParameters($phpcsFile, $lastOwner);
                 foreach ($params as $param) {
                     if ($param['reference_token'] === $stackPtr) {

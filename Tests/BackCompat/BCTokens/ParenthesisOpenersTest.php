@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,6 +34,7 @@ class ParenthesisOpenersTest extends TestCase
      */
     public function testParenthesisOpeners()
     {
+        $version  = Helper::getVersion();
         $expected = [
             \T_ARRAY      => \T_ARRAY,
             \T_LIST       => \T_LIST,
@@ -48,6 +50,10 @@ class ParenthesisOpenersTest extends TestCase
             \T_CATCH      => \T_CATCH,
             \T_DECLARE    => \T_DECLARE,
         ];
+
+        if (\version_compare($version, '4.0.0', '>=') === true) {
+            $expected[\T_USE] = \T_USE;
+        }
 
         \asort($expected);
 
