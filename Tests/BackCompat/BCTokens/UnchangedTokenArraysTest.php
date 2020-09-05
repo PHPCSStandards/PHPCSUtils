@@ -213,12 +213,15 @@ class UnchangedTokenArraysTest extends TestCase
     public function dataUnchangedTokenArrays()
     {
         $phpunitProp = [
-            'backupGlobals'                   => true,
-            'backupGlobalsBlacklist'          => true,
-            'backupStaticAttributes'          => true,
-            'backupStaticAttributesBlacklist' => true,
-            'runTestInSeparateProcess'        => true,
-            'preserveGlobalState'             => true,
+            'backupGlobals'                     => true,
+            'backupGlobalsBlacklist'            => true,
+            'backupGlobalsExcludeList'          => true,
+            'backupStaticAttributes'            => true,
+            'backupStaticAttributesBlacklist'   => true,
+            'backupStaticAttributesExcludeList' => true,
+            'runTestInSeparateProcess'          => true,
+            'preserveGlobalState'               => true,
+            'providedTests'                     => true,
         ];
 
         $data        = [];
