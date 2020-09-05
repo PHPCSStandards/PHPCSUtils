@@ -85,6 +85,18 @@ class IsReferenceDiffTest extends UtilityMethodTestCase
                 '/* testTokenizerIssue1284PHPCSlt280C */',
                 true,
             ],
+            'issue-3049-arrow-function-pass-by-reference-A' => [
+                '/* testArrowFunctionPassByReferenceA */',
+                true,
+            ],
+            'issue-3049-arrow-function-pass-by-reference-B' => [
+                '/* testArrowFunctionPassByReferenceB */',
+                true,
+            ],
+            'issue-3049-arrow-function-parameter-default' => [
+                '/* testArrowFunctionNonReferenceInDefault */',
+                false,
+            ],
         ];
     }
 }
