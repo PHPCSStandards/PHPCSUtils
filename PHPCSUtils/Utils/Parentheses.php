@@ -70,7 +70,10 @@ class Parentheses
             $stackPtr = $tokens[$stackPtr]['parenthesis_opener'];
         }
 
-        $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+        $skip                 = Tokens::$emptyTokens;
+        $skip[\T_BITWISE_AND] = \T_BITWISE_AND;
+
+        $prevNonEmpty = $phpcsFile->findPrevious($skip, ($stackPtr - 1), null, true);
         if ($prevNonEmpty !== false
             && ($tokens[$prevNonEmpty]['code'] === \T_LIST
             || $tokens[$prevNonEmpty]['code'] === \T_ANON_CLASS
