@@ -168,3 +168,14 @@ fn&($x) => $x;
 
 /* testClosureReturnByReference */
 $closure = function &($param) use ($value) {};
+
+$closure = function (
+    /* testPassByReferenceExactParameterA */
+    $a = MY_CONSTANT & parent::OTHER_CONSTANT,
+    /* testPassByReferenceExactParameterB */
+    &$b,
+    /* testPassByReferenceExactParameterC */
+    &...$c,
+    /* testPassByReferenceExactParameterD */
+    $d = E_NOTICE & E_STRICT,
+) {};
