@@ -159,6 +159,23 @@ jobs:
     - php: 7.4
       env: PHPCS_VERSION="4.0.x-dev@dev"
 
+    # Run risky tests separately.
+    - php: 7.4
+      env: PHPCS_VERSION="4.0.x-dev@dev" TEST_RISKY=1
+      before_script: skip
+      script:
+        # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
+        - composer test -- --group compareWithPHPCS --exclude-group nothing
+      after_success: skip
+
+    - php: 7.4
+      env: PHPCS_VERSION="dev-master" TEST_RISKY=1
+      before_script: skip
+      script:
+        # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
+        - composer test -- --group compareWithPHPCS --exclude-group nothing
+      after_success: skip
+
     #### CODE COVERAGE STAGE ####
     # N.B.: Coverage is only checked on the lowest and highest stable PHP versions for all PHPCS versions.
     # These builds are left out off the "test" stage so as not to duplicate test runs.
@@ -182,6 +199,8 @@ jobs:
     # Allow failures for unstable builds.
     - php: "nightly"
     - env: PHPCS_VERSION="4.0.x-dev@dev"
+    - env: PHPCS_VERSION="4.0.x-dev@dev" TEST_RISKY=1
+    - env: PHPCS_VERSION="dev-master" TEST_RISKY=1
 
 
 before_install:

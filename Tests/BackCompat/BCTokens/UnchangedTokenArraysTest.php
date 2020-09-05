@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPUnit\Framework\TestCase;
 
@@ -241,5 +242,23 @@ class UnchangedTokenArraysTest extends TestCase
     public function testUndeclaredTokenArray()
     {
         $this->assertSame([], BCTokens::notATokenArray());
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @dataProvider dataUnchangedTokenArrays
+     *
+     * @param string $name The token array name.
+     *
+     * @return void
+     */
+    public function testPHPCSUnchangedTokenArrays($name)
+    {
+        $this->assertSame(Tokens::${$name}, BCTokens::$name());
     }
 }

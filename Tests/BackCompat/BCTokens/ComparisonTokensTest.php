@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
@@ -53,5 +54,19 @@ class ComparisonTokensTest extends TestCase
         }
 
         $this->assertSame($expected, BCTokens::comparisonTokens());
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @return void
+     */
+    public function testPHPCSComparisonTokens()
+    {
+        $this->assertSame(Tokens::$comparisonTokens, BCTokens::comparisonTokens());
     }
 }
