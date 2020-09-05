@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
@@ -108,5 +109,53 @@ class EmptyTokensTest extends TestCase
         }
 
         $this->assertSame($expected, BCTokens::phpcsCommentTokens());
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+     *
+     * @return void
+     */
+    public function testPHPCSEmptyTokens()
+    {
+        $this->assertSame(Tokens::$emptyTokens, BCTokens::emptyTokens());
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+     *
+     * @return void
+     */
+    public function testPHPCSUpstreamCommentTokens()
+    {
+        $this->assertSame(Tokens::$commentTokens, BCTokens::commentTokens());
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @covers \PHPCSUtils\BackCompat\BCTokens::phpcsCommentTokens
+     *
+     * @return void
+     */
+    public function testPHPCSPhpcsCommentTokens()
+    {
+        $this->assertSame(Tokens::$phpcsCommentTokens, BCTokens::phpcsCommentTokens());
     }
 }

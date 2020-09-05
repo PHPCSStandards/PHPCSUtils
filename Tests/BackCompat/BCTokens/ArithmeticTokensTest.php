@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPUnit\Framework\TestCase;
 
@@ -42,5 +43,19 @@ class ArithmeticTokensTest extends TestCase
         ];
 
         $this->assertSame($expected, BCTokens::arithmeticTokens());
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @return void
+     */
+    public function testPHPCSArithmeticTokens()
+    {
+        $this->assertSame(Tokens::$arithmeticTokens, BCTokens::arithmeticTokens());
     }
 }
