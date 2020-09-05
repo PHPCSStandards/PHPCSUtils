@@ -125,7 +125,7 @@ class Operators
             if ($lastOwner !== false) {
                 $params = FunctionDeclarations::getParameters($phpcsFile, $lastOwner);
                 foreach ($params as $param) {
-                    if ($param['pass_by_reference'] === true) {
+                    if ($param['reference_token'] === $stackPtr) {
                         // Function parameter declared to be passed by reference.
                         return true;
                     }
