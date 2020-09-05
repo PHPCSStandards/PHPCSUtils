@@ -163,6 +163,12 @@ functionCall( $something , &new Foobar() );
 /* testUseByReference */
 $closure = function() use (&$var){};
 
+/* testUseByReferenceWithCommentFirstParam */
+$closure = function() use /*comment*/ (&$this->value){};
+
+/* testUseByReferenceWithCommentSecondParam */
+$closure = function() use /*comment*/ ($varA, &$varB){};
+
 /* testArrowFunctionReturnByReference */
 fn&($x) => $x;
 

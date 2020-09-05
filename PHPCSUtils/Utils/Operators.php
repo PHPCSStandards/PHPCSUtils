@@ -130,23 +130,13 @@ class Operators
                         return true;
                     }
                 }
-            } elseif (isset($tokens[$lastOpener]['parenthesis_owner']) === false) {
-                $prev = false;
-                for ($t = ($lastOpener - 1); $t >= 0; $t--) {
-                    if ($tokens[$t]['code'] !== \T_WHITESPACE) {
-                        $prev = $t;
-                        break;
-                    }
-                }
-
-                if ($prev !== false && $tokens[$prev]['code'] === \T_USE) {
-                    // Closure use by reference.
-                    return true;
-                }
             }
         }
 
-        // Pass by reference in function calls and assign by reference in arrays.
+        /*
+         * Pass by reference in function calls, assign by reference in arrays and
+         * closure use by reference in PHPCS 2.x and 3.x.
+         */
         if ($tokens[$tokenBefore]['code'] === \T_OPEN_PARENTHESIS
             || $tokens[$tokenBefore]['code'] === \T_COMMA
             || $tokens[$tokenBefore]['code'] === \T_OPEN_SHORT_ARRAY
