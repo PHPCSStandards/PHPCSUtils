@@ -436,6 +436,7 @@ class FunctionDeclarations
         }
 
         if ($tokens[$stackPtr]['code'] === \T_USE) {
+            // This will work PHPCS 3.x/4.x cross-version without much overhead.
             $opener = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
             if ($opener === false
                 || $tokens[$opener]['code'] !== \T_OPEN_PARENTHESIS
