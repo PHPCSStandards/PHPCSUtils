@@ -40,6 +40,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\Parentheses;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -989,6 +990,8 @@ class BCFile
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions returning by reference.
      * - PHPCS 3.5.6: Bug fix: the reference operator for closures declared to return by reference was
      *                not recognized as a reference. PHPCS#2977.
+     * - PHPCS 3.5.7: Bug fix: Parameters passed by reference in arrow functions are recognized correctly.
+     *                PHPCS #3049/#3103
      *
      * @see \PHP_CodeSniffer\Files\File::isReference() Original source.
      * @see \PHPCSUtils\Utils\Operators::isReference() PHPCSUtils native improved version.
@@ -1044,14 +1047,11 @@ class BCFile
         }
 
         if (isset($tokens[$stackPtr]['nested_parenthesis']) === true) {
-            $brackets    = $tokens[$stackPtr]['nested_parenthesis'];
-            $lastBracket = array_pop($brackets);
-            if (isset($tokens[$lastBracket]['parenthesis_owner']) === true) {
-                $owner = $tokens[$tokens[$lastBracket]['parenthesis_owner']];
-                if ($owner['code'] === T_FUNCTION
-                    || $owner['code'] === T_CLOSURE
-                ) {
-                    $params = self::getMethodParameters($phpcsFile, $tokens[$lastBracket]['parenthesis_owner']);
+            $lastBracket = Parentheses::getLastOpener($phpcsFile, $stackPtr);
+            if ($lastBracket !== false) {
+                $owner = Parentheses::getOwner($phpcsFile, $lastBracket);
+                if (isset(Collections::functionDeclarationTokensBC()[$tokens[$owner]['code']]) === true) {
+                    $params = self::getMethodParameters($phpcsFile, $owner);
                     foreach ($params as $param) {
                         if ($param['reference_token'] === $stackPtr) {
                             // Function parameter declared to be passed by reference.

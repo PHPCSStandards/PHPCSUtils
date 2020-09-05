@@ -188,3 +188,13 @@ $closure = function (
     /* testPassByReferenceExactParameterD */
     $d = E_NOTICE & E_STRICT,
 ) {};
+
+// Issue PHPCS#3049.
+/* testArrowFunctionPassByReferenceA */
+$fn = fn(array &$one) => 1;
+
+/* testArrowFunctionPassByReferenceB */
+$fn = fn($param, &...$moreParams) => 1;
+
+/* testArrowFunctionNonReferenceInDefault */
+$fn = fn( $one = E_NOTICE & E_STRICT) => 1;

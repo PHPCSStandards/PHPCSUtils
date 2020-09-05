@@ -11,12 +11,3 @@ if ($foo) {}
 /* testTokenizerIssue1284PHPCSlt280C */
 if ($foo) {}
 [&$a, $b];
-
-/* testArrowFunctionPassByReferenceA */
-$fn = fn(array &$one) => 1;
-
-/* testArrowFunctionPassByReferenceB */
-$fn = fn($param, &...$moreParams) => 1;
-
-/* testArrowFunctionNonReferenceInDefault */
-$fn = fn( $one = E_NOTICE & E_STRICT) => 1;
