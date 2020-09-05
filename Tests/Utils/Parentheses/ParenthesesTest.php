@@ -149,6 +149,11 @@ class ParenthesesTest extends UtilityMethodTestCase
             'marker'  => '/* testFunctionCallFnPHPCS353-354 */',
             'code'    => \T_TRUE,
         ],
+        'testArrowFunctionReturnByRef' => [
+            'marker'  => '/* testArrowFunctionByReference */',
+            'code'    => \T_VARIABLE,
+            'content' => '$x',
+        ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
             'code'    => \T_LNUMBER,
@@ -734,6 +739,23 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => false,
                 ],
             ],
+            'testArrowFunctionReturnByRef' => [
+                'testArrowFunctionReturnByRef',
+                [
+                    'firstOpener'           => -1,
+                    'firstCloser'           => 1,
+                    'firstOwner'            => -4,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -4,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
             'testParseError-1' => [
                 'testParseError-1',
                 [
@@ -928,6 +950,12 @@ class ParenthesesTest extends UtilityMethodTestCase
             'testMethodCalledFn-true' => [
                 'testMethodCalledFn-true',
                 [],
+            ],
+            'testArrowFunctionReturnByRef' => [
+                'testArrowFunctionReturnByRef',
+                [
+                    'T_FN' => true,
+                ],
             ],
             'testParseError-1' => [
                 'testParseError-1',
@@ -1159,6 +1187,11 @@ class ParenthesesTest extends UtilityMethodTestCase
                 'testAnonClass-$e',
                 [\T_CATCH],
                 -5,
+            ],
+            'testArrowFunctionReturnByRef' => [
+                'testArrowFunctionReturnByRef',
+                $arrowFunctionOwners,
+                -4,
             ],
         ];
     }
