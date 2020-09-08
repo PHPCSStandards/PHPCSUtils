@@ -138,6 +138,9 @@ switch ($a) {
         break +1;
 }
 
+/* testUnaryMinusArrowFunction */
+$fn = static fn(DateTime $a, DateTime $b): int => -($a->getTimestamp() <=> $b->getTimestamp());
+
 // Testing `$a = -+-+10`;
 $a =
     /* testSequenceNonUnary1 */

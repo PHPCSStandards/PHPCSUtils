@@ -268,8 +268,12 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
                 '/* testUnaryMinusCase */',
                 true,
             ],
-            'unary-minus-break' => [
+            'unary-plus-break' => [
                 '/* testUnaryPlusBreak */',
+                true,
+            ],
+            'unary-minus-arrow-function' => [
+                '/* testUnaryMinusArrowFunction */',
                 true,
             ],
             'operator-sequence-non-unary-1' => [

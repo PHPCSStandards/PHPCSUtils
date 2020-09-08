@@ -408,6 +408,7 @@ class Operators
             || isset(BCTokens::assignmentTokens()[$tokens[$prev]['code']]) === true
             || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
             || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
+            || $tokens[$prev]['type'] === 'T_FN_ARROW'
         ) {
             return true;
         }
