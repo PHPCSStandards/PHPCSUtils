@@ -1044,19 +1044,7 @@ class BCFile
                 ) {
                     $params = self::getMethodParameters($phpcsFile, $tokens[$lastBracket]['parenthesis_owner']);
                     foreach ($params as $param) {
-                        $varToken = $tokenAfter;
-                        if ($param['variable_length'] === true) {
-                            $varToken = $phpcsFile->findNext(
-                                (Tokens::$emptyTokens + [T_ELLIPSIS]),
-                                ($stackPtr + 1),
-                                null,
-                                true
-                            );
-                        }
-
-                        if ($param['token'] === $varToken
-                            && $param['pass_by_reference'] === true
-                        ) {
+                        if ($param['reference_token'] === $stackPtr) {
                             // Function parameter declared to be passed by reference.
                             return true;
                         }
