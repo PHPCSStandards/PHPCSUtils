@@ -95,6 +95,8 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
      */
     public function dataGetCaughtExceptions()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'single-name-only' => [
                 'target'        => '/* testSingleCatchNameOnly */',
@@ -112,7 +114,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     [
                         'type'           => '\RuntimeException',
                         'type_token'     => 3,
-                        'type_end_token' => 4,
+                        'type_end_token' => ($php8Names === true) ? 3 : 4,
                     ],
                 ],
             ],
@@ -122,7 +124,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     [
                         'type'           => 'MyNS\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => 6,
+                        'type_end_token' => ($php8Names === true) ? 4 : 6,
                     ],
                 ],
             ],
@@ -132,7 +134,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     [
                         'type'           => '\MyNS\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => 7,
+                        'type_end_token' => ($php8Names === true) ? 4 : 7,
                     ],
                 ],
             ],
@@ -142,7 +144,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     [
                         'type'           => 'My\NS\Sub\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => 15,
+                        'type_end_token' => ($php8Names === true) ? 13 : 15,
                     ],
                 ],
             ],
@@ -152,7 +154,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     [
                         'type'           => 'namespace\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => 6,
+                        'type_end_token' => ($php8Names === true) ? 4 : 6,
                     ],
                 ],
             ],
@@ -183,17 +185,17 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     [
                         'type'           => '\NS\RuntimeException',
                         'type_token'     => 3,
-                        'type_end_token' => 6,
+                        'type_end_token' => ($php8Names === true) ? 3 : 6,
                     ],
                     [
                         'type'           => 'My\ParseErrorException',
-                        'type_token'     => 10,
-                        'type_end_token' => 12,
+                        'type_token'     => ($php8Names === true) ? 7 : 10,
+                        'type_end_token' => ($php8Names === true) ? 7 : 12,
                     ],
                     [
                         'type'           => 'namespace\AnotherException',
-                        'type_token'     => 16,
-                        'type_end_token' => 20,
+                        'type_token'     => ($php8Names === true) ? 11 : 16,
+                        'type_end_token' => ($php8Names === true) ? 15 : 20,
                     ],
                 ],
             ],

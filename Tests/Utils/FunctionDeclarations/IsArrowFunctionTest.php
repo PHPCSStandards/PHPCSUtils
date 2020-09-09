@@ -134,6 +134,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function dataArrowFunction()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'arrow-function-standard' => [
                 '/* testStandard */',
@@ -331,8 +333,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     'get' => [
                         'parenthesis_opener' => 1,
                         'parenthesis_closer' => 3,
-                        'scope_opener'       => 15,
-                        'scope_closer'       => 18,
+                        'scope_opener'       => ($php8Names === true) ? 10 : 15,
+                        'scope_closer'       => ($php8Names === true) ? 13 : 18,
                     ],
                 ],
             ],
@@ -342,9 +344,9 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
-                        'parenthesis_closer' => 7,
-                        'scope_opener'       => 15,
-                        'scope_closer'       => 18,
+                        'parenthesis_closer' => ($php8Names === true) ? 6 : 7,
+                        'scope_opener'       => ($php8Names === true) ? 13 : 15,
+                        'scope_closer'       => ($php8Names === true) ? 16 : 18,
                     ],
                 ],
             ],
@@ -354,9 +356,9 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
-                        'parenthesis_closer' => 7,
-                        'scope_opener'       => 16,
-                        'scope_closer'       => 19,
+                        'parenthesis_closer' => ($php8Names === true) ? 5 : 7,
+                        'scope_opener'       => ($php8Names === true) ? 12 : 16,
+                        'scope_closer'       => ($php8Names === true) ? 15 : 19,
                     ],
                 ],
             ],
