@@ -907,24 +907,26 @@ class Collections
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$returnTypeTokens} property.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @return array <int|string> => <int|string>
      */
     public static function returnTypeTokens()
     {
-        return [
-            \T_STRING       => \T_STRING,
-            \T_CALLABLE     => \T_CALLABLE,
-            \T_SELF         => \T_SELF,
-            \T_PARENT       => \T_PARENT,
-            \T_STATIC       => \T_STATIC,
-            \T_FALSE        => \T_FALSE,      // Union types only.
-            \T_NULL         => \T_NULL,       // Union types only.
-            \T_ARRAY        => \T_ARRAY,      // Arrow functions PHPCS < 3.5.4 + union types.
-            \T_NAMESPACE    => \T_NAMESPACE,
-            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-            \T_BITWISE_OR   => \T_BITWISE_OR, // Union types.
+        $tokens = [
+            \T_CALLABLE   => \T_CALLABLE,
+            \T_SELF       => \T_SELF,
+            \T_PARENT     => \T_PARENT,
+            \T_STATIC     => \T_STATIC,
+            \T_FALSE      => \T_FALSE,      // Union types only.
+            \T_NULL       => \T_NULL,       // Union types only.
+            \T_ARRAY      => \T_ARRAY,      // Arrow functions PHPCS < 3.5.4 + union types.
+            \T_BITWISE_OR => \T_BITWISE_OR, // Union types.
         ];
+
+        $tokens += self::namespacedNameTokens();
+
+        return $tokens;
     }
 
     /**
@@ -946,6 +948,7 @@ class Collections
      *
      * @since 1.0.0-alpha3
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @return array <int|string> => <int|string>
      */

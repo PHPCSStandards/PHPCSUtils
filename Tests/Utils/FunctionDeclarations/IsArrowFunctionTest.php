@@ -352,6 +352,18 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'arrow-function-with-return-type-nullable-partially-qualified-class' => [
+                '/* testReturnTypePartiallyQualifiedClass */',
+                [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 3,
+                        'scope_opener'       => ($php8Names === true) ? 10 : 12,
+                        'scope_closer'       => ($php8Names === true) ? 13 : 15,
+                    ],
+                ],
+            ],
             'arrow-function-with-fqn-class' => [
                 '/* testReturnTypeNullableFQNClass */',
                 [

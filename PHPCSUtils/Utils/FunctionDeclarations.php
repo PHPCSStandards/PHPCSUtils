@@ -172,6 +172,7 @@ class FunctionDeclarations
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
      * - Support for namespace operator in type declarations.
+     * - Support for PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -700,6 +701,7 @@ class FunctionDeclarations
      * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction() Related function.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Handling of PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The token to retrieve the openers/closers for.
