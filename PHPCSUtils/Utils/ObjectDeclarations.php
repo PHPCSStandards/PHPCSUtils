@@ -350,7 +350,7 @@ class ObjectDeclarations
             return false;
         }
 
-        $find  = Collections::$OONameTokens + Tokens::$emptyTokens;
+        $find  = Collections::namespacedNameTokens() + Tokens::$emptyTokens;
         $names = [];
         $end   = $keywordPtr;
         do {
