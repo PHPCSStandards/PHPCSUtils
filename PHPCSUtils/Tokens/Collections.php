@@ -620,6 +620,11 @@ class Collections
             \T_STRING => \T_STRING,
         ];
 
+        /*
+         * PHP >= 8.0 in combination with PHPCS < 3.5.7 and all PHP versions in combination
+         * with PHPCS >= 3.5.7, though when using PHPCS 3.5.7 < 4.0.0, these tokens are
+         * not yet in use, i.e. the PHP 8.0 change is "undone" for PHPCS 3.x.
+         */
         if (\defined('T_NAME_QUALIFIED') === true) {
             $tokens[\T_NAME_QUALIFIED] = \T_NAME_QUALIFIED;
         }
