@@ -601,6 +601,40 @@ class Collections
     }
 
     /**
+     * The tokens used for "names", be it namespace, OO, function or constant names.
+     *
+     * Includes the tokens introduced in PHP 8.0 for "Namespaced names as single token" when available.
+     *
+     * Note: this is a method, not a property as the PHP 8.0 identifier name tokens may not exist.
+     *
+     * @link https://wiki.php.net/rfc/namespaced_names_as_token
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function nameTokens()
+    {
+        $tokens = [
+            \T_STRING => \T_STRING,
+        ];
+
+        if (\defined('T_NAME_QUALIFIED') === true) {
+            $tokens[\T_NAME_QUALIFIED] = \T_NAME_QUALIFIED;
+        }
+
+        if (\defined('T_NAME_FULLY_QUALIFIED') === true) {
+            $tokens[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
+        }
+
+        if (\defined('T_NAME_RELATIVE') === true) {
+            $tokens[\T_NAME_RELATIVE] = \T_NAME_RELATIVE;
+        }
+
+        return $tokens;
+    }
+
+    /**
      * Object operators.
      *
      * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
