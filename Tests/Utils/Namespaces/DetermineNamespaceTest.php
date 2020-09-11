@@ -200,7 +200,14 @@ class DetermineNamespaceTest extends UtilityMethodTestCase
         $result   = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
         $this->assertFalse($result, 'Failed checking that namespace declaration token is not regarded as namespaced');
 
-        $stackPtr = $this->getTargetToken('/* Non-scoped named namespace 2 */', \T_STRING, 'Package');
+        $targetType    = \T_STRING;
+        $targetContent = 'Package';
+        if (parent::usesPhp8NameTokens() === true) {
+            $targetType    = \T_NAME_QUALIFIED;
+            $targetContent = 'Vendor\Package\Foz';
+        }
+
+        $stackPtr = $this->getTargetToken('/* Non-scoped named namespace 2 */', $targetType, $targetContent);
         $result   = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
         $this->assertFalse($result, 'Failed checking that a token in the namespace name is not regarded as namespaced');
     }
