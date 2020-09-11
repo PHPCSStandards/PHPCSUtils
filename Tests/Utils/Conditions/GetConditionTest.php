@@ -103,7 +103,12 @@ class GetConditionTest extends BCFile_GetConditionTest
      */
     public function testNonConditionalTokenGetFirstLast()
     {
-        $stackPtr = $this->getTargetToken('/* testStartPoint */', \T_STRING);
+        $targetType = \T_STRING;
+        if (parent::usesPhp8NameTokens() === true) {
+            $targetType = \T_NAME_QUALIFIED;
+        }
+
+        $stackPtr = $this->getTargetToken('/* testStartPoint */', $targetType);
 
         $result = Conditions::getFirstCondition(self::$phpcsFile, $stackPtr);
         $this->assertFalse($result, 'Failed asserting that getFirstCondition() on non conditional token returns false');
