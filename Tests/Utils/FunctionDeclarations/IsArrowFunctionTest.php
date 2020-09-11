@@ -85,11 +85,18 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      * @param array  $expected      The expected return value for the respective functions.
      * @param array  $targetContent The content for the target token to look for in case there could
      *                              be confusion.
+     * @param bool   $skipOnPHP8    Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                              name tokenization is used (as the target token won't exist).
+     *                              Defaults to `false`.
      *
      * @return void
      */
-    public function testIsArrowFunction($testMarker, $expected, $targetContent = null)
+    public function testIsArrowFunction($testMarker, $expected, $targetContent = null, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
         $result   = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -105,11 +112,18 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      * @param array  $expected      The expected return value for the respective functions.
      * @param string $targetContent The content for the target token to look for in case there could
      *                              be confusion.
+     * @param bool   $skipOnPHP8    Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                              name tokenization is used (as the target token won't exist).
+     *                              Defaults to `false`.
      *
      * @return void
      */
-    public function testGetArrowFunctionOpenClose($testMarker, $expected, $targetContent = 'fn')
+    public function testGetArrowFunctionOpenClose($testMarker, $expected, $targetContent = 'fn', $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
 
@@ -629,6 +643,7 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     'get' => false,
                 ],
                 'Fn',
+                true,
             ],
             'non-arrow-function-call-to-namespaced-function-using-namespace-operator' => [
                 '/* testNonArrowNamespaceOperatorFunctionCall */',
@@ -636,6 +651,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     'is'  => false,
                     'get' => false,
                 ],
+                'fn',
+                true,
             ],
             'non-arrow-function-declaration-with-union-types' => [
                 '/* testNonArrowFunctionNameWithUnionTypes */',
