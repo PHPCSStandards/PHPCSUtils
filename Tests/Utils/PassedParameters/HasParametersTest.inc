@@ -42,6 +42,19 @@ class Bar {
     }
 }
 
+/* testNoParamsFunctionCallFullyQualified */
+\myfunction(   );
+
+/* testHasParamsFunctionCallFullyQualifiedWithNamespace */
+\My\Named\myfunction( $a );
+
+/* testNoParamsFunctionCallPartiallyQualified */
+Partially\Qualified\myfunction();
+
+/* testHasParamsFunctionCallNamespaceOperator */
+namespace\myfunction( $a );
+
+
 // Arrays: no parameters.
 
 /* testNoParamsLongArray1 */

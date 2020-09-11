@@ -150,6 +150,18 @@ json_encode(['a' => $a, 'b' => $b, 'c' => $c]);
 /* testFunctionCall47 */
 json_encode(['a' => $a, 'b' => $b, 'c' => $c,] + ['c' => $c, 'd' => $d,]);
 
+/* testFunctionCallFullyQualified */
+\myfunction( $a );
+
+/* testFunctionCallFullyQualifiedWithNamespace */
+\My\Named\myfunction( $a );
+
+/* testFunctionCallPartiallyQualified */
+Partially\Qualified\myfunction( $a );
+
+/* testFunctionCallNamespaceOperator */
+namespace\myfunction( $a );
+
 /* testLongArray1 */
 $foo = array( 1, 2, 3, 4, 5, 6, true );
 
