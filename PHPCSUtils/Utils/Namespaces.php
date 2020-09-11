@@ -35,6 +35,7 @@ class Namespaces
      * Determine what a T_NAMESPACE token is used for.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_NAMESPACE` token.
@@ -98,12 +99,14 @@ class Namespaces
         $start = BCFile::findStartOfStatement($phpcsFile, $stackPtr);
         if ($start === $stackPtr
             && ($tokens[$next]['code'] === \T_STRING
+               || $tokens[$next]['type'] === 'T_NAME_QUALIFIED'
                || $tokens[$next]['code'] === \T_OPEN_CURLY_BRACKET)
         ) {
             return 'declaration';
         }
 
-        if ($tokens[$next]['code'] === \T_NS_SEPARATOR
+        if (($tokens[$next]['code'] === \T_NS_SEPARATOR
+            || $tokens[$next]['type'] === 'T_NAME_FULLY_QUALIFIED') // PHP 8.0 parse error.
             && ($start !== $stackPtr
                 || $phpcsFile->findNext($findAfter, ($stackPtr + 1), null, false, null, true) !== false)
         ) {
