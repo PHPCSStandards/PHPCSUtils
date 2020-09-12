@@ -110,6 +110,13 @@ class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
                     '\testInterfaceC',
                 ],
             ],
+            'extends-partially-qualified-names' => [
+                '/* testNamespaceRelativeQualifiedInterface */',
+                [
+                    'Core\File\RelativeInterface',
+                    'Another\RelativeInterface',
+                ],
+            ],
             'extends-using-namespace-operator' => [
                 '/* testExtendsUsingNamespaceOperator */',
                 [

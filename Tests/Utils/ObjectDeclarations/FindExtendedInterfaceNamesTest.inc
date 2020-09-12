@@ -28,6 +28,9 @@ interface testMultiExtendedInterfaceWithComments
 {
 }
 
+/* testNamespaceRelativeQualifiedInterface */
+interface testQualifiedInterfaces extends Core\File\RelativeInterface, Another\RelativeInterface {}
+
 /* testExtendsUsingNamespaceOperator */
 interface testWithNSOperator extends namespace\BarInterface, namespace\Sub\SomeOther {}
 

@@ -229,6 +229,7 @@ class ObjectDeclarations
      *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name will be clean of superfluous whitespace and/or comments.
+     * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()               Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName()             Cross-version compatible version of
@@ -264,6 +265,7 @@ class ObjectDeclarations
      *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name(s) will be clean of superfluous whitespace and/or comments.
+     * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames() Cross-version compatible version of
@@ -310,6 +312,7 @@ class ObjectDeclarations
      * interfaces that the specific class/interface declaration extends/implements.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile  The file where this token was found.
      * @param int                         $stackPtr   The stack position of the
