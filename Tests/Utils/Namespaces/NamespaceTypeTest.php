@@ -60,11 +60,18 @@ class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the functions.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testIsDeclaration($testMarker, $expected)
+    public function testIsDeclaration($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::isDeclaration(self::$phpcsFile, $stackPtr);
 
@@ -78,11 +85,18 @@ class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the functions.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testIsOperator($testMarker, $expected)
+    public function testIsOperator($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::isOperator(self::$phpcsFile, $stackPtr);
 
@@ -127,6 +141,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-with-annotation' => [
                 '/* testNamespaceOperatorWithAnnotation */',
@@ -141,6 +156,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-in-closed-scope' => [
                 '/* testNamespaceOperatorInClosedScope */',
@@ -148,6 +164,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-in-parentheses' => [
                 '/* testNamespaceOperatorInParentheses */',
@@ -155,6 +172,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-global-namespace-start-of-statement-function-call' => [
                 '/* testNamespaceOperatorGlobalNamespaceStartOfStatementFunctionCall */',
@@ -162,6 +180,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-1' => [
                 '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken1 */',
@@ -169,6 +188,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-2' => [
                 '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken2 */',
@@ -176,6 +196,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-3' => [
                 '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken3 */',
@@ -183,6 +204,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-4' => [
                 '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken4 */',
@@ -190,6 +212,7 @@ class NamespaceTypeTest extends UtilityMethodTestCase
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                true,
             ],
             'parse-error-scoped-namespace-declaration' => [
                 '/* testParseErrorScopedNamespaceDeclaration */',
