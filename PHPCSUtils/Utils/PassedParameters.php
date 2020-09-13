@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\GetTokensAsString;
 
@@ -64,7 +65,8 @@ class PassedParameters
     /**
      * Checks if any parameters have been passed.
      *
-     * - If passed a `T_STRING` or `T_VARIABLE` stack pointer, it will treat it as a function call.
+     * - If passed a `T_STRING`, `T_NAME_FULLY_QUALIFIED`, `T_NAME_RELATIVE`, `T_NAME_QUALIFIED`
+     *   or `T_VARIABLE` stack pointer, it will treat it as a function call.
      *   If a `T_STRING` or `T_VARIABLE` which is *not* a function call is passed, the behaviour is
      *   undetermined.
      * - If passed a `T_SELF` or `T_STATIC` stack pointer, it will accept it as a
@@ -75,10 +77,12 @@ class PassedParameters
      *   language constructs have "parameters".
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
+     *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
+     *                                               `T_ISSET`, or `T_UNSET` token.
      *
      * @return bool
      *
@@ -89,7 +93,11 @@ class PassedParameters
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr], self::$allowedConstructs[$tokens[$stackPtr]['code']]) === false) {
+        if (isset($tokens[$stackPtr]) === false
+            || (isset(self::$allowedConstructs[$tokens[$stackPtr]['code']]) === false
+                // Allow for the PHP 8.0 identifier name tokens.
+                && isset(Collections::nameTokens()[$tokens[$stackPtr]['code']]) === false)
+        ) {
             throw new RuntimeException(
                 'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
             );
@@ -159,8 +167,9 @@ class PassedParameters
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
+     *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
+     *                                               `T_ISSET`, or `T_UNSET` token.
      *
      * @return array A multi-dimentional array information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
@@ -281,8 +290,9 @@ class PassedParameters
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
-     * @param int                         $stackPtr    The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                                 `T_OPEN_SHORT_ARRAY`, `T_ISSET` or `T_UNSET` token.
+     * @param int                         $stackPtr    The position of the `T_STRING`, PHP 8.0 identifier
+     *                                                 name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
+     *                                                 `T_ISSET`, or `T_UNSET` token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
      *
      * @return array|false Array with information on the parameter/array item at the specified offset.
@@ -319,8 +329,9 @@ class PassedParameters
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET` or `T_UNSET` token.
+     * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
+     *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
+     *                                               `T_ISSET`, or `T_UNSET` token.
      *
      * @return int
      *

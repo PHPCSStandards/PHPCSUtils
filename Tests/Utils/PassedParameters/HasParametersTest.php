@@ -93,15 +93,17 @@ class HasParametersTest extends UtilityMethodTestCase
      *
      * @dataProvider dataHasParameters
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $targetType The type of token to look for.
-     * @param bool       $expected   Whether or not the function/array has parameters/values.
+     * @param string     $testMarker    The comment which prefaces the target token in the test file.
+     * @param int|string $targetType    The type of token to look for.
+     * @param bool       $expected      Whether or not the function/array has parameters/values.
+     * @param string     $targetContent Optional. The content of the target token to find.
+     *                                  Defaults to null (ignore content).
      *
      * @return void
      */
-    public function testHasParameters($testMarker, $targetType, $expected)
+    public function testHasParameters($testMarker, $targetType, $expected, $targetContent = null)
     {
-        $stackPtr = $this->getTargetToken($testMarker, $targetType);
+        $stackPtr = $this->getTargetToken($testMarker, $targetType, $targetContent);
         $result   = PassedParameters::hasParameters(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -115,6 +117,8 @@ class HasParametersTest extends UtilityMethodTestCase
      */
     public function dataHasParameters()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             // Function calls.
             'no-params-function-call-1' => [
@@ -152,6 +156,30 @@ class HasParametersTest extends UtilityMethodTestCase
                 // In PHPCS < 2.8.0, self in "new self" is tokenized as T_STRING.
                 [\T_SELF, \T_STRING],
                 true,
+            ],
+            'no-params-function-call-fully-qualified' => [
+                '/* testNoParamsFunctionCallFullyQualified */',
+                ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                false,
+                ($php8Names === true) ? null : 'myfunction',
+            ],
+            'has-params-function-call-fully-qualified-with-namespace' => [
+                '/* testHasParamsFunctionCallFullyQualifiedWithNamespace */',
+                ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                true,
+                ($php8Names === true) ? null : 'myfunction',
+            ],
+            'no-params-function-call-partially-qualified' => [
+                '/* testNoParamsFunctionCallPartiallyQualified */',
+                ($php8Names === true) ? \T_NAME_QUALIFIED : \T_STRING,
+                false,
+                ($php8Names === true) ? null : 'myfunction',
+            ],
+            'has-params-function-call-namespace-operator-relative' => [
+                '/* testHasParamsFunctionCallNamespaceOperator */',
+                ($php8Names === true) ? \T_NAME_RELATIVE : \T_STRING,
+                true,
+                ($php8Names === true) ? null : 'myfunction',
             ],
 
             // Arrays.

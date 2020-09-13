@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\PassedParameters;
 
 /**
@@ -32,17 +33,22 @@ class GetParameterCountTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterCount
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param int    $expected   The expected parameter count.
+     * @param string $testMarker    The comment which prefaces the target token in the test file.
+     * @param int    $expected      The expected parameter count.
+     * @param string $targetContent Optional. The content of the target token to find.
+     *                              Defaults to null (ignore content).
      *
      * @return void
      */
-    public function testGetParameterCount($testMarker, $expected)
+    public function testGetParameterCount($testMarker, $expected, $targetContent = null)
     {
-        $stackPtr = $this->getTargetToken(
-            $testMarker,
-            [\T_STRING, \T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_ISSET, \T_UNSET]
-        );
+        $targetTypes                      = Collections::nameTokens();
+        $targetTypes[\T_ARRAY]            = \T_ARRAY;
+        $targetTypes[\T_OPEN_SHORT_ARRAY] = \T_OPEN_SHORT_ARRAY;
+        $targetTypes[\T_ISSET]            = \T_ISSET;
+        $targetTypes[\T_UNSET]            = \T_UNSET;
+
+        $stackPtr = $this->getTargetToken($testMarker, $targetTypes, $targetContent);
         $result   = PassedParameters::getParameterCount(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -56,6 +62,8 @@ class GetParameterCountTest extends UtilityMethodTestCase
      */
     public function dataGetParameterCount()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'function-call-0' => [
                 '/* testFunctionCall0 */',
@@ -248,6 +256,26 @@ class GetParameterCountTest extends UtilityMethodTestCase
             'function-call-47' => [
                 '/* testFunctionCall47 */',
                 1,
+            ],
+            'function-call-fully-qualified' => [
+                '/* testFunctionCallFullyQualified */',
+                1,
+                ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-fully-qualified-with-namespace' => [
+                '/* testFunctionCallFullyQualifiedWithNamespace */',
+                1,
+                ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-partially-qualified' => [
+                '/* testFunctionCallPartiallyQualified */',
+                1,
+                ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-namespace-operator' => [
+                '/* testFunctionCallNamespaceOperator */',
+                1,
+                ($php8Names === true) ? null : 'myfunction',
             ],
 
             // Long arrays.
