@@ -274,6 +274,27 @@ class GetTokensAsStringTest extends UtilityMethodTestCase
                     'compact_nc'  => 'Foo \ Bar \ Bah;',
                 ],
             ],
+            'calculation' => [
+                'marker'   => '/* testCalculation */',
+                'type'     => \T_LNUMBER,
+                'expected' => [
+                    'normal'      => '1 + 2 +
+        // Comment.
+        3 + 4
+        + 5 + 6 + 7 > 20;',
+                    'orig'        => '1 + 2 +
+        // Comment.
+        3 + 4
+        + 5 + 6 + 7 > 20;',
+                    'no_comments' => '1 + 2 +
+                3 + 4
+        + 5 + 6 + 7 > 20;',
+                    'no_empties'  => '1+2+3+4+5+6+7>20;',
+                    'compact'     => '1 + 2 + // Comment.
+ 3 + 4 + 5 + 6 + 7 > 20;',
+                    'compact_nc'  => '1 + 2 + 3 + 4 + 5 + 6 + 7 > 20;',
+                ],
+            ],
             'echo-with-tabs' => [
                 'marker'   => '/* testEchoWithTabs */',
                 'type'     => \T_ECHO,
