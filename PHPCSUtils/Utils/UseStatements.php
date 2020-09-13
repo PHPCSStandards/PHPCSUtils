@@ -154,6 +154,7 @@ class UseStatements
      * Handles single import, multi-import and group-import use statements.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position in the stack of the `T_USE` token.
@@ -229,7 +230,7 @@ class UseStatements
                 continue;
             }
 
-            $tokenCode = $tokens[$i]['code'];
+            $tokenType = $tokens[$i]['type'];
 
             /*
              * BC: Work round a tokenizer bug related to a parse error.
@@ -241,16 +242,16 @@ class UseStatements
              *
              * Along the same lines, the `}` T_CLOSE_USE_GROUP would also be tokenized as T_STRING.
              */
-            if ($tokenCode === \T_STRING) {
+            if ($tokenType === 'T_STRING') {
                 if ($tokens[$i]['content'] === ';') {
-                    $tokenCode = \T_SEMICOLON;
+                    $tokenType = 'T_SEMICOLON';
                 } elseif ($tokens[$i]['content'] === '}') {
-                    $tokenCode = \T_CLOSE_USE_GROUP;
+                    $tokenType = 'T_CLOSE_USE_GROUP';
                 }
             }
 
-            switch ($tokenCode) {
-                case \T_STRING:
+            switch ($tokenType) {
+                case 'T_STRING':
                     // Only when either at the start of the statement or at the start of a new sub within a group.
                     if ($start === true && $fixedType === false) {
                         $content = \strtolower($tokens[$i]['content']);
@@ -276,23 +277,50 @@ class UseStatements
                     }
 
                     $alias = $tokens[$i]['content'];
+
+                    /*
+                     * BC: work around PHPCS tokenizer issue in PHPCS < 3.5.7 where anything directly after
+                     * a `function` or `const` keyword would be retokenized to `T_STRING`, including the
+                     * PHP 8 identifier name tokens.
+                     */
+                    $hasSlash = \strrpos($tokens[$i]['content'], '\\');
+                    if ($hasSlash !== false) {
+                        $alias = \substr($tokens[$i]['content'], ($hasSlash + 1));
+                    }
+
                     break;
 
-                case \T_AS:
+                case 'T_NAME_QUALIFIED':
+                case 'T_NAME_FULLY_QUALIFIED': // This would be a parse error, but handle it anyway.
+                    // Only when either at the start of the statement or at the start of a new sub within a group.
+                    if ($start === true && $fixedType === false) {
+                        $type = 'name';
+                    }
+
+                    $start = false;
+
+                    if ($hasAlias === false) {
+                        $name .= $tokens[$i]['content'];
+                    }
+
+                    $alias = \substr($tokens[$i]['content'], (\strrpos($tokens[$i]['content'], '\\') + 1));
+                    break;
+
+                case 'T_AS':
                     $hasAlias = true;
                     break;
 
-                case \T_OPEN_USE_GROUP:
+                case 'T_OPEN_USE_GROUP':
                     $start    = true;
                     $useGroup = true;
                     $baseName = $name;
                     $name     = '';
                     break;
 
-                case \T_SEMICOLON:
-                case \T_CLOSE_TAG:
-                case \T_CLOSE_USE_GROUP:
-                case \T_COMMA:
+                case 'T_SEMICOLON':
+                case 'T_CLOSE_TAG':
+                case 'T_CLOSE_USE_GROUP':
+                case 'T_COMMA':
                     if ($name !== '') {
                         if ($useGroup === true) {
                             $statements[$type][$alias] = $baseName . $name;
@@ -301,7 +329,7 @@ class UseStatements
                         }
                     }
 
-                    if ($tokenCode !== \T_COMMA) {
+                    if ($tokenType !== 'T_COMMA') {
                         break 2;
                     }
 
@@ -314,12 +342,12 @@ class UseStatements
                     }
                     break;
 
-                case \T_NS_SEPARATOR:
+                case 'T_NS_SEPARATOR':
                     $name .= $tokens[$i]['content'];
                     break;
 
-                case \T_FUNCTION:
-                case \T_CONST:
+                case 'T_FUNCTION':
+                case 'T_CONST':
                     /*
                      * BC: Work around tokenizer bug in PHPCS < 3.4.1.
                      *
