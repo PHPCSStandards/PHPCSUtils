@@ -154,6 +154,9 @@ functionCall($something, &\SomeNS\SomeClass::$somethingElse);
 /* testPassByReferenceJ */
 functionCall($something, &namespace\SomeClass::$somethingElse);
 
+/* testPassByReferencePartiallyQualifiedName */
+functionCall($something, &Sub\Level\SomeClass::$somethingElse);
+
 /* testNewByReferenceA */
 $foobar2 = &new Foobar();
 

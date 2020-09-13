@@ -261,6 +261,7 @@ class BCFile
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -381,7 +382,10 @@ class BCFile
                     }
                     break;
                 case 'T_STRING':
-                    // This is a string, so it may be a type hint, but it could
+                case 'T_NAME_QUALIFIED':
+                case 'T_NAME_FULLY_QUALIFIED':
+                case 'T_NAME_RELATIVE':
+                    // This is an identifier name, so it may be a type hint, but it could
                     // also be a constant used as a default value.
                     $prevComma = false;
                     for ($t = $i; $t >= $opener; $t--) {
@@ -987,6 +991,7 @@ class BCFile
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_BITWISE_AND` token.
@@ -1074,7 +1079,11 @@ class BCFile
             if ($tokens[$tokenAfter]['code'] === T_VARIABLE) {
                 return true;
             } else {
-                $skip   = Tokens::$emptyTokens;
+                $skip = Tokens::$emptyTokens;
+
+                // BC for PHP 8 in combination with PHPCS < 3.5.7.
+                $skip += Collections::nameTokens();
+
                 $skip[] = T_NS_SEPARATOR;
                 $skip[] = T_SELF;
                 $skip[] = T_PARENT;
@@ -1457,6 +1466,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class or interface.
@@ -1491,10 +1501,13 @@ class BCFile
         }
 
         $find = [
-            T_NS_SEPARATOR,
-            T_STRING,
-            T_WHITESPACE,
+            T_NS_SEPARATOR => T_NS_SEPARATOR,
+            T_STRING       => T_STRING,
+            T_WHITESPACE   => T_WHITESPACE,
         ];
+
+        // BC for PHP 8 in combination with PHPCS < 3.5.7.
+        $find += Collections::nameTokens();
 
         $end  = $phpcsFile->findNext($find, ($extendsIndex + 1), ($classOpenerIndex + 1), true);
         $name = $phpcsFile->getTokensAsString(($extendsIndex + 1), ($end - $extendsIndex - 1));
@@ -1520,6 +1533,7 @@ class BCFile
      * @see \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class.
@@ -1553,11 +1567,14 @@ class BCFile
         }
 
         $find = [
-            T_NS_SEPARATOR,
-            T_STRING,
-            T_WHITESPACE,
-            T_COMMA,
+            T_NS_SEPARATOR => T_NS_SEPARATOR,
+            T_STRING       => T_STRING,
+            T_WHITESPACE   => T_WHITESPACE,
+            T_COMMA        => T_COMMA,
         ];
+
+        // BC for PHP 8 in combination with PHPCS < 3.5.7.
+        $find += Collections::nameTokens();
 
         $end  = $phpcsFile->findNext($find, ($implementsIndex + 1), ($classOpenerIndex + 1), true);
         $name = $phpcsFile->getTokensAsString(($implementsIndex + 1), ($end - $implementsIndex - 1));

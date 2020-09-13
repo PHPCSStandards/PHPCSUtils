@@ -20,6 +20,3 @@ $fn = fn($param, &...$moreParams) => 1;
 
 /* testArrowFunctionNonReferenceInDefault */
 $fn = fn( $one = E_NOTICE & E_STRICT) => 1;
-
-/* testPassByReferencePartiallyQualifiedName */
-functionCall($something, &Sub\Level\SomeClass::$somethingElse);
