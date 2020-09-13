@@ -82,6 +82,7 @@ class Variables
      * - Defensive coding against incorrect calls to this method.
      * - Support for PHP 8.0 union types.
      * - Support for namespace operator in type declarations.
+     * - Support PHP 8.0 identifier name tokens in property types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
