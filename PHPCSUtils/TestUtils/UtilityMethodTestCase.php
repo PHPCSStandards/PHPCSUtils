@@ -312,6 +312,27 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
+     * Check whether or not the PHP 8.0 identifier name tokens will be in use.
+     *
+     * The expected token positions/token counts for certain tokens will differ depending
+     * on whether the PHP 8.0 identifier name tokenization is used or the PHP < 8.0
+     * identifier name tokenization.
+     *
+     * Tests can use this method to determine which flavour of tokenization to expect and
+     * to set test expectations accordingly.
+     *
+     * @codeCoverageIgnore Nothing to test.
+     *
+     * @since 1.0.0
+     *
+     * @return bool
+     */
+    public static function usesPhp8NameTokens()
+    {
+        return \version_compare(\PHP_VERSION_ID, '80000', '>=') === true;
+    }
+
+    /**
      * Get the token pointer for a target token based on a specific comment.
      *
      * Note: the test delimiter comment MUST start with `/* test` to allow this function to
