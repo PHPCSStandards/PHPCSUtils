@@ -138,6 +138,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'testFECNAnonClass',
             ],
             [
+                '/* testNamespaceRelativeQualifiedClass */',
+                'Core\File\RelativeClass',
+            ],
+            [
                 '/* testClassThatExtendsAndImplements */',
                 'testFECNClass',
             ],

@@ -73,6 +73,7 @@ class Operators
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_BITWISE_AND` token.

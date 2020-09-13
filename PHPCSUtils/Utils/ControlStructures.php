@@ -349,6 +349,7 @@ class ControlStructures
      * Retrieve the exception(s) being caught in a CATCH condition.
      *
      * @since 1.0.0-alpha3
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.

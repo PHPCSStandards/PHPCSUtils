@@ -594,8 +594,9 @@ class Collections
         $tokens = [
             \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_NAMESPACE    => \T_NAMESPACE,
-            \T_STRING       => \T_STRING,
         ];
+
+        $tokens += self::nameTokens();
 
         return $tokens;
     }

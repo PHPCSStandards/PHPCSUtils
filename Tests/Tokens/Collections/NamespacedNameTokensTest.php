@@ -38,6 +38,12 @@ class NamespacedNameTokensTest extends TestCase
             \T_STRING       => \T_STRING,
         ];
 
+        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true) {
+            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
+            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
+            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
+        }
+
         $this->assertSame($expected, Collections::namespacedNameTokens());
     }
 }

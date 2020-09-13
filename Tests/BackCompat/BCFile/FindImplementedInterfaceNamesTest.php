@@ -127,6 +127,10 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 false,
             ],
             [
+                '/* testNamespaceRelativeQualifiedClass */',
+                ['Core\File\RelativeInterface'],
+            ],
+            [
                 '/* testClassThatExtendsAndImplements */',
                 [
                     'InterfaceA',
