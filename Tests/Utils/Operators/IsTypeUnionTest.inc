@@ -27,6 +27,15 @@ class TypeUnion
         /* testTypeUnionPropertyMulti3 */
         | null $arrayOrFalse;
 
+    /* testTypeUnionPropertyNamespaceRelative */
+    public namespace\Sub\NameA|namespace\Sub\NameB $namespaceRelative;
+
+    /* testTypeUnionPropertyPartiallyQualified */
+    public Partially\Qualified\NameA|Partially\Qualified\NameB $partiallyQual;
+
+    /* testTypeUnionPropertyFullyQualified */
+    public \Fully\Qualified\NameA|\Fully\Qualified\NameB $fullyQual;
+
     public function paramTypes(
         /* testTypeUnionParam1 */
         int|float $paramA /* testBitwiseOrParamDefaultValue */ = CONSTANT_A | CONSTANT_B,
@@ -37,6 +46,15 @@ class TypeUnion
         /* testBitwiseOr3 */
         return (($a1 ^ $b1) |($a2 ^ $b2)) + $c;
     }
+
+    public function identifierNames(
+        /* testTypeUnionParamNamespaceRelative */
+        namespace\Sub\NameA|namespace\Sub\NameB $paramA,
+        /* testTypeUnionParamPartiallyQualified */
+        Partially\Qualified\NameA|Partially\Qualified\NameB $paramB,
+        /* testTypeUnionParamFullyQualified */
+        \Fully\Qualified\NameA|\Fully\Qualified\NameB $paramC,
+    ) {}
 
     /* testTypeUnionReturnType */
     public function returnType() : int|false {}
@@ -49,6 +67,12 @@ class TypeUnion
 
     /* testTypeUnionReturnTypeNamespaceRelative */
     public function identifierNamesReturnRelative() : namespace\Sub\NameA|namespace\Sub\NameB {}
+
+    /* testTypeUnionReturnPartiallyQualified */
+    public function identifierNamesReturnPQ() : Partially\Qualified\NameA|Partially\Qualified\NameB {}
+
+    /* testTypeUnionReturnFullyQualified */
+    public function identifierNamesReturnFQ() : \Fully\Qualified\NameA|\Fully\Qualified\NameB {}
 }
 
 /* testTypeUnionClosureParamIllegalNullable */

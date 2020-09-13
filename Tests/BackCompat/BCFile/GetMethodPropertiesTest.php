@@ -344,6 +344,50 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test a method with an unqualified named return type.
+     *
+     * @return void
+     */
+    public function testReturnUnqualifiedName()
+    {
+        $expected = [
+            'scope'                => 'private',
+            'scope_specified'      => true,
+            'return_type'          => '?MyClass',
+            'return_type_token'    => 8, // Offset from the T_FUNCTION token.
+            'nullable_return_type' => true,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Test a method with a partially qualified namespaced return type.
+     *
+     * @return void
+     */
+    public function testReturnPartiallyQualifiedName()
+    {
+        $expected = [
+            'scope'                => 'public',
+            'scope_specified'      => false,
+            'return_type'          => 'Sub\Level\MyClass',
+            'return_type_token'    => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type' => false,
+            'is_abstract'          => false,
+            'is_final'             => false,
+            'is_static'            => false,
+            'has_body'             => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test a basic abstract method.
      *
      * @return void

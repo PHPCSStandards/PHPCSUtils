@@ -33,7 +33,6 @@ class ReturnTypeTokensTest extends TestCase
     public function testReturnTypeTokens()
     {
         $expected = [
-            \T_STRING       => \T_STRING,
             \T_CALLABLE     => \T_CALLABLE,
             \T_SELF         => \T_SELF,
             \T_PARENT       => \T_PARENT,
@@ -41,10 +40,17 @@ class ReturnTypeTokensTest extends TestCase
             \T_FALSE        => \T_FALSE,
             \T_NULL         => \T_NULL,
             \T_ARRAY        => \T_ARRAY,
-            \T_NAMESPACE    => \T_NAMESPACE,
-            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
             \T_BITWISE_OR   => \T_BITWISE_OR,
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_NAMESPACE    => \T_NAMESPACE,
+            \T_STRING       => \T_STRING,
         ];
+
+        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true) {
+            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
+            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
+            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
+        }
 
         $this->assertSame($expected, Collections::returnTypeTokens());
     }
