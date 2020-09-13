@@ -297,6 +297,10 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
+                '/* testPassByReferencePartiallyQualifiedName */',
+                true,
+            ],
+            [
                 '/* testNewByReferenceA */',
                 true,
             ],

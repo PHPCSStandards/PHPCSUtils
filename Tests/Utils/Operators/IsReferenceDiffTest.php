@@ -97,10 +97,6 @@ class IsReferenceDiffTest extends UtilityMethodTestCase
                 '/* testArrowFunctionNonReferenceInDefault */',
                 false,
             ],
-            'pass-by-ref-partially-qualified-name-param-type' => [
-                '/* testPassByReferencePartiallyQualifiedName */',
-                true,
-            ],
         ];
     }
 }
