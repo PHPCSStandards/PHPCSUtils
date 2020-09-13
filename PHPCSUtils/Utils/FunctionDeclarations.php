@@ -404,6 +404,7 @@ class FunctionDeclarations
      * - Support for PHP 8.0 union types.
      * - Support for PHP 8.0 constructor property promotion.
      * - Support for namespace operator in type declarations.
+     * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -412,6 +413,7 @@ class FunctionDeclarations
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 constructor property promotion.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -509,6 +511,9 @@ class FunctionDeclarations
                 case 'T_STRING':
                 case 'T_NAMESPACE':
                 case 'T_NS_SEPARATOR':
+                case 'T_NAME_QUALIFIED':
+                case 'T_NAME_FULLY_QUALIFIED':
+                case 'T_NAME_RELATIVE':
                 case 'T_BITWISE_OR': // Union type separator.
                     if ($typeHintToken === false) {
                         $typeHintToken = $i;
