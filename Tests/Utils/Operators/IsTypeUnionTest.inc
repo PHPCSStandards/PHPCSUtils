@@ -46,6 +46,9 @@ class TypeUnion
 
     /* testTypeUnionAbstractMethodReturnType1 */
     abstract public function abstractMethod(): object|array /* testTypeUnionAbstractMethodReturnType2 */ |false;
+
+    /* testTypeUnionReturnTypeNamespaceRelative */
+    public function identifierNamesReturnRelative() : namespace\Sub\NameA|namespace\Sub\NameB {}
 }
 
 /* testTypeUnionClosureParamIllegalNullable */

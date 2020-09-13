@@ -84,6 +84,7 @@ class IsTypeUnionTest extends UtilityMethodTestCase
             'constructor-property-promotion'  => ['/* testTypeUnionConstructorPropertyPromotion */'],
             'return-abstract-method-1'        => ['/* testTypeUnionAbstractMethodReturnType1 */'],
             'return-abstract-method-2'        => ['/* testTypeUnionAbstractMethodReturnType2 */'],
+            'return-namespace-operator'       => ['/* testTypeUnionReturnTypeNamespaceRelative */'],
             'parameter-closure-with-nullable' => ['/* testTypeUnionClosureParamIllegalNullable */'],
             'return-closure'                  => ['/* testTypeUnionClosureReturn */'],
             'parameter-arrow'                 => ['/* testTypeUnionArrowParam */'],

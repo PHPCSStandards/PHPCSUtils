@@ -277,13 +277,29 @@ class Operators
                     return true;
                 }
 
+                $closeParens = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($beforeType - 1), null, true);
+
+                /*
+                 * This may be a return type using the namespace keyword as an operator in
+                 * combination with PHPCS < 3.5.7 in which the scope indexes won't be set.
+                 * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
+                 */
+                if ($tokens[$afterType]['code'] === \T_OPEN_CURLY_BRACKET) {
+                    if ($closeParens !== false
+                        && $tokens[$closeParens]['code'] === \T_CLOSE_PARENTHESIS
+                        && isset($tokens[$closeParens]['parenthesis_owner']) === true
+                        && isset($funcDeclTokens[$tokens[$tokens[$closeParens]['parenthesis_owner']]['code']]) === true
+                    ) {
+                        return true;
+                    }
+                }
+
                 /*
                  * This may be an arrow function in combination with PHPCS < 3.5.3.
-                 * Even when on PHP 7.4, the open curly brace won't have the scope condition set yet,
-                 * so the previous condition will fall through to this one.
+                 * Even when on PHP 7.4, the double arrow won't have the scope condition set yet,
+                 * so the previous conditions will fall through to this one.
                  */
                 if ($tokens[$afterType]['code'] === \T_DOUBLE_ARROW) {
-                    $closeParens = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($beforeType - 1), null, true);
                     if ($closeParens !== false
                         && $tokens[$closeParens]['code'] === \T_CLOSE_PARENTHESIS
                         && isset($tokens[$closeParens]['parenthesis_opener'])
