@@ -301,14 +301,12 @@ class Collections
     ];
 
     /**
-     * Tokens types which can be encountered in the fully/partially qualified name of an OO structure.
-     *
-     * Example:
-     * ```php
-     * echo namespace\Sub\ClassName::method();
-     * ```
+     * DEPRECATED: Tokens types which can be encountered in the fully/partially qualified name of an OO structure.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::namespacedNameTokens()}
+     *                          method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -575,6 +573,29 @@ class Collections
         ];
 
         $tokens += self::arrowFunctionTokensBC();
+
+        return $tokens;
+    }
+
+    /**
+     * Tokens types which can be encountered in a fully, partially or unqualified name.
+     *
+     * Example:
+     * ```php
+     * echo namespace\Sub\ClassName::method();
+     * ```
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function namespacedNameTokens()
+    {
+        $tokens = [
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_NAMESPACE    => \T_NAMESPACE,
+            \T_STRING       => \T_STRING,
+        ];
 
         return $tokens;
     }

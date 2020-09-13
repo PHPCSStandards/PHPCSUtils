@@ -151,7 +151,7 @@ class Operators
                 return true;
             } else {
                 $skip   = Tokens::$emptyTokens;
-                $skip  += Collections::$OONameTokens;
+                $skip  += Collections::namespacedNameTokens();
                 $skip  += Collections::$OOHierarchyKeywords;
                 $skip[] = \T_DOUBLE_COLON;
 

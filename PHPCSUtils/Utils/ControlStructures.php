@@ -396,7 +396,7 @@ class ControlStructures
                 continue;
             }
 
-            if (isset(Collections::$OONameTokens[$tokens[$i]['code']]) === false) {
+            if (isset(Collections::namespacedNameTokens()[$tokens[$i]['code']]) === false) {
                 // Add the current exception to the result array.
                 $exceptions[] = [
                     'type'           => $foundName,
