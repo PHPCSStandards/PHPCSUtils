@@ -87,6 +87,8 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function dataGetMemberProperties()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'php8-union-types-simple' => [
                 '/* testPHP8UnionTypesSimple */',
@@ -107,7 +109,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'scope_specified' => true,
                     'is_static'       => false,
                     'type'            => 'MyClassA|\Package\MyClassB',
-                    'type_token'      => -7, // Offset from the T_VARIABLE token.
+                    'type_token'      => ($php8Names === true) ? -4 : -7, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => false,
                 ],
@@ -239,7 +241,7 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'scope_specified' => true,
                     'is_static'       => false,
                     'type'            => '?namespace\Name',
-                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_token'      => ($php8Names === true) ? -2 : -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => true,
                 ],

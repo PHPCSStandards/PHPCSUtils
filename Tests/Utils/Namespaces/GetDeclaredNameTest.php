@@ -46,11 +46,18 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the function.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testGetDeclaredNameClean($testMarker, $expected)
+    public function testGetDeclaredNameClean($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::getDeclaredName(self::$phpcsFile, $stackPtr, true);
 
@@ -64,11 +71,18 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the function.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testGetDeclaredNameDirty($testMarker, $expected)
+    public function testGetDeclaredNameDirty($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::getDeclaredName(self::$phpcsFile, $stackPtr, false);
 
@@ -154,6 +168,7 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
                     'clean' => false,
                     'dirty' => false,
                 ],
+                true,
             ],
             'parse-error-reserved-keywords' => [
                 '/* testParseErrorReservedKeywords */',

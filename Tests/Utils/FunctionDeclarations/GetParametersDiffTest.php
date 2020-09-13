@@ -119,9 +119,11 @@ class GetParametersDiffTest extends UtilityMethodTestCase
      */
     public function testPHP8UnionTypesTwoClasses()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $expected    = [];
         $expected[0] = [
-            'token'               => 11, // Offset from the T_FUNCTION token.
+            'token'               => ($php8Names === true) ? 8 : 11, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'MyClassA|\Package\MyClassB $var',
             'pass_by_reference'   => false,
@@ -130,7 +132,7 @@ class GetParametersDiffTest extends UtilityMethodTestCase
             'variadic_token'      => false,
             'type_hint'           => 'MyClassA|\Package\MyClassB',
             'type_hint_token'     => 4, // Offset from the T_FUNCTION token.
-            'type_hint_end_token' => 9, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => ($php8Names === true) ? 6 : 9, // Offset from the T_FUNCTION token.
             'nullable_type'       => false,
             'comma_token'         => false,
         ];
@@ -636,9 +638,11 @@ class GetParametersDiffTest extends UtilityMethodTestCase
      */
     public function testNamespaceOperatorTypeHint()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $expected    = [];
         $expected[0] = [
-            'token'               => 9, // Offset from the T_FUNCTION token.
+            'token'               => ($php8Names === true) ? 7 : 9, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => '?namespace\Name $var1',
             'pass_by_reference'   => false,
@@ -647,7 +651,7 @@ class GetParametersDiffTest extends UtilityMethodTestCase
             'variadic_token'      => false,
             'type_hint'           => '?namespace\Name',
             'type_hint_token'     => 5, // Offset from the T_FUNCTION token.
-            'type_hint_end_token' => 7, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => ($php8Names === true) ? 5 : 7, // Offset from the T_FUNCTION token.
             'nullable_type'       => true,
             'comma_token'         => false,
         ];

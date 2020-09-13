@@ -94,12 +94,14 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testReturnTypeEndTokenIndex()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?\MyNamespace\MyClass\Foo',
             'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 20, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => ($php8Names === true) ? 17 : 20, // Offset from the T_FUNCTION token.
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -140,12 +142,14 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testPHP8UnionTypesTwoClasses()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA|\Package\MyClassB',
             'return_type_token'     => 6, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 11, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => ($php8Names === true) ? 8 : 11, // Offset from the T_FUNCTION token.
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -374,12 +378,14 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testNamespaceOperatorTypeHint()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $expected = [
             'scope'                => 'public',
             'scope_specified'      => false,
             'return_type'          => '?namespace\Name',
             'return_type_token'     => 9, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 11, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => ($php8Names === true) ? 9 : 11, // Offset from the T_FUNCTION token.
             'nullable_return_type' => true,
             'is_abstract'          => false,
             'is_final'             => false,

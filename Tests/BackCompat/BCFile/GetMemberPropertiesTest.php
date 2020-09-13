@@ -82,6 +82,8 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
      */
     public function dataGetMemberProperties()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             [
                 '/* testVar */',
@@ -498,7 +500,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope_specified' => true,
                     'is_static'       => false,
                     'type'            => '\MyNamespace\MyClass',
-                    'type_token'      => -5, // Offset from the T_VARIABLE token.
+                    'type_token'      => ($php8Names === true) ? -2 : -5, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => false,
                 ],
@@ -522,7 +524,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope_specified' => true,
                     'is_static'       => false,
                     'type'            => '?Folder\ClassName',
-                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_token'      => ($php8Names === true) ? -2 : -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => true,
                 ],
@@ -534,7 +536,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope_specified' => true,
                     'is_static'       => false,
                     'type'            => '\MyNamespace\MyClass\Foo',
-                    'type_token'      => -18, // Offset from the T_VARIABLE token.
+                    'type_token'      => ($php8Names === true) ? -15 : -18, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => false,
                 ],
