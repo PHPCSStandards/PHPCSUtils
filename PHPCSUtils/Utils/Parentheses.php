@@ -12,18 +12,46 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
- * Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped in
- * parentheses.
+ * Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped
+ * in parentheses.
+ *
+ * In contrast to PHPCS natively, `isset()`, `unset()`, `empty()`, `exit()`, `die()` and `eval()`
+ * will be considered parentheses owners by the functions in this class.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Added support for `isset()`, `unset()`, `empty()`, `exit()`, `die()`
+ *                     and `eval()`` as parentheses owners to all applicable functions.
  */
 class Parentheses
 {
+
+    /**
+     * Extra tokens which should be considered parentheses owners.
+     *
+     * - `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
+     * - `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EXIT` and `T_EVAL` are not PHPCS native parentheses,
+     *    owners, but are considered such for the purposes of this class.
+     *    Also {@see https://github.com/squizlabs/PHP_CodeSniffer/issues/3118}.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @var array <int|string> => <int|string>
+     */
+    private static $extraParenthesesOwners = [
+        \T_LIST       => \T_LIST,
+        \T_ISSET      => \T_ISSET,
+        \T_UNSET      => \T_UNSET,
+        \T_EMPTY      => \T_EMPTY,
+        \T_EXIT       => \T_EXIT,
+        \T_EVAL       => \T_EVAL,
+        \T_ANON_CLASS => \T_ANON_CLASS,
+        // Work-around: anon classes were, in certain circumstances, tokenized as T_CLASS prior to PHPCS 3.4.0.
+        \T_CLASS      => \T_CLASS,
+    ];
 
     /**
      * Get the pointer to the parentheses owner of an open/close parenthesis.
@@ -47,18 +75,13 @@ class Parentheses
         }
 
         /*
-         * `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
-         * `T_FN` was only backfilled in PHPCS 3.5.3/4/5.
-         * - On PHP 7.4 with PHPCS < 3.5.3, T_FN will not yet be a parentheses owner.
-         * - On PHP < 7.4 with PHPCS < 3.5.3, T_FN will be tokenized as T_STRING and not yet be a parentheses owner.
+         * - `T_FN` was only backfilled in PHPCS 3.5.3/4/5.
+         *    - On PHP 7.4 with PHPCS < 3.5.3, T_FN will not yet be a parentheses owner.
+         *    - On PHP < 7.4 with PHPCS < 3.5.3, T_FN will be tokenized as T_STRING and not yet be a parentheses owner.
          *
          * {@internal As the 'parenthesis_owner' index is only set on parentheses, we didn't need to do any
          * input validation before, but now we do.}
          */
-        if (\version_compare(Helper::getVersion(), '3.5.4', '>=') === true) {
-            return false;
-        }
-
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] !== \T_OPEN_PARENTHESIS
             && $tokens[$stackPtr]['code'] !== \T_CLOSE_PARENTHESIS)
@@ -75,10 +98,7 @@ class Parentheses
 
         $prevNonEmpty = $phpcsFile->findPrevious($skip, ($stackPtr - 1), null, true);
         if ($prevNonEmpty !== false
-            && ($tokens[$prevNonEmpty]['code'] === \T_LIST
-            || $tokens[$prevNonEmpty]['code'] === \T_ANON_CLASS
-            // Work-around: anon classes were, in certain circumstances, tokenized as T_CLASS prior to PHPCS 3.4.0.
-            || $tokens[$prevNonEmpty]['code'] === \T_CLASS
+            && (isset(self::$extraParenthesesOwners[$tokens[$prevNonEmpty]['code']])
             // Possibly an arrow function.
             || FunctionDeclarations::isArrowFunction($phpcsFile, $prevNonEmpty) === true)
         ) {
