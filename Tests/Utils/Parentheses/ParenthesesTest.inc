@@ -53,6 +53,18 @@ $value = $obj->fn(true);
 /* testArrowFunctionByReference */
 $fn = fn &($x) => $x;
 
+/* testIfWithIssetEmpty */
+if ( isset( $a, $b ) && ! empty ($c) ) {
+    /* testUnset */
+    unset($a[1], $b->prop);
+}
+
+/* testEval */
+eval($a . $b . $c );
+
+/* testExit */
+if (defined('FOO') || die('message')) {}
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 declare(ticks=1

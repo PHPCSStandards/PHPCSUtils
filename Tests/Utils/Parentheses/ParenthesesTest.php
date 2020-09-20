@@ -154,6 +154,37 @@ class ParenthesesTest extends UtilityMethodTestCase
             'code'    => \T_VARIABLE,
             'content' => '$x',
         ],
+        'testIfIsset-$b' => [
+            'marker'  => '/* testIfWithIssetEmpty */',
+            'code'    => \T_VARIABLE,
+            'content' => '$b',
+        ],
+        'testIfEmpty-$c' => [
+            'marker'  => '/* testIfWithIssetEmpty */',
+            'code'    => \T_VARIABLE,
+            'content' => '$c',
+        ],
+        'testUnset-->' => [
+            'marker'  => '/* testUnset */',
+            'code'    => \T_OBJECT_OPERATOR,
+        ],
+        'testUnsetParenthesis' => [
+            'marker'  => '/* testUnset */',
+            'code'    => \T_OPEN_PARENTHESIS,
+        ],
+        'testEval-concat' => [
+            'marker'  => '/* testEval */',
+            'code'    => \T_STRING_CONCAT,
+        ],
+        'testIfExitDie-boolean-or' => [
+            'marker'  => '/* testExit */',
+            'code'    => \T_BOOLEAN_OR,
+        ],
+        'testIfExitDie-message' => [
+            'marker'  => '/* testExit */',
+            'code'    => \T_CONSTANT_ENCAPSED_STRING,
+            'content' => "'message'",
+        ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
             'code'    => \T_LNUMBER,
@@ -174,7 +205,9 @@ class ParenthesesTest extends UtilityMethodTestCase
      * This array is merged with expected result arrays for various unit tests
      * to make sure all possible parentheses owners are tested.
      *
-     * This array should be kept in sync with the Tokens::$parenthesisOpeners array.
+     * This array should be kept in sync with the Tokens::$parenthesisOpeners array
+     * + the extra tokens the Parentheses class allows for.
+     *
      * This array isn't auto-generated based on the array in Tokens as for these
      * tests we want to have access to the token constant names, not just their values.
      *
@@ -195,6 +228,13 @@ class ParenthesesTest extends UtilityMethodTestCase
         'T_CATCH'      => false,
         'T_DECLARE'    => false,
         'T_FN'         => false,
+
+        // Extra tokens.
+        'T_ISSET'      => false,
+        'T_UNSET'      => false,
+        'T_EMPTY'      => false,
+        'T_EXIT'       => false,
+        'T_EVAL'       => false,
     ];
 
     /**
@@ -348,7 +388,7 @@ class ParenthesesTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testPassingParenthesisCloseHandlinginBCLayer()
+    public function testPassingParenthesisCloseHandlingInBCLayer()
     {
         $stackPtr = $this->getTargetToken('/* testListOnCloseParens */', \T_CLOSE_PARENTHESIS);
 
@@ -756,6 +796,125 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => false,
                 ],
             ],
+            'testIfIsset-$b' => [
+                'testIfIsset-$b',
+                [
+                    'firstOpener'           => -8,
+                    'firstCloser'           => 14,
+                    'firstOwner'            => -10,
+                    'firstScopeOwnerOpener' => -8,
+                    'firstScopeOwnerCloser' => 14,
+                    'firstScopeOwnerOwner'  => -10,
+                    'lastOpener'            => -5,
+                    'lastCloser'            => 2,
+                    'lastOwner'             => -6,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -10,
+                ],
+            ],
+            'testIfEmpty-$c' => [
+                'testIfEmpty-$c',
+                [
+                    'firstOpener'           => -19,
+                    'firstCloser'           => 3,
+                    'firstOwner'            => -21,
+                    'firstScopeOwnerOpener' => -19,
+                    'firstScopeOwnerCloser' => 3,
+                    'firstScopeOwnerOwner'  => -21,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -3,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -21,
+                ],
+            ],
+            'testUnset-->' => [
+                'testUnset-->',
+                [
+                    'firstOpener'           => -8,
+                    'firstCloser'           => 2,
+                    'firstOwner'            => -9,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -8,
+                    'lastCloser'            => 2,
+                    'lastOwner'             => -9,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testUnsetParenthesis' => [
+                'testUnsetParenthesis',
+                [
+                    'firstOpener'           => false,
+                    'firstCloser'           => false,
+                    'firstOwner'            => false,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => false,
+                    'lastCloser'            => false,
+                    'lastOwner'             => false,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testEval-concat' => [
+                'testEval-concat',
+                [
+                    'firstOpener'           => -3,
+                    'firstCloser'           => 8,
+                    'firstOwner'            => -4,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -3,
+                    'lastCloser'            => 8,
+                    'lastOwner'             => -4,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testIfExitDie-boolean-or' => [
+                'testIfExitDie-boolean-or',
+                [
+                    'firstOpener'           => -6,
+                    'firstCloser'           => 6,
+                    'firstOwner'            => -8,
+                    'firstScopeOwnerOpener' => -6,
+                    'firstScopeOwnerCloser' => 6,
+                    'firstScopeOwnerOwner'  => -8,
+                    'lastOpener'            => -6,
+                    'lastCloser'            => 6,
+                    'lastOwner'             => -8,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -8,
+                ],
+            ],
+            'testIfExitDie-message' => [
+                'testIfExitDie-message',
+                [
+                    'firstOpener'           => -10,
+                    'firstCloser'           => 2,
+                    'firstOwner'            => -12,
+                    'firstScopeOwnerOpener' => -10,
+                    'firstScopeOwnerCloser' => 2,
+                    'firstScopeOwnerOwner'  => -12,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -2,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -12,
+                ],
+            ],
             'testParseError-1' => [
                 'testParseError-1',
                 [
@@ -953,8 +1112,43 @@ class ParenthesesTest extends UtilityMethodTestCase
             ],
             'testArrowFunctionReturnByRef' => [
                 'testArrowFunctionReturnByRef',
+                ['T_FN' => true],
+            ],
+            'testIfIsset-$b' => [
+                'testIfIsset-$b',
                 [
-                    'T_FN' => true,
+                    'T_IF'    => true,
+                    'T_ISSET' => true,
+                ],
+            ],
+            'testIfEmpty-$c' => [
+                'testIfEmpty-$c',
+                [
+                    'T_IF'    => true,
+                    'T_EMPTY' => true,
+                ],
+            ],
+            'testUnset-->' => [
+                'testUnset-->',
+                ['T_UNSET' => true],
+            ],
+            'testUnsetParenthesis' => [
+                'testUnsetParenthesis',
+                [],
+            ],
+            'testEval-concat' => [
+                'testEval-concat',
+                ['T_EVAL' => true],
+            ],
+            'testIfExitDie-boolean-or' => [
+                'testIfExitDie-boolean-or',
+                ['T_IF' => true],
+            ],
+            'testIfExitDie-message' => [
+                'testIfExitDie-message',
+                [
+                    'T_IF'   => true,
+                    'T_EXIT' => true,
                 ],
             ],
             'testParseError-1' => [
@@ -1192,6 +1386,16 @@ class ParenthesesTest extends UtilityMethodTestCase
                 'testArrowFunctionReturnByRef',
                 $arrowFunctionOwners,
                 -4,
+            ],
+            'testIfEmpty-$c-unset' => [
+                'testIfEmpty-$c',
+                [\T_UNSET],
+                false,
+            ],
+            'testIfEmpty-$c-isset-empty' => [
+                'testIfEmpty-$c',
+                [\T_ISSET, \T_EMPTY],
+                -3,
             ],
         ];
     }
