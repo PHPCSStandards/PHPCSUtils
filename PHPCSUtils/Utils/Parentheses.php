@@ -54,7 +54,7 @@ class Parentheses
     ];
 
     /**
-     * Get the pointer to the parentheses owner of an open/close parenthesis.
+     * Get the stack pointer to the parentheses owner of an open/close parenthesis.
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
@@ -171,11 +171,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the opener to the first (outer) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses opener of the first (outer) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the opener to the first set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the opener to
+     * the first set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a nested set of parentheses.
      *
      * @since 1.0.0
      *
@@ -194,11 +195,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the closer to the first (outer) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses closer of the first (outer) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the closer to the first set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the closer to
+     * the first set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a nested set of parentheses.
      *
      * @since 1.0.0
      *
@@ -223,11 +225,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the parentheses owner to the first (outer) set of parentheses an
-     * arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses owner of the first (outer) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the owner to the first set of parentheses surrounding
-     * the token will be returned or `false` if the first set of parentheses does not have an owner.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the owner of
+     * the first set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a nested set of parentheses.
      *
      * @since 1.0.0
      *
@@ -251,11 +254,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the opener to the last (inner) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses opener of the last (inner) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the opener to the last set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the opener to
+     * the last set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a set of parentheses higher up.
      *
      * @since 1.0.0
      *
@@ -274,11 +278,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the closer to the last (inner) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses closer of the last (inner) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the closer to the last set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the closer to
+     * the last set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a set of parentheses higher up.
      *
      * @since 1.0.0
      *
@@ -303,11 +308,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the parentheses owner to the last (inner) set of parentheses an
-     * arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses owner of the last (inner) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the owner to the last set of parentheses surrounding
-     * the token will be returned or `false` if the last set of parentheses does not have an owner.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the owner of
+     * the last set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a set of parentheses higher up.
      *
      * @since 1.0.0
      *
@@ -331,7 +337,7 @@ class Parentheses
     }
 
     /**
-     * Check whether the owner of a outermost wrapping set of parentheses of an arbitrary token
+     * Check whether the owner of the outermost wrapping set of parentheses of an arbitrary token
      * is within a limited set of acceptable token types.
      *
      * @since 1.0.0
@@ -359,7 +365,7 @@ class Parentheses
     }
 
     /**
-     * Check whether the owner of a innermost wrapping set of parentheses of an arbitrary token
+     * Check whether the owner of the innermost wrapping set of parentheses of an arbitrary token
      * is within a limited set of acceptable token types.
      *
      * @since 1.0.0
