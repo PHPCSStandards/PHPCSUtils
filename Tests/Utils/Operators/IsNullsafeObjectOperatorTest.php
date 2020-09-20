@@ -147,7 +147,7 @@ class IsNullsafeObjectOperatorTest extends UtilityMethodTestCase
             \T_INLINE_THEN,
         ];
 
-        if (defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
             $targets[] = \T_NULLSAFE_OBJECT_OPERATOR;
         }
 

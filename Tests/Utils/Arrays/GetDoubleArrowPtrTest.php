@@ -49,7 +49,7 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
             $target     = $this->getTargetToken('/* testGetDoubleArrowPtr */', [\T_OPEN_SHORT_ARRAY]);
             $parameters = PassedParameters::getParameters(self::$phpcsFile, $target);
 
-            foreach ($parameters as $index => $values) {
+            foreach ($parameters as $values) {
                 \preg_match('`^(/\* test[^*]+ \*/)`', $values['raw'], $matches);
                 if (empty($matches[1]) === false) {
                     self::$parameters[$matches[1]] = $values;
