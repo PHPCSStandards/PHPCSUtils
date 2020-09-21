@@ -632,34 +632,6 @@ class GetParametersDiffTest extends UtilityMethodTestCase
     }
 
     /**
-     * Verify recognition of type declarations using the namespace operator.
-     *
-     * @return void
-     */
-    public function testNamespaceOperatorTypeHint()
-    {
-        $php8Names = parent::usesPhp8NameTokens();
-
-        $expected    = [];
-        $expected[0] = [
-            'token'               => ($php8Names === true) ? 7 : 9, // Offset from the T_FUNCTION token.
-            'name'                => '$var1',
-            'content'             => '?namespace\Name $var1',
-            'pass_by_reference'   => false,
-            'reference_token'     => false,
-            'variable_length'     => false,
-            'variadic_token'      => false,
-            'type_hint'           => '?namespace\Name',
-            'type_hint_token'     => 5, // Offset from the T_FUNCTION token.
-            'type_hint_end_token' => ($php8Names === true) ? 5 : 7, // Offset from the T_FUNCTION token.
-            'nullable_type'       => true,
-            'comma_token'         => false,
-        ];
-
-        $this->getParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
-    }
-
-    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.

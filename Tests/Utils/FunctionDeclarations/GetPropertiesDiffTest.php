@@ -372,31 +372,6 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test a function with return type using the namespace operator.
-     *
-     * @return void
-     */
-    public function testNamespaceOperatorTypeHint()
-    {
-        $php8Names = parent::usesPhp8NameTokens();
-
-        $expected = [
-            'scope'                 => 'public',
-            'scope_specified'       => false,
-            'return_type'           => '?namespace\Name',
-            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 9 : 11, // Offset from the T_FUNCTION token.
-            'nullable_return_type'  => true,
-            'is_abstract'           => false,
-            'is_final'              => false,
-            'is_static'             => false,
-            'has_body'              => true,
-        ];
-
-        $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
-    }
-
-    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.

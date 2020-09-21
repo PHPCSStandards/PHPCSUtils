@@ -191,3 +191,8 @@ class PHP8Mixed {
     // Intentional fatal error - nullability is not allowed with mixed, but that's not the concern of the method.
     private ?mixed $nullableMixed;
 }
+
+class NSOperatorInType {
+    /* testNamespaceOperatorTypeHint */
+    public ?namespace\Name $prop;
+}

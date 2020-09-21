@@ -75,6 +75,3 @@ abstract class ConstructorPropertyPromotionAbstractMethod {
     // 3. The callable type is not supported for properties, but that's not the concern of this method.
     abstract public function __construct(public callable $y, private ...$x);
 }
-
-/* testNamespaceOperatorTypeHint */
-function namespaceOperatorTypeHint(?namespace\Name $var1) {}
