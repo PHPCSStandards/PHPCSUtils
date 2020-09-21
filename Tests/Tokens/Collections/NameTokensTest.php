@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -32,11 +33,15 @@ class NameTokensTest extends TestCase
      */
     public function testNameTokens()
     {
+        $version  = Helper::getVersion();
         $expected = [
             \T_STRING => \T_STRING,
         ];
 
-        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true) {
+        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
+            || (\version_compare($version, '3.5.7', '>=') === true
+                && \version_compare($version, '4.0.0', '<') === true)
+        ) {
             $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
             $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
             $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
