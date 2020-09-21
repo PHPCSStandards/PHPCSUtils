@@ -87,6 +87,9 @@ function mixedTypeHint() :mixed {}
 // Intentional fatal error - nullability is not allowed with mixed, but that's not the concern of the method.
 function mixedTypeHintNullable(): ?mixed {}
 
+/* testNamespaceOperatorTypeHint */
+function namespaceOperatorTypeHint() : ?namespace\Name {}
+
 /* testNotAFunction */
 return true;
 

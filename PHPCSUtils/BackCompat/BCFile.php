@@ -540,6 +540,7 @@ class BCFile
      * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
      *                to `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions.
+     * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getProperties() PHPCSUtils native improved version.

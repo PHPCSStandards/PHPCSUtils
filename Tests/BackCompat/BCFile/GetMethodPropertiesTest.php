@@ -544,6 +544,28 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test a function with return type using the namespace operator.
+     *
+     * @return void
+     */
+    public function testNamespaceOperatorTypeHint()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?namespace\Name',
+            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264
