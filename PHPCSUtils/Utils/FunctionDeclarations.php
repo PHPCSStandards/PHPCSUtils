@@ -403,7 +403,6 @@ class FunctionDeclarations
      *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 union types.
      * - Support for PHP 8.0 constructor property promotion.
-     * - Support for namespace operator in type declarations.
      * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.

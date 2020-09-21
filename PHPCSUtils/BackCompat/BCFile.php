@@ -255,6 +255,7 @@ class BCFile
      * - PHPCS 3.5.3: Fixed a bug where the `"type_hint_end_token"` array index for a type hinted
      *                parameter would bleed through to the next (non-type hinted) parameter.
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions.
+     * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getParameters() PHPCSUtils native improved version.
@@ -418,6 +419,7 @@ class BCFile
                         $typeHintEndToken = $i;
                     }
                     break;
+                case 'T_NAMESPACE':
                 case 'T_NS_SEPARATOR':
                     // Part of a type hint or default value.
                     if ($defaultStart === null) {
