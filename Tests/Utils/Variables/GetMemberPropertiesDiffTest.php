@@ -234,18 +234,6 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            'namespace-operator-type-declaration' => [
-                '/* testNamespaceOperatorTypeHint */',
-                [
-                    'scope'           => 'public',
-                    'scope_specified' => true,
-                    'is_static'       => false,
-                    'type'            => '?namespace\Name',
-                    'type_token'      => ($php8Names === true) ? -2 : -4, // Offset from the T_VARIABLE token.
-                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
-                    'nullable_type'   => true,
-                ],
-            ],
         ];
     }
 }
