@@ -66,7 +66,6 @@ class Operators
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
      * - Improved handling of select tokenizer errors involving short lists/short arrays.
-     * - Parameters passed by reference in arrow functions are recognized correctly.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.

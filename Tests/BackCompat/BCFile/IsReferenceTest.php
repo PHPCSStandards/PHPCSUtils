@@ -344,6 +344,18 @@ class IsReferenceTest extends UtilityMethodTestCase
                 '/* testPassByReferenceExactParameterD */',
                 false,
             ],
+            [
+                '/* testArrowFunctionPassByReferenceA */',
+                true,
+            ],
+            [
+                '/* testArrowFunctionPassByReferenceB */',
+                true,
+            ],
+            [
+                '/* testArrowFunctionNonReferenceInDefault */',
+                false,
+            ],
         ];
     }
 }
