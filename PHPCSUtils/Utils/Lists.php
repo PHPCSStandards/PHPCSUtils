@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\Parentheses;
@@ -73,6 +74,8 @@ class Lists
             return false;
         }
 
+        $phpcsVersion = Helper::getVersion();
+
         /*
          * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 - 3.2.3 where a `[` would be
          * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
@@ -115,6 +118,60 @@ class Lists
             }
 
             return false;
+        } else {
+            /*
+             * Deal with short array brackets which may be incorrectly tokenized plain square brackets.
+             */
+            $opener = $stackPtr;
+            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SHORT_ARRAY) {
+                $opener = $tokens[$stackPtr]['bracket_opener'];
+            }
+
+            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
+
+            if (\version_compare($phpcsVersion, '3.5.6', '<')) {
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS < 3.5.6 where dereferencing
+                 * of magic constants (PHP 8+) would be incorrectly tokenized as short array.
+                 * I.e. the square brackets in `__FILE__[0]` would be tokenized as short array.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
+                 */
+                if (isset(Collections::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
+                    return false;
+                }
+            }
+
+            if (\version_compare($phpcsVersion, '2.9.0', '<')) {
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS < 2.9.0 where array dereferencing
+                 * of short array and string literals would be incorrectly tokenized as short array.
+                 * I.e. the square brackets in `'PHP'[0]` would be tokenized as short array.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1381
+                 */
+                if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
+                    || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
+                ) {
+                    return false;
+                }
+
+                /*
+                 * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 and 2.8.1 where array dereferencing
+                 * of a variable variable would be incorrectly tokenized as short array.
+                 *
+                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
+                 */
+                if (\version_compare($phpcsVersion, '2.8.0', '>=')
+                    && $tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
+                ) {
+                    $openCurly     = $tokens[$prevNonEmpty]['bracket_opener'];
+                    $beforeCurlies = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($openCurly - 1), null, true);
+                    if ($tokens[$beforeCurlies]['code'] === \T_DOLLAR) {
+                        return false;
+                    }
+                }
+            }
         }
 
         switch ($tokens[$stackPtr]['code']) {
