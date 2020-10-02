@@ -191,6 +191,34 @@ class IsShortArrayOrListTokenizerBC1Test extends UtilityMethodTestCase
                     'list'  => false,
                 ],
             ],
+            'issue-more-magic-constant-dereferencing-1' => [
+                '/* testTokenizerIssuePHPCS28xA */',
+                [
+                    'array' => false,
+                    'list'  => false,
+                ],
+            ],
+            'issue-nested-magic-constant-dereferencing-2' => [
+                '/* testTokenizerIssuePHPCS28xB */',
+                [
+                    'array' => false,
+                    'list'  => false,
+                ],
+            ],
+            'issue-nested-magic-constant-dereferencing-3' => [
+                '/* testTokenizerIssuePHPCS28xC */',
+                [
+                    'array' => false,
+                    'list'  => false,
+                ],
+            ],
+            'issue-nested-magic-constant-dereferencing-4' => [
+                '/* testTokenizerIssuePHPCS28xD */',
+                [
+                    'array' => false,
+                    'list'  => false,
+                ],
+            ],
         ];
     }
 }

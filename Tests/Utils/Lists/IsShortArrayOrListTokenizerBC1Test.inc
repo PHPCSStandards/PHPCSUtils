@@ -32,3 +32,9 @@ $c->{$var}[ ] = 2;
 
 /* testTokenizerIssue3013PHPCSlt356 */
 $var = __FILE__[0];
+
+/* testTokenizerIssuePHPCS28xA */
+__NAMESPACE__[] = 'x';
+
+/* testTokenizerIssuePHPCS28xB */
+__method__[0]/* testTokenizerIssuePHPCS28xC */[1]/* testTokenizerIssuePHPCS28xD */[2] *= 'x';
