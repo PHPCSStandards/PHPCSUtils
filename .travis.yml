@@ -139,7 +139,7 @@ jobs:
       env: PHPCS_VERSION="2.9.2"
     - php: 5.5
       dist: trusty
-      env: PHPCS_VERSION="2.6.0"
+      env: PHPCS_VERSION="2.6.2"
 
     - php: 5.4
       dist: trusty
@@ -151,6 +151,12 @@ jobs:
     # One extra build to verify issues around PHPCS annotations when they weren't fully accounted for yet.
     - php: 7.2
       env: PHPCS_VERSION="3.2.0"
+
+    # And a few more to verify various tokenizer issues in older PHPCS versions.
+    - php: 5.6
+      env: PHPCS_VERSION="2.8.1"
+    - php: 7.0
+      env: PHPCS_VERSION="2.7.1"
 
     # Current lowest PHPCS version which _may_ run on PHP 8 is 3.5.0, so don't even try to test against older versions.
     - php: "nightly"
