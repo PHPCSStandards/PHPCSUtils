@@ -41,6 +41,7 @@ class MyClass {
     function myFunction(): \MyNamespace\MyClass {}
 
     /* testReturnMultilineNamespace */
+    // Parse error in PHP 8.0.
     function myFunction(): \MyNamespace /** comment *\/ comment */
                            \MyClass /* comment */
                            \Foo {}

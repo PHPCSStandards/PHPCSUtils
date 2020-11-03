@@ -532,17 +532,19 @@ class BCFile
      * The format of the return value is:
      * ```php
      * array(
-     *   'scope'                => 'public', // Public, private, or protected
-     *   'scope_specified'      => true,     // TRUE if the scope keyword was found.
-     *   'return_type'          => '',       // The return type of the method.
-     *   'return_type_token'    => integer,  // The stack pointer to the start of the return type
-     *                                       // or FALSE if there is no return type.
-     *   'nullable_return_type' => false,    // TRUE if the return type is preceded by
-     *                                       // the nullability operator.
-     *   'is_abstract'          => false,    // TRUE if the abstract keyword was found.
-     *   'is_final'             => false,    // TRUE if the final keyword was found.
-     *   'is_static'            => false,    // TRUE if the static keyword was found.
-     *   'has_body'             => false,    // TRUE if the method has a body
+     *   'scope'                 => 'public', // Public, private, or protected
+     *   'scope_specified'       => true,     // TRUE if the scope keyword was found.
+     *   'return_type'           => '',       // The return type of the method.
+     *   'return_type_token'     => integer,  // The stack pointer to the start of the return type
+     *                                        // or FALSE if there is no return type.
+     *   'return_type_end_token' => integer,  // The stack pointer to the end of the return type
+     *                                        // or FALSE if there is no return type.
+     *   'nullable_return_type'  => false,    // TRUE if the return type is preceded by
+     *                                        // the nullability operator.
+     *   'is_abstract'           => false,    // TRUE if the abstract keyword was found.
+     *   'is_final'              => false,    // TRUE if the final keyword was found.
+     *   'is_static'             => false,    // TRUE if the static keyword was found.
+     *   'has_body'              => false,    // TRUE if the method has a body
      * );
      * ```
      *
@@ -569,6 +571,7 @@ class BCFile
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions.
      * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
      * - PHPCS 3.6.0: Added support for PHP 8.0 union types. PHPCS#3032.
+     * - PHPCS 3.6.0: Added new `"return_type_end_token"` index. PHPCS#3153.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getProperties() PHPCSUtils native improved version.
@@ -658,6 +661,7 @@ class BCFile
         $returnType         = '';
         $returnTypeToken    = false;
         $nullableReturnType = false;
+        $returnTypeEndToken = false;
         $hasBody            = true;
         $returnTypeTokens   = Collections::returnTypeTokensBC();
 
@@ -711,7 +715,8 @@ class BCFile
                         $returnTypeToken = $i;
                     }
 
-                    $returnType .= $tokens[$i]['content'];
+                    $returnType        .= $tokens[$i]['content'];
+                    $returnTypeEndToken = $i;
                 }
             }
 
@@ -733,15 +738,16 @@ class BCFile
         }
 
         return [
-            'scope'                => $scope,
-            'scope_specified'      => $scopeSpecified,
-            'return_type'          => $returnType,
-            'return_type_token'    => $returnTypeToken,
-            'nullable_return_type' => $nullableReturnType,
-            'is_abstract'          => $isAbstract,
-            'is_final'             => $isFinal,
-            'is_static'            => $isStatic,
-            'has_body'             => $hasBody,
+            'scope'                 => $scope,
+            'scope_specified'       => $scopeSpecified,
+            'return_type'           => $returnType,
+            'return_type_token'     => $returnTypeToken,
+            'return_type_end_token' => $returnTypeEndToken,
+            'nullable_return_type'  => $nullableReturnType,
+            'is_abstract'           => $isAbstract,
+            'is_final'              => $isFinal,
+            'is_static'             => $isStatic,
+            'has_body'              => $hasBody,
         ];
     }
 

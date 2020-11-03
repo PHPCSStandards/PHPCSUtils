@@ -17,8 +17,3 @@ trait FooTrait {
             $func();
     }
 }
-
-/* testReturnTypeEndTokenIndex */
-function myFunction(): ?\MyNamespace /* comment */
-                        \MyClass // comment
-                        \Foo {}
