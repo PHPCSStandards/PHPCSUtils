@@ -566,6 +566,254 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP8 union type declaration.
+     *
+     * @return void
+     */
+    public function testPHP8UnionTypesSimple()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'int|float',
+            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 union type declaration with two classes.
+     *
+     * @return void
+     */
+    public function testPHP8UnionTypesTwoClasses()
+    {
+        $php8Names = parent::usesPhp8NameTokens();
+
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'MyClassA|\Package\MyClassB',
+            'return_type_token'     => 6, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+    }
+
+    /**
+     * Verify recognition of PHP8 union type declaration with all base types.
+     *
+     * @return void
+     */
+    public function testPHP8UnionTypesAllBaseTypes()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'array|bool|callable|int|float|null|Object|string',
+            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 union type declaration with all pseudo types.
+     *
+     * Note: "Resource" is not a type, but seen as a class name.
+     *
+     * @return void
+     */
+    public function testPHP8UnionTypesAllPseudoTypes()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'false|MIXED|self|parent|static|iterable|Resource|void',
+            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 union type declaration with (illegal) nullability.
+     *
+     * @return void
+     */
+    public function testPHP8UnionTypesNullable()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?int|float',
+            'return_type_token'     => 12, // Offset from the T_CLOSURE token.
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 type declaration with (illegal) single type null.
+     *
+     * @return void
+     */
+    public function testPHP8PseudoTypeNull()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'null',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 type declaration with (illegal) single type false.
+     *
+     * @return void
+     */
+    public function testPHP8PseudoTypeFalse()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'false',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 type declaration with (illegal) type false combined with type bool.
+     *
+     * @return void
+     */
+    public function testPHP8PseudoTypeFalseAndBool()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'bool|false',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 type declaration with (illegal) type object combined with a class name.
+     *
+     * @return void
+     */
+    public function testPHP8ObjectAndClass()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'object|ClassName',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 type declaration with (illegal) type iterable combined with array/Traversable.
+     *
+     * @return void
+     */
+    public function testPHP8PseudoTypeIterableAndArray()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => true,
+            'return_type'           => 'iterable|array|Traversable',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => false,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 type declaration with (illegal) duplicate types.
+     *
+     * @return void
+     */
+    public function testPHP8DuplicateTypeInUnionWhitespaceAndComment()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'int|string|INT',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264
