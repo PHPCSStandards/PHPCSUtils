@@ -85,7 +85,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
         $php8Names = parent::usesPhp8NameTokens();
 
         return [
-            [
+            'var-modifier' => [
                 '/* testVar */',
                 [
                     'scope'           => 'public',
@@ -97,7 +97,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'var-modifier-and-type' => [
                 '/* testVarType */',
                 [
                     'scope'           => 'public',
@@ -109,7 +109,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'public-modifier' => [
                 '/* testPublic */',
                 [
                     'scope'           => 'public',
@@ -121,7 +121,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'public-modifier-and-type' => [
                 '/* testPublicType */',
                 [
                     'scope'           => 'public',
@@ -133,7 +133,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'protected-modifier' => [
                 '/* testProtected */',
                 [
                     'scope'           => 'protected',
@@ -145,7 +145,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'protected-modifier-and-type' => [
                 '/* testProtectedType */',
                 [
                     'scope'           => 'protected',
@@ -157,7 +157,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'private-modifier' => [
                 '/* testPrivate */',
                 [
                     'scope'           => 'private',
@@ -169,7 +169,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'private-modifier-and-type' => [
                 '/* testPrivateType */',
                 [
                     'scope'           => 'private',
@@ -181,7 +181,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'static-modifier' => [
                 '/* testStatic */',
                 [
                     'scope'           => 'public',
@@ -193,7 +193,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'static-modifier-and-type' => [
                 '/* testStaticType */',
                 [
                     'scope'           => 'public',
@@ -205,7 +205,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'static-and-var-modifier' => [
                 '/* testStaticVar */',
                 [
                     'scope'           => 'public',
@@ -217,7 +217,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'var-and-static-modifier' => [
                 '/* testVarStatic */',
                 [
                     'scope'           => 'public',
@@ -229,7 +229,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'public-static-modifiers' => [
                 '/* testPublicStatic */',
                 [
                     'scope'           => 'public',
@@ -241,7 +241,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'protected-static-modifiers' => [
                 '/* testProtectedStatic */',
                 [
                     'scope'           => 'protected',
@@ -253,7 +253,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'private-static-modifiers' => [
                 '/* testPrivateStatic */',
                 [
                     'scope'           => 'private',
@@ -265,7 +265,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'no-modifier' => [
                 '/* testNoPrefix */',
                 [
                     'scope'           => 'public',
@@ -277,7 +277,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'public-and-static-modifier-with-docblock' => [
                 '/* testPublicStaticWithDocblock */',
                 [
                     'scope'           => 'public',
@@ -289,7 +289,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'protected-and-static-modifier-with-docblock' => [
                 '/* testProtectedStaticWithDocblock */',
                 [
                     'scope'           => 'protected',
@@ -301,7 +301,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'private-and-static-modifier-with-docblock' => [
                 '/* testPrivateStaticWithDocblock */',
                 [
                     'scope'           => 'private',
@@ -313,7 +313,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-simple-type-prop-1' => [
                 '/* testGroupType 1 */',
                 [
                     'scope'           => 'public',
@@ -325,7 +325,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-simple-type-prop-2' => [
                 '/* testGroupType 2 */',
                 [
                     'scope'           => 'public',
@@ -337,7 +337,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-nullable-type-prop-1' => [
                 '/* testGroupNullableType 1 */',
                 [
                     'scope'           => 'public',
@@ -349,7 +349,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'property-group-nullable-type-prop-2' => [
                 '/* testGroupNullableType 2 */',
                 [
                     'scope'           => 'public',
@@ -361,7 +361,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'property-group-protected-static-prop-1' => [
                 '/* testGroupProtectedStatic 1 */',
                 [
                     'scope'           => 'protected',
@@ -373,7 +373,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-protected-static-prop-2' => [
                 '/* testGroupProtectedStatic 2 */',
                 [
                     'scope'           => 'protected',
@@ -385,7 +385,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-protected-static-prop-3' => [
                 '/* testGroupProtectedStatic 3 */',
                 [
                     'scope'           => 'protected',
@@ -397,7 +397,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-1' => [
                 '/* testGroupPrivate 1 */',
                 [
                     'scope'           => 'private',
@@ -409,7 +409,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-2' => [
                 '/* testGroupPrivate 2 */',
                 [
                     'scope'           => 'private',
@@ -421,7 +421,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-3' => [
                 '/* testGroupPrivate 3 */',
                 [
                     'scope'           => 'private',
@@ -433,7 +433,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-4' => [
                 '/* testGroupPrivate 4 */',
                 [
                     'scope'           => 'private',
@@ -445,7 +445,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-5' => [
                 '/* testGroupPrivate 5 */',
                 [
                     'scope'           => 'private',
@@ -457,7 +457,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-6' => [
                 '/* testGroupPrivate 6 */',
                 [
                     'scope'           => 'private',
@@ -469,7 +469,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-group-private-prop-7' => [
                 '/* testGroupPrivate 7 */',
                 [
                     'scope'           => 'private',
@@ -481,7 +481,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'messy-nullable-type' => [
                 '/* testMessyNullableType */',
                 [
                     'scope'           => 'public',
@@ -493,7 +493,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'fqn-type' => [
                 '/* testNamespaceType */',
                 [
                     'scope'           => 'public',
@@ -505,7 +505,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'nullable-classname-type' => [
                 '/* testNullableNamespaceType 1 */',
                 [
                     'scope'           => 'private',
@@ -517,7 +517,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'nullable-namespace-relative-class-type' => [
                 '/* testNullableNamespaceType 2 */',
                 [
                     'scope'           => 'protected',
@@ -529,7 +529,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'multiline-namespaced-type' => [
                 '/* testMultilineNamespaceType */',
                 [
                     'scope'           => 'public',
@@ -541,7 +541,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-after-method' => [
                 '/* testPropertyAfterMethod */',
                 [
                     'scope'           => 'private',
@@ -553,11 +553,11 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'invalid-property-in-interface' => [
                 '/* testInterfaceProperty */',
                 [],
             ],
-            [
+            'property-in-nested-class-1' => [
                 '/* testNestedProperty 1 */',
                 [
                     'scope'           => 'public',
@@ -569,7 +569,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'property-in-nested-class-2' => [
                 '/* testNestedProperty 2 */',
                 [
                     'scope'           => 'public',
@@ -581,7 +581,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-mixed-type' => [
                 '/* testPHP8MixedTypeHint */',
                 [
                     'scope'           => 'public',
@@ -593,7 +593,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
-            [
+            'php8-nullable-mixed-type' => [
                 '/* testPHP8MixedTypeHintNullable */',
                 [
                     'scope'           => 'private',
@@ -605,7 +605,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
-            [
+            'namespace-operator-type-declaration' => [
                 '/* testNamespaceOperatorTypeHint */',
                 [
                     'scope'           => 'public',
