@@ -665,6 +665,16 @@ class BCFile
                     break;
                 }
 
+                /*
+                 * Work-around for a scope map tokenizer bug in PHPCS.
+                 * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
+                 */
+                if ($scopeOpener === null && $tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
+                    // End of function definition for which the scope opener is incorrectly not set.
+                    $hasBody = true;
+                    break;
+                }
+
                 if ($tokens[$i]['type'] === 'T_NULLABLE'
                     // Handle nullable tokens in PHPCS < 2.8.0.
                     || (defined('T_NULLABLE') === false && $tokens[$i]['code'] === T_INLINE_THEN)
