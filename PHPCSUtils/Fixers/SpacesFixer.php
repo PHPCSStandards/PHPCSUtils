@@ -146,14 +146,14 @@ class SpacesFixer
 
         $found       = 0;
         $foundPhrase = 'no spaces';
-        if (($ptrA + 1) !== $ptrB) {
-            if ($tokens[$ptrA]['line'] !== $tokens[$ptrB]['line']) {
-                $found       = 'newline';
-                $foundPhrase = 'a new line';
-                if (($tokens[$ptrA]['line'] + 1) !== $tokens[$ptrB]['line']) {
-                    $foundPhrase = 'multiple new lines';
-                }
-            } elseif ($tokens[($ptrA + 1)]['code'] === \T_WHITESPACE) {
+        if ($tokens[$ptrA]['line'] !== $tokens[$ptrB]['line']) {
+            $found       = 'newline';
+            $foundPhrase = 'a new line';
+            if (($tokens[$ptrA]['line'] + 1) !== $tokens[$ptrB]['line']) {
+                $foundPhrase = 'multiple new lines';
+            }
+        } elseif (($ptrA + 1) !== $ptrB) {
+            if ($tokens[($ptrA + 1)]['code'] === \T_WHITESPACE) {
                 $found       = $tokens[($ptrA + 1)]['length'];
                 $foundPhrase = $found . (($found === 1) ? ' space' : ' spaces');
             } else {
