@@ -129,6 +129,18 @@ class Lists
 
             $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
 
+            //if (\version_compare($phpcsVersion, '3.6.0', '<')) {
+            /*
+             * BC: Work around a bug in the tokenizer of PHPCS < 3.6.0 where dereferencing
+             * of interpolated text string (PHP 8+) would be incorrectly tokenized as short array.
+             *
+             * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3172
+             */
+            if ($tokens[$prevNonEmpty]['code'] === \T_DOUBLE_QUOTED_STRING) {
+                return false;
+            }
+            //}
+
             if (\version_compare($phpcsVersion, '3.5.6', '<')) {
                 /*
                  * BC: Work around a bug in the tokenizer of PHPCS < 3.5.6 where dereferencing
