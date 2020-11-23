@@ -38,3 +38,6 @@ __NAMESPACE__[] = 'x';
 
 /* testTokenizerIssuePHPCS28xB */
 __method__[0]/* testTokenizerIssuePHPCS28xC */[1]/* testTokenizerIssuePHPCS28xD */[2] *= 'x';
+
+/* testTokenizerIssue3172PHPCSlt360A */
+$var = "PHP{$rocks}"[1]/* testTokenizerIssue3172PHPCSlt360B */[0];

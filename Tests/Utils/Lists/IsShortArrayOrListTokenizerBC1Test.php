@@ -219,6 +219,20 @@ class IsShortArrayOrListTokenizerBC1Test extends UtilityMethodTestCase
                     'list'  => false,
                 ],
             ],
+            'issue-interpolated-string-dereferencing' => [
+                '/* testTokenizerIssue3172PHPCSlt360A */',
+                [
+                    'array' => false,
+                    'list'  => false,
+                ],
+            ],
+            'issue-interpolated-string-dereferencing-nested' => [
+                '/* testTokenizerIssue3172PHPCSlt360B */',
+                [
+                    'array' => false,
+                    'list'  => false,
+                ],
+            ],
         ];
     }
 }
