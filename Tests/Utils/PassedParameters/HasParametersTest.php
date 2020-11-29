@@ -8,7 +8,7 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Utils\Operators;
+namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\PassedParameters;
