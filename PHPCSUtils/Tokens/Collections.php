@@ -59,6 +59,21 @@ class Collections
     ];
 
     /**
+     * Tokens which can open an array.
+     *
+     * PHPCS cross-version compatible.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @var array <int|string> => <int|string>
+     */
+    public static $arrayOpenTokensBC = [
+        \T_ARRAY               => \T_ARRAY,
+        \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
+    ];
+
+    /**
      * Tokens which are used to create arrays.
      *
      * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
@@ -510,6 +525,28 @@ class Collections
     }
 
     /**
+     * Tokens which can represent function calls and function-call-like language constructs.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::parameterPassingTokens() Related method.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function functionCallTokens()
+    {
+        // Function calls and class instantiation.
+        $tokens              = self::nameTokens();
+        $tokens[\T_VARIABLE] = \T_VARIABLE;
+
+        // Class instantiation only.
+        $tokens[\T_SELF]   = \T_SELF;
+        $tokens[\T_STATIC] = \T_STATIC;
+
+        return $tokens;
+    }
+
+    /**
      * Tokens which can represent a keyword which starts a function declaration.
      *
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
@@ -830,6 +867,30 @@ class Collections
         if (\defined('T_ARRAY_HINT') === true) {
             $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
         }
+
+        return $tokens;
+    }
+
+    /**
+     * Tokens which can be passed to the methods in the PassedParameter class.
+     *
+     * @see \PHPCSUtils\Utils\PassedParameters
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function parameterPassingTokens()
+    {
+        // Function call and class instantiation tokens.
+        $tokens = self::functionCallTokens();
+
+        // Function-look-a-like language constructs which can take multiple "parameters".
+        $tokens[\T_ISSET] = \T_ISSET;
+        $tokens[\T_UNSET] = \T_UNSET;
+
+        // Array tokens.
+        $tokens += self::$arrayOpenTokensBC;
 
         return $tokens;
     }

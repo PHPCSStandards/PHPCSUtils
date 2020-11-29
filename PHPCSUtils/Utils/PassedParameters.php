@@ -27,26 +27,6 @@ class PassedParameters
 {
 
     /**
-     * The token types these methods can handle.
-     *
-     * @since 1.0.0
-     *
-     * @var array <int|string> => <irrelevant>
-     */
-    private static $allowedConstructs = [
-        \T_STRING              => true,
-        \T_VARIABLE            => true,
-        \T_SELF                => true,
-        \T_STATIC              => true,
-        \T_ARRAY               => true,
-        \T_OPEN_SHORT_ARRAY    => true,
-        \T_ISSET               => true,
-        \T_UNSET               => true,
-        // BC for various short array tokenizer issues. See the Arrays class for more details.
-        \T_OPEN_SQUARE_BRACKET => true,
-    ];
-
-    /**
      * Tokens which are considered stop point, either because they are the end
      * of the parameter (comma) or because we need to skip over them.
      *
@@ -94,9 +74,7 @@ class PassedParameters
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
-            || (isset(self::$allowedConstructs[$tokens[$stackPtr]['code']]) === false
-                // Allow for the PHP 8.0 identifier name tokens.
-                && isset(Collections::nameTokens()[$tokens[$stackPtr]['code']]) === false)
+            || isset(Collections::parameterPassingTokens()[$tokens[$stackPtr]['code']]) === false
         ) {
             throw new RuntimeException(
                 'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
