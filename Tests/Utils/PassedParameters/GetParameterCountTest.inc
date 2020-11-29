@@ -210,6 +210,11 @@ $bar = ['a' => $a, 'b' => $b, 'c' => (isset($c) ? $c : null)];
 /* testShortArray8 */
 $bar = [0 => $a, 2 => $b, 6 => (isset($c) ? $c : null)];
 
+/* testAnonClass */
+$anon = new class( $param1, $param2 ) {
+    public function __construct($param1, $param2) {}
+};
+
 /* testArrayWithEmptyItem */
 // Intentional parse error.
 $bar = [0 => $a,, 2 => $b];

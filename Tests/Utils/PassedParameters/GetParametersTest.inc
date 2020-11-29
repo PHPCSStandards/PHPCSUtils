@@ -119,3 +119,8 @@ if ( isset(
 
 /* testUnset */
 unset( $variable, $object->property, static::$property, $array[$name], );
+
+/* testAnonClass */
+$anon = new class( $param1, $param2 ) {
+    public function __construct($param1, $param2) {}
+};
