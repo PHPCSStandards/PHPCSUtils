@@ -278,6 +278,23 @@ class HasParametersTest extends UtilityMethodTestCase
                 true,
             ],
 
+            // Anonymous class instantiation.
+            'no-params-no-parens-anon-class' => [
+                '/* testNoParamsNoParensAnonClass */',
+                \T_ANON_CLASS,
+                false,
+            ],
+            'no-params-with-parens-anon-class' => [
+                '/* testNoParamsWithParensAnonClass */',
+                \T_ANON_CLASS,
+                false,
+            ],
+            'has-params-anon-class' => [
+                '/* testHasParamsAnonClass */',
+                \T_ANON_CLASS,
+                true,
+            ],
+
             // Defensive coding against parse errors and live coding.
             'defense-in-depth-no-close-parens' => [
                 '/* testNoCloseParenthesis */',

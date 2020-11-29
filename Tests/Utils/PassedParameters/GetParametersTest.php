@@ -524,6 +524,22 @@ class GetParametersTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'anon-class' => [
+                '/* testAnonClass */',
+                \T_ANON_CLASS,
+                [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 3,
+                        'raw'   => '$param1',
+                    ],
+                    2 => [
+                        'start' => 5,
+                        'end'   => 7,
+                        'raw'   => '$param2',
+                    ],
+                ],
+            ],
         ];
     }
 

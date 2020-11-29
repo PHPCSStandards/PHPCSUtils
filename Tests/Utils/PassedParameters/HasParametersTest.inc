@@ -120,6 +120,15 @@ unset(
 
 );
 
+/* testNoParamsNoParensAnonClass */
+$anon = new class extends FooBar {};
+
+/* testNoParamsWithParensAnonClass */
+$anon = new class() {};
+
+/* testHasParamsAnonClass */
+$anon = new class( $param1, $param2 ) {};
+
 // Intentional parse error.
 /* testNoCloseParenthesis */
 $array = array(1, 2, 3

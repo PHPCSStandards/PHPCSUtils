@@ -346,6 +346,11 @@ class GetParameterCountTest extends UtilityMethodTestCase
                 3,
             ],
 
+            'anon-class' => [
+                '/* testAnonClass */',
+                2,
+            ],
+
             'array-with-empty-item' => [
                 '/* testArrayWithEmptyItem */',
                 3,

@@ -540,8 +540,9 @@ class Collections
         $tokens[\T_VARIABLE] = \T_VARIABLE;
 
         // Class instantiation only.
-        $tokens[\T_SELF]   = \T_SELF;
-        $tokens[\T_STATIC] = \T_STATIC;
+        $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
+        $tokens[\T_SELF]       = \T_SELF;
+        $tokens[\T_STATIC]     = \T_STATIC;
 
         return $tokens;
     }

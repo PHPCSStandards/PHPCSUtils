@@ -49,6 +49,7 @@ class ParameterPassingTokensTest extends TestCase
 
         $expected += [
             \T_VARIABLE            => \T_VARIABLE,
+            \T_ANON_CLASS          => \T_ANON_CLASS,
             \T_SELF                => \T_SELF,
             \T_STATIC              => \T_STATIC,
             \T_ISSET               => \T_ISSET,

@@ -19,7 +19,7 @@ use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
  * Utility functions to retrieve information about parameters passed to function calls,
- * array declarations, isset and unset constructs.
+ * class instantiations, array declarations, isset and unset constructs.
  *
  * @since 1.0.0
  */
@@ -49,8 +49,9 @@ class PassedParameters
      *   or `T_VARIABLE` stack pointer, it will treat it as a function call.
      *   If a `T_STRING` or `T_VARIABLE` which is *not* a function call is passed, the behaviour is
      *   undetermined.
+     * - If passed a `T_ANON_CLASS` stack pointer, it will accept it as a class instantiation.
      * - If passed a `T_SELF` or `T_STATIC` stack pointer, it will accept it as a
-     *   function call when used like `new self()`.
+     *   class instantiation function call when used like `new self()`.
      * - If passed a `T_ARRAY` or `T_OPEN_SHORT_ARRAY` stack pointer, it will detect
      *   whether the array has values or is empty.
      * - If passed a `T_ISSET` or `T_UNSET` stack pointer, it will detect whether those
