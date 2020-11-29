@@ -55,6 +55,9 @@ class PassedParameters
      *   class instantiation function call when used like `new self()`.
      * - If passed a `T_ARRAY` or `T_OPEN_SHORT_ARRAY` stack pointer, it will detect
      *   whether the array has values or is empty.
+     *   For purposes of backward-compatibility with older PHPCS versions, `T_OPEN_SQUARE_BRACKET`
+     *   tokens will also be accepted and will be checked whether they are in reality
+     *   a short array opener.
      * - If passed a `T_ISSET` or `T_UNSET` stack pointer, it will detect whether those
      *   language constructs have "parameters".
      *
@@ -62,9 +65,8 @@ class PassedParameters
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
-     * @param int                         $stackPtr     The position of the `T_STRING`, PHP 8.0 identifier
-     *                                                  name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
-     *                                                  `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $stackPtr     The position of function call name,
+     *                                                  language construct or array open token.
      * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
      *                                                  `T_OPEN_SHORT_ARRAY` tokens if it isn't necessary.
      *                                                  Efficiency tweak for when this has already been established,
@@ -154,9 +156,8 @@ class PassedParameters
      *                     introducing the new `'name_start'`, `'name_end'` and `'name'` index keys.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
-     * @param int                         $stackPtr     The position of the `T_STRING`, PHP 8.0 identifier
-     *                                                  name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
-     *                                                  `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $stackPtr     The position of function call name,
+     *                                                  language construct or array open token.
      * @param int                         $limit        Optional. Limit the parameter retrieval to the first #
      *                                                  parameters/array entries.
      * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
@@ -349,9 +350,8 @@ class PassedParameters
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
-     * @param int                         $stackPtr    The position of the `T_STRING`, PHP 8.0 identifier
-     *                                                 name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
-     *                                                 `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $stackPtr    The position of function call name,
+     *                                                 language construct or array open token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
      * @param string|string[]             $paramNames  Optional. Either the name of the target parameter
      *                                                 to retrieve as a string or an array of names for the
@@ -412,9 +412,8 @@ class PassedParameters
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
-     *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
-     *                                               `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $stackPtr  The position of function call name,
+     *                                               language construct or array open token.
      *
      * @return int
      *
