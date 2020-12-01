@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -89,7 +90,7 @@ class GetParametersNamedTest extends UtilityMethodTestCase
          *    the `match` control structure is not supported in PHPCS yet.
          */
         $php8Names          = parent::usesPhp8NameTokens();
-        $namedParamsInPhpcs = false;
+        $namedParamsInPhpcs = \version_compare(Helper::getVersion(), '3.6.0', '>=');
         $matchIsKeyword     = \version_compare(\PHP_VERSION_ID, '80000', '>=');
 
         return [

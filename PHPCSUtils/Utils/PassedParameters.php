@@ -170,7 +170,7 @@ class PassedParameters
      *                 'name_end'   => int,    // The stack pointer to the last token in the parameter name.
      *                                         // This will normally be the colon, but may be different in
      *                                         // PHPCS versions prior to the version adding support for
-     *                                         // named parameters (PHPCS x.x.x).
+     *                                         // named parameters (PHPCS 3.6.0).
      *                 'name'       => string, // The parameter name as a string (without the colon).
      *                 'start'      => int,    // The stack pointer to the first token in the parameter value.
      *                 'end'        => int,    // The stack pointer to the last token in the parameter value.
@@ -262,7 +262,7 @@ class PassedParameters
                 $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
                 if ($firstNonEmpty !== $paramEnd) {
                     /*
-                     * BC: Prior to support for named parameters being added to PHPCS in PHPCS 3.6.0 (?), the
+                     * BC: Prior to support for named parameters being added to PHPCS in PHPCS 3.6.0, the
                      * parameter name + the colon would in most cases be tokenized as one token: T_GOTO_LABEL.
                      */
                     if ($tokens[$firstNonEmpty]['code'] === \T_GOTO_LABEL) {
@@ -271,7 +271,7 @@ class PassedParameters
                         $parameters[$cnt]['name']       = \substr($tokens[$firstNonEmpty]['content'], 0, -1);
                         $paramStart                     = ($firstNonEmpty + 1);
                     } else {
-                        // PHPCS 3.6.0 (?) and select situations in PHPCS < 3.6.0 (?).
+                        // PHPCS 3.6.0 and select situations in PHPCS < 3.6.0.
                         $secondNonEmpty = $phpcsFile->findNext(
                             Tokens::$emptyTokens,
                             ($firstNonEmpty + 1),
@@ -280,7 +280,7 @@ class PassedParameters
                         );
 
                         /*
-                         * BC: Checking the content of the colon token instead of the token type as in PHPCS < 3.6.0 (?)
+                         * BC: Checking the content of the colon token instead of the token type as in PHPCS < 3.6.0
                          * the colon _may_ be tokenized as `T_STRING` or even `T_INLINE_ELSE`.
                          */
                         if ($tokens[$secondNonEmpty]['content'] === ':'
