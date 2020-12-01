@@ -214,6 +214,12 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
      */
     public function dataGetParameterFromStack()
     {
+        /*
+         * Work around to account for the different token positions due to the old tokenization
+         * to T_GOTO_LABEL which joins two tokens into one (incorrectly).
+         */
+        $namedParamsInPhpcs = false;
+
         return [
             'all-params-all-positional' => [
                 'marker'             => '/* testAllParamsPositional */',
@@ -237,53 +243,53 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 'marker'             => '/* testAllParamsNamedStandardOrder */',
                 'name'               => [
                     'name_start' => 2,
-                    'name_end'   => 5,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 5 : 4,
                     'name'       => 'name',
-                    'start'      => 6,
-                    'end'        => 7,
+                    'start'      => ($namedParamsInPhpcs === true) ? 6 : 5,
+                    'end'        => ($namedParamsInPhpcs === true) ? 7 : 6,
                     'raw'        => "'name'",
                 ],
                 'expires_or_options' => [
-                    'name_start' => 16,
-                    'name_end'   => 19,
+                    'name_start' => ($namedParamsInPhpcs === true) ? 16 : 14,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 19 : 16,
                     'name'       => 'expires_or_options',
-                    'start'      => 20,
-                    'end'        => 37,
+                    'start'      => ($namedParamsInPhpcs === true) ? 20 : 17,
+                    'end'        => ($namedParamsInPhpcs === true) ? 37 : 34,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'httponly'           => [
-                    'name_start' => 60,
-                    'name_end'   => 63,
+                    'name_start' => ($namedParamsInPhpcs === true) ? 60 : 54,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 63 : 56,
                     'name'       => 'httponly',
-                    'start'      => 64,
-                    'end'        => 66,
+                    'start'      => ($namedParamsInPhpcs === true) ? 64 : 57,
+                    'end'        => ($namedParamsInPhpcs === true) ? 66 : 59,
                     'raw'        => 'false',
                 ],
             ],
             'all-params-all-named-random-order' => [
                 'marker'             => '/* testAllParamsNamedNonStandardOrder */',
                 'name'               => [
-                    'name_start' => 32,
-                    'name_end'   => 35,
+                    'name_start' => ($namedParamsInPhpcs === true) ? 32 : 30,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 35 : 32,
                     'name'       => 'name',
-                    'start'      => 36,
-                    'end'        => 37,
+                    'start'      => ($namedParamsInPhpcs === true) ? 36 : 33,
+                    'end'        => ($namedParamsInPhpcs === true) ? 37 : 34,
                     'raw'        => "'name'",
                 ],
                 'expires_or_options' => [
                     'name_start' => 2,
-                    'name_end'   => 5,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 5 : 4,
                     'name'       => 'expires_or_options',
-                    'start'      => 6,
-                    'end'        => 23,
+                    'start'      => ($namedParamsInPhpcs === true) ? 6 : 5,
+                    'end'        => ($namedParamsInPhpcs === true) ? 23 : 22,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'httponly'           => [
-                    'name_start' => 53,
-                    'name_end'   => 56,
+                    'name_start' => ($namedParamsInPhpcs === true) ? 53 : 48,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 56 : 50,
                     'name'       => 'httponly',
-                    'start'      => 57,
-                    'end'        => 58,
+                    'start'      => ($namedParamsInPhpcs === true) ? 57 : 51,
+                    'end'        => ($namedParamsInPhpcs === true) ? 58 : 52,
                     'raw'        => 'false',
                 ],
             ],
@@ -300,11 +306,11 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'httponly'           => [
-                    'name_start' => 44,
-                    'name_end'   => 47,
+                    'name_start' => ($namedParamsInPhpcs === true) ? 44 : 42,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 47 : 44,
                     'name'       => 'httponly',
-                    'start'      => 48,
-                    'end'        => 49,
+                    'start'      => ($namedParamsInPhpcs === true) ? 48 : 45,
+                    'end'        => ($namedParamsInPhpcs === true) ? 49 : 46,
                     'raw'        => 'false',
                 ],
             ],
@@ -317,10 +323,10 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 ],
                 'expires_or_options' => [
                     'name_start' => 6,
-                    'name_end'   => 9,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 9 : 8,
                     'name'       => 'expires_or_options',
-                    'start'      => 10,
-                    'end'        => 27,
+                    'start'      => ($namedParamsInPhpcs === true) ? 10 : 9,
+                    'end'        => ($namedParamsInPhpcs === true) ? 27 : 26,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'httponly'           => false,
@@ -334,10 +340,10 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 ],
                 'expires_or_options' => [
                     'name_start' => 6,
-                    'name_end'   => 9,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 9 : 8,
                     'name'       => 'expires',
-                    'start'      => 10,
-                    'end'        => 27,
+                    'start'      => ($namedParamsInPhpcs === true) ? 10 : 9,
+                    'end'        => ($namedParamsInPhpcs === true) ? 27 : 26,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'httponly'           => false,

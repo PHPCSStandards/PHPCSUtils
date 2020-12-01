@@ -261,21 +261,37 @@ class PassedParameters
             if ($mayHaveNames === true) {
                 $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
                 if ($firstNonEmpty !== $paramEnd) {
-                    $secondNonEmpty = $phpcsFile->findNext(
-                        Tokens::$emptyTokens,
-                        ($firstNonEmpty + 1),
-                        ($paramEnd + 1),
-                        true
-                    );
-
-                    if ($tokens[$secondNonEmpty]['code'] === \T_COLON
-                        && ($tokens[$firstNonEmpty]['type'] === 'T_PARAM_NAME'
-                            || NamingConventions::isValidIdentifierName($tokens[$firstNonEmpty]['content']) === true)
-                    ) {
+                    /*
+                     * BC: Prior to support for named parameters being added to PHPCS in PHPCS 3.6.0 (?), the
+                     * parameter name + the colon would in most cases be tokenized as one token: T_GOTO_LABEL.
+                     */
+                    if ($tokens[$firstNonEmpty]['code'] === \T_GOTO_LABEL) {
                         $parameters[$cnt]['name_start'] = $paramStart;
-                        $parameters[$cnt]['name_end']   = $secondNonEmpty;
-                        $parameters[$cnt]['name']       = $tokens[$firstNonEmpty]['content'];
-                        $paramStart                     = ($secondNonEmpty + 1);
+                        $parameters[$cnt]['name_end']   = $firstNonEmpty;
+                        $parameters[$cnt]['name']       = \substr($tokens[$firstNonEmpty]['content'], 0, -1);
+                        $paramStart                     = ($firstNonEmpty + 1);
+                    } else {
+                        // PHPCS 3.6.0 (?) and select situations in PHPCS < 3.6.0 (?).
+                        $secondNonEmpty = $phpcsFile->findNext(
+                            Tokens::$emptyTokens,
+                            ($firstNonEmpty + 1),
+                            ($paramEnd + 1),
+                            true
+                        );
+
+                        /*
+                         * BC: Checking the content of the colon token instead of the token type as in PHPCS < 3.6.0 (?)
+                         * the colon _may_ be tokenized as `T_STRING` or even `T_INLINE_ELSE`.
+                         */
+                        if ($tokens[$secondNonEmpty]['content'] === ':'
+                            && ($tokens[$firstNonEmpty]['type'] === 'T_PARAM_NAME'
+                            || NamingConventions::isValidIdentifierName($tokens[$firstNonEmpty]['content']) === true)
+                        ) {
+                            $parameters[$cnt]['name_start'] = $paramStart;
+                            $parameters[$cnt]['name_end']   = $secondNonEmpty;
+                            $parameters[$cnt]['name']       = $tokens[$firstNonEmpty]['content'];
+                            $paramStart                     = ($secondNonEmpty + 1);
+                        }
                     }
                 }
             }
