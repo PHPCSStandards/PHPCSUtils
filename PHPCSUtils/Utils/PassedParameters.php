@@ -16,6 +16,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\GetTokensAsString;
+use PHPCSUtils\Utils\NamingConventions;
 
 /**
  * Utility functions to retrieve information about parameters passed to function calls,
@@ -144,6 +145,8 @@ class PassedParameters
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by
+     *                     introducing the new `'name_start'`, `'name_end'` and `'name'` index keys.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
@@ -160,6 +163,23 @@ class PassedParameters
      *                 'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
      *               )
      *               ```
+     *               For function calls passing named arguments, the format is as follows:
+     *               ```php
+     *               1 => array(
+     *                 'name_start' => int,    // The stack pointer to the first token in the parameter name.
+     *                 'name_end'   => int,    // The stack pointer to the last token in the parameter name.
+     *                                         // This will normally be the colon, but may be different in
+     *                                         // PHPCS versions prior to the version adding support for
+     *                                         // named parameters (PHPCS x.x.x).
+     *                 'name'       => string, // The parameter name as a string (without the colon).
+     *                 'start'      => int,    // The stack pointer to the first token in the parameter value.
+     *                 'end'        => int,    // The stack pointer to the last token in the parameter value.
+     *                 'raw'        => string, // A string with the contents of all tokens between `start` and `end`.
+     *                 'clean'      => string, // Same as `raw`, but all comment tokens have been stripped out.
+     *               )
+     *               ```
+     *               The `'start'`, `'end'`, `'raw'` and `'clean'` indexes will always contain just and only
+     *               information on the parameter value.
      *               _Note: The array starts at index 1._
      *               If no parameters/array items are found, an empty array will be returned.
      *
@@ -185,6 +205,8 @@ class PassedParameters
             $opener = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
             $closer = $tokens[$opener]['parenthesis_closer'];
         }
+
+        $mayHaveNames = (isset(Collections::functionCallTokens()[$tokens[$stackPtr]['code']]) === true);
 
         $parameters   = [];
         $nextComma    = $opener;
@@ -234,7 +256,46 @@ class PassedParameters
             }
 
             // Ok, we've reached the end of the parameter.
-            $paramEnd                  = ($nextComma - 1);
+            $paramEnd = ($nextComma - 1);
+
+            if ($mayHaveNames === true) {
+                $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
+                if ($firstNonEmpty !== $paramEnd) {
+                    /*
+                     * BC: Prior to support for named parameters being added to PHPCS in PHPCS 3.6.0 (?), the
+                     * parameter name + the colon would in most cases be tokenized as one token: T_GOTO_LABEL.
+                     */
+                    if ($tokens[$firstNonEmpty]['code'] === \T_GOTO_LABEL) {
+                        $parameters[$cnt]['name_start'] = $paramStart;
+                        $parameters[$cnt]['name_end']   = $firstNonEmpty;
+                        $parameters[$cnt]['name']       = \substr($tokens[$firstNonEmpty]['content'], 0, -1);
+                        $paramStart                     = ($firstNonEmpty + 1);
+                    } else {
+                        // PHPCS 3.6.0 (?) and select situations in PHPCS < 3.6.0 (?).
+                        $secondNonEmpty = $phpcsFile->findNext(
+                            Tokens::$emptyTokens,
+                            ($firstNonEmpty + 1),
+                            ($paramEnd + 1),
+                            true
+                        );
+
+                        /*
+                         * BC: Checking the content of the colon token instead of the token type as in PHPCS < 3.6.0 (?)
+                         * the colon _may_ be tokenized as `T_STRING` or even `T_INLINE_ELSE`.
+                         */
+                        if ($tokens[$secondNonEmpty]['content'] === ':'
+                            && ($tokens[$firstNonEmpty]['type'] === 'T_PARAM_NAME'
+                            || NamingConventions::isValidIdentifierName($tokens[$firstNonEmpty]['content']) === true)
+                        ) {
+                            $parameters[$cnt]['name_start'] = $paramStart;
+                            $parameters[$cnt]['name_end']   = $secondNonEmpty;
+                            $parameters[$cnt]['name']       = $tokens[$firstNonEmpty]['content'];
+                            $paramStart                     = ($secondNonEmpty + 1);
+                        }
+                    }
+                }
+            }
+
             $parameters[$cnt]['start'] = $paramStart;
             $parameters[$cnt]['end']   = $paramEnd;
             $parameters[$cnt]['raw']   = \trim(GetTokensAsString::normal($phpcsFile, $paramStart, $paramEnd));
@@ -266,6 +327,9 @@ class PassedParameters
      *
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
+     * @see PassedParameters::getParameterFromStack() For when the parameter stack of a function call is
+     *                                                already retrieved.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
@@ -273,31 +337,50 @@ class PassedParameters
      *                                                 name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
      *                                                 `T_ISSET`, or `T_UNSET` token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
+     * @param string|string[]             $paramNames  Optional. Either the name of the target parameter
+     *                                                 to retrieve as a string or an array of names for the
+     *                                                 same target parameter.
+     *                                                 Only relevant for function calls.
+     *                                                 An arrays of names is supported to allow for functions
+     *                                                 for which the parameter names have undergone name
+     *                                                 changes over time.
+     *                                                 When specified, the name will take precedence over the
+     *                                                 offset.
+     *                                                 For PHP 8 support, it is STRONGLY recommended to
+     *                                                 always pass both the offset as well as the parameter
+     *                                                 name when examining function calls.
      *
-     * @return array|false Array with information on the parameter/array item at the specified offset.
+     * @return array|false Array with information on the parameter/array item at the specified offset,
+     *                     or with the specified name.
      *                     Or `FALSE` if the specified parameter/array item is not found.
-     *                     The format of the return value is:
-     *                     ```php
-     *                     array(
-     *                       'start' => int,    // The stack pointer to the first token in the parameter/array item.
-     *                       'end'   => int,    // The stack pointer to the last token in the parameter/array item.
-     *                       'raw'   => string, // A string with the contents of all tokens between `start` and `end`.
-     *                       'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
-     *                     )
-     *                     ```
+     *                     See {@see PassedParameters::getParameters()} for the format of the returned
+     *                     (single-dimensional) array.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If a function call parameter is requested and
+     *                                                      the `$paramName` parameter is not passed.
      */
-    public static function getParameter(File $phpcsFile, $stackPtr, $paramOffset)
+    public static function getParameter(File $phpcsFile, $stackPtr, $paramOffset, $paramNames = [])
     {
+        $tokens     = $phpcsFile->getTokens();
         $parameters = self::getParameters($phpcsFile, $stackPtr);
 
-        if (isset($parameters[$paramOffset]) === false) {
+        /*
+         * Non-function calls.
+         */
+        if (isset(Collections::functionCallTokens()[$tokens[$stackPtr]['code']]) === false) {
+            if (isset($parameters[$paramOffset]) === true) {
+                return $parameters[$paramOffset];
+            }
+
             return false;
         }
 
-        return $parameters[$paramOffset];
+        /*
+         * Function calls.
+         */
+        return self::getParameterFromStack($parameters, $paramOffset, $paramNames);
     }
 
     /**
@@ -324,5 +407,69 @@ class PassedParameters
         }
 
         return \count(self::getParameters($phpcsFile, $stackPtr));
+    }
+
+    /**
+     * Get information on a specific function call parameter passed.
+     *
+     * This is an efficiency method to correcty handle positional versus named parameters
+     * for function calls when multiple parameters need to be examined.
+     *
+     * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
+     *
+     * @since 1.0.0
+     *
+     * @param array           $parameters  The output of a previous call to {@see PassedParameters::getParameters()}.
+     * @param int             $paramOffset The 1-based index position of the parameter to retrieve.
+     * @param string|string[] $paramNames  Either the name of the target parameter to retrieve
+     *                                     as a string or an array of names for the same target parameter.
+     *                                     An arrays of names is supported to allow for functions
+     *                                     for which the parameter names have undergone name
+     *                                     changes over time.
+     *                                     The name will take precedence over the offset.
+     *
+     * @return array|false Array with information on the parameter at the specified offset,
+     *                     or with the specified name.
+     *                     Or `FALSE` if the specified parameter is not found.
+     *                     See {@see PassedParameters::getParameters()} for the format of the returned
+     *                     (single-dimensional) array.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the `$paramNames` parameter is not passed
+     *                                                      and the requested parameter was not passed
+     *                                                      as a positional parameter in the function call
+     *                                                      being examined.
+     */
+    public static function getParameterFromStack(array $parameters, $paramOffset, $paramNames)
+    {
+        if (empty($parameters) === true) {
+            return false;
+        }
+
+        // First check for positional parameters.
+        if (isset($parameters[$paramOffset]) === true
+            && isset($parameters[$paramOffset]['name']) === false
+        ) {
+            return $parameters[$paramOffset];
+        }
+
+        $paramNames = \array_flip((array) $paramNames);
+        if (empty($paramNames) === true) {
+            throw new RuntimeException(
+                'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
+            );
+        }
+
+        // Next check if a named parameter was passed with the specified name.
+        foreach ($parameters as $paramDetails) {
+            if (isset($paramDetails['name']) === false) {
+                continue;
+            }
+
+            if (isset($paramNames[$paramDetails['name']]) === true) {
+                return $paramDetails;
+            }
+        }
+
+        return false;
     }
 }

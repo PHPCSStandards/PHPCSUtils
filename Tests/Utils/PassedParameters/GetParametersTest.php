@@ -20,6 +20,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameters
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameter
+ * @covers \PHPCSUtils\Utils\PassedParameters::getParameterFromStack
  * @covers \PHPCSUtils\Utils\PassedParameters::hasParameters
  *
  * @group passedparameters
