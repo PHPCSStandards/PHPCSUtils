@@ -85,9 +85,12 @@ class GetParametersNamedTest extends UtilityMethodTestCase
          * 1. The different tokenization of namespaces names in PHP 8 and different PHPCS versions.
          * 2. The different token positions due to the old tokenization to T_GOTO_LABEL
          *    which joins two tokens into one (incorrectly).
+         * 3. The new `match` keyword being recognized on PHP 8, but not before, while
+         *    the `match` control structure is not supported in PHPCS yet.
          */
         $php8Names          = parent::usesPhp8NameTokens();
         $namedParamsInPhpcs = false;
+        $matchIsKeyword     = \version_compare(\PHP_VERSION_ID, '80000', '>=');
 
         return [
             'only-positional-args' => [
@@ -602,34 +605,34 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                     ],
                     6 => [
                         'name_start' => ($namedParamsInPhpcs === true) ? 37 : 36,
-                        'name_end'   => ($namedParamsInPhpcs === true) ? 40 : 38,
+                        'name_end'   => ($namedParamsInPhpcs === true) ? 40 : (($matchIsKeyword === true) ? 39 : 38),
                         'name'       => 'match',
-                        'start'      => ($namedParamsInPhpcs === true) ? 41 : 39,
-                        'end'        => ($namedParamsInPhpcs === true) ? 42 : 40,
+                        'start'      => ($namedParamsInPhpcs === true) ? 41 : (($matchIsKeyword === true) ? 40 : 39),
+                        'end'        => ($namedParamsInPhpcs === true) ? 42 : (($matchIsKeyword === true) ? 41 : 40),
                         'raw'        => '$value',
                     ],
                     7 => [
-                        'name_start' => ($namedParamsInPhpcs === true) ? 44 : 42,
-                        'name_end'   => ($namedParamsInPhpcs === true) ? 47 : 45,
+                        'name_start' => ($namedParamsInPhpcs === true) ? 44 : (($matchIsKeyword === true) ? 43 : 42),
+                        'name_end'   => ($namedParamsInPhpcs === true) ? 47 : (($matchIsKeyword === true) ? 46 : 45),
                         'name'       => 'protected',
-                        'start'      => ($namedParamsInPhpcs === true) ? 48 : 46,
-                        'end'        => ($namedParamsInPhpcs === true) ? 49 : 47,
+                        'start'      => ($namedParamsInPhpcs === true) ? 48 : (($matchIsKeyword === true) ? 47 : 46),
+                        'end'        => ($namedParamsInPhpcs === true) ? 49 : (($matchIsKeyword === true) ? 48 : 47),
                         'raw'        => '$value',
                     ],
                     8 => [
-                        'name_start' => ($namedParamsInPhpcs === true) ? 51 : 49,
-                        'name_end'   => ($namedParamsInPhpcs === true) ? 54 : 51,
+                        'name_start' => ($namedParamsInPhpcs === true) ? 51 : (($matchIsKeyword === true) ? 50 : 49),
+                        'name_end'   => ($namedParamsInPhpcs === true) ? 54 : (($matchIsKeyword === true) ? 52 : 51),
                         'name'       => 'object',
-                        'start'      => ($namedParamsInPhpcs === true) ? 55 : 52,
-                        'end'        => ($namedParamsInPhpcs === true) ? 56 : 53,
+                        'start'      => ($namedParamsInPhpcs === true) ? 55 : (($matchIsKeyword === true) ? 53 : 52),
+                        'end'        => ($namedParamsInPhpcs === true) ? 56 : (($matchIsKeyword === true) ? 54 : 53),
                         'raw'        => '$value',
                     ],
                     9 => [
-                        'name_start' => ($namedParamsInPhpcs === true) ? 58 : 55,
-                        'name_end'   => ($namedParamsInPhpcs === true) ? 61 : 57,
+                        'name_start' => ($namedParamsInPhpcs === true) ? 58 : (($matchIsKeyword === true) ? 56 : 55),
+                        'name_end'   => ($namedParamsInPhpcs === true) ? 61 : (($matchIsKeyword === true) ? 58 : 57),
                         'name'       => 'parent',
-                        'start'      => ($namedParamsInPhpcs === true) ? 62 : 58,
-                        'end'        => ($namedParamsInPhpcs === true) ? 63 : 59,
+                        'start'      => ($namedParamsInPhpcs === true) ? 62 : (($matchIsKeyword === true) ? 59 : 58),
+                        'end'        => ($namedParamsInPhpcs === true) ? 63 : (($matchIsKeyword === true) ? 60 : 59),
                         'raw'        => '$value',
                     ],
                 ],
