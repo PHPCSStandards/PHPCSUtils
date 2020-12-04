@@ -119,8 +119,13 @@ jobs:
     #### TEST STAGE ####
     # Additional builds to prevent issues with PHPCS versions incompatible with certain PHP versions.
     - stage: test
+      php: 8.0
+      env: PHPCS_VERSION="dev-master" LINT=1
+    - php: 8.0
+      # PHPCS is only compatible with PHP 8.0 as of version 3.5.7.
+      env: PHPCS_VERSION="3.5.7"
       # PHPCS is only compatible with PHP 7.4 as of version 3.5.0.
-      php: 7.4
+    - php: 7.4
       env: PHPCS_VERSION="3.5.0"
     - php: 7.3
       env: PHPCS_VERSION="dev-master" LINT=1
@@ -240,12 +245,11 @@ install:
   # --prefer-dist will allow for optimal use of the travis caching ability.
   # The Composer PHPCS plugin takes care of setting the installed_paths for PHPCS.
   - |
-    if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    if [[ $TRAVIS_PHP_VERSION == "nightly" || $TRAVIS_PHP_VERSION == "8.0" ]]; then
       # Temporary fix - PHPUnit 9.3 is buggy when used for code coverage, so not allowed "normally".
       # As PHP 8 doesn't run code coverage, we can safely install it there though.
       travis_retry composer require --no-update phpunit/phpunit:"^9.3"
-      # Not all PHPUnit dependencies have stable releases yet allowing for PHP 8.0.
-      travis_retry composer install --prefer-dist --no-suggest --ignore-platform-reqs
+      travis_retry composer install --prefer-dist --no-suggest
     else
       # Do a normal dev install in all other cases.
       travis_retry composer install --prefer-dist --no-suggest
