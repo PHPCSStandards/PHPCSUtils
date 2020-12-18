@@ -1,0 +1,315 @@
+name: MarkDown
+
+on:
+  # Run on all pushes and on all pull requests which modify markdown files.
+  push:
+    paths:
+      - '**.md'
+      - '**.html'
+      - '**.txt'
+  pull_request:
+    paths:
+      - '**.md'
+      - '**.html'
+      - '**.txt'
+  # Also run this workflow on day 20 of every month.
+  schedule:
+    - cron: '0 0 20 * *'
+
+jobs:
+  lint1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/pipeline-components-markdownlint
+      - uses: pipelinecomponents/markdownlint@master
+
+      # @link https://github.com/markdownlint/markdownlint/blob/master/docs/configuration.md
+      # @link https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
+      - name: Check markdown
+        run: mdl --style all --warnings --git-recurse .
+
+  lint2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/run-markdownlint-with-reviewdog
+      # WARNING: NEEDS TOKEN
+      - name: Check markdown
+        uses: prologic/action-markdownlint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review # Change reporter. (Only `github-pr-check` is supported at the moment).
+
+  lint3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/problem-matcher-for-markdownlint-cli
+      - uses: xt0rted/markdownlint-problem-matcher@v1
+
+      # @link https://github.com/igorshubovych/markdownlint-cli
+      - name: Check markdown
+        run: markdownlint **/*.md --ignore node_modules
+
+  lint4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/markdownlint-mdl-action
+      - name: Check markdown
+        uses: actionshub/markdownlint@main
+
+  lint5:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/my-markdown-linter
+      - name: Check markdown
+        uses: ruzickap/action-my-markdown-linter@v1
+
+  lint6:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/run-markdownlint-mdl
+      # @link https://github.com/markdownlint/markdownlint
+      - name: Check markdown
+        uses: bewuethr/mdl-action@v1
+
+  lint7:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/markdownlint-action
+      # @link https://github.com/markdownlint/markdownlint
+      - name: Check markdown
+        uses: logansquirel/action-markdownlint@v0.1
+
+  lint8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/markdownlint-cli
+      # @link https://github.com/igorshubovych/markdownlint-cli
+      - name: Check markdown
+        uses: nosborn/github-action-markdown-cli@v1.1.1
+        with:
+          files: .
+          #config_file: ".markdownlint.yaml"
+          #ignore_files: "examples/ignore/*"
+          #rules: "examples/rules/custom.js"
+
+  lint9:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/markdown-linting-action
+      # @link https://github.com/igorshubovych/markdownlint-cli
+      - name: Check markdown
+        uses: avto-dev/markdown-lint@v1
+
+  lint10:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/hallmark-lint
+      # @link https://github.com/vweevers/hallmark
+      # Needs TOKEN, but will then post in PR
+      - name: Check markdown
+        uses: vweevers/hallmark-lint-action@v1
+
+  spelling1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: pipelinecomponents/markdown-spellcheck@master
+
+      - name: Spell check
+        run: mdspell --en-us --report '**/*.md'
+
+  spelling2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/github-spellcheck-action
+      # @link https://facelessuser.github.io/pyspelling/configuration/
+      # NEEDS CONFIG FILE .spellcheck.yml
+      - name: Spell check
+        uses: rojopolis/spellcheck-github-actions@0.5.0
+
+  spelling3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/check-spelling-js-vue-html-markdown-text
+      # @link https://facelessuser.github.io/pyspelling/
+      # NEEDS CONFIG FILE .spellcheck.yml
+      - name: Spell check
+        uses: UnicornGlobal/spellcheck-github-actions@master
+
+  spelling4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/check-spelling-js-vue-html-markdown-text-forked-wordlist-spellcheck-freedom-sfl
+      # @link https://facelessuser.github.io/pyspelling/
+      # NEEDS CONFIG FILE .spellcheck.yml
+      - name: Spell check
+        uses: SFLScientific/spellcheck-github-actions@master
+
+
+  writegood:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/lint-markdown
+      # @link https://github.com/btford/write-good
+      - name: Check markdown
+        id: write-good
+        uses: tomwhross/write-good-action@v1.2
+
+      # Use the output from the `write-good` step
+      - name: Get the write-good output
+        run: echo "${{ steps.write-good.outputs.result }}"
+
+#      - name: Post comment
+#        uses: mshick/add-pr-comment@v1
+#        if: ${{ steps.write-good.outputs.result }}
+#        with:
+#          message: |
+#            ${{ steps.write-good.outputs.result }}
+#          repo-token: ${{ secrets.GITHUB_TOKEN }}
+#          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+#          allow-repeats: false # This is the default
+
+  brokenlinks1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/markdown-link-check
+      - name: Check for broken links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          check-modified-files-only: 'yes'
+          base-branch: master
+
+  brokenlinks2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/my-markdown-link-checker
+      # @link https://github.com/tcort/markdown-link-check
+      - name: Check for broken links
+        uses: ruzickap/action-my-markdown-link-checker@v1
+        with:
+          verbose: true
+
+  brokenlinks3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/lychee-link-checker-action
+      # @link https://github.com/lycheeverse/lychee
+      - name: Check for broken links
+        id: lc3
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: -p -v **/*.md --glob-ignore-case
+
+      - name: Fail if there were link errors
+        run: exit ${{ steps.lc3.outputs.exit_code }}
+
+  brokenlinks4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/link-checker
+      # @link https://github.com/raviqqe/liche
+      - name: Check for broken links
+        id: lc4
+        uses: peter-evans/link-checker@v1
+        with:
+          args: -v -r *
+
+      - name: Fail if there were link errors
+        run: exit ${{ steps.lc4.outputs.exit_code }}
+
+  brokenlinks5:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/md-linkcheck
+      # @link https://github.com/tcort/markdown-link-check
+      - name: Check for broken links
+        uses: ocular-d/md-linkcheck-action@v1
+
+  brokenlinks6:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/tou-md
+      - name: Check for broken links
+        uses: joaopalmeiro/tou@v0.1.2
+
+  brokenlinks7:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/url-checker
+      - name: Check for broken links
+        uses: paramt/url-checker@master
+
+  brokenlinks8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # @link https://github.com/marketplace/actions/404-links
+      - name: Check for broken links
+        uses: restqa/404-links@v1.0.1
