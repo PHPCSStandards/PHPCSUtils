@@ -31,7 +31,6 @@ env:
 # Note: for pull requests, "develop" is the base branch name.
 # See: https://docs.travis-ci.com/user/conditions-v1
 stages:
-  - name: sniff
   - name: docs
     if: branch IN (master)
   - name: quicktest
@@ -44,40 +43,6 @@ stages:
 jobs:
   fast_finish: true
   include:
-    #### SNIFF STAGE ####
-    - stage: sniff
-      php: 7.4
-      addons:
-        apt:
-          packages:
-            - libxml2-utils
-      install:
-        - export XMLLINT_INDENT="    "
-        # Set up CS check.
-        # - Using PHPCS `master` as an early detection system for bugs upstream.
-        # - COMPOSER_ROOT_VERSION is needed to get round the recursive dependency when using CI.
-        - export COMPOSER_ROOT_VERSION="1.99.99"
-        - travis_retry composer remove --dev phpunit/phpunit --no-update --no-scripts
-        - travis_retry composer require --no-update squizlabs/php_codesniffer:"dev-master"
-        - travis_retry composer install-devcs
-      script:
-        # Validate the composer.json file.
-        # @link https://getcomposer.org/doc/03-cli.md#validate
-        - composer validate --no-check-all --strict
-
-        # Check the code style of the code base.
-        - vendor/bin/phpcs
-
-        # Validate the xml files.
-        # @link http://xmlsoft.org/xmllint.html
-        - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./PHPCSUtils/ruleset.xml
-        - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./PHPCS23Utils/ruleset.xml
-
-        # Check the code-style consistency of the xml files.
-        - diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
-        - diff -B ./PHPCS23Utils/ruleset.xml <(xmllint --format "./PHPCS23Utils/ruleset.xml")
-      after_success: skip
-
     #### DOCUMENTATION SITE TESTING STAGE ####
     - stage: docs
       language: ruby
@@ -219,7 +184,7 @@ before_install:
   # On stable PHPCS versions, allow for PHP deprecation notices.
   # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
   - |
-    if [[ "${TRAVIS_BUILD_STAGE_NAME^}" != "Sniff" && $PHPCS_VERSION != "dev-master" ]]; then
+    if [[ $PHPCS_VERSION != "dev-master" ]]; then
       echo 'error_reporting = E_ALL & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     fi
 

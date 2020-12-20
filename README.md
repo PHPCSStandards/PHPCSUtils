@@ -10,6 +10,7 @@ PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 [![Last Commit to Unstable](https://img.shields.io/github/last-commit/PHPCSStandards/PHPCSUtils/develop.svg)](https://github.com/PHPCSStandards/PHPCSUtils/commits/develop)
 
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)](https://packagist.org/packages/phpcsstandards/phpcsutils)
+[![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/workflows/CS/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions?query=workflow%3ACS)
 [![Tested on PHP 5.4 to 7.4](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4-brightgreen.svg?maxAge=2419200)](https://travis-ci.com/PHPCSStandards/PHPCSUtils)
 [![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils)
 
