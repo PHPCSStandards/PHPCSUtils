@@ -33,4 +33,4 @@ twitter:
 author:
   twitter: jrf_nl
 
-exclude: ['CNAME', '.gitignore', 'Gemfile', '*.bak', '*.orig']
+exclude: ['CNAME', '.gitignore', 'Gemfile', '*.bak', '*.orig', 'vendor']

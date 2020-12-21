@@ -31,8 +31,6 @@ env:
 # Note: for pull requests, "develop" is the base branch name.
 # See: https://docs.travis-ci.com/user/conditions-v1
 stages:
-  - name: docs
-    if: branch IN (master)
   - name: quicktest
     if: type = push AND branch NOT IN (master, develop)
   - name: test
@@ -43,22 +41,6 @@ stages:
 jobs:
   fast_finish: true
   include:
-    #### DOCUMENTATION SITE TESTING STAGE ####
-    - stage: docs
-      language: ruby
-      cache: bundler
-      rvm: 2.5.8
-      before_install: skip
-      install:
-        - cd ./docs
-        - gem install bundler
-        - bundle install
-      before_script: skip
-      script:
-        # Test the documentation generation.
-        - bundle exec jekyll build
-      after_success: skip
-
     #### QUICK TEST STAGE ####
     # This is a much quicker test which only runs the unit tests and linting against the low/high
     # supported PHP/PHPCS combinations.
