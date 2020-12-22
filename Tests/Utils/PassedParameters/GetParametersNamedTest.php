@@ -109,7 +109,7 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                     ],
                     3 => [
                         'start' => ($php8Names === true) ? 7 : 8,
-                        'end'   => ($php8Names === true) ? 7 : 11,
+                        'end'   => ($php8Names === true) ? 8 : 11,
                         'raw'   => 'MyNS\VALUE',
                     ],
                 ],

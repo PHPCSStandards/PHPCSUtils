@@ -341,12 +341,14 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testReturnMultilineNamespace()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '\MyNamespace\MyClass\Foo',
             'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 23, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => ($php8Names === true) ? 20 : 23, // Offset from the T_FUNCTION token.
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
