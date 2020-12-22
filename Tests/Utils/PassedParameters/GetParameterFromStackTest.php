@@ -108,8 +108,8 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test retrieving the parameter details from a function call with only named parameters
-     * without passing a valid name.
+     * Test receiving an expected exception when trying to retrieve the parameter details
+     * from a function call with only named parameters without passing a valid name.
      *
      * @return void
      */
@@ -122,6 +122,24 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
         $stackPtr = $this->getTargetToken('/* testAllParamsNamedStandardOrder */', \T_STRING);
 
         PassedParameters::getParameter(self::$phpcsFile, $stackPtr, 2);
+    }
+
+    /**
+     * Test receiving an expected exception when trying to retrieve the parameter details
+     * from a function call with only positional parameters without passing a valid name with
+     * the requested parameter offset not being set.
+     *
+     * @return void
+     */
+    public function testGetParameterFunctionCallPositionalMissingParamNameNonExistentParam()
+    {
+        $this->expectPhpcsException(
+            'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
+        );
+
+        $stackPtr = $this->getTargetToken('/* testAllParamsPositional */', \T_STRING);
+
+        PassedParameters::getParameter(self::$phpcsFile, $stackPtr, 10);
     }
 
     /**
