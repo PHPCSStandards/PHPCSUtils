@@ -1,0 +1,33 @@
+name: Docs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
+
+jobs:
+  #### TEST DOCUMENTATION SITE GENERATION ####
+  test:
+    runs-on: ubuntu-latest
+
+    name: "Test build GHPages site"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Use the version as per https://pages.github.com/versions/
+          ruby-version: 2.7.1
+          bundler-cache: true
+          working-directory: docs
+
+      - name: Test building the GH Pages site
+        run: |
+          cd docs
+          bundle exec jekyll build
