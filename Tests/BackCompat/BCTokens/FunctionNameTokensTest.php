@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,6 +34,7 @@ class FunctionNameTokensTest extends TestCase
      */
     public function testFunctionNameTokens()
     {
+        $version  = Helper::getVersion();
         $expected = [
             \T_STRING       => \T_STRING,
             \T_EVAL         => \T_EVAL,
@@ -48,7 +50,20 @@ class FunctionNameTokensTest extends TestCase
             \T_STATIC       => \T_STATIC,
         ];
 
-        $this->assertSame($expected, BCTokens::functionNameTokens());
+        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
+            || \version_compare($version, '3.5.7', '>=') === true
+        ) {
+            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
+            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
+            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
+        }
+
+        \asort($expected);
+
+        $result = BCTokens::functionNameTokens();
+        \asort($result);
+
+        $this->assertSame($expected, $result);
     }
 
     /**
@@ -62,6 +77,30 @@ class FunctionNameTokensTest extends TestCase
      */
     public function testPHPCSFunctionNameTokens()
     {
-        $this->assertSame(Tokens::$functionNameTokens, BCTokens::functionNameTokens());
+        $version = Helper::getVersion();
+
+        if (\version_compare($version, '3.99.99', '>') === true) {
+            $this->assertSame(Tokens::$functionNameTokens, BCTokens::functionNameTokens());
+        } else {
+            /*
+             * Don't fail this test on the difference between PHPCS 4.x and 3.x.
+             * This test is only run against `dev-master` and `dev-master` is still PHPCS 3.x.
+             */
+            $expected = Tokens::$functionNameTokens;
+            if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
+                || \version_compare($version, '3.5.7', '>=') === true
+            ) {
+                $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
+                $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
+                $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
+            }
+
+            \asort($expected);
+
+            $result = BCTokens::functionNameTokens();
+            \asort($result);
+
+            $this->assertSame($expected, $result);
+        }
     }
 }
