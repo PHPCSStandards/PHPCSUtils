@@ -46,8 +46,6 @@ class SkipJSCSSTest extends UtilityMethodTestCase
     /**
      * Test that the skipJSCSSTestsOnPHPCS4() skips JS/CSS file tests on PHPCS 4.x.
      *
-     * @doesNotPerformAssertions
-     *
      * @return void
      */
     public function testSkipJsCss()
@@ -68,6 +66,9 @@ class SkipJSCSSTest extends UtilityMethodTestCase
                 // PHPUnit 4.
                 $this->setExpectedException($exception, $msg);
             }
+        } else {
+            // Get rid of the "does not perform assertions" warning when run with PHPCS 3.x.
+            $this->assertTrue(true);
         }
 
         parent::skipJSCSSTestsOnPHPCS4();
