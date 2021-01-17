@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -236,7 +237,7 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
          * Work around to account for the different token positions due to the old tokenization
          * to T_GOTO_LABEL which joins two tokens into one (incorrectly).
          */
-        $namedParamsInPhpcs = false;
+        $namedParamsInPhpcs = \version_compare(Helper::getVersion(), '3.6.0', '>=');
 
         return [
             'all-params-all-positional' => [
