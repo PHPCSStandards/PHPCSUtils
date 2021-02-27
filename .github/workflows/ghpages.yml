@@ -7,6 +7,8 @@ on:
   pull_request:
     paths:
       - 'docs/**'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
 
 jobs:
   #### TEST DOCUMENTATION SITE GENERATION ####
