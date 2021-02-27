@@ -9,9 +9,6 @@ on:
       - '**.md'
       - 'docs/**'
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
 
 jobs:
   #### TEST STAGE ####
