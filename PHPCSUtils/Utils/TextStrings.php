@@ -113,21 +113,21 @@ class TextStrings
     }
 
     /**
-     * Strip text delimiter quotes from an arbitrary string.
+     * Strip text delimiter quotes from an arbitrary text string.
      *
      * Intended for use with the "contents" of a `T_CONSTANT_ENCAPSED_STRING` / `T_DOUBLE_QUOTED_STRING`.
      *
      * - Prevents stripping mis-matched quotes.
-     * - Prevents stripping quotes from the textual content of the string.
+     * - Prevents stripping quotes from the textual content of the text string.
      *
      * @since 1.0.0
      *
-     * @param string $string The raw string.
+     * @param string $textString The raw text string.
      *
-     * @return string String without quotes around it.
+     * @return string Text string without quotes around it.
      */
-    public static function stripQuotes($string)
+    public static function stripQuotes($textString)
     {
-        return \preg_replace('`^([\'"])(.*)\1$`Ds', '$2', $string);
+        return \preg_replace('`^([\'"])(.*)\1$`Ds', '$2', $textString);
     }
 }

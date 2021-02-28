@@ -332,16 +332,18 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary token content string.
+     * @param string $textString Arbitrary text string.
+     *                           This text string should be the (combined) token content of
+     *                           one or more tokens which together represent a number in PHP.
      *
      * @return string|false Decimal number as a string or `FALSE` if the passed parameter
      *                      was not a numeric string.
      *                      > Note: floating point numbers with exponent will not be expanded,
      *                      but returned as-is.
      */
-    public static function getDecimalValue($string)
+    public static function getDecimalValue($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
@@ -352,26 +354,26 @@ class Numbers
          * here to allow the hexdec(), bindec() functions to work correctly and for
          * the decimal/float to return a cross-version compatible decimal value.}
          */
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        if (self::isDecimalInt($string) === true) {
-            return $string;
+        if (self::isDecimalInt($textString) === true) {
+            return $textString;
         }
 
-        if (self::isHexidecimalInt($string) === true) {
-            return (string) \hexdec($string);
+        if (self::isHexidecimalInt($textString) === true) {
+            return (string) \hexdec($textString);
         }
 
-        if (self::isBinaryInt($string) === true) {
-            return (string) \bindec($string);
+        if (self::isBinaryInt($textString) === true) {
+            return (string) \bindec($textString);
         }
 
-        if (self::isOctalInt($string) === true) {
-            return (string) \octdec($string);
+        if (self::isOctalInt($textString) === true) {
+            return (string) \octdec($textString);
         }
 
-        if (self::isFloat($string) === true) {
-            return $string;
+        if (self::isFloat($textString) === true) {
+            return $textString;
         }
 
         return false;
@@ -384,20 +386,20 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isDecimalInt($string)
+    public static function isDecimalInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_DECIMAL_INT, $string) === 1);
+        return (\preg_match(self::REGEX_DECIMAL_INT, $textString) === 1);
     }
 
     /**
@@ -407,20 +409,20 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isHexidecimalInt($string)
+    public static function isHexidecimalInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_HEX_INT, $string) === 1);
+        return (\preg_match(self::REGEX_HEX_INT, $textString) === 1);
     }
 
     /**
@@ -430,20 +432,20 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isBinaryInt($string)
+    public static function isBinaryInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_BINARY_INT, $string) === 1);
+        return (\preg_match(self::REGEX_BINARY_INT, $textString) === 1);
     }
 
     /**
@@ -453,20 +455,20 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isOctalInt($string)
+    public static function isOctalInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_OCTAL_INT, $string) === 1);
+        return (\preg_match(self::REGEX_OCTAL_INT, $textString) === 1);
     }
 
     /**
@@ -476,19 +478,19 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isFloat($string)
+    public static function isFloat($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_FLOAT, $string) === 1);
+        return (\preg_match(self::REGEX_FLOAT, $textString) === 1);
     }
 }

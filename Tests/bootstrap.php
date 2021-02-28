@@ -87,15 +87,17 @@ if (isset($vendorDir) && \file_exists($vendorDir . '/autoload.php')) {
      * Fixes issues with PHPUnit not being able to find test classes being extended when running
      * in a non-Composer context.
      */
-    \spl_autoload_register(function ($class) {
+    \spl_autoload_register(function ($fqClassName) {
         // Only try & load our own classes.
-        if (\stripos($class, 'PHPCSUtils\Tests\\') !== 0) {
+        if (\stripos($fqClassName, 'PHPCSUtils\Tests\\') !== 0) {
             return;
         }
 
         // Strip namespace prefix 'PHPCSUtils\Tests\'.
-        $class = \substr($class, 17);
-        $file  = \realpath(__DIR__) . \DIRECTORY_SEPARATOR . \strtr($class, '\\', \DIRECTORY_SEPARATOR) . '.php';
+        $relativeClass = \substr($fqClassName, 17);
+        $file          = \realpath(__DIR__) . \DIRECTORY_SEPARATOR
+            . \strtr($relativeClass, '\\', \DIRECTORY_SEPARATOR) . '.php';
+
         if (\file_exists($file)) {
             include_once $file;
         }
