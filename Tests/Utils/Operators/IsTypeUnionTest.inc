@@ -78,6 +78,13 @@ class TypeUnion
 /* testTypeUnionClosureParamIllegalNullable */
 $closureWithParamType = function (?string|null $string) {};
 
+function globalFunctionWithSpreadAndReference(
+    /* testTypeUnionWithReference */
+    float|null &$paramB,
+    /* testTypeUnionWithSpreadOperator */
+    string|int ...$paramA
+) {}
+
 /* testBitwiseOrClosureParamDefault */
 $closureWithReturnType = function ($string = NONSENSE | FAKE)/* testTypeUnionClosureReturn */ : \Package\MyA|PackageB {};
 
