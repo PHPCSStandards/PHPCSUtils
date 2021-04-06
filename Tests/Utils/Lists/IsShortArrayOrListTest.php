@@ -140,6 +140,10 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 '/* testArrayAccessConstant */',
                 \T_OPEN_SQUARE_BRACKET,
             ],
+            'array-access-nullsafe-method-call' => [
+                '/* testNullsafeMethodCallDereferencing */',
+                \T_OPEN_SQUARE_BRACKET,
+            ],
             'live-coding' => [
                 '/* testLiveCoding */',
                 \T_OPEN_SQUARE_BRACKET,
@@ -230,15 +234,99 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                     'list'  => false,
                 ],
             ],
-            'comparison-no-assignment' => [
+            'short-array-comparison-no-assignment' => [
                 '/* testShortArrayInComparison */',
                 [
                     'array' => true,
                     'list'  => false,
                 ],
             ],
-            'comparison-no-assignment-nested' => [
+            'short-array-comparison-no-assignment-nested' => [
                 '/* testShortArrayNestedInComparison */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-union-before' => [
+                '/* testShortArrayUnionFirst */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-union-after' => [
+                '/* testShortArrayUnionSecond */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-equal-before' => [
+                '/* testShortArrayEqualFirst */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-equal-after' => [
+                '/* testShortArrayEqualSecond */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-identical-before' => [
+                '/* testShortArrayIdenticalFirst */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-identical-after' => [
+                '/* testShortArrayIdenticalSecond */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-not-equal-before' => [
+                '/* testShortArrayNotEqualFirst */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-not-equal-after' => [
+                '/* testShortArrayNotEqualSecond */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-not-equal-brackets-before' => [
+                '/* testShortArrayNotEqualBracketsFirst */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-not-equal-brackets-after' => [
+                '/* testShortArrayNotEqualBracketsSecond */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-not-identical-before' => [
+                '/* testShortArrayNonIdenticalFirst */',
+                [
+                    'array' => true,
+                    'list'  => false,
+                ],
+            ],
+            'short-array-not-identical-after' => [
+                '/* testShortArrayNonIdenticalSecond */',
                 [
                     'array' => true,
                     'list'  => false,
@@ -317,14 +405,14 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 \T_CLOSE_SHORT_ARRAY,
             ],
 
-            'chained-assignment-short-list' => [
+            'short-list-in-chained-assignment' => [
                 '/* testShortlistMultiAssign */',
                 [
                     'array' => false,
                     'list'  => true,
                 ],
             ],
-            'chained-assignment-short-array' => [
+            'short-array-in-chained-assignment' => [
                 '/* testShortArrayMultiAssign */',
                 [
                     'array' => true,
@@ -388,15 +476,17 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                     'list'  => true,
                 ],
             ],
-            'short-list-nested-empty' => [
-                '/* testNestedShortListEmpty */',
+            'short-list-deeply-nested' => [
+                '/* testDeeplyNestedShortList */',
                 [
                     'array' => false,
                     'list'  => true,
                 ],
             ],
-            'short-list-deeply-nested' => [
-                '/* testDeeplyNestedShortList */',
+
+            // Invalid syntaxes.
+            'short-list-nested-empty' => [
+                '/* testNestedShortListEmpty */',
                 [
                     'array' => false,
                     'list'  => true,
@@ -414,6 +504,13 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 [
                     'array' => false,
                     'list'  => true,
+                ],
+            ],
+            'parse-error-foreach-without-as' => [
+                '/* testForeachWithoutAs */',
+                [
+                    'array' => true, // Unknown from a foreach perspective, but then the "normal" rules kick in.
+                    'list'  => false,
                 ],
             ],
             'parse-error-anon-class-trait-use-as' => [

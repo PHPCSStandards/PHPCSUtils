@@ -32,6 +32,9 @@ return function_call()[1];
 /* testArrayAccessConstant */
 return MY_CONSTANT[1];
 
+/* testNullsafeMethodCallDereferencing */
+$var = $obj?->function_call()[$x];
+
 
 /* ===== Tests involving tokens correctly tokenized as short array brackets. ===== */
 
@@ -40,6 +43,24 @@ $array = [$a];
 
 /* testShortArrayInComparison */
 if( [$a, /* testShortArrayNestedInComparison */ [$b]] === $array ) {};
+
+/* testShortArrayUnionFirst */
+$array = [1, 2] + /* testShortArrayUnionSecond */ [3, 4];
+
+/* testShortArrayEqualFirst */
+if([1, 2] == /* testShortArrayEqualSecond */ [3, 4]) {}
+
+/* testShortArrayIdenticalFirst */
+if([1, 2] === /* testShortArrayIdenticalSecond */ [3, 4]) {}
+
+/* testShortArrayNotEqualFirst */
+if([1, 2] != /* testShortArrayNotEqualSecond */ [3, 4]) {}
+
+/* testShortArrayNotEqualBracketsFirst */
+if([1, 2] <> /* testShortArrayNotEqualBracketsSecond */ [3, 4]) {}
+
+/* testShortArrayNonIdenticalFirst */
+if([1, 2] !== /* testShortArrayNonIdenticalSecond */ [3, 4]) {}
 
 /* testShortArrayInForeach */
 foreach ([1, 2, 3] as /* testShortListInForeach */ [$id, $name, $info]) {}
@@ -69,7 +90,7 @@ foreach ($data as ["id" => $id, "name" => $name]) {}
 echo 'just here to prevent the below test running into a tokenizer issue tested separately';
 
 /* testShortlistMultiAssign */
-$foo = [$baz, $bat] = /* testShortArrayMultiAssign */ [$a, $b];
+$foo = [$baz, $bat] = /* testShortArrayMultiAssign */ [$a, $b] + [$c, $d];
 
 /* testShortArrayWithNestingAndKeys */
 $array = [
@@ -91,13 +112,13 @@ $array = [
     ["x" => $x3, "y" => $y3],
 ] = $points;
 
+[$x, [ $y, /* testDeeplyNestedShortList */ [$z]], $q] = $a;
+
 
 /* ===== Tests involving various illegal syntaxes/parse errors. ===== */
 
 // Invalid as empty lists are not allowed, but it is short list syntax.
 [$x, /* testNestedShortListEmpty */ [], $y] = $a;
-
-[$x, [ $y, /* testDeeplyNestedShortList */ [$z]], $q] = $a;
 
 /* testShortListWithoutVars */
 // Invalid list as it doesn't contain variables, but it is short list syntax.
@@ -106,6 +127,10 @@ $array = [
 /* testShortListNestedLongList */
 // Invalid list as mixing short list syntax with list() is not allowed, but it is short list syntax.
 [list($a, $b), list($c, $d)] = [[1, 2], [3, 4]];
+
+/* testForeachWithoutAs */
+// Parse error.
+foreach([1,2,3]) {}
 
 /* testNestedAnonClassWithTraitUseAs */
 // Parse error, but not our concern, it is short array syntax.
