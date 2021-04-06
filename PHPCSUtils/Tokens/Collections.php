@@ -792,6 +792,30 @@ class Collections
     }
 
     /**
+     * Tokens which can be passed to the methods in the PassedParameter class.
+     *
+     * @see \PHPCSUtils\Utils\PassedParameters
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function parameterPassingTokens()
+    {
+        // Function call and class instantiation tokens.
+        $tokens = self::functionCallTokens();
+
+        // Function-look-a-like language constructs which can take multiple "parameters".
+        $tokens[\T_ISSET] = \T_ISSET;
+        $tokens[\T_UNSET] = \T_UNSET;
+
+        // Array tokens.
+        $tokens += self::$arrayOpenTokensBC;
+
+        return $tokens;
+    }
+
+    /**
      * Token types which can be encountered in a parameter type declaration.
      *
      * Note: this is a method, not a property as the `T_TYPE_UNION` token for PHP 8.0 union types may not exist.
@@ -868,30 +892,6 @@ class Collections
         if (\defined('T_ARRAY_HINT') === true) {
             $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
         }
-
-        return $tokens;
-    }
-
-    /**
-     * Tokens which can be passed to the methods in the PassedParameter class.
-     *
-     * @see \PHPCSUtils\Utils\PassedParameters
-     *
-     * @since 1.0.0-alpha4
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function parameterPassingTokens()
-    {
-        // Function call and class instantiation tokens.
-        $tokens = self::functionCallTokens();
-
-        // Function-look-a-like language constructs which can take multiple "parameters".
-        $tokens[\T_ISSET] = \T_ISSET;
-        $tokens[\T_UNSET] = \T_UNSET;
-
-        // Array tokens.
-        $tokens += self::$arrayOpenTokensBC;
 
         return $tokens;
     }
