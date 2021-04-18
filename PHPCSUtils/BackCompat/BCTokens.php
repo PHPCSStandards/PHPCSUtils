@@ -460,4 +460,30 @@ class BCTokens
 
         return Collections::$magicConstants;
     }
+
+    /**
+     * Given a token, returns the name of the token.
+     *
+     * If passed an integer, the token name is sourced from PHP's token_name()
+     * function. If passed a string, it is assumed to be a PHPCS-supplied token
+     * that begins with PHPCS_T_, so the name is sourced from the token value itself.
+     *
+     * Changelog for the PHPCS native:
+     * - Introduced in PHPCS 3.0.0.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::tokenName() Original function.
+     *
+     * @param int|string $token The token to get the name for.
+     *
+     * @return string
+     */
+    public static function tokenName($token)
+    {
+        if (\is_string($token) === false) {
+            // PHP-supplied token name.
+            return \token_name($token);
+        }
+
+        return \substr($token, 6);
+    }
 }
