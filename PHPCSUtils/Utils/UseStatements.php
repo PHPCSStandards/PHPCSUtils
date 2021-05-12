@@ -59,6 +59,13 @@ class UseStatements
             return '';
         }
 
+        // More efficient & simpler check for closure use in PHPCS 4.x.
+        if (isset($tokens[$stackPtr]['parenthesis_owner'])
+            && $tokens[$stackPtr]['parenthesis_owner'] === $stackPtr
+        ) {
+            return 'closure';
+        }
+
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
         if ($prev !== false && $tokens[$prev]['code'] === \T_CLOSE_PARENTHESIS
             && Parentheses::isOwnerIn($phpcsFile, $prev, \T_CLOSURE) === true

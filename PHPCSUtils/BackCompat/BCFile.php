@@ -298,7 +298,11 @@ class BCFile
 
         if ($tokens[$stackPtr]['code'] === T_USE) {
             $opener = $phpcsFile->findNext(T_OPEN_PARENTHESIS, ($stackPtr + 1));
-            if ($opener === false || isset($tokens[$opener]['parenthesis_owner']) === true) {
+            if ($opener === false
+                || (isset($tokens[$opener]['parenthesis_owner']) === true
+                // BC: as of PHPCS 4.x, closure use tokens are parentheses owners.
+                && $tokens[$opener]['parenthesis_owner'] !== $stackPtr)
+            ) {
                 throw new RuntimeException('$stackPtr was not a valid T_USE');
             }
         } elseif ($arrowOpenClose !== false) {
