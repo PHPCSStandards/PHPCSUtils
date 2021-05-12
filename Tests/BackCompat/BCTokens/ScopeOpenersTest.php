@@ -18,13 +18,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\BackCompat\BCTokens::parenthesisOpeners
+ * @covers \PHPCSUtils\BackCompat\BCTokens::scopeOpeners
  *
  * @group tokens
  *
  * @since 1.0.0
  */
-class ParenthesisOpenersTest extends TestCase
+class ScopeOpenersTest extends TestCase
 {
 
     /**
@@ -32,23 +32,34 @@ class ParenthesisOpenersTest extends TestCase
      *
      * @return void
      */
-    public function testParenthesisOpeners()
+    public function testScopeOpeners()
     {
         $version  = Helper::getVersion();
         $expected = [
-            \T_ARRAY      => \T_ARRAY,
-            \T_LIST       => \T_LIST,
+            \T_CLASS      => \T_CLASS,
+            \T_ANON_CLASS => \T_ANON_CLASS,
+            \T_INTERFACE  => \T_INTERFACE,
+            \T_TRAIT      => \T_TRAIT,
+            \T_NAMESPACE  => \T_NAMESPACE,
             \T_FUNCTION   => \T_FUNCTION,
             \T_CLOSURE    => \T_CLOSURE,
-            \T_ANON_CLASS => \T_ANON_CLASS,
+            \T_IF         => \T_IF,
+            \T_SWITCH     => \T_SWITCH,
+            \T_CASE       => \T_CASE,
+            \T_DECLARE    => \T_DECLARE,
+            \T_DEFAULT    => \T_DEFAULT,
             \T_WHILE      => \T_WHILE,
+            \T_ELSE       => \T_ELSE,
+            \T_ELSEIF     => \T_ELSEIF,
             \T_FOR        => \T_FOR,
             \T_FOREACH    => \T_FOREACH,
-            \T_SWITCH     => \T_SWITCH,
-            \T_IF         => \T_IF,
-            \T_ELSEIF     => \T_ELSEIF,
+            \T_DO         => \T_DO,
+            \T_TRY        => \T_TRY,
             \T_CATCH      => \T_CATCH,
-            \T_DECLARE    => \T_DECLARE,
+            \T_FINALLY    => \T_FINALLY,
+            \T_PROPERTY   => \T_PROPERTY,
+            \T_OBJECT     => \T_OBJECT,
+            \T_USE        => \T_USE,
         ];
 
         if (\version_compare($version, '3.6.0', '>=') === true
@@ -57,13 +68,9 @@ class ParenthesisOpenersTest extends TestCase
             $expected[\T_MATCH] = \T_MATCH;
         }
 
-        if (\version_compare($version, '4.0.0', '>=') === true) {
-            $expected[\T_USE] = \T_USE;
-        }
-
         \asort($expected);
 
-        $result = BCTokens::parenthesisOpeners();
+        $result = BCTokens::scopeOpeners();
         \asort($result);
 
         $this->assertSame($expected, $result);
@@ -78,8 +85,8 @@ class ParenthesisOpenersTest extends TestCase
      *
      * @return void
      */
-    public function testPHPCSParenthesisOpeners()
+    public function testPHPCSScopeOpeners()
     {
-        $this->assertSame(Tokens::$parenthesisOpeners, BCTokens::parenthesisOpeners());
+        $this->assertSame(Tokens::$scopeOpeners, BCTokens::scopeOpeners());
     }
 }

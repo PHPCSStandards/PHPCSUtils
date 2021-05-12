@@ -70,38 +70,6 @@ class UnchangedTokenArraysTest extends TestCase
     ];
 
     /**
-     * Tokens that are allowed to open scopes.
-     *
-     * @var array <int|string> => <int|string>
-     */
-    protected $scopeOpeners = [
-        \T_CLASS      => \T_CLASS,
-        \T_ANON_CLASS => \T_ANON_CLASS,
-        \T_INTERFACE  => \T_INTERFACE,
-        \T_TRAIT      => \T_TRAIT,
-        \T_NAMESPACE  => \T_NAMESPACE,
-        \T_FUNCTION   => \T_FUNCTION,
-        \T_CLOSURE    => \T_CLOSURE,
-        \T_IF         => \T_IF,
-        \T_SWITCH     => \T_SWITCH,
-        \T_CASE       => \T_CASE,
-        \T_DECLARE    => \T_DECLARE,
-        \T_DEFAULT    => \T_DEFAULT,
-        \T_WHILE      => \T_WHILE,
-        \T_ELSE       => \T_ELSE,
-        \T_ELSEIF     => \T_ELSEIF,
-        \T_FOR        => \T_FOR,
-        \T_FOREACH    => \T_FOREACH,
-        \T_DO         => \T_DO,
-        \T_TRY        => \T_TRY,
-        \T_CATCH      => \T_CATCH,
-        \T_FINALLY    => \T_FINALLY,
-        \T_PROPERTY   => \T_PROPERTY,
-        \T_OBJECT     => \T_OBJECT,
-        \T_USE        => \T_USE,
-    ];
-
-    /**
      * Tokens that represent scope modifiers.
      *
      * @var array <int|string> => <int|string>
