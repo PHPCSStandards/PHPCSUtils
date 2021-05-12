@@ -53,7 +53,6 @@ use PHPCSUtils\Tokens\Collections;
  * @method static array includeTokens()    Tokens that include files.
  * @method static array methodPrefixes()   Tokens that can prefix a method name.
  * @method static array scopeModifiers()   Tokens that represent scope modifiers.
- * @method static array scopeOpeners()     Tokens that are allowed to open scopes.
  * @method static array stringTokens()     Tokens that represent strings.
  *                                         Note that `T_STRINGS` are NOT represented in this list as this list
  *                                         is about _text_ strings.
@@ -263,6 +262,7 @@ class BCTokens
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 0.0.5.
      * - PHPCS 3.5.0: `T_LIST` and `T_ANON_CLASS` added to the array.
+     * - PHPCS 3.6.0: `T_MATCH` added to the array.
      *
      * Note: While `T_LIST` and `T_ANON_CLASS` will be included in the return value for this
      * method, the associated parentheses will not have the `'parenthesis_owner'` index set
@@ -284,6 +284,42 @@ class BCTokens
         $tokens                = Tokens::$parenthesisOpeners;
         $tokens[\T_LIST]       = \T_LIST;
         $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
+
+        /*
+         * The `T_MATCH` token may be available pre-PHPCS 3.6.0 depending on the PHP version
+         * used to run PHPCS.
+         */
+        if (\defined('T_MATCH')) {
+            $tokens[\T_MATCH] = \T_MATCH;
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * Tokens that are allowed to open scopes.
+     *
+     * Retrieve the PHPCS scope openers tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 3.6.0: `T_MATCH` added to the array.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string> Token array.
+     */
+    public static function scopeOpeners()
+    {
+        $tokens = Tokens::$scopeOpeners;
+
+        /*
+         * The `T_MATCH` token may be available pre-PHPCS 3.6.0 depending on the PHP version
+         * used to run PHPCS.
+         */
+        if (\defined('T_MATCH')) {
+            $tokens[\T_MATCH] = \T_MATCH;
+        }
 
         return $tokens;
     }
