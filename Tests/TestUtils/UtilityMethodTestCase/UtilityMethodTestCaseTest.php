@@ -174,6 +174,28 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test the behaviour of the getTargetToken() method when the target is not found.
+     *
+     * @return void
+     */
+    public function testGetTargetTokenNotFoundException()
+    {
+        $msg       = 'Failed to find test target token for comment string: ';
+        $exception = '\RuntimeException';
+
+        if (\method_exists($this, 'expectException')) {
+            // PHPUnit 5+.
+            $this->expectException($exception);
+            $this->expectExceptionMessage($msg);
+        } else {
+            // PHPUnit 4.
+            $this->setExpectedException($exception, $msg);
+        }
+
+        $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a', false);
+    }
+
+    /**
      * Test that the helper method to handle cross-version testing of exceptions in PHPUnit
      * works correctly.
      *

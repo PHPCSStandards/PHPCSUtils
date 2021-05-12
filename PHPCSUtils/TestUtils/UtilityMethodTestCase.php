@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use RuntimeException as PHPRuntimeException;
 
 /**
  * Base class for use when testing utility methods for PHP_CodeSniffer.
@@ -354,10 +355,16 @@ abstract class UtilityMethodTestCase extends TestCase
      *                                        This string should include the comment opener and closer.
      * @param int|string|array $tokenType     The type of token(s) to look for.
      * @param string           $tokenContent  Optional. The token content for the target token.
+     * @param bool             $failTest      Optional. Whether the test should be marked as failed when
+     *                                        the target token cannot be found. Defaults to `true`.
+     *                                        When set to `false`, a catchable PHP native `RuntimeException`
+     *                                        will be thrown instead.
      *
      * @return int
+     *
+     * @throws \RuntimeException When the target token cannot be found and `$failTest` has been set to `false`.
      */
-    public function getTargetToken($commentString, $tokenType, $tokenContent = null)
+    public function getTargetToken($commentString, $tokenType, $tokenContent = null, $failTest = true)
     {
         $start   = (self::$phpcsFile->numTokens - 1);
         $comment = self::$phpcsFile->findPrevious(
@@ -395,6 +402,10 @@ abstract class UtilityMethodTestCase extends TestCase
             $msg = 'Failed to find test target token for comment string: ' . $commentString;
             if ($tokenContent !== null) {
                 $msg .= ' With token content: ' . $tokenContent;
+            }
+
+            if ($failTest === false) {
+                throw new PHPRuntimeException($msg);
             }
 
             $this->fail($msg);
