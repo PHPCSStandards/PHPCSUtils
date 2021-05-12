@@ -99,6 +99,8 @@ class IsTypeUnionTest extends UtilityMethodTestCase
             'return-partially-qualified'      => ['/* testTypeUnionReturnPartiallyQualified */'],
             'return-fully-qualified'          => ['/* testTypeUnionReturnFullyQualified */'],
             'parameter-closure-with-nullable' => ['/* testTypeUnionClosureParamIllegalNullable */'],
+            'parameter-with-reference'        => ['/* testTypeUnionWithReference */'],
+            'parameter-with-spread-operator'  => ['/* testTypeUnionWithSpreadOperator */'],
             'return-closure'                  => ['/* testTypeUnionClosureReturn */'],
             'parameter-arrow'                 => ['/* testTypeUnionArrowParam */'],
             'return-arrow'                    => ['/* testTypeUnionArrowReturnType */'],

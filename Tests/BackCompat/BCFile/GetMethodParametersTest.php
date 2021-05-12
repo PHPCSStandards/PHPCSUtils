@@ -1318,6 +1318,46 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP8 union type declaration when the variable has either a spread operator or a reference.
+     *
+     * @return void
+     */
+    public function testPHP8UnionTypesWithSpreadOperatorAndReference()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 9, // Offset from the T_FUNCTION token.
+            'name'                => '$paramA',
+            'content'             => 'float|null &$paramA',
+            'pass_by_reference'   => true,
+            'reference_token'     => 8, // Offset from the T_FUNCTION token.
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'float|null',
+            'type_hint_token'     => 4, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 6, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => 10,
+        ];
+        $expected[1] = [
+            'token'               => 17, // Offset from the T_FUNCTION token.
+            'name'                => '$paramB',
+            'content'             => 'string|int ...$paramB',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => true,
+            'variadic_token'      => 16, // Offset from the T_FUNCTION token.
+            'type_hint'           => 'string|int',
+            'type_hint_token'     => 12, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 14, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify recognition of PHP8 union type declaration with a bitwise or in the default value.
      *
      * @return void
