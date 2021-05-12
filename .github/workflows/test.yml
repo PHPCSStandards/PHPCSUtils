@@ -9,9 +9,8 @@ on:
       - '**.md'
       - 'docs/**'
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
 
 jobs:
   #### TEST STAGE ####
@@ -228,6 +227,7 @@ jobs:
           php-version: ${{ matrix.php }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: xdebug
+          tools: cs2pr
 
       - name: 'Composer: adjust dependencies'
         run: |
@@ -236,6 +236,10 @@ jobs:
 
       - name: Install Composer dependencies - normal
         uses: "ramsey/composer-install@v1"
+
+      - name: Lint against parse errors
+        if: matrix.phpcs_version == 'dev-master'
+        run: composer lint -- --checkstyle | cs2pr
 
       - name: Run the unit tests with code coverage
         run: vendor/bin/phpunit
