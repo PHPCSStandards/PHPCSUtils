@@ -12,7 +12,6 @@ namespace PHPCSUtils\Tests\Utils\MessageHelper;
 
 use PHP_CodeSniffer\Reporter;
 use PHP_CodeSniffer\Reports\Full;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\MessageHelper;
 
@@ -56,7 +55,7 @@ class HasNewLineSupportTest extends UtilityMethodTestCase
     {
         $result = MessageHelper::hasNewLineSupport();
 
-        if (method_exists($this, 'assertIsBool') === true) {
+        if (\method_exists($this, 'assertIsBool') === true) {
             // PHPUnit >= 7.5.
             $this->assertIsBool($result);
         } else {
