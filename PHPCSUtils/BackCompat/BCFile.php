@@ -40,8 +40,8 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Utils\Parentheses;
 use PHPCSUtils\Utils\FunctionDeclarations;
+use PHPCSUtils\Utils\Parentheses;
 
 /**
  * PHPCS native utility functions.

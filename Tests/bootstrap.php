@@ -35,11 +35,11 @@ if (\defined('PHP_CODESNIFFER_VERBOSITY') === false) {
  * PHPUnit 9.2 to run with Xdebug 3 for code coverage.
  */
 if (\extension_loaded('xdebug') && \version_compare(\phpversion('xdebug'), '3', '>=')) {
-    if (defined('XDEBUG_CC_UNUSED') === false) {
-        define('XDEBUG_CC_UNUSED', null);
+    if (\defined('XDEBUG_CC_UNUSED') === false) {
+        \define('XDEBUG_CC_UNUSED', null);
     }
-    if (defined('XDEBUG_CC_DEAD_CODE') === false) {
-        define('XDEBUG_CC_DEAD_CODE', null);
+    if (\defined('XDEBUG_CC_DEAD_CODE') === false) {
+        \define('XDEBUG_CC_DEAD_CODE', null);
     }
 }
 
