@@ -29,3 +29,10 @@ abstract
  * @phpcs:disable Standard.Cat.SniffName -- Just because.
  */
 class ClassWithDocblock {}
+
+/* testParseErrorAbstractFinal */
+final /* comment */
+
+    abstract // Intentional parse error, class cannot both be final and abstract.
+
+        class AbstractFinal {}

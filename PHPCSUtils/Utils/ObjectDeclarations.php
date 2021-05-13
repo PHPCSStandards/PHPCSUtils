@@ -157,7 +157,6 @@ class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of unorthodox docblock placement.
-     *   - A class cannot both be abstract as well as final, so this utility should not allow for that.
      * - Defensive coding against incorrect calls to this method.
      *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()   Original source.
@@ -203,11 +202,11 @@ class ObjectDeclarations
             switch ($tokens[$i]['code']) {
                 case \T_ABSTRACT:
                     $properties['is_abstract'] = true;
-                    break 2;
+                    break;
 
                 case \T_FINAL:
                     $properties['is_final'] = true;
-                    break 2;
+                    break;
             }
         }
 

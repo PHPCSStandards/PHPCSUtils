@@ -138,6 +138,13 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                     'is_final'    => false,
                 ],
             ],
+            'abstract-final-parse-error' => [
+                '/* testParseErrorAbstractFinal */',
+                [
+                    'is_abstract' => true,
+                    'is_final'    => true,
+                ],
+            ],
         ];
     }
 }
