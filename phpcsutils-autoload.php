@@ -36,13 +36,13 @@ if (defined('PHPCSUTILS_AUTOLOAD') === false) {
      * External PHPCS standards which have their own unit test suite
      * should include this file in their test runner bootstrap.
      */
-    spl_autoload_register(function ($class) {
+    spl_autoload_register(function ($fqClassName) {
         // Only try & load our own classes.
-        if (stripos($class, 'PHPCSUtils') !== 0) {
+        if (stripos($fqClassName, 'PHPCSUtils') !== 0) {
             return;
         }
 
-        $file = realpath(__DIR__) . DIRECTORY_SEPARATOR . strtr($class, '\\', DIRECTORY_SEPARATOR) . '.php';
+        $file = realpath(__DIR__) . DIRECTORY_SEPARATOR . strtr($fqClassName, '\\', DIRECTORY_SEPARATOR) . '.php';
 
         if (file_exists($file)) {
             include_once $file;

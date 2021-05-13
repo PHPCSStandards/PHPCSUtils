@@ -43,21 +43,21 @@ class Orthography
      *
      * @since 1.0.0
      *
-     * @param string $string The text string to examine.
-     *                       This can be the contents of a text string token,
-     *                       but also, for instance, a comment text.
-     *                       Potential text delimiter quotes should be stripped
-     *                       off a text string before passing it to this method.
-     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
+     * @param string $textString The text string to examine.
+     *                           This can be the contents of a text string token,
+     *                           but also, for instance, a comment text.
+     *                           Potential text delimiter quotes should be stripped
+     *                           off a text string before passing it to this method.
+     *                           Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool `TRUE` when the first character is a capital letter or a letter
      *              which doesn't have a concept of capitalization.
      *              `FALSE` otherwise, including for non-letter characters.
      */
-    public static function isFirstCharCapitalized($string)
+    public static function isFirstCharCapitalized($textString)
     {
-        $string = \ltrim($string);
-        return (\preg_match('`^[\p{Lu}\p{Lt}\p{Lo}]`u', $string) > 0);
+        $textString = \ltrim($textString);
+        return (\preg_match('`^[\p{Lu}\p{Lt}\p{Lo}]`u', $textString) > 0);
     }
 
     /**
@@ -65,21 +65,21 @@ class Orthography
      *
      * @since 1.0.0
      *
-     * @param string $string The text string to examine.
-     *                       This can be the contents of a text string token,
-     *                       but also, for instance, a comment text.
-     *                       Potential text delimiter quotes should be stripped
-     *                       off a text string before passing it to this method.
-     *                       Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
+     * @param string $textString The text string to examine.
+     *                           This can be the contents of a text string token,
+     *                           but also, for instance, a comment text.
+     *                           Potential text delimiter quotes should be stripped
+     *                           off a text string before passing it to this method.
+     *                           Also see: {@see \PHPCSUtils\Utils\TextStrings::stripQuotes()}.
      *
      * @return bool `TRUE` when the first character is a lowercase letter.
      *              `FALSE` otherwise, including for letters which don't have a concept of
      *              capitalization and for non-letter characters.
      */
-    public static function isFirstCharLowercase($string)
+    public static function isFirstCharLowercase($textString)
     {
-        $string = \ltrim($string);
-        return (\preg_match('`^\p{Ll}`u', $string) > 0);
+        $textString = \ltrim($textString);
+        return (\preg_match('`^\p{Ll}`u', $textString) > 0);
     }
 
     /**
@@ -87,7 +87,7 @@ class Orthography
      *
      * @since 1.0.0
      *
-     * @param string $string       The text string to examine.
+     * @param string $textString   The text string to examine.
      *                             This can be the contents of a text string token,
      *                             but also, for instance, a comment text.
      *                             Potential text delimiter quotes should be stripped
@@ -100,7 +100,7 @@ class Orthography
      *
      * @return bool
      */
-    public static function isLastCharPunctuation($string, $allowedChars = self::TERMINAL_POINTS)
+    public static function isLastCharPunctuation($textString, $allowedChars = self::TERMINAL_POINTS)
     {
         static $encoding;
 
@@ -108,11 +108,11 @@ class Orthography
             $encoding = Helper::getEncoding();
         }
 
-        $string = \rtrim($string);
+        $textString = \rtrim($textString);
         if (\function_exists('iconv_substr') === true) {
-            $lastChar = \iconv_substr($string, -1, 1, $encoding);
+            $lastChar = \iconv_substr($textString, -1, 1, $encoding);
         } else {
-            $lastChar = \substr($string, -1);
+            $lastChar = \substr($textString, -1);
         }
 
         if (\function_exists('iconv_strpos') === true) {
