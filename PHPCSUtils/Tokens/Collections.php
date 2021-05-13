@@ -897,6 +897,21 @@ class Collections
     }
 
     /**
+     * Tokens which open PHP.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function phpOpenTags()
+    {
+        return [
+            \T_OPEN_TAG           => \T_OPEN_TAG,
+            \T_OPEN_TAG_WITH_ECHO => \T_OPEN_TAG_WITH_ECHO,
+        ];
+    }
+
+    /**
      * Token types which can be encountered in a property type declaration.
      *
      * Note: this is a method, not a property as the `T_TYPE_UNION` token for PHP 8.0 union types may not exist.
