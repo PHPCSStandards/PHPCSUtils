@@ -452,12 +452,13 @@ class PassedParameters
             return $parameters[$paramOffset];
         }
 
-        $paramNames = \array_flip((array) $paramNames);
         if (empty($paramNames) === true) {
             throw new RuntimeException(
                 'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
             );
         }
+
+        $paramNames = \array_flip((array) $paramNames);
 
         // Next check if a named parameter was passed with the specified name.
         foreach ($parameters as $paramDetails) {
