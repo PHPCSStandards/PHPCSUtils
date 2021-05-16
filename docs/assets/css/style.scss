@@ -89,13 +89,13 @@ p code {
 }
 
 /* FAQ */
-#faq h4 {
+.faq h3 {
     font-size: 18px;
     line-height: 1.1;
     margin-top: 0;
 }
 
-#faq h4::first-letter, #faq h4 + p::first-letter {
+.faq h3::first-letter, .faq h3 + p::first-letter {
     color:#267CB9;
     font-weight: bold;
 }

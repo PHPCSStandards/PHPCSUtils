@@ -16,16 +16,12 @@
     <div class="wrapper">
       <header>
         <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
-        
+
         {% if site.logo %}
           <img src="{{site.logo | absolute_url }}" alt="Logo" />
         {% endif %}
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
-
-        {% if site.github.is_project_page %}
-        <p class="view"><a href="{{ site.github.repository_url }}">Visit the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
-        {% endif %}
 
         <p class="docs"><a href="{{ "/phpdoc/index.html" | absolute_url }}">Read the Documentation</a></p>
 
@@ -33,6 +29,10 @@
             <a href="https://packagist.org/packages/{{ site.phpcsutils.packagist }}">Install using Composer:</a><br>
             <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require <span class="s">{{ site.phpcsutils.packagist }}</span></code></pre></div></div>
         </div>
+
+        {% if site.github.latest_release.tag_name %}
+        <p>Latest release: <strong>{{ site.github.latest_release.tag_name }}</strong></p>
+        {% endif %}
 
         {% if site.show_downloads %}
         <ul class="downloads">
@@ -42,9 +42,9 @@
         </ul>
         {% endif %}
 
-        <p><a href="https://twitter.com/share" class="twitter-share-button" data-related="{{ site.twitter.username }}" data-count="none" data-hashtags="{{ site.twitter.hashtags }}">Tweet about it</a></p>
+        <p class="view"><a href="{{ site.github.repository_url }}">Visit the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
 
-    </header>
+        <p><a href="https://twitter.com/share" class="twitter-share-button" data-related="{{ site.twitter.username }}" data-count="none" data-hashtags="{{ site.twitter.hashtags }}">Tweet about it</a></p>
 
       </header>
       <section>
