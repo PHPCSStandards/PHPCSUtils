@@ -190,8 +190,8 @@ jobs:
   # These builds are left out off the "test" stage so as not to duplicate test runs.
   coverage:
     # No use running the coverage builds if there are failing test builds.
-    if: ${{ needs.test.result == 'success' || needs.test.result == 'skipped' }}
     needs: test
+    if: ${{ needs.test.result == 'success' || needs.test.result == 'skipped' }}
 
     runs-on: ubuntu-latest
 
