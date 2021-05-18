@@ -270,6 +270,8 @@ jobs:
 
   coveralls-finish:
     needs: coverage
+    if: always() && needs.coverage.result == 'success'
+
     runs-on: ubuntu-latest
 
     steps:
