@@ -44,16 +44,16 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
 
     /**
      * Test retrieving the parameter details from a non-function call without passing a valid name
-     * to make sure that no error notice is thrown for the missing parameter name.
+     * to make sure that no exception is thrown for the missing parameter name.
      *
-     * @dataProvider dataGetParameterNonFunctionCallMissingParamName
+     * @dataProvider dataGetParameterNonFunctionCallNoParamName
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType The type of token to look for.
      *
      * @return void
      */
-    public function testGetParameterNonFunctionCallMissingParamName($testMarker, $targetType)
+    public function testGetParameterNonFunctionCallNoParamName($testMarker, $targetType)
     {
         $stackPtr = $this->getTargetToken($testMarker, $targetType);
         $expected = [
@@ -70,11 +70,11 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @see testGetParameterNonFunctionCallMissingParamName() For the array format.
+     * @see testGetParameterNonFunctionCallNoParamName() For the array format.
      *
      * @return array
      */
-    public function dataGetParameterNonFunctionCallMissingParamName()
+    public function dataGetParameterNonFunctionCallNoParamName()
     {
         return [
             'isset' => [
@@ -90,11 +90,11 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
 
     /**
      * Test retrieving the parameter details from a function call with only positional parameters
-     * without passing a valid name.
+     * without passing a valid name to make sure no exception is thrown.
      *
      * @return void
      */
-    public function testGetParameterFunctionCallPositionalMissingParamName()
+    public function testGetParameterFunctionCallPositionalNoParamName()
     {
         $stackPtr = $this->getTargetToken('/* testAllParamsPositional */', \T_STRING);
         $expected = [
@@ -141,6 +141,71 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
         $stackPtr = $this->getTargetToken('/* testAllParamsPositional */', \T_STRING);
 
         PassedParameters::getParameter(self::$phpcsFile, $stackPtr, 10);
+    }
+
+    /**
+     * Verify that the $limit parameter used with `PassedParameters::getParameters()` from within the
+     * `PassedParameters::getParameter()` function call does not interfer with the handling of named parameters.
+     *
+     * @dataProvider dataGetParameterFunctionCallWithParamName
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     * @param array  $expected   The expected function output.
+     *
+     * @return void
+     */
+    public function testGetParameterFunctionCallWithParamName($testMarker, $expected)
+    {
+        $stackPtr = $this->getTargetToken($testMarker, \T_STRING);
+
+        $expected['start'] += $stackPtr;
+        $expected['end']   += $stackPtr;
+        if (isset($expected['name_start'], $expected['name_end']) === true) {
+            $expected['name_start'] += $stackPtr;
+            $expected['name_end']   += $stackPtr;
+        }
+        $expected['clean'] = $expected['raw'];
+
+        $result = PassedParameters::getParameter(self::$phpcsFile, $stackPtr, 2, 'value');
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetParameterFunctionCallWithParamName() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetParameterFunctionCallWithParamName()
+    {
+        /*
+         * Work around to account for the different token positions due to the old tokenization
+         * to T_GOTO_LABEL which joins two tokens into one (incorrectly).
+         */
+        $namedParamsInPhpcs = \version_compare(Helper::getVersion(), '3.6.0', '>=');
+
+        return [
+            'all-named-non-standard-order' => [
+                '/* testAllParamsNamedNonStandardOrder */',
+                [
+                    'name_start' => ($namedParamsInPhpcs === true) ? 46 : 42,
+                    'name_end'   => ($namedParamsInPhpcs === true) ? 49 : 44,
+                    'name'       => 'value',
+                    'start'      => ($namedParamsInPhpcs === true) ? 50 : 45,
+                    'end'        => ($namedParamsInPhpcs === true) ? 51 : 46,
+                    'raw'        => "'value'",
+                ],
+            ],
+            'mixed-positional-and-named-target-non-named' => [
+                '/* testMixedPositionalAndNamedParams */',
+                [
+                    'start' => 6,
+                    'end'   => 8,
+                    'raw'   => "'value'",
+                ],
+            ],
+        ];
     }
 
     /**

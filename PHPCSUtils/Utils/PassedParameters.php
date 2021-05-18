@@ -152,6 +152,8 @@ class PassedParameters
      * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
      *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
      *                                               `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $limit     Optional. Limit the parameter retrieval to the first #
+     *                                               parameters/array entries.
      *
      * @return array A multi-dimentional array information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
@@ -186,7 +188,7 @@ class PassedParameters
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
      */
-    public static function getParameters(File $phpcsFile, $stackPtr)
+    public static function getParameters(File $phpcsFile, $stackPtr, $limit = 0)
     {
         if (self::hasParameters($phpcsFile, $stackPtr) === false) {
             return [];
@@ -314,6 +316,11 @@ class PassedParameters
                 break;
             }
 
+            // Stop if there is a valid limit and the limit has been reached.
+            if (\is_int($limit) && $limit > 0 && $cnt === $limit) {
+                break;
+            }
+
             // Prepare for the next parameter.
             $paramStart = ($nextComma + 1);
             $cnt++;
@@ -363,8 +370,13 @@ class PassedParameters
      */
     public static function getParameter(File $phpcsFile, $stackPtr, $paramOffset, $paramNames = [])
     {
-        $tokens     = $phpcsFile->getTokens();
-        $parameters = self::getParameters($phpcsFile, $stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        if (empty($paramNames) === true) {
+            $parameters = self::getParameters($phpcsFile, $stackPtr, $paramOffset);
+        } else {
+            $parameters = self::getParameters($phpcsFile, $stackPtr);
+        }
 
         /*
          * Non-function calls.
