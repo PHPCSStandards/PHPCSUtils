@@ -191,7 +191,8 @@ jobs:
   coverage:
     # No use running the coverage builds if there are failing test builds.
     needs: test
-    if: always() && ${{ needs.test.result == 'success' || needs.test.result == 'skipped' }}
+    # The default condition is success(), but this is false when one of the previous jobs is skipped
+    if: always() && (needs.test.result == 'success' || needs.test.result == 'skipped')
 
     runs-on: ubuntu-latest
 
