@@ -29,6 +29,9 @@ class GetParametersWithLimitTest extends UtilityMethodTestCase
     /**
      * Test retrieving the parameter details with a limit from an array without parameters.
      *
+     * @covers \PHPCSUtils\Utils\PassedParameters::getParameters
+     * @covers \PHPCSUtils\Utils\PassedParameters::getParameter
+     *
      * @return void
      */
     public function testGetParametersWithLimitNoParams()
@@ -38,6 +41,10 @@ class GetParametersWithLimitTest extends UtilityMethodTestCase
         $result = PassedParameters::getParameters(self::$phpcsFile, $stackPtr, 3);
         $this->assertSame([], $result);
         $this->assertCount(0, $result);
+
+        // Limit is automatically applied to getParameter().
+        $result = PassedParameters::getParameter(self::$phpcsFile, $stackPtr, 3);
+        $this->assertFalse($result);
     }
 
     /**
