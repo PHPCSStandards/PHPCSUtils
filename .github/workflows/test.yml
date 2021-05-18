@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - develop
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -15,6 +16,7 @@ on:
 jobs:
   #### TEST STAGE ####
   test:
+    if: ${{ github.ref != 'refs/heads/develop' }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -188,6 +190,7 @@ jobs:
   # These builds are left out off the "test" stage so as not to duplicate test runs.
   coverage:
     # No use running the coverage builds if there are failing test builds.
+    if: ${{ needs.test.result == 'success' || needs.test.result == 'skipped' }}
     needs: test
 
     runs-on: ubuntu-latest
