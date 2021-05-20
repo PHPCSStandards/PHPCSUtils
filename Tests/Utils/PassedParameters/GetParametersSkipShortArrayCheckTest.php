@@ -165,12 +165,12 @@ class GetParametersSkipShortArrayCheckTest extends UtilityMethodTestCase
                     1 => [
                         'start' => 1,
                         'end'   => 6,
-                        'raw'   => "'a' => 1",
+                        'raw'   => '\'a\' => $a',
                     ],
                     2 => [
                         'start' => 8,
                         'end'   => 14,
-                        'raw'   => "'b' => 2",
+                        'raw'   => '\'b\' => $b',
                     ],
                 ],
             ],
@@ -189,6 +189,62 @@ class GetParametersSkipShortArrayCheckTest extends UtilityMethodTestCase
                         'start' => 1,
                         'end'   => 4,
                         'raw'   => '$keys[\'key\']',
+                    ],
+                ],
+            ],
+            'short-list-with-empties-before' => [
+                '/* testShortListWithEmptyItemsBefore */',
+                \T_OPEN_SHORT_ARRAY,
+                true,
+                [
+                    1 => [
+                        'start' => 1,
+                        'end'   => 0,
+                        'raw'   => '',
+                    ],
+                    2 => [
+                        'start' => 2,
+                        'end'   => 2,
+                        'raw'   => '',
+                    ],
+                    3 => [
+                        'start' => 4,
+                        'end'   => 5,
+                        'raw'   => '$a',
+                    ],
+                ],
+            ],
+            'short-list-with-empties-after' => [
+                '/* testShortListWithEmptyItemsAfter */',
+                \T_OPEN_SHORT_ARRAY,
+                true,
+                [
+                    1 => [
+                        'start' => 1,
+                        'end'   => 1,
+                        'raw'   => '$a',
+                    ],
+                    2 => [
+                        'start' => 3,
+                        'end'   => 2,
+                        'raw'   => '',
+                    ],
+                ],
+            ],
+            'short-list-with-all-empties' => [
+                '/* testShortListWithAllEmptyItems */',
+                \T_OPEN_SHORT_ARRAY,
+                true,
+                [
+                    1 => [
+                        'start' => 1,
+                        'end'   => 0,
+                        'raw'   => '',
+                    ],
+                    2 => [
+                        'start' => 2,
+                        'end'   => 1,
+                        'raw'   => '',
                     ],
                 ],
             ],
