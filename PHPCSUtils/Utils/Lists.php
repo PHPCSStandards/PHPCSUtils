@@ -106,7 +106,8 @@ class Lists
             }
 
             $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-            if ((($prevNonEmpty === 0 && $tokens[$prevNonEmpty]['code'] === \T_OPEN_TAG) // Bug #1971.
+            if ((($prevNonEmpty === 0
+                && isset(Collections::phpOpenTags()[$tokens[$prevNonEmpty]['code']]) === true) // Bug #1971.
                 || ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
                     && isset($tokens[$prevNonEmpty]['scope_condition']))) // Bug #1284.
             ) {
