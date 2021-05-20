@@ -105,7 +105,9 @@ class Arrays
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971
                  */
-                if ($prevNonEmpty !== 0 || $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG) {
+                if ($prevNonEmpty !== 0
+                    || isset(Collections::phpOpenTags()[$tokens[$prevNonEmpty]['code']]) === false
+                ) {
                     return false;
                 }
             }
