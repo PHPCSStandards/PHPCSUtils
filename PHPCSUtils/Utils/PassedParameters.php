@@ -61,17 +61,21 @@ class PassedParameters
      * @since 1.0.0
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
-     *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
-     *                                               `T_ISSET`, or `T_UNSET` token.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
+     * @param int                         $stackPtr     The position of the `T_STRING`, PHP 8.0 identifier
+     *                                                  name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
+     *                                                  `T_ISSET`, or `T_UNSET` token.
+     * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
+     *                                                  `T_OPEN_SHORT_ARRAY` tokens if it isn't necessary.
+     *                                                  Efficiency tweak for when this has already been established,
+     *                                                  Use with EXTREME care.
      *
      * @return bool
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
      */
-    public static function hasParameters(File $phpcsFile, $stackPtr)
+    public static function hasParameters(File $phpcsFile, $stackPtr, $isShortArray = null)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -94,6 +98,7 @@ class PassedParameters
 
         if (($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
             || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET)
+            && $isShortArray !== true
             && Arrays::isShortArray($phpcsFile, $stackPtr) === false
         ) {
             throw new RuntimeException(
@@ -148,12 +153,16 @@ class PassedParameters
      * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by
      *                     introducing the new `'name_start'`, `'name_end'` and `'name'` index keys.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, PHP 8.0 identifier
-     *                                               name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
-     *                                               `T_ISSET`, or `T_UNSET` token.
-     * @param int                         $limit     Optional. Limit the parameter retrieval to the first #
-     *                                               parameters/array entries.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
+     * @param int                         $stackPtr     The position of the `T_STRING`, PHP 8.0 identifier
+     *                                                  name token, `T_VARIABLE`, `T_ARRAY`, `T_OPEN_SHORT_ARRAY`,
+     *                                                  `T_ISSET`, or `T_UNSET` token.
+     * @param int                         $limit        Optional. Limit the parameter retrieval to the first #
+     *                                                  parameters/array entries.
+     * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
+     *                                                  `T_OPEN_SHORT_ARRAY` tokens if it isn't necessary.
+     *                                                  Efficiency tweak for when this has already been established,
+     *                                                  Use with EXTREME care.
      *
      * @return array A multi-dimentional array information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
@@ -188,9 +197,9 @@ class PassedParameters
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
      */
-    public static function getParameters(File $phpcsFile, $stackPtr, $limit = 0)
+    public static function getParameters(File $phpcsFile, $stackPtr, $limit = 0, $isShortArray = null)
     {
-        if (self::hasParameters($phpcsFile, $stackPtr) === false) {
+        if (self::hasParameters($phpcsFile, $stackPtr, $isShortArray) === false) {
             return [];
         }
 
