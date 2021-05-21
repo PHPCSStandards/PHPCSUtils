@@ -1,34 +1,9 @@
 <?php
 
-/* ===== Tests involving tokens correctly not tokenized as short array brackets. ===== */
+/* ===== Tests involving tokens correctly tokenized as square brackets. ===== */
 
-/* testArrayAssignmentEmpty */
+/* testSquareBrackets */
 $b[] = $c;
-
-/* testArrayAssignmentStringKey */
-$b['key'] = $c;
-
-/* testArrayAssignmentIntKey */
-$b[10] = $c;
-
-/* testArrayAssignmentVarKey */
-$b[$a] = $c;
-
-/* testArrayAccessStringKey */
-function_call($array['key']);
-
-/* testArrayAccessIntKey1 */
-function_call($array[1]/* testArrayAccessIntKey2 */[1]);
-
-/* testArrayAccessFunctionCall */
-return function_call()[1];
-
-/* testArrayAccessConstant */
-return MY_CONSTANT[1];
-
-/* testNullsafeMethodCallDereferencing */
-$var = $obj?->function_call()[$x];
-
 
 /* ===== Tests involving tokens correctly tokenized as short array brackets. ===== */
 
@@ -140,6 +115,5 @@ array_map(function($a) {
 // Parse error, but not our concern, it is short array syntax.
 use Something as [$a];
 
-/* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 [$a, /* testLiveCodingNested */ [$b]

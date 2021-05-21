@@ -29,84 +29,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
 {
 
     /**
-     * Test that short array/square bracket, which are in actual fact not short arrays/short list tokens,
-     * are correctly identified as real square brackets.
-     *
-     * @dataProvider dataNotShortArrayShortListBracket
-     * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
-     *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetToken The token type(s) to look for.
-     *
-     * @return void
-     */
-    public function testNotShortArrayShortListBracket($testMarker, $targetToken)
-    {
-        $stackPtr = $this->getTargetToken($testMarker, $targetToken);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
-        $type     = $solver->solve();
-
-        $this->assertSame(IsShortArrayOrList::SQUARE_BRACKETS, $type);
-    }
-
-    /**
-     * Data provider.
-     *
-     * @see testNotShortArrayShortListBracket() For the array format.
-     *
-     * @return array
-     */
-    public function dataNotShortArrayShortListBracket()
-    {
-        return [
-            'array-assignment-no-key' => [
-                '/* testArrayAssignmentEmpty */',
-                \T_CLOSE_SQUARE_BRACKET,
-            ],
-            'array-assignment-string-key' => [
-                '/* testArrayAssignmentStringKey */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-assignment-int-key' => [
-                '/* testArrayAssignmentIntKey */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-assignment-var-key' => [
-                '/* testArrayAssignmentVarKey */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-access-string-key' => [
-                '/* testArrayAccessStringKey */',
-                \T_CLOSE_SQUARE_BRACKET,
-            ],
-            'array-access-int-key-1' => [
-                '/* testArrayAccessIntKey1 */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-access-int-key-2' => [
-                '/* testArrayAccessIntKey2 */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-access-function-call' => [
-                '/* testArrayAccessFunctionCall */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-access-constant' => [
-                '/* testArrayAccessConstant */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'array-access-nullsafe-method-call' => [
-                '/* testNullsafeMethodCallDereferencing */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-            'live-coding' => [
-                '/* testLiveCoding */',
-                \T_OPEN_SQUARE_BRACKET,
-            ],
-        ];
-    }
-
-    /**
      * Test whether a T_OPEN_SHORT_ARRAY token is correctly determined to be a short array,
      * a short list or a real square bracket.
      *
@@ -138,6 +60,11 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
     public function dataIsShortArrayOrList()
     {
         return [
+            'square-brackets' => [
+                '/* testSquareBrackets */',
+                IsShortArrayOrList::SQUARE_BRACKETS,
+                \T_OPEN_SQUARE_BRACKET,
+            ],
             'short-array-not-nested' => [
                 '/* testShortArrayNonNested */',
                 IsShortArrayOrList::SHORT_ARRAY,
