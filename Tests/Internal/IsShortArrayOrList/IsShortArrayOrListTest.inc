@@ -2,12 +2,6 @@
 
 /* ===== Tests involving tokens correctly not tokenized as short array brackets. ===== */
 
-/* testLongArray */
-$b = array( $a );
-
-/* testLongList */
-list( $a ) = $b;
-
 /* testArrayAssignmentEmpty */
 $b[] = $c;
 
