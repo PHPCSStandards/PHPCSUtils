@@ -148,6 +148,32 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test the behaviour of the getTargetToken() method when the test marker comment is not found.
+     *
+     * @return void
+     */
+    public function testGetTargetTokenCommentNotFound()
+    {
+        $msg       = 'Failed to find the test marker: ';
+        $exception = 'PHPUnit\Framework\AssertionFailedError';
+        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
+            // PHPUnit < 6.
+            $exception = 'PHPUnit_Framework_AssertionFailedError';
+        }
+
+        if (\method_exists($this, 'expectException')) {
+            // PHPUnit 5+.
+            $this->expectException($exception);
+            $this->expectExceptionMessage($msg);
+        } else {
+            // PHPUnit 4.
+            $this->setExpectedException($exception, $msg);
+        }
+
+        $this->getTargetToken('/* testCommentDoesNotExist */', [\T_VARIABLE], '$a');
+    }
+
+    /**
      * Test the behaviour of the getTargetToken() method when the target is not found.
      *
      * @return void
