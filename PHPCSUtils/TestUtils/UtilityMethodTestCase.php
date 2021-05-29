@@ -375,6 +375,11 @@ abstract class UtilityMethodTestCase extends TestCase
             $commentString
         );
 
+        if ($comment === false) {
+            $msg = 'Failed to find the test marker: ' . $commentString;
+            $this->fail($msg);
+        }
+
         $tokens = self::$phpcsFile->getTokens();
         $end    = ($start + 1);
 
