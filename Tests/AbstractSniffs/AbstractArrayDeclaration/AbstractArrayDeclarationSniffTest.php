@@ -10,8 +10,7 @@
 
 namespace PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration;
 
-use PHPCSUtils\Tests\AssertAttributeSame;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff class.
@@ -22,10 +21,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class AbstractArrayDeclarationSniffTest extends UtilityMethodTestCase
+class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
 {
-    // Backfill for the assertAttributeSame() method on PHPUnit 9.x.
-    use AssertAttributeSame;
 
     /**
      * List of methods in the abstract which should be mocked.

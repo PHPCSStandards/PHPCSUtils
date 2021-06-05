@@ -12,7 +12,7 @@ namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
@@ -23,7 +23,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class UtilityMethodTestCaseTest extends UtilityMethodTestCase
+class UtilityMethodTestCaseTest extends PolyfilledTestCase
 {
 
     /**
@@ -51,13 +51,7 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
         $this->assertSame(57, self::$phpcsFile->numTokens);
 
         $tokens = self::$phpcsFile->getTokens();
-        if (\method_exists($this, 'assertIsArray')) {
-            // PHPUnit 7+.
-            $this->assertIsArray($tokens);
-        } else {
-            // PHPUnit 4/5/6.
-            $this->assertInternalType('array', $tokens);
-        }
+        $this->assertIsArray($tokens);
     }
 
     /**
@@ -161,14 +155,8 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
             $exception = 'PHPUnit_Framework_AssertionFailedError';
         }
 
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException($exception);
+        $this->expectExceptionMessage($msg);
 
         $this->getTargetToken('/* testCommentDoesNotExist */', [\T_VARIABLE], '$a');
     }
@@ -187,14 +175,8 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
             $exception = 'PHPUnit_Framework_AssertionFailedError';
         }
 
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException($exception);
+        $this->expectExceptionMessage($msg);
 
         $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a');
     }
@@ -209,14 +191,8 @@ class UtilityMethodTestCaseTest extends UtilityMethodTestCase
         $msg       = 'Failed to find test target token for comment string: ';
         $exception = '\RuntimeException';
 
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException($exception);
+        $this->expectExceptionMessage($msg);
 
         $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a', false);
     }

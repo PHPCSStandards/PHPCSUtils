@@ -13,6 +13,7 @@ namespace PHPCSUtils\Tests\BackCompat\Helper;
 use PHP_CodeSniffer\Config;
 use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 
 /**
  * Test class.
@@ -26,6 +27,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigDataTest extends TestCase
 {
+    use ExpectException;
 
     /**
      * Test the getConfigData() and setConfigData() method when used in a cross-version compatible manner.
@@ -87,17 +89,8 @@ class ConfigDataTest extends TestCase
             $this->markTestSkipped('Test only applicable to PHPCS 4.x');
         }
 
-        $msg       = 'Passing the $config parameter is required in PHPCS 4.x';
-        $exception = 'PHP_CodeSniffer\Exceptions\RuntimeException';
-
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
+        $this->expectExceptionMessage('Passing the $config parameter is required in PHPCS 4.x');
 
         Helper::setConfigData('arbitrary_name', 'test', true);
     }

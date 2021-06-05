@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
@@ -21,7 +21,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class MissingCaseFileTest extends UtilityMethodTestCase
+class MissingCaseFileTest extends PolyfilledTestCase
 {
 
     /**
@@ -50,14 +50,8 @@ class MissingCaseFileTest extends UtilityMethodTestCase
             $exception = 'PHPUnit_Framework_AssertionFailedError';
         }
 
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException($exception);
+        $this->expectExceptionMessage($msg);
 
         parent::setUpTestFile();
     }
