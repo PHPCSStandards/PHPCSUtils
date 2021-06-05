@@ -164,11 +164,10 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
         }
 
         $fixedFile = __DIR__ . '/TrailingCommentHandlingTest.inc.fixed';
-        $expected  = \file_get_contents($fixedFile);
         $result    = self::$phpcsFile->fixer->getContents();
 
-        $this->assertSame(
-            $expected,
+        $this->assertStringEqualsFile(
+            $fixedFile,
             $result,
             \sprintf(
                 'Fixed version of %s does not match expected version in %s',
