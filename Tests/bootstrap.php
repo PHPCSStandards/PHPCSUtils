@@ -43,13 +43,21 @@ if (\extension_loaded('xdebug') && \version_compare(\phpversion('xdebug'), '3', 
     }
 }
 
+if (\is_dir(\dirname(__DIR__) . '/vendor') && \file_exists(\dirname(__DIR__) . '/vendor/autoload.php')) {
+    $vendorDir = \dirname(__DIR__) . '/vendor';
+} else {
+    echo 'Please run `composer install` before attempting to run the unit tests.
+You can still run the tests using a PHPUnit phar file, but some test dependencies need to be available.
+';
+    die(1);
+}
+
 // Get the PHPCS dir from an environment variable.
 $phpcsDir = \getenv('PHPCS_DIR');
 
 // This may be a Composer install.
-if ($phpcsDir === false && \is_dir(\dirname(__DIR__) . '/vendor/squizlabs/php_codesniffer')) {
-    $vendorDir = \dirname(__DIR__) . '/vendor';
-    $phpcsDir  = $vendorDir . '/squizlabs/php_codesniffer';
+if ($phpcsDir === false && \is_dir($vendorDir . '/squizlabs/php_codesniffer')) {
+    $phpcsDir = $vendorDir . '/squizlabs/php_codesniffer';
 } elseif ($phpcsDir !== false) {
     $phpcsDir = \realpath($phpcsDir);
 }
@@ -68,7 +76,6 @@ if ($phpcsDir !== false && \file_exists($phpcsDir . '/autoload.php')) {
     // Pre-load the token back-fills to prevent undefined constant notices.
     require_once $phpcsDir . '/CodeSniffer/Tokens.php';
 } else {
-// @todo: change URL!!!!
     echo 'Uh oh... can\'t find PHPCS.
 
 If you use Composer, please run `composer install`.
@@ -78,10 +85,12 @@ pointing to the PHPCS directory.
     die(1);
 }
 
-// Load the composer autoload if available.
-if (isset($vendorDir) && \file_exists($vendorDir . '/autoload.php')) {
-    require_once $vendorDir . '/autoload.php';
-} else {
+if (\defined('__PHPUNIT_PHAR__')) {
+    // Testing via a PHPUnit phar.
+
+    // Load the PHPUnit Polyfills autoloader.
+    require_once $vendorDir . '/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
+
     /*
      * Autoloader specifically for the test files.
      * Fixes issues with PHPUnit not being able to find test classes being extended when running
@@ -102,6 +111,9 @@ if (isset($vendorDir) && \file_exists($vendorDir . '/autoload.php')) {
             include_once $file;
         }
     });
+} else {
+    // Testing via a Composer setup.
+    require_once $vendorDir . '/autoload.php';
 }
 
 /*
