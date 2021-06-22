@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
@@ -21,7 +21,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class SkipJSCSSTest extends UtilityMethodTestCase
+class SkipJSCSSTest extends PolyfilledTestCase
 {
 
     /**
@@ -58,14 +58,8 @@ class SkipJSCSSTest extends UtilityMethodTestCase
                 $exception = 'PHPUnit_Framework_SkippedTestError';
             }
 
-            if (\method_exists($this, 'expectException')) {
-                // PHPUnit 5+.
-                $this->expectException($exception);
-                $this->expectExceptionMessage($msg);
-            } else {
-                // PHPUnit 4.
-                $this->setExpectedException($exception, $msg);
-            }
+            $this->expectException($exception);
+            $this->expectExceptionMessage($msg);
         } else {
             // Get rid of the "does not perform assertions" warning when run with PHPCS 3.x.
             $this->assertTrue(true);

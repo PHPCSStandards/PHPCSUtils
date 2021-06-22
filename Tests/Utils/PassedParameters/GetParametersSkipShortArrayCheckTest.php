@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
 /**
@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetParametersSkipShortArrayCheckTest extends UtilityMethodTestCase
+class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
 {
 
     /**
@@ -54,13 +54,7 @@ class GetParametersSkipShortArrayCheckTest extends UtilityMethodTestCase
         $hasParams = PassedParameters::hasParameters(self::$phpcsFile, $target);
 
         if ($expectException === false) {
-            if (\method_exists($this, 'assertIsBool') === true) {
-                // PHPUnit 7.5+.
-                $this->assertIsBool($hasParams);
-            } else {
-                // PHPUnit < 7.5.
-                $this->assertInternalType('bool', $hasParams);
-            }
+            $this->assertIsBool($hasParams);
         }
     }
 
@@ -82,13 +76,7 @@ class GetParametersSkipShortArrayCheckTest extends UtilityMethodTestCase
         $stackPtr = $this->getTargetToken($testMarker, [$targetType]);
         $result   = PassedParameters::getParameters(self::$phpcsFile, $stackPtr, 0, true);
 
-        if (\method_exists($this, 'assertIsArray') === true) {
-            // PHPUnit 7.5+.
-            $this->assertIsArray($result);
-        } else {
-            // PHPUnit < 7.5.
-            $this->assertInternalType('array', $result);
-        }
+        $this->assertIsArray($result);
 
         // Start/end token position values in the expected array are set as offsets
         // in relation to the target token.
