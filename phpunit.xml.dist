@@ -5,6 +5,10 @@
     backupGlobals="true"
     bootstrap="./Tests/bootstrap.php"
     beStrictAboutTestsThatDoNotTestAnything="true"
+    convertErrorsToExceptions="true"
+    convertWarningsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertDeprecationsToExceptions="true"
     colors="true"
     forceCoversAnnotation="true">
 
