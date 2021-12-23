@@ -13,6 +13,12 @@ on:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   #### TEST STAGE ####
   test:
@@ -36,6 +42,7 @@ jobs:
         # - PHP 7.4 needs PHPCS 3.5.0+ to run without errors.
         #   On PHPCS 2.x our tests won't fail though, but on PHPCS 3.x < 3.5.0 they will.
         # - PHP 8.0 needs PHPCS 3.5.7+ to run without errors.
+        # - PHP 8.1 needs PHPCS 3.6.1+ to run without errors.
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
         php: ['5.5', '5.6', '7.0', '7.1', '7.2']
@@ -46,6 +53,15 @@ jobs:
         include:
           # Complement the builds run in code coverage to complete the matrix and prevent issues
           # with PHPCS versions incompatible with certain PHP versions.
+          - php: '8.1'
+            phpcs_version: 'dev-master'
+            risky: false
+            experimental: false
+          - php: '8.1'
+            phpcs_version: '3.6.1'
+            risky: false
+            experimental: false
+
           - php: '8.0'
             phpcs_version: 'dev-master'
             risky: false
@@ -99,10 +115,7 @@ jobs:
             experimental: false
 
           # Experimental builds. These are allowed to fail.
-
-          # Current lowest PHPCS version which _may_ run on PHP 8 is 3.5.0, so don't even try
-          # to test against older versions.
-          - php: '8.1'
+          - php: '8.2'
             phpcs_version: 'dev-master'
             risky: false
             experimental: true
@@ -139,7 +152,7 @@ jobs:
           if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.0.x-dev" ]]; then
             echo '::set-output name=PHP_INI::error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On'
           else
-            echo '::set-output name=PHP_INI::error_reporting=E_ALL, display_errors=On'
+            echo '::set-output name=PHP_INI::error_reporting=-1, display_errors=On'
           fi
 
       - name: Install PHP
@@ -161,12 +174,12 @@ jobs:
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.1 }}
+        if: ${{ matrix.php < 8.2 }}
         uses: "ramsey/composer-install@v1"
 
       # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.1 }}
+        if: ${{ matrix.php >= 8.2 }}
         uses: "ramsey/composer-install@v1"
         with:
           composer-options: --ignore-platform-reqs
@@ -222,7 +235,7 @@ jobs:
           if [ "${{ matrix.phpcs_version }}" != "dev-master" ]; then
             echo '::set-output name=PHP_INI::error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On'
           else
-            echo '::set-output name=PHP_INI::error_reporting=E_ALL, display_errors=On'
+            echo '::set-output name=PHP_INI::error_reporting=-1, display_errors=On'
           fi
 
       - name: Install PHP
