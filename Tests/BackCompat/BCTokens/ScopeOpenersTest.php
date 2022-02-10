@@ -68,6 +68,12 @@ class ScopeOpenersTest extends TestCase
             $expected[\T_MATCH] = \T_MATCH;
         }
 
+        if (\version_compare($version, '3.7.0', '>=') === true
+            || \version_compare(\PHP_VERSION_ID, '80099', '>=') === true
+        ) {
+            $expected[\T_ENUM] = \T_ENUM;
+        }
+
         \asort($expected);
 
         $result = BCTokens::scopeOpeners();
