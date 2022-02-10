@@ -89,12 +89,11 @@ class GetParametersNamedTest extends UtilityMethodTestCase
          * 3. The new `match` keyword being recognized on PHP 8, but not before, while
          *    the `match` control structure is not supported in PHPCS yet.
          */
-        $phpcsVersion       = Helper::getVersion();
         $php8Names          = parent::usesPhp8NameTokens();
-        $namedParamsInPhpcs = \version_compare($phpcsVersion, '3.6.0', '>=');
+        $namedParamsInPhpcs = \version_compare(Helper::getVersion(), '3.6.0', '>=');
         $matchIsKeyword     = \version_compare(\PHP_VERSION_ID, '80000', '>=');
 
-        $data = [
+        return [
             'only-positional-args' => [
                 '/* testPositionalArgs */',
                 \T_STRING,
@@ -640,19 +639,5 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
         ];
-
-        /*
-         * Temporarily ignore a test failure caused by an upstream bug.
-         * The bug is only in PHPCS `master` (and 4.x) and is expected to be fixed before 3.7.0
-         * will be released.
-         * Once the fix is in, this commit can and should be removed.
-         *
-         * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3546
-         */
-        if (\version_compare($phpcsVersion, '3.7.0', '>=') === true) {
-            unset($data['named-args-in-class-instantiation-with-static']);
-        }
-
-        return $data;
     }
 }
