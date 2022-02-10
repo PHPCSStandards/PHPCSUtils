@@ -244,8 +244,8 @@ class UseStatements
              *
              * If `function` or `const` is used as the alias, the semi-colon after it would
              * be tokenized as T_STRING.
-             * For `function` this was fixed in PHPCS 2.8.0. For `const` the issue still exists
-             * in PHPCS 3.5.2.
+             * For `function` this was fixed in PHPCS 2.8.0. For `const` the issue was fixed
+             * in PHPCS 3.7.0.
              *
              * Along the same lines, the `}` T_CLOSE_USE_GROUP would also be tokenized as T_STRING.
              */
