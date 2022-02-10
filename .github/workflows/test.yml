@@ -20,9 +20,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    if: ${{ github.ref != 'refs/heads/develop' }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['5.4', '7.0', '7.4', '8.0', '8.1', '8.2']
+
+    name: "Lint: PHP ${{ matrix.php }}"
+
+    continue-on-error: ${{ matrix.php == '8.2' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-file: 'development'
+          coverage: none
+          tools: cs2pr
+
+      - name: Install Composer dependencies - normal
+        if: ${{ matrix.php < 8.2 }}
+        uses: "ramsey/composer-install@v2"
+
+      # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
+      - name: Install Composer dependencies - with ignore platform
+        if: ${{ matrix.php >= 8.2 }}
+        uses: "ramsey/composer-install@v2"
+        with:
+          composer-options: --ignore-platform-reqs
+
+      - name: Lint against parse errors
+        run: composer lint -- --checkstyle | cs2pr
+
+
   #### TEST STAGE ####
   test:
     if: ${{ github.ref != 'refs/heads/develop' }}
+    needs: lint
     runs-on: ubuntu-latest
 
     strategy:
@@ -136,7 +176,7 @@ jobs:
             risky: true
             experimental: true
 
-    name: "Test${{ matrix.phpcs_version == 'dev-master' && matrix.risky == false && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}${{ matrix.risky == true && ' (risky)' || '' }}"
+    name: "Test: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}${{ matrix.risky == true && ' (risky)' || '' }}"
 
     continue-on-error: ${{ matrix.experimental }}
 
@@ -184,10 +224,6 @@ jobs:
         with:
           composer-options: --ignore-platform-reqs
 
-      - name: Lint against parse errors
-        if: matrix.phpcs_version == 'dev-master' && matrix.risky == false
-        run: composer lint
-
       - name: Run the unit tests (non-risky)
         if: matrix.risky == false
         run: vendor/bin/phpunit --no-coverage
@@ -196,6 +232,7 @@ jobs:
         if: ${{ matrix.risky }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit --no-coverage --group compareWithPHPCS --exclude-group nothing
+
 
   #### CODE COVERAGE STAGE ####
   # N.B.: Coverage is only checked on the lowest and highest stable PHP versions
@@ -244,7 +281,6 @@ jobs:
           php-version: ${{ matrix.php }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: xdebug
-          tools: cs2pr
 
       - name: 'Composer: adjust dependencies'
         run: |
@@ -253,10 +289,6 @@ jobs:
 
       - name: Install Composer dependencies - normal
         uses: "ramsey/composer-install@v2"
-
-      - name: Lint against parse errors
-        if: matrix.phpcs_version == 'dev-master'
-        run: composer lint -- --checkstyle | cs2pr
 
       - name: Run the unit tests with code coverage
         run: vendor/bin/phpunit
