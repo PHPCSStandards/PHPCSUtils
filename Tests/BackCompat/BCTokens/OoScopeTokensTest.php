@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,6 +34,7 @@ class OoScopeTokensTest extends TestCase
      */
     public function testOoScopeTokens()
     {
+        $version  = Helper::getVersion();
         $expected = [
             \T_CLASS      => \T_CLASS,
             \T_ANON_CLASS => \T_ANON_CLASS,
@@ -40,7 +42,18 @@ class OoScopeTokensTest extends TestCase
             \T_TRAIT      => \T_TRAIT,
         ];
 
-        $this->assertSame($expected, BCTokens::ooScopeTokens());
+        if (\version_compare($version, '3.7.0', '>=') === true
+            || \version_compare(\PHP_VERSION_ID, '80099', '>=') === true
+        ) {
+            $expected[\T_ENUM] = \T_ENUM;
+        }
+
+        \asort($expected);
+
+        $result = BCTokens::ooScopeTokens();
+        \asort($result);
+
+        $this->assertSame($expected, $result);
     }
 
     /**

@@ -82,6 +82,9 @@ class BCTokens
      * @since 1.0.0
      * @since 1.0.0-alpha3 Visibility changed from `protected` to `private`.
      *
+     * {@internal Note: T_ENUM is missing from this array and will be added dynamically
+     *            in the ooScopeTokens() method when available.}
+     *
      * @var array <int|string> => <int|string>
      */
     private static $ooScopeTokens = [
@@ -304,6 +307,7 @@ class BCTokens
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 0.0.5.
      * - PHPCS 3.6.0: `T_MATCH` added to the array.
+     * - PHPCS 3.7.0: `T_ENUM` added to the array.
      *
      * @since 1.0.0-alpha4
      *
@@ -319,6 +323,14 @@ class BCTokens
          */
         if (\defined('T_MATCH')) {
             $tokens[\T_MATCH] = \T_MATCH;
+        }
+
+        /*
+         * The `T_ENUM` token may be available pre-PHPCS 3.7.0 depending on the PHP version
+         * used to run PHPCS.
+         */
+        if (\defined('T_ENUM')) {
+            $tokens[\T_ENUM] = \T_ENUM;
         }
 
         return $tokens;
@@ -419,6 +431,7 @@ class BCTokens
      *
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 3.1.0.
+     * - PHPCS 3.7.0: `T_ENUM` added to the array.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens Original array.
      *
@@ -428,11 +441,21 @@ class BCTokens
      */
     public static function ooScopeTokens()
     {
+        $tokens = self::$ooScopeTokens;
+
         if (isset(Tokens::$ooScopeTokens)) {
-            return Tokens::$ooScopeTokens;
+            $tokens = Tokens::$ooScopeTokens;
         }
 
-        return self::$ooScopeTokens;
+        /*
+         * The `T_ENUM` token may be available pre-PHPCS 3.7.0 depending on the PHP version
+         * used to run PHPCS.
+         */
+        if (\defined('T_ENUM')) {
+            $tokens[\T_ENUM] = \T_ENUM;
+        }
+
+        return $tokens;
     }
 
     /**
