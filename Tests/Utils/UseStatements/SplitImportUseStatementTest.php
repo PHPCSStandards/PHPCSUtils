@@ -276,7 +276,7 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
             'parse-error-plain-alias-reserved-keyword-const' => [
                 '/* testUsePlainAliasReservedKeywordConst */',
                 [
-                    'name'     => [],
+                    'name'     => ['const' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],

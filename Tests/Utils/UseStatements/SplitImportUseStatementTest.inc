@@ -91,6 +91,8 @@ use Vendor\{
 // Intentional parse error - use of reserved keyword as alias.
 use Vendor\YourNamespace\ClassName as const;
 
+echo 'foo'; // Needed for consistent handling of the above test.
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 use MyNS\Level\{
