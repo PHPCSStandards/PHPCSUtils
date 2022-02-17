@@ -86,7 +86,7 @@ Notes:
 
 #### Other
 * Composer: PHPCSUtils can now be installed in combination with PHPCS `4.0.x-dev@dev` for testing purposes.
-* Composer: The version requirements for the [DealerDirect Composer PHPCS plugin] have been widened to allow for version 0.7.0 which supports Composer 2.0.0.
+* Composer: The version requirements for the [Composer PHPCS plugin] have been widened to allow for version 0.7.0 which supports Composer 2.0.0.
 * Readme/website homepage: textual improvements. Props [@GaryJones]. [#121](https://github.com/PHPCSStandards/PHPCSUtils/pull/121)
 * Readme/website homepage: added additional FAQ question & answers. [#157](https://github.com/PHPCSStandards/PHPCSUtils/pull/157)
 * The website homepage is now generated using the GitHub Pages gem with Jekyll, making maintenance easier. [#141](https://github.com/PHPCSStandards/PHPCSUtils/pull/141)
@@ -171,7 +171,7 @@ Initial alpha release containing:
 * A `PHPCS23Utils` standard which can be used to allow an external PHPCS standard to be compatible with both PHPCS 2.x as well as 3.x.
 * A `PHPCSUtils` standard which contains generic utilities which can be used when writing sniffs.
     **_This standard does not contain any sniffs!_**
-    To use these utilities in PHPCS 3.x, all that is needed is for this package to be installed and registered with PHPCS using `installed_paths`. If the package is requested via Composer, this will automatically be handled by the [DealerDirect Composer PHPCS plugin].
+    To use these utilities in PHPCS 3.x, all that is needed is for this package to be installed and registered with PHPCS using `installed_paths`. If the package is requested via Composer, this will automatically be handled by the [Composer PHPCS plugin].
     To use these utilities in PHPCS 2.x, make sure the external standard includes the `PHPCS23Utils` standard in the `ruleset.xml` file like so: `<rule ref="PHPCS23Utils"/>`.
 
 All utilities offered are compatible with PHP_CodeSniffer 2.6.0 up to the latest stable release.
@@ -222,7 +222,7 @@ This initial alpha release contains the following utility classes:
 [1.0.0-alpha3]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha2...1.0.0-alpha3
 [1.0.0-alpha2]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha1...1.0.0-alpha2
 
-[DealerDirect Composer PHPCS plugin]: https://github.com/Dealerdirect/phpcodesniffer-composer-installer/
+[Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
 
 [`AbstractArrayDeclarationSniff`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html
 [`BCFile`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-BCFile.html

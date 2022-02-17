@@ -95,16 +95,23 @@ If your external PHP_CodeSniffer standard only supports Composer-based installs 
 
 Run the following from the root of your external PHPCS standard's project:
 ```bash
+composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 composer require phpcsstandards/phpcsutils:^1.0
 ```
 
 No further action needed. You can start using all the utility functions, abstract sniff classes and other features of PHPCSUtils straight away.
 
-> :information_source: The PHPCSUtils package includes the [DealerDirect Composer PHPCS plugin](https://github.com/Dealerdirect/phpcodesniffer-composer-installer).
+> :information_source: The PHPCSUtils package includes the [Composer PHPCS plugin](https://github.com/PHPCSStandards/composer-installer).
 >
 > This plugin will automatically register PHPCSUtils (and your own external standard) with PHP_CodeSniffer, so you and your users don't have to worry about this anymore.
 >
 > :warning: Note: if your end-user installation instructions include instructions on adding a Composer PHPCS plugin or on manually registering your standard with PHPCS using the `--config-set installed_paths` command, you can remove those instructions as they are no longer needed.
+>
+> :information_source: As of Composer 2.2, Composer will [ask for permission](https://blog.packagist.com/composer-2-2/#more-secure-plugin-execution) to allow the Composer PHPCS plugin to execute code. For the plugin to be functional, permission needs to be granted.
+> This can be done ahead of time by instructing your users to run the following command before installing your standard:
+> ```bash
+> composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+> ```
 
 #### Running your unit tests
 
