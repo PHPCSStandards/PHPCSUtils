@@ -74,7 +74,8 @@ If your external PHP_CodeSniffer standard only supports Composer-based installs 
 
 Run the following from the root of your external PHPCS standard's project:
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require <span class="s">{{ site.phpcsutils.packagist }}</span>:"<span class="mf">^1.0</span>"
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+composer require <span class="s">{{ site.phpcsutils.packagist }}</span>:"<span class="mf">^1.0</span>"
 </code></pre></div></div>
 
 No further action needed. You can start using all the utility functions, abstract sniff classes and other features of PHPCSUtils straight away.
