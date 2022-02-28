@@ -205,6 +205,16 @@ class NumberTypesTest extends TestCase
                     'float'   => false,
                 ],
             ],
+            'invalid-explicit-octal' => [
+                '0o289',
+                [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
             'invalid-float-two-decimal-points' => [
                 '1.287.2763',
                 [
@@ -517,6 +527,48 @@ class NumberTypesTest extends TestCase
             ],
             'octal-multi-digit-php-7.4' => [
                 '020_631_542',
+                [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+
+            // Octal numeric strings using PHP 8.1 explicit octal notation.
+            'explicit-octal-single-digit-zero' => [
+                '0o0',
+                [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+            'explicit-octal-single-digit' => [
+                '0O7',
+                [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+            'explicit-octal-multi-digit' => [
+                '0o76543210',
+                [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+            'explicit-octal-multi-digit-php-7.4' => [
+                '0O20_631_542',
                 [
                     'decimal' => false,
                     'hex'     => false,

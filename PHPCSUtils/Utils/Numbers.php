@@ -20,7 +20,10 @@ use PHPCSUtils\BackCompat\Helper;
  * PHP 7.4 introduced numeric literal separators which break number tokenization in older PHP versions.
  * PHPCS backfills this since PHPCS 3.5.3/4.
  *
- * In other words, if an external standard intends to support PHPCS < 3.5.4 and PHP < 7.4, working
+ * Along the same lines, PHP 8.1 introduced an explicit octal notation which also breaks number tokenization
+ * in older PHP versions. This is backfilled in PHPCS since PHPCS 3.7.0.
+ *
+ * In other words, if an external standard intends to support PHPCS < 3.7.0 and PHP < 8.1, working
  * with number tokens has suddenly become a challenge.
  *
  * The functions in this class have been put in place to ease that pain and it is
@@ -29,6 +32,8 @@ use PHPCSUtils\BackCompat\Helper;
  *
  * @link https://www.php.net/migration74.new-features.php#migration74.new-features.core.numeric-literal-separator
  *       PHP Manual on numeric literal separators.
+ * @link https://www.php.net/manual/en/migration81.new-features.php#migration81.new-features.core.octal-literal-prefix
+ *       PHP Manual on the introduction of the integer octal literal prefix.
  *
  * @since 1.0.0
  */
@@ -51,7 +56,7 @@ class Numbers
      *
      * @var string
      */
-    const REGEX_OCTAL_INT = '`^0[0-7]+$`D';
+    const REGEX_OCTAL_INT = '`^0[o]?[0-7]+$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a binary integer.
@@ -146,19 +151,26 @@ class Numbers
     /**
      * Retrieve information about a number token in a cross-version compatible manner.
      *
-     * Helper function to deal with numeric literals, potentially with underscore separators.
+     * Helper function to deal with numeric literals, potentially with underscore separators
+     * and/or explicit octal notation.
      *
      * PHP < 7.4 does not tokenize numeric literals containing underscores correctly.
      * As of PHPCS 3.5.3, PHPCS contains a backfill, but this backfill was buggy in the initial
      * implementation. A fix for this broken backfill is included in PHPCS 3.5.4.
      *
+     * PHP < 8.1 does not tokenize explicit octal notation for literal integers correctly.
+     * PHPCS backfills this as of PHPCS 3.7.0.
+     *
      * Either way, this function can be used with all PHPCS/PHP combinations and will, if necessary,
      * provide a backfill for PHPCS/PHP combinations where PHP 7.4 numbers with underscore separators
-     * are tokenized incorrectly - with the exception of PHPCS 3.5.3 as the buggyness of the original
-     * backfill implementation makes it impossible to provide reliable results.
+     * and/or octals using the explicit octal prefix, are tokenized incorrectly - with the exception
+     * of PHPCS 3.5.3 as the buggyness of the original backfill implementation makes it impossible
+     * to provide reliable results.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546 PHPCS issue #2546
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771   PHPCS PR #2771
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3481   PHPCS PR #3481
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3552   PHPCS PR #3552
      *
      * @since 1.0.0
      *
@@ -193,7 +205,7 @@ class Numbers
      */
     public static function getCompleteNumber(File $phpcsFile, $stackPtr)
     {
-        static $php74, $phpcsVersion, $phpcsWithBackfill;
+        static $php74, $php81, $phpcsVersion, $phpcsWithBackfill, $phpcsWithOctalSupport;
 
         $tokens = $phpcsFile->getTokens();
 
@@ -205,10 +217,12 @@ class Numbers
             );
         }
 
-        if (isset($php74, $phpcsVersion, $phpcsWithBackfill) === false) {
-            $php74             = \version_compare(\PHP_VERSION_ID, '70399', '>');
-            $phpcsVersion      = Helper::getVersion();
-            $phpcsWithBackfill = \version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '>');
+        if (isset($php74, $php81, $phpcsVersion, $phpcsWithBackfill, $phpcsWithOctalSupport) === false) {
+            $php74                 = \version_compare(\PHP_VERSION_ID, '70399', '>');
+            $php81                 = \version_compare(\PHP_VERSION_ID, '80099', '>');
+            $phpcsVersion          = Helper::getVersion();
+            $phpcsWithBackfill     = \version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '>');
+            $phpcsWithOctalSupport = \version_compare($phpcsVersion, '3.7.0', '>=');
         }
 
         /*
@@ -231,12 +245,34 @@ class Numbers
             'last_token'   => $stackPtr,
         ];
 
-        // When things are already correctly tokenized, there's not much to do.
+        /*
+         * When things are already correctly tokenized for both situations handled by this method,
+         * there's not much to do.
+         */
+        if ($php81 === true || $phpcsWithOctalSupport === true) {
+            return $result;
+        }
+
+        /*
+         * Potentially handle explicit octal notation.
+         */
+        if (isset($tokens[($stackPtr + 1)]) === true
+            && $tokens[($stackPtr + 1)]['code'] === \T_STRING
+            && \strtolower($tokens[($stackPtr + 1)]['content'][0]) === 'o'
+            && $tokens[($stackPtr + 1)]['content'][1] !== '_'
+        ) {
+            $content .= $tokens[($stackPtr + 1)]['content'];
+            $result   = self::updateResult($result, $content, ($stackPtr + 1), true);
+        }
+
+        /*
+         * Check if numeric literal notation needs handling.
+         */
         if ($php74 === true
             || $phpcsWithBackfill === true
-            || isset($tokens[($stackPtr + 1)]) === false
-            || $tokens[($stackPtr + 1)]['code'] !== \T_STRING
-            || $tokens[($stackPtr + 1)]['content'][0] !== '_'
+            || isset($tokens[($result['last_token'] + 1)]) === false
+            || $tokens[($result['last_token'] + 1)]['code'] !== \T_STRING
+            || $tokens[($result['last_token'] + 1)]['content'][0] !== '_'
         ) {
             return $result;
         }
@@ -265,8 +301,8 @@ class Numbers
             $regex = self::REGEX_HEX_NUMLIT_STRING;
         }
 
-        $next      = $stackPtr;
-        $lastToken = $stackPtr;
+        $next      = $result['last_token'];
+        $lastToken = $result['last_token'];
 
         while (isset($tokens[++$next], self::$numericLiteralAcceptedTokens[$tokens[$next]['code']]) === true) {
             if ($tokens[$next]['code'] === \T_STRING
@@ -300,16 +336,30 @@ class Numbers
             }
         }
 
-        // OK, so we now have `content` including potential underscores. Let's strip them out.
-        $result['orig_content'] = $content;
-        $result['content']      = \str_replace('_', '', $content);
+        return self::updateResult($result, $content, $lastToken, $hex);
+    }
+
+    /**
+     * Helper function to update the result array for the getCompleteNumber() method.
+     *
+     * @param array  $result     Current result array.
+     * @param string $newContent The new content for the number to update the array for.
+     * @param int    $lastToken  Stack pointer to the last token for the accumulated content.
+     * @param bool   $isInt      Whether we know for sure this is not a float.
+     *
+     * @return array
+     */
+    private static function updateResult(array $result, $newContent, $lastToken, $isInt = false)
+    {
+        $result['orig_content'] = $newContent;
+        $result['content']      = \str_replace('_', '', $newContent);
         $result['decimal']      = self::getDecimalValue($result['content']);
         $result['last_token']   = $lastToken;
 
         // Determine actual token type.
         $type = $result['type'];
         if ($type === 'T_LNUMBER') {
-            if ($hex === false
+            if ($isInt === false
                 && (\strpos($result['content'], '.') !== false
                 || \stripos($result['content'], 'e') !== false)
             ) {

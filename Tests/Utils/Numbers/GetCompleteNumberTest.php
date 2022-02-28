@@ -41,11 +41,25 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     public static $php74OrHigher = false;
 
     /**
-     * The PHPCS version being used to run the tests.
+     * Whether or not the tests are being run on PHP 8.1 or higher.
+     *
+     * @var bool
+     */
+    public static $php81OrHigher = false;
+
+    /**
+     * Whether the PHPCS version used to run the tests contains support for PHP 7.4 numeric literal separators.
      *
      * @var string
      */
     public static $usableBackfill = false;
+
+    /**
+     * Whether the PHPCS version used to run the tests contains support for PHP 8.1 explicit octal notation.
+     *
+     * @var string
+     */
+    public static $explicitOctalSupport = false;
 
     /**
      * Initialize the static properties, if not done before.
@@ -58,9 +72,11 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
             return;
         }
 
-        self::$phpcsVersion   = Helper::getVersion();
-        self::$php74OrHigher  = \version_compare(\PHP_VERSION_ID, '70399', '>');
-        self::$usableBackfill = \version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>');
+        self::$phpcsVersion         = Helper::getVersion();
+        self::$php74OrHigher        = \version_compare(\PHP_VERSION_ID, '70399', '>');
+        self::$php81OrHigher        = \version_compare(\PHP_VERSION_ID, '80099', '>');
+        self::$usableBackfill       = \version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>');
+        self::$explicitOctalSupport = \version_compare(self::$phpcsVersion, '3.7.0', '>=');
     }
 
     /**
@@ -140,6 +156,11 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
         $multiToken = true;
         if (self::$php74OrHigher === true || self::$usableBackfill === true) {
             $multiToken = false;
+        }
+
+        $octalMultiToken = true;
+        if (self::$php81OrHigher === true || self::$explicitOctalSupport === true) {
+            $octalMultiToken = false;
         }
 
         /*
@@ -500,6 +521,52 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
+
+            'php-8.1-explicit-octal-lowercase' => [
+                '/* testPHP81ExplicitOctal */',
+                [
+                    'orig_content' => '0o137041',
+                    'content'      => '0o137041',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '48673',
+                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-8.1-explicit-octal-uppercase' => [
+                '/* testPHP81ExplicitOctalUppercase */',
+                [
+                    'orig_content' => '0O137041',
+                    'content'      => '0O137041',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '48673',
+                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-8.1-explicit-octal-with-separator' => [
+                '/* testPHP81ExplicitOctalWithSeparator */',
+                [
+                    'orig_content' => '0o137_041',
+                    'content'      => '0o137041',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '48673',
+                    'last_token'   => $octalMultiToken ? 1 : ($multiToken ? 2 : 0), // Offset from $stackPtr.
+                ],
+            ],
+            'php-7.4-8.1-invalid-explicit-octal' => [
+                '/* testPHP74PHP81InvalidExplicitOctal */',
+                [
+                    'orig_content' => '0',
+                    'content'      => '0',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '0',
+                    'last_token'   => 0, // Offset from $stackPtr.
+                ],
+            ],
+
             'live-coding' => [
                 '/* testLiveCoding */',
                 [

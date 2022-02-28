@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Make sure that number literals are correctly identified.
+ * Make sure that number literals and explicit octals are correctly identified.
  */
 
 /* testNotAnLNumber */
@@ -118,6 +118,20 @@ $a = 1_e2;   // next to e
 /* testPHP74Invalid8 */
 $a = 1e_2;   // next to e
 
+/*
+ * PHP 8.1 explicit octal notation.
+ */
+/* testPHP81ExplicitOctal */
+$octal = 0o137041;
+
+/* testPHP81ExplicitOctalUppercase */
+$octal = 0O137041;
+
+/* testPHP81ExplicitOctalWithSeparator */
+$octal = 0o137_041;
+
+/* testPHP74PHP81InvalidExplicitOctal */
+$invalid = 0o_123; // Underscore next to o.
 
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file (and on the last line) !
