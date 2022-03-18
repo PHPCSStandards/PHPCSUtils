@@ -80,6 +80,11 @@ class GetDecimalValueTest extends TestCase
             'octal-int-10'                                  => ['012', '10'],
             'octal-int-1024'                                => ['02000', '1024'],
             'octal-int-1024-php-7.4'                        => ['020_00', '1024'],
+
+            // Octal PHP 8.1 explicit notation.
+            'explicit-octal-int-10'                         => ['0o12', '10'],
+            'explicit-octal-int-1024'                       => ['0O2000', '1024'],
+            'explicit-octal-int-1024-php-7.4'               => ['0o20_00', '1024'],
         ];
     }
 
@@ -119,6 +124,7 @@ class GetDecimalValueTest extends TestCase
             'invalid-hex'                                   => ['0xZBHI28'],
             'invalid-binary'                                => ['0b121457182'],
             'invalid-octal'                                 => ['0289'],
+            'invalid-octal-explicit-notation'               => ['0o289'],
         ];
     }
 }
