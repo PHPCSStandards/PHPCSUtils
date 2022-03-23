@@ -33,6 +33,27 @@ class GetTokensAsString
      * Retrieve the tab-replaced content of the tokens from the specified start position in
      * the token stack to the specified end position (inclusive).
      *
+     * Alias for the {@see \PHPCSUtils\Utils\GetTokensAsString::tabReplaced()} method.
+     *
+     * @since 1.0.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $start     The position to start from in the token stack.
+     * @param int                         $end       The position to end at in the token stack (inclusive).
+     *
+     * @return string The token contents.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     */
+    public static function normal(File $phpcsFile, $start, $end)
+    {
+        return self::tabReplaced($phpcsFile, $start, $end);
+    }
+
+    /**
+     * Retrieve the tab-replaced content of the tokens from the specified start position in
+     * the token stack to the specified end position (inclusive).
+     *
      * This is the default behaviour for PHPCS.
      *
      * If the `tabWidth` is set, either via a (custom) ruleset, the config file or by passing it
@@ -53,37 +74,16 @@ class GetTokensAsString
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
      */
-    public static function normal(File $phpcsFile, $start, $end)
-    {
-        return self::getString($phpcsFile, $start, $end);
-    }
-
-    /**
-     * Retrieve the tab-replaced content of the tokens from the specified start position in
-     * the token stack to the specified end position (inclusive).
-     *
-     * Alias for the {@see \PHPCSUtils\Utils\GetTokensAsString::normal()} method.
-     *
-     * @since 1.0.0
-     *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $start     The position to start from in the token stack.
-     * @param int                         $end       The position to end at in the token stack (inclusive).
-     *
-     * @return string The token contents.
-     *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
-     */
     public static function tabReplaced(File $phpcsFile, $start, $end)
     {
-        return self::normal($phpcsFile, $start, $end);
+        return self::getString($phpcsFile, $start, $end);
     }
 
     /**
      * Retrieve the original content of the tokens from the specified start position in
      * the token stack to the specified end position (inclusive).
      *
-     * In contrast to the {@see GetTokensAsString::normal()} method, this method will return
+     * In contrast to the {@see GetTokensAsString::tabReplaced()} method, this method will return
      * the original token content for the specified tokens.
      * That means that if the original content contained tabs, the return value of this function
      * will also contain tabs.
@@ -135,7 +135,7 @@ class GetTokensAsString
      * Retrieve the code-tokens only content of the tokens from the specified start position
      * in the token stack to the specified end position (inclusive) without whitespace or comments.
      *
-     * This is, for instance, useful to retrieve a namespace name without stray whitespace or comments.
+     * This is useful, for instance, to retrieve a namespace name without stray whitespace or comments.
      * Use this function selectively and with care!
      *
      * @see \PHP_CodeSniffer\Files\File::getTokensAsString() Loosely related function.
