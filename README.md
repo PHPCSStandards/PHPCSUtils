@@ -250,7 +250,7 @@ The backfill was fixed in PHP_CodeSniffer 3.5.4.
 
 #### Q: Any other problematic PHPCS versions?
 
-A: Well, the arrow function backfill which was added in PHPCS 3.5.3 is still causing problems. In a very limited set of circumstances, it will even hang the Tokenizer. A fix for [one particular such problem](https://github.com/squizlabs/php_codesniffer/issues/2926) has been committed to `master`, but is not (yet) in a released version. It is expected to be released in PHP_CodeSniffer 3.5.6.
+A: Well, the arrow function backfill which was added in PHPCS 3.5.3 may still cause problems. In a very limited set of circumstances, it will even hang the Tokenizer. A fix for [one particular such problem](https://github.com/squizlabs/php_codesniffer/issues/2926) was committed upstream and released in PHP_CodeSniffer 3.5.6, but there is no guarantee that all issues have been found.
 
 As the Tokenizer hanging is a problem unrelated to PHPCSUtils and not something which can be mitigated from within PHPCSUtils in any conceivable way, PHPCSUtils won't block installation in combination with PHPCS 3.5.4 and 3.5.5.
 
