@@ -73,7 +73,7 @@ jobs:
         # The GHA matrix works different from Travis.
         # You can define jobs here and then augment them with extra variables in `include`,
         # as well as add extra jobs in `include`.
-        # @link https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
+        # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
         #
         # IMPORTANT: test runs shouldn't fail because of PHPCS being incompatible with a PHP version.
         # - PHPCS will run without errors on PHP 5.4 - 7.2 on any version.
@@ -286,7 +286,9 @@ jobs:
 
       - name: Grab PHPUnit version
         id: phpunit_version
-        run: echo ::set-output name=VERSION::$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')
+        run: >
+          echo ::set-output name=VERSION::
+          $(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')
 
       - name: "DEBUG: Show grabbed version"
         run: echo ${{ steps.phpunit_version.outputs.VERSION }}
