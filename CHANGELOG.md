@@ -21,96 +21,146 @@ Notes:
 
 ### Added
 
-* New [`PHPCSUtils\Utils\NamingConventions`][`NamingConventions`] class: Utility functions for working with identifier names (namespace names, class/trait/interface names, function names, variable and constant names). [#119](https://github.com/PHPCSStandards/PHPCSUtils/pull/119)
-* New [`PHPCSUtils\BackCompat\Helper::getEncoding()`](https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-Helper.html#method_getEncoding) method. [#118](https://github.com/PHPCSStandards/PHPCSUtils/pull/118)
-* New [`PHPCSUtils\Utils\ControlStructures::getCaughtExceptions()`](https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ControlStructures.html#method_getCaughtExceptions) method. [#114](https://github.com/PHPCSStandards/PHPCSUtils/pull/114), [#138](https://github.com/PHPCSStandards/PHPCSUtils/pull/138)
-* New [`PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement()`](https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement) method. [#117](https://github.com/PHPCSStandards/PHPCSUtils/pull/117)
+* New [`PHPCSUtils\Utils\NamingConventions`][`NamingConventions`] class: Utility functions for working with identifier names (namespace names, class/trait/interface names, function names, variable and constant names). [#119]
+* New [`PHPCSUtils\BackCompat\Helper::getEncoding()`][Helper::getEncoding] method. [#118]
+* New [`PHPCSUtils\Utils\ControlStructures::getCaughtExceptions()`][ControlStructures::getCaughtExceptions] method. [#114], [#138]
+* New [`PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement()`][UseStatements::splitAndMergeImportUseStatement] method. [#117]
 
 #### PHPCS Backcompat
-* `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134](https://github.com/PHPCSStandards/PHPCSUtils/pull/134) [PHPCS#2952](https://github.com/squizlabs/PHP_CodeSniffer/pull/2952)
+* `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134], [PHPCS#2952]
 
 #### TestUtils
-* [`UtilityMethodTestCase`]: new public `$phpcsVersion` property for use in tests. [#107](https://github.com/PHPCSStandards/PHPCSUtils/pull/107)
+* [`UtilityMethodTestCase`]: new public `$phpcsVersion` property for use in tests. [#107]
     **Note**: if the PHPCS version is needed within a data provider method for a test, `Helper::getVersion()` still needs to be used as the data providers are run before the `setUpBeforeClass()`-like methods which set the property.
 
 #### Tokens
-* New [`Collections::$incrementDecrementOperators`][`Collections`] property. [#130](https://github.com/PHPCSStandards/PHPCSUtils/pull/130)
-* New [`Collections::$magicConstants`][`Collections`] property. [#106](https://github.com/PHPCSStandards/PHPCSUtils/pull/106)
-* New [`Collections::$objectOperators`][`Collections`] property. [#130](https://github.com/PHPCSStandards/PHPCSUtils/pull/130)
-* New [`Collections::$OOHierarchyKeywords`][`Collections`] property representing the keywords to access properties or methods from inside a class definition, i.e `self`, `parent` and `static`. [#115](https://github.com/PHPCSStandards/PHPCSUtils/pull/115)
-* New [`Collections::$OONameTokens`][`Collections`] property containing tokens which can be part of a partially/fully qualified name when used in inline code. [#113](https://github.com/PHPCSStandards/PHPCSUtils/pull/113)
-* New [`Collections::functionDeclarationTokens()`][`Collections`] method to retrieve the tokens which represent a keyword starting a function declaration. [#133](https://github.com/PHPCSStandards/PHPCSUtils/pull/133)
+* New [`Collections::$incrementDecrementOperators`][`Collections`] property. [#130]
+* New [`Collections::$magicConstants`][`Collections`] property. [#106]
+* New [`Collections::$objectOperators`][`Collections`] property. [#130]
+* New [`Collections::$OOHierarchyKeywords`][`Collections`] property representing the keywords to access properties or methods from inside a class definition, i.e `self`, `parent` and `static`. [#115]
+* New [`Collections::$OONameTokens`][`Collections`] property containing tokens which can be part of a partially/fully qualified name when used in inline code. [#113]
+* New [`Collections::functionDeclarationTokens()`][`Collections`] method to retrieve the tokens which represent a keyword starting a function declaration. [#133]
     This method is compatible with PHPCS 3.5.3 and higher.
-* New [`Collections::functionDeclarationTokensBC()`][`Collections`] method to retrieve the tokens which represent a keyword starting a function declaration (cross-version compatible). [#133](https://github.com/PHPCSStandards/PHPCSUtils/pull/133)
+* New [`Collections::functionDeclarationTokensBC()`][`Collections`] method to retrieve the tokens which represent a keyword starting a function declaration (cross-version compatible). [#133]
     This method is compatible with PHPCS 2.6.0 and higher.
-* New [`Collections::parameterTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for parameter types cross-version. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* New [`Collections::parameterTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for parameter types cross-version. [#109]
     Use this method when the implementing standard needs to support PHPCS < 3.3.0.
-* New [`Collections::propertyTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for property types cross-version. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* New [`Collections::propertyTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for property types cross-version. [#109]
     Use this method when the implementing standard needs to support PHPCS < 3.3.0.
-* New [`Collections::returnTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for return types cross-version. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* New [`Collections::returnTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for return types cross-version. [#109]
     Use this method when the implementing standard needs to support PHPCS < 3.5.4.
-* `Collections::$returnTypeTokens`: support for "static" as a return type (PHP 8). [#134](https://github.com/PHPCSStandards/PHPCSUtils/pull/134)
+* `Collections::$returnTypeTokens`: support for "static" as a return type (PHP 8). [#134]
 
 #### Utils
-* `FunctionDeclarations::getProperties()`: support for "static" as a return type (PHP 8). [#134](https://github.com/PHPCSStandards/PHPCSUtils/pull/134)
+* `FunctionDeclarations::getProperties()`: support for "static" as a return type (PHP 8). [#134]
 
 ### Changed
 
 #### PHPCS Backcompat
-* `BCFile::getDeclarationName()`: has been made compatible with PHPCS 4.x. [#110](https://github.com/PHPCSStandards/PHPCSUtils/pull/110)
-* `BCFile::getMethodProperties()`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
-* `BCFile::getMemberProperties()`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
-* `BCTokens`: :warning: The visibility of the `BCTokens::$phpcsCommentTokensTypes`, `BCTokens::$ooScopeTokens`, `BCTokens::$textStringTokens` properties has changed from `protected` to `private`. [#139](https://github.com/PHPCSStandards/PHPCSUtils/pull/139)
-* `Helper::setConfigData()`: has been made compatible with PHPCS 4.x. [#137](https://github.com/PHPCSStandards/PHPCSUtils/pull/137)
+* `BCFile::getDeclarationName()`: has been made compatible with PHPCS 4.x. [#110]
+* `BCFile::getMethodProperties()`: has been made compatible with PHPCS 4.x. [#109]
+* `BCFile::getMemberProperties()`: has been made compatible with PHPCS 4.x. [#109]
+* `BCTokens`: :warning: The visibility of the `BCTokens::$phpcsCommentTokensTypes`, `BCTokens::$ooScopeTokens`, `BCTokens::$textStringTokens` properties has changed from `protected` to `private`. [#139]
+* `Helper::setConfigData()`: has been made compatible with PHPCS 4.x. [#137]
     A new `$config` parameter has been added to the method. This parameter is a required parameter when the method is used with PHPCS 4.x.
 
 #### TestUtils
-* [`UtilityMethodTestCase`]: tests for JS/CSS will now automatically be skipped when run in combination with PHPCS 4.x (which drops JS/CSS support). [#111](https://github.com/PHPCSStandards/PHPCSUtils/pull/111)
-* Confirmed that the currently available test utils are compatible with PHPUnit 9.x. [#103](https://github.com/PHPCSStandards/PHPCSUtils/pull/103)
+* [`UtilityMethodTestCase`]: tests for JS/CSS will now automatically be skipped when run in combination with PHPCS 4.x (which drops JS/CSS support). [#111]
+* Confirmed that the currently available test utils are compatible with PHPUnit 9.x. [#103]
 
 #### Tokens
-* `Collections::$parameterTypeTokens`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* `Collections::$parameterTypeTokens`: has been made compatible with PHPCS 4.x. [#109]
     :warning: This removes support for PHPCS < 3.3.0 from the property. Use the [`Collections::parameterTypeTokensBC()`][`Collections`] method instead if PHPCS < 3.3.0 needs to be supported.
-* `Collections::$propertyTypeTokens`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* `Collections::$propertyTypeTokens`: has been made compatible with PHPCS 4.x. [#109]
     :warning: This removes support for PHPCS < 3.3.0 from the property. Use the [`Collections::propertyTypeTokensBC()`][`Collections`] method instead if PHPCS < 3.3.0 needs to be supported.
-* `Collections::$returnTypeTokens`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* `Collections::$returnTypeTokens`: has been made compatible with PHPCS 4.x. [#109]
     :warning: This removes support for PHPCS < 3.5.4 from the property. Use the [`Collections::returnTypeTokensBC()`][`Collections`] method instead if PHPCS < 3.5.4 needs to be supported.
 
 #### Utils
-* `FunctionDeclarations::getArrowFunctionOpenClose()`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
-* `FunctionDeclarations::getProperties()`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
-* :warning: `Lists::getAssignments()`: the return value of the method has been consolidated to be less fiddly to work with. [#129](https://github.com/PHPCSStandards/PHPCSUtils/pull/129)
+* `FunctionDeclarations::getArrowFunctionOpenClose()`: has been made compatible with PHPCS 4.x. [#109]
+* `FunctionDeclarations::getProperties()`: has been made compatible with PHPCS 4.x. [#109]
+* :warning: `Lists::getAssignments()`: the return value of the method has been consolidated to be less fiddly to work with. [#129]
     - :warning: The `nested_list` index key in the return value has been renamed to `is_nested_list`.
-* `ObjectDeclarations::getName()`: has been made compatible with PHPCS 4.x. [#110](https://github.com/PHPCSStandards/PHPCSUtils/pull/110)
-* `Variables::getMemberProperties()`: has been made compatible with PHPCS 4.x. [#109](https://github.com/PHPCSStandards/PHPCSUtils/pull/109)
+* `ObjectDeclarations::getName()`: has been made compatible with PHPCS 4.x. [#110]
+* `Variables::getMemberProperties()`: has been made compatible with PHPCS 4.x. [#109]
 
 #### Other
 * Composer: PHPCSUtils can now be installed in combination with PHPCS `4.0.x-dev@dev` for testing purposes.
 * Composer: The version requirements for the [Composer PHPCS plugin] have been widened to allow for version 0.7.0 which supports Composer 2.0.0.
-* Readme/website homepage: textual improvements. Props [@GaryJones]. [#121](https://github.com/PHPCSStandards/PHPCSUtils/pull/121)
-* Readme/website homepage: added additional FAQ question & answers. [#157](https://github.com/PHPCSStandards/PHPCSUtils/pull/157)
-* The website homepage is now generated using the GitHub Pages gem with Jekyll, making maintenance easier. [#141](https://github.com/PHPCSStandards/PHPCSUtils/pull/141)
-* Significant improvements to the docblock documentation and by extension the [generated API documentation](https://phpcsutils.com/phpdoc/). [#145](https://github.com/PHPCSStandards/PHPCSUtils/pull/145), [#146](https://github.com/PHPCSStandards/PHPCSUtils/pull/146), [#147](https://github.com/PHPCSStandards/PHPCSUtils/pull/147), [#148](https://github.com/PHPCSStandards/PHPCSUtils/pull/148), [#149](https://github.com/PHPCSStandards/PHPCSUtils/pull/149), [#150](https://github.com/PHPCSStandards/PHPCSUtils/pull/150), [#151](https://github.com/PHPCSStandards/PHPCSUtils/pull/151), [#152](https://github.com/PHPCSStandards/PHPCSUtils/pull/152), [#153](https://github.com/PHPCSStandards/PHPCSUtils/pull/153), [154](https://github.com/PHPCSStandards/PHPCSUtils/pull/154), [#155](https://github.com/PHPCSStandards/PHPCSUtils/pull/155), [#156](https://github.com/PHPCSStandards/PHPCSUtils/pull/156)
+* Readme/website homepage: textual improvements. Props [@GaryJones]. [#121]
+* Readme/website homepage: added additional FAQ question & answers. [#157]
+* The website homepage is now generated using the GitHub Pages gem with Jekyll, making maintenance easier. [#141]
+* Significant improvements to the docblock documentation and by extension the [generated API documentation]. [#145], [#146], [#147], [#148], [#149], [#150], [#151], [#152], [#153], [154], [#155], [#156]
 * Various housekeeping.
 
 ### Fixed
 
 #### Abstract Sniffs
-* `AbstractArrayDeclarationSniff`: improved parse error handling. [#99](https://github.com/PHPCSStandards/PHPCSUtils/pull/99)
+* `AbstractArrayDeclarationSniff`: improved parse error handling. [#99]
 
 #### PHPCS Backcompat
-* `BCFile::findEndOfStatement()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143](https://github.com/PHPCSStandards/PHPCSUtils/pull/143)
-* `BcFile::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#160](https://github.com/PHPCSStandards/PHPCSUtils/pull/160) [PHPCS#2977](https://github.com/squizlabs/PHP_CodeSniffer/pull/2977)
+* `BCFile::findEndOfStatement()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143]
+* `BcFile::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#160], [PHPCS#2977]
 
 #### Utils
-* `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143](https://github.com/PHPCSStandards/PHPCSUtils/pull/143)
-* `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports for arrow functions returning heredoc/nowdocs, in line with the same change made in PHPCS `master` and expected to be released in PHPCS 3.5.6. [#143](https://github.com/PHPCSStandards/PHPCSUtils/pull/143)
-* `FunctionDeclarations::getName()`: bug fix for functions declared to return by reference. [#131](https://github.com/PHPCSStandards/PHPCSUtils/pull/131)
-* `FunctionDeclarations::isMagicFunction()`: bug fix for nested functions. [#127](https://github.com/PHPCSStandards/PHPCSUtils/pull/127)
-* `Operators::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#142](https://github.com/PHPCSStandards/PHPCSUtils/pull/142)
-* `Namespaces::getType()`: improved type detection for when the `namespace` keyword is used as an operator in the global namespace. [#132](https://github.com/PHPCSStandards/PHPCSUtils/pull/132)
-* `TextStrings::getCompleteTextString()`: will now remove the newline at the end of a heredoc/nowdoc. [#136](https://github.com/PHPCSStandards/PHPCSUtils/pull/136)
+* `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143]
+* `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports for arrow functions returning heredoc/nowdocs, in line with the same change made in PHPCS `master` and expected to be released in PHPCS 3.5.6. [#143]
+* `FunctionDeclarations::getName()`: bug fix for functions declared to return by reference. [#131]
+* `FunctionDeclarations::isMagicFunction()`: bug fix for nested functions. [#127]
+* `Operators::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#142]
+* `Namespaces::getType()`: improved type detection for when the `namespace` keyword is used as an operator in the global namespace. [#132]
+* `TextStrings::getCompleteTextString()`: will now remove the newline at the end of a heredoc/nowdoc. [#136]
     PHP itself does not include the last new line in a heredoc/nowdoc text string when handling it, so the method shouldn't either.
+
+[generated API documentation]: https://phpcsutils.com/phpdoc/
+[Helper::getEncoding]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-Helper.html#method_getEncoding
+[ControlStructures::getCaughtExceptions]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ControlStructures.html#method_getCaughtExceptions
+[UseStatements::splitAndMergeImportUseStatement]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement
+
+[#99]: https://github.com/PHPCSStandards/PHPCSUtils/pull/99
+[#103]: https://github.com/PHPCSStandards/PHPCSUtils/pull/103
+[#106]: https://github.com/PHPCSStandards/PHPCSUtils/pull/106
+[#107]: https://github.com/PHPCSStandards/PHPCSUtils/pull/107
+[#109]: https://github.com/PHPCSStandards/PHPCSUtils/pull/109
+[#110]: https://github.com/PHPCSStandards/PHPCSUtils/pull/110
+[#111]: https://github.com/PHPCSStandards/PHPCSUtils/pull/111
+[#113]: https://github.com/PHPCSStandards/PHPCSUtils/pull/113
+[#114]: https://github.com/PHPCSStandards/PHPCSUtils/pull/114
+[#115]: https://github.com/PHPCSStandards/PHPCSUtils/pull/115
+[#117]: https://github.com/PHPCSStandards/PHPCSUtils/pull/117
+[#118]: https://github.com/PHPCSStandards/PHPCSUtils/pull/118
+[#119]: https://github.com/PHPCSStandards/PHPCSUtils/pull/119
+[#129]: https://github.com/PHPCSStandards/PHPCSUtils/pull/129
+[#121]: https://github.com/PHPCSStandards/PHPCSUtils/pull/121
+[#127]: https://github.com/PHPCSStandards/PHPCSUtils/pull/127
+[#130]: https://github.com/PHPCSStandards/PHPCSUtils/pull/130
+[#131]: https://github.com/PHPCSStandards/PHPCSUtils/pull/131
+[#132]: https://github.com/PHPCSStandards/PHPCSUtils/pull/132
+[#133]: https://github.com/PHPCSStandards/PHPCSUtils/pull/133
+[#134]: https://github.com/PHPCSStandards/PHPCSUtils/pull/134
+[#136]: https://github.com/PHPCSStandards/PHPCSUtils/pull/136
+[#137]: https://github.com/PHPCSStandards/PHPCSUtils/pull/137
+[#138]: https://github.com/PHPCSStandards/PHPCSUtils/pull/138
+[#139]: https://github.com/PHPCSStandards/PHPCSUtils/pull/139
+[#141]: https://github.com/PHPCSStandards/PHPCSUtils/pull/141
+[#142]: https://github.com/PHPCSStandards/PHPCSUtils/pull/142
+[#143]: https://github.com/PHPCSStandards/PHPCSUtils/pull/143
+[#145]: https://github.com/PHPCSStandards/PHPCSUtils/pull/145
+[#146]: https://github.com/PHPCSStandards/PHPCSUtils/pull/146
+[#147]: https://github.com/PHPCSStandards/PHPCSUtils/pull/147
+[#148]: https://github.com/PHPCSStandards/PHPCSUtils/pull/148
+[#149]: https://github.com/PHPCSStandards/PHPCSUtils/pull/149
+[#150]: https://github.com/PHPCSStandards/PHPCSUtils/pull/150
+[#151]: https://github.com/PHPCSStandards/PHPCSUtils/pull/151
+[#152]: https://github.com/PHPCSStandards/PHPCSUtils/pull/152
+[#153]: https://github.com/PHPCSStandards/PHPCSUtils/pull/153
+[#154]: https://github.com/PHPCSStandards/PHPCSUtils/pull/154
+[#155]: https://github.com/PHPCSStandards/PHPCSUtils/pull/155
+[#156]: https://github.com/PHPCSStandards/PHPCSUtils/pull/156
+[#157]: https://github.com/PHPCSStandards/PHPCSUtils/pull/157
+[#160]: https://github.com/PHPCSStandards/PHPCSUtils/pull/160
+[PHPCS#2952]: https://github.com/squizlabs/PHP_CodeSniffer/pull/2952
+[PHPCS#2977]: https://github.com/squizlabs/PHP_CodeSniffer/pull/2977
 
 
 ## [1.0.0-alpha2] - 2020-02-16
@@ -120,31 +170,31 @@ Note:
 
 ### Added
 
-* New [`PHPCSUtils\Utils\ControlStructures`][`ControlStructures`] class: Utility functions for use when examining control structures. [#70](https://github.com/PHPCSStandards/PHPCSUtils/pull/70)
-* New [`PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()`](https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction) method. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
-* New [`PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()`](https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose) method. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
+* New [`PHPCSUtils\Utils\ControlStructures`][`ControlStructures`] class: Utility functions for use when examining control structures. [#70]
+* New [`PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()`][FunctionDeclarations::isArrowFunction] method. [#77], [#79]
+* New [`PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()`][FunctionDeclarations::getArrowFunctionOpenClose] method. [#77], [#79]
 
 #### PHPCS Backcompat
-* `BCFile::isReference()`: support for arrow functions returning by reference. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77)
-* `BCFile::getMethodParameters()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
-* `BCFile::getMethodProperties()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79), [#89](https://github.com/PHPCSStandards/PHPCSUtils/pull/89)
-* `BCFile::getDeclarationName()`: allow functions to be called "fn". [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77)
-* `BCFile::findEndOfStatement()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
-* `BCFile::findStartOfStatement()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77)
+* `BCFile::isReference()`: support for arrow functions returning by reference. [#77]
+* `BCFile::getMethodParameters()`: support for arrow functions. [#77], [#79]
+* `BCFile::getMethodProperties()`: support for arrow functions. [#77], [#79], [#89]
+* `BCFile::getDeclarationName()`: allow functions to be called "fn". [#77]
+* `BCFile::findEndOfStatement()`: support for arrow functions. [#77], [#79]
+* `BCFile::findStartOfStatement()`: support for arrow functions. [#77]
 
 #### Tokens
-* New [`Collections::$alternativeControlStructureSyntaxTokens`][`Collections`] property. [#70](https://github.com/PHPCSStandards/PHPCSUtils/pull/70)
-* New [`Collections::$alternativeControlStructureSyntaxCloserTokens`][`Collections`] property. [#68](https://github.com/PHPCSStandards/PHPCSUtils/pull/68), [#69](https://github.com/PHPCSStandards/PHPCSUtils/pull/69)
-* New [`Collections::$controlStructureTokens`][`Collections`] property. [#70](https://github.com/PHPCSStandards/PHPCSUtils/pull/70)
-* New [`Collections::arrowFunctionTokensBC()`][`Collections`] method. [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
+* New [`Collections::$alternativeControlStructureSyntaxTokens`][`Collections`] property. [#70]
+* New [`Collections::$alternativeControlStructureSyntaxCloserTokens`][`Collections`] property. [#68], [#69]
+* New [`Collections::$controlStructureTokens`][`Collections`] property. [#70]
+* New [`Collections::arrowFunctionTokensBC()`][`Collections`] method. [#79]
 
 #### Utils
-* `Arrays::getDoubleArrowPtr()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79), [#84](https://github.com/PHPCSStandards/PHPCSUtils/pull/84)
-* `FunctionDeclarations::getParameters()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
-* `FunctionDeclarations::getProperties()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
-* `Operators::isReference()`: support for arrow functions returning by reference. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77)
-* `Parentheses::getOwner()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77)
-* `Parentheses::isOwnerIn()`: support for arrow functions. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77), [#79](https://github.com/PHPCSStandards/PHPCSUtils/pull/79)
+* `Arrays::getDoubleArrowPtr()`: support for arrow functions. [#77], [#79], [#84]
+* `FunctionDeclarations::getParameters()`: support for arrow functions. [#77], [#79]
+* `FunctionDeclarations::getProperties()`: support for arrow functions. [#77], [#79]
+* `Operators::isReference()`: support for arrow functions returning by reference. [#77]
+* `Parentheses::getOwner()`: support for arrow functions. [#77]
+* `Parentheses::isOwnerIn()`: support for arrow functions. [#77], [#79]
 
 #### Other
 * Documentation website at https://phpcsutils.com/
@@ -152,17 +202,30 @@ Note:
 ### Changed
 
 #### PHPCS Backcompat
-* `BCFile::getCondition()`: sync with PHPCS 3.5.4 - added support for new `$first` parameter. [#73](https://github.com/PHPCSStandards/PHPCSUtils/pull/73)
+* `BCFile::getCondition()`: sync with PHPCS 3.5.4 - added support for new `$first` parameter. [#73]
 
 #### Tokens
-* The `Collections::$returnTypeTokens` property now includes `T_ARRAY` to allow for supporting arrow functions in PHPCS < 3.5.3. [#77](https://github.com/PHPCSStandards/PHPCSUtils/pull/77)
+* The `Collections::$returnTypeTokens` property now includes `T_ARRAY` to allow for supporting arrow functions in PHPCS < 3.5.3. [#77]
 
 #### Utils
-* :warning: `Conditions::getCondition()`: sync with PHPCS 3.5.4 - renamed the existing `$reverse` parameter to `$first` and reversing the meaning of the boolean values, to stay in line with PHPCS itself. [#73](https://github.com/PHPCSStandards/PHPCSUtils/pull/73)
-* :warning: `Numbers`: the `$unsupportedPHPCSVersions` property has been replaced with an `UNSUPPORTED_PHPCS_VERSION` constant.
+* :warning: `Conditions::getCondition()`: sync with PHPCS 3.5.4 - renamed the existing `$reverse` parameter to `$first` and reversing the meaning of the boolean values, to stay in line with PHPCS itself. [#73]
+* :warning: `Numbers`: the `$unsupportedPHPCSVersions` property has been replaced with an `UNSUPPORTED_PHPCS_VERSION` constant. [#88]
 
 #### Other
 * Various housekeeping.
+
+[FunctionDeclarations::isArrowFunction]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction
+[FunctionDeclarations::getArrowFunctionOpenClose]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose
+
+[#68]: https://github.com/PHPCSStandards/PHPCSUtils/pull/68
+[#69]: https://github.com/PHPCSStandards/PHPCSUtils/pull/69
+[#70]: https://github.com/PHPCSStandards/PHPCSUtils/pull/70
+[#73]: https://github.com/PHPCSStandards/PHPCSUtils/pull/73
+[#77]: https://github.com/PHPCSStandards/PHPCSUtils/pull/77
+[#79]: https://github.com/PHPCSStandards/PHPCSUtils/pull/79
+[#84]: https://github.com/PHPCSStandards/PHPCSUtils/pull/84
+[#88]: https://github.com/PHPCSStandards/PHPCSUtils/pull/88
+[#89]: https://github.com/PHPCSStandards/PHPCSUtils/pull/89
 
 
 ## 1.0.0-alpha1 - 2020-01-23
@@ -218,36 +281,36 @@ This initial alpha release contains the following utility classes:
 
 
 
-[Unreleased]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...HEAD
+[Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...HEAD
 [1.0.0-alpha3]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha2...1.0.0-alpha3
 [1.0.0-alpha2]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha1...1.0.0-alpha2
 
 [Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
 
 [`AbstractArrayDeclarationSniff`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-AbstractSniffs-AbstractArrayDeclarationSniff.html
-[`BCFile`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-BCFile.html
-[`BCTokens`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-BCTokens.html
-[`Helper`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-Helper.html
-[`SpacesFixer`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Fixers-SpacesFixer.html
-[`UtilityMethodTestCase`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html
-[`Collections`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Tokens-Collections.html
-[`Arrays`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Arrays.html
-[`Conditions`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Conditions.html
-[`ControlStructures`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ControlStructures.html
-[`FunctionDeclarations`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html
-[`GetTokensAsString`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-GetTokensAsString.html
-[`Lists`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Lists.html
-[`Namespaces`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Namespaces.html
-[`NamingConventions`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-NamingConventions.html
-[`Numbers`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Numbers.html
-[`ObjectDeclarations`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ObjectDeclarations.html
-[`Operators`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Operators.html
-[`Orthography`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Orthography.html
-[`Parentheses`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Parentheses.html
-[`PassedParameters`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-PassedParameters.html
-[`Scopes`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Scopes.html
-[`TextStrings`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-TextStrings.html
-[`UseStatements`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html
-[`Variables`]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Variables.html
+[`BCFile`]:                        https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-BCFile.html
+[`BCTokens`]:                      https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-BCTokens.html
+[`Helper`]:                        https://phpcsutils.com/phpdoc/classes/PHPCSUtils-BackCompat-Helper.html
+[`SpacesFixer`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Fixers-SpacesFixer.html
+[`UtilityMethodTestCase`]:         https://phpcsutils.com/phpdoc/classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html
+[`Collections`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Tokens-Collections.html
+[`Arrays`]:                        https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Arrays.html
+[`Conditions`]:                    https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Conditions.html
+[`ControlStructures`]:             https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ControlStructures.html
+[`FunctionDeclarations`]:          https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html
+[`GetTokensAsString`]:             https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-GetTokensAsString.html
+[`Lists`]:                         https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Lists.html
+[`Namespaces`]:                    https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Namespaces.html
+[`NamingConventions`]:             https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-NamingConventions.html
+[`Numbers`]:                       https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Numbers.html
+[`ObjectDeclarations`]:            https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ObjectDeclarations.html
+[`Operators`]:                     https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Operators.html
+[`Orthography`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Orthography.html
+[`Parentheses`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Parentheses.html
+[`PassedParameters`]:              https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-PassedParameters.html
+[`Scopes`]:                        https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Scopes.html
+[`TextStrings`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-TextStrings.html
+[`UseStatements`]:                 https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html
+[`Variables`]:                     https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Variables.html
 
 [@GaryJones]: https://github.com/GaryJones
