@@ -33,7 +33,7 @@ PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 Features
 -------------------------------------------
 
-[PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) (or "PHPCS" for short).
+[PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer] (or "PHPCS" for short).
 
 This package offers the following features:
 
@@ -81,7 +81,7 @@ Minimum Requirements
 -------------------------------------------
 
 * PHP 5.4 or higher.
-* [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) 2.6.0+, 3.1.0+ (with the exception of PHPCS 3.5.3).
+* [PHP_CodeSniffer] 2.6.0+, 3.1.0+ (with the exception of PHPCS 3.5.3).
 * Recommended PHP extensions for optimal functionality:
     - PCRE with Unicode support (normally enabled by default)
 
@@ -101,7 +101,7 @@ composer require phpcsstandards/phpcsutils:^1.0
 
 No further action needed. You can start using all the utility functions, abstract sniff classes and other features of PHPCSUtils straight away.
 
-> :information_source: The PHPCSUtils package includes the [Composer PHPCS plugin](https://github.com/PHPCSStandards/composer-installer).
+> :information_source: The PHPCSUtils package includes the [Composer PHPCS plugin].
 >
 > This plugin will automatically register PHPCSUtils (and your own external standard) with PHP_CodeSniffer, so you and your users don't have to worry about this anymore.
 >
@@ -149,7 +149,7 @@ To use a non-Composer based installation for your sniff development environment,
 
 Your installation instructions for a non-Composer based installation will probably look similar to this:
 
-> * Install [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) via [your preferred method](https://github.com/squizlabs/PHP_CodeSniffer#installation).
+> * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/squizlabs/PHP_CodeSniffer#installation).
 > * Register the path to PHPCS in your system `$PATH` environment variable to make the `phpcs` command available from anywhere in your file system.
 > * Download the [latest _YourStandardName_ release] and unzip/untar it into an arbitrary directory.
 >     You can also choose to clone the repository using git.
@@ -250,7 +250,7 @@ The backfill was fixed in PHP_CodeSniffer 3.5.4.
 
 #### Q: Any other problematic PHPCS versions?
 
-A: Well, the arrow function backfill which was added in PHPCS 3.5.3 is still causing problems. In a very limited set of circumstances, it will even hang the Tokenizer. A fix for [one particular such problem](https://github.com/squizlabs/php_codesniffer/issues/2926) has been committed to `master`, but is not (yet) in a released version. It is expected to be released in PHP_CodeSniffer 3.5.6.
+A: Well, the arrow function backfill which was added in PHPCS 3.5.3 may still cause problems. In a very limited set of circumstances, it will even hang the Tokenizer. A fix for [one particular such problem](https://github.com/squizlabs/php_codesniffer/issues/2926) was committed upstream and released in PHP_CodeSniffer 3.5.6, but there is no guarantee that all issues have been found.
 
 As the Tokenizer hanging is a problem unrelated to PHPCSUtils and not something which can be mitigated from within PHPCSUtils in any conceivable way, PHPCSUtils won't block installation in combination with PHPCS 3.5.4 and 3.5.5.
 
@@ -309,3 +309,7 @@ If you are unsure whether the changes you are proposing would be welcome, please
 License
 -------
 This code is released under the [GNU Lesser General Public License (LGPLv3)](http://www.gnu.org/copyleft/lesser.html).
+
+
+[PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
+[Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
