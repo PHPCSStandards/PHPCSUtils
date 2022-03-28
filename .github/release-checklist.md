@@ -1,11 +1,11 @@
-Template to use for release PRs from `develop` to `master`
-===========================================================
+# Template to use for release PRs from `develop` to `master`
 
 PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH DAY YEAR**.
 
 ## Release checklist
 
 ### Update website
+
 - [ ] Regenerate the PHPDoc documentation - PR #xxx
     :pencil2: Clear out the `docs/phpdoc` directory and then use phpDocumentor 3 with the command `phpdoc`
 - [ ] Sync any changes in the Readme into the website `index.md` file. - PR #xxx
@@ -15,9 +15,10 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
     bundle update
     bundle exec jekyll serve
     ```
-    and then visiting http://localhost:4000/ to see the result.
+    and then visiting <http://localhost:4000/> to see the result.
 
 ### General
+
 - [ ] Update the `DEVMASTER` version nr constant in the `Tests/BackCompat/Helper/GetVersionTest.php` file. - PR #xxx
 - [ ] Verify, and if necessary, update the version constraints for dependencies in the `composer.json` - PR #xxx
 - [ ] Verify that any new functions have type declarations whenever possible.
@@ -25,6 +26,7 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
     :pencil2: Remember to add a release link at the bottom and to adjust the link for "Unreleased"!
 
 ### Release
+
 - [ ] Merge this PR
 - [ ] Make sure all CI builds are green.
 - [ ] Verify that the website regenerated correctly.
@@ -37,5 +39,6 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
 - [ ] Fast-forward `develop` to be equal to `master`
 
 ### Publicize
+
 - [ ] Tweet about the release.
 - [ ] Inform the primary dependants of this repo (PHPCSExtra, WordPressCS, PHPCompatibility and VariableAnalysis) about the release.
