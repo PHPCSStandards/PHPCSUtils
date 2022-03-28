@@ -4,9 +4,6 @@ on:
   # Run on all pushes and on all pull requests.
   # Prevent the build from running when there are only irrelevant changes.
   push:
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
   pull_request:
   # Allow manually triggering the workflow.
   workflow_dispatch:
@@ -85,3 +82,30 @@ jobs:
 
       - name: Show PHPCS results in PR
         run: cs2pr ./phpcs-report.xml
+
+  markdownlint:
+    name: 'Lint Markdown'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # This action also handles the caching of the dependencies.
+      # https://github.com/actions/setup-node
+      - name: Set up node and enable caching of dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # @link https://github.com/DavidAnson/markdownlint-cli2
+      # @link https://github.com/DavidAnson/markdownlint
+      - name: Install Markdownlint CLI2
+        run: npm install -g markdownlint-cli2
+
+      # @link https://github.com/marketplace/actions/problem-matcher-for-markdownlint-cli
+      - name: Enable showing issue in PRs
+        uses: xt0rted/markdownlint-problem-matcher@v1
+
+      - name: Check markdown with CLI2
+        run: markdownlint-cli2
