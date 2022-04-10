@@ -579,6 +579,50 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'last_token'   => $octalMultiToken ? 1 : ($multiToken ? 2 : 0), // Offset from $stackPtr.
                 ],
             ],
+            'php-8.1-invalid-octal-1' => [
+                '/* testPHP81InvalidExplicitOctal1 */',
+                [
+                    'orig_content' => '0',
+                    'content'      => '0',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '0',
+                    'last_token'   => 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-8.1-invalid-octal-2' => [
+                '/* testPHP81InvalidExplicitOctal2 */',
+                [
+                    'orig_content' => '0O2',
+                    'content'      => '0O2',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '2',
+                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-8.1-invalid-octal-3' => [
+                '/* testPHP81InvalidExplicitOctal3 */',
+                [
+                    'orig_content' => '0o2',
+                    'content'      => '0o2',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '2',
+                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-8.1-invalid-octal-4' => [
+                '/* testPHP81InvalidExplicitOctal4 */',
+                [
+                    'orig_content' => '0o2',
+                    'content'      => '0o2',
+                    'code'         => \T_LNUMBER,
+                    'type'         => 'T_LNUMBER',
+                    'decimal'      => '2',
+                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
             'php-7.4-8.1-invalid-explicit-octal' => [
                 '/* testPHP74PHP81InvalidExplicitOctal */',
                 [
