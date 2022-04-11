@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Operators;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\TokenHelper;
 use PHPCSUtils\Utils\Operators;
 
 /**
@@ -131,7 +132,7 @@ class IsShortTernaryTest extends UtilityMethodTestCase
         }
 
         $targetCoalesceAndEquals = $targetCoalesce;
-        if (\defined('T_COALESCE_EQUAL')) {
+        if (TokenHelper::tokenExists('T_COALESCE_EQUAL')) {
             $targetCoalesceAndEquals[] = \T_COALESCE_EQUAL;
         }
 

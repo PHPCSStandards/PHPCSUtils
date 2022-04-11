@@ -13,6 +13,7 @@ namespace PHPCSUtils\Tests\Utils\Parentheses;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Tokens\TokenHelper;
 use PHPCSUtils\Utils\Parentheses;
 
 /**
@@ -955,7 +956,7 @@ class ParenthesesTest extends UtilityMethodTestCase
         // Add expected results for all owner types not listed in the data provider.
         $expectedResults += $this->ownerDefaults;
 
-        if (\defined('T_FN') === false) {
+        if (TokenHelper::tokenExists('T_FN') === false) {
             $expectedResults['T_STRING'] = $expectedResults['T_FN'];
             unset($expectedResults['T_FN']);
         }

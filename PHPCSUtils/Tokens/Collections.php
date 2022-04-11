@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tokens;
 
+use PHPCSUtils\Tokens\TokenHelper;
+
 /**
  * Collections of related tokens as often used and needed for sniffs.
  *
@@ -516,7 +518,7 @@ class Collections
             \T_STRING => \T_STRING,
         ];
 
-        if (\defined('T_FN') === true) {
+        if (TokenHelper::tokenExists('T_FN') === true) {
             // PHP 7.4 or PHPCS 3.5.3+.
             $tokens[\T_FN] = \T_FN;
         }
@@ -569,7 +571,7 @@ class Collections
             \T_CLOSURE  => \T_CLOSURE,
         ];
 
-        if (\defined('T_FN') === true) {
+        if (TokenHelper::tokenExists('T_FN') === true) {
             // PHP 7.4 or PHPCS 3.5.3+.
             $tokens[\T_FN] = \T_FN;
         }
@@ -663,15 +665,15 @@ class Collections
          * with PHPCS >= 3.5.7, though when using PHPCS 3.5.7 < 4.0.0, these tokens are
          * not yet in use, i.e. the PHP 8.0 change is "undone" for PHPCS 3.x.
          */
-        if (\defined('T_NAME_QUALIFIED') === true) {
+        if (TokenHelper::tokenExists('T_NAME_QUALIFIED') === true) {
             $tokens[\T_NAME_QUALIFIED] = \T_NAME_QUALIFIED;
         }
 
-        if (\defined('T_NAME_FULLY_QUALIFIED') === true) {
+        if (TokenHelper::tokenExists('T_NAME_FULLY_QUALIFIED') === true) {
             $tokens[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
         }
 
-        if (\defined('T_NAME_RELATIVE') === true) {
+        if (TokenHelper::tokenExists('T_NAME_RELATIVE') === true) {
             $tokens[\T_NAME_RELATIVE] = \T_NAME_RELATIVE;
         }
 
@@ -704,7 +706,7 @@ class Collections
             \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
         ];
 
-        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+        if (TokenHelper::tokenExists('T_NULLSAFE_OBJECT_OPERATOR') === true) {
             // PHP >= 8.0 or PHPCS >= 3.5.7.
             $tokens[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
         }
@@ -778,7 +780,7 @@ class Collections
      */
     public static function nullsafeObjectOperatorBC()
     {
-        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+        if (TokenHelper::tokenExists('T_NULLSAFE_OBJECT_OPERATOR') === true) {
             // PHP >= 8.0 / PHPCS >= 3.5.7.
             return [
                 \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR,

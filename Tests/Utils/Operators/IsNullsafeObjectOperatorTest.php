@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\Utils\Operators;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\TokenHelper;
 use PHPCSUtils\Utils\Operators;
 
 /**
@@ -147,7 +148,7 @@ class IsNullsafeObjectOperatorTest extends UtilityMethodTestCase
             \T_INLINE_THEN,
         ];
 
-        if (\defined('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+        if (TokenHelper::tokenExists('T_NULLSAFE_OBJECT_OPERATOR') === true) {
             $targets[] = \T_NULLSAFE_OBJECT_OPERATOR;
         }
 
