@@ -65,12 +65,6 @@ jobs:
       - name: 'Composer: set PHPCS version for tests'
         run: composer require --no-update squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}"
 
-      - name: 'Composer: tweak PHPUnit version'
-        if: ${{ matrix.php == 'latest' || startsWith( matrix.php, '8' ) }}
-        # Temporary fix - PHPUnit 9.3+ is buggy when used for code coverage, so not allowed "normally".
-        # For tests which don't run code coverage, we can safely install it for PHP 8 though.
-        run: composer require --no-update phpunit/phpunit:"^9.3"
-
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies
