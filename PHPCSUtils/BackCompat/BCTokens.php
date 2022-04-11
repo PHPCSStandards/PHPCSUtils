@@ -12,6 +12,7 @@ namespace PHPCSUtils\BackCompat;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Tokens\TokenHelper;
 
 /**
  * Token arrays related utility methods.
@@ -158,7 +159,7 @@ class BCTokens
          * The `T_COALESCE_EQUAL` token may be available pre-PHPCS 2.8.1 depending on
          * the PHP version used to run PHPCS.
          */
-        if (\defined('T_COALESCE_EQUAL')) {
+        if (TokenHelper::tokenExists('T_COALESCE_EQUAL')) {
             $tokens[\T_COALESCE_EQUAL] = \T_COALESCE_EQUAL;
         }
 
@@ -250,7 +251,7 @@ class BCTokens
             $tokens[\T_COALESCE] = \T_COALESCE;
         }
 
-        if (\defined('T_COALESCE_EQUAL')) {
+        if (TokenHelper::tokenExists('T_COALESCE_EQUAL')) {
             unset($tokens[\T_COALESCE_EQUAL]);
         }
 
@@ -292,7 +293,7 @@ class BCTokens
          * The `T_MATCH` token may be available pre-PHPCS 3.6.0 depending on the PHP version
          * used to run PHPCS.
          */
-        if (\defined('T_MATCH')) {
+        if (TokenHelper::tokenExists('T_MATCH')) {
             $tokens[\T_MATCH] = \T_MATCH;
         }
 
@@ -321,7 +322,7 @@ class BCTokens
          * The `T_MATCH` token may be available pre-PHPCS 3.6.0 depending on the PHP version
          * used to run PHPCS.
          */
-        if (\defined('T_MATCH')) {
+        if (TokenHelper::tokenExists('T_MATCH')) {
             $tokens[\T_MATCH] = \T_MATCH;
         }
 
@@ -329,7 +330,7 @@ class BCTokens
          * The `T_ENUM` token may be available pre-PHPCS 3.7.0 depending on the PHP version
          * used to run PHPCS.
          */
-        if (\defined('T_ENUM')) {
+        if (TokenHelper::tokenExists('T_ENUM')) {
             $tokens[\T_ENUM] = \T_ENUM;
         }
 
@@ -451,7 +452,7 @@ class BCTokens
          * The `T_ENUM` token may be available pre-PHPCS 3.7.0 depending on the PHP version
          * used to run PHPCS.
          */
-        if (\defined('T_ENUM')) {
+        if (TokenHelper::tokenExists('T_ENUM')) {
             $tokens[\T_ENUM] = \T_ENUM;
         }
 

@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Tokens\TokenHelper;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -146,7 +147,7 @@ class Parentheses
         /*
          * Allow for T_FN token being tokenized as T_STRING before PHPCS 3.5.3.
          */
-        if (\defined('T_FN') && \in_array(\T_FN, $validOwners, true)) {
+        if (TokenHelper::tokenExists('T_FN') && \in_array(\T_FN, $validOwners, true)) {
             $validOwners += Collections::arrowFunctionTokensBC();
         }
 
