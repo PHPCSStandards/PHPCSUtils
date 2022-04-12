@@ -120,12 +120,7 @@ class MessageHelper
      */
     public static function hasNewLineSupport()
     {
-        static $supported;
-        if (isset($supported) === false) {
-            $supported = \version_compare(Helper::getVersion(), '3.3.1', '>=');
-        }
-
-        return $supported;
+        return \version_compare(Helper::getVersion(), '3.3.1', '>=');
     }
 
     /**
