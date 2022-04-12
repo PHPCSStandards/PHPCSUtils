@@ -184,6 +184,17 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
+            'normal-integer-larger-than-intmax-is-float' => [
+                '/* testIntLargerThanIntMaxIsFloat */',
+                [
+                    'orig_content' => '10223372036854775810',
+                    'content'      => '10223372036854775810',
+                    'code'         => \T_DNUMBER,
+                    'type'         => 'T_DNUMBER',
+                    'decimal'      => '10223372036854775810',
+                    'last_token'   => 0, // Offset from $stackPtr.
+                ],
+            ],
             'normal-float' => [
                 '/* testFloat */',
                 [
@@ -262,6 +273,17 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '1000000000',
+                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-7.4-integer-larger-than-intmax-is-float' => [
+                '/* testPHP74IntLargerThanIntMaxIsFloat */',
+                [
+                    'orig_content' => '10_223_372_036_854_775_810',
+                    'content'      => '10223372036854775810',
+                    'code'         => \T_DNUMBER,
+                    'type'         => 'T_DNUMBER',
+                    'decimal'      => '10223372036854775810',
                     'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
                 ],
             ],
@@ -523,6 +545,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
 
+            // PHP 8.1 explicit octal notation.
             'php-8.1-explicit-octal-lowercase' => [
                 '/* testPHP81ExplicitOctal */',
                 [
