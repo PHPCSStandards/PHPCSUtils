@@ -14,6 +14,9 @@ const _100 = null;
 /* testIntDecimal */
 $a = 1000000000;
 
+/* testIntLargerThanIntMaxIsFloat */
+$intMaxPlus3 = 10223372036854775810;
+
 /* testFloat */
 $b = 107925284.88;
 
@@ -38,6 +41,9 @@ $a = 100 'test'; // Intentional parse error, not our concern.
  */
 /* testPHP74IntDecimalMultiUnderscore */
 $threshold = 1_000_000_000;
+
+/* testPHP74IntLargerThanIntMaxIsFloat */
+$intMaxPlus3 = 10_223_372_036_854_775_810;
 
 /* testPHP74Float */
 $testValue = 107_925_284.88;

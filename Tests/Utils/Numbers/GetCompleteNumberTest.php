@@ -18,6 +18,7 @@ use PHPCSUtils\Utils\Numbers;
  * Tests for the \PHPCSUtils\Utils\Numbers::getCompleteNumber() method.
  *
  * @covers \PHPCSUtils\Utils\Numbers::getCompleteNumber
+ * @covers \PHPCSUtils\Utils\Numbers::updateResult
  *
  * @group numbers
  *
@@ -93,7 +94,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test receiving an exception when PHPCS is run on PHP < 7.4 in combination with PHPCS 3.5.3.
+     * Test receiving an exception when running PHPCS 3.5.3.
      *
      * @return void
      */
@@ -183,6 +184,17 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
+            'normal-integer-larger-than-intmax-is-float' => [
+                '/* testIntLargerThanIntMaxIsFloat */',
+                [
+                    'orig_content' => '10223372036854775810',
+                    'content'      => '10223372036854775810',
+                    'code'         => \T_DNUMBER,
+                    'type'         => 'T_DNUMBER',
+                    'decimal'      => '10223372036854775810',
+                    'last_token'   => 0, // Offset from $stackPtr.
+                ],
+            ],
             'normal-float' => [
                 '/* testFloat */',
                 [
@@ -261,6 +273,17 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '1000000000',
+                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                ],
+            ],
+            'php-7.4-integer-larger-than-intmax-is-float' => [
+                '/* testPHP74IntLargerThanIntMaxIsFloat */',
+                [
+                    'orig_content' => '10_223_372_036_854_775_810',
+                    'content'      => '10223372036854775810',
+                    'code'         => \T_DNUMBER,
+                    'type'         => 'T_DNUMBER',
+                    'decimal'      => '10223372036854775810',
                     'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
                 ],
             ],
@@ -522,6 +545,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
 
+            // PHP 8.1 explicit octal notation.
             'php-8.1-explicit-octal-lowercase' => [
                 '/* testPHP81ExplicitOctal */',
                 [
