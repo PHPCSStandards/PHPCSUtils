@@ -428,7 +428,7 @@ class UseStatements
      *               the previously collected `use` statement information.
      *               See {@see UseStatements::splitImportUseStatement()} for more details about the array format.
      */
-    public static function splitAndMergeImportUseStatement(File $phpcsFile, $stackPtr, $previousUseStatements)
+    public static function splitAndMergeImportUseStatement(File $phpcsFile, $stackPtr, array $previousUseStatements)
     {
         try {
             $useStatements         = self::splitImportUseStatement($phpcsFile, $stackPtr);
@@ -466,7 +466,7 @@ class UseStatements
      *               the previously collected `use` statement information.
      *               See {@see UseStatements::splitImportUseStatement()} for more details about the array format.
      */
-    public static function mergeImportUseStatements($previousUseStatements, $currentUseStatement)
+    public static function mergeImportUseStatements(array $previousUseStatements, array $currentUseStatement)
     {
         if (isset($previousUseStatements['name']) === false) {
             $previousUseStatements['name'] = $currentUseStatement['name'];

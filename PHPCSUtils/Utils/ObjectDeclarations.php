@@ -324,7 +324,7 @@ class ObjectDeclarations
      * @return array|false Returns an array of names or `FALSE` on error or when the object
      *                     being declared does not extend/implement another object.
      */
-    private static function findNames(File $phpcsFile, $stackPtr, $keyword, $allowedFor)
+    private static function findNames(File $phpcsFile, $stackPtr, $keyword, array $allowedFor)
     {
         $tokens = $phpcsFile->getTokens();
 
