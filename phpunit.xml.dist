@@ -10,7 +10,9 @@
     convertNoticesToExceptions="true"
     convertDeprecationsToExceptions="true"
     colors="true"
-    forceCoversAnnotation="true">
+    forceCoversAnnotation="true"
+    verbose="true"
+    >
 
     <testsuites>
         <testsuite name="PHPCSUtils">

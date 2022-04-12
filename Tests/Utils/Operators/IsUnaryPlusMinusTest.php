@@ -66,13 +66,15 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
              * Skip the test if this is PHP 7.4 or a PHPCS version which backfills the token sequence
              * to one token as in that case, the plus/minus token won't exist
              */
-            $skipMessage = 'Test irrelevant as the target token won\'t exist';
             if (\version_compare(\PHP_VERSION_ID, '70399', '>') === true) {
-                $this->markTestSkipped($skipMessage);
+                $this->markTestSkipped('Test irrelevant as the target token won\'t exist when on PHP >= 7.4');
             }
 
             if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>=') === true) {
-                $this->markTestSkipped($skipMessage);
+                $this->markTestSkipped(
+                    'Test irrelevant as the target token won\'t exist when on PHPCS >= '
+                    . Numbers::UNSUPPORTED_PHPCS_VERSION
+                );
             }
         }
 
