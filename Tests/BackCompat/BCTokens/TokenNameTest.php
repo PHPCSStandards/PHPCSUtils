@@ -50,13 +50,13 @@ class TokenNameTest extends TestCase
     public function dataTokenName()
     {
         return [
-            'PHP native token: T_COMMA' => [
-                \T_COMMA,
-                'T_COMMA',
+            'PHP native token: T_ECHO' => [
+                \T_ECHO,
+                'T_ECHO',
             ],
-            'PHP native token: T_SELF' => [
-                \T_SELF,
-                'T_SELF',
+            'PHP native token: T_FUNCTION' => [
+                \T_FUNCTION,
+                'T_FUNCTION',
             ],
             'PHPCS native token: T_CLOSURE' => [
                 \T_CLOSURE,
