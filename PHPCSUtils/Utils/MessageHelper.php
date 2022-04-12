@@ -47,7 +47,7 @@ class MessageHelper
         $stackPtr,
         $isError = true,
         $code = 'Found',
-        $data = [],
+        array $data = [],
         $severity = 0
     ) {
         if ($isError === true) {
@@ -83,7 +83,7 @@ class MessageHelper
         $stackPtr,
         $isError = true,
         $code = 'Found',
-        $data = [],
+        array $data = [],
         $severity = 0
     ) {
         if ($isError === true) {
