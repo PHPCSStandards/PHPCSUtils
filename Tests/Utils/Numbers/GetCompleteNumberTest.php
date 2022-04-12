@@ -18,6 +18,7 @@ use PHPCSUtils\Utils\Numbers;
  * Tests for the \PHPCSUtils\Utils\Numbers::getCompleteNumber() method.
  *
  * @covers \PHPCSUtils\Utils\Numbers::getCompleteNumber
+ * @covers \PHPCSUtils\Utils\Numbers::updateResult
  *
  * @group numbers
  *
@@ -93,7 +94,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test receiving an exception when PHPCS is run on PHP < 7.4 in combination with PHPCS 3.5.3.
+     * Test receiving an exception when running PHPCS 3.5.3.
      *
      * @return void
      */
