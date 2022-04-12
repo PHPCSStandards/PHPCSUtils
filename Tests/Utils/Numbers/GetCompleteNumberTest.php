@@ -100,7 +100,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     public function testUnsupportedPhpcsException()
     {
         if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '!=') === true) {
-            $this->markTestSkipped('Test specific to a limited set of PHPCS versions');
+            $this->markTestSkipped('Test only applicable to PHPCS ' . Numbers::UNSUPPORTED_PHPCS_VERSION);
         }
 
         $this->expectPhpcsException(
