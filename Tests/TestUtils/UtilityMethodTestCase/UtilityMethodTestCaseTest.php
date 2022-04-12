@@ -198,30 +198,6 @@ class UtilityMethodTestCaseTest extends PolyfilledTestCase
     }
 
     /**
-     * Test that the helper method to handle cross-version testing of exceptions in PHPUnit
-     * works correctly.
-     *
-     * @return void
-     */
-    public function testExpectPhpcsRuntimeException()
-    {
-        $this->expectPhpcsException('testing-1-2-3');
-        throw new RuntimeException('testing-1-2-3');
-    }
-
-    /**
-     * Test that the helper method to handle cross-version testing of exceptions in PHPUnit
-     * works correctly.
-     *
-     * @return void
-     */
-    public function testExpectPhpcsTokenizerException()
-    {
-        $this->expectPhpcsException('testing-1-2-3', 'tokenizer');
-        throw new TokenizerException('testing-1-2-3');
-    }
-
-    /**
      * Test that the class is correct reset.
      *
      * @return void
