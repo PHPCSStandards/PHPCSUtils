@@ -2,19 +2,19 @@
 
 <div aria-hidden="true">
 
-[![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)](https://packagist.org/packages/phpcsstandards/phpcsutils)
-[![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)](https://github.com/PHPCSStandards/PHPCSUtils/releases)
+[![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)][phpcsutils-packagist]
+[![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)][phpcsutils-releases]
 :construction:
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-dev--develop-e68718.svg?maxAge=2419200)](https://packagist.org/packages/phpcsstandards/phpcsutils#dev-develop)
 [![Last Commit to Unstable](https://img.shields.io/github/last-commit/PHPCSStandards/PHPCSUtils/develop.svg)](https://github.com/PHPCSStandards/PHPCSUtils/commits/develop)
 
-[![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)](https://packagist.org/packages/phpcsstandards/phpcsutils)
+[![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)][phpcsutils-packagist]
 [![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml)
-[![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml)
-[![Tested on PHP 5.4 to 8.1](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1-brightgreen.svg?maxAge=2419200)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml)
+[![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)][phpcsutils-tests-gha]
+[![Tested on PHP 5.4 to 8.1](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1-brightgreen.svg?maxAge=2419200)][phpcsutils-tests-gha]
 [![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg?branch=develop)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils?branch=develop)
 
-[![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/ghpages.yml/badge.svg)](https://phpcsutils.com/)
+[![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/ghpages.yml/badge.svg)][phpcsutils-web]
 [![License: LGPLv3](https://poser.pugx.org/phpcsstandards/phpcsutils/license)](https://github.com/PHPCSStandards/PHPCSUtils/blob/master/LICENSE)
 ![Awesome](https://img.shields.io/badge/awesome%3F-yes!-brightgreen.svg)
 
@@ -74,7 +74,7 @@ A `PHPCS23Utils` standard which allows sniffs to work in both PHPCS 2.x and 3.x,
 
 ### Fully documented
 
-To see detailed information about all the available abstract sniffs, utility functions and PHPCS helper functions, have a read through the [extensive documentation](https://phpcsutils.com/).
+To see detailed information about all the available abstract sniffs, utility functions and PHPCS helper functions, have a read through the [extensive documentation][phpcsutils-web].
 
 </div>
 
@@ -151,7 +151,7 @@ Your installation instructions for a non-Composer based installation will probab
 
 > * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/squizlabs/PHP_CodeSniffer#installation).
 > * Register the path to PHPCS in your system `$PATH` environment variable to make the `phpcs` command available from anywhere in your file system.
-> * Download the [latest _YourStandardName_ release] and unzip/untar it into an arbitrary directory.
+> * Download the \[latest _YourStandardName_ release\] and unzip/untar it into an arbitrary directory.
 >     You can also choose to clone the repository using git.
 > * Add the path to the directory in which you placed your copy of the _YourStandardName_ repo to the PHP_CodeSniffer configuration using the below command:
 >    ```bash
@@ -164,7 +164,7 @@ Your installation instructions for a non-Composer based installation will probab
 
 For things to continue working when you add PHPCSUtils to your standard, you need to replace the last bullet with this:
 
-> * **Next, download the [latest PHPCSUtils release](https://github.com/PHPCSStandards/PHPCSUtils/releases) and unzip/untar it into an arbitrary directory.**
+> * **Next, download the [latest PHPCSUtils release][phpcsutils-releases] and unzip/untar it into an arbitrary directory.**
 >     You can also choose to clone the repository using git.
 > * Add the path to the **directories** in which you placed your copy of the _YourStandardName_ repo **and the PHPCSUtils repo** to the PHP_CodeSniffer configuration using the below command:
 >    ```bash
@@ -319,3 +319,7 @@ This code is released under the [GNU Lesser General Public License (LGPLv3)](htt
 
 [PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
 [Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
+[phpcsutils-web]:        https://phpcsutils.com/
+[phpcsutils-packagist]:  https://packagist.org/packages/phpcsstandards/phpcsutils
+[phpcsutils-releases]:   https://github.com/PHPCSStandards/PHPCSUtils/releases
+[phpcsutils-tests-gha]:  https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml

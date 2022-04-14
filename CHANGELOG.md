@@ -99,7 +99,7 @@ Notes:
 * Readme/website homepage: textual improvements. Props [@GaryJones]. [#121]
 * Readme/website homepage: added additional FAQ question & answers. [#157]
 * The website homepage is now generated using the GitHub Pages gem with Jekyll, making maintenance easier. [#141]
-* Significant improvements to the docblock documentation and by extension the [generated API documentation]. [#145], [#146], [#147], [#148], [#149], [#150], [#151], [#152], [#153], [154], [#155], [#156]
+* Significant improvements to the docblock documentation and by extension the [generated API documentation]. [#145], [#146], [#147], [#148], [#149], [#150], [#151], [#152], [#153], [#154], [#155], [#156]
 * Various housekeeping.
 
 ### Fixed
