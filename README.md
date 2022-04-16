@@ -1,6 +1,8 @@
 PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 =====================================================
 
+<div aria-hidden="true">
+
 [![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)](https://packagist.org/packages/phpcsstandards/phpcsutils)
 [![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)](https://github.com/PHPCSStandards/PHPCSUtils/releases)
 :construction:
@@ -17,6 +19,7 @@ PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 [![License: LGPLv3](https://poser.pugx.org/phpcsstandards/phpcsutils/license)](https://github.com/PHPCSStandards/PHPCSUtils/blob/master/LICENSE)
 ![Awesome](https://img.shields.io/badge/awesome%3F-yes!-brightgreen.svg)
 
+</div>
 
 * [Features](#features)
 * [Minimum Requirements](#minimum-requirements)
