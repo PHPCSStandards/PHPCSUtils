@@ -188,7 +188,7 @@ class ObjectDeclarations
             throw new RuntimeException('$stackPtr must be of type T_CLASS');
         }
 
-        $valid      = Collections::$classModifierKeywords + Tokens::$emptyTokens;
+        $valid      = Collections::classModifierKeywords() + Tokens::$emptyTokens;
         $properties = [
             'is_abstract' => false,
             'is_final'    => false,

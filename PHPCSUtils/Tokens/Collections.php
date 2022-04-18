@@ -100,9 +100,11 @@ class Collections
     ];
 
     /**
-     * Modifier keywords which can be used for a class declaration.
+     * DEPRECATED: Modifier keywords which can be used for a class declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::classModifierKeywords()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -593,6 +595,18 @@ class Collections
         }
 
         return $tokens;
+    }
+
+    /**
+     * Modifier keywords which can be used for a class declaration.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$classModifierKeywords} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function classModifierKeywords()
+    {
+        return self::$classModifierKeywords;
     }
 
     /**
