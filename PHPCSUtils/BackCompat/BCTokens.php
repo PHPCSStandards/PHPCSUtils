@@ -112,6 +112,24 @@ class BCTokens
     ];
 
     /**
+     * Tokens representing PHP magic constants.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @var array <int|string> => <int|string>
+     */
+    private static $magicConstants = [
+        \T_CLASS_C  => \T_CLASS_C,
+        \T_DIR      => \T_DIR,
+        \T_FILE     => \T_FILE,
+        \T_FUNC_C   => \T_FUNC_C,
+        \T_LINE     => \T_LINE,
+        \T_METHOD_C => \T_METHOD_C,
+        \T_NS_C     => \T_NS_C,
+        \T_TRAIT_C  => \T_TRAIT_C,
+    ];
+
+    /**
      * Handle calls to (undeclared) methods for token arrays which haven't received any
      * changes since PHPCS 2.6.0.
      *
@@ -467,8 +485,7 @@ class BCTokens
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 3.5.6.
      *
-     * @see \PHP_CodeSniffer\Util\Tokens::$magicConstants   Original array.
-     * @see \PHPCSUtils\Tokens\Collections::$magicConstants Same array, pre-dating the PHPCS change.
+     * @see \PHP_CodeSniffer\Util\Tokens::$magicConstants Original array.
      *
      * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
      *
@@ -482,7 +499,7 @@ class BCTokens
             return Tokens::$magicConstants;
         }
 
-        return Collections::$magicConstants;
+        return self::$magicConstants;
     }
 
     /**

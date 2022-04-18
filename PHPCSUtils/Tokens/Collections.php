@@ -200,11 +200,11 @@ class Collections
     ];
 
     /**
-     * Tokens for the PHP magic constants.
-     *
-     * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
+     * DEPRECATED: Tokens for the PHP magic constants.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\BackCompat\BCTokens::magicConstants()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
