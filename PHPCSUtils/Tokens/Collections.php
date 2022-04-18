@@ -220,9 +220,11 @@ class Collections
     ];
 
     /**
-     * List of tokens which can end a namespace declaration statement.
+     * DEPRECATED: List of tokens which can end a namespace declaration statement.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::namespaceDeclarationClosers()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -769,6 +771,18 @@ class Collections
     public static function listTokensBC()
     {
         return self::$listTokensBC;
+    }
+
+    /**
+     * List of tokens which can end a namespace declaration statement.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$namespaceDeclarationClosers} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function namespaceDeclarationClosers()
+    {
+        return self::$namespaceDeclarationClosers;
     }
 
     /**
