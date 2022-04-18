@@ -132,9 +132,11 @@ class Collections
     ];
 
     /**
-     * Control structure tokens.
+     * DEPRECATED: Control structure tokens.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::controlStructureTokens()} method instead.
      *
      * @var array <int> => <int>
      */
@@ -621,6 +623,18 @@ class Collections
     public static function closedScopes()
     {
         return self::$closedScopes;
+    }
+
+    /**
+     * Control structure tokens.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$controlStructureTokens} property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function controlStructureTokens()
+    {
+        return self::$controlStructureTokens;
     }
 
     /**
