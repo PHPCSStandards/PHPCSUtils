@@ -55,7 +55,7 @@ use PHPCSUtils\Tokens\TokenHelper;
  * @method static array methodPrefixes()   Tokens that can prefix a method name.
  * @method static array scopeModifiers()   Tokens that represent scope modifiers.
  * @method static array stringTokens()     Tokens that represent strings.
- *                                         Note that `T_STRINGS` are NOT represented in this list as this list
+ *                                         Note that `T_STRING`s are NOT represented in this list as this list
  *                                         is about _text_ strings.
  */
 class BCTokens

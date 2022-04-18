@@ -555,7 +555,7 @@ class Collections
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
      *
      * Sister-method to the {@see Collections::functionDeclarationTokensBC()} method.
-     * This  method supports PHPCS 3.5.3 and up.
+     * This method supports PHPCS 3.5.3 and up.
      * The {@see Collections::functionDeclarationTokensBC()} method supports PHPCS 2.6.0 and up.
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC() Related method (PHPCS 2.6.0+).
@@ -596,7 +596,7 @@ class Collections
      * declaration or not.
      *
      * It is recommended to use the {@see Collections::functionDeclarationTokens()} method instead of
-     * this method if a standard supports does not need to support PHPCS < 3.5.3.
+     * this method if a standard does not need to support PHPCS < 3.5.3.
      *
      * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
      * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()   Arrow function verification.
@@ -890,7 +890,7 @@ class Collections
     {
         $tokens = self::parameterTypeTokens();
 
-        // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. For PHPCS 3.3.0+ the constant is no longer used.
+        // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. As of PHPCS 3.3.0+ the constant is no longer used.
         if (\defined('T_ARRAY_HINT') === true) {
             $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
         }
