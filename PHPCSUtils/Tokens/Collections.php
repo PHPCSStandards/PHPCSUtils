@@ -27,9 +27,12 @@ class Collections
 {
 
     /**
-     * Control structures which can use the alternative control structure syntax.
+     * DEPRECATED: Control structures which can use the alternative control structure syntax.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::alternativeControlStructureSyntaxes()}
+     *                          method instead.
      *
      * @var array <int> => <int>
      */
@@ -45,9 +48,12 @@ class Collections
     ];
 
     /**
-     * Alternative control structure syntax closer keyword tokens.
+     * DEPRECATED: Alternative control structure syntax closer keyword tokens.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::alternativeControlStructureSyntaxClosers()}
+     *                          method instead.
      *
      * @var array <int> => <int>
      */
@@ -501,6 +507,32 @@ class Collections
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
     ];
+
+    /**
+     * Tokens for control structures which can use the alternative control structure syntax.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$alternativeControlStructureSyntaxTokens}
+     *                     property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function alternativeControlStructureSyntaxes()
+    {
+        return self::$alternativeControlStructureSyntaxTokens;
+    }
+
+    /**
+     * Tokens representing alternative control structure syntax closer keywords.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$alternativeControlStructureSyntaxCloserTokens}
+     *                     property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function alternativeControlStructureSyntaxClosers()
+    {
+        return self::$alternativeControlStructureSyntaxCloserTokens;
+    }
 
     /**
      * Tokens which can represent the arrow function keyword.
