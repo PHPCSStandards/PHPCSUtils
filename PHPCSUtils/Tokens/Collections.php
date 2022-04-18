@@ -67,21 +67,6 @@ class Collections
     ];
 
     /**
-     * Tokens which can open an array.
-     *
-     * PHPCS cross-version compatible.
-     *
-     * @since 1.0.0-alpha4
-     *
-     * @var array <int|string> => <int|string>
-     */
-    public static $arrayOpenTokensBC = [
-        \T_ARRAY               => \T_ARRAY,
-        \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
-        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
-    ];
-
-    /**
      * Tokens which are used to create arrays.
      *
      * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC    Related property containing tokens used
@@ -535,6 +520,24 @@ class Collections
     }
 
     /**
+     * Tokens which can open an array.
+     *
+     * PHPCS cross-version compatible.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrayOpenTokensBC()
+    {
+        return [
+            \T_ARRAY               => \T_ARRAY,
+            \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
+            \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
+        ];
+    }
+
+    /**
      * Tokens which can represent the arrow function keyword.
      *
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
@@ -849,7 +852,7 @@ class Collections
         $tokens[\T_UNSET] = \T_UNSET;
 
         // Array tokens.
-        $tokens += self::$arrayOpenTokensBC;
+        $tokens += self::arrayOpenTokensBC();
 
         return $tokens;
     }
