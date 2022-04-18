@@ -278,11 +278,11 @@ class Collections
     ];
 
     /**
-     * OO scopes in which constants can be declared.
+     * DEPRECATED: OO scopes in which constants can be declared.
      *
-     * Note: traits can not declare constants.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooConstantScopes()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -323,11 +323,11 @@ class Collections
     ];
 
     /**
-     * OO scopes in which properties can be declared.
+     * DEPRECATED: OO scopes in which properties can be declared.
      *
-     * Note: interfaces can not declare properties.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooPropertyScopes()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -954,6 +954,34 @@ class Collections
     public static function ooCanImplement()
     {
         return self::$OOCanImplement;
+    }
+
+    /**
+     * OO scopes in which constants can be declared.
+     *
+     * Note: traits can not declare constants.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOConstantScopes} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooConstantScopes()
+    {
+        return self::$OOConstantScopes;
+    }
+
+    /**
+     * OO scopes in which properties can be declared.
+     *
+     * Note: interfaces can not declare properties.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOPropertyScopes} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooPropertyScopes()
+    {
+        return self::$OOPropertyScopes;
     }
 
     /**
