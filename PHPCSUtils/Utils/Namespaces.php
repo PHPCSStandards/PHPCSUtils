@@ -62,7 +62,7 @@ class Namespaces
                 + BCTokens::operators()
                 + Tokens::$castTokens
                 + Tokens::$blockOpeners
-                + Collections::$incrementDecrementOperators
+                + Collections::incrementDecrementOperators()
                 + Collections::objectOperators();
 
             $findAfter[\T_OPEN_CURLY_BRACKET]  = \T_OPEN_CURLY_BRACKET;

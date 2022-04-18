@@ -153,9 +153,11 @@ class Collections
     ];
 
     /**
-     * Increment/decrement operator tokens.
+     * DEPRECATED: Increment/decrement operator tokens.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::incrementDecrementOperators()} method instead.
      *
      * @var array <int> => <int>
      */
@@ -726,6 +728,18 @@ class Collections
         $tokens += self::arrowFunctionTokensBC();
 
         return $tokens;
+    }
+
+    /**
+     * Increment/decrement operator tokens.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$incrementDecrementOperators} property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function incrementDecrementOperators()
+    {
+        return self::$incrementDecrementOperators;
     }
 
     /**
