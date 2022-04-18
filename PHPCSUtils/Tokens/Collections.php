@@ -472,9 +472,11 @@ class Collections
     ];
 
     /**
-     * Tokens which can start a - potentially multi-line - text string.
+     * DEPRECATED: Tokens which can start a - potentially multi-line - text string.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::textStingStartTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -1397,5 +1399,17 @@ class Collections
     public static function shortListTokensBC()
     {
         return self::$shortListTokensBC;
+    }
+
+    /**
+     * Tokens which can start a - potentially multi-line - text string.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$textStingStartTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function textStingStartTokens()
+    {
+        return self::$textStingStartTokens;
     }
 }
