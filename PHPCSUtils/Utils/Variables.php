@@ -126,7 +126,7 @@ class Variables
             throw new RuntimeException('$stackPtr is not a class member var');
         }
 
-        $valid = Collections::$propertyModifierKeywords + Tokens::$emptyTokens;
+        $valid = Collections::propertyModifierKeywords() + Tokens::$emptyTokens;
 
         $scope          = 'public';
         $scopeSpecified = false;

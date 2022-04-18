@@ -356,9 +356,11 @@ class Collections
     ];
 
     /**
-     * Modifier keywords which can be used for a property declaration.
+     * DEPRECATED: Modifier keywords which can be used for a property declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyModifierKeywords()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -1149,6 +1151,18 @@ class Collections
             \T_OPEN_TAG           => \T_OPEN_TAG,
             \T_OPEN_TAG_WITH_ECHO => \T_OPEN_TAG_WITH_ECHO,
         ];
+    }
+
+    /**
+     * Modifier keywords which can be used for a property declaration.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyModifierKeywords} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function propertyModifierKeywords()
+    {
+        return self::$propertyModifierKeywords;
     }
 
     /**
