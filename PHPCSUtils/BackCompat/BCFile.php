@@ -573,6 +573,7 @@ class BCFile
      * - PHPCS 3.5.0: The Exception thrown changed from a `\PHP_CodeSniffer\Exceptions\TokenizerException`
      *                to `\PHP_CodeSniffer\Exceptions\RuntimeException`.
      * - PHPCS 3.5.3: Added support for PHP 7.4 `T_FN` arrow functions.
+     * - PHPCS 3.5.6: Added support for PHP 8.0 `static` return types.
      * - PHPCS 3.5.7: Added support for namespace operators in type declarations. PHPCS#3066.
      * - PHPCS 3.6.0: Added support for PHP 8.0 union types. PHPCS#3032.
      * - PHPCS 3.6.0: Added new `"return_type_end_token"` index. PHPCS#3153.
@@ -582,7 +583,7 @@ class BCFile
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
-     * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type (expected in future PHPCS release).
+     * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -1229,6 +1230,7 @@ class BCFile
      * - Introduced in PHPCS 2.1.0.
      * - PHPCS 2.6.2: New optional `$ignore` parameter to selectively ignore stop points.
      * - PHPCS 3.5.5: Added support for PHP 7.4 `T_FN` arrow functions.
+     * - PHPCS 3.5.7: Bug fix: Heredoc/Nowdoc was not always handled correctly. PHPCS#2883
      *
      * @see \PHP_CodeSniffer\Files\File::findStartOfStatement() Original source.
      *
