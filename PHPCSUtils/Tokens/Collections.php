@@ -249,9 +249,11 @@ class Collections
     ];
 
     /**
-     * OO structures which can use the "extends" keyword.
+     * DEPRECATED: OO structures which can use the "extends" keyword.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooCanExtend()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -262,9 +264,11 @@ class Collections
     ];
 
     /**
-     * OO structures which can use the "implements" keyword.
+     * DEPRECATED: OO structures which can use the "implements" keyword.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooCanImplement()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -926,6 +930,30 @@ class Collections
         $tokens += self::nullsafeObjectOperatorBC();
 
         return $tokens;
+    }
+
+    /**
+     * OO structures which can use the "extends" keyword.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOCanExtend} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooCanExtend()
+    {
+        return self::$OOCanExtend;
+    }
+
+    /**
+     * OO structures which can use the "implements" keyword.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOCanImplement} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooCanImplement()
+    {
+        return self::$OOCanImplement;
     }
 
     /**
