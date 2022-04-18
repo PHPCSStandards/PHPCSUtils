@@ -293,11 +293,11 @@ class Collections
     ];
 
     /**
-     * Tokens types used for "forwarding" calls within OO structures.
-     *
-     * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
+     * DEPRECATED: Tokens types used for "forwarding" calls within OO structures.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooHierarchyKeywords()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -968,6 +968,20 @@ class Collections
     public static function ooConstantScopes()
     {
         return self::$OOConstantScopes;
+    }
+
+    /**
+     * Tokens types used for "forwarding" calls within OO structures.
+     *
+     * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOHierarchyKeywords} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooHierarchyKeywords()
+    {
+        return self::$OOHierarchyKeywords;
     }
 
     /**
