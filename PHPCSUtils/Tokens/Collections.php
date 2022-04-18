@@ -78,6 +78,8 @@ class Collections
     /**
      * Tokens which are used to create arrays.
      *
+     * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC    Related property containing tokens used
+     *                                                        for arrays (PHPCS cross-version).
      * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
      *                                                        for short arrays.
      *
@@ -98,7 +100,7 @@ class Collections
      * Should only be used selectively.
      *
      * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
-     *                                                          for short arrays (cross-version).
+     *                                                          for short arrays (PHPCS cross-version).
      *
      * @since 1.0.0
      *
@@ -180,6 +182,8 @@ class Collections
     /**
      * Tokens which are used to create lists.
      *
+     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC    Related property containing tokens used
+     *                                                       for lists (PHPCS cross-version).
      * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related property containing only tokens used
      *                                                       for short lists.
      *
@@ -252,8 +256,7 @@ class Collections
      *
      * @since 1.0.0-alpha3
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::objectOperators()}
-     *                          method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::objectOperators()} method instead.
      *
      * @var array <int> => <int>
      */
@@ -322,8 +325,7 @@ class Collections
      *
      * @since 1.0.0-alpha3
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::namespacedNameTokens()}
-     *                          method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::namespacedNameTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -351,11 +353,10 @@ class Collections
     /**
      * DEPRECATED: Token types which can be encountered in a parameter type declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::parameterTypeTokens()}
-     *                          or {@see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC()}
-     *                          method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} or
+     *                          {@see Collections::parameterTypeTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -385,11 +386,10 @@ class Collections
     /**
      * DEPRECATED: Token types which can be encountered in a property type declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::propertyTypeTokens()}
-     *                          or {@see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC()}
-     *                          method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} or
+     *                          {@see Collections::propertyTypeTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -404,11 +404,10 @@ class Collections
     /**
      * DEPRECATED: Token types which can be encountered in a return type declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\Tokens\Collections::returnTypeTokens()}
-     *                          or {@see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC()}
-     *                          method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} or
+     *                          {@see Collections::returnTypeTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -507,6 +506,12 @@ class Collections
      * Tokens which can represent the arrow function keyword.
      *
      * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
+     *
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()           Determine whether an arbitrary token
+     *                                                                          is in actual fact an arrow function
+     *                                                                          keyword.
+     * @see \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose() Get an arrow function's parentheses
+     *                                                                          and scope openers and closers.
      *
      * @since 1.0.0-alpha2
      *
@@ -695,7 +700,7 @@ class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::objectOperatorsBC() Related method (PHPCS 2.6.0+).
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$objectOperators} property.
      *
      * @return array <int|string> => <int|string>
      */
