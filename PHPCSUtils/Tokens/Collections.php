@@ -114,15 +114,11 @@ class Collections
     ];
 
     /**
-     * List of tokens which represent "closed" scopes.
+     * DEPRECATED: List of tokens which represent "closed" scopes.
      *
-     * I.e. anything declared within that scope - except for other closed scopes - is
-     * outside of the global namespace.
+     * @since 1.0.0-alpha1
      *
-     * This list doesn't contain the `T_NAMESPACE` token on purpose as variables declared
-     * within a namespace scope are still global and not limited to that namespace.
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::closedScopes()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -607,6 +603,24 @@ class Collections
     public static function classModifierKeywords()
     {
         return self::$classModifierKeywords;
+    }
+
+    /**
+     * List of tokens which represent "closed" scopes.
+     *
+     * I.e. anything declared within that scope - except for other closed scopes - is
+     * outside of the global namespace.
+     *
+     * This list doesn't contain the `T_NAMESPACE` token on purpose as variables declared
+     * within a namespace scope are still global and not limited to that namespace.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$closedScopes} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function closedScopes()
+    {
+        return self::$closedScopes;
     }
 
     /**

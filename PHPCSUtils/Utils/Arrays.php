@@ -300,7 +300,7 @@ class Arrays
         }
 
         $targets  = self::$doubleArrowTargets;
-        $targets += Collections::$closedScopes;
+        $targets += Collections::closedScopes();
         $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
@@ -330,7 +330,7 @@ class Arrays
             }
 
             // Skip over closed scopes which may contain foreach structures or generators.
-            if (isset(Collections::$closedScopes[$tokens[$doubleArrow]['code']]) === true
+            if (isset(Collections::closedScopes()[$tokens[$doubleArrow]['code']]) === true
                 && isset($tokens[$doubleArrow]['scope_closer']) === true
             ) {
                 $doubleArrow = $tokens[$doubleArrow]['scope_closer'];
