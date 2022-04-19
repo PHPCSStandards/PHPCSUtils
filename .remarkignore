@@ -1,0 +1,6 @@
+# Ignore rules for Remark.
+# Docs: https://github.com/unifiedjs/unified-engine/blob/HEAD/doc/ignore.md
+
+/docs/index.md
+/node_modules/
+/vendor/

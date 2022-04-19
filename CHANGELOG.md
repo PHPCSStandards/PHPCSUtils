@@ -1,4 +1,4 @@
-# Change Log for PHPCSUtils for PHP Codesniffer
+# Change Log for PHPCSUtils for PHP CodeSniffer
 
 All notable changes to this project will be documented in this file.
 
@@ -27,13 +27,16 @@ Notes:
 * New [`PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement()`][UseStatements::splitAndMergeImportUseStatement] method. [#117]
 
 #### PHPCS Backcompat
+
 * `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134], [PHPCS#2952]
 
 #### TestUtils
+
 * [`UtilityMethodTestCase`]: new public `$phpcsVersion` property for use in tests. [#107]
     **Note**: if the PHPCS version is needed within a data provider method for a test, `Helper::getVersion()` still needs to be used as the data providers are run before the `setUpBeforeClass()`-like methods which set the property.
 
 #### Tokens
+
 * New [`Collections::$incrementDecrementOperators`][`Collections`] property. [#130]
 * New [`Collections::$magicConstants`][`Collections`] property. [#106]
 * New [`Collections::$objectOperators`][`Collections`] property. [#130]
@@ -52,11 +55,13 @@ Notes:
 * `Collections::$returnTypeTokens`: support for "static" as a return type (PHP 8). [#134]
 
 #### Utils
+
 * `FunctionDeclarations::getProperties()`: support for "static" as a return type (PHP 8). [#134]
 
 ### Changed
 
 #### PHPCS Backcompat
+
 * `BCFile::getDeclarationName()`: has been made compatible with PHPCS 4.x. [#110]
 * `BCFile::getMethodProperties()`: has been made compatible with PHPCS 4.x. [#109]
 * `BCFile::getMemberProperties()`: has been made compatible with PHPCS 4.x. [#109]
@@ -65,10 +70,12 @@ Notes:
     A new `$config` parameter has been added to the method. This parameter is a required parameter when the method is used with PHPCS 4.x.
 
 #### TestUtils
+
 * [`UtilityMethodTestCase`]: tests for JS/CSS will now automatically be skipped when run in combination with PHPCS 4.x (which drops JS/CSS support). [#111]
 * Confirmed that the currently available test utils are compatible with PHPUnit 9.x. [#103]
 
 #### Tokens
+
 * `Collections::$parameterTypeTokens`: has been made compatible with PHPCS 4.x. [#109]
     :warning: This removes support for PHPCS < 3.3.0 from the property. Use the [`Collections::parameterTypeTokensBC()`][`Collections`] method instead if PHPCS < 3.3.0 needs to be supported.
 * `Collections::$propertyTypeTokens`: has been made compatible with PHPCS 4.x. [#109]
@@ -77,6 +84,7 @@ Notes:
     :warning: This removes support for PHPCS < 3.5.4 from the property. Use the [`Collections::returnTypeTokensBC()`][`Collections`] method instead if PHPCS < 3.5.4 needs to be supported.
 
 #### Utils
+
 * `FunctionDeclarations::getArrowFunctionOpenClose()`: has been made compatible with PHPCS 4.x. [#109]
 * `FunctionDeclarations::getProperties()`: has been made compatible with PHPCS 4.x. [#109]
 * :warning: `Lists::getAssignments()`: the return value of the method has been consolidated to be less fiddly to work with. [#129]
@@ -85,24 +93,28 @@ Notes:
 * `Variables::getMemberProperties()`: has been made compatible with PHPCS 4.x. [#109]
 
 #### Other
+
 * Composer: PHPCSUtils can now be installed in combination with PHPCS `4.0.x-dev@dev` for testing purposes.
 * Composer: The version requirements for the [Composer PHPCS plugin] have been widened to allow for version 0.7.0 which supports Composer 2.0.0.
 * Readme/website homepage: textual improvements. Props [@GaryJones]. [#121]
 * Readme/website homepage: added additional FAQ question & answers. [#157]
 * The website homepage is now generated using the GitHub Pages gem with Jekyll, making maintenance easier. [#141]
-* Significant improvements to the docblock documentation and by extension the [generated API documentation]. [#145], [#146], [#147], [#148], [#149], [#150], [#151], [#152], [#153], [154], [#155], [#156]
+* Significant improvements to the docblock documentation and by extension the [generated API documentation]. [#145], [#146], [#147], [#148], [#149], [#150], [#151], [#152], [#153], [#154], [#155], [#156]
 * Various housekeeping.
 
 ### Fixed
 
 #### Abstract Sniffs
+
 * `AbstractArrayDeclarationSniff`: improved parse error handling. [#99]
 
 #### PHPCS Backcompat
+
 * `BCFile::findEndOfStatement()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143]
 * `BcFile::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#160], [PHPCS#2977]
 
 #### Utils
+
 * `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143]
 * `FunctionDeclarations::getArrowFunctionOpenClose()`: now supports for arrow functions returning heredoc/nowdocs, in line with the same change made in PHPCS `master` and expected to be released in PHPCS 3.5.6. [#143]
 * `FunctionDeclarations::getName()`: bug fix for functions declared to return by reference. [#131]
@@ -175,6 +187,7 @@ Note:
 * New [`PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()`][FunctionDeclarations::getArrowFunctionOpenClose] method. [#77], [#79]
 
 #### PHPCS Backcompat
+
 * `BCFile::isReference()`: support for arrow functions returning by reference. [#77]
 * `BCFile::getMethodParameters()`: support for arrow functions. [#77], [#79]
 * `BCFile::getMethodProperties()`: support for arrow functions. [#77], [#79], [#89]
@@ -183,12 +196,14 @@ Note:
 * `BCFile::findStartOfStatement()`: support for arrow functions. [#77]
 
 #### Tokens
+
 * New [`Collections::$alternativeControlStructureSyntaxTokens`][`Collections`] property. [#70]
 * New [`Collections::$alternativeControlStructureSyntaxCloserTokens`][`Collections`] property. [#68], [#69]
 * New [`Collections::$controlStructureTokens`][`Collections`] property. [#70]
 * New [`Collections::arrowFunctionTokensBC()`][`Collections`] method. [#79]
 
 #### Utils
+
 * `Arrays::getDoubleArrowPtr()`: support for arrow functions. [#77], [#79], [#84]
 * `FunctionDeclarations::getParameters()`: support for arrow functions. [#77], [#79]
 * `FunctionDeclarations::getProperties()`: support for arrow functions. [#77], [#79]
@@ -197,21 +212,26 @@ Note:
 * `Parentheses::isOwnerIn()`: support for arrow functions. [#77], [#79]
 
 #### Other
-* Documentation website at https://phpcsutils.com/
+
+* Documentation website at <https://phpcsutils.com/>
 
 ### Changed
 
 #### PHPCS Backcompat
+
 * `BCFile::getCondition()`: sync with PHPCS 3.5.4 - added support for new `$first` parameter. [#73]
 
 #### Tokens
+
 * The `Collections::$returnTypeTokens` property now includes `T_ARRAY` to allow for supporting arrow functions in PHPCS < 3.5.3. [#77]
 
 #### Utils
+
 * :warning: `Conditions::getCondition()`: sync with PHPCS 3.5.4 - renamed the existing `$reverse` parameter to `$first` and reversing the meaning of the boolean values, to stay in line with PHPCS itself. [#73]
 * :warning: `Numbers`: the `$unsupportedPHPCSVersions` property has been replaced with an `UNSUPPORTED_PHPCS_VERSION` constant. [#88]
 
 #### Other
+
 * Various housekeeping.
 
 [FunctionDeclarations::isArrowFunction]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction
@@ -242,26 +262,32 @@ All utilities offered are compatible with PHP_CodeSniffer 2.6.0 up to the latest
 This initial alpha release contains the following utility classes:
 
 ### Abstract Sniffs
+
 * [`AbstractArrayDeclarationSniff`]: to examine array declarations.
 
 ### Backcompat
+
 * [`BCFile`]: Backport of the latest versions of PHPCS native utility functions from the `PHP_CodeSniffer\Files\File` class to make them available in older PHPCS versions without the bugs and other quirks that the older versions of the native functions had.
 * [`BCTokens`]: Backport of the latest versions of PHPCS native token arrays from the `PHP_CodeSniffer\Util\Tokens` class to make them available in older PHPCS versions.
 * [`Helper`]: Utility methods to retrieve (configuration) information from PHP_CodeSniffer 2.x as well as 3.x.
 
 ### Fixers
+
 * [`SpacesFixer`]: Utility to check and, if necessary, fix the whitespace between two tokens.
 
 ### TestUtils
+
 * [`UtilityMethodTestCase`]: Base class for use when testing utility methods for PHP_CodeSniffer.
     Compatible with both PHPCS 2.x as well as 3.x. Supports PHPUnit 4.x up to 8.x.
     See the usage instructions in the class docblock.
 
 ### Tokens
+
 * [`Collections`]: Collections of related tokens as often used and needed for sniffs.
     These are additional "token groups" to compliment the ones available through the PHPCS native `PHP_CodeSniffer\Util\Tokens` class.
 
 ### Utils
+
 * [`Arrays`]: Utility functions for use when examining arrays.
 * [`Conditions`]: Utility functions for use when examining token conditions.
 * [`FunctionDeclarations`]: Utility functions for use when examining function declaration statements.
@@ -278,7 +304,6 @@ This initial alpha release contains the following utility classes:
 * [`TextStrings`]: Utility functions for working with text string tokens.
 * [`UseStatements`]: Utility functions for examining use statements.
 * [`Variables`]: Utility functions for use when examining variables.
-
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...HEAD

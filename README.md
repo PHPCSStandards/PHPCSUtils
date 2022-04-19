@@ -1,21 +1,20 @@
-PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
-=====================================================
+# PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 
 <div aria-hidden="true">
 
-[![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)](https://packagist.org/packages/phpcsstandards/phpcsutils)
-[![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)](https://github.com/PHPCSStandards/PHPCSUtils/releases)
+[![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)][phpcsutils-packagist]
+[![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)][phpcsutils-releases]
 :construction:
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-dev--develop-e68718.svg?maxAge=2419200)](https://packagist.org/packages/phpcsstandards/phpcsutils#dev-develop)
 [![Last Commit to Unstable](https://img.shields.io/github/last-commit/PHPCSStandards/PHPCSUtils/develop.svg)](https://github.com/PHPCSStandards/PHPCSUtils/commits/develop)
 
-[![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)](https://packagist.org/packages/phpcsstandards/phpcsutils)
+[![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)][phpcsutils-packagist]
 [![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml)
-[![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml)
-[![Tested on PHP 5.4 to 8.1](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1-brightgreen.svg?maxAge=2419200)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml)
+[![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)][phpcsutils-tests-gha]
+[![Tested on PHP 5.4 to 8.1](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1-brightgreen.svg?maxAge=2419200)][phpcsutils-tests-gha]
 [![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg?branch=develop)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils?branch=develop)
 
-[![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/ghpages.yml/badge.svg)](https://phpcsutils.com/)
+[![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/ghpages.yml/badge.svg)][phpcsutils-web]
 [![License: LGPLv3](https://poser.pugx.org/phpcsstandards/phpcsutils/license)](https://github.com/PHPCSStandards/PHPCSUtils/blob/master/LICENSE)
 ![Awesome](https://img.shields.io/badge/awesome%3F-yes!-brightgreen.svg)
 
@@ -24,17 +23,16 @@ PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 * [Features](#features)
 * [Minimum Requirements](#minimum-requirements)
 * [Integrating PHPCSUtils in your external PHPCS standard](#integrating-phpcsutils-in-your-external-phpcs-standard)
-    + [Composer-based with a minimum PHPCS requirement of PHPCS 3.1.0](#composer-based-with-a-minimum-phpcs-requirement-of-phpcs-310)
-    + [Composer-based with a minimum PHPCS requirement of PHPCS 2.6.0](#composer-based-with-a-minimum-phpcs-requirement-of-phpcs-260)
-    + [Non-Composer based integration](#non-composer-based-integration)
+    - [Composer-based with a minimum PHPCS requirement of PHPCS 3.1.0](#composer-based-with-a-minimum-phpcs-requirement-of-phpcs-310)
+    - [Composer-based with a minimum PHPCS requirement of PHPCS 2.6.0](#composer-based-with-a-minimum-phpcs-requirement-of-phpcs-260)
+    - [Non-Composer based integration](#non-composer-based-integration)
 * [Frequently Asked Questions](#frequently-asked-questions)
 * [Potential Support Questions from your End-Users](#potential-support-questions-from-your-end-users)
 * [Contributing](#contributing)
 * [License](#license)
 
 
-Features
--------------------------------------------
+## Features
 
 [PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer] (or "PHPCS" for short).
 
@@ -42,22 +40,22 @@ This package offers the following features:
 
 <div id="feature-list">
 
-### Use the latest version of PHP_CodeSniffer native utility functions.
+### Use the latest version of PHP_CodeSniffer native utility functions
 
 Normally to use the latest version of PHP_CodeSniffer native utility functions, you would have to raise the minimum requirements of your external PHPCS standard.
 
 Now you won't have to anymore. This package allows you to use the latest version of those utility functions in all PHP_CodeSniffer versions from PHPCS 2.6.0 and up.
 
-### Several abstract sniff classes which your sniffs can extend.
+### Several abstract sniff classes which your sniffs can extend
 
 These classes take most of the heavy lifting away for some frequently occurring sniff types.
 
-### A collection of static properties and methods for often-used token groups.
+### A collection of static properties and methods for often-used token groups
 
 Collections of related tokens often-used and needed for sniffs.
 These are additional "token groups" to compliment the ones available through the PHPCS native `PHP_CodeSniffer\Util\Tokens` class.
 
-### An ever-growing number of utility functions for use with PHP_CodeSniffer.
+### An ever-growing number of utility functions for use with PHP_CodeSniffer
 
 Whether you need to split an `array` into the individual items, are trying to determine which variables are being assigned to in a `list()` or are figuring out whether a function has a DocBlock, PHPCSUtils has got you covered!
 
@@ -76,12 +74,12 @@ A `PHPCS23Utils` standard which allows sniffs to work in both PHPCS 2.x and 3.x,
 
 ### Fully documented
 
-To see detailed information about all the available abstract sniffs, utility functions and PHPCS helper functions, have a read through the [extensive documentation](https://phpcsutils.com/).
+To see detailed information about all the available abstract sniffs, utility functions and PHPCS helper functions, have a read through the [extensive documentation][phpcsutils-web].
 
 </div>
 
-Minimum Requirements
--------------------------------------------
+
+## Minimum Requirements
 
 * PHP 5.4 or higher.
 * [PHP_CodeSniffer] 2.6.0+, 3.1.0+ (with the exception of PHPCS 3.5.3).
@@ -89,8 +87,7 @@ Minimum Requirements
     - PCRE with Unicode support (normally enabled by default)
 
 
-Integrating PHPCSUtils in your external PHPCS standard
--------------------------------------------
+## Integrating PHPCSUtils in your external PHPCS standard
 
 ### Composer-based with a minimum PHPCS requirement of PHPCS 3.1.0
 
@@ -154,7 +151,7 @@ Your installation instructions for a non-Composer based installation will probab
 
 > * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/squizlabs/PHP_CodeSniffer#installation).
 > * Register the path to PHPCS in your system `$PATH` environment variable to make the `phpcs` command available from anywhere in your file system.
-> * Download the [latest _YourStandardName_ release] and unzip/untar it into an arbitrary directory.
+> * Download the \[latest _YourStandardName_ release\] and unzip/untar it into an arbitrary directory.
 >     You can also choose to clone the repository using git.
 > * Add the path to the directory in which you placed your copy of the _YourStandardName_ repo to the PHP_CodeSniffer configuration using the below command:
 >    ```bash
@@ -167,7 +164,7 @@ Your installation instructions for a non-Composer based installation will probab
 
 For things to continue working when you add PHPCSUtils to your standard, you need to replace the last bullet with this:
 
-> * **Next, download the [latest PHPCSUtils release](https://github.com/PHPCSStandards/PHPCSUtils/releases) and unzip/untar it into an arbitrary directory.**
+> * **Next, download the [latest PHPCSUtils release][phpcsutils-releases] and unzip/untar it into an arbitrary directory.**
 >     You can also choose to clone the repository using git.
 > * Add the path to the **directories** in which you placed your copy of the _YourStandardName_ repo **and the PHPCSUtils repo** to the PHP_CodeSniffer configuration using the below command:
 >    ```bash
@@ -197,7 +194,8 @@ if ($phpcsUtilDir === false && file_exists(__DIR__ . '/vendor/autoload.php')) {
     // Load the Composer autoload file.
     require_once $vendorDir . '/autoload.php';
 
-    // This snippet is only needed when you use the PHPCSUtils TestUtils or if your standard still supports PHPCS 2.x.
+    // This snippet is only needed when you use the PHPCSUtils TestUtils
+    // or if your standard still supports PHPCS 2.x.
     if (file_exists($phpcsUtilDir . '/phpcsutils-autoload.php')) {
         require_once $phpcsUtilDir . '/phpcsutils-autoload.php';
     }
@@ -230,28 +228,27 @@ Once that's done, you will need to make a small tweak to your own dev environmen
     ```
 
 
-Frequently Asked Questions
--------
+## Frequently Asked Questions
 
 <div id="faq">
 
-#### Q: How does this all work without an external standard needing to register an autoloader?
+### Q: How does this all work without an external standard needing to register an autoloader?
 
 A: As PHPCSUtils is registered with PHPCS as an external standard and PHPCSUtils complies with the naming requirements of PHPCS, the PHPCS native autoloader will automatically take care of loading the classes used from PHPCSUtils.
 
-#### Q: What does the `PHPCS23Utils` standard do?
+### Q: What does the `PHPCS23Utils` standard do?
 
 A: All the `PHPCS23Utils` standard does is load the `phpcsutils-autoload.php` file.
 
 PHPCS 3.x uses namespaces, while PHPCS 2.x does not. The `phpcsutils-autoload.php` file creates `class_alias`-es for the most commonly used PHPCS classes, including all PHPCS classes used by PHPCSUtils. That way, both your external standard as well as PHPCSUtils can refer to the PHPCS 3.x class names and the code will still work in PHPCS 2.x.
 
-#### Q: Why is PHP_CodeSniffer 3.5.3 not supported?
+### Q: Why is PHP_CodeSniffer 3.5.3 not supported?
 
 A: The backfill for PHP 7.4 numeric literals with underscores in PHP_CodeSniffer 3.5.3 is broken and there is no way to reliably provide support for anything to do with numbers or `T_STRING` tokens when using PHP_CodeSniffer 3.5.3 as the tokens returned by the tokenizer are unpredictable and unreliable.
 
 The backfill was fixed in PHP_CodeSniffer 3.5.4.
 
-#### Q: Any other problematic PHPCS versions?
+### Q: Any other problematic PHPCS versions?
 
 A: Well, the arrow function backfill which was added in PHPCS 3.5.3 may still cause problems. In a very limited set of circumstances, it will even hang the Tokenizer. A fix for [one particular such problem](https://github.com/squizlabs/php_codesniffer/issues/2926) was committed upstream and released in PHP_CodeSniffer 3.5.6, but there is no guarantee that all issues have been found.
 
@@ -259,18 +256,18 @@ As the Tokenizer hanging is a problem unrelated to PHPCSUtils and not something 
 
 There are several other issues which can not be worked around, like scope closers being set incorrectly and throwing the scope setting off for the rest of the file, so not withstanding that PHPCSUtils can work around a lot of issues, it is still highly recommended to advise your end-users to always use the latest version of PHPCS for the most reliable results.
 
-#### Q: Does using PHPCSUtils have any effect on the PHPCS native sniffs?
+### Q: Does using PHPCSUtils have any effect on the PHPCS native sniffs?
 
 A: No. PHPCSUtils will only work for those sniffs which explicitly use the PHPCSUtils functionality.
 
 If your standard includes both PHPCS native sniffs as well as your own sniffs, your own sniffs can benefit from the back-compat layer offered by PHPCSUtils, as well as from the additional utility functions. However, the PHPCS native sniffs will not receive those benefits, as PHPCS itself does not use PHPCSUtils.
 
-#### Q: Do the utilities work with javascript/CSS files?
+### Q: Do the utilities work with javascript/CSS files?
 
 A: JS/CSS support will be removed from PHP_CodeSniffer in PHPCS 4.x.
 While at this time, some of the utilies _may_ work with JS/CSS files, PHPCSUtils does not offer formal support for JS/CSS sniffing with PHP_CodeSniffer and will stop any existing support once PHPCS 4.x has been released.
 
-#### Q: Are all file encodings supported?
+### Q: Are all file encodings supported?
 
 A: No. The UTF-8 file encoding is the only officially supported encoding. Support for other encodings may incidentally work, but is not officially supported.
 
@@ -280,19 +277,22 @@ PHP_CodeSniffer 3.x will default to UTF-8 as the expected file encoding.
 If your standard supports PHP_CodeSniffer 2.x, it is recommended to set the expected encoding in the ruleset to `utf-8`, like so: `<arg name="encoding" value="utf-8"/>` or to advise users to use the CLI option `--encoding=utf-8`.
 
 
-Potential Support Questions from your End-Users
--------
+## Potential Support Questions from your End-Users
 
-#### Q: A user reports a fatal "class not found" error for a class from PHPCSUtils.
+### Q: A user reports a fatal "class not found" error for a class from PHPCSUtils
 
 1. Check that the version of PHPCSUtils the user has installed complies with the minimum version of PHPCSUtils your standard requires. If not, they will need to upgrade.
 2. If the version is correct, this indicates that the end-user does not have PHPCSUtils installed and/or registered with PHP_CodeSniffer.
     - Please review your standard's installation instructions to make sure that PHPCSUtils will be installed when those are followed.
     - Inform the user to install PHPCSUtils and register it with PHP_CodeSniffer.
 
+---
+
 > :bulb: **Pro-tip**: if you want to prevent the fatal error and show a _friendlier_ error message instead, add `<rule ref="PHPCSUtils"/>` to your standard's `ruleset.xml` file.
 >
 > With that in place, PHP_CodeSniffer will show a _"ERROR: the "PHPCSUtils" coding standard is not installed."_ message if PHPCSUtils is missing as soon as the ruleset loading is finished.
+
+---
 
 > :bulb: **Pro-tip**: provide upgrade instructions for your end-users. For Composer-based installs, those should look like this:
 > ```bash
@@ -300,19 +300,26 @@ Potential Support Questions from your End-Users
 > ```
 > That way, when the user updates your coding standards package, they will automatically also update PHPCSUtils.
 
+---
+
 </div>
 
 
-Contributing
--------
+## Contributing
+
 Contributions to this project are welcome. Clone the repo, branch off from `develop`, make your changes, commit them and send in a pull request.
 
 If you are unsure whether the changes you are proposing would be welcome, please open an issue first to discuss your proposal.
 
-License
--------
+
+## License
+
 This code is released under the [GNU Lesser General Public License (LGPLv3)](http://www.gnu.org/copyleft/lesser.html).
 
 
 [PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
 [Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
+[phpcsutils-web]:        https://phpcsutils.com/
+[phpcsutils-packagist]:  https://packagist.org/packages/phpcsstandards/phpcsutils
+[phpcsutils-releases]:   https://github.com/PHPCSStandards/PHPCSUtils/releases
+[phpcsutils-tests-gha]:  https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml
