@@ -71,7 +71,7 @@ class Arrays
             return false;
         }
 
-        // All known tokenizer bugs are in PHPCS versions before 3.5.6.
+        // All known tokenizer bugs are in PHPCS versions before 3.6.0.
         $phpcsVersion = Helper::getVersion();
 
         /*

@@ -107,9 +107,9 @@ class Lists
 
             $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
             if ((($prevNonEmpty === 0
-                && isset(Collections::phpOpenTags()[$tokens[$prevNonEmpty]['code']]) === true) // Bug #1971.
+                && isset(Collections::phpOpenTags()[$tokens[$prevNonEmpty]['code']]) === true) // Bug PHPCS#1971.
                 || ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
-                    && isset($tokens[$prevNonEmpty]['scope_condition']))) // Bug #1284.
+                    && isset($tokens[$prevNonEmpty]['scope_condition']))) // Bug PHPCS#1284.
             ) {
                 $closer       = $tokens[$opener]['bracket_closer'];
                 $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);

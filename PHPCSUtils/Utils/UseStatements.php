@@ -299,7 +299,12 @@ class UseStatements
 
                 case 'T_NAME_QUALIFIED':
                 case 'T_NAME_FULLY_QUALIFIED': // This would be a parse error, but handle it anyway.
-                    // Only when either at the start of the statement or at the start of a new sub within a group.
+                    /*
+                     * PHPCS 4.x or PHP > 8.0 with PHPCS < 3.5.7.
+                     *
+                     * These tokens can only be encountered when either at the start of the statement
+                     * or at the start of a new sub within a group.
+                     */
                     if ($start === true && $fixedType === false) {
                         $type = 'name';
                     }

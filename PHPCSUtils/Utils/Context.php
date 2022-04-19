@@ -94,7 +94,7 @@ class Context
      * @param int                         $stackPtr  The position of the token we are checking.
      *
      * @return string|false String `'beforeAs'`, `'as'` or `'afterAs'` when the token is within
-     *                      a foreach condition.
+     *                      a `foreach` condition.
      *                      `FALSE` in all other cases, including for parse errors.
      */
     public static function inForeachCondition(File $phpcsFile, $stackPtr)
@@ -146,7 +146,7 @@ class Context
      * @param int                         $stackPtr  The position of the token we are checking.
      *
      * @return string|false String `'expr1'`, `'expr2'` or `'expr3'` when the token is within
-     *                      a for condition.
+     *                      a `for` condition.
      *                      `FALSE` in all other cases, including for parse errors.
      */
     public static function inForCondition(File $phpcsFile, $stackPtr)

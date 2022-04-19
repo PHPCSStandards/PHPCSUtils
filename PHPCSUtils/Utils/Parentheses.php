@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  * @since 1.0.0-alpha4 Added support for `isset()`, `unset()`, `empty()`, `exit()`, `die()`
- *                     and `eval()`` as parentheses owners to all applicable functions.
+ *                     and `eval()` as parentheses owners to all applicable functions.
  */
 class Parentheses
 {
@@ -34,7 +34,7 @@ class Parentheses
      * Extra tokens which should be considered parentheses owners.
      *
      * - `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
-     * - `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EXIT` and `T_EVAL` are not PHPCS native parentheses,
+     * - `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EXIT` and `T_EVAL` are not PHPCS native parentheses
      *    owners, but are considered such for the purposes of this class.
      *    Also {@see https://github.com/squizlabs/PHP_CodeSniffer/issues/3118}.
      *
