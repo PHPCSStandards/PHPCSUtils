@@ -441,11 +441,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short lists.
+     * DEPRECATED: Tokens which are used for short lists.
      *
-     * @see \PHPCSUtils\Tokens\Collections::listTokens() Related method to retrieve all tokens used for lists.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortListTokens()} or
+     *                          {@see Collections::shortListTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -455,15 +456,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short lists.
+     * DEPRECATED: Tokens which are used for short lists.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::listTokensBC() Related method to retrieve all tokens used for lists
-     *                                                     (cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortListTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -746,7 +743,7 @@ class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::listTokensBC()    Related method to retrieve tokens used
      *                                                        for lists (PHPCS cross-version).
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens  Related property containing only tokens used
+     * @see \PHPCSUtils\Tokens\Collections::shortListTokens() Related method to retrieve only tokens used
      *                                                        for short lists.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$listTokens} property.
@@ -764,8 +761,8 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related property containing only tokens used
-     *                                                         for short lists (cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortListTokensBC() Related method to retrieve only tokens used
+     *                                                          for short lists (cross-version).
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$listTokensBC} property.
      *
@@ -1368,5 +1365,37 @@ class Collections
     public static function shortArrayTokensBC()
     {
         return self::$shortArrayTokensBC;
+    }
+
+    /**
+     * Tokens which are used for short lists.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokens() Related method to retrieve all tokens used for lists.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortListTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortListTokens()
+    {
+        return self::$shortListTokens;
+    }
+
+    /**
+     * Tokens which are used for short lists.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokensBC() Related method to retrieve all tokens used for lists
+     *                                                     (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortListTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortListTokensBC()
+    {
+        return self::$shortListTokensBC;
     }
 }

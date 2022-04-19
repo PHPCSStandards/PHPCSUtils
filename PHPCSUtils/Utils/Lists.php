@@ -70,7 +70,7 @@ class Lists
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortListTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::shortListTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
