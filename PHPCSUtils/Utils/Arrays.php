@@ -67,7 +67,7 @@ class Arrays
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortArrayTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::shortArrayTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
@@ -78,7 +78,7 @@ class Arrays
         /*
          * Deal with square brackets which may be incorrectly tokenized short arrays.
          */
-        if (isset(Collections::$shortArrayTokens[$tokens[$stackPtr]['code']]) === false) {
+        if (isset(Collections::shortArrayTokens()[$tokens[$stackPtr]['code']]) === false) {
             if (\version_compare($phpcsVersion, '3.3.0', '>=')) {
                 // These will just be properly tokenized, plain square brackets. No need for further checks.
                 return false;

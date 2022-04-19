@@ -410,11 +410,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short arrays.
+     * DEPRECATED: Tokens which are used for short arrays.
      *
-     * @see \PHPCSUtils\Tokens\Collections::arrayTokens() Related method to retrieve all tokens used for arrays.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortArrayTokens()} or
+     *                          {@see Collections::shortArrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -424,15 +425,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short arrays.
+     * DEPRECATED: Tokens which are used for short arrays.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC() Related method to retrieve all tokens used for arrays
-     *                                                     (cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortArrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -538,10 +535,10 @@ class Collections
     /**
      * Tokens which are used to create arrays.
      *
-     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC()   Related method to retrieve tokens used
-     *                                                        for arrays (PHPCS cross-version).
-     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
-     *                                                        for short arrays.
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC()    Related method to retrieve tokens used
+     *                                                         for arrays (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortArrayTokens() Related method to retrieve only tokens used
+     *                                                         for short arrays.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$arrayTokens} property.
      *
@@ -558,8 +555,8 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
-     *                                                          for short arrays (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortArrayTokensBC() Related method to retrieve only tokens used
+     *                                                           for short arrays (PHPCS cross-version).
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$arrayTokensBC} property.
      *
@@ -1339,5 +1336,37 @@ class Collections
         }
 
         return $tokens;
+    }
+
+    /**
+     * Tokens which are used for short arrays.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokens() Related method to retrieve all tokens used for arrays.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortArrayTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortArrayTokens()
+    {
+        return self::$shortArrayTokens;
+    }
+
+    /**
+     * Tokens which are used for short arrays.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC() Related method to retrieve all tokens used for arrays
+     *                                                      (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortArrayTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortArrayTokensBC()
+    {
+        return self::$shortArrayTokensBC;
     }
 }
