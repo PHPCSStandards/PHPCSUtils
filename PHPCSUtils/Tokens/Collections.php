@@ -67,14 +67,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create arrays.
+     * DEPRECATED: Tokens which are used to create arrays.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC    Related property containing tokens used
-     *                                                        for arrays (PHPCS cross-version).
-     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
-     *                                                        for short arrays.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::arrayTokens()} or
+     *                          {@see Collections::arrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -85,15 +83,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create arrays.
+     * DEPRECATED: Tokens which are used to create arrays.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
-     *                                                          for short arrays (PHPCS cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::arrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -414,7 +408,7 @@ class Collections
     /**
      * Tokens which are used for short arrays.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$arrayTokens Related property containing all tokens used for arrays.
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokens() Related method to retrieve all tokens used for arrays.
      *
      * @since 1.0.0
      *
@@ -431,8 +425,8 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC Related property containing all tokens used for arrays
-     *                                                    (cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC() Related method to retrieve all tokens used for arrays
+     *                                                     (cross-version).
      *
      * @since 1.0.0
      *
@@ -535,6 +529,41 @@ class Collections
             \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
             \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
         ];
+    }
+
+    /**
+     * Tokens which are used to create arrays.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC()   Related method to retrieve tokens used
+     *                                                        for arrays (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
+     *                                                        for short arrays.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$arrayTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrayTokens()
+    {
+        return self::$arrayTokens;
+    }
+
+    /**
+     * Tokens which are used to create arrays.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
+     *                                                          for short arrays (PHPCS cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$arrayTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrayTokensBC()
+    {
+        return self::$arrayTokensBC;
     }
 
     /**
