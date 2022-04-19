@@ -167,14 +167,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create lists.
+     * DEPRECATED: Tokens which are used to create lists.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC    Related property containing tokens used
-     *                                                       for lists (PHPCS cross-version).
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related property containing only tokens used
-     *                                                       for short lists.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::listTokens()} or
+     *                          {@see Collections::listTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -185,15 +183,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create lists.
+     * DEPRECATED: Tokens which are used to create lists.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related property containing only tokens used
-     *                                                         for short lists (cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::listTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -444,7 +438,7 @@ class Collections
     /**
      * Tokens which are used for short lists.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokens Related property containing all tokens used for lists.
+     * @see \PHPCSUtils\Tokens\Collections::listTokens() Related method to retrieve all tokens used for lists.
      *
      * @since 1.0.0
      *
@@ -461,8 +455,8 @@ class Collections
      * List which is backward-compatible with PHPCS < 3.3.0.
      * Should only be used selectively.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC Related property containing all tokens used for lists
-     *                                                    (cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::listTokensBC() Related method to retrieve all tokens used for lists
+     *                                                     (cross-version).
      *
      * @since 1.0.0
      *
@@ -740,6 +734,41 @@ class Collections
     public static function incrementDecrementOperators()
     {
         return self::$incrementDecrementOperators;
+    }
+
+    /**
+     * Tokens which are used to create lists.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokensBC()    Related method to retrieve tokens used
+     *                                                        for lists (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens  Related property containing only tokens used
+     *                                                        for short lists.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$listTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function listTokens()
+    {
+        return self::$listTokens;
+    }
+
+    /**
+     * Tokens which are used to create lists.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related property containing only tokens used
+     *                                                         for short lists (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$listTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function listTokensBC()
+    {
+        return self::$listTokensBC;
     }
 
     /**
