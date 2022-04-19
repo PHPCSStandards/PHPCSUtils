@@ -27,9 +27,12 @@ class Collections
 {
 
     /**
-     * Control structures which can use the alternative control structure syntax.
+     * DEPRECATED: Control structures which can use the alternative control structure syntax.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::alternativeControlStructureSyntaxes()}
+     *                          method instead.
      *
      * @var array <int> => <int>
      */
@@ -45,9 +48,12 @@ class Collections
     ];
 
     /**
-     * Alternative control structure syntax closer keyword tokens.
+     * DEPRECATED: Alternative control structure syntax closer keyword tokens.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::alternativeControlStructureSyntaxClosers()}
+     *                          method instead.
      *
      * @var array <int> => <int>
      */
@@ -61,29 +67,12 @@ class Collections
     ];
 
     /**
-     * Tokens which can open an array.
+     * DEPRECATED: Tokens which are used to create arrays.
      *
-     * PHPCS cross-version compatible.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0-alpha4
-     *
-     * @var array <int|string> => <int|string>
-     */
-    public static $arrayOpenTokensBC = [
-        \T_ARRAY               => \T_ARRAY,
-        \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
-        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
-    ];
-
-    /**
-     * Tokens which are used to create arrays.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC    Related property containing tokens used
-     *                                                        for arrays (PHPCS cross-version).
-     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokens Related property containing only tokens used
-     *                                                        for short arrays.
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::arrayTokens()} or
+     *                          {@see Collections::arrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -94,15 +83,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create arrays.
+     * DEPRECATED: Tokens which are used to create arrays.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortArrayTokensBC Related property containing only tokens used
-     *                                                          for short arrays (PHPCS cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::arrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -115,9 +100,11 @@ class Collections
     ];
 
     /**
-     * Modifier keywords which can be used for a class declaration.
+     * DEPRECATED: Modifier keywords which can be used for a class declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::classModifierKeywords()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -127,15 +114,11 @@ class Collections
     ];
 
     /**
-     * List of tokens which represent "closed" scopes.
+     * DEPRECATED: List of tokens which represent "closed" scopes.
      *
-     * I.e. anything declared within that scope - except for other closed scopes - is
-     * outside of the global namespace.
+     * @since 1.0.0-alpha1
      *
-     * This list doesn't contain the `T_NAMESPACE` token on purpose as variables declared
-     * within a namespace scope are still global and not limited to that namespace.
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::closedScopes()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -149,9 +132,11 @@ class Collections
     ];
 
     /**
-     * Control structure tokens.
+     * DEPRECATED: Control structure tokens.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::controlStructureTokens()} method instead.
      *
      * @var array <int> => <int>
      */
@@ -168,9 +153,11 @@ class Collections
     ];
 
     /**
-     * Increment/decrement operator tokens.
+     * DEPRECATED: Increment/decrement operator tokens.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::incrementDecrementOperators()} method instead.
      *
      * @var array <int> => <int>
      */
@@ -180,14 +167,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create lists.
+     * DEPRECATED: Tokens which are used to create lists.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC    Related property containing tokens used
-     *                                                       for lists (PHPCS cross-version).
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokens Related property containing only tokens used
-     *                                                       for short lists.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::listTokens()} or
+     *                          {@see Collections::listTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -198,15 +183,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used to create lists.
+     * DEPRECATED: Tokens which are used to create lists.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::$shortListTokensBC Related property containing only tokens used
-     *                                                         for short lists (cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::listTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -219,11 +200,11 @@ class Collections
     ];
 
     /**
-     * Tokens for the PHP magic constants.
-     *
-     * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
+     * DEPRECATED: Tokens for the PHP magic constants.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\BackCompat\BCTokens::magicConstants()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -239,9 +220,11 @@ class Collections
     ];
 
     /**
-     * List of tokens which can end a namespace declaration statement.
+     * DEPRECATED: List of tokens which can end a namespace declaration statement.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::namespaceDeclarationClosers()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -266,9 +249,11 @@ class Collections
     ];
 
     /**
-     * OO structures which can use the "extends" keyword.
+     * DEPRECATED: OO structures which can use the "extends" keyword.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooCanExtend()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -279,9 +264,11 @@ class Collections
     ];
 
     /**
-     * OO structures which can use the "implements" keyword.
+     * DEPRECATED: OO structures which can use the "implements" keyword.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooCanImplement()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -291,11 +278,11 @@ class Collections
     ];
 
     /**
-     * OO scopes in which constants can be declared.
+     * DEPRECATED: OO scopes in which constants can be declared.
      *
-     * Note: traits can not declare constants.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooConstantScopes()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -306,11 +293,11 @@ class Collections
     ];
 
     /**
-     * Tokens types used for "forwarding" calls within OO structures.
-     *
-     * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
+     * DEPRECATED: Tokens types used for "forwarding" calls within OO structures.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooHierarchyKeywords()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -336,11 +323,11 @@ class Collections
     ];
 
     /**
-     * OO scopes in which properties can be declared.
+     * DEPRECATED: OO scopes in which properties can be declared.
      *
-     * Note: interfaces can not declare properties.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooPropertyScopes()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -369,9 +356,11 @@ class Collections
     ];
 
     /**
-     * Modifier keywords which can be used for a property declaration.
+     * DEPRECATED: Modifier keywords which can be used for a property declaration.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyModifierKeywords()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -421,11 +410,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short arrays.
+     * DEPRECATED: Tokens which are used for short arrays.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$arrayTokens Related property containing all tokens used for arrays.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortArrayTokens()} or
+     *                          {@see Collections::shortArrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -435,15 +425,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short arrays.
+     * DEPRECATED: Tokens which are used for short arrays.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::$arrayTokensBC Related property containing all tokens used for arrays
-     *                                                    (cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortArrayTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -455,11 +441,12 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short lists.
+     * DEPRECATED: Tokens which are used for short lists.
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokens Related property containing all tokens used for lists.
+     * @since 1.0.0-alpha1
      *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortListTokens()} or
+     *                          {@see Collections::shortListTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -469,15 +456,11 @@ class Collections
     ];
 
     /**
-     * Tokens which are used for short lists.
+     * DEPRECATED: Tokens which are used for short lists.
      *
-     * List which is backward-compatible with PHPCS < 3.3.0.
-     * Should only be used selectively.
+     * @since 1.0.0-alpha1
      *
-     * @see \PHPCSUtils\Tokens\Collections::$listTokensBC Related property containing all tokens used for lists
-     *                                                    (cross-version).
-     *
-     * @since 1.0.0
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::shortListTokensBC()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -489,9 +472,11 @@ class Collections
     ];
 
     /**
-     * Tokens which can start a - potentially multi-line - text string.
+     * DEPRECATED: Tokens which can start a - potentially multi-line - text string.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha1
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::textStingStartTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -501,6 +486,85 @@ class Collections
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
     ];
+
+    /**
+     * Tokens for control structures which can use the alternative control structure syntax.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$alternativeControlStructureSyntaxTokens}
+     *                     property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function alternativeControlStructureSyntaxes()
+    {
+        return self::$alternativeControlStructureSyntaxTokens;
+    }
+
+    /**
+     * Tokens representing alternative control structure syntax closer keywords.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$alternativeControlStructureSyntaxCloserTokens}
+     *                     property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function alternativeControlStructureSyntaxClosers()
+    {
+        return self::$alternativeControlStructureSyntaxCloserTokens;
+    }
+
+    /**
+     * Tokens which can open an array.
+     *
+     * PHPCS cross-version compatible.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrayOpenTokensBC()
+    {
+        return [
+            \T_ARRAY               => \T_ARRAY,
+            \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
+            \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
+        ];
+    }
+
+    /**
+     * Tokens which are used to create arrays.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC()    Related method to retrieve tokens used
+     *                                                         for arrays (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortArrayTokens() Related method to retrieve only tokens used
+     *                                                         for short arrays.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$arrayTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrayTokens()
+    {
+        return self::$arrayTokens;
+    }
+
+    /**
+     * Tokens which are used to create arrays.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::shortArrayTokensBC() Related method to retrieve only tokens used
+     *                                                           for short arrays (PHPCS cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$arrayTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function arrayTokensBC()
+    {
+        return self::$arrayTokensBC;
+    }
 
     /**
      * Tokens which can represent the arrow function keyword.
@@ -529,6 +593,48 @@ class Collections
         }
 
         return $tokens;
+    }
+
+    /**
+     * Modifier keywords which can be used for a class declaration.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$classModifierKeywords} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function classModifierKeywords()
+    {
+        return self::$classModifierKeywords;
+    }
+
+    /**
+     * List of tokens which represent "closed" scopes.
+     *
+     * I.e. anything declared within that scope - except for other closed scopes - is
+     * outside of the global namespace.
+     *
+     * This list doesn't contain the `T_NAMESPACE` token on purpose as variables declared
+     * within a namespace scope are still global and not limited to that namespace.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$closedScopes} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function closedScopes()
+    {
+        return self::$closedScopes;
+    }
+
+    /**
+     * Control structure tokens.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$controlStructureTokens} property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function controlStructureTokens()
+    {
+        return self::$controlStructureTokens;
     }
 
     /**
@@ -620,6 +726,65 @@ class Collections
         $tokens += self::arrowFunctionTokensBC();
 
         return $tokens;
+    }
+
+    /**
+     * Increment/decrement operator tokens.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$incrementDecrementOperators} property.
+     *
+     * @return array <int> => <int>
+     */
+    public static function incrementDecrementOperators()
+    {
+        return self::$incrementDecrementOperators;
+    }
+
+    /**
+     * Tokens which are used to create lists.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokensBC()    Related method to retrieve tokens used
+     *                                                        for lists (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortListTokens() Related method to retrieve only tokens used
+     *                                                        for short lists.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$listTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function listTokens()
+    {
+        return self::$listTokens;
+    }
+
+    /**
+     * Tokens which are used to create lists.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::shortListTokensBC() Related method to retrieve only tokens used
+     *                                                          for short lists (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$listTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function listTokensBC()
+    {
+        return self::$listTokensBC;
+    }
+
+    /**
+     * List of tokens which can end a namespace declaration statement.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$namespaceDeclarationClosers} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function namespaceDeclarationClosers()
+    {
+        return self::$namespaceDeclarationClosers;
     }
 
     /**
@@ -766,6 +931,72 @@ class Collections
     }
 
     /**
+     * OO structures which can use the "extends" keyword.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOCanExtend} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooCanExtend()
+    {
+        return self::$OOCanExtend;
+    }
+
+    /**
+     * OO structures which can use the "implements" keyword.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOCanImplement} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooCanImplement()
+    {
+        return self::$OOCanImplement;
+    }
+
+    /**
+     * OO scopes in which constants can be declared.
+     *
+     * Note: traits can not declare constants.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOConstantScopes} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooConstantScopes()
+    {
+        return self::$OOConstantScopes;
+    }
+
+    /**
+     * Tokens types used for "forwarding" calls within OO structures.
+     *
+     * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOHierarchyKeywords} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooHierarchyKeywords()
+    {
+        return self::$OOHierarchyKeywords;
+    }
+
+    /**
+     * OO scopes in which properties can be declared.
+     *
+     * Note: interfaces can not declare properties.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOPropertyScopes} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function ooPropertyScopes()
+    {
+        return self::$OOPropertyScopes;
+    }
+
+    /**
      * Tokens which can represent the nullsafe object operator.
      *
      * This method will return the appropriate tokens based on the PHP/PHPCS version used.
@@ -817,7 +1048,7 @@ class Collections
         $tokens[\T_UNSET] = \T_UNSET;
 
         // Array tokens.
-        $tokens += self::$arrayOpenTokensBC;
+        $tokens += self::arrayOpenTokensBC();
 
         return $tokens;
     }
@@ -916,6 +1147,18 @@ class Collections
             \T_OPEN_TAG           => \T_OPEN_TAG,
             \T_OPEN_TAG_WITH_ECHO => \T_OPEN_TAG_WITH_ECHO,
         ];
+    }
+
+    /**
+     * Modifier keywords which can be used for a property declaration.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyModifierKeywords} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function propertyModifierKeywords()
+    {
+        return self::$propertyModifierKeywords;
     }
 
     /**
@@ -1092,5 +1335,81 @@ class Collections
         }
 
         return $tokens;
+    }
+
+    /**
+     * Tokens which are used for short arrays.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokens() Related method to retrieve all tokens used for arrays.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortArrayTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortArrayTokens()
+    {
+        return self::$shortArrayTokens;
+    }
+
+    /**
+     * Tokens which are used for short arrays.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC() Related method to retrieve all tokens used for arrays
+     *                                                      (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortArrayTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortArrayTokensBC()
+    {
+        return self::$shortArrayTokensBC;
+    }
+
+    /**
+     * Tokens which are used for short lists.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokens() Related method to retrieve all tokens used for lists.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortListTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortListTokens()
+    {
+        return self::$shortListTokens;
+    }
+
+    /**
+     * Tokens which are used for short lists.
+     *
+     * List which is backward-compatible with PHPCS < 3.3.0.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokensBC() Related method to retrieve all tokens used for lists
+     *                                                     (cross-version).
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$shortListTokensBC} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function shortListTokensBC()
+    {
+        return self::$shortListTokensBC;
+    }
+
+    /**
+     * Tokens which can start a - potentially multi-line - text string.
+     *
+     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$textStingStartTokens} property.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function textStingStartTokens()
+    {
+        return self::$textStingStartTokens;
     }
 }

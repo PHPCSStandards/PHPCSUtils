@@ -62,7 +62,7 @@ class Namespaces
                 + BCTokens::operators()
                 + Tokens::$castTokens
                 + Tokens::$blockOpeners
-                + Collections::$incrementDecrementOperators
+                + Collections::incrementDecrementOperators()
                 + Collections::objectOperators();
 
             $findAfter[\T_OPEN_CURLY_BRACKET]  = \T_OPEN_CURLY_BRACKET;
@@ -188,7 +188,7 @@ class Namespaces
             return false;
         }
 
-        $endOfStatement = $phpcsFile->findNext(Collections::$namespaceDeclarationClosers, ($stackPtr + 1));
+        $endOfStatement = $phpcsFile->findNext(Collections::namespaceDeclarationClosers(), ($stackPtr + 1));
         if ($endOfStatement === false) {
             // Live coding or parse error.
             return false;
@@ -338,7 +338,7 @@ class Namespaces
                 && self::isDeclaration($phpcsFile, $prev) === true
             ) {
                 // Now make sure the token was not part of the declaration.
-                $endOfStatement = $phpcsFile->findNext(Collections::$namespaceDeclarationClosers, ($prev + 1));
+                $endOfStatement = $phpcsFile->findNext(Collections::namespaceDeclarationClosers(), ($prev + 1));
                 if ($endOfStatement > $stackPtr) {
                     return false;
                 }

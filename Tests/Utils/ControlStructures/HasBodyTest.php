@@ -62,7 +62,7 @@ class HasBodyTest extends UtilityMethodTestCase
      */
     public function testHasBody($testMarker, $hasBody, $hasNonEmptyBody)
     {
-        $stackPtr = $this->getTargetToken($testMarker, Collections::$controlStructureTokens);
+        $stackPtr = $this->getTargetToken($testMarker, Collections::controlStructureTokens());
 
         $result = ControlStructures::hasBody(self::$phpcsFile, $stackPtr);
         $this->assertSame($hasBody, $result, 'Failed hasBody check with $allowEmpty = true');

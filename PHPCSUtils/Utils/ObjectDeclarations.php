@@ -188,7 +188,7 @@ class ObjectDeclarations
             throw new RuntimeException('$stackPtr must be of type T_CLASS');
         }
 
-        $valid      = Collections::$classModifierKeywords + Tokens::$emptyTokens;
+        $valid      = Collections::classModifierKeywords() + Tokens::$emptyTokens;
         $properties = [
             'is_abstract' => false,
             'is_final'    => false,
@@ -245,7 +245,7 @@ class ObjectDeclarations
      */
     public static function findExtendedClassName(File $phpcsFile, $stackPtr)
     {
-        $names = self::findNames($phpcsFile, $stackPtr, \T_EXTENDS, Collections::$OOCanExtend);
+        $names = self::findNames($phpcsFile, $stackPtr, \T_EXTENDS, Collections::ooCanExtend());
         if ($names === false) {
             return false;
         }
@@ -280,7 +280,7 @@ class ObjectDeclarations
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
-        return self::findNames($phpcsFile, $stackPtr, \T_IMPLEMENTS, Collections::$OOCanImplement);
+        return self::findNames($phpcsFile, $stackPtr, \T_IMPLEMENTS, Collections::ooCanImplement());
     }
 
     /**

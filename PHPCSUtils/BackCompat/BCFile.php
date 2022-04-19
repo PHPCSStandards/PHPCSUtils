@@ -859,7 +859,7 @@ class BCFile
             }
         }
 
-        $valid  = Collections::$propertyModifierKeywords;
+        $valid  = Collections::propertyModifierKeywords();
         $valid += Tokens::$emptyTokens;
 
         $scope          = 'public';

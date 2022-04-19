@@ -74,7 +74,7 @@ class Scopes
             return false;
         }
 
-        if (self::validDirectScope($phpcsFile, $stackPtr, Collections::$OOConstantScopes) !== false) {
+        if (self::validDirectScope($phpcsFile, $stackPtr, Collections::ooConstantScopes()) !== false) {
             return true;
         }
 
@@ -100,7 +100,7 @@ class Scopes
             return false;
         }
 
-        $scopePtr = self::validDirectScope($phpcsFile, $stackPtr, Collections::$OOPropertyScopes);
+        $scopePtr = self::validDirectScope($phpcsFile, $stackPtr, Collections::ooPropertyScopes());
         if ($scopePtr !== false) {
             // Make sure it's not a method parameter.
             $deepestOpen = Parentheses::getLastOpener($phpcsFile, $stackPtr);

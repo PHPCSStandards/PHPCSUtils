@@ -53,7 +53,7 @@ class ControlStructures
 
         // Check for the existence of the token.
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$controlStructureTokens[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::controlStructureTokens()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }

@@ -152,7 +152,7 @@ class Operators
             } else {
                 $skip   = Tokens::$emptyTokens;
                 $skip  += Collections::namespacedNameTokens();
-                $skip  += Collections::$OOHierarchyKeywords;
+                $skip  += Collections::ooHierarchyKeywords();
                 $skip[] = \T_DOUBLE_COLON;
 
                 $nextSignificantAfter = $phpcsFile->findNext(

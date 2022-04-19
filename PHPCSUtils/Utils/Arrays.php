@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
@@ -66,7 +67,7 @@ class Arrays
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortArrayTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::shortArrayTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
@@ -77,7 +78,7 @@ class Arrays
         /*
          * Deal with square brackets which may be incorrectly tokenized short arrays.
          */
-        if (isset(Collections::$shortArrayTokens[$tokens[$stackPtr]['code']]) === false) {
+        if (isset(Collections::shortArrayTokens()[$tokens[$stackPtr]['code']]) === false) {
             if (\version_compare($phpcsVersion, '3.3.0', '>=')) {
                 // These will just be properly tokenized, plain square brackets. No need for further checks.
                 return false;
@@ -160,7 +161,7 @@ class Arrays
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
-                if (isset(Collections::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
+                if (isset(BCTokens::magicConstants()[$tokens[$prevNonEmpty]['code']]) === true) {
                     return false;
                 }
             }
@@ -236,7 +237,7 @@ class Arrays
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$arrayTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::arrayTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
@@ -300,7 +301,7 @@ class Arrays
         }
 
         $targets  = self::$doubleArrowTargets;
-        $targets += Collections::$closedScopes;
+        $targets += Collections::closedScopes();
         $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
@@ -330,7 +331,7 @@ class Arrays
             }
 
             // Skip over closed scopes which may contain foreach structures or generators.
-            if (isset(Collections::$closedScopes[$tokens[$doubleArrow]['code']]) === true
+            if (isset(Collections::closedScopes()[$tokens[$doubleArrow]['code']]) === true
                 && isset($tokens[$doubleArrow]['scope_closer']) === true
             ) {
                 $doubleArrow = $tokens[$doubleArrow]['scope_closer'];

@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -69,7 +70,7 @@ class Lists
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortListTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::shortListTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
@@ -150,7 +151,7 @@ class Lists
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
-                if (isset(Collections::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
+                if (isset(BCTokens::magicConstants()[$tokens[$prevNonEmpty]['code']]) === true) {
                     return false;
                 }
             }
@@ -271,7 +272,7 @@ class Lists
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$listTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::listTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
