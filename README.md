@@ -1,6 +1,8 @@
 PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 =====================================================
 
+<div aria-hidden="true">
+
 [![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)](https://packagist.org/packages/phpcsstandards/phpcsutils)
 [![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)](https://github.com/PHPCSStandards/PHPCSUtils/releases)
 :construction:
@@ -8,15 +10,16 @@ PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer
 [![Last Commit to Unstable](https://img.shields.io/github/last-commit/PHPCSStandards/PHPCSUtils/develop.svg)](https://github.com/PHPCSStandards/PHPCSUtils/commits/develop)
 
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)](https://packagist.org/packages/phpcsstandards/phpcsutils)
-[![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/workflows/CS/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions?query=workflow%3ACS)
-[![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/workflows/Test/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions?query=workflow%3ATest)
-[![Tested on PHP 5.4 to 8.0](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0-brightgreen.svg?maxAge=2419200)](https://github.com/PHPCSStandards/PHPCSUtils/actions?query=workflow%3ATest)
-[![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils)
+[![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml)
+[![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml)
+[![Tested on PHP 5.4 to 8.1](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1-brightgreen.svg?maxAge=2419200)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg?branch=develop)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils?branch=develop)
 
-[![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/workflows/Docs/badge.svg?branch=develop)](https://phpcsutils.com/)
+[![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/ghpages.yml/badge.svg)](https://phpcsutils.com/)
 [![License: LGPLv3](https://poser.pugx.org/phpcsstandards/phpcsutils/license)](https://github.com/PHPCSStandards/PHPCSUtils/blob/master/LICENSE)
 ![Awesome](https://img.shields.io/badge/awesome%3F-yes!-brightgreen.svg)
 
+</div>
 
 * [Features](#features)
 * [Minimum Requirements](#minimum-requirements)
