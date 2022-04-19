@@ -8,19 +8,19 @@ github: [metadata]
 url: "https://phpcsutils.com"
 
 plugins:
-    - jekyll-github-metadata
-    - jemoji
-    - jekyll-mentions
-    - jekyll-seo-tag
-    - jekyll-sitemap
+  - jekyll-github-metadata
+  - jemoji
+  - jekyll-mentions
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 phpcsutils:
-    packagist: phpcsstandards/phpcsutils
+  packagist: phpcsstandards/phpcsutils
 
 # Theme info.
 title: PHPCSUtils
 description: "A suite of utility functions for use with PHP_CodeSniffer."
-logo: 
+logo:
 show_downloads: false
 google_analytics:
 
