@@ -851,6 +851,39 @@ class Collections
     }
 
     /**
+     * Tokens which can represent the nullsafe object operator.
+     *
+     * This method will return the appropriate tokens based on the PHP/PHPCS version used.
+     *
+     * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
+     *
+     * Note: if this method is used, the {@see \PHPCSUtils\Utils\Operators::isNullsafeObjectOperator()}
+     * method needs to be used on potential nullsafe object operator tokens to verify whether it really
+     * is a nullsafe object operator or not.
+     *
+     * @see \PHPCSUtils\Utils\Operators::isNullsafeObjectOperator() Nullsafe object operator detection for
+     *                                                              PHPCS < 3.5.7.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @return array <int|string> => <int|string>
+     */
+    public static function nullsafeObjectOperatorBC()
+    {
+        if (TokenHelper::tokenExists('T_NULLSAFE_OBJECT_OPERATOR') === true) {
+            // PHP >= 8.0 / PHPCS >= 3.5.7.
+            return [
+                \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR,
+            ];
+        }
+
+        return [
+            \T_INLINE_THEN     => \T_INLINE_THEN,
+            \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
+        ];
+    }
+
+    /**
      * Object operators.
      *
      * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
@@ -994,39 +1027,6 @@ class Collections
     public static function ooPropertyScopes()
     {
         return self::$OOPropertyScopes;
-    }
-
-    /**
-     * Tokens which can represent the nullsafe object operator.
-     *
-     * This method will return the appropriate tokens based on the PHP/PHPCS version used.
-     *
-     * Note: this is a method, not a property as the `T_NULLSAFE_OBJECT_OPERATOR` token may not exist.
-     *
-     * Note: if this method is used, the {@see \PHPCSUtils\Utils\Operators::isNullsafeObjectOperator()}
-     * method needs to be used on potential nullsafe object operator tokens to verify whether it really
-     * is a nullsafe object operator or not.
-     *
-     * @see \PHPCSUtils\Utils\Operators::isNullsafeObjectOperator() Nullsafe object operator detection for
-     *                                                              PHPCS < 3.5.7.
-     *
-     * @since 1.0.0-alpha4
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function nullsafeObjectOperatorBC()
-    {
-        if (TokenHelper::tokenExists('T_NULLSAFE_OBJECT_OPERATOR') === true) {
-            // PHP >= 8.0 / PHPCS >= 3.5.7.
-            return [
-                \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR,
-            ];
-        }
-
-        return [
-            \T_INLINE_THEN     => \T_INLINE_THEN,
-            \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
-        ];
     }
 
     /**
