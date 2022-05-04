@@ -221,11 +221,15 @@ jobs:
       - name: Run the unit tests (non-risky)
         if: matrix.risky == false
         run: vendor/bin/phpunit --no-coverage
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
 
       - name: Run the unit tests (risky)
         if: ${{ matrix.risky }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit --no-coverage --group compareWithPHPCS --exclude-group nothing
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
 
 
   #### CODE COVERAGE STAGE ####
@@ -304,10 +308,14 @@ jobs:
       - name: "Run the unit tests with code coverage (PHPUnit < 9.3)"
         if: ${{ steps.phpunit_version.outputs.VERSION < '9.3' }}
         run: vendor/bin/phpunit
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
 
       - name: "Run the unit tests with code coverage (PHPUnit 9.3+)"
         if: ${{ steps.phpunit_version.outputs.VERSION >= '9.3' }}
         run: vendor/bin/phpunit --coverage-cache ./build/phpunit-cache
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
 
       # Uploading the results with PHP Coveralls v1 won't work from GH Actions, so switch the PHP version.
       - name: Switch to PHP 7.4
