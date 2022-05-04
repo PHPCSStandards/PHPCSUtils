@@ -102,13 +102,9 @@ class Orthography
      */
     public static function isLastCharPunctuation($textString, $allowedChars = self::TERMINAL_POINTS)
     {
-        static $encoding;
-
-        if (isset($encoding) === false) {
-            $encoding = Helper::getEncoding();
-        }
-
+        $encoding   = Helper::getEncoding();
         $textString = \rtrim($textString);
+
         if (\function_exists('iconv_substr') === true) {
             $lastChar = \iconv_substr($textString, -1, 1, $encoding);
         } else {

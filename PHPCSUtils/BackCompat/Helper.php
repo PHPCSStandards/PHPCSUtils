@@ -182,14 +182,10 @@ class Helper
      */
     public static function getEncoding(File $phpcsFile = null)
     {
-        static $default;
-
-        if (isset($default) === false) {
-            $default = 'utf-8';
-            if (\version_compare(self::getVersion(), '2.99.99', '<=') === true) {
-                // In PHPCS 2.x, the default encoding is `iso-8859-1`.
-                $default = 'iso-8859-1';
-            }
+        $default = 'utf-8';
+        if (\version_compare(self::getVersion(), '2.99.99', '<=') === true) {
+            // In PHPCS 2.x, the default encoding is `iso-8859-1`.
+            $default = 'iso-8859-1';
         }
 
         if ($phpcsFile instanceof File) {
