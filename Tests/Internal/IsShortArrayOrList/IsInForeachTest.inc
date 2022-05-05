@@ -45,6 +45,8 @@ foreach ($array as [$a, /* testShortListInForeachNestedAtEnd */ [$b, $c]]) {}
 
 foreach ($array as $key => $value[$this->get_key(/* testShortArrayInFunctionCallInForeach */ [$b])]) {}
 
+foreach ($array as [/* testShortArrayAsKeyInShortList1 */[1,2,3][$a] => $b, /* testShortArrayAsKeyInShortList2 */ [$d, $e][$a] => $c]) {}
+
 foreach([$a, $b, /* testShortListNestedInShortArrayInForeach */ [$d, $g, /* testNestedShortListNestedInShortArrayInForeach */ [$h]] = $array] as $c) {}
 
 /* testShortArrayAsKeyAfterAs */

@@ -73,6 +73,63 @@ endif;
 
 return $a ?? '';
 
+/* testShortListWithShortArrayAsKey */
+[/* testShortArrayAsKeyForShortList */[1,2,3][$a] => /* testShortListWithShortArrayAsKeyNested */ [$a, $b]] = $array;
+
+/* testShortListWithShortArrayInKey */
+// Please sack anyone who writes code like this.
+[
+    /* testShortArrayInKeyForShortListA */
+    (function($a = [1,2,3]) {
+        return $a[$b];
+    })(/* testShortArrayInKeyForShortListB */[1,2,3]) => /* testShortListWithShortArrayInKeyNested */ [$a, $b]
+] = $array;
+
+[/* testNestedShortListWithEmpties */[,,$a]] = $array;
+
+$array = [
+    'key1' => function($a, $b) {
+        /* testShortListInClosureInShortArrayValue */
+        ['a' => $a, $key['b'] => /* testNestedShortListInClosureInShortArrayValue */ [$b]] =
+            /* testShortArrayInClosureInShortArrayValue */
+            [$a, /* testNestedShortArrayInClosureInShortArrayValue */ [$b]];
+        return $a;
+    },
+    /* testShortArrayInFunctionCallInShortArrayValue */
+    'key2' => function_call([$a, $b]),
+    /* testPlainShortListInShortArrayValue */
+    'key3' => [$a, $b] = $foo,
+    /* testPlainShortListInShortArrayValueNoKey */
+    [$a, $b] = $foo,
+    /* testKeyedShortListInShortArrayValue1 */
+    'key4' => [ /* testShortArrayInShortListAsKey */['a', 'b'] [0] => $a] = $foo,
+    /* testKeyedShortListInShortArrayValue2 */
+    'key5' => [ get_key( /* testShortArrayInFunctionCallInShortListKey */ ['a', 'b']) => $a] = $foo,
+    'key6' => [ $a, /* testEmptyShortListInShortListInShortArrayValue */ [], $b ] = $foo,
+];
+
+$keys[ /* testOuterShortArrayStopAtBrackets */ [$a, $b, $c]['index'] ] = 'value';
+
+$array = [
+    $keys[ /* testShortArrayInShortArrayKeyStopAtBrackets */ [$a, $b, $c]['index'] ] => 'value',
+];
+
+[
+    $keys[ /* testShortArrayInShortListKeyStopAtBrackets */ [$a, $b, $c]['index'] ] => $a,
+] = $array;
+
+/* testRiskySyntaxCombiButNonNested-FunctionCall */
+$var = function_call($arg, [$arg], $arg);
+
+/* testRiskySyntaxCombiButNonNested-ClosureCall */
+$var = $closure($arg, [$arg], $arg);
+
+/* testRiskySyntaxCombiButNonNested-FnCall */
+$var = $fn($arg, [$arg], $arg);
+
+/* testRiskySyntaxCombiButNonNested-Echo */
+echo $arg, [$arg], $arg;
+
 $array = [
     /* testShortArrayInShortArrowFunction */
     'key' => fn($p) : array => [$p],

@@ -167,6 +167,15 @@ final class IsInForeachTest extends UtilityMethodTestCase
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
 
+            'undetermined: short array in foreach as key in shortlist 1' => [
+                'testMarker' => '/* testShortArrayAsKeyInShortList1 */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'undetermined: short array in foreach as key in shortlist 2' => [
+                'testMarker' => '/* testShortArrayAsKeyInShortList2 */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+
             'undetermined: short list nested in short array in foreach' => [
                 'testMarker' => '/* testShortListNestedInShortArrayInForeach */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,

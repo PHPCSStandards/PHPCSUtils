@@ -189,6 +189,117 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'testMarker' => '/* testShortListInAlternativeControlStructure */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
+            'short-list-containing-short-array-as-key' => [
+                'testMarker' => '/* testShortListWithShortArrayAsKey */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-array-as-key-for-nested-short-list' => [
+                'testMarker' => '/* testShortArrayAsKeyForShortList */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-list-nested-with-array-key' => [
+                'testMarker' => '/* testShortListWithShortArrayAsKeyNested */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-containing-short-array-in-key' => [
+                'testMarker' => '/* testShortListWithShortArrayInKey */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-array-in-key-for-short-list-closure-default' => [
+                'testMarker' => '/* testShortArrayInKeyForShortListA */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-in-key-for-short-list-closure-call-param' => [
+                'testMarker' => '/* testShortArrayInKeyForShortListB */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-list-nested-with-array-in-key' => [
+                'testMarker' => '/* testShortListWithShortArrayInKeyNested */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-nested-with-empties' => [
+                'testMarker' => '/* testNestedShortListWithEmpties */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+
+            'short-list-in-closure-in-short-array-value' => [
+                'testMarker' => '/* testShortListInClosureInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-nested-in-closure-in-short-array-value' => [
+                'testMarker' => '/* testNestedShortListInClosureInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-array-in-closure-in-short-array-value' => [
+                'testMarker' => '/* testShortArrayInClosureInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-nested-in-closure-in-short-array-value' => [
+                'testMarker' => '/* testNestedShortArrayInClosureInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-in-function-call-in-short-array-value' => [
+                'testMarker' => '/* testShortArrayInFunctionCallInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-list-in-short-array-value' => [
+                'testMarker' => '/* testPlainShortListInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-in-short-array-value-no-key' => [
+                'testMarker' => '/* testPlainShortListInShortArrayValueNoKey */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-keyed-in-short-array-value-1' => [
+                'testMarker' => '/* testKeyedShortListInShortArrayValue1 */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-array-as-key-for-short-list-in-array-value' => [
+                'testMarker' => '/* testShortArrayInShortListAsKey */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-list-keyed-in-short-array-value-2' => [
+                'testMarker' => '/* testKeyedShortListInShortArrayValue2 */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-array-in-function-call-as-key-for-short-list-in-array-value' => [
+                'testMarker' => '/* testShortArrayInFunctionCallInShortListKey */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-list-nested-and-empty-in-short-array-value' => [
+                'testMarker' => '/* testEmptyShortListInShortListInShortArrayValue */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+
+            'outer-short-array-stop-test-square-open' => [
+                'testMarker' => '/* testOuterShortArrayStopAtBrackets */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'inner-short-array-stop-test-square-open-1' => [
+                'testMarker' => '/* testShortArrayInShortArrayKeyStopAtBrackets */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'inner-short-array-stop-test-square-open-2' => [
+                'testMarker' => '/* testShortArrayInShortListKeyStopAtBrackets */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+
+            'short-array-comma-before-after-in-function-call' => [
+                'testMarker' => '/* testRiskySyntaxCombiButNonNested-FunctionCall */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-comma-before-after-in-closure-call' => [
+                'testMarker' => '/* testRiskySyntaxCombiButNonNested-ClosureCall */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-comma-before-after-in-fn-call' => [
+                'testMarker' => '/* testRiskySyntaxCombiButNonNested-FnCall */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-comma-before-after-in-echo-statement' => [
+                'testMarker' => '/* testRiskySyntaxCombiButNonNested-Echo */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
 
             'short-array-in-arrow-fn-return-expression' => [
                 'testMarker' => '/* testShortArrayInShortArrowFunction */',
