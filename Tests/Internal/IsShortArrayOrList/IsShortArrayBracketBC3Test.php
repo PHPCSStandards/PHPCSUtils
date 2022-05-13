@@ -18,9 +18,6 @@ use PHPCSUtils\Tokens\Collections;
  * Tests for specific PHPCS tokenizer issues which can affect the "is short list vs short array"
  * determination.
  *
- * @group arrays
- * @group lists
- *
  * @covers \PHPCSUtils\Internal\IsShortArrayOrList::isShortArrayBracket
  *
  * @since 1.0.0
@@ -59,12 +56,12 @@ final class IsShortArrayBracketBC3Test extends UtilityMethodTestCase
     {
         return [
             'issue-1971-short-array-first-in-file' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271E */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271E */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'issue-1971-short-array-first-in-file-nested' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271F */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271F */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
         ];
     }

@@ -22,7 +22,7 @@ use PHPCSUtils\Tokens\Collections;
  *
  * @since 1.0.0
  */
-final class IsShortArrayBracketBC2Test extends UtilityMethodTestCase
+final class IsShortArrayBracketBC5Test extends UtilityMethodTestCase
 {
 
     /**
@@ -55,14 +55,13 @@ final class IsShortArrayBracketBC2Test extends UtilityMethodTestCase
     public function dataIsShortArrayBracket()
     {
         return [
-            // Make sure the utility method does not throw false positives for a short array at the start of a file.
-            'issue-1971-short-array-first-in-file' => [
-                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271C */',
-                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            'issue-1971-short-list-first-in-file' => [
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271I */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
-            'issue-1971-short-array-first-in-file-nested' => [
-                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271D */',
-                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            'issue-1971-short-list-first-in-file-nested' => [
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271J */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
         ];
     }

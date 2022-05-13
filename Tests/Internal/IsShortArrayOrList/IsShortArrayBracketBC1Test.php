@@ -18,9 +18,6 @@ use PHPCSUtils\Tokens\Collections;
  * Tests for specific PHPCS tokenizer issues which can affect the "is short list vs short array"
  * determination.
  *
- * @group arrays
- * @group lists
- *
  * @covers \PHPCSUtils\Internal\IsShortArrayOrList::isShortArrayBracket
  *
  * @since 1.0.0
@@ -59,80 +56,80 @@ final class IsShortArrayBracketBC1Test extends UtilityMethodTestCase
     {
         return [
             'issue-1971-list-first-in-file' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271A */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271A */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'issue-1971-list-first-in-file-nested' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271B */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271B */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'issue-1381-array-dereferencing-1-array' => [
-                '/* testTokenizerIssue1381PHPCSlt290A1 */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testTokenizerIssue1381PHPCSlt290A1 */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'issue-1381-array-dereferencing-1-deref' => [
-                '/* testTokenizerIssue1381PHPCSlt290A2 */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1381PHPCSlt290A2 */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-1381-array-dereferencing-2' => [
-                '/* testTokenizerIssue1381PHPCSlt290B */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1381PHPCSlt290B */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-1381-array-dereferencing-3' => [
-                '/* testTokenizerIssue1381PHPCSlt290C */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1381PHPCSlt290C */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-1381-array-dereferencing-4' => [
-                '/* testTokenizerIssue1381PHPCSlt290D1 */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1381PHPCSlt290D1 */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-1381-array-dereferencing-4-deref-deref' => [
-                '/* testTokenizerIssue1381PHPCSlt290D2 */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1381PHPCSlt290D2 */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-1284-short-list-directly-after-close-curly-control-structure' => [
-                '/* testTokenizerIssue1284PHPCSlt280A */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280A */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'issue-1284-short-array-directly-after-close-curly-control-structure' => [
-                '/* testTokenizerIssue1284PHPCSlt280B */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280B */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'issue-1284-array-access-variable-variable' => [
-                '/* testTokenizerIssue1284PHPCSlt290C */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt290C */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-1284-array-access-variable-property' => [
-                '/* testTokenizerIssue1284PHPCSlt280D */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280D */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-3013-magic-constant-dereferencing' => [
-                '/* testTokenizerIssue3013PHPCSlt356 */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue3013PHPCSlt356 */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-more-magic-constant-dereferencing-1' => [
-                '/* testTokenizerIssuePHPCS28xA */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssuePHPCS28xA */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-nested-magic-constant-dereferencing-2' => [
-                '/* testTokenizerIssuePHPCS28xB */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssuePHPCS28xB */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-nested-magic-constant-dereferencing-3' => [
-                '/* testTokenizerIssuePHPCS28xC */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssuePHPCS28xC */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-nested-magic-constant-dereferencing-4' => [
-                '/* testTokenizerIssuePHPCS28xD */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssuePHPCS28xD */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-interpolated-string-dereferencing' => [
-                '/* testTokenizerIssue3172PHPCSlt360A */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue3172PHPCSlt360A */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
             'issue-interpolated-string-dereferencing-nested' => [
-                '/* testTokenizerIssue3172PHPCSlt360B */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
+                'testMarker' => '/* testTokenizerIssue3172PHPCSlt360B */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
         ];
     }
