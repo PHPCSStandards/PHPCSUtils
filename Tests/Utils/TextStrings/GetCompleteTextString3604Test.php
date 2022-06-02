@@ -102,11 +102,11 @@ class GetCompleteTextString3604Test extends UtilityMethodTestCase
                 'testMarker'      => '/* testVariableVar1 */',
                 'expectedContent' => '${$bar}',
             ],
-            'Embedded variable variable 1' => [
+            'Embedded variable variable 2' => [
                 'testMarker'      => '/* testVariableVar2 */',
                 'expectedContent' => '${(foo)}',
             ],
-            'Embedded variable variable 2' => [
+            'Embedded variable variable 3' => [
                 'testMarker'      => '/* testVariableVar3 */',
                 'expectedContent' => '${foo->bar}',
             ],
