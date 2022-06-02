@@ -333,7 +333,7 @@ class PassedParameters
 
             // Prepare for the next parameter.
             $paramStart = ($nextComma + 1);
-            $cnt++;
+            ++$cnt;
         }
 
         return $parameters;

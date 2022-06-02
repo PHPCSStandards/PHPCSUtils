@@ -590,7 +590,7 @@ class FunctionDeclarations
                     $nullableType     = false;
                     $visibilityToken  = null;
 
-                    $paramCount++;
+                    ++$paramCount;
                     break;
 
                 case 'T_EQUAL':

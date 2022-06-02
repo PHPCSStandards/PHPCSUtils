@@ -518,7 +518,7 @@ class BCFile
                     $nullableType     = false;
                     $visibilityToken  = null;
 
-                    $paramCount++;
+                    ++$paramCount;
                     break;
                 case 'T_EQUAL':
                     $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
