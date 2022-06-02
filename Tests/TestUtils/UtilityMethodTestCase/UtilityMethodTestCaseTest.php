@@ -10,8 +10,6 @@
 
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
-use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
