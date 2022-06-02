@@ -33,6 +33,10 @@ class TextStrings
      * where the content matching might result in false positives/false negatives if the text
      * were to be examined line by line.
      *
+     * Additionally, this method correctly handles a particular type of double quoted string
+     * with an embedded expression which is incorrectly tokenized in PHPCS itself prior to
+     * PHPCS version 3.x.x.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
@@ -99,6 +103,48 @@ class TextStrings
             $string .= $tokens[$current]['content'];
             ++$current;
         } while (isset($tokens[$current]) && $tokens[$current]['code'] === $targetType);
+
+        if ($targetType === \T_DOUBLE_QUOTED_STRING) {
+            /*
+             * BC for PHPCS < ??.
+             * Prior to PHPCS 3.x.x, when a select group of embedded variables/expressions was encountered
+             * in a double quoted string, the embed would not be tokenized as part of the T_DOUBLE_QUOTED_STRING,
+             * but would still have the PHP native tokenization.
+             */
+            if (isset($tokens[$current]) && $tokens[$current]['code'] === \T_DOLLAR_OPEN_CURLY_BRACES) {
+                $embeddedContent = $tokens[$current]['content'];
+                $nestedVars      = [$current];
+                $foundEnd        = false;
+
+                for ($current = ($current + 1); $current < $phpcsFile->numTokens; $current++) {
+                    if ($tokens[$current]['code'] === \T_DOUBLE_QUOTED_STRING
+                        && empty($nestedVars) === true
+                    ) {
+                        $embeddedContent .= self::getCompleteTextString($phpcsFile, $current, false);
+                        $foundEnd         = true;
+                        break;
+                    }
+
+                    $embeddedContent .= $tokens[$current]['content'];
+
+                    if (\strpos($tokens[$current]['content'], '{') !== false) {
+                        $nestedVars[] = $current;
+                    }
+
+                    if (\strpos($tokens[$current]['content'], '}') !== false) {
+                        \array_pop($nestedVars);
+                    }
+                }
+
+                /*
+                 * Only accept this as one of the broken tokenizations if this is not a parse error
+                 * or if we reached the end of the file.
+                 */
+                if ($foundEnd === true || $current === $phpcsFile->numTokens) {
+                    $string .= $embeddedContent;
+                }
+            }
+        }
 
         if ($stripNewline === true) {
             // Heredoc/nowdoc: strip the new line at the end of the string to emulate how PHP sees the string.
