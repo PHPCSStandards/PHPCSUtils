@@ -3,6 +3,9 @@
 // These tests mirror the upstream Core\Tokenizer\DoubleQuotedStringsTest.
 // Test source: https://gist.github.com/iluuu1994/72e2154fc4150f2258316b0255b698f2#file-test-php
 
+/* testNotDoubleQuotedString */
+$var = 'test';
+
 /* testSimple1 */
 "$foo";
 /* testSimple2 */
@@ -48,6 +51,21 @@
 "${foo->{${'a'}}}";
 /* testNested5 */
 "${foo->{"${'a'}"}}";
+
+/* testNestedWithCurliesWithinPlainTokens */
+"${foo["${bar['b{a}z']}"]}";
+
+/* testMultipleProblemEmbedsInSingleLineString */
+"My ${foo["${bar}"]} and ${foo["${bar['baz']}"]} and ${foo->{"${'a'}"}}";
+
+/* testProblemEmbedAtEndOfLineInMultiLineString */
+"Testing ${foo["${bar['baz']}"]}
+and more testing";
+
+/* testMultilineProblemEmbedInMultiLineString */
+"Testing ${foo["${bar
+  ['baz']
+}"]} and more testing";
 
 /* testParseError */
 "${foo["${bar
