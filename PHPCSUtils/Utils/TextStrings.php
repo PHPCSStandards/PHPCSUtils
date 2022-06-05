@@ -102,7 +102,7 @@ class TextStrings
      *
      * This method also correctly handles a particular type of double quoted string
      * with an embedded expression which is incorrectly tokenized in PHPCS itself prior to
-     * PHPCS version 3.x.x.
+     * PHPCS version 3.7.0.
      *
      * @see \PHPCSUtils\Utils\TextStrings::getCompleteTextString() Retrieve the contents of a complete - potentially
      *                                                             multi-line - text string.
@@ -165,8 +165,8 @@ class TextStrings
 
         if ($targetType === \T_DOUBLE_QUOTED_STRING) {
             /*
-             * BC for PHPCS < ??.
-             * Prior to PHPCS 3.x.x, when a select group of embedded variables/expressions was encountered
+             * BC for PHPCS < 3.7.0.
+             * Prior to PHPCS 3.7.0, when a select group of embedded variables/expressions was encountered
              * in a double quoted string, the embed would not be tokenized as part of the T_DOUBLE_QUOTED_STRING,
              * but would still have the PHP native tokenization.
              */
@@ -191,7 +191,7 @@ class TextStrings
     /**
      * Get the stack pointer to the end of a (single) double quoted text string.
      *
-     * This method provides a protection layer against a tokenizer bug in PHPCS < 3.x.x.
+     * This method provides a protection layer against a tokenizer bug in PHPCS < 3.7.0.
      * When a select group of embedded variables/expressions was encountered in a double quoted string,
      * PHPCS would not tokenize the double quoted string as one token per line, but instead the original
      * PHP native tokens would be included in the token stream.
@@ -239,7 +239,7 @@ class TextStrings
         }
 
         /*
-         * BC for PHPCS < ??.
+         * BC for PHPCS < 3.7.0.
          */
         $nestedBraces = [$next];
         for ($next = ($next + 1); $next < $phpcsFile->numTokens; $next++) {

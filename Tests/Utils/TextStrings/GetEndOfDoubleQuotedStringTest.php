@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\TextStrings;
@@ -183,6 +184,12 @@ class GetEndOfDoubleQuotedStringTest extends UtilityMethodTestCase
 ',
             ],
         ];
+
+        $version = Helper::getVersion();
+        if (\version_compare($version, '3.7.0', '>=') === true) {
+            $data['Multi-line problem embed in multi-line text string']['expectedContent'] = '"Testing ${foo["${bar
+';
+        }
 
         return $data;
     }
