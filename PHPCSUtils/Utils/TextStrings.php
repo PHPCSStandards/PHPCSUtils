@@ -59,7 +59,7 @@ class TextStrings
         $tokens = $phpcsFile->getTokens();
 
         // Must be the start of a text string token.
-        if (isset($tokens[$stackPtr], Collections::textStingStartTokens()[$tokens[$stackPtr]['code']]) === false) {
+        if (isset($tokens[$stackPtr], Collections::textStringStartTokens()[$tokens[$stackPtr]['code']]) === false) {
             throw new RuntimeException(
                 '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
                 . ' or T_DOUBLE_QUOTED_STRING'

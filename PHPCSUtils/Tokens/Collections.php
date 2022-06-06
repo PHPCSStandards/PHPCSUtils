@@ -476,7 +476,7 @@ class Collections
      *
      * @since 1.0.0-alpha1
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::textStingStartTokens()} method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::textStringStartTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -1408,7 +1408,7 @@ class Collections
      *
      * @return array <int|string> => <int|string>
      */
-    public static function textStingStartTokens()
+    public static function textStringStartTokens()
     {
         return self::$textStingStartTokens;
     }
