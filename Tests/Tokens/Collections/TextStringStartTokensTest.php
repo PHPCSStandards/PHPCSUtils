@@ -16,13 +16,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\Tokens\Collections::textStingStartTokens
+ * @covers \PHPCSUtils\Tokens\Collections::textStringStartTokens
  *
  * @group collections
  *
  * @since 1.0.0
  */
-class TextStingStartTokensTest extends TestCase
+class TextStringStartTokensTest extends TestCase
 {
 
     /**
@@ -30,8 +30,8 @@ class TextStingStartTokensTest extends TestCase
      *
      * @return void
      */
-    public function testTextStingStartTokens()
+    public function testTextStringStartTokens()
     {
-        $this->assertSame(Collections::$textStingStartTokens, Collections::textStingStartTokens());
+        $this->assertSame(Collections::$textStingStartTokens, Collections::textStringStartTokens());
     }
 }
