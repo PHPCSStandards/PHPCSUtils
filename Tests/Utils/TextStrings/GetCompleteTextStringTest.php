@@ -14,9 +14,11 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\TextStrings;
 
 /**
- * Tests for the \PHPCSUtils\Utils\TextStrings::getCompleteTextString() method.
+ * Tests for the \PHPCSUtils\Utils\TextStrings::getCompleteTextString() and
+ * \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString() methods.
  *
  * @covers \PHPCSUtils\Utils\TextStrings::getCompleteTextString
+ * @covers \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString
  *
  * @group textstrings
  *
@@ -40,24 +42,32 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
     /**
      * Test passing a non-existent token pointer.
      *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
      * @return void
      */
-    public function testNonExistentToken()
+    public function testNonExistentToken($method)
     {
         $this->expectPhpcsException(
             '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
             . ' or T_DOUBLE_QUOTED_STRING'
         );
 
-        TextStrings::getCompleteTextString(self::$phpcsFile, 100000);
+        TextStrings::$method(self::$phpcsFile, 100000);
     }
 
     /**
      * Test receiving an expected exception when a non text string is passed.
      *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
      * @return void
      */
-    public function testNotATextStringException()
+    public function testNotATextStringException($method)
     {
         $this->expectPhpcsException(
             '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
@@ -65,16 +75,20 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
         );
 
         $next = $this->getTargetToken('/* testNotATextString */', \T_RETURN);
-        TextStrings::getCompleteTextString(self::$phpcsFile, $next);
+        TextStrings::$method(self::$phpcsFile, $next);
     }
 
     /**
      * Test receiving an expected exception when a text string token is not the first token
      * of a multi-line text string.
      *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
      * @return void
      */
-    public function testNotFirstTextStringException()
+    public function testNotFirstTextStringException($method)
     {
         $this->expectPhpcsException('$stackPtr must be the start of the text string');
 
@@ -84,7 +98,20 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
             'second line
 '
         );
-        TextStrings::getCompleteTextString(self::$phpcsFile, $next);
+        TextStrings::$method(self::$phpcsFile, $next);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @return array
+     */
+    public function dataExceptions()
+    {
+        return [
+            'getCompleteTextString'      => ['getCompleteTextString'],
+            'getEndOfCompleteTextString' => ['getEndOfCompleteTextString'],
+        ];
     }
 
     /**
@@ -173,6 +200,29 @@ second line
 third line
 fourth line',
             ],
+
+            'Single line double quoted string containing problem embeds' => [
+                '/* testMultipleProblemEmbedsInSingleLineDoubleQuotedString */',
+                'My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}',
+                '"My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}"',
+            ],
+            'Multi-line double quoted string containing problem embeds' => [
+                '/* testProblemEmbedAtEndOfLineInMultiLineDoubleQuotedString */',
+                'Testing ${foo["${bar[\'baz\']}"]}
+and more ${foo["${bar}"]} testing',
+                '"Testing ${foo["${bar[\'baz\']}"]}
+and more ${foo["${bar}"]} testing"',
+            ],
+            'Multi-line double quoted string containing multi-line problem embed' => [
+                '/* testMultilineProblemEmbedInMultiLineDoubleQuotedString */',
+                'Testing ${foo["${bar
+  [\'baz\']
+}"]} and more testing',
+                '"Testing ${foo["${bar
+  [\'baz\']
+}"]} and more testing"',
+            ],
+
             'text-string-at-end-of-file' => [
                 '/* testTextStringAtEndOfFile */',
                 'first line
