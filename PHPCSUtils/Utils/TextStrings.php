@@ -25,6 +25,25 @@ class TextStrings
 {
 
     /**
+     * Regex to match the start of an embedded variable/expression.
+     *
+     * Prevents matching escaped variables/expressions.
+     *
+     * @var string
+     */
+    const START_OF_EMBED = '`(?<!\\\\)(\\\\{2})*(\{\$|\$\{|\$(?=[a-zA-Z_\x7f-\xff]))`';
+
+    /**
+     * Regex to match a "type 1" - directly embedded - variable without the dollar sign.
+     *
+     * Allows for array access and property access in as far as supported (single level).
+     *
+     * @var string
+     */
+    const TYPE1_EMBED_AFTER_DOLLAR =
+        '`(?P<varname>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)(?:\??->(?P>varname)|\[[^\]\'"\s]+\])?`';
+
+    /**
      * Get the complete contents of a - potentially multi-line - text string.
      *
      * PHPCS tokenizes multi-line text strings with a single token for each line.
@@ -267,5 +286,127 @@ class TextStrings
     public static function stripQuotes($textString)
     {
         return \preg_replace('`^([\'"])(.*)\1$`Ds', '$2', $textString);
+    }
+
+    /**
+     * Get the embedded variables/expressions from an arbitrary string.
+     *
+     * Note: this function gets the complete variables/expressions _as they are embedded_,
+     * i.e. including potential curly brace wrappers, array access, method calls etc.
+     *
+     * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
+     *
+     * @return array<int, string> Array of encountered variable names/expressions with the offset at which
+     *                            the variable/expression was found in the string, as the key.
+     */
+    public static function getEmbeds($text)
+    {
+        return self::getStripEmbeds($text)['embeds'];
+    }
+
+    /**
+     * Strip embedded variables/expressions from an arbitrary string.
+     *
+     * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
+     *
+     * @return string String without variables/expressions in it.
+     */
+    public static function stripEmbeds($text)
+    {
+        return self::getStripEmbeds($text)['remaining'];
+    }
+
+    /**
+     * Split an arbitrary text string into embedded variables/expressions and remaining text.
+     *
+     * PHP contains four types of embedding syntaxes:
+     * 1. Directly embedding variables ("$foo");
+     * 2. Braces outside the variable ("{$foo}");
+     * 3. Braces after the dollar sign ("${foo}");
+     * 4. Variable variables ("${expr}", equivalent to (string) ${expr}).
+     *
+     * Type 3 and 4 are deprecated as of PHP 8.2 and will be removed in PHP 9.0.
+     *
+     * This method handles all types of embeds, including recognition of whether an embed is escaped or not.
+     *
+     * @link https://www.php.net/manual/en/language.types.string.php#language.types.string.parsing
+     * @link https://wiki.php.net/rfc/deprecate_dollar_brace_string_interpolation
+     *
+     * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
+     *
+     * @return array<string, mixed> Array containing two values:
+     *                              1. An array containing a string representation of each embed encountered.
+     *                                 The keys in this array are the integer offset within the original string
+     *                                 where the embed was found.
+     *                              2. The textual contents, embeds stripped out of it.
+     *                              The format of the array return value is:
+     *                              ```php
+     *                              array(
+     *                                'embeds'    => array<int, string>,
+     *                                'remaining' => string,
+     *                              )
+     *                              ```
+     */
+    public static function getStripEmbeds($text)
+    {
+        if (\strpos($text, '$') === false) {
+            return [
+                'embeds'    => [],
+                'remaining' => $text,
+            ];
+        }
+
+        $offset    = 0;
+        $strLen    = \strlen($text); // Use iconv ?
+        $stripped  = '';
+        $variables = [];
+
+        while (\preg_match(self::START_OF_EMBED, $text, $matches, \PREG_OFFSET_CAPTURE, $offset) === 1) {
+            $stripped .= \substr($text, $offset, ($matches[2][1] - $offset));
+
+            $matchedExpr   = $matches[2][0];
+            $matchedOffset = $matches[2][1];
+            $braces        = \substr_count($matchedExpr, '{');
+            $newOffset     = $matchedOffset + \strlen($matchedExpr);
+
+            if ($braces === 0) {
+                /*
+                 * Type 1: simple variable embed.
+                 * Regex will always return a match due to the look ahead in the above regex.
+                 */
+                \preg_match(self::TYPE1_EMBED_AFTER_DOLLAR, $text, $endMatch, 0, $newOffset);
+                $matchedExpr              .= $endMatch[0];
+                $variables[$matchedOffset] = $matchedExpr;
+                $offset                    = $newOffset + \strlen($endMatch[0]);
+                continue;
+            }
+
+            for (; $newOffset < $strLen; $newOffset++) {
+                if ($text[$newOffset] === '{') {
+                    ++$braces;
+                    continue;
+                }
+
+                if ($text[$newOffset] === '}') {
+                    --$braces;
+                    if ($braces === 0) {
+                        $matchedExpr               = \substr($text, $matchedOffset, (1 + $newOffset - $matchedOffset));
+                        $variables[$matchedOffset] = $matchedExpr;
+                        $offset                    = ($newOffset + 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if ($offset < $strLen) {
+            // Add the end of the string.
+            $stripped .= \substr($text, $offset);
+        }
+
+        return [
+            'embeds'    => $variables,
+            'remaining' => $stripped,
+        ];
     }
 }
