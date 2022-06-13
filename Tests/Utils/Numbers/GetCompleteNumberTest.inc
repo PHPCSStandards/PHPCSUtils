@@ -136,6 +136,18 @@ $octal = 0O137041;
 /* testPHP81ExplicitOctalWithSeparator */
 $octal = 0o137_041;
 
+/* testPHP81InvalidExplicitOctal1 */
+$invalidOctal = 0o91;
+
+/* testPHP81InvalidExplicitOctal2 */
+$invalidOctal = 0O282;
+
+/* testPHP81InvalidExplicitOctal3 */
+$invalidOctal = 0o28_2;
+
+/* testPHP81InvalidExplicitOctal4 */
+$invalidOctal = 0o2_82;
+
 /* testPHP74PHP81InvalidExplicitOctal */
 $invalid = 0o_123; // Underscore next to o.
 

@@ -167,6 +167,14 @@ class Numbers
      * of PHPCS 3.5.3 as the buggyness of the original backfill implementation makes it impossible
      * to provide reliable results.
      *
+     * Note: invalid explicit octals will be handled correctly by the method, but may result
+     * in a content "split" for the "last token".
+     * > Example:
+     * > In PHP < 8.1 `0o282` will tokenize as `T_LNUMBER` 0 + `T_STRING` `o282`.
+     * > This method will return `'0o2'` as the complete number content and the second token as the
+     * > `'last_token'`, even though there is still a part of the content of the second token
+     * > which is not included.
+     *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546 PHPCS issue #2546
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771   PHPCS PR #2771
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3481   PHPCS PR #3481
@@ -260,8 +268,9 @@ class Numbers
             && $tokens[($stackPtr + 1)]['code'] === \T_STRING
             && \strtolower($tokens[($stackPtr + 1)]['content'][0]) === 'o'
             && $tokens[($stackPtr + 1)]['content'][1] !== '_'
+            && preg_match('`^(o[0-7]+(?:_[0-7]+)?)[0-9_]*`i', $tokens[($stackPtr + 1)]['content'], $matches) === 1
         ) {
-            $content .= $tokens[($stackPtr + 1)]['content'];
+            $content .= $matches[1];
             $result   = self::updateResult($result, $content, ($stackPtr + 1), true);
         }
 
