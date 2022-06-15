@@ -268,7 +268,7 @@ class Numbers
             && $tokens[($stackPtr + 1)]['code'] === \T_STRING
             && \strtolower($tokens[($stackPtr + 1)]['content'][0]) === 'o'
             && $tokens[($stackPtr + 1)]['content'][1] !== '_'
-            && preg_match('`^(o[0-7]+(?:_[0-7]+)?)[0-9_]*`i', $tokens[($stackPtr + 1)]['content'], $matches) === 1
+            && \preg_match('`^(o[0-7]+(?:_[0-7]+)?)[0-9_]*`i', $tokens[($stackPtr + 1)]['content'], $matches) === 1
         ) {
             $content .= $matches[1];
             $result   = self::updateResult($result, $content, ($stackPtr + 1), true);
