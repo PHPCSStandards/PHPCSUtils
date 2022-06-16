@@ -296,7 +296,7 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Clean up after finished test.
+     * Clean up after finished test by resetting all static properties to their default values.
      *
      * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::tearDownAfterClass()}
      * method.
@@ -309,7 +309,12 @@ abstract class UtilityMethodTestCase extends TestCase
      */
     public static function resetTestFile()
     {
-        self::$phpcsFile = null;
+        self::$phpcsVersion  = '0';
+        self::$fileExtension = 'inc';
+        self::$caseFile      = '';
+        self::$tabWidth      = 4;
+        self::$phpcsFile     = null;
+        self::$selectedSniff = ['Dummy.Dummy.Dummy'];
     }
 
     /**
