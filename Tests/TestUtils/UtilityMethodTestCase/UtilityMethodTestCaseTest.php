@@ -205,6 +205,11 @@ class UtilityMethodTestCaseTest extends PolyfilledTestCase
     public function testTearDown()
     {
         parent::resetTestFile();
-        $this->assertNull(self::$phpcsFile);
+        $this->assertSame('0', self::$phpcsVersion, 'phpcsVersion was not reset');
+        $this->assertSame('inc', self::$fileExtension, 'fileExtension was not reset');
+        $this->assertSame('', self::$caseFile, 'caseFile was not reset');
+        $this->assertSame(4, self::$tabWidth, 'tabWidth was not reset');
+        $this->assertNull(self::$phpcsFile, 'phpcsFile was not reset');
+        $this->assertSame(['Dummy.Dummy.Dummy'], self::$selectedSniff, 'selectedSniff was not reset');
     }
 }
