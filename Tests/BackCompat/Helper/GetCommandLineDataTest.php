@@ -24,6 +24,19 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
 {
 
     /**
+     * Initialize PHPCS & tokenize the test case file.
+     *
+     * @beforeClass
+     *
+     * @return void
+     */
+    public static function setUpTestFile()
+    {
+        self::$caseFile = dirname(dirname(__DIR__)) . '/DummyFile.inc';
+        parent::setUpTestFile();
+    }
+
+    /**
      * Test the getCommandLineData() method.
      *
      * @covers \PHPCSUtils\BackCompat\Helper::getCommandLineData
