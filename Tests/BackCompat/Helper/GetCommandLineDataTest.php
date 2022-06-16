@@ -16,6 +16,8 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 /**
  * Test class.
  *
+ * @coversDefaultClass \PHPCSUtils\BackCompat\Helper
+ *
  * @group helper
  *
  * @since 1.0.0
@@ -39,7 +41,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the getCommandLineData() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::getCommandLineData
+     * @covers ::getCommandLineData
      *
      * @return void
      */
@@ -59,7 +61,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the getCommandLineData() method when requesting an unknown setting.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::getCommandLineData
+     * @covers ::getCommandLineData
      *
      * @return void
      */
@@ -72,7 +74,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the getTabWidth() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::getTabWidth
+     * @covers ::getTabWidth
      *
      * @return void
      */
@@ -103,7 +105,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the getEncoding() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::getEncoding
+     * @covers ::getEncoding
      *
      * @return void
      */
@@ -135,7 +137,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the getEncoding() method when not passing the PHPCS file parameter.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::getEncoding
+     * @covers ::getEncoding
      *
      * @return void
      */
@@ -166,7 +168,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the ignoreAnnotations() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::ignoreAnnotations
+     * @covers ::ignoreAnnotations
      *
      * @return void
      */
@@ -182,7 +184,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the ignoreAnnotations() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::ignoreAnnotations
+     * @covers ::ignoreAnnotations
      *
      * @return void
      */
@@ -205,7 +207,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the ignoreAnnotations() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::ignoreAnnotations
+     * @covers ::ignoreAnnotations
      *
      * @return void
      */
@@ -232,7 +234,7 @@ class GetCommandLineDataTest extends UtilityMethodTestCase
     /**
      * Test the ignoreAnnotations() method.
      *
-     * @covers \PHPCSUtils\BackCompat\Helper::ignoreAnnotations
+     * @covers ::ignoreAnnotations
      *
      * @return void
      */

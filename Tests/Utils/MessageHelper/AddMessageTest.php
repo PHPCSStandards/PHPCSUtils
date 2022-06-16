@@ -20,6 +20,8 @@ use PHPCSUtils\Utils\MessageHelper;
  * {@internal Note: this is largely testing PHPCS native functionality, but as PHPCS doesn't
  * have any unit tests in place for this functionality, that's not a bad thing.}
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\MessageHelper
+ *
  * @group messagehelper
  *
  * @since 1.0.0
@@ -47,7 +49,7 @@ class AddMessageTest extends UtilityMethodTestCase
      * Test the addMessage wrapper.
      *
      * @dataProvider dataAddMessage
-     * @covers       \PHPCSUtils\Utils\MessageHelper::addMessage
+     * @covers       ::addMessage
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $isError    Whether to test adding an error or a warning.
@@ -112,7 +114,7 @@ class AddMessageTest extends UtilityMethodTestCase
      * Test the addFixableMessage wrapper.
      *
      * @dataProvider dataAddFixableMessage
-     * @covers       \PHPCSUtils\Utils\MessageHelper::addFixableMessage
+     * @covers       ::addFixableMessage
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $isError    Whether to test adding an error or a warning.

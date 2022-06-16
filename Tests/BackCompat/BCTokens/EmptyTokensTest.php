@@ -18,6 +18,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test class.
  *
+ * @coversDefaultClass \PHPCSUtils\BackCompat\BCTokens
+ *
  * @group tokens
  *
  * @since 1.0.0
@@ -57,7 +59,7 @@ class EmptyTokensTest extends TestCase
     /**
      * Test the Tokens::emptyTokens() method.
      *
-     * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+     * @covers ::__callStatic
      *
      * @return void
      */
@@ -76,7 +78,7 @@ class EmptyTokensTest extends TestCase
     /**
      * Test the Tokens::commentTokens() method.
      *
-     * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+     * @covers ::__callStatic
      *
      * @return void
      */
@@ -95,7 +97,7 @@ class EmptyTokensTest extends TestCase
     /**
      * Test the Tokens::phpcsCommentTokens() method.
      *
-     * @covers \PHPCSUtils\BackCompat\BCTokens::phpcsCommentTokens
+     * @covers ::phpcsCommentTokens
      *
      * @return void
      */
@@ -118,7 +120,7 @@ class EmptyTokensTest extends TestCase
      *
      * @group compareWithPHPCS
      *
-     * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+     * @covers ::__callStatic
      *
      * @return void
      */
@@ -134,7 +136,7 @@ class EmptyTokensTest extends TestCase
      *
      * @group compareWithPHPCS
      *
-     * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+     * @covers ::__callStatic
      *
      * @return void
      */
@@ -150,7 +152,7 @@ class EmptyTokensTest extends TestCase
      *
      * @group compareWithPHPCS
      *
-     * @covers \PHPCSUtils\BackCompat\BCTokens::phpcsCommentTokens
+     * @covers ::phpcsCommentTokens
      *
      * @return void
      */

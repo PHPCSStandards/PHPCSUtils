@@ -16,6 +16,8 @@ use PHPCSUtils\Utils\Scopes;
 /**
  * Tests for the \PHPCSUtils\Utils\Scopes::isOOProperty method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\Scopes
+ *
  * @group scopes
  *
  * @since 1.0.0
@@ -26,7 +28,7 @@ class IsOOPropertyTest extends UtilityMethodTestCase
     /**
      * Test passing a non-existent token pointer.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOProperty
+     * @covers ::isOOProperty
      *
      * @return void
      */
@@ -39,7 +41,7 @@ class IsOOPropertyTest extends UtilityMethodTestCase
     /**
      * Test passing a non variable token.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOProperty
+     * @covers ::isOOProperty
      *
      * @return void
      */
@@ -54,8 +56,8 @@ class IsOOPropertyTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsOOProperty
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOProperty
-     * @covers \PHPCSUtils\Utils\Scopes::validDirectScope
+     * @covers ::isOOProperty
+     * @covers ::validDirectScope
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $expected   The expected function return value.
