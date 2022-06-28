@@ -37,7 +37,7 @@ class GetParametersDiffTest extends UtilityMethodTestCase
      */
     public static function setUpTestFile()
     {
-        self::$caseFile = dirname(dirname(__DIR__)) . '/DummyFile.inc';
+        self::$caseFile = \dirname(\dirname(__DIR__)) . '/DummyFile.inc';
         parent::setUpTestFile();
     }
 

@@ -221,7 +221,7 @@ class UseStatements
             return $statements;
         }
 
-        $endOfStatement++;
+        ++$endOfStatement;
 
         $start     = true;
         $useGroup  = false;

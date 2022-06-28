@@ -128,7 +128,7 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
 
         // Change from offsets to absolute token positions.
-        if ($expected['get'] != false) {
+        if ($expected['get'] !== false) {
             foreach ($expected['get'] as $key => $value) {
                 $expected['get'][$key] += $stackPtr;
             }
