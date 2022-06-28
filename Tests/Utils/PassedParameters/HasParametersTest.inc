@@ -64,8 +64,8 @@ class HierarchyKeywordsWithParam {
 }
 
 class HierarchyKeywordsAsMethodNames {
-	public function self() {}
-	public function static() {}
+    public function self() {}
+    public function static() {}
     public function parent() {
         /* testHasParamsFunctionCall6 */
         $a = self::self(true);
