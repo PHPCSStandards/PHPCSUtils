@@ -51,7 +51,7 @@ class PassedParameters
      *   If a `T_STRING` or `T_VARIABLE` which is *not* a function call is passed, the behaviour is
      *   undetermined.
      * - If passed a `T_ANON_CLASS` stack pointer, it will accept it as a class instantiation.
-     * - If passed a `T_SELF` or `T_STATIC` stack pointer, it will accept it as a
+     * - If passed a `T_SELF`, `T_STATIC` or `T_PARENT` stack pointer, it will accept it as a
      *   class instantiation function call when used like `new self()`.
      * - If passed a `T_ARRAY` or `T_OPEN_SHORT_ARRAY` stack pointer, it will detect
      *   whether the array has values or is empty.
@@ -89,7 +89,8 @@ class PassedParameters
             );
         }
 
-        if ($tokens[$stackPtr]['code'] === \T_SELF || $tokens[$stackPtr]['code'] === \T_STATIC) {
+        // Reminder: `new parent` only tokenizes as `T_PARENT` since PHPCS 3.7.0.
+        if (isset(Collections::ooHierarchyKeywords()[$tokens[$stackPtr]['code']]) === true) {
             $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
             if ($tokens[$prev]['code'] !== \T_NEW) {
                 throw new RuntimeException(
