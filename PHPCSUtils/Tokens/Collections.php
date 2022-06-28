@@ -654,8 +654,7 @@ class Collections
 
         // Class instantiation only.
         $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
-        $tokens[\T_SELF]       = \T_SELF;
-        $tokens[\T_STATIC]     = \T_STATIC;
+        $tokens               += self::ooHierarchyKeywords();
 
         return $tokens;
     }

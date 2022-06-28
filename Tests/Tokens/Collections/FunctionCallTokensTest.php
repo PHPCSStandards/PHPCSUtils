@@ -49,6 +49,7 @@ class FunctionCallTokensTest extends TestCase
         $expected += [
             \T_VARIABLE   => \T_VARIABLE,
             \T_ANON_CLASS => \T_ANON_CLASS,
+            \T_PARENT     => \T_PARENT,
             \T_SELF       => \T_SELF,
             \T_STATIC     => \T_STATIC,
         ];

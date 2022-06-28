@@ -58,16 +58,46 @@ class HasParametersTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when T_SELF is passed not preceeded by `new`.
      *
+     * @dataProvider dataNotACallToConstructor
+     *
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType The type of token to look for.
+     *
      * @return void
      */
-    public function testNotACallToConstructor()
+    public function testNotACallToConstructor($testMarker, $targetType)
     {
         $this->expectPhpcsException(
             'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
         );
 
-        $self = $this->getTargetToken('/* testNotACallToConstructor */', \T_SELF);
+        $self = $this->getTargetToken($testMarker, $targetType);
         PassedParameters::hasParameters(self::$phpcsFile, $self);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testNotACallToConstructor() For the array format.
+     *
+     * @return array
+     */
+    public function dataNotACallToConstructor()
+    {
+        return [
+            'parent' => [
+                'testMarker' => '/* testNotACallToConstructor1 */',
+                'targetType' => \T_PARENT,
+            ],
+            'static' => [
+                'testMarker' => '/* testNotACallToConstructor2 */',
+                'targetType' => \T_STATIC,
+            ],
+            'self' => [
+                'testMarker' => '/* testNotACallToConstructor3 */',
+                'targetType' => \T_SELF,
+            ],
+        ];
     }
 
     /**
@@ -141,6 +171,24 @@ class HasParametersTest extends UtilityMethodTestCase
                 \T_VARIABLE,
                 false,
             ],
+            'no-params-function-call-5-new-self' => [
+                '/* testNoParamsFunctionCall5 */',
+                // In PHPCS < 2.8.0, self in "new self" is tokenized as T_STRING.
+                [\T_SELF, \T_STRING],
+                false,
+            ],
+            'no-params-function-call-6-new-static' => [
+                '/* testNoParamsFunctionCall6 */',
+                \T_STATIC,
+                false,
+            ],
+            'no-params-function-call-7-new-parent' => [
+                '/* testNoParamsFunctionCall7 */',
+                // In PHPCS < 3.7.0, parent in "new parent" is tokenized as T_STRING.
+                [\T_PARENT, \T_STRING],
+                false,
+            ],
+
             'has-params-function-call-1' => [
                 '/* testHasParamsFunctionCall1 */',
                 \T_STRING,
@@ -151,12 +199,42 @@ class HasParametersTest extends UtilityMethodTestCase
                 \T_VARIABLE,
                 true,
             ],
-            'has-params-function-call-3' => [
+            'has-params-function-call-3-new-self' => [
                 '/* testHasParamsFunctionCall3 */',
                 // In PHPCS < 2.8.0, self in "new self" is tokenized as T_STRING.
                 [\T_SELF, \T_STRING],
                 true,
             ],
+            'has-params-function-call-4-new-static' => [
+                '/* testHasParamsFunctionCall4 */',
+                \T_STATIC,
+                true,
+            ],
+            'has-params-function-call-5-new-parent' => [
+                '/* testHasParamsFunctionCall5 */',
+                // In PHPCS < 3.7.0, parent in "new parent" is tokenized as T_STRING.
+                [\T_PARENT, \T_STRING],
+                true,
+            ],
+            'has-params-function-call-6-self-as-method-name' => [
+                '/* testHasParamsFunctionCall6 */',
+                \T_STRING,
+                true,
+                'self',
+            ],
+            'has-params-function-call-7-static-as-method-name' => [
+                '/* testHasParamsFunctionCall7 */',
+                \T_STRING,
+                true,
+                'static',
+            ],
+            'has-params-function-call-8-parent-as-method-name' => [
+                '/* testHasParamsFunctionCall8 */',
+                \T_STRING,
+                true,
+                'parent',
+            ],
+
             'no-params-function-call-fully-qualified' => [
                 '/* testNoParamsFunctionCallFullyQualified */',
                 ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
