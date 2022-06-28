@@ -1272,15 +1272,13 @@ class Collections
     {
         $tokens = [
             \T_CALLABLE   => \T_CALLABLE,
-            \T_SELF       => \T_SELF,
-            \T_PARENT     => \T_PARENT,
-            \T_STATIC     => \T_STATIC,
             \T_FALSE      => \T_FALSE,      // Union types only.
             \T_NULL       => \T_NULL,       // Union types only.
             \T_ARRAY      => \T_ARRAY,      // Arrow functions PHPCS < 3.5.4 + union types.
             \T_BITWISE_OR => \T_BITWISE_OR, // Union types for PHPCS < 3.6.0.
         ];
 
+        $tokens += self::ooHierarchyKeywords();
         $tokens += self::namespacedNameTokens();
 
         // PHPCS > 3.6.0: a new token was introduced for the union type separator.
