@@ -425,6 +425,7 @@ class BCTokens
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 2.3.3.
      * - PHPCS 3.1.0: `T_SELF` and `T_STATIC` added to the array.
+     * - PHPCS 3.7.2: `T_PARENT` added to the array.
      * - PHPCS 4.0.0: `T_NAME_QUALIFIED`, `T_NAME_FULLY_QUALIFIED` and `T_NAME_RELATIVE` added to the array.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$functionNameTokens Original array.
@@ -438,6 +439,7 @@ class BCTokens
         $tokens            = Tokens::$functionNameTokens;
         $tokens[\T_SELF]   = \T_SELF;
         $tokens[\T_STATIC] = \T_STATIC;
+        $tokens[\T_PARENT] = \T_PARENT;
         $tokens           += Collections::nameTokens();
 
         return $tokens;
