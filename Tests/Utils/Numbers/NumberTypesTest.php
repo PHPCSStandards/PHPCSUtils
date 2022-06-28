@@ -20,6 +20,8 @@ use PHPUnit\Framework\TestCase;
  * \PHPCSUtils\Utils\Numbers::isOctalInt() and the
  * \PHPCSUtils\Utils\Numbers::isFloat() method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\Numbers
+ *
  * @group numbers
  *
  * @since 1.0.0
@@ -31,7 +33,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a decimal integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isDecimalInt
+     * @covers       ::isDecimalInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -47,7 +49,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a hexidecimal integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isHexidecimalInt
+     * @covers       ::isHexidecimalInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -63,7 +65,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a binary integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isBinaryInt
+     * @covers       ::isBinaryInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -79,7 +81,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing an octal integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isOctalInt
+     * @covers       ::isOctalInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -95,7 +97,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a decimal float.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isFloat
+     * @covers       ::isFloat
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.

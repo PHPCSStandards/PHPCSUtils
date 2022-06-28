@@ -16,6 +16,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests for the \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethodName() method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\FunctionDeclarations
+ *
  * @group functiondeclarations
  *
  * @since 1.0.0
@@ -27,7 +29,7 @@ class IsMagicMethodNameTest extends TestCase
      * Test valid PHP magic method names.
      *
      * @dataProvider dataIsMagicMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethodName
+     * @covers       ::isMagicMethodName
      *
      * @param string $name The function name to test.
      *
@@ -42,7 +44,7 @@ class IsMagicMethodNameTest extends TestCase
      * Test valid PHP magic method names.
      *
      * @dataProvider dataIsMagicMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethodName
+     * @covers       ::isSpecialMethodName
      *
      * @param string $name The function name to test.
      *
@@ -108,7 +110,7 @@ class IsMagicMethodNameTest extends TestCase
      * Test non-magic method names.
      *
      * @dataProvider dataIsNotMagicMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethodName
+     * @covers       ::isMagicMethodName
      *
      * @param string $name The function name to test.
      *
@@ -123,7 +125,7 @@ class IsMagicMethodNameTest extends TestCase
      * Test non-magic method names.
      *
      * @dataProvider dataIsNotMagicMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethodName
+     * @covers       ::isSpecialMethodName
      *
      * @param string $name The function name to test.
      *

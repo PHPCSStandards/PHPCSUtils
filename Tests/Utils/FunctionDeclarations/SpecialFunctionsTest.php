@@ -19,6 +19,8 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  * \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod() and the
  * \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod() methods.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\FunctionDeclarations
+ *
  * @group functiondeclarations
  *
  * @since 1.0.0
@@ -29,10 +31,10 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
     /**
      * Test that the special function methods return false when passed a non-existent token.
      *
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicFunction
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod
+     * @covers ::isMagicFunction
+     * @covers ::isMagicMethod
+     * @covers ::isPHPDoubleUnderscoreMethod
+     * @covers ::isSpecialMethod
      *
      * @return void
      */
@@ -54,10 +56,10 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
     /**
      * Test that the special function methods return false when passed a non-function token.
      *
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicFunction
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod
+     * @covers ::isMagicFunction
+     * @covers ::isMagicMethod
+     * @covers ::isPHPDoubleUnderscoreMethod
+     * @covers ::isSpecialMethod
      *
      * @return void
      */
@@ -82,7 +84,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting magic functions.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isMagicFunction
+     * @covers       ::isMagicFunction
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -100,7 +102,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting magic methods.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethod
+     * @covers       ::isMagicMethod
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -118,7 +120,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting PHP native double underscore methods.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod
+     * @covers       ::isPHPDoubleUnderscoreMethod
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -136,7 +138,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting magic methods and double underscore methods.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod
+     * @covers       ::isSpecialMethod
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
