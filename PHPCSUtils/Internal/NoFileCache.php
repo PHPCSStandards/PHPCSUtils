@@ -46,6 +46,18 @@ final class NoFileCache
 {
 
     /**
+     * Whether caching is enabled or not.
+     *
+     * Note: this switch is ONLY intended for use within test suites and should never
+     * be touched in any other circumstances!
+     *
+     * Don't forget to always turn the cache back on in a `tear_down()` method!
+     *
+     * @var bool
+     */
+    public static $enabled = true;
+
+    /**
      * Results cache.
      *
      * @var array<string, array<int|string, mixed>> Format: $cache[$key][$id] = mixed $value;
@@ -65,7 +77,7 @@ final class NoFileCache
      */
     public static function isCached($key, $id)
     {
-        return isset(self::$cache[$key]) && \array_key_exists($id, self::$cache[$key]);
+        return self::$enabled === true && isset(self::$cache[$key]) && \array_key_exists($id, self::$cache[$key]);
     }
 
     /**
@@ -81,7 +93,7 @@ final class NoFileCache
      */
     public static function get($key, $id)
     {
-        if (isset(self::$cache[$key]) && \array_key_exists($id, self::$cache[$key])) {
+        if (self::$enabled === true && isset(self::$cache[$key]) && \array_key_exists($id, self::$cache[$key])) {
             return self::$cache[$key][$id];
         }
 
@@ -98,7 +110,7 @@ final class NoFileCache
      */
     public static function getForKey($key)
     {
-        if (\array_key_exists($key, self::$cache)) {
+        if (self::$enabled === true && \array_key_exists($key, self::$cache)) {
             return self::$cache[$key];
         }
 
@@ -119,6 +131,10 @@ final class NoFileCache
      */
     public static function set($key, $id, $value)
     {
+        if (self::$enabled === false) {
+            return;
+        }
+
         self::$cache[$key][$id] = $value;
     }
 

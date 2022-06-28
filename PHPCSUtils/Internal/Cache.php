@@ -50,6 +50,18 @@ final class Cache
 {
 
     /**
+     * Whether caching is enabled or not.
+     *
+     * Note: this switch is ONLY intended for use within test suites and should never
+     * be touched in any other circumstances!
+     *
+     * Don't forget to always turn the cache back on in a `tear_down()` method!
+     *
+     * @var bool
+     */
+    public static $enabled = true;
+
+    /**
      * Results cache.
      *
      * @var array<int, array<string, array>> Format: $cache[$loop][$fileName][$key][$id] = mixed $value;
@@ -72,6 +84,10 @@ final class Cache
      */
     public static function isCached(File $phpcsFile, $key, $id)
     {
+        if (self::$enabled === false) {
+            return false;
+        }
+
         $fileName = $phpcsFile->getFilename();
         $loop     = $phpcsFile->fixer->enabled === true ? $phpcsFile->fixer->loops : 0;
 
@@ -95,6 +111,10 @@ final class Cache
      */
     public static function get(File $phpcsFile, $key, $id)
     {
+        if (self::$enabled === false) {
+            return null;
+        }
+
         $fileName = $phpcsFile->getFilename();
         $loop     = $phpcsFile->fixer->enabled === true ? $phpcsFile->fixer->loops : 0;
 
@@ -118,6 +138,10 @@ final class Cache
      */
     public static function getForFile(File $phpcsFile, $key)
     {
+        if (self::$enabled === false) {
+            return [];
+        }
+
         $fileName = $phpcsFile->getFilename();
         $loop     = $phpcsFile->fixer->enabled === true ? $phpcsFile->fixer->loops : 0;
 
@@ -147,6 +171,10 @@ final class Cache
      */
     public static function set(File $phpcsFile, $key, $id, $value)
     {
+        if (self::$enabled === false) {
+            return;
+        }
+
         $fileName = $phpcsFile->getFilename();
         $loop     = $phpcsFile->fixer->enabled === true ? $phpcsFile->fixer->loops : 0;
 

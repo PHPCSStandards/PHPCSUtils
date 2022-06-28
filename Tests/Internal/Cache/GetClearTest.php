@@ -27,6 +27,13 @@ class GetClearTest extends UtilityMethodTestCase
 {
 
     /**
+     * Original value for whether or not caching is enabled for this test run.
+     *
+     * @var bool
+     */
+    private static $origCacheEnabled;
+
+    /**
      * Initialize PHPCS & tokenize the test case file.
      *
      * @beforeClass
@@ -35,8 +42,16 @@ class GetClearTest extends UtilityMethodTestCase
      */
     public static function setUpTestFile()
     {
-        Cache::clear();
         self::$caseFile = \dirname(\dirname(__DIR__)) . '/DummyFile.inc';
+
+        /*
+         * Make sure caching is ALWAYS enabled for these tests and
+         * make sure these tests are run with a clear cache to start with.
+         */
+        self::$origCacheEnabled = Cache::$enabled;
+        Cache::$enabled         = true;
+        Cache::clear();
+
         parent::setUpTestFile();
     }
 
@@ -68,6 +83,18 @@ class GetClearTest extends UtilityMethodTestCase
         Cache::clear();
         self::$phpcsFile->fixer->enabled = false;
         self::$phpcsFile->fixer->loops   = 0;
+    }
+
+    /**
+     * Reset the caching status.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetCachingStatus()
+    {
+        Cache::$enabled = self::$origCacheEnabled;
     }
 
     /**
@@ -109,6 +136,25 @@ class GetClearTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test that disabling the cache will short-circuit cache checking.
+     *
+     * @covers ::isCached
+     *
+     * @return void
+     */
+    public function testIsCachedWillReturnFalseWhenCachingDisabled()
+    {
+        $wasEnabled     = Cache::$enabled;
+        Cache::$enabled = false;
+
+        $isCached = Cache::isCached(self::$phpcsFile, 'Utility1', 'numeric string');
+
+        Cache::$enabled = $wasEnabled;
+
+        $this->assertFalse($isCached);
+    }
+
+    /**
      * Test that retrieving a cache key for a loop which has not been set, yields null.
      *
      * @covers ::get
@@ -147,6 +193,25 @@ class GetClearTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test that disabling the cache will short-circuit cache retrieval.
+     *
+     * @covers ::get
+     *
+     * @return void
+     */
+    public function testGetWillReturnNullWhenCachingDisabled()
+    {
+        $wasEnabled     = Cache::$enabled;
+        Cache::$enabled = false;
+
+        $retrieved = Cache::get(self::$phpcsFile, 'Utility1', 'numeric string');
+
+        Cache::$enabled = $wasEnabled;
+
+        $this->assertNull($retrieved);
+    }
+
+    /**
      * Test that retrieving a cache set for a loop which has not been set, yields an empty array.
      *
      * @covers ::getForFile
@@ -170,6 +235,25 @@ class GetClearTest extends UtilityMethodTestCase
     public function testGetForFileWillReturnEmptyArrayForUnavailableKey()
     {
         $this->assertSame([], Cache::getForFile(self::$phpcsFile, 'Utility3'));
+    }
+
+    /**
+     * Test that disabling the cache will short-circuit cache for file retrieval.
+     *
+     * @covers ::getForFile
+     *
+     * @return void
+     */
+    public function testGetForFileWillReturnEmptyArrayWhenCachingDisabled()
+    {
+        $wasEnabled     = Cache::$enabled;
+        Cache::$enabled = false;
+
+        $retrieved = Cache::getForFile(self::$phpcsFile, 'Utility1');
+
+        Cache::$enabled = $wasEnabled;
+
+        $this->assertSame([], $retrieved);
     }
 
     /**

@@ -27,6 +27,31 @@ class GetClearTest extends TestCase
 {
 
     /**
+     * Original value for whether or not caching is enabled for this test run.
+     *
+     * @var bool
+     */
+    private static $origCacheEnabled;
+
+    /**
+     * Enable caching.
+     *
+     * @beforeClass
+     *
+     * @return void
+     */
+    public static function enableCache()
+    {
+        /*
+         * Make sure caching is ALWAYS enabled for these tests and
+         * make sure these tests are run with a clear cache to start with.
+         */
+        self::$origCacheEnabled = NoFileCache::$enabled;
+        NoFileCache::$enabled   = true;
+        NoFileCache::clear();
+    }
+
+    /**
      * Fill the initial cache.
      *
      * @before
@@ -35,8 +60,6 @@ class GetClearTest extends TestCase
      */
     protected function createCache()
     {
-        NoFileCache::clear();
-
         $data = TypeProviderHelper::getAll();
         foreach ($data as $id => $dataset) {
             NoFileCache::set('Utility1', $id, $dataset['input']);
@@ -54,6 +77,18 @@ class GetClearTest extends TestCase
     protected function clearCache()
     {
         NoFileCache::clear();
+    }
+
+    /**
+     * Reset the caching status.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetCachingStatus()
+    {
+        NoFileCache::$enabled = self::$origCacheEnabled;
     }
 
     /**
@@ -81,6 +116,25 @@ class GetClearTest extends TestCase
     }
 
     /**
+     * Test that disabling the cache will short-circuit cache checking.
+     *
+     * @covers ::isCached
+     *
+     * @return void
+     */
+    public function testIsCachedWillReturnFalseWhenCachingDisabled()
+    {
+        $wasEnabled           = NoFileCache::$enabled;
+        NoFileCache::$enabled = false;
+
+        $isCached = NoFileCache::isCached('Utility1', 'numeric string');
+
+        NoFileCache::$enabled = $wasEnabled;
+
+        $this->assertFalse($isCached);
+    }
+
+    /**
      * Test that retrieving a cache key which has not been set, yields null.
      *
      * @covers ::get
@@ -105,6 +159,25 @@ class GetClearTest extends TestCase
     }
 
     /**
+     * Test that disabling the cache will short-circuit cache retrieval.
+     *
+     * @covers ::get
+     *
+     * @return void
+     */
+    public function testGetWillReturnNullWhenCachingDisabled()
+    {
+        $wasEnabled           = NoFileCache::$enabled;
+        NoFileCache::$enabled = false;
+
+        $retrieved = NoFileCache::get('Utility1', 'numeric string');
+
+        NoFileCache::$enabled = $wasEnabled;
+
+        $this->assertNull($retrieved);
+    }
+
+    /**
      * Test that retrieving a cache set for a cache key which has not been set, yields an empty array.
      *
      * @covers ::getForKey
@@ -114,6 +187,25 @@ class GetClearTest extends TestCase
     public function testGetForKeyWillReturnEmptyArrayForUnavailableData()
     {
         $this->assertSame([], NoFileCache::getForKey('Utility3'));
+    }
+
+    /**
+     * Test that disabling the cache will short-circuit cache for key retrieval.
+     *
+     * @covers ::getForKey
+     *
+     * @return void
+     */
+    public function testGetForKeyWillReturnEmptyArrayWhenCachingDisabled()
+    {
+        $wasEnabled           = NoFileCache::$enabled;
+        NoFileCache::$enabled = false;
+
+        $retrieved = NoFileCache::getForKey('Utility1');
+
+        NoFileCache::$enabled = $wasEnabled;
+
+        $this->assertSame([], $retrieved);
     }
 
     /**

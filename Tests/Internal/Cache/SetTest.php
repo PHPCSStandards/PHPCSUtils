@@ -29,6 +29,13 @@ class SetTest extends UtilityMethodTestCase
 {
 
     /**
+     * Original value for whether or not caching is enabled for this test run.
+     *
+     * @var bool
+     */
+    private static $origCacheEnabled;
+
+    /**
      * Initialize PHPCS & tokenize the test case file.
      *
      * @beforeClass
@@ -37,8 +44,16 @@ class SetTest extends UtilityMethodTestCase
      */
     public static function setUpTestFile()
     {
-        Cache::clear();
         self::$caseFile = \dirname(\dirname(__DIR__)) . '/DummyFile.inc';
+
+        /*
+         * Make sure caching is ALWAYS enabled for these tests and
+         * make sure these tests are run with a clear cache to start with.
+         */
+        self::$origCacheEnabled = Cache::$enabled;
+        Cache::$enabled         = true;
+        Cache::clear();
+
         parent::setUpTestFile();
     }
 
@@ -54,6 +69,18 @@ class SetTest extends UtilityMethodTestCase
         Cache::clear();
         self::$phpcsFile->fixer->enabled = false;
         self::$phpcsFile->fixer->loops   = 0;
+    }
+
+    /**
+     * Reset the caching status.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetCachingStatus()
+    {
+        Cache::$enabled = self::$origCacheEnabled;
     }
 
     /**
@@ -184,6 +211,34 @@ class SetTest extends UtilityMethodTestCase
             $newValue,
             Cache::get(self::$phpcsFile, __METHOD__, $id),
             'New value retrieved via Cache::get() did not match expectations'
+        );
+    }
+
+    /**
+     * Verify that disabling the cache will short-circuit caching (and not eat memory).
+     *
+     * @return void
+     */
+    public function testSetWillNotSaveDataWhenCachingIsDisabled()
+    {
+        $id    = 'id';
+        $value = 'value';
+
+        $wasEnabled     = Cache::$enabled;
+        Cache::$enabled = false;
+
+        Cache::set(self::$phpcsFile, __METHOD__, $id, $value);
+
+        Cache::$enabled = $wasEnabled;
+
+        $this->assertFalse(
+            Cache::isCached(self::$phpcsFile, __METHOD__, $id),
+            'Cache::isCached() found a cache which was set while caching was disabled'
+        );
+
+        $this->assertNull(
+            Cache::get(self::$phpcsFile, __METHOD__, $id),
+            'Value retrieved via Cache::get() did not match expectations'
         );
     }
 

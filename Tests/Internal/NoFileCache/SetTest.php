@@ -29,9 +29,33 @@ class SetTest extends TestCase
 {
 
     /**
+     * Original value for whether or not caching is enabled for this test run.
+     *
+     * @var bool
+     */
+    private static $origCacheEnabled;
+
+    /**
+     * Enable caching.
+     *
+     * @beforeClass
+     *
+     * @return void
+     */
+    public static function enableCache()
+    {
+        /*
+         * Make sure caching is ALWAYS enabled for these tests and
+         * make sure these tests are run with a clear cache to start with.
+         */
+        self::$origCacheEnabled = NoFileCache::$enabled;
+        NoFileCache::$enabled   = true;
+        NoFileCache::clear();
+    }
+
+    /**
      * Clear the cache between tests.
      *
-     * @before
      * @after
      *
      * @return void
@@ -39,6 +63,18 @@ class SetTest extends TestCase
     protected function clearCache()
     {
         NoFileCache::clear();
+    }
+
+    /**
+     * Reset the caching status.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetCachingStatus()
+    {
+        NoFileCache::$enabled = self::$origCacheEnabled;
     }
 
     /**
@@ -169,6 +205,34 @@ class SetTest extends TestCase
             $newValue,
             NoFileCache::get(__METHOD__, $id),
             'New value retrieved via NoFileCache::get() did not match expectations'
+        );
+    }
+
+    /**
+     * Verify that disabling the cache will short-circuit caching (and not eat memory).
+     *
+     * @return void
+     */
+    public function testSetWillNotSaveDataWhenCachingIsDisabled()
+    {
+        $id    = 'id';
+        $value = 'value';
+
+        $wasEnabled           = NoFileCache::$enabled;
+        NoFileCache::$enabled = false;
+
+        NoFileCache::set(__METHOD__, $id, $value);
+
+        NoFileCache::$enabled = $wasEnabled;
+
+        $this->assertFalse(
+            NoFileCache::isCached(__METHOD__, $id),
+            'NoFileCache::isCached() found a cache which was set while caching was disabled'
+        );
+
+        $this->assertNull(
+            NoFileCache::get(__METHOD__, $id),
+            'Value retrieved via NoFileCache::get() did not match expectations'
         );
     }
 }
