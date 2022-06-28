@@ -436,11 +436,9 @@ class BCTokens
      */
     public static function functionNameTokens()
     {
-        $tokens            = Tokens::$functionNameTokens;
-        $tokens[\T_SELF]   = \T_SELF;
-        $tokens[\T_STATIC] = \T_STATIC;
-        $tokens[\T_PARENT] = \T_PARENT;
-        $tokens           += Collections::nameTokens();
+        $tokens  = Tokens::$functionNameTokens;
+        $tokens += Collections::ooHierarchyKeywords();
+        $tokens += Collections::nameTokens();
 
         return $tokens;
     }
