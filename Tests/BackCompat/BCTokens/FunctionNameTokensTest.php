@@ -48,6 +48,7 @@ class FunctionNameTokensTest extends TestCase
             \T_EMPTY        => \T_EMPTY,
             \T_SELF         => \T_SELF,
             \T_STATIC       => \T_STATIC,
+            \T_PARENT       => \T_PARENT,
         ];
 
         if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
