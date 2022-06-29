@@ -550,7 +550,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                  * Shouldn't be possible. Either way, if it's not one of the above types,
                  * this is not a key we can handle.
                  */
-                return;
+                return; // @codeCoverageIgnore
         }
     }
 }

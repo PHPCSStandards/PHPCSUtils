@@ -253,6 +253,9 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: xdebug
 
+      - name: "DEBUG: Show version details"
+        run: php -v
+
       - name: 'Composer: adjust dependencies'
         run: |
           # Set a specific PHPCS version.

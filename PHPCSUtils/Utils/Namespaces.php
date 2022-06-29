@@ -307,7 +307,8 @@ class Namespaces
                 if (isset($tokens[$prev]['scope_condition']) === true) {
                     $prev = $tokens[$prev]['scope_condition'];
                 } elseif (isset($tokens[$prev]['scope_opener']) === true) {
-                    $prev = $tokens[$prev]['scope_opener'];
+                    // Shouldn't be possible, but just in case.
+                    $prev = $tokens[$prev]['scope_opener']; // @codeCoverageIgnore
                 }
 
                 continue;

@@ -764,7 +764,8 @@ class FunctionDeclarations
 
         $returnValue['parenthesis_opener'] = $nextNonEmpty;
         if (isset($tokens[$nextNonEmpty]['parenthesis_closer']) === false) {
-            return false;
+            // Shouldn't be possible, but just in case.
+            return false; // @codeCoverageIgnore
         }
 
         $returnValue['parenthesis_closer'] = $tokens[$nextNonEmpty]['parenthesis_closer'];
