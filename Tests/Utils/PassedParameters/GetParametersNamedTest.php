@@ -95,9 +95,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
 
         return [
             'only-positional-args' => [
-                '/* testPositionalArgs */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testPositionalArgs */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 2,
@@ -116,9 +116,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args' => [
-                '/* testNamedArgs */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNamedArgs */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -146,9 +146,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-multiline' => [
-                '/* testNamedArgsMultiline */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNamedArgsMultiline */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => 6,
@@ -176,9 +176,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-whitespace-comments' => [
-                '/* testNamedArgsWithWhitespaceAndComments */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNamedArgsWithWhitespaceAndComments */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 3,
                         'name_end'   => 6,
@@ -206,9 +206,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'mixed-positional-and-named-args' => [
-                '/* testMixedPositionalAndNamedArgs */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testMixedPositionalAndNamedArgs */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start'      => 2,
                         'end'        => 2,
@@ -225,9 +225,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-nested-function-call-outer' => [
-                '/* testNestedFunctionCallOuter */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNestedFunctionCallOuter */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 5 : 4,
@@ -255,9 +255,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-nested-function-call-inner-1' => [
-                '/* testNestedFunctionCallInner1 */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNestedFunctionCallInner1 */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -269,9 +269,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-nested-function-call-inner-2' => [
-                '/* testNestedFunctionCallInner2 */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNestedFunctionCallInner2 */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -283,9 +283,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-in-fqn-function-call' => [
-                '/* testNamespacedFQNFunction */',
-                ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
-                [
+                'testMarker'    => '/* testNamespacedFQNFunction */',
+                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'expected'      => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -303,12 +303,12 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                         'raw'        => 'false',
                     ],
                 ],
-                ($php8Names === true) ? null : 'function_name',
+                'targetContent' => ($php8Names === true) ? null : 'function_name',
             ],
             'named-args-in-variable-function-call' => [
-                '/* testVariableFunction */',
-                \T_VARIABLE,
-                [
+                'testMarker' => '/* testVariableFunction */',
+                'targetType' => \T_VARIABLE,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -328,9 +328,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-in-class-instantiation-with-static' => [
-                '/* testClassInstantiationStatic */',
-                \T_STATIC,
-                [
+                'testMarker' => '/* testClassInstantiationStatic */',
+                'targetType' => \T_STATIC,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -350,9 +350,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-in-anon-class-instantiation' => [
-                '/* testAnonClass */',
-                \T_ANON_CLASS,
-                [
+                'testMarker' => '/* testAnonClass */',
+                'targetType' => \T_ANON_CLASS,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -372,9 +372,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-non-ascii-names' => [
-                '/* testNonAsciiNames */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNonAsciiNames */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -402,9 +402,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'mixed-positional-and-named-args-with-ternary' => [
-                '/* testMixedPositionalAndNamedArgsWithTernary */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testMixedPositionalAndNamedArgsWithTernary */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start'      => 2,
                         'end'        => 11,
@@ -421,9 +421,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-with-ternary' => [
-                '/* testNamedArgWithTernary */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testNamedArgWithTernary */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 4 : 3,
@@ -443,9 +443,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'ternary-with-function-call-in-then' => [
-                '/* testTernaryWithFunctionCallsInThenElse */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testTernaryWithFunctionCallsInThenElse */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => 4,
@@ -457,9 +457,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'ternary-with-function-call-in-else' => [
-                '/* testTernaryWithFunctionCallsInElse */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testTernaryWithFunctionCallsInElse */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => 4,
@@ -471,9 +471,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-compile-error-named-before-positional' => [
-                '/* testCompileErrorNamedBeforePositional */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testCompileErrorNamedBeforePositional */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -490,9 +490,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-error-exception-duplicate-name' => [
-                '/* testDuplicateName */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testDuplicateName */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -512,9 +512,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-error-exception-incorrect-order-variadic' => [
-                '/* testIncorrectOrderWithVariadic */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testIncorrectOrderWithVariadic */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => ($namedParamsInPhpcs === true) ? 3 : 2,
@@ -531,9 +531,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-compile-error-incorrect-order-variadic' => [
-                '/* testCompileErrorIncorrectOrderWithVariadic */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testCompileErrorIncorrectOrderWithVariadic */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start'      => 2,
                         'end'        => 3,
@@ -550,9 +550,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-parse-error-dynamic-name' => [
-                '/* testParseErrorDynamicName */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testParseErrorDynamicName */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start'      => 2,
                         'end'        => 5,
@@ -561,9 +561,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-using-reserved-keywords' => [
-                '/* testReservedKeywordAsName */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testReservedKeywordAsName */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'name_start' => 2,
                         'name_end'   => 5,

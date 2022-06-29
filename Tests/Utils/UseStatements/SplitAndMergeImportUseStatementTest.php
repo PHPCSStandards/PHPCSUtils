@@ -56,32 +56,32 @@ class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
     {
         $data = [
             'name-plain' => [
-                '/* testUseNamePlainAliased */',
-                [
+                'testMarker' => '/* testUseNamePlainAliased */',
+                'expected'   => [
                     'name'     => ['ClassAlias' => 'MyNamespace\YourClass'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'function-plain' => [
-                '/* testUseFunctionPlain */',
-                [
+                'testMarker' => '/* testUseFunctionPlain */',
+                'expected'   => [
                     'name'     => ['ClassAlias' => 'MyNamespace\YourClass'],
                     'function' => ['myFunction' => 'MyNamespace\myFunction'],
                     'const'    => [],
                 ],
             ],
             'const-plain' => [
-                '/* testUseConstPlain */',
-                [
+                'testMarker' => '/* testUseConstPlain */',
+                'expected'   => [
                     'name'     => ['ClassAlias' => 'MyNamespace\YourClass'],
                     'function' => ['myFunction' => 'MyNamespace\myFunction'],
                     'const'    => ['MY_CONST' => 'MyNamespace\MY_CONST'],
                 ],
             ],
             'group-mixed' => [
-                '/* testGroupUseMixed */',
-                [
+                'testMarker' => '/* testGroupUseMixed */',
+                'expected'   => [
                     'name'     => [
                         'ClassAlias'   => 'MyNamespace\YourClass',
                         'ClassName'    => 'Some\NS\ClassName',
@@ -99,9 +99,9 @@ class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'trait-use' => [
-                '/* testTraitUse */',
+                'testMarker' => '/* testTraitUse */',
                 // Same as previous.
-                [
+                'expected'   => [
                     'name'     => [
                         'ClassAlias'   => 'MyNamespace\YourClass',
                         'ClassName'    => 'Some\NS\ClassName',
@@ -122,8 +122,8 @@ class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
 
         $previousUse = [];
         foreach ($data as $key => $value) {
-            $data[$key][] = $previousUse;
-            $previousUse  = $value[1];
+            $data[$key]['previousUse'] = $previousUse;
+            $previousUse               = $value['expected'];
         }
 
         return $data;

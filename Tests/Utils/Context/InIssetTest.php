@@ -62,24 +62,24 @@ class InIssetTest extends UtilityMethodTestCase
     {
         return [
             'method-called-isset' => [
-                '/* testNotIssetMethodCall */',
-                false,
+                'testMarker' => '/* testNotIssetMethodCall */',
+                'expected'   => false,
             ],
             'owner-not-isset' => [
-                '/* testOwnerNotIsset */',
-                false,
+                'testMarker' => '/* testOwnerNotIsset */',
+                'expected'   => false,
             ],
             'in-isset' => [
-                '/* testInIsset */',
-                true,
+                'testMarker' => '/* testInIsset */',
+                'expected'   => true,
             ],
             'in-isset-nested' => [
-                '/* testInIssetnested */',
-                true,
+                'testMarker' => '/* testInIssetnested */',
+                'expected'   => true,
             ],
             'parse-error' => [
-                '/* testParseError */',
-                false,
+                'testMarker' => '/* testParseError */',
+                'expected'   => false,
             ],
         ];
     }

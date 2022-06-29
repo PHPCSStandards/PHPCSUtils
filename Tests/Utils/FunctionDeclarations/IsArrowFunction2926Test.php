@@ -154,8 +154,8 @@ class IsArrowFunction2926Test extends UtilityMethodTestCase
     {
         return [
             'arrow-function-returning-heredoc' => [
-                '/* testHeredoc */',
-                [
+                'testMarker' => '/* testHeredoc */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -166,8 +166,8 @@ class IsArrowFunction2926Test extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-returning-nowdoc' => [
-                '/* testNowdoc */',
-                [
+                'testMarker' => '/* testNowdoc */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,

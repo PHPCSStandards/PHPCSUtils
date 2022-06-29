@@ -67,8 +67,8 @@ class GetNameDiffTest extends UtilityMethodTestCase
     {
         return [
             'live-coding' => [
-                '/* testLiveCoding */',
-                \T_CLASS,
+                'testMarker' => '/* testLiveCoding */',
+                'targetType' => \T_CLASS,
             ],
         ];
     }
@@ -106,16 +106,16 @@ class GetNameDiffTest extends UtilityMethodTestCase
     {
         return [
             'trait-name-starts-with-number' => [
-                '/* testTraitStartingWithNumber */',
-                '5InvalidNameStartingWithNumber',
+                'testMarker' => '/* testTraitStartingWithNumber */',
+                'expected'   => '5InvalidNameStartingWithNumber',
             ],
             'interface-fully-numeric-name' => [
-                '/* testInterfaceFullyNumeric */',
-                '12345',
+                'testMarker' => '/* testInterfaceFullyNumeric */',
+                'expected'   => '12345',
             ],
             'using-reserved-keyword-as-name' => [
-                '/* testInvalidInterfaceName */',
-                'switch',
+                'testMarker' => '/* testInvalidInterfaceName */',
+                'expected'   => 'switch',
             ],
         ];
     }

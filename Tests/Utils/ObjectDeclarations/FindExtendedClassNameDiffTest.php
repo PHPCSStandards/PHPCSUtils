@@ -57,16 +57,16 @@ class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
     {
         return [
             'phpcs-annotation-and-comments' => [
-                '/* testDeclarationWithComments */',
-                '\Package\SubDir\SomeClass',
+                'testMarker' => '/* testDeclarationWithComments */',
+                'expected'   => '\Package\SubDir\SomeClass',
             ],
             'namespace-operator' => [
-                '/* testExtendedClassUsingNamespaceOperator */',
-                'namespace\Bar',
+                'testMarker' => '/* testExtendedClassUsingNamespaceOperator */',
+                'expected'   => 'namespace\Bar',
             ],
             'parse-error-stray-comma' => [
-                '/* testExtendedClassStrayComma */',
-                'testClass',
+                'testMarker' => '/* testExtendedClassStrayComma */',
+                'expected'   => 'testClass',
             ],
         ];
     }

@@ -110,24 +110,24 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
     {
         return [
             'plain' => [
-                '/* testUsePlain */',
-                [
+                'testMarker' => '/* testUsePlain */',
+                'expected'   => [
                     'name'     => ['MyClass' => 'MyNamespace\MyClass'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'plain-aliased' => [
-                '/* testUsePlainAliased */',
-                [
+                'testMarker' => '/* testUsePlainAliased */',
+                'expected'   => [
                     'name'     => ['ClassAlias' => 'MyNamespace\YourClass'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'multiple-with-comments' => [
-                '/* testUseMultipleWithComments */',
-                [
+                'testMarker' => '/* testUseMultipleWithComments */',
+                'expected'   => [
                     'name'     => [
                         'ClassABC'   => 'Vendor\Foo\ClassA',
                         'InterfaceB' => 'Vendor\Bar\InterfaceB',
@@ -138,24 +138,24 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'function-plain-ends-on-close-tag' => [
-                '/* testUseFunctionPlainEndsOnCloseTag */',
-                [
+                'testMarker' => '/* testUseFunctionPlainEndsOnCloseTag */',
+                'expected'   => [
                     'name'     => [],
                     'function' => ['myFunction' => 'MyNamespace\myFunction'],
                     'const'    => [],
                 ],
             ],
             'function-plain-aliased' => [
-                '/* testUseFunctionPlainAliased */',
-                [
+                'testMarker' => '/* testUseFunctionPlainAliased */',
+                'expected'   => [
                     'name'     => [],
                     'function' => ['FunctionAlias' => 'Vendor\YourNamespace\yourFunction'],
                     'const'    => [],
                 ],
             ],
             'function-multiple' => [
-                '/* testUseFunctionMultiple */',
-                [
+                'testMarker' => '/* testUseFunctionMultiple */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [
                         'sin'    => 'foo\math\sin',
@@ -166,24 +166,24 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'const-plain-uppercase-const-keyword' => [
-                '/* testUseConstPlainUppercaseConstKeyword */',
-                [
+                'testMarker' => '/* testUseConstPlainUppercaseConstKeyword */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => ['MY_CONST' => 'MyNamespace\MY_CONST'],
                 ],
             ],
             'const-plain-aliased' => [
-                '/* testUseConstPlainAliased */',
-                [
+                'testMarker' => '/* testUseConstPlainAliased */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => ['CONST_ALIAS' => 'MyNamespace\YOUR_CONST'],
                 ],
             ],
             'const-multiple' => [
-                '/* testUseConstMultiple */',
-                [
+                'testMarker' => '/* testUseConstMultiple */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [
@@ -193,8 +193,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group' => [
-                '/* testGroupUse */',
-                [
+                'testMarker' => '/* testGroupUse */',
+                'expected'   => [
                     'name'     => [
                         'SomeClassA' => 'some\namespacing\SomeClassA',
                         'SomeClassB' => 'some\namespacing\deeper\level\SomeClassB',
@@ -205,8 +205,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group-function-trailing-comma' => [
-                '/* testGroupUseFunctionTrailingComma */',
-                [
+                'testMarker' => '/* testGroupUseFunctionTrailingComma */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [
                         'Msin'   => 'bar\math\Msin',
@@ -217,8 +217,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group-const' => [
-                '/* testGroupUseConst */',
-                [
+                'testMarker' => '/* testGroupUseConst */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [
@@ -228,8 +228,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group-mixed' => [
-                '/* testGroupUseMixed */',
-                [
+                'testMarker' => '/* testGroupUseMixed */',
+                'expected'   => [
                     'name'     => [
                         'ClassName'    => 'Some\NS\ClassName',
                         'AnotherLevel' => 'Some\NS\AnotherLevel',
@@ -242,48 +242,48 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'parse-error-function-plain-reserved-keyword' => [
-                '/* testUseFunctionPlainReservedKeyword */',
-                [
+                'testMarker' => '/* testUseFunctionPlainReservedKeyword */',
+                'expected'   => [
                     'name'     => [],
                     'function' => ['yourFunction' => 'Vendor\YourNamespace\switch\yourFunction'],
                     'const'    => [],
                 ],
             ],
             'parse-error-const-plain-reserved-keyword' => [
-                '/* testUseConstPlainReservedKeyword */',
-                [
+                'testMarker' => '/* testUseConstPlainReservedKeyword */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => ['yourConst' => 'Vendor\YourNamespace\function\yourConst'],
                 ],
             ],
             'parse-error-plain-alias-reserved-keyword' => [
-                '/* testUsePlainAliasReservedKeyword */',
-                [
+                'testMarker' => '/* testUsePlainAliasReservedKeyword */',
+                'expected'   => [
                     'name'     => ['class' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'parse-error-plain-alias-reserved-keyword-function' => [
-                '/* testUsePlainAliasReservedKeywordFunction */',
-                [
+                'testMarker' => '/* testUsePlainAliasReservedKeywordFunction */',
+                'expected'   => [
                     'name'     => ['function' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'parse-error-plain-alias-reserved-keyword-const' => [
-                '/* testUsePlainAliasReservedKeywordConst */',
-                [
+                'testMarker' => '/* testUsePlainAliasReservedKeywordConst */',
+                'expected'   => [
                     'name'     => ['const' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'parse-error' => [
-                '/* testParseError */',
-                [
+                'testMarker' => '/* testParseError */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [],

@@ -68,15 +68,15 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
     {
         return [
             'phpcs-annotation' => [
-                '/* testPHPCSAnnotations */',
-                [
+                'testMarker' => '/* testPHPCSAnnotations */',
+                'expected'   => [
                     'is_abstract' => false,
                     'is_final'    => true,
                 ],
             ],
             'unorthodox-docblock-placement' => [
-                '/* testWithDocblockWithWeirdlyPlacedProperty */',
-                [
+                'testMarker' => '/* testWithDocblockWithWeirdlyPlacedProperty */',
+                'expected'   => [
                     'is_abstract' => false,
                     'is_final'    => true,
                 ],

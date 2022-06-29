@@ -62,20 +62,20 @@ class InUnsetTest extends UtilityMethodTestCase
     {
         return [
             'method-called-unset' => [
-                '/* testNotUnsetMethodCall */',
-                false,
+                'testMarker' => '/* testNotUnsetMethodCall */',
+                'expected'   => false,
             ],
             'owner-not-unset' => [
-                '/* testOwnerNotUnset */',
-                false,
+                'testMarker' => '/* testOwnerNotUnset */',
+                'expected'   => false,
             ],
             'in-unset' => [
-                '/* testInUnset */',
-                true,
+                'testMarker' => '/* testInUnset */',
+                'expected'   => true,
             ],
             'parse-error' => [
-                '/* testParseError */',
-                false,
+                'testMarker' => '/* testParseError */',
+                'expected'   => false,
             ],
         ];
     }

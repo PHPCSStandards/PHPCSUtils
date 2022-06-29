@@ -66,12 +66,12 @@ class GetAssignmentsTest extends UtilityMethodTestCase
     {
         return [
             'not-a-list' => [
-                '/* testNotAList */',
-                \T_OPEN_SHORT_ARRAY,
+                'testMarker'  => '/* testNotAList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
             ],
             'live-coding' => [
-                '/* testLiveCoding */',
-                \T_LIST,
+                'testMarker'  => '/* testLiveCoding */',
+                'targetToken' => \T_LIST,
             ],
         ];
     }
@@ -130,19 +130,19 @@ class GetAssignmentsTest extends UtilityMethodTestCase
     {
         return [
             'long-list-empty' => [
-                '/* testEmptyLongList */',
-                \T_LIST,
-                [],
+                'testMarker'  => '/* testEmptyLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [],
             ],
             'short-list-empty' => [
-                '/* testEmptyShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                [],
+                'testMarker'  => '/* testEmptyShortList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [],
             ],
             'long-list-all-empty' => [
-                '/* testLongListOnlyEmpties */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListOnlyEmpties */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '',
                         'assignment'           => '',
@@ -190,14 +190,14 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-all-empty-with-comment' => [
-                '/* testShortListOnlyEmpties */',
-                \T_OPEN_SHORT_ARRAY,
-                [],
+                'testMarker'  => '/* testShortListOnlyEmpties */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [],
             ],
             'long-list-basic' => [
-                '/* testSimpleLongList */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testSimpleLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$id',
                         'assignment'           => '$id',
@@ -223,9 +223,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-basic' => [
-                '/* testSimpleShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testSimpleShortList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$this->propA',
                         'assignment'           => '$this->propA',
@@ -251,9 +251,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-in-foreach-keyed-with-ref' => [
-                '/* testShortListInForeachKeyedWithRef */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortListInForeachKeyedWithRef */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'id\' => & $id',
                         'assignment'           => '$id',
@@ -287,9 +287,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-nested' => [
-                '/* testNestedLongList */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testNestedLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$a',
                         'assignment'           => '$a',
@@ -315,9 +315,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-keys' => [
-                '/* testLongListWithKeys */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithKeys */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'name\' => $a',
                         'assignment'           => '$a',
@@ -366,9 +366,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-empties' => [
-                '/* testLongListWithEmptyEntries */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithEmptyEntries */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '',
                         'assignment'           => '',
@@ -460,9 +460,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-multi-line-keyed' => [
-                '/* testLongListMultiLineKeyedWithTrailingComma */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListMultiLineKeyedWithTrailingComma */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '"name" => $this->name',
                         'assignment'           => '$this->name',
@@ -537,9 +537,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-with-keys-nested-lists' => [
-                '/* testShortListWithKeysNestedLists */',
-                [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET],
-                [
+                'testMarker'  => '/* testShortListWithKeysNestedLists */',
+                'targetToken' => [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET],
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' => [&$a, $b]',
                         'assignment'           => '[&$a, $b]',
@@ -573,9 +573,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-array-vars' => [
-                '/* testLongListWithArrayVars */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithArrayVars */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$a[]',
                         'assignment'           => '$a[]',
@@ -612,9 +612,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-multi-line-with-variable-keys' => [
-                '/* testShortListMultiLineWithVariableKeys */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortListMultiLineWithVariableKeys */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' . \'b\'        => $a',
                         'assignment'           => '$a',
@@ -750,9 +750,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-close-parens-in-key' => [
-                '/* testLongListWithCloseParensInKey */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithCloseParensInKey */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => 'get_key()[1] => &$e',
                         'assignment'           => '$e',
@@ -771,9 +771,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-variable-vars' => [
-                '/* testLongListVariableVar */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListVariableVar */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '${$drink}',
                         'assignment'           => '${$drink}',
@@ -799,9 +799,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-keyed-with-nested-lists' => [
-                '/* testLongListKeyedNestedLists */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListKeyedNestedLists */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' =>
         list("x" => $x1, "y" => $y1)',
@@ -837,9 +837,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'parse-error-long-list-mixed-keyed-unkeyed' => [
-                '/* testLongListMixedKeyedUnkeyed */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListMixedKeyedUnkeyed */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$unkeyed',
                         'assignment'           => '$unkeyed',
@@ -869,9 +869,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'parse-error-short-list-empties-and-key' => [
-                '/* testShortListWithEmptiesAndKey */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortListWithEmptiesAndKey */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '',
                         'assignment'           => '',

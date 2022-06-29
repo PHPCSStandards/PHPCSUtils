@@ -43,16 +43,16 @@ class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsSuperglobal
      *
-     * @param string     $testMarker      The comment which prefaces the target token in the test file.
-     * @param bool       $expected        The expected function return value.
-     * @param int|string $testTargetType  Optional. The token type for the target token in the test file.
-     * @param string     $testTargetValue Optional. The token content for the target token in the test file.
+     * @param string     $testMarker  The comment which prefaces the target token in the test file.
+     * @param bool       $expected    The expected function return value.
+     * @param int|string $targetType  Optional. The token type for the target token in the test file.
+     * @param string     $targetValue Optional. The token content for the target token in the test file.
      *
      * @return void
      */
-    public function testIsSuperglobal($testMarker, $expected, $testTargetType = \T_VARIABLE, $testTargetValue = null)
+    public function testIsSuperglobal($testMarker, $expected, $targetType = \T_VARIABLE, $targetValue = null)
     {
-        $stackPtr = $this->getTargetToken($testMarker, $testTargetType, $testTargetValue);
+        $stackPtr = $this->getTargetToken($testMarker, $targetType, $targetValue);
         $result   = Variables::isSuperglobal(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -68,70 +68,70 @@ class IsSuperglobalTest extends UtilityMethodTestCase
     {
         return [
             'not-a-variable' => [
-                '/* testNotAVariable */',
-                false,
-                \T_RETURN,
+                'testMarker' => '/* testNotAVariable */',
+                'expected'   => false,
+                'targetType' => \T_RETURN,
             ],
             'not-a-reserved-var' => [
-                '/* testNotAReservedVar */',
-                false,
+                'testMarker' => '/* testNotAReservedVar */',
+                'expected'   => false,
             ],
             'reserved-var-not-superglobal' => [
-                '/* testReservedVarNotSuperglobal */',
-                false,
+                'testMarker' => '/* testReservedVarNotSuperglobal */',
+                'expected'   => false,
             ],
             'reserved-var-superglobal' => [
-                '/* testReservedVarIsSuperglobal */',
-                true,
+                'testMarker' => '/* testReservedVarIsSuperglobal */',
+                'expected'   => true,
             ],
             'array-key-not-a-reserved-var' => [
-                '/* testGLOBALSArrayKeyNotAReservedVar */',
-                false,
-                \T_CONSTANT_ENCAPSED_STRING,
+                'testMarker' => '/* testGLOBALSArrayKeyNotAReservedVar */',
+                'expected'   => false,
+                'targetType' => \T_CONSTANT_ENCAPSED_STRING,
             ],
             'array-key-variable' => [
-                '/* testGLOBALSArrayKeyVar */',
-                false,
-                \T_VARIABLE,
-                '$something',
+                'testMarker'  => '/* testGLOBALSArrayKeyVar */',
+                'expected'    => false,
+                'targetType'  => \T_VARIABLE,
+                'targetValue' => '$something',
             ],
             'array-key-reserved-var-not-superglobal' => [
-                '/* testGLOBALSArrayKeyReservedVar */',
-                false,
-                \T_VARIABLE,
-                '$php_errormsg',
+                'testMarker'  => '/* testGLOBALSArrayKeyReservedVar */',
+                'expected'    => false,
+                'targetType'  => \T_VARIABLE,
+                'targetValue' => '$php_errormsg',
             ],
             'array-key-var-superglobal' => [
-                '/* testGLOBALSArrayKeySuperglobal */',
-                true,
-                \T_VARIABLE,
-                '$_COOKIE',
+                'testMarker'  => '/* testGLOBALSArrayKeySuperglobal */',
+                'expected'    => true,
+                'targetType'  => \T_VARIABLE,
+                'targetValue' => '$_COOKIE',
             ],
             'array-key-not-single-string' => [
-                '/* testGLOBALSArrayKeyNotSingleString */',
-                false,
-                \T_CONSTANT_ENCAPSED_STRING,
+                'testMarker' => '/* testGLOBALSArrayKeyNotSingleString */',
+                'expected'   => false,
+                'targetType' => \T_CONSTANT_ENCAPSED_STRING,
             ],
             'array-key-interpolated-var' => [
-                '/* testGLOBALSArrayKeyInterpolatedVar */',
-                false,
-                \T_DOUBLE_QUOTED_STRING,
+                'testMarker' => '/* testGLOBALSArrayKeyInterpolatedVar */',
+                'expected'   => false,
+                'targetType' => \T_DOUBLE_QUOTED_STRING,
             ],
             'array-key-string-superglobal' => [
-                '/* testGLOBALSArrayKeySingleStringSuperglobal */',
-                true,
-                \T_CONSTANT_ENCAPSED_STRING,
+                'testMarker' => '/* testGLOBALSArrayKeySingleStringSuperglobal */',
+                'expected'   => true,
+                'targetType' => \T_CONSTANT_ENCAPSED_STRING,
             ],
             'array-key-var-superglobal-with-array-access' => [
-                '/* testGLOBALSArrayKeySuperglobalWithKey */',
-                true,
-                \T_VARIABLE,
-                '$_GET',
+                'testMarker'  => '/* testGLOBALSArrayKeySuperglobalWithKey */',
+                'expected'    => true,
+                'targetType'  => \T_VARIABLE,
+                'targetValue' => '$_GET',
             ],
             'array-key-not-globals-array' => [
-                '/* testSuperglobalKeyNotGLOBALSArray */',
-                false,
-                \T_CONSTANT_ENCAPSED_STRING,
+                'testMarker' => '/* testSuperglobalKeyNotGLOBALSArray */',
+                'expected'   => false,
+                'targetType' => \T_CONSTANT_ENCAPSED_STRING,
             ],
         ];
     }

@@ -50,10 +50,22 @@ class StringToErrorcodeTest extends TestCase
     public function dataStringToErrorCode()
     {
         return [
-            'no-special-chars'  => ['dir_name', 'dir_name'],
-            'full-stop'         => ['soap.wsdl_cache', 'soap_wsdl_cache'],
-            'dash-and-space'    => ['arbitrary-string with space', 'arbitrary_string_with_space'],
-            'no-alphanum-chars' => ['^%*&%*€à?', '____________'],
+            'no-special-chars'  => [
+                'input'    => 'dir_name',
+                'expected' => 'dir_name',
+            ],
+            'full-stop'         => [
+                'input'    => 'soap.wsdl_cache',
+                'expected' =>  'soap_wsdl_cache',
+            ],
+            'dash-and-space'    => [
+                'input'    => 'arbitrary-string with space',
+                'expected' =>  'arbitrary_string_with_space',
+            ],
+            'no-alphanum-chars' => [
+                'input'    => '^%*&%*€à?',
+                'expected' =>  '____________',
+            ],
         ];
     }
 }

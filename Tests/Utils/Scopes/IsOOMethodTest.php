@@ -82,44 +82,44 @@ class IsOOMethodTest extends UtilityMethodTestCase
     {
         return [
             'global-function' => [
-                '/* testGlobalFunction */',
-                false,
+                'testMarker' => '/* testGlobalFunction */',
+                'expected'   => false,
             ],
             'nested-function' => [
-                '/* testNestedFunction */',
-                false,
+                'testMarker' => '/* testNestedFunction */',
+                'expected'   => false,
             ],
             'nested-closure' => [
-                '/* testNestedClosure */',
-                false,
+                'testMarker' => '/* testNestedClosure */',
+                'expected'   => false,
             ],
             'class-method' => [
-                '/* testClassMethod */',
-                true,
+                'testMarker' => '/* testClassMethod */',
+                'expected'   => true,
             ],
             'class-nested-function' => [
-                '/* testClassNestedFunction */',
-                false,
+                'testMarker' => '/* testClassNestedFunction */',
+                'expected'   => false,
             ],
             'class-nested-closure' => [
-                '/* testClassNestedClosure */',
-                false,
+                'testMarker' => '/* testClassNestedClosure */',
+                'expected'   => false,
             ],
             'class-abstract-method' => [
-                '/* testClassAbstractMethod */',
-                true,
+                'testMarker' => '/* testClassAbstractMethod */',
+                'expected'   => true,
             ],
             'anon-class-method' => [
-                '/* testAnonClassMethod */',
-                true,
+                'testMarker' => '/* testAnonClassMethod */',
+                'expected'   => true,
             ],
             'interface-method' => [
-                '/* testInterfaceMethod */',
-                true,
+                'testMarker' => '/* testInterfaceMethod */',
+                'expected'   => true,
             ],
             'trait-method' => [
-                '/* testTraitMethod */',
-                true,
+                'testMarker' => '/* testTraitMethod */',
+                'expected'   => true,
             ],
         ];
     }

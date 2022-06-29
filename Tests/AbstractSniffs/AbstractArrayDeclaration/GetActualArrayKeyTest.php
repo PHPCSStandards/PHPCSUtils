@@ -75,34 +75,34 @@ class GetActualArrayKeyTest extends UtilityMethodTestCase
     {
         return [
             'unsupported-key-types' => [
-                '/* testAllVoid */',
-                null,
-                0,
+                'testMarker'   => '/* testAllVoid */',
+                'expected'     => null,
+                'expectedFrom' => 0,
             ],
             'keys-all-empty-string' => [
-                '/* testAllEmptyString */',
-                '',
-                0,
+                'testMarker'   => '/* testAllEmptyString */',
+                'expected'     => '',
+                'expectedFrom' => 0,
             ],
             'keys-all-integer-zero' => [
-                '/* testAllZero */',
-                0,
-                0,
+                'testMarker'   => '/* testAllZero */',
+                'expected'     => 0,
+                'expectedFrom' => 0,
             ],
             'keys-all-integer-one' => [
-                '/* testAllOne */',
-                1,
-                1,
+                'testMarker'   => '/* testAllOne */',
+                'expected'     => 1,
+                'expectedFrom' => 1,
             ],
             'keys-all-integer-eleven' => [
-                '/* testAllEleven */',
-                11,
-                0,
+                'testMarker'   => '/* testAllEleven */',
+                'expected'     => 11,
+                'expectedFrom' => 0,
             ],
             'keys-all-string-abc' => [
-                '/* testAllStringAbc */',
-                'abc',
-                0,
+                'testMarker'   => '/* testAllStringAbc */',
+                'expected'     => 'abc',
+                'expectedFrom' => 0,
             ],
         ];
     }

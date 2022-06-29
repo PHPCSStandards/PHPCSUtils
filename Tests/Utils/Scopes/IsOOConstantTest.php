@@ -82,32 +82,32 @@ class IsOOConstantTest extends UtilityMethodTestCase
     {
         return [
             'global-const' => [
-                '/* testGlobalConst */',
-                false,
+                'testMarker' => '/* testGlobalConst */',
+                'expected'   => false,
             ],
             'function-const' => [
-                '/* testFunctionConst */',
-                false,
+                'testMarker' => '/* testFunctionConst */',
+                'expected'   => false,
             ],
             'class-const' => [
-                '/* testClassConst */',
-                true,
+                'testMarker' => '/* testClassConst */',
+                'expected'   => true,
             ],
             'method-const' => [
-                '/* testClassMethodConst */',
-                false,
+                'testMarker' => '/* testClassMethodConst */',
+                'expected'   => false,
             ],
             'anon-class-const' => [
-                '/* testAnonClassConst */',
-                true,
+                'testMarker' => '/* testAnonClassConst */',
+                'expected'   => true,
             ],
             'interface-const' => [
-                '/* testInterfaceConst */',
-                true,
+                'testMarker' => '/* testInterfaceConst */',
+                'expected'   => true,
             ],
             'trait-const' => [
-                '/* testTraitConst */',
-                false,
+                'testMarker' => '/* testTraitConst */',
+                'expected'   => false,
             ],
         ];
     }

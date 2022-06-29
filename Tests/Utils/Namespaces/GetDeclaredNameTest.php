@@ -100,50 +100,50 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
     {
         return [
             'global-namespace-curlies' => [
-                '/* testGlobalNamespaceCurlies */',
-                [
+                'testMarker' => '/* testGlobalNamespaceCurlies */',
+                'expected'   => [
                     'clean' => '',
                     'dirty' => '',
                 ],
             ],
             'namespace-semicolon' => [
-                '/* testNamespaceSemiColon */',
-                [
+                'testMarker' => '/* testNamespaceSemiColon */',
+                'expected'   => [
                     'clean' => 'Vendor',
                     'dirty' => 'Vendor',
                 ],
             ],
             'namespace-curlies' => [
-                '/* testNamespaceCurlies */',
-                [
+                'testMarker' => '/* testNamespaceCurlies */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sublevel\End',
                     'dirty' => 'Vendor\Package\Sublevel\End',
                 ],
             ],
             'namespace-curlies-no-space-at-end' => [
-                '/* testNamespaceCurliesNoSpaceAtEnd */',
-                [
+                'testMarker' => '/* testNamespaceCurliesNoSpaceAtEnd */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sublevel\Deeperlevel\End',
                     'dirty' => 'Vendor\Package\Sublevel\Deeperlevel\End',
                 ],
             ],
             'namespace-close-tag' => [
-                '/* testNamespaceCloseTag */',
-                [
+                'testMarker' => '/* testNamespaceCloseTag */',
+                'expected'   => [
                     'clean' => 'My\Name',
                     'dirty' => 'My\Name',
                 ],
             ],
             'namespace-close-tag-no-space-at-end' => [
-                '/* testNamespaceCloseTagNoSpaceAtEnd */',
-                [
+                'testMarker' => '/* testNamespaceCloseTagNoSpaceAtEnd */',
+                'expected'   => [
                     'clean' => 'My\Other\Name',
                     'dirty' => 'My\Other\Name',
                 ],
             ],
             'namespace-whitespace-tolerance' => [
-                '/* testNamespaceLotsOfWhitespace */',
-                [
+                'testMarker' => '/* testNamespaceLotsOfWhitespace */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sub\Deeperlevel\End',
                     'dirty' => 'Vendor \
     Package\
@@ -153,8 +153,8 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
                 ],
             ],
             'namespace-with-comments-and-annotations' => [
-                '/* testNamespaceWithCommentsWhitespaceAndAnnotations */',
-                [
+                'testMarker' => '/* testNamespaceWithCommentsWhitespaceAndAnnotations */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sublevel\Deeper\End',
                     'dirty' => 'Vendor\/*comment*/
     Package\Sublevel  \ //phpcs:ignore Standard.Category.Sniff -- for reasons.
@@ -163,30 +163,30 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
                 ],
             ],
             'namespace-operator' => [
-                '/* testNamespaceOperator */',
-                [
+                'testMarker' => '/* testNamespaceOperator */',
+                'expected'   => [
                     'clean' => false,
                     'dirty' => false,
                 ],
-                true,
+                'skipOnPHP8' => true,
             ],
             'parse-error-reserved-keywords' => [
-                '/* testParseErrorReservedKeywords */',
-                [
+                'testMarker' => '/* testParseErrorReservedKeywords */',
+                'expected'   => [
                     'clean' => 'Vendor\while\Package\protected\name\try\this',
                     'dirty' => 'Vendor\while\Package\protected\name\try\this',
                 ],
             ],
             'parse-error-semicolon' => [
-                '/* testParseErrorSemiColon */',
-                [
+                'testMarker' => '/* testParseErrorSemiColon */',
+                'expected'   => [
                     'clean' => false,
                     'dirty' => false,
                 ],
             ],
             'live-coding' => [
-                '/* testLiveCoding */',
-                [
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => [
                     'clean' => false,
                     'dirty' => false,
                 ],

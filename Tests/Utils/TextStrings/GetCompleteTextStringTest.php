@@ -147,87 +147,89 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
     {
         return [
             'single-line-constant-encapsed-string' => [
-                '/* testSingleLineConstantEncapsedString */',
-                'single line text string',
-                "'single line text string'",
+                'testMarker'         => '/* testSingleLineConstantEncapsedString */',
+                'expected'           => 'single line text string',
+                'expectedWithQuotes' => "'single line text string'",
             ],
             'multi-line-constant-encapsed-string' => [
-                '/* testMultiLineConstantEncapsedString */',
-                'first line
+                'testMarker'         => '/* testMultiLineConstantEncapsedString */',
+                'expected'           => 'first line
 second line
 third line
 fourth line',
-                '"first line
+                'expectedWithQuotes' => '"first line
 second line
 third line
 fourth line"',
             ],
             'single-line-double-quoted-string' => [
-                '/* testSingleLineDoubleQuotedString */',
-                'single $line text string',
-                '"single $line text string"',
+                'testMarker'         => '/* testSingleLineDoubleQuotedString */',
+                'expected'           => 'single $line text string',
+                'expectedWithQuotes' => '"single $line text string"',
             ],
             'multi-line-double-quoted-string' => [
-                '/* testMultiLineDoubleQuotedString */',
-                'first line
+                'testMarker'         => '/* testMultiLineDoubleQuotedString */',
+                'expected'           => 'first line
 second $line
 third line
 fourth line',
-                '"first line
+                'expectedWithQuotes' => '"first line
 second $line
 third line
 fourth line"',
             ],
             'heredoc' => [
-                '/* testHeredocString */',
-                'first line
+                'testMarker'         => '/* testHeredocString */',
+                'expected'           => 'first line
 second $line
 third line
 fourth line',
-                'first line
+                'expectedWithQuotes' => 'first line
 second $line
 third line
 fourth line',
             ],
             'nowdoc' => [
-                '/* testNowdocString */',
-                'first line
+                'testMarker'         => '/* testNowdocString */',
+                'expected'           => 'first line
 second line
 third line
 fourth line',
-                'first line
+                'expectedWithQuotes' => 'first line
 second line
 third line
 fourth line',
             ],
 
             'Single line double quoted string containing problem embeds' => [
-                '/* testMultipleProblemEmbedsInSingleLineDoubleQuotedString */',
-                'My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}',
-                '"My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}"',
+                'testMarker'         => '/* testMultipleProblemEmbedsInSingleLineDoubleQuotedString */',
+                'expected'           =>
+                    'My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}',
+                'expectedWithQuotes' =>
+                    '"My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}"',
             ],
             'Multi-line double quoted string containing problem embeds' => [
-                '/* testProblemEmbedAtEndOfLineInMultiLineDoubleQuotedString */',
-                'Testing ${foo["${bar[\'baz\']}"]}
+                'testMarker'         => '/* testProblemEmbedAtEndOfLineInMultiLineDoubleQuotedString */',
+                'expected'           => 'Testing ${foo["${bar[\'baz\']}"]}
 and more ${foo["${bar}"]} testing',
-                '"Testing ${foo["${bar[\'baz\']}"]}
+                'expectedWithQuotes' => '"Testing ${foo["${bar[\'baz\']}"]}
 and more ${foo["${bar}"]} testing"',
             ],
             'Multi-line double quoted string containing multi-line problem embed' => [
-                '/* testMultilineProblemEmbedInMultiLineDoubleQuotedString */',
-                'Testing ${foo["${bar
+                'testMarker'         => '/* testMultilineProblemEmbedInMultiLineDoubleQuotedString */',
+                'expected'           => 'Testing ${foo["${bar
   [\'baz\']
 }"]} and more testing',
-                '"Testing ${foo["${bar
+                'expectedWithQuotes' => '"Testing ${foo["${bar
   [\'baz\']
 }"]} and more testing"',
             ],
 
             'text-string-at-end-of-file' => [
-                '/* testTextStringAtEndOfFile */',
-                'first line
+                'testMarker'         => '/* testTextStringAtEndOfFile */',
+                'expected'           => 'first line
 last line',
-                "'first line
+                'expectedWithQuotes' => "'first line
 last line'",
             ],
         ];

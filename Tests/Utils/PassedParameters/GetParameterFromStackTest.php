@@ -78,12 +78,12 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
     {
         return [
             'isset' => [
-                '/* testIsset */',
-                \T_ISSET,
+                'testMarker' => '/* testIsset */',
+                'targetType' => \T_ISSET,
             ],
             'array' => [
-                '/* testArray */',
-                \T_ARRAY,
+                'testMarker' => '/* testArray */',
+                'targetType' => \T_ARRAY,
             ],
         ];
     }
@@ -187,8 +187,8 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
 
         return [
             'all-named-non-standard-order' => [
-                '/* testAllParamsNamedNonStandardOrder */',
-                [
+                'testMarker' => '/* testAllParamsNamedNonStandardOrder */',
+                'expected'   => [
                     'name_start' => ($namedParamsInPhpcs === true) ? 46 : 42,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 49 : 44,
                     'name'       => 'value',
@@ -198,8 +198,8 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 ],
             ],
             'mixed-positional-and-named-target-non-named' => [
-                '/* testMixedPositionalAndNamedParams */',
-                [
+                'testMarker' => '/* testMixedPositionalAndNamedParams */',
+                'expected'   => [
                     'start' => 6,
                     'end'   => 8,
                     'raw'   => "'value'",
@@ -306,26 +306,26 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
 
         return [
             'all-params-all-positional' => [
-                'marker'             => '/* testAllParamsPositional */',
-                'name'               => [
+                'testMarker'       => '/* testAllParamsPositional */',
+                'expectedName'     => [
                     'start' => 2,
                     'end'   => 3,
                     'raw'   => "'name'",
                 ],
-                'expires_or_options' => [
+                'expectedExpires'  => [
                     'start' => 8,
                     'end'   => 25,
                     'raw'   => 'time() + (60 * 60 * 24)',
                 ],
-                'httponly'           => [
+                'expectedHttpOnly' => [
                     'start' => 36,
                     'end'   => 38,
                     'raw'   => 'false',
                 ],
             ],
             'all-params-all-named-standard-order' => [
-                'marker'             => '/* testAllParamsNamedStandardOrder */',
-                'name'               => [
+                'testMarker'       => '/* testAllParamsNamedStandardOrder */',
+                'expectedName'     => [
                     'name_start' => 2,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 5 : 4,
                     'name'       => 'name',
@@ -333,7 +333,7 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'end'        => ($namedParamsInPhpcs === true) ? 7 : 6,
                     'raw'        => "'name'",
                 ],
-                'expires_or_options' => [
+                'expectedExpires'  => [
                     'name_start' => ($namedParamsInPhpcs === true) ? 16 : 14,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 19 : 16,
                     'name'       => 'expires_or_options',
@@ -341,7 +341,7 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'end'        => ($namedParamsInPhpcs === true) ? 37 : 34,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
-                'httponly'           => [
+                'expectedHttpOnly' => [
                     'name_start' => ($namedParamsInPhpcs === true) ? 60 : 54,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 63 : 56,
                     'name'       => 'httponly',
@@ -351,8 +351,8 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 ],
             ],
             'all-params-all-named-random-order' => [
-                'marker'             => '/* testAllParamsNamedNonStandardOrder */',
-                'name'               => [
+                'testMarker'       => '/* testAllParamsNamedNonStandardOrder */',
+                'expectedName'     => [
                     'name_start' => ($namedParamsInPhpcs === true) ? 32 : 30,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 35 : 32,
                     'name'       => 'name',
@@ -360,7 +360,7 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'end'        => ($namedParamsInPhpcs === true) ? 37 : 34,
                     'raw'        => "'name'",
                 ],
-                'expires_or_options' => [
+                'expectedExpires'  => [
                     'name_start' => 2,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 5 : 4,
                     'name'       => 'expires_or_options',
@@ -368,7 +368,7 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'end'        => ($namedParamsInPhpcs === true) ? 23 : 22,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
-                'httponly'           => [
+                'expectedHttpOnly' => [
                     'name_start' => ($namedParamsInPhpcs === true) ? 53 : 48,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 56 : 50,
                     'name'       => 'httponly',
@@ -378,18 +378,18 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 ],
             ],
             'all-params-mixed-positional-and-named' => [
-                'marker'             => '/* testMixedPositionalAndNamedParams */',
-                'name'               => [
+                'testMarker'       => '/* testMixedPositionalAndNamedParams */',
+                'expectedName'     => [
                     'start'      => 2,
                     'end'        => 4,
                     'raw'        => "'name'",
                 ],
-                'expires_or_options' => [
+                'expectedExpires'  => [
                     'start'      => 10,
                     'end'        => 28,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
-                'httponly'           => [
+                'expectedHttpOnly' => [
                     'name_start' => ($namedParamsInPhpcs === true) ? 44 : 42,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 47 : 44,
                     'name'       => 'httponly',
@@ -399,13 +399,13 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                 ],
             ],
             'select-params-mixed-positional-and-named' => [
-                'marker'             => '/* testMixedPositionalAndNamedParamsNotAllOptionalSet */',
-                'name'               => [
+                'testMarker'       => '/* testMixedPositionalAndNamedParamsNotAllOptionalSet */',
+                'expectedName'     => [
                     'start'      => 2,
                     'end'        => 4,
                     'raw'        => "'name'",
                 ],
-                'expires_or_options' => [
+                'expectedExpires'  => [
                     'name_start' => 6,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 9 : 8,
                     'name'       => 'expires_or_options',
@@ -413,16 +413,16 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'end'        => ($namedParamsInPhpcs === true) ? 27 : 26,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
-                'httponly'           => false,
+                'expectedHttpOnly' => false,
             ],
             'select-params-mixed-positional-and-named-old-name' => [
-                'marker'             => '/* testMixedPositionalAndNamedParamsOldName */',
-                'name'               => [
+                'testMarker'       => '/* testMixedPositionalAndNamedParamsOldName */',
+                'expectedName'     => [
                     'start'      => 2,
                     'end'        => 4,
                     'raw'        => "'name'",
                 ],
-                'expires_or_options' => [
+                'expectedExpires'  => [
                     'name_start' => 6,
                     'name_end'   => ($namedParamsInPhpcs === true) ? 9 : 8,
                     'name'       => 'expires',
@@ -430,7 +430,7 @@ class GetParameterFromStackTest extends UtilityMethodTestCase
                     'end'        => ($namedParamsInPhpcs === true) ? 27 : 26,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
-                'httponly'           => false,
+                'expectedHttpOnly' => false,
             ],
         ];
     }

@@ -59,71 +59,71 @@ class IsLastCharPunctuationTest extends TestCase
         return [
             // Quotes should be stripped before passing the string.
             'double-quoted' => [
-                '"This is a test."',
-                false,
+                'input'    => '"This is a test."',
+                'expected' => false,
             ],
             'single-quoted' => [
-                "'This is a test?'",
-                false,
+                'input'    => "'This is a test?'",
+                'expected' => false,
             ],
 
             // Invalid end char.
             'no-punctuation' => [
-                'This is a test',
-                false,
+                'input'    => 'This is a test',
+                'expected' => false,
             ],
             'invalid-punctuation' => [
-                'This is a test;',
-                false,
+                'input'    => 'This is a test;',
+                'expected' => false,
             ],
             'invalid-punctuationtrailing-whitespace' => [
-                'This is a test;       ',
-                false,
+                'input'    => 'This is a test;       ',
+                'expected' => false,
             ],
 
             // Valid end char, default charset.
             'valid' => [
-                'This is a test.',
-                true,
+                'input'    => 'This is a test.',
+                'expected' => true,
             ],
             'valid-trailing-whitespace' => [
-                'This is a test.
+                'input'    => 'This is a test.
 ',
-                true,
+                'expected' => true,
             ],
 
             // Invalid end char, custom charset.
             'invalid-custom' => [
-                'This is a test.',
-                false,
-                '!?,;#',
+                'input'        => 'This is a test.',
+                'expected'     => false,
+                'allowedChars' => '!?,;#',
             ],
 
             // Valid end char, custom charset.
             'valid-custom-1' => [
-                'This is a test;',
-                true,
-                '!?,;#',
+                'input'        => 'This is a test;',
+                'expected'     => true,
+                'allowedChars' => '!?,;#',
             ],
             'valid-custom-2' => [
-                'This is a test!',
-                true,
-                '!?,;#',
+                'input'        => 'This is a test!',
+                'expected'     => true,
+                'allowedChars' => '!?,;#',
             ],
             'valid-custom-3' => [
-                'Is this is a test?',
-                true,
-                '!?,;#',
+                'input'        => 'Is this is a test?',
+                'expected'     => true,
+                'allowedChars' => '!?,;#',
             ],
             'valid-custom-4' => [
-                'This is a test,',
-                true,
-                '!?,;#',
+                'input'        => 'This is a test,',
+                'expected'     => true,
+                'allowedChars' => '!?,;#',
             ],
             'valid-custom-5' => [
-                'This is a test#',
-                true,
-                '!?,;#',
+                'input'        => 'This is a test#',
+                'expected'     => true,
+                'allowedChars' => '!?,;#',
             ],
         ];
     }

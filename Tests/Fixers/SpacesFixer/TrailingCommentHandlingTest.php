@@ -149,8 +149,8 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
 
         $data = $this->dataCheckAndFix();
         foreach ($data as $dataset) {
-            $stackPtr  = $this->getTargetToken($dataset[0], \T_COMMENT);
-            $secondPtr = $this->getTargetToken($dataset[0], \T_LNUMBER, '3');
+            $stackPtr  = $this->getTargetToken($dataset['testMarker'], \T_COMMENT);
+            $secondPtr = $this->getTargetToken($dataset['testMarker'], \T_LNUMBER, '3');
 
             SpacesFixer::checkAndFix(
                 self::$phpcsFile,
@@ -159,7 +159,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
                 self::SPACES,
                 self::MSG,
                 self::CODE,
-                $dataset[1]
+                $dataset['type']
             );
         }
 
@@ -188,20 +188,20 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
     {
         return [
             'trailing-comment-not-fixable' => [
-                '/* testTrailingOpenCommentAsPtrA */',
-                [
+                'testMarker' => '/* testTrailingOpenCommentAsPtrA */',
+                'expected'   => [
                     'found'   => 'a new line',
                     'fixable' => false,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'trailing-comment-fixable' => [
-                '/* testTrailingClosedCommentAsPtrA */',
-                [
+                'testMarker' => '/* testTrailingClosedCommentAsPtrA */',
+                'expected'   => [
                     'found'   => 'a new line',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
         ];
     }

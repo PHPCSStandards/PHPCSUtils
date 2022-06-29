@@ -99,7 +99,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
 
         return [
             'single-name-only' => [
-                'target'        => '/* testSingleCatchNameOnly */',
+                'testMarker'    => '/* testSingleCatchNameOnly */',
                 'expected'      => [
                     [
                         'type'           => 'RuntimeException',
@@ -109,7 +109,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'single-name-leading-backslash' => [
-                'target'        => '/* testSingleCatchNameLeadingBackslash */',
+                'testMarker'    => '/* testSingleCatchNameLeadingBackslash */',
                 'expected'      => [
                     [
                         'type'           => '\RuntimeException',
@@ -119,7 +119,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'single-partially-qualified' => [
-                'target'        => '/* testSingleCatchPartiallyQualified */',
+                'testMarker'    => '/* testSingleCatchPartiallyQualified */',
                 'expected'      => [
                     [
                         'type'           => 'MyNS\RuntimeException',
@@ -129,7 +129,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'single-fully-qualified' => [
-                'target'        => '/* testSingleCatchFullyQualified */',
+                'testMarker'    => '/* testSingleCatchFullyQualified */',
                 'expected'      => [
                     [
                         'type'           => '\MyNS\RuntimeException',
@@ -139,7 +139,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'single-name-with-comments-whitespace' => [
-                'target'        => '/* testSingleCatchPartiallyQualifiedWithCommentAndWhitespace */',
+                'testMarker'    => '/* testSingleCatchPartiallyQualifiedWithCommentAndWhitespace */',
                 'expected'      => [
                     [
                         'type'           => 'My\NS\Sub\RuntimeException',
@@ -149,7 +149,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'single-namespace-operator' => [
-                'target'        => '/* testSingleCatchNamespaceOperator */',
+                'testMarker'    => '/* testSingleCatchNamespaceOperator */',
                 'expected'      => [
                     [
                         'type'           => 'namespace\RuntimeException',
@@ -159,7 +159,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'multi-unqualified-names' => [
-                'target'        => '/* testMultiCatchSingleNames */',
+                'testMarker'    => '/* testMultiCatchSingleNames */',
                 'expected'      => [
                     [
                         'type'           => 'RuntimeException',
@@ -180,7 +180,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
             ],
 
             'multi-qualified-names' => [
-                'target'        => '/* testMultiCatchCompoundNames */',
+                'testMarker'    => '/* testMultiCatchCompoundNames */',
                 'expected'      => [
                     [
                         'type'           => '\NS\RuntimeException',
@@ -200,7 +200,7 @@ class GetCaughtExceptionsTest extends UtilityMethodTestCase
                 ],
             ],
             'non-capturing-catch' => [
-                'target'        => '/* testPHP8NonCapturingCatch */',
+                'testMarker'    => '/* testPHP8NonCapturingCatch */',
                 'expected'      => [
                     [
                         'type'           => 'RuntimeException',
