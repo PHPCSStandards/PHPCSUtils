@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Internal\NoFileCache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 
@@ -362,6 +363,11 @@ class TextStrings
             ];
         }
 
+        $textHash = \md5($text);
+        if (NoFileCache::isCached(__METHOD__, $textHash) === true) {
+            return NoFileCache::get(__METHOD__, $textHash);
+        }
+
         $offset    = 0;
         $strLen    = \strlen($text); // Use iconv ?
         $stripped  = '';
@@ -410,9 +416,12 @@ class TextStrings
             $stripped .= \substr($text, $offset);
         }
 
-        return [
+        $returnValue = [
             'embeds'    => $variables,
             'remaining' => $stripped,
         ];
+
+        NoFileCache::set(__METHOD__, $textHash, $returnValue);
+        return $returnValue;
     }
 }
