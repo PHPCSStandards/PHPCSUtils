@@ -266,8 +266,8 @@ class SpacesFixerNoSpaceTest extends UtilityMethodTestCase
 
         $data = $this->getAllData();
         foreach ($data as $dataset) {
-            $stackPtr  = $this->getTargetToken($dataset[0], \T_ARRAY);
-            $secondPtr = $this->getTargetToken($dataset[0], \T_OPEN_PARENTHESIS);
+            $stackPtr  = $this->getTargetToken($dataset['testMarker'], \T_ARRAY);
+            $secondPtr = $this->getTargetToken($dataset['testMarker'], \T_OPEN_PARENTHESIS);
 
             SpacesFixer::checkAndFix(
                 self::$phpcsFile,
@@ -276,7 +276,7 @@ class SpacesFixerNoSpaceTest extends UtilityMethodTestCase
                 static::SPACES,
                 static::MSG,
                 static::CODE,
-                $dataset[1],
+                $dataset['type'],
                 0
             );
         }
@@ -304,76 +304,76 @@ class SpacesFixerNoSpaceTest extends UtilityMethodTestCase
     {
         return [
             'no-space' => [
-                '/* testNoSpace */',
-                [
+                'testMarker' => '/* testNoSpace */',
+                'expected'   => [
                     'found'   => 'no spaces',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'one-space' => [
-                '/* testOneSpace */',
-                [
+                'testMarker' => '/* testOneSpace */',
+                'expected'   => [
                     'found'   => '1 space',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'two-spaces' => [
-                '/* testTwoSpaces */',
-                [
+                'testMarker' => '/* testTwoSpaces */',
+                'expected'   => [
                     'found'   => '2 spaces',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'multiple-spaces' => [
-                '/* testMultipleSpaces */',
-                [
+                'testMarker' => '/* testMultipleSpaces */',
+                'expected'   => [
                     'found'   => '13 spaces',
                     'fixable' => true,
                 ],
-                'warning',
+                'type'       => 'warning',
             ],
             'newline-and-trailing-spaces' => [
-                '/* testNewlineAndTrailingSpaces */',
-                [
+                'testMarker' => '/* testNewlineAndTrailingSpaces */',
+                'expected'   => [
                     'found'   => 'a new line',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'multiple-newlines-and-spaces' => [
-                '/* testMultipleNewlinesAndSpaces */',
-                [
+                'testMarker' => '/* testMultipleNewlinesAndSpaces */',
+                'expected'   => [
                     'found'   => 'multiple new lines',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'comment-no-space' => [
-                '/* testCommentNoSpace */',
-                [
+                'testMarker' => '/* testCommentNoSpace */',
+                'expected'   => [
                     'found'   => 'non-whitespace tokens',
                     'fixable' => false,
                 ],
-                'warning',
+                'type'       => 'warning',
             ],
             'comment-and-space' => [
-                '/* testCommentAndSpaces */',
-                [
+                'testMarker' => '/* testCommentAndSpaces */',
+                'expected'   => [
                     'found'   => '1 space',
                     'fixable' => false,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'comment-and-new line' => [
-                '/* testCommentAndNewline */',
-                [
+                'testMarker' => '/* testCommentAndNewline */',
+                'expected'   => [
                     'found'   => 'a new line',
                     'fixable' => false,
                 ],
-                'error',
+                'type'       => 'error',
             ],
         ];
     }

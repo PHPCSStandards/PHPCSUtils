@@ -52,78 +52,78 @@ class IsValidIdentifierNameTest extends TestCase
         return [
             // Valid names.
             'a-z-only' => [
-                'valid_name',
-                true,
+                'input'    => 'valid_name',
+                'expected' => true,
             ],
             'a-z-uppercase' => [
-                'VALID_NAME',
-                true,
+                'input'    => 'VALID_NAME',
+                'expected' => true,
             ],
             'a-z-camel-caps' => [
-                'Valid_Name',
-                true,
+                'input'    => 'Valid_Name',
+                'expected' => true,
             ],
             'alphanum-mixed-case' => [
-                'VaLiD128NaMe',
-                true,
+                'input'    => 'VaLiD128NaMe',
+                'expected' => true,
             ],
             'underscore-prefix' => [
-                '_valid_name',
-                true,
+                'input'    => '_valid_name',
+                'expected' => true,
             ],
             'double-underscore-prefix' => [
-                '__valid_name',
-                true,
+                'input'    => '__valid_name',
+                'expected' => true,
             ],
             'extended-ascii-lowercase' => [
-                'пасха',
-                true,
+                'input'    => 'пасха',
+                'expected' => true,
             ],
             'extended-ascii-mixed-case' => [
-                'Пасха',
-                true,
+                'input'    => 'Пасха',
+                'expected' => true,
             ],
             'extended-ascii-non-letter' => [
-                '¢£¥ƒ¿½¼«»±÷˜°²',
-                true,
+                'input'    => '¢£¥ƒ¿½¼«»±÷˜°²',
+                'expected' => true,
             ],
             'emoji-name-1' => [
-                '💩💩💩',
-                true,
+                'input'    => '💩💩💩',
+                'expected' => true,
             ],
             'emoji-name-2' => [
-                '😎',
-                true,
+                'input'    => '😎',
+                'expected' => true,
             ],
 
             // Invalid names.
             'not-a-string' => [
-                12345,
-                false,
+                'input'    => 12345,
+                'expected' => false,
             ],
             'empty-string' => [
-                '',
-                false,
+                'input'    => '',
+                'expected' => false,
             ],
             'name-with-whitespace' => [
-                'aa bb',
-                false,
+                'input'    => 'aa bb',
+                'expected' => false,
             ],
             'starts-with-number' => [
-                '2beornot2be',
-                false,
+                'input'    => '2beornot2be',
+                'expected' => false,
             ],
             'name-with-quotes-in-it' => [
-                "aa'1'",
-                false,
+                'input'    => "aa'1'",
+                'expected' => false,
             ],
             'name-with-dash' => [
-                'some-thing',
-                false,
+                'input'    => 'some-thing',
+                'expected' => false,
             ],
             'name-with-punctuation-chars' => [
-                '!@#$%&*(){}[]',
-                false,
+                'input'    => '!@#$%&*(){}[]',
+                'expected' => false,
             ],
         ];
     }

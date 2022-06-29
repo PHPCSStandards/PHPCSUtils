@@ -106,16 +106,16 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
     {
         return [
             'no-params' => [
-                '/* testNoParams */',
-                \T_OPEN_SHORT_ARRAY,
-                false,
-                [],
+                'testMarker' => '/* testNoParams */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'ignore'     => false,
+                'expected'   => [],
             ],
             'long-array' => [
-                '/* testLongArray */',
-                \T_ARRAY,
-                false,
-                [
+                'testMarker' => '/* testLongArray */',
+                'targetType' => \T_ARRAY,
+                'ignore'     => false,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 3,
@@ -129,10 +129,10 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-array' => [
-                '/* testShortArray */',
-                \T_OPEN_SHORT_ARRAY,
-                false,
-                [
+                'testMarker' => '/* testShortArray */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'ignore'     => false,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 6,
@@ -146,10 +146,10 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list' => [
-                '/* testShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
-                [
+                'testMarker' => '/* testShortList */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'ignore'     => true,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 6,
@@ -163,16 +163,16 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'array-assign' => [
-                '/* testArrayAssign */',
-                \T_OPEN_SQUARE_BRACKET,
-                true,
-                [],
+                'testMarker' => '/* testArrayAssign */',
+                'targetType' => \T_OPEN_SQUARE_BRACKET,
+                'ignore'     => true,
+                'expected'   => [],
             ],
             'array-access' => [
-                '/* testArrayAccess */',
-                \T_OPEN_SQUARE_BRACKET,
-                true,
-                [
+                'testMarker' => '/* testArrayAccess */',
+                'targetType' => \T_OPEN_SQUARE_BRACKET,
+                'ignore'     => true,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 4,
@@ -181,10 +181,10 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list-with-empties-before' => [
-                '/* testShortListWithEmptyItemsBefore */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
-                [
+                'testMarker' => '/* testShortListWithEmptyItemsBefore */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'ignore'     => true,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 0,
@@ -203,10 +203,10 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list-with-empties-after' => [
-                '/* testShortListWithEmptyItemsAfter */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
-                [
+                'testMarker' => '/* testShortListWithEmptyItemsAfter */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'ignore'     => true,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 1,
@@ -220,10 +220,10 @@ class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list-with-all-empties' => [
-                '/* testShortListWithAllEmptyItems */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
-                [
+                'testMarker' => '/* testShortListWithAllEmptyItems */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'ignore'     => true,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 0,

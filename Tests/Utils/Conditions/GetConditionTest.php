@@ -199,32 +199,32 @@ class GetConditionTest extends BCFile_GetConditionTest
     {
         return [
             'testSeriouslyNestedMethod' => [
-                '/* testSeriouslyNestedMethod */',
-                [
+                'testMarker' => '/* testSeriouslyNestedMethod */',
+                'expected'   => [
                     'no type'   => '/* condition 5: nested class */',
                     'T_IF'      => '/* condition 4: if */',
                     'OO tokens' => '/* condition 5: nested class */',
                 ],
             ],
             'testDeepestNested' => [
-                '/* testDeepestNested */',
-                [
+                'testMarker' => '/* testDeepestNested */',
+                'expected'   => [
                     'no type'   => '/* condition 13: closure */',
                     'T_IF'      => '/* condition 10-1: if */',
                     'OO tokens' => '/* condition 11-1: nested anonymous class */',
                 ],
             ],
             'testInException' => [
-                '/* testInException */',
-                [
+                'testMarker' => '/* testInException */',
+                'expected'   => [
                     'no type'   => '/* condition 11-3: catch */',
                     'T_IF'      => '/* condition 4: if */',
                     'OO tokens' => '/* condition 5: nested class */',
                 ],
             ],
             'testInDefault' => [
-                '/* testInDefault */',
-                [
+                'testMarker' => '/* testInDefault */',
+                'expected'   => [
                     'no type'   => '/* condition 8b: default */',
                     'T_IF'      => '/* condition 4: if */',
                     'OO tokens' => '/* condition 5: nested class */',

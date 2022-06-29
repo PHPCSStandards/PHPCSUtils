@@ -141,85 +141,85 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
     {
         return [
             'test-no-arrow' => [
-                '/* testValueNoArrow */',
-                false,
+                'testMarker' => '/* testValueNoArrow */',
+                'expected'   => false,
             ],
             'test-arrow-numeric-index' => [
-                '/* testArrowNumericIndex */',
-                8,
+                'testMarker' => '/* testArrowNumericIndex */',
+                'expected'   => 8,
             ],
             'test-arrow-string-index' => [
-                '/* testArrowStringIndex */',
-                8,
+                'testMarker' => '/* testArrowStringIndex */',
+                'expected'   => 8,
             ],
             'test-arrow-multi-token-index' => [
-                '/* testArrowMultiTokenIndex */',
-                12,
+                'testMarker' => '/* testArrowMultiTokenIndex */',
+                'expected'   => 12,
             ],
             'test-no-arrow-value-short-array' => [
-                '/* testNoArrowValueShortArray */',
-                false,
+                'testMarker' => '/* testNoArrowValueShortArray */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-long-array' => [
-                '/* testNoArrowValueLongArray */',
-                false,
+                'testMarker' => '/* testNoArrowValueLongArray */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-nested-arrays' => [
-                '/* testNoArrowValueNestedArrays */',
-                false,
+                'testMarker' => '/* testNoArrowValueNestedArrays */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-closure' => [
-                '/* testNoArrowValueClosure */',
-                false,
+                'testMarker' => '/* testNoArrowValueClosure */',
+                'expected'   => false,
             ],
             'test-arrow-value-short-array' => [
-                '/* testArrowValueShortArray */',
-                8,
+                'testMarker' => '/* testArrowValueShortArray */',
+                'expected'   => 8,
             ],
             'test-arrow-value-long-array' => [
-                '/* testArrowValueLongArray */',
-                8,
+                'testMarker' => '/* testArrowValueLongArray */',
+                'expected'   => 8,
             ],
             'test-arrow-value-closure' => [
-                '/* testArrowValueClosure */',
-                8,
+                'testMarker' => '/* testArrowValueClosure */',
+                'expected'   => 8,
             ],
             'test-no-arrow-value-anon-class-with-foreach' => [
-                '/* testNoArrowValueAnonClassForeach */',
-                false,
+                'testMarker' => '/* testNoArrowValueAnonClassForeach */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-closure-with-keyed-yield' => [
-                '/* testNoArrowValueClosureYieldWithKey */',
-                false,
+                'testMarker' => '/* testNoArrowValueClosureYieldWithKey */',
+                'expected'   => false,
             ],
             'test-arrow-key-closure-with-keyed-yield' => [
-                '/* testArrowKeyClosureYieldWithKey */',
-                25,
+                'testMarker' => '/* testArrowKeyClosureYieldWithKey */',
+                'expected'   => 25,
             ],
             'test-arrow-value-fn-function' => [
-                '/* testFnFunctionWithKey */',
-                8,
+                'testMarker' => '/* testFnFunctionWithKey */',
+                'expected'   => 8,
             ],
             'test-no-arrow-value-fn-function' => [
-                '/* testNoArrowValueFnFunction */',
-                false,
+                'testMarker' => '/* testNoArrowValueFnFunction */',
+                'expected'   => false,
             ],
             'test-arrow-tstring-key-not-fn-function' => [
-                '/* testTstringKeyNotFnFunction */',
-                8,
+                'testMarker' => '/* testTstringKeyNotFnFunction */',
+                'expected'   => 8,
             ],
             // Test specifically for PHPCS 3.5.3 and 3.5.4 in which all "fn" tokens were tokenized as T_FN.
             'test-arrow-access-to-property-named-fn-as-key-phpcs-3.5.3-3.5.4' => [
-                '/* testKeyPropertyAccessFnPHPCS353-354 */',
-                12,
+                'testMarker' => '/* testKeyPropertyAccessFnPHPCS353-354 */',
+                'expected'   => 12,
             ],
             'test-double-arrow-incorrectly-tokenized-phpcs-issue-2865' => [
-                '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
-                10,
+                'testMarker' => '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
+                'expected'   => 10,
             ],
             'test-empty-array-item' => [
-                '/* testEmptyArrayItem */',
-                false,
+                'testMarker' => '/* testEmptyArrayItem */',
+                'expected'   => false,
             ],
         ];
     }

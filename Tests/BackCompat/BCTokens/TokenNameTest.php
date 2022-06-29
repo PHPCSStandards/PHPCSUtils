@@ -51,20 +51,20 @@ class TokenNameTest extends TestCase
     {
         return [
             'PHP native token: T_ECHO' => [
-                \T_ECHO,
-                'T_ECHO',
+                'tokenCode' => \T_ECHO,
+                'expected'  => 'T_ECHO',
             ],
             'PHP native token: T_FUNCTION' => [
-                \T_FUNCTION,
-                'T_FUNCTION',
+                'tokenCode' => \T_FUNCTION,
+                'expected'  => 'T_FUNCTION',
             ],
             'PHPCS native token: T_CLOSURE' => [
-                \T_CLOSURE,
-                'T_CLOSURE',
+                'tokenCode' => \T_CLOSURE,
+                'expected'  => 'T_CLOSURE',
             ],
             'PHPCS native token: T_STRING_CONCAT' => [
-                \T_STRING_CONCAT,
-                'T_STRING_CONCAT',
+                'tokenCode' => \T_STRING_CONCAT,
+                'expected'  => 'T_STRING_CONCAT',
             ],
         ];
     }

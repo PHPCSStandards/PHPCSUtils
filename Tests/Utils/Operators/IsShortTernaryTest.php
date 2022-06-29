@@ -79,20 +79,20 @@ class IsShortTernaryTest extends UtilityMethodTestCase
     {
         return [
             'long-ternary' => [
-                '/* testLongTernary */',
-                false,
+                'testMarker' => '/* testLongTernary */',
+                'expected'   => false,
             ],
             'short-ternary-no-space' => [
-                '/* testShortTernaryNoSpace */',
-                true,
+                'testMarker' => '/* testShortTernaryNoSpace */',
+                'expected'   => true,
             ],
             'short-ternary-long-space' => [
-                '/* testShortTernaryLongSpace */',
-                true,
+                'testMarker' => '/* testShortTernaryLongSpace */',
+                'expected'   => true,
             ],
             'short-ternary-comments-annotations' => [
-                '/* testShortTernaryWithCommentAndAnnotations */',
-                true,
+                'testMarker' => '/* testShortTernaryWithCommentAndAnnotations */',
+                'expected'   => true,
             ],
         ];
     }
@@ -143,27 +143,27 @@ class IsShortTernaryTest extends UtilityMethodTestCase
 
         return [
             'null-coalesce' => [
-                '/* testDontConfuseWithNullCoalesce */',
-                $targetCoalesce,
+                'testMarker' => '/* testDontConfuseWithNullCoalesce */',
+                'tokenType'  => $targetCoalesce,
             ],
             'null-coalesce-equals' => [
-                '/* testDontConfuseWithNullCoalesceEquals */',
-                $targetCoalesceAndEquals,
+                'testMarker' => '/* testDontConfuseWithNullCoalesceEquals */',
+                'tokenType'  => $targetCoalesceAndEquals,
             ],
             'nullable-property' => [
-                '/* testDontConfuseWithNullable1 */',
-                $targetNullable,
+                'testMarker' => '/* testDontConfuseWithNullable1 */',
+                'tokenType'  => $targetNullable,
             ],
             'nullable-param-type' => [
-                '/* testDontConfuseWithNullable2 */',
-                $targetNullable,
+                'testMarker' => '/* testDontConfuseWithNullable2 */',
+                'tokenType'  => $targetNullable,
             ],
             'nullable-return-type' => [
-                '/* testDontConfuseWithNullable3 */',
-                $targetNullable,
+                'testMarker' => '/* testDontConfuseWithNullable3 */',
+                'tokenType'  => $targetNullable,
             ],
             'parse-error' => [
-                '/* testParseError */',
+                'testMarker' => '/* testParseError */',
             ],
         ];
     }

@@ -62,24 +62,24 @@ class InEmptyTest extends UtilityMethodTestCase
     {
         return [
             'method-called-empty' => [
-                '/* testNotEmptyMethodCall */',
-                false,
+                'testMarker' => '/* testNotEmptyMethodCall */',
+                'expected'   => false,
             ],
             'owner-not-empty' => [
-                '/* testOwnerNotEmpty */',
-                false,
+                'testMarker' => '/* testOwnerNotEmpty */',
+                'expected'   => false,
             ],
             'in-empty' => [
-                '/* testInEmpty */',
-                true,
+                'testMarker' => '/* testInEmpty */',
+                'expected'   => true,
             ],
             'in-empty-nested' => [
-                '/* testInEmptynested */',
-                true,
+                'testMarker' => '/* testInEmptynested */',
+                'expected'   => true,
             ],
             'parse-error' => [
-                '/* testParseError */',
-                false,
+                'testMarker' => '/* testParseError */',
+                'expected'   => false,
             ],
         ];
     }

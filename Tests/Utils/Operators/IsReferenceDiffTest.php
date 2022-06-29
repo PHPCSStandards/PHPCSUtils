@@ -43,14 +43,14 @@ class IsReferenceDiffTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsReference
      *
-     * @param string $identifier Comment which precedes the test case.
+     * @param string $testMarker Comment which precedes the test case.
      * @param bool   $expected   Expected function output.
      *
      * @return void
      */
-    public function testIsReference($identifier, $expected)
+    public function testIsReference($testMarker, $expected)
     {
-        $bitwiseAnd = $this->getTargetToken($identifier, \T_BITWISE_AND);
+        $bitwiseAnd = $this->getTargetToken($testMarker, \T_BITWISE_AND);
         $result     = Operators::isReference(self::$phpcsFile, $bitwiseAnd);
         $this->assertSame($expected, $result);
     }
@@ -66,24 +66,24 @@ class IsReferenceDiffTest extends UtilityMethodTestCase
     {
         return [
             'issue-1971-list-first-in-file' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271A */',
-                true,
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271A */',
+                'expected'   => true,
             ],
             'issue-1971-list-first-in-file-nested' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271B */',
-                true,
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271B */',
+                'expected'   => true,
             ],
             'issue-1284-short-list-directly-after-close-curly-control-structure' => [
-                '/* testTokenizerIssue1284PHPCSlt280A */',
-                true,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280A */',
+                'expected'   => true,
             ],
             'issue-1284-short-list-directly-after-close-curly-control-structure-second-item' => [
-                '/* testTokenizerIssue1284PHPCSlt280B */',
-                true,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280B */',
+                'expected'   => true,
             ],
             'issue-1284-short-array-directly-after-close-curly-control-structure' => [
-                '/* testTokenizerIssue1284PHPCSlt280C */',
-                true,
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280C */',
+                'expected'   => true,
             ],
         ];
     }

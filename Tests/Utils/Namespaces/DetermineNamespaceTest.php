@@ -89,99 +89,99 @@ class DetermineNamespaceTest extends UtilityMethodTestCase
     {
         return [
             'no-namespace' => [
-                '/* testNoNamespace */',
-                [
+                'testMarker' => '/* testNoNamespace */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'no-namespace-nested' => [
-                '/* testNoNamespaceNested */',
-                [
+                'testMarker' => '/* testNoNamespaceNested */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'non-scoped-namespace-1' => [
-                '/* testNonScopedNamedNamespace1 */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace1 */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 1 */',
                     'name' => 'Vendor\Package\Baz',
                 ],
             ],
             'non-scoped-namespace-1-nested' => [
-                '/* testNonScopedNamedNamespace1Nested */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace1Nested */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 1 */',
                     'name' => 'Vendor\Package\Baz',
                 ],
             ],
             'global-namespace-scoped' => [
-                '/* testGlobalNamespaceScoped */',
-                [
+                'testMarker' => '/* testGlobalNamespaceScoped */',
+                'expected'   => [
                     'ptr'  => '/* Scoped global namespace */',
                     'name' => '',
                 ],
             ],
             'global-namespace-scoped-nested' => [
-                '/* testGlobalNamespaceScopedNested */',
-                [
+                'testMarker' => '/* testGlobalNamespaceScopedNested */',
+                'expected'   => [
                     'ptr'  => '/* Scoped global namespace */',
                     'name' => '',
                 ],
             ],
             'no-namespace-after-unnamed-scoped' => [
-                '/* testNoNamespaceAfterUnnamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceAfterUnnamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'no-namespace-nested-after-unnamed-scoped' => [
-                '/* testNoNamespaceNestedAfterUnnamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceNestedAfterUnnamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'named-namespace-scoped' => [
-                '/* testNamedNamespaceScoped */',
-                [
+                'testMarker' => '/* testNamedNamespaceScoped */',
+                'expected'   => [
                     'ptr'  => '/* Scoped named namespace */',
                     'name' => 'Vendor\Package\Foo',
                 ],
             ],
             'named-namespace-scoped-nested' => [
-                '/* testNamedNamespaceScopedNested */',
-                [
+                'testMarker' => '/* testNamedNamespaceScopedNested */',
+                'expected'   => [
                     'ptr'  => '/* Scoped named namespace */',
                     'name' => 'Vendor\Package\Foo',
                 ],
             ],
             'no-namespace-after-named-scoped' => [
-                '/* testNoNamespaceAfterNamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceAfterNamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'no-namespace-nested-after-named-scoped' => [
-                '/* testNoNamespaceNestedAfterNamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceNestedAfterNamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'non-scoped-namespace-2' => [
-                '/* testNonScopedNamedNamespace2 */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace2 */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 2 */',
                     'name' => 'Vendor\Package\Foz',
                 ],
             ],
             'non-scoped-namespace-2-nested' => [
-                '/* testNonScopedNamedNamespace2Nested */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace2Nested */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 2 */',
                     'name' => 'Vendor\Package\Foz',
                 ],

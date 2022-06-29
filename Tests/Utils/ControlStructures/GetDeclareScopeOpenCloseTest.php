@@ -81,90 +81,90 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
     {
         return [
             'file-scope' => [
-                '/* testFileScope */',
-                false,
+                'testMarker' => '/* testFileScope */',
+                'expected'   => false,
             ],
 
             'curlies' => [
-                '/* testCurlies */',
-                [
+                'testMarker' => '/* testCurlies */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 11,
                 ],
             ],
             'nested-curlies-outside' => [
-                '/* testNestedCurliesOutside */',
-                [
+                'testMarker' => '/* testNestedCurliesOutside */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 32,
                 ],
             ],
             'nested-curlies-inside' => [
-                '/* testNestedCurliesInside */',
-                [
+                'testMarker' => '/* testNestedCurliesInside */',
+                'expected'   => [
                     'opener' => 12,
                     'closer' => 17,
                 ],
             ],
 
             'alternative-syntax' => [
-                '/* testAlternativeSyntax */',
-                [
+                'testMarker' => '/* testAlternativeSyntax */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 11,
                 ],
             ],
             'alternative-syntax-nested-level-1' => [
-                '/* testAlternativeSyntaxNestedLevel1 */',
-                [
+                'testMarker' => '/* testAlternativeSyntaxNestedLevel1 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 50,
                 ],
             ],
             'alternative-syntax-nested-level-2' => [
-                '/* testAlternativeSyntaxNestedLevel2 */',
-                [
+                'testMarker' => '/* testAlternativeSyntaxNestedLevel2 */',
+                'expected'   => [
                     'opener' => 12,
                     'closer' => 34,
                 ],
             ],
             'alternative-syntax-nested-level-3' => [
-                '/* testAlternativeSyntaxNestedLevel3 */',
-                [
+                'testMarker' => '/* testAlternativeSyntaxNestedLevel3 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 12,
                 ],
             ],
 
             'mixed-nested-level-1' => [
-                '/* testMixedNestedLevel1 */',
-                [
+                'testMarker' => '/* testMixedNestedLevel1 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 61,
                 ],
             ],
             'mixed-nested-level-2' => [
-                '/* testMixedNestedLevel2 */',
-                [
+                'testMarker' => '/* testMixedNestedLevel2 */',
+                'expected'   => [
                     'opener' => 12,
                     'closer' => 46,
                 ],
             ],
             'mixed-nested-level-3' => [
-                '/* testMixedNestedLevel3 */',
-                [
+                'testMarker' => '/* testMixedNestedLevel3 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 24,
                 ],
             ],
             'mixed-nested-level-4' => [
-                '/* testMixedNestedLevel4 */',
-                false,
+                'testMarker' => '/* testMixedNestedLevel4 */',
+                'expected'   => false,
             ],
 
             'live-coding' => [
-                '/* testLiveCoding */',
-                false,
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => false,
             ],
         ];
     }

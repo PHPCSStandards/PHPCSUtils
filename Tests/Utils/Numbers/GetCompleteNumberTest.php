@@ -174,8 +174,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
         return [
             // Ordinary numbers.
             'normal-integer-decimal' => [
-                '/* testIntDecimal */',
-                [
+                'testMarker' => '/* testIntDecimal */',
+                'expected'   => [
                     'orig_content' => '1000000000',
                     'content'      => '1000000000',
                     'code'         => \T_LNUMBER,
@@ -185,8 +185,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'normal-integer-larger-than-intmax-is-float' => [
-                '/* testIntLargerThanIntMaxIsFloat */',
-                [
+                'testMarker' => '/* testIntLargerThanIntMaxIsFloat */',
+                'expected'   => [
                     'orig_content' => '10223372036854775810',
                     'content'      => '10223372036854775810',
                     'code'         => \T_DNUMBER,
@@ -196,8 +196,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'normal-float' => [
-                '/* testFloat */',
-                [
+                'testMarker' => '/* testFloat */',
+                'expected'   => [
                     'orig_content' => '107925284.88',
                     'content'      => '107925284.88',
                     'code'         => \T_DNUMBER,
@@ -207,8 +207,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'normal-float-negative' => [
-                '/* testFloatNegative */',
-                [
+                'testMarker' => '/* testFloatNegative */',
+                'expected'   => [
                     'orig_content' => '58987.789',
                     'content'      => '58987.789',
                     'code'         => \T_DNUMBER,
@@ -218,8 +218,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'normal-integer-binary' => [
-                '/* testIntBinary */',
-                [
+                'testMarker' => '/* testIntBinary */',
+                'expected'   => [
                     'orig_content' => '0b1',
                     'content'      => '0b1',
                     'code'         => \T_LNUMBER,
@@ -229,8 +229,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'normal-integer-hex' => [
-                '/* testIntHex */',
-                [
+                'testMarker' => '/* testIntHex */',
+                'expected'   => [
                     'orig_content' => '0xA',
                     'content'      => '0xA',
                     'code'         => \T_LNUMBER,
@@ -240,8 +240,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'normal-integer-octal' => [
-                '/* testIntOctal */',
-                [
+                'testMarker' => '/* testIntOctal */',
+                'expected'   => [
                     'orig_content' => '052',
                     'content'      => '052',
                     'code'         => \T_LNUMBER,
@@ -253,8 +253,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
 
             // Parse error.
             'parse-error' => [
-                '/* testParseError */',
-                [
+                'testMarker' => '/* testParseError */',
+                'expected'   => [
                     'orig_content' => '100',
                     'content'      => '100',
                     'code'         => \T_LNUMBER,
@@ -266,8 +266,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
 
             // Numeric literal with underscore.
             'php-7.4-integer-decimal-multi-underscore' => [
-                '/* testPHP74IntDecimalMultiUnderscore */',
-                [
+                'testMarker' => '/* testPHP74IntDecimalMultiUnderscore */',
+                'expected'   => [
                     'orig_content' => '1_000_000_000',
                     'content'      => '1000000000',
                     'code'         => \T_LNUMBER,
@@ -277,8 +277,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-larger-than-intmax-is-float' => [
-                '/* testPHP74IntLargerThanIntMaxIsFloat */',
-                [
+                'testMarker' => '/* testPHP74IntLargerThanIntMaxIsFloat */',
+                'expected'   => [
                     'orig_content' => '10_223_372_036_854_775_810',
                     'content'      => '10223372036854775810',
                     'code'         => \T_DNUMBER,
@@ -288,8 +288,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float' => [
-                '/* testPHP74Float */',
-                [
+                'testMarker' => '/* testPHP74Float */',
+                'expected'   => [
                     'orig_content' => '107_925_284.88',
                     'content'      => '107925284.88',
                     'code'         => \T_DNUMBER,
@@ -299,8 +299,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-decimal-single-underscore' => [
-                '/* testPHP74IntDecimalSingleUnderscore */',
-                [
+                'testMarker' => '/* testPHP74IntDecimalSingleUnderscore */',
+                'expected'   => [
                     'orig_content' => '135_00',
                     'content'      => '13500',
                     'code'         => \T_LNUMBER,
@@ -310,8 +310,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float-exponent-negative' => [
-                '/* testPHP74FloatExponentNegative */',
-                [
+                'testMarker' => '/* testPHP74FloatExponentNegative */',
+                'expected'   => [
                     'orig_content' => '6.674_083e-11',
                     'content'      => '6.674083e-11',
                     'code'         => \T_DNUMBER,
@@ -321,8 +321,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float-exponent-positive' => [
-                '/* testPHP74FloatExponentPositive */',
-                [
+                'testMarker' => '/* testPHP74FloatExponentPositive */',
+                'expected'   => [
                     'orig_content' => '6.674_083e+11',
                     'content'      => '6.674083e+11',
                     'code'         => \T_DNUMBER,
@@ -332,8 +332,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-decimal-multi-underscore-2' => [
-                '/* testPHP74IntDecimalMultiUnderscore2 */',
-                [
+                'testMarker' => '/* testPHP74IntDecimalMultiUnderscore2 */',
+                'expected'   => [
                     'orig_content' => '299_792_458',
                     'content'      => '299792458',
                     'code'         => \T_LNUMBER,
@@ -343,8 +343,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-hex' => [
-                '/* testPHP74IntHex */',
-                [
+                'testMarker' => '/* testPHP74IntHex */',
+                'expected'   => [
                     'orig_content' => '0xCAFE_F00D',
                     'content'      => '0xCAFEF00D',
                     'code'         => \T_LNUMBER,
@@ -354,8 +354,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-binary' => [
-                '/* testPHP74IntBinary */',
-                [
+                'testMarker' => '/* testPHP74IntBinary */',
+                'expected'   => [
                     'orig_content' => '0b0101_1111',
                     'content'      => '0b01011111',
                     'code'         => \T_LNUMBER,
@@ -365,8 +365,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-octal' => [
-                '/* testPHP74IntOctal */',
-                [
+                'testMarker' => '/* testPHP74IntOctal */',
+                'expected'   => [
                     'orig_content' => '0137_041',
                     'content'      => '0137041',
                     'code'         => \T_LNUMBER,
@@ -376,8 +376,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float-exponent-multi-underscore' => [
-                '/* testPHP74FloatExponentMultiUnderscore */',
-                [
+                'testMarker' => '/* testPHP74FloatExponentMultiUnderscore */',
+                'expected'   => [
                     'orig_content' => '1_2.3_4e1_23',
                     'content'      => '12.34e123',
                     'code'         => \T_DNUMBER,
@@ -389,8 +389,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
 
             // Make sure the backfill doesn't do more than it should.
             'php-7.4-integer-calculation-1' => [
-                '/* testPHP74IntCalc1 */',
-                [
+                'testMarker' => '/* testPHP74IntCalc1 */',
+                'expected'   => [
                     'orig_content' => '667_083',
                     'content'      => '667083',
                     'code'         => \T_LNUMBER,
@@ -400,8 +400,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-calculation-2' => [
-                '/* testPHP74IntCalc2 */',
-                [
+                'testMarker' => '/* testPHP74IntCalc2 */',
+                'expected'   => [
                     'orig_content' => '74_083',
                     'content'      => '74083',
                     'code'         => \T_LNUMBER,
@@ -411,8 +411,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float-calculation-1' => [
-                '/* testPHP74FloatCalc1 */',
-                [
+                'testMarker' => '/* testPHP74FloatCalc1 */',
+                'expected'   => [
                     'orig_content' => '6.674_08e3',
                     'content'      => '6.67408e3',
                     'code'         => \T_DNUMBER,
@@ -422,8 +422,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float-calculation-2' => [
-                '/* testPHP74FloatCalc2 */',
-                [
+                'testMarker' => '/* testPHP74FloatCalc2 */',
+                'expected'   => [
                     'orig_content' => '6.674_08e3',
                     'content'      => '6.67408e3',
                     'code'         => \T_DNUMBER,
@@ -433,8 +433,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-integer-whitespace' => [
-                '/* testPHP74IntWhitespace */',
-                [
+                'testMarker' => '/* testPHP74IntWhitespace */',
+                'expected'   => [
                     'orig_content' => '107_925_284',
                     'content'      => '107925284',
                     'code'         => \T_LNUMBER,
@@ -444,8 +444,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-float-comments' => [
-                '/* testPHP74FloatComments */',
-                [
+                'testMarker' => '/* testPHP74FloatComments */',
+                'expected'   => [
                     'orig_content' => '107_925_284',
                     'content'      => '107925284',
                     'code'         => \T_LNUMBER,
@@ -457,8 +457,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
 
             // Invalid numeric literal with underscore.
             'php-7.4-invalid-1' => [
-                '/* testPHP74Invalid1 */',
-                [
+                'testMarker' => '/* testPHP74Invalid1 */',
+                'expected'   => [
                     'orig_content' => '100',
                     'content'      => '100',
                     'code'         => \T_LNUMBER,
@@ -468,8 +468,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-2' => [
-                '/* testPHP74Invalid2 */',
-                [
+                'testMarker' => '/* testPHP74Invalid2 */',
+                'expected'   => [
                     'orig_content' => '1',
                     'content'      => '1',
                     'code'         => \T_LNUMBER,
@@ -479,8 +479,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-3' => [
-                '/* testPHP74Invalid3 */',
-                [
+                'testMarker' => '/* testPHP74Invalid3 */',
+                'expected'   => [
                     'orig_content' => '1',
                     'content'      => '1',
                     'code'         => \T_LNUMBER,
@@ -490,8 +490,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-4' => [
-                '/* testPHP74Invalid4 */',
-                [
+                'testMarker' => '/* testPHP74Invalid4 */',
+                'expected'   => [
                     'orig_content' => '1.',
                     'content'      => '1.',
                     'code'         => \T_DNUMBER,
@@ -501,8 +501,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-5' => [
-                '/* testPHP74Invalid5 */',
-                [
+                'testMarker' => '/* testPHP74Invalid5 */',
+                'expected'   => [
                     'orig_content' => '0',
                     'content'      => '0',
                     'code'         => \T_LNUMBER,
@@ -512,8 +512,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-6' => [
-                '/* testPHP74Invalid6 */',
-                [
+                'testMarker' => '/* testPHP74Invalid6 */',
+                'expected'   => [
                     'orig_content' => '0',
                     'content'      => '0',
                     'code'         => \T_LNUMBER,
@@ -523,8 +523,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-7' => [
-                '/* testPHP74Invalid7 */',
-                [
+                'testMarker' => '/* testPHP74Invalid7 */',
+                'expected'   => [
                     'orig_content' => '1',
                     'content'      => '1',
                     'code'         => \T_LNUMBER,
@@ -534,8 +534,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-invalid-8' => [
-                '/* testPHP74Invalid8 */',
-                [
+                'testMarker' => '/* testPHP74Invalid8 */',
+                'expected'   => [
                     'orig_content' => '1',
                     'content'      => '1',
                     'code'         => \T_LNUMBER,
@@ -547,8 +547,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
 
             // PHP 8.1 explicit octal notation.
             'php-8.1-explicit-octal-lowercase' => [
-                '/* testPHP81ExplicitOctal */',
-                [
+                'testMarker' => '/* testPHP81ExplicitOctal */',
+                'expected'   => [
                     'orig_content' => '0o137041',
                     'content'      => '0o137041',
                     'code'         => \T_LNUMBER,
@@ -558,8 +558,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-8.1-explicit-octal-uppercase' => [
-                '/* testPHP81ExplicitOctalUppercase */',
-                [
+                'testMarker' => '/* testPHP81ExplicitOctalUppercase */',
+                'expected'   => [
                     'orig_content' => '0O137041',
                     'content'      => '0O137041',
                     'code'         => \T_LNUMBER,
@@ -569,8 +569,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-8.1-explicit-octal-with-separator' => [
-                '/* testPHP81ExplicitOctalWithSeparator */',
-                [
+                'testMarker' => '/* testPHP81ExplicitOctalWithSeparator */',
+                'expected'   => [
                     'orig_content' => '0o137_041',
                     'content'      => '0o137041',
                     'code'         => \T_LNUMBER,
@@ -580,8 +580,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-8.1-invalid-octal-1' => [
-                '/* testPHP81InvalidExplicitOctal1 */',
-                [
+                'testMarker' => '/* testPHP81InvalidExplicitOctal1 */',
+                'expected'   => [
                     'orig_content' => '0',
                     'content'      => '0',
                     'code'         => \T_LNUMBER,
@@ -591,8 +591,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-8.1-invalid-octal-2' => [
-                '/* testPHP81InvalidExplicitOctal2 */',
-                [
+                'testMarker' => '/* testPHP81InvalidExplicitOctal2 */',
+                'expected'   => [
                     'orig_content' => '0O2',
                     'content'      => '0O2',
                     'code'         => \T_LNUMBER,
@@ -602,8 +602,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-8.1-invalid-octal-3' => [
-                '/* testPHP81InvalidExplicitOctal3 */',
-                [
+                'testMarker' => '/* testPHP81InvalidExplicitOctal3 */',
+                'expected'   => [
                     'orig_content' => '0o2',
                     'content'      => '0o2',
                     'code'         => \T_LNUMBER,
@@ -613,8 +613,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-8.1-invalid-octal-4' => [
-                '/* testPHP81InvalidExplicitOctal4 */',
-                [
+                'testMarker' => '/* testPHP81InvalidExplicitOctal4 */',
+                'expected'   => [
                     'orig_content' => '0o2',
                     'content'      => '0o2',
                     'code'         => \T_LNUMBER,
@@ -624,8 +624,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                 ],
             ],
             'php-7.4-8.1-invalid-explicit-octal' => [
-                '/* testPHP74PHP81InvalidExplicitOctal */',
-                [
+                'testMarker' => '/* testPHP74PHP81InvalidExplicitOctal */',
+                'expected'   => [
                     'orig_content' => '0',
                     'content'      => '0',
                     'code'         => \T_LNUMBER,
@@ -636,8 +636,8 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
             ],
 
             'live-coding' => [
-                '/* testLiveCoding */',
-                [
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => [
                     'orig_content' => '100',
                     'content'      => '100',
                     'code'         => \T_LNUMBER,

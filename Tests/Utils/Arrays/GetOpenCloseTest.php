@@ -103,49 +103,49 @@ class GetOpenCloseTest extends UtilityMethodTestCase
     {
         return [
             'long-array' => [
-                '/* testLongArray */',
-                \T_ARRAY,
-                [
+                'testMarker'  => '/* testLongArray */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => [
                     'opener' => 1,
                     'closer' => 14,
                 ],
             ],
             'long-array-nested' => [
-                '/* testNestedLongArray */',
-                \T_ARRAY,
-                [
+                'testMarker'  => '/* testNestedLongArray */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => [
                     'opener' => 2,
                     'closer' => 6,
                 ],
             ],
             'short-array' => [
-                '/* testShortArray */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortArray */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     'opener' => 0,
                     'closer' => 9,
                 ],
             ],
             'short-array-nested' => [
-                '/* testNestedShortArray */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testNestedShortArray */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     'opener' => 0,
                     'closer' => 2,
                 ],
             ],
             'long-array-with-comments-and-annotations' => [
-                '/* testArrayWithCommentsAndAnnotations */',
-                \T_ARRAY,
-                [
+                'testMarker'  => '/* testArrayWithCommentsAndAnnotations */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => [
                     'opener' => 4,
                     'closer' => 26,
                 ],
             ],
             'parse-error' => [
-                '/* testParseError */',
-                \T_ARRAY,
-                false,
+                'testMarker'  => '/* testParseError */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => false,
             ],
         ];
     }

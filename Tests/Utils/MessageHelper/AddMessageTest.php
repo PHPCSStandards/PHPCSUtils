@@ -90,18 +90,18 @@ class AddMessageTest extends UtilityMethodTestCase
     {
         return [
             'add-error' => [
-                '/* testAddErrorMessage */',
-                true,
-                [
+                'testMarker' => '/* testAddErrorMessage */',
+                'isError'    => true,
+                'expected'   => [
                     'message' => "Message added. Text: 'test 1'",
                     'source'  => static::CODE,
                     'fixable' => false,
                 ],
             ],
             'add-warning' => [
-                '/* testAddWarningMessage */',
-                false,
-                [
+                'testMarker' => '/* testAddWarningMessage */',
+                'isError'    => false,
+                'expected'   => [
                     'message' => "Message added. Text: 'test 2'",
                     'source'  => static::CODE,
                     'fixable' => false,
@@ -156,18 +156,18 @@ class AddMessageTest extends UtilityMethodTestCase
     {
         return [
             'add-fixable-error' => [
-                '/* testAddFixableErrorMessage */',
-                true,
-                [
+                'testMarker' => '/* testAddFixableErrorMessage */',
+                'isError'    => true,
+                'expected'   => [
                     'message' => "Message added. Text: 'test 3'",
                     'source'  => static::CODE,
                     'fixable' => true,
                 ],
             ],
             'add-fixable-warning' => [
-                '/* testAddFixableWarningMessage */',
-                false,
-                [
+                'testMarker' => '/* testAddFixableWarningMessage */',
+                'isError'    => false,
+                'expected'   => [
                     'message' => "Message added. Text: 'test 4'",
                     'source'  => static::CODE,
                     'fixable' => true,

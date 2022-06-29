@@ -57,22 +57,22 @@ class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
     {
         return [
             'phpcs-annotation-and-comments' => [
-                '/* testDeclarationWithComments */',
-                [
+                'testMarker' => '/* testDeclarationWithComments */',
+                'expected'   => [
                     '\Vendor\Package\Core\SubDir\SomeInterface',
                     'InterfaceB',
                 ],
             ],
             'namespace-operator' => [
-                '/* testDeclarationMultiImplementedNamespaceOperator */',
-                [
+                'testMarker' => '/* testDeclarationMultiImplementedNamespaceOperator */',
+                'expected'   => [
                     'namespace\testInterfaceA',
                     'namespace\testInterfaceB',
                 ],
             ],
             'parse-error-stray-comma' => [
-                '/* testMultiImplementedStrayComma */',
-                [
+                'testMarker' => '/* testMultiImplementedStrayComma */',
+                'expected'   => [
                     0 => 'testInterfaceA',
                     1 => 'testInterfaceB',
                 ],

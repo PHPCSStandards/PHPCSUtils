@@ -136,15 +136,15 @@ class GetParametersWithLimitTest extends UtilityMethodTestCase
     {
         return [
             'function-call' => [
-                '/* testFunctionCall */',
-                \T_STRING,
-                2,
+                'testMarker' => '/* testFunctionCall */',
+                'targetType' => \T_STRING,
+                'limit'      => 2,
             ],
             'long-array-no-keys' => [
-                '/* testSimpleLongArray */',
-                \T_ARRAY,
-                1,
-                [
+                'testMarker' => '/* testSimpleLongArray */',
+                'targetType' => \T_ARRAY,
+                'limit'      => 1,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 3,
@@ -153,19 +153,19 @@ class GetParametersWithLimitTest extends UtilityMethodTestCase
                 ],
             ],
             'short-array-no-keys' => [
-                '/* testSimpleShortArray */',
-                \T_OPEN_SHORT_ARRAY,
-                5,
+                'testMarker' => '/* testSimpleShortArray */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'limit'      => 5,
             ],
             'long-array-with-keys' => [
-                '/* testLongArrayWithKeys */',
-                \T_ARRAY,
-                7,
+                'testMarker' => '/* testLongArrayWithKeys */',
+                'targetType' => \T_ARRAY,
+                'limit'      => 7,
             ],
             'short-array-with-keys' => [
-                '/* testShortArrayWithKeys */',
-                \T_OPEN_SHORT_ARRAY,
-                4,
+                'testMarker' => '/* testShortArrayWithKeys */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'limit'      => 4,
             ],
         ];
     }
