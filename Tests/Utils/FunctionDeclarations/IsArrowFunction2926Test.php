@@ -95,6 +95,18 @@ class IsArrowFunction2926Test extends UtilityMethodTestCase
     }
 
     /**
+     * Reset static properties to their default value after the tests have finished.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetProperties()
+    {
+        self::$tokenized = false;
+    }
+
+    /**
      * Test correctly detecting arrow functions.
      *
      * @dataProvider dataArrowFunction

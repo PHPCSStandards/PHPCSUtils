@@ -33,7 +33,9 @@ class TokenExistsTest extends TestCase
      */
     public static function setUpConstants()
     {
-        \define('T_FAKETOKEN', -5);
+        if (\defined('T_FAKETOKEN') === false) {
+            \define('T_FAKETOKEN', -5);
+        }
     }
 
     /**
