@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPCSUtils\Utils\Lists;
@@ -300,11 +301,17 @@ class Arrays
             );
         }
 
+        $cacheId = "$start-$end";
+        if (Cache::isCached($phpcsFile, __METHOD__, $cacheId) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $cacheId);
+        }
+
         $targets  = self::$doubleArrowTargets;
         $targets += Collections::closedScopes();
         $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
+        $returnValue = false;
         ++$end;
         do {
             $doubleArrow = $phpcsFile->findNext(
@@ -318,7 +325,8 @@ class Arrays
             }
 
             if ($tokens[$doubleArrow]['code'] === \T_DOUBLE_ARROW) {
-                return $doubleArrow;
+                $returnValue = $doubleArrow;
+                break;
             }
 
             /*
@@ -327,7 +335,8 @@ class Arrays
              * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2865
              */
             if ($tokens[$doubleArrow]['code'] === \T_STRING && $tokens[$doubleArrow]['content'] === '=>') {
-                return $doubleArrow;
+                $returnValue = $doubleArrow;
+                break;
             }
 
             // Skip over closed scopes which may contain foreach structures or generators.
@@ -350,6 +359,7 @@ class Arrays
             break;
         } while ($doubleArrow < $end);
 
-        return false;
+        Cache::set($phpcsFile, __METHOD__, $cacheId, $returnValue);
+        return $returnValue;
     }
 }

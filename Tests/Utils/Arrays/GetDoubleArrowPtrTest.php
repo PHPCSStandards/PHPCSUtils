@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\PassedParameters;
@@ -222,5 +223,47 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 'expected'   => false,
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\Arrays::getDoubleArrowPtr';
+        $cases      = $this->dataGetDoubleArrowPtr();
+        $testMarker = $cases['test-arrow-value-short-array']['testMarker'];
+        $expected   = $cases['test-arrow-value-short-array']['expected'];
+
+        if (isset(self::$parameters[$testMarker]) === false) {
+            $this->fail('Test case not found for ' . $testMarker);
+        }
+
+        $start = self::$parameters[$testMarker]['start'];
+        $end   = self::$parameters[$testMarker]['end'];
+
+        // Change double arrow position from offset to exact position.
+        if ($expected !== false) {
+            $expected += $start;
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Arrays::getDoubleArrowPtr(self::$phpcsFile, $start, $end);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, "$start-$end");
+        $resultSecondRun = Arrays::getDoubleArrowPtr(self::$phpcsFile, $start, $end);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }
