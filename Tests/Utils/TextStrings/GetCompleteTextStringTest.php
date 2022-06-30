@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\TextStrings;
 
@@ -233,5 +234,34 @@ last line',
 last line'",
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\TextStrings::getEndOfCompleteTextString';
+        $stackPtr   = $this->getTargetToken('/* testMultiLineDoubleQuotedString */', $this->targets);
+        $expected   = $stackPtr + 3;
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = TextStrings::getEndOfCompleteTextString(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = TextStrings::getEndOfCompleteTextString(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }
