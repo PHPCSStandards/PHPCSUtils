@@ -74,7 +74,14 @@ jobs:
         if: matrix.phpcs_version == 'dev-master'
         run: composer lint
 
-      - name: Run the unit tests
+      - name: Run the unit tests without caching
         run: vendor/bin/phpunit --no-coverage
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: false
+
+      - name: Run the unit tests with caching
+        run: vendor/bin/phpunit --testsuite PHPCSUtils --no-coverage --repeat 2
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: true

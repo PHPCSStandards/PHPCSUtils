@@ -189,11 +189,19 @@ jobs:
         with:
           composer-options: --ignore-platform-reqs
 
-      - name: Run the unit tests (non-risky)
+      - name: Run the unit tests without caching (non-risky)
         if: matrix.risky == false
         run: vendor/bin/phpunit --no-coverage
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: false
+
+      - name: Run the unit tests with caching (non-risky)
+        if: matrix.risky == false
+        run: vendor/bin/phpunit --testsuite PHPCSUtils --no-coverage --repeat 2
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: true
 
       - name: Run the unit tests (risky)
         if: ${{ matrix.risky }}
@@ -281,17 +289,19 @@ jobs:
         if: ${{ steps.phpunit_version.outputs.VERSION >= '9.3' }}
         run: vendor/bin/phpunit --coverage-cache ./build/phpunit-cache --warm-coverage-cache
 
-      - name: "Run the unit tests with code coverage (PHPUnit < 9.3)"
+      - name: "Run the unit tests without caching with code coverage (PHPUnit < 9.3)"
         if: ${{ steps.phpunit_version.outputs.VERSION < '9.3' }}
         run: vendor/bin/phpunit
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: false
 
-      - name: "Run the unit tests with code coverage (PHPUnit 9.3+)"
+      - name: "Run the unit tests without caching with code coverage (PHPUnit 9.3+)"
         if: ${{ steps.phpunit_version.outputs.VERSION >= '9.3' }}
         run: vendor/bin/phpunit --coverage-cache ./build/phpunit-cache
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: false
 
       # Uploading the results with PHP Coveralls v1 won't work from GH Actions, so switch the PHP version.
       - name: Switch to PHP 7.4
