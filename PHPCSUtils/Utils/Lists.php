@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\Parentheses;
@@ -75,6 +76,10 @@ class Lists
             return false;
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         $phpcsVersion = Helper::getVersion();
 
         /*
@@ -103,6 +108,7 @@ class Lists
 
             if (isset($tokens[$opener]['bracket_closer']) === false) {
                 // Definitely not a short list.
+                Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                 return false;
             }
 
@@ -115,6 +121,7 @@ class Lists
                 $closer       = $tokens[$opener]['bracket_closer'];
                 $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
                 if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, true);
                     return true;
                 }
             }
@@ -139,6 +146,7 @@ class Lists
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3172
                  */
                 if ($tokens[$prevNonEmpty]['code'] === \T_DOUBLE_QUOTED_STRING) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
             }
@@ -152,6 +160,7 @@ class Lists
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
                 if (isset(BCTokens::magicConstants()[$tokens[$prevNonEmpty]['code']]) === true) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
             }
@@ -167,6 +176,7 @@ class Lists
                 if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
                     || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
                 ) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
 
@@ -182,6 +192,7 @@ class Lists
                     $openCurly     = $tokens[$prevNonEmpty]['bracket_opener'];
                     $beforeCurlies = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($openCurly - 1), null, true);
                     if ($tokens[$beforeCurlies]['code'] === \T_DOLLAR) {
+                        Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                         return false;
                     }
                 }
@@ -202,6 +213,7 @@ class Lists
 
         $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
         if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
+            Cache::set($phpcsFile, __METHOD__, $stackPtr, true);
             return true;
         }
 
@@ -212,6 +224,7 @@ class Lists
                 || $tokens[$prevNonEmpty]['code'] === \T_DOUBLE_ARROW)
             && Parentheses::lastOwnerIn($phpcsFile, $prevNonEmpty, \T_FOREACH) !== false
         ) {
+            Cache::set($phpcsFile, __METHOD__, $stackPtr, true);
             return true;
         }
 
@@ -228,13 +241,16 @@ class Lists
             );
 
             if ($parentOpen === false) {
+                Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                 return false;
             }
         } while (isset($tokens[$parentOpen]['bracket_closer']) === true
             && $tokens[$parentOpen]['bracket_closer'] < $opener
         );
 
-        return self::isShortList($phpcsFile, $parentOpen);
+        $returnValue = self::isShortList($phpcsFile, $parentOpen);
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
+        return $returnValue;
     }
 
     /**
@@ -385,6 +401,10 @@ class Lists
             throw new RuntimeException('The Lists::getAssignments() method expects a long/short list token.');
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         $opener = $openClose['opener'];
         $closer = $openClose['closer'];
 
@@ -502,6 +522,7 @@ class Lists
             }
         }
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $vars);
         return $vars;
     }
 }

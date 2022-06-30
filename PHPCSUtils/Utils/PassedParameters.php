@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -205,6 +206,16 @@ class PassedParameters
             return [];
         }
 
+        $effectiveLimit = (\is_int($limit) && $limit > 0) ? $limit : 0;
+
+        if (Cache::isCached($phpcsFile, __METHOD__, "$stackPtr-$effectiveLimit") === true) {
+            return Cache::get($phpcsFile, __METHOD__, "$stackPtr-$effectiveLimit");
+        }
+
+        if ($effectiveLimit !== 0 && Cache::isCached($phpcsFile, __METHOD__, "$stackPtr-0") === true) {
+            return \array_slice(Cache::get($phpcsFile, __METHOD__, "$stackPtr-0"), 0, $effectiveLimit, true);
+        }
+
         // Ok, we know we have a valid token with parameters and valid open & close brackets/parenthesis.
         $tokens = $phpcsFile->getTokens();
 
@@ -324,17 +335,26 @@ class PassedParameters
                 true
             );
             if ($hasNextParam === false) {
+                // Reached the end, so for the purpose of caching, this should be saved as if no limit was set.
+                $effectiveLimit = 0;
                 break;
             }
 
             // Stop if there is a valid limit and the limit has been reached.
-            if (\is_int($limit) && $limit > 0 && $cnt === $limit) {
+            if ($effectiveLimit !== 0 && $cnt === $effectiveLimit) {
                 break;
             }
 
             // Prepare for the next parameter.
             $paramStart = ($nextComma + 1);
             ++$cnt;
+        }
+
+        if ($effectiveLimit !== 0 && $cnt === $effectiveLimit) {
+            Cache::set($phpcsFile, __METHOD__, "$stackPtr-$effectiveLimit", $parameters);
+        } else {
+            // Limit is 0 or total items is less than effective limit.
+            Cache::set($phpcsFile, __METHOD__, "$stackPtr-0", $parameters);
         }
 
         return $parameters;

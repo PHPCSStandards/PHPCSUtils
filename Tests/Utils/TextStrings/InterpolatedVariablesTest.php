@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
+use PHPCSUtils\Internal\NoFileCache;
 use PHPCSUtils\Utils\TextStrings;
 use PHPUnit\Framework\TestCase;
 
@@ -577,5 +578,40 @@ class InterpolatedVariablesTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\TextStrings::getStripEmbeds';
+        $input      = '"This is the $value of {$name}"';
+        $expected   = [
+            'embeds'    => [
+                13 => '$value',
+                23 => '{$name}',
+            ],
+            'remaining' => '"This is the  of "',
+        ];
+
+        // Verify the caching works.
+        $origStatus           = NoFileCache::$enabled;
+        NoFileCache::$enabled = true;
+
+        $resultFirstRun  = TextStrings::getStripEmbeds($input);
+        $isCached        = NoFileCache::isCached($methodName, \md5($input));
+        $resultSecondRun = TextStrings::getStripEmbeds($input);
+
+        if ($origStatus === false) {
+            NoFileCache::clear();
+        }
+        NoFileCache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'NoFileCache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

@@ -13,6 +13,8 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Internal\NoFileCache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 
@@ -140,6 +142,10 @@ class TextStrings
             }
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         switch ($tokens[$stackPtr]['code']) {
             case \T_START_HEREDOC:
                 $targetType = \T_HEREDOC;
@@ -185,6 +191,7 @@ class TextStrings
             $lastPtr = $end;
         }
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $lastPtr);
         return $lastPtr;
     }
 
@@ -356,6 +363,11 @@ class TextStrings
             ];
         }
 
+        $textHash = \md5($text);
+        if (NoFileCache::isCached(__METHOD__, $textHash) === true) {
+            return NoFileCache::get(__METHOD__, $textHash);
+        }
+
         $offset    = 0;
         $strLen    = \strlen($text); // Use iconv ?
         $stripped  = '';
@@ -404,9 +416,12 @@ class TextStrings
             $stripped .= \substr($text, $offset);
         }
 
-        return [
+        $returnValue = [
             'embeds'    => $variables,
             'remaining' => $stripped,
         ];
+
+        NoFileCache::set(__METHOD__, $textHash, $returnValue);
+        return $returnValue;
     }
 }

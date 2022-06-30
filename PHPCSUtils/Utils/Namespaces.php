@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -260,6 +261,9 @@ class Namespaces
          * - and that namespace declarations can't be nested in anything, so we can skip over any
          *   nesting structures.
          */
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
 
         // Start by breaking out of any scoped structures this token is in.
         $prev           = $stackPtr;
@@ -274,7 +278,7 @@ class Namespaces
             $prev = $firstParensOpener;
         }
 
-        $find = [
+        $find        = [
             \T_NAMESPACE,
             \T_CLOSE_CURLY_BRACKET,
             \T_CLOSE_PARENTHESIS,
@@ -282,6 +286,7 @@ class Namespaces
             \T_CLOSE_SQUARE_BRACKET,
             \T_DOC_COMMENT_CLOSE_TAG,
         ];
+        $returnValue = false;
 
         do {
             $prev = $phpcsFile->findPrevious($find, ($prev - 1));
@@ -341,14 +346,17 @@ class Namespaces
                 // Now make sure the token was not part of the declaration.
                 $endOfStatement = $phpcsFile->findNext(Collections::namespaceDeclarationClosers(), ($prev + 1));
                 if ($endOfStatement > $stackPtr) {
-                    return false;
+                    // Token is part of the declaration, return false.
+                    break;
                 }
 
-                return $prev;
+                $returnValue = $prev;
+                break;
             }
         } while (true);
 
-        return false;
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
+        return $returnValue;
     }
 
     /**

@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
@@ -682,5 +683,45 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        // The test case used is specifically selected to be one which will always reach the cache check.
+        $methodName = 'PHPCSUtils\\Utils\\FunctionDeclarations::getArrowFunctionOpenClose';
+        $cases      = $this->dataArrowFunction();
+        $testMarker = $cases['live-coding']['testMarker'];
+        $expected   = $cases['live-coding']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, Collections::arrowFunctionTokensBC(), 'fn');
+
+        // Change from offsets to absolute token positions.
+        if ($expected['get'] !== false) {
+            foreach ($expected['get'] as $key => $value) {
+                $expected['get'][$key] += $stackPtr;
+            }
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = FunctionDeclarations::getArrowFunctionOpenClose(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = FunctionDeclarations::getArrowFunctionOpenClose(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected['get'], $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

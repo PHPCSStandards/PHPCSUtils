@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\Parentheses;
 
@@ -221,6 +222,10 @@ class UseStatements
             return $statements;
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         ++$endOfStatement;
 
         $start     = true;
@@ -401,6 +406,7 @@ class UseStatements
             }
         }
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $statements);
         return $statements;
     }
 

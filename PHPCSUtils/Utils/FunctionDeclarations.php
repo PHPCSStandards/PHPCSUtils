@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
@@ -750,6 +751,10 @@ class FunctionDeclarations
          *
          * Now see about finding the relevant arrow function tokens.
          */
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         $returnValue = [];
 
         $nextNonEmpty = $phpcsFile->findNext(
@@ -759,13 +764,17 @@ class FunctionDeclarations
             true
         );
         if ($nextNonEmpty === false || $tokens[$nextNonEmpty]['code'] !== \T_OPEN_PARENTHESIS) {
+            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
             return false;
         }
 
         $returnValue['parenthesis_opener'] = $nextNonEmpty;
         if (isset($tokens[$nextNonEmpty]['parenthesis_closer']) === false) {
             // Shouldn't be possible, but just in case.
-            return false; // @codeCoverageIgnore
+            // @codeCoverageIgnoreStart
+            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
+            return false;
+            // @codeCoverageIgnoreEnd
         }
 
         $returnValue['parenthesis_closer'] = $tokens[$nextNonEmpty]['parenthesis_closer'];
@@ -790,6 +799,7 @@ class FunctionDeclarations
         if ($arrow === false
             || ($tokens[$arrow]['code'] !== \T_DOUBLE_ARROW && $tokens[$arrow]['type'] !== 'T_FN_ARROW')
         ) {
+            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
             return false;
         }
 
@@ -858,11 +868,13 @@ class FunctionDeclarations
         }
 
         if ($scopeCloser === $phpcsFile->numTokens) {
+            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
             return false;
         }
 
         $returnValue['scope_closer'] = $scopeCloser;
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
         return $returnValue;
     }
 
