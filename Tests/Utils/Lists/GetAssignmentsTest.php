@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Lists;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Lists;
 
@@ -934,5 +935,60 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName  = 'PHPCSUtils\\Utils\\Lists::getAssignments';
+        $cases       = $this->dataGetAssignments();
+        $testMarker  = $cases['short-list-with-keys-nested-lists']['testMarker'];
+        $targetToken = $cases['short-list-with-keys-nested-lists']['targetToken'];
+        $expected    = $cases['short-list-with-keys-nested-lists']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, $targetToken);
+
+        // Convert offsets to absolute positions.
+        foreach ($expected as $index => $subset) {
+            if (isset($subset['key_token'])) {
+                $expected[$index]['key_token'] += $stackPtr;
+            }
+            if (isset($subset['key_end_token'])) {
+                $expected[$index]['key_end_token'] += $stackPtr;
+            }
+            if (isset($subset['double_arrow_token'])) {
+                $expected[$index]['double_arrow_token'] += $stackPtr;
+            }
+            if (isset($subset['reference_token']) && $subset['reference_token'] !== false) {
+                $expected[$index]['reference_token'] += $stackPtr;
+            }
+            if (isset($subset['assignment_token']) && $subset['assignment_token'] !== false) {
+                $expected[$index]['assignment_token'] += $stackPtr;
+            }
+            if (isset($subset['assignment_end_token']) && $subset['assignment_end_token'] !== false) {
+                $expected[$index]['assignment_end_token'] += $stackPtr;
+            }
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Lists::getAssignments(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = Lists::getAssignments(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }
