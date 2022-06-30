@@ -14,6 +14,9 @@
 
 namespace PHPCSUtils\Tests;
 
+use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Internal\NoFileCache;
+
 if (\defined('PHP_CODESNIFFER_IN_TESTS') === false) {
     \define('PHP_CODESNIFFER_IN_TESTS', true);
 }
@@ -124,4 +127,24 @@ if (\defined('__PHPUNIT_PHAR__')) {
  */
 require_once \dirname(__DIR__) . '/phpcsutils-autoload.php';
 
-unset($phpcsDir, $vendorDir);
+/*
+ * Determine whether to run the test suite with caching enabled or disabled.
+ *
+ * Use `<php><env name="PHPCSUTILS_USE_CACHE" value="On|Off"/></php>` in a `phpunit.xml` file
+ * or set the ENV variable on an OS-level.
+ *
+ * If the ENV variable has not been set, the tests will run with caching turned OFF.
+ */
+if (\defined('PHPCSUTILS_USE_CACHE') === false) {
+    $useCache = \getenv('PHPCSUTILS_USE_CACHE');
+    if ($useCache === false) {
+        Cache::$enabled       = false;
+        NoFileCache::$enabled = false;
+    } else {
+        $useCache             = \filter_var($useCache, \FILTER_VALIDATE_BOOLEAN);
+        Cache::$enabled       = $useCache;
+        NoFileCache::$enabled = $useCache;
+    }
+}
+
+unset($phpcsDir, $vendorDir, $useCache);
