@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Namespaces;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Namespaces;
 
@@ -187,6 +188,40 @@ class DetermineNamespaceTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testFindNamespacePtrResultIsCached()
+    {
+        // The test case used is specifically selected to be one which will always reach the cache check.
+        $methodName = 'PHPCSUtils\\Utils\\Namespaces::findNamespacePtr';
+        $cases      = $this->dataDetermineNamespace();
+        $testMarker = $cases['non-scoped-namespace-2']['testMarker'];
+        $expected   = $cases['non-scoped-namespace-2']['expected']['ptr'];
+
+        $stackPtr = $this->getTargetToken($testMarker, \T_ECHO);
+        $expected = $this->getTargetToken($expected, \T_NAMESPACE);
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 
     /**
