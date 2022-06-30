@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ControlStructures;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\ControlStructures;
 
@@ -167,5 +168,44 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
                 'expected'   => false,
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        // The test case used is specifically selected to be one which will always reach the cache check.
+        $methodName = 'PHPCSUtils\\Utils\\ControlStructures::getDeclareScopeOpenClose';
+        $cases      = $this->dataGetDeclareScopeOpenClose();
+        $testMarker = $cases['mixed-nested-level-4']['testMarker'];
+        $expected   = $cases['mixed-nested-level-4']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, \T_DECLARE);
+
+        // Translate offsets to absolute token positions.
+        if (isset($expected['opener'], $expected['closer']) === true) {
+            $expected['opener'] += $stackPtr;
+            $expected['closer'] += $stackPtr;
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

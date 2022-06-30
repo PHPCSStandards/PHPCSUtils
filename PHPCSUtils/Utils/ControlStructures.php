@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 
 /**
@@ -249,9 +250,14 @@ class ControlStructures
             ];
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         $declareCount = 0;
         $opener       = null;
         $closer       = null;
+        $returnValue  = false;
 
         for ($i = $stackPtr; $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['code'] !== \T_DECLARE && $tokens[$i]['code'] !== \T_ENDDECLARE) {
@@ -276,7 +282,7 @@ class ControlStructures
                 // Find the scope opener
                 if (isset($tokens[$i]['parenthesis_closer']) === false) {
                     // Parse error or live coding, nothing to do.
-                    return false;
+                    break;
                 }
 
                 $scopeOpener = $phpcsFile->findNext(
@@ -288,7 +294,7 @@ class ControlStructures
 
                 if ($scopeOpener === false) {
                     // Live coding, nothing to do.
-                    return false;
+                    break;
                 }
 
                 // Remember the scope opener for our target declare.
@@ -310,7 +316,7 @@ class ControlStructures
 
                         if (isset($tokens[$scopeOpener]['scope_closer']) === false) {
                             // Live coding, nothing to do.
-                            return false;
+                            break 2;
                         }
 
                         // Jump over the statement.
@@ -326,7 +332,7 @@ class ControlStructures
 
                     default:
                         // This is an unexpected token. Most likely a parse error. Bow out.
-                        return false;
+                        break 2;
                 }
             }
 
@@ -336,13 +342,14 @@ class ControlStructures
         }
 
         if (isset($opener, $closer)) {
-            return [
+            $returnValue = [
                 'opener' => $opener,
                 'closer' => $closer,
             ];
         }
 
-        return false;
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
+        return $returnValue;
     }
 
     /**
