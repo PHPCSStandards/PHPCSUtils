@@ -73,6 +73,10 @@ class Arrays
             return false;
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         // All known tokenizer bugs are in PHPCS versions before 3.6.0.
         $phpcsVersion = Helper::getVersion();
 
@@ -82,6 +86,7 @@ class Arrays
         if (isset(Collections::shortArrayTokens()[$tokens[$stackPtr]['code']]) === false) {
             if (\version_compare($phpcsVersion, '3.3.0', '>=')) {
                 // These will just be properly tokenized, plain square brackets. No need for further checks.
+                Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                 return false;
             }
 
@@ -91,6 +96,7 @@ class Arrays
             }
 
             if (isset($tokens[$opener]['bracket_closer']) === false) {
+                Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                 return false;
             }
 
@@ -110,6 +116,7 @@ class Arrays
                 if ($prevNonEmpty !== 0
                     || isset(Collections::phpOpenTags()[$tokens[$prevNonEmpty]['code']]) === false
                 ) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
             }
@@ -128,6 +135,7 @@ class Arrays
                 if ($tokens[$prevNonEmpty]['code'] !== \T_CLOSE_CURLY_BRACKET
                     || isset($tokens[$prevNonEmpty]['scope_condition']) === false
                 ) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
             }
@@ -150,6 +158,7 @@ class Arrays
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3172
                  */
                 if ($tokens[$prevNonEmpty]['code'] === \T_DOUBLE_QUOTED_STRING) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
             }
@@ -163,6 +172,7 @@ class Arrays
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
                 if (isset(BCTokens::magicConstants()[$tokens[$prevNonEmpty]['code']]) === true) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
             }
@@ -178,6 +188,7 @@ class Arrays
                 if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
                     || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
                 ) {
+                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
 
@@ -193,6 +204,7 @@ class Arrays
                     $openCurly     = $tokens[$prevNonEmpty]['bracket_opener'];
                     $beforeCurlies = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($openCurly - 1), null, true);
                     if ($tokens[$beforeCurlies]['code'] === \T_DOLLAR) {
+                        Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                         return false;
                     }
                 }
@@ -200,7 +212,9 @@ class Arrays
         }
 
         // In all other circumstances, make sure this isn't a short list instead of a short array.
-        return (Lists::isShortList($phpcsFile, $stackPtr) === false);
+        $returnValue = (Lists::isShortList($phpcsFile, $stackPtr) === false);
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
+        return $returnValue;
     }
 
     /**
