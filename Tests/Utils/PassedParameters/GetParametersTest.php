@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -542,6 +543,47 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testGetParametersResultIsCached()
+    {
+        // The test case used is specifically selected as the raw and the clean param values will be the same.
+        $methodName = 'PHPCSUtils\\Utils\\PassedParameters::getParameters';
+        $cases      = $this->dataGetParameters();
+        $testMarker = $cases['isset']['testMarker'];
+        $targetType = $cases['isset']['targetType'];
+        $expected   = $cases['isset']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, [$targetType]);
+
+        // Translate offsets to exact token positions and set the "clean" key.
+        foreach ($expected as $key => $value) {
+            $expected[$key]['start'] = ($stackPtr + $value['start']);
+            $expected[$key]['end']   = ($stackPtr + $value['end']);
+            $expected[$key]['clean'] = $value['raw'];
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, "$stackPtr-0");
+        $resultSecondRun = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 
     /**
