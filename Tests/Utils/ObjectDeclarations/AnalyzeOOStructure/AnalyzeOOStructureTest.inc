@@ -20,6 +20,7 @@ $anon = new class implements SomeInterface {};
 
 /* testClass */
 abstract class testClass {
+// LATER: add properties with PHP 8.4 syntax with property hooks + handle those functions too
 
     use someTrait;
     // Test skipping over contents between {}.
@@ -177,6 +178,8 @@ interface testInterface {
     // Intentional parse error. Properties are not allowed in interfaces (until PHP 8.4), but that's not the concern of this method.
     public $invalid;
 
+// LATER: add properties with PHP 8.4 syntax with property hooks + handle those functions too
+
     public /* markerInterfaceMethod1 */ function oh_oh();
     public /* markerInterfaceMethod2 */ function im();
     public /* markerInterfaceMethod3 */ FUNCTION walking();
@@ -204,6 +207,8 @@ trait testTrait {
     var
     // phpcs:ignore Stnd.Cat.Something
     $LA = 'string';
+
+// LATER: add properties with PHP 8.4 syntax with property hooks + handle those functions too
 
     /* markerTraitMethod1 */
     public function ti() {}
