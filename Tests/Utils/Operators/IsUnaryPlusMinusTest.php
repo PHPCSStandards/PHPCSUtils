@@ -278,6 +278,18 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
                 'testMarker' => '/* testUnaryMinusArrowFunction */',
                 'expected'   => true,
             ],
+            'unary-plus-match-arrow' => [
+                'testMarker' => '/* testUnaryPlusMatchArrow */',
+                'expected'   => true,
+            ],
+            'unary-minus-match-arrow' => [
+                'testMarker' => '/* testUnaryMinusMatchArrow */',
+                'expected'   => true,
+            ],
+            'unary-minus-match-default' => [
+                'testMarker' => '/* testUnaryMinusMatchDefault */',
+                'expected'   => true,
+            ],
             'operator-sequence-non-unary-1' => [
                 'testMarker' => '/* testSequenceNonUnary1 */',
                 'expected'   => false,

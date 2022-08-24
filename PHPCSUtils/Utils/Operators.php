@@ -440,6 +440,7 @@ class Operators
             || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
             || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
             || $tokens[$prev]['type'] === 'T_FN_ARROW'
+            || $tokens[$prev]['type'] === 'T_MATCH_ARROW'
         ) {
             return true;
         }
