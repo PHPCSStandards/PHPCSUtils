@@ -141,6 +141,15 @@ switch ($a) {
 /* testUnaryMinusArrowFunction */
 $fn = static fn(DateTime $a, DateTime $b): int => -($a->getTimestamp() <=> $b->getTimestamp());
 
+$matcher = match ($a) {
+    /* testUnaryPlusMatchArrow */
+    'a' => +1,
+    /* testUnaryMinusMatchArrow */
+    'b', 'c', 'd' => -2,
+    /* testUnaryMinusMatchDefault */
+    default => -3,
+};
+
 // Testing `$a = -+-+10`;
 $a =
     /* testSequenceNonUnary1 */
