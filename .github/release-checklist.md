@@ -19,7 +19,6 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
 
 ### General
 
-- [ ] Update the `DEVMASTER` version nr constant in the `Tests/BackCompat/Helper/GetVersionTest.php` file. - PR #xxx
 - [ ] Verify, and if necessary, update the version constraints for dependencies in the `composer.json` - PR #xxx
 - [ ] Verify that any new functions have type declarations whenever possible.
 - [ ] Add changelog for the release - PR #xxx
