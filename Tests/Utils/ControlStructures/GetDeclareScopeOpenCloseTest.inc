@@ -48,6 +48,24 @@ declare(ticks=1) :
     }
 enddeclare;
 
+/* testMultiDirectiveFileScope */
+declare(strict_types=1, encoding='UTF-8');
+
+/* testMultiDirectiveBraces */
+declare(strict_types=1, encoding='UTF-8') {
+    // entire script here
+}
+
+/* testMultiDirectiveAltSyntax */
+declare(strict_types=1, encoding='UTF-8'):
+    // entire script here
+enddeclare;
+
+/* testPHPCloseTag */
+?>
+<?php declare(ticks=1) ?>
+<?php
+
 /* testLiveCoding */
 // Intentional parse error.
 declare(ticks=1

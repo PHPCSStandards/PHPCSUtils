@@ -326,6 +326,7 @@ class ControlStructures
                         break;
 
                     case \T_SEMICOLON:
+                    case \T_CLOSE_TAG:
                         // Nested single line declare statement.
                         --$declareCount;
                         break;
