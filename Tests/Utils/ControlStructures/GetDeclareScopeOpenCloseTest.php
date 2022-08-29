@@ -163,6 +163,30 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
                 'expected'   => false,
             ],
 
+            'multi-directive-file-scoped' => [
+                'testMarker' => '/* testMultiDirectiveFileScope */',
+                'expected'   => false,
+            ],
+            'multi-directive-brace-scoped' => [
+                'testMarker' => '/* testMultiDirectiveBraces */',
+                'expected'   => [
+                    'opener' => 12,
+                    'closer' => 16,
+                ],
+            ],
+            'multi-directive-alt-syntax' => [
+                'testMarker' => '/* testMultiDirectiveAltSyntax */',
+                'expected'   => [
+                    'opener' => 11,
+                    'closer' => 15,
+                ],
+            ],
+
+            'php-close-tag' => [
+                'testMarker' => '/* testPHPCloseTag */',
+                'expected'   => false,
+            ],
+
             'live-coding' => [
                 'testMarker' => '/* testLiveCoding */',
                 'expected'   => false,
