@@ -10,21 +10,18 @@
 
 namespace PHPCSUtils\BackCompat;
 
+use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 
 /**
  * Utility methods to retrieve (configuration) information from PHP_CodeSniffer.
  *
- * PHP_CodeSniffer cross-version compatibility helper for PHPCS 2.x vs PHPCS 3.x.
+ * PHP_CodeSniffer cross-version compatibility helper.
  *
- * A number of PHPCS classes were split up into several classes in PHPCS 3.x
- * Those classes cannot be aliased as they don't represent the same object.
- * This class provides helper methods for functions which were contained in
- * one of these classes and which are commonly used by external standards.
- *
- * @since 1.0.0 The initial methods in this class have been ported over from
- *              the external PHPCompatibility & WPCS standards.
+ * @since 1.0.0        The initial methods in this class have been ported over from
+ *                     the external PHPCompatibility & WPCS standards.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class Helper
 {
@@ -47,13 +44,7 @@ class Helper
      */
     public static function getVersion()
     {
-        if (\defined('\PHP_CodeSniffer\Config::VERSION') === false) {
-            // PHPCS 2.x.
-            return \PHP_CodeSniffer::VERSION;
-        }
-
-        // PHPCS 3.x.
-        return \PHP_CodeSniffer\Config::VERSION;
+        return Config::VERSION;
     }
 
     /**
@@ -76,11 +67,6 @@ class Helper
      */
     public static function setConfigData($key, $value, $temp = false, $config = null)
     {
-        if (\method_exists('\PHP_CodeSniffer\Config', 'setConfigData') === false) {
-            // PHPCS 2.x.
-            return \PHP_CodeSniffer::setConfigData($key, $value, $temp);
-        }
-
         if (isset($config) === true) {
             // PHPCS 3.x and 4.x.
             return $config->setConfigData($key, $value, $temp);
@@ -91,7 +77,7 @@ class Helper
         }
 
         // PHPCS 3.x.
-        return \PHP_CodeSniffer\Config::setConfigData($key, $value, $temp);
+        return Config::setConfigData($key, $value, $temp);
     }
 
     /**
@@ -108,13 +94,7 @@ class Helper
      */
     public static function getConfigData($key)
     {
-        if (\method_exists('\PHP_CodeSniffer\Config', 'getConfigData') === false) {
-            // PHPCS 2.x.
-            return \PHP_CodeSniffer::getConfigData($key);
-        }
-
-        // PHPCS 3.x.
-        return \PHP_CodeSniffer\Config::getConfigData($key);
+        return Config::getConfigData($key);
     }
 
     /**
@@ -132,18 +112,8 @@ class Helper
      */
     public static function getCommandLineData(File $phpcsFile, $key)
     {
-        if (\class_exists('\PHP_CodeSniffer\Config') === false) {
-            // PHPCS 2.x.
-            $config = $phpcsFile->phpcs->cli->getCommandLineValues();
-            if (isset($config[$key])) {
-                return $config[$key];
-            }
-        } else {
-            // PHPCS 3.x.
-            $config = $phpcsFile->config;
-            if (isset($config->{$key})) {
-                return $config->{$key};
-            }
+        if (isset($phpcsFile->config->{$key})) {
+            return $phpcsFile->config->{$key};
         }
 
         return null;
@@ -178,15 +148,11 @@ class Helper
      * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *
      * @return string Encoding. Defaults to the PHPCS native default, which is 'utf-8'
-     *                for PHPCS 3.x and was 'iso-8859-1' for PHPCS 2.x.
+     *                for PHPCS 3.x.
      */
     public static function getEncoding(File $phpcsFile = null)
     {
         $default = 'utf-8';
-        if (\version_compare(self::getVersion(), '2.99.99', '<=') === true) {
-            // In PHPCS 2.x, the default encoding is `iso-8859-1`.
-            $default = 'iso-8859-1';
-        }
 
         if ($phpcsFile instanceof File) {
             // Most reliable.
@@ -218,17 +184,11 @@ class Helper
      */
     public static function ignoreAnnotations(File $phpcsFile = null)
     {
-        if (\class_exists('\PHP_CodeSniffer\Config') === false) {
-            // PHPCS 2.x does not support `--ignore-annotations`.
-            return false;
-        }
-
-        // PHPCS 3.x.
         if (isset($phpcsFile, $phpcsFile->config->annotations)) {
             return ! $phpcsFile->config->annotations;
         }
 
-        $annotations = \PHP_CodeSniffer\Config::getConfigData('annotations');
+        $annotations = Config::getConfigData('annotations');
         if (isset($annotations)) {
             return ! $annotations;
         }
