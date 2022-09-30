@@ -51,17 +51,10 @@ if ($phpcsDir === false && \is_dir($vendorDir . '/squizlabs/php_codesniffer')) {
 
 // Try and load the PHPCS autoloader.
 if ($phpcsDir !== false && \file_exists($phpcsDir . '/autoload.php')) {
-    // PHPCS 3.x.
     require_once $phpcsDir . '/autoload.php';
 
     // Pre-load the token back-fills to prevent undefined constant notices.
     require_once $phpcsDir . '/src/Util/Tokens.php';
-} elseif ($phpcsDir !== false && \file_exists($phpcsDir . '/CodeSniffer.php')) {
-    // PHPCS 2.x.
-    require_once $phpcsDir . '/CodeSniffer.php';
-
-    // Pre-load the token back-fills to prevent undefined constant notices.
-    require_once $phpcsDir . '/CodeSniffer/Tokens.php';
 } else {
     echo 'Uh oh... can\'t find PHPCS.
 
