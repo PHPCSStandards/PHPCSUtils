@@ -30,13 +30,7 @@ jobs:
     strategy:
       matrix:
         php: ['5.4', 'latest']
-        phpcs_version: ['dev-master']
-
-        include:
-          - php: '7.3'
-            phpcs_version: '2.9.2'
-          - php: '5.4'
-            phpcs_version: '2.6.0'
+        phpcs_version: ['3.7.1', 'dev-master']
 
     name: "QTest${{ matrix.phpcs_version == 'dev-master' && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
