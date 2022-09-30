@@ -8,12 +8,6 @@
  * - If an external standard only supports PHPCS >= 3.1.0 and uses the PHPCS
  *   native unit test framework, this file does not need to be included.
  *
- * - When PHPCS 2.x support is desired, include the `"PHPCS23Utils"` standard
- *   in the ruleset of the external standard and this file will be included
- *   automatically.
- *   Including this file will allow PHPCSUtils to work in both PHPCS 2.x
- *   as well as PHPCS 3.x.
- *
  * - If an external standard uses its own unit test setup, this file should
  *   be included from the unit test bootstrap file.
  *
@@ -50,52 +44,6 @@ if (defined('PHPCSUTILS_AUTOLOAD') === false) {
     });
 
     define('PHPCSUTILS_AUTOLOAD', true);
-}
-
-if (defined('PHPCSUTILS_PHPCS_ALIASES_SET') === false) {
-    /*
-     * Alias a number of PHPCS 2.x classes to their PHPCS 3.x equivalents.
-     *
-     * {@internal The PHPCS file have been reorganized in PHPCS 3.x, quite
-     * a few "old" classes have been split and spread out over several "new"
-     * classes. In other words, this will only work for a limited number
-     * of classes.}}
-     *
-     * {@internal The `class_exists` wrappers are needed to play nice with other
-     * external PHPCS standards creating cross-version compatibility in a
-     * similar manner.}}
-     */
-    if (interface_exists('\PHP_CodeSniffer_Sniff') === true
-        && interface_exists('\PHP_CodeSniffer\Sniffs\Sniff') === false
-    ) {
-        class_alias('\PHP_CodeSniffer_Sniff', '\PHP_CodeSniffer\Sniffs\Sniff');
-    }
-
-    if (class_exists('\PHP_CodeSniffer_File') === true
-        && class_exists('\PHP_CodeSniffer\Files\File') === false
-    ) {
-        class_alias('\PHP_CodeSniffer_File', '\PHP_CodeSniffer\Files\File');
-    }
-
-    if (class_exists('\PHP_CodeSniffer_Tokens') === true
-        && class_exists('\PHP_CodeSniffer\Util\Tokens') === false
-    ) {
-        class_alias('\PHP_CodeSniffer_Tokens', '\PHP_CodeSniffer\Util\Tokens');
-    }
-
-    if (class_exists('\PHP_CodeSniffer_Exception') === true
-        && class_exists('\PHP_CodeSniffer\Exceptions\RuntimeException') === false
-    ) {
-        class_alias('\PHP_CodeSniffer_Exception', '\PHP_CodeSniffer\Exceptions\RuntimeException');
-    }
-
-    if (class_exists('\PHP_CodeSniffer_Exception') === true
-        && class_exists('\PHP_CodeSniffer\Exceptions\TokenizerException') === false
-    ) {
-        class_alias('\PHP_CodeSniffer_Exception', '\PHP_CodeSniffer\Exceptions\TokenizerException');
-    }
-
-    define('PHPCSUTILS_PHPCS_ALIASES_SET', true);
 }
 
 if (defined('PHPCSUTILS_PHPUNIT_ALIASES_SET') === false) {
