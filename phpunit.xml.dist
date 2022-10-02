@@ -33,7 +33,6 @@
             to be recorded properly, while still allowing the tests to run on all supported
             PHP/PHPUnit/PHPCS combinations.
             -->
-            <file>./Tests/BackCompat/BCTokens/EmptyTokensTest.php</file>
             <file>./Tests/Utils/Namespaces/NamespaceTypeTest.php</file>
             <file>./Tests/Utils/Numbers/GetCompleteNumberTest.php</file>
         </testsuite>
@@ -45,7 +44,6 @@
             <exclude>Tests/Internal/NoFileCache/GetClearTest.php</exclude>
             <exclude>Tests/Internal/NoFileCache/SetTest.php</exclude>
 
-            <exclude>Tests/BackCompat/BCTokens/EmptyTokensTest.php</exclude>
             <exclude>Tests/Utils/Namespaces/NamespaceTypeTest.php</exclude>
             <exclude>Tests/Utils/Numbers/GetCompleteNumberTest.php</exclude>
         </testsuite>

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\BackCompat\BCTokens::parenthesisOpeners
+ * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
  *
  * @group tokens
  *
@@ -49,15 +49,10 @@ class ParenthesisOpenersTest extends TestCase
             \T_ELSEIF     => \T_ELSEIF,
             \T_CATCH      => \T_CATCH,
             \T_DECLARE    => \T_DECLARE,
+            \T_MATCH      => \T_MATCH,
         ];
 
-        if (\version_compare($version, '3.6.0', '>=') === true
-            || \version_compare(\PHP_VERSION_ID, '70999', '>=') === true
-        ) {
-            $expected[\T_MATCH] = \T_MATCH;
-        }
-
-        if (\version_compare($version, '4.0.0', '>=') === true) {
+        if (\version_compare($version, '3.99.99', '>=') === true) {
             $expected[\T_USE] = \T_USE;
         }
 
