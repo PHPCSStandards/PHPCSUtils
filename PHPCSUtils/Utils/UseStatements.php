@@ -13,7 +13,6 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Utils\Conditions;
@@ -88,7 +87,7 @@ class UseStatements
             return 'import';
         }
 
-        $traitScopes = BCTokens::ooScopeTokens();
+        $traitScopes = Tokens::$ooScopeTokens;
         // Only classes and traits can import traits.
         unset($traitScopes[\T_INTERFACE]);
 

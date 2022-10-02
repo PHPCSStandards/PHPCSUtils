@@ -37,7 +37,6 @@ namespace PHPCSUtils\BackCompat;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
@@ -1083,7 +1082,7 @@ class BCFile
             return true;
         }
 
-        if (isset(BCTokens::assignmentTokens()[$tokens[$tokenBefore]['code']]) === true) {
+        if (isset(Tokens::$assignmentTokens[$tokens[$tokenBefore]['code']]) === true) {
             // This is directly after an assignment. It's a reference. Even if
             // it is part of an operation, the other tests will handle it.
             return true;

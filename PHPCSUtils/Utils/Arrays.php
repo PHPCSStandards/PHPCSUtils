@@ -13,7 +13,6 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
@@ -171,7 +170,7 @@ class Arrays
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
-                if (isset(BCTokens::magicConstants()[$tokens[$prevNonEmpty]['code']]) === true) {
+                if (isset(Tokens::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
                     Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }

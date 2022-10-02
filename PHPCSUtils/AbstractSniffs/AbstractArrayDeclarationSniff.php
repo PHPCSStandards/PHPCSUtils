@@ -14,7 +14,6 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Numbers;
 use PHPCSUtils\Utils\PassedParameters;
@@ -135,14 +134,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     final public function __construct()
     {
         // Enhance the list of accepted tokens.
-        $this->acceptedTokens += BCTokens::assignmentTokens();
-        $this->acceptedTokens += BCTokens::comparisonTokens();
-        $this->acceptedTokens += BCTokens::arithmeticTokens();
-        $this->acceptedTokens += BCTokens::operators();
-        $this->acceptedTokens += BCTokens::booleanOperators();
-        $this->acceptedTokens += BCTokens::castTokens();
-        $this->acceptedTokens += BCTokens::bracketTokens();
-        $this->acceptedTokens += BCTokens::heredocTokens();
+        $this->acceptedTokens += Tokens::$assignmentTokens;
+        $this->acceptedTokens += Tokens::$comparisonTokens;
+        $this->acceptedTokens += Tokens::$arithmeticTokens;
+        $this->acceptedTokens += Tokens::$operators;
+        $this->acceptedTokens += Tokens::$booleanOperators;
+        $this->acceptedTokens += Tokens::$castTokens;
+        $this->acceptedTokens += Tokens::$bracketTokens;
+        $this->acceptedTokens += Tokens::$heredocTokens;
     }
 
     /**

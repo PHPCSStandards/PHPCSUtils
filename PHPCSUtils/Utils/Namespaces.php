@@ -14,7 +14,6 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
@@ -58,9 +57,9 @@ class Namespaces
              * Set up array of tokens which can only be used in combination with the keyword as operator
              * and which cannot be confused with other keywords.
              */
-            $findAfter = BCTokens::assignmentTokens()
-                + BCTokens::comparisonTokens()
-                + BCTokens::operators()
+            $findAfter = Tokens::$assignmentTokens
+                + Tokens::$comparisonTokens
+                + Tokens::$operators
                 + Tokens::$castTokens
                 + Tokens::$blockOpeners
                 + Collections::incrementDecrementOperators()

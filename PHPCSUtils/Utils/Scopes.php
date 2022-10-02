@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
-use PHPCSUtils\BackCompat\BCTokens;
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\Parentheses;
@@ -134,7 +134,7 @@ class Scopes
             return false;
         }
 
-        if (self::validDirectScope($phpcsFile, $stackPtr, BCTokens::ooScopeTokens()) !== false) {
+        if (self::validDirectScope($phpcsFile, $stackPtr, Tokens::$ooScopeTokens) !== false) {
             return true;
         }
 

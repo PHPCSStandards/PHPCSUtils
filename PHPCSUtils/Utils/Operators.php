@@ -12,7 +12,6 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
@@ -108,7 +107,7 @@ class Operators
             return true;
         }
 
-        if (isset(BCTokens::assignmentTokens()[$tokens[$tokenBefore]['code']]) === true) {
+        if (isset(Tokens::$assignmentTokens[$tokens[$tokenBefore]['code']]) === true) {
             // This is directly after an assignment. It's a reference. Even if
             // it is part of an operation, the other tests will handle it.
             return true;
@@ -423,7 +422,7 @@ class Operators
             return false;
         }
 
-        if (isset(BCTokens::operators()[$tokens[$next]['code']]) === true) {
+        if (isset(Tokens::$operators[$tokens[$next]['code']]) === true) {
             // Next token is an operator, so this is not a unary.
             return false;
         }
@@ -433,10 +432,10 @@ class Operators
         /*
          * Check the preceeding token for an indication that this is not an arithmetic operation.
          */
-        if (isset(BCTokens::operators()[$tokens[$prev]['code']]) === true
-            || isset(BCTokens::comparisonTokens()[$tokens[$prev]['code']]) === true
+        if (isset(Tokens::$operators[$tokens[$prev]['code']]) === true
+            || isset(Tokens::$comparisonTokens[$tokens[$prev]['code']]) === true
             || isset(Tokens::$booleanOperators[$tokens[$prev]['code']]) === true
-            || isset(BCTokens::assignmentTokens()[$tokens[$prev]['code']]) === true
+            || isset(Tokens::$assignmentTokens[$tokens[$prev]['code']]) === true
             || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
             || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
             || $tokens[$prev]['type'] === 'T_FN_ARROW'

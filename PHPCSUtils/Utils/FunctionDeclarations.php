@@ -13,7 +13,6 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
@@ -992,7 +991,7 @@ class FunctionDeclarations
             return false;
         }
 
-        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, BCTokens::ooScopeTokens());
+        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, Tokens::$ooScopeTokens);
         if ($scopePtr === false) {
             return false;
         }
