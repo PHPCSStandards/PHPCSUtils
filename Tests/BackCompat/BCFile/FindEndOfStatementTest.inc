@@ -44,13 +44,13 @@ return 0;
 /* testArrowFunctionReturnValue */
 fn(): array => [a($a, $b)];
 
+/* testArrowFunctionAsArgument */
 $foo = foo(
-    /* testArrowFunctionAsArgument */
     fn() => bar()
 );
 
+/* testArrowFunctionWithArrayAsArgument */
 $foo = foo(
-    /* testArrowFunctionWithArrayAsArgument */
     fn() => [$row[0], $row[3]]
 );
 

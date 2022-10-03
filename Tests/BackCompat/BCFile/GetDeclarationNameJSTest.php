@@ -39,7 +39,7 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      */
     public function testInvalidTokenPassed()
     {
-        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE or T_TRAIT');
+        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
 
         $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
         BCFile::getDeclarationName(self::$phpcsFile, $target);
