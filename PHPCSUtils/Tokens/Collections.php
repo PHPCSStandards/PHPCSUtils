@@ -184,6 +184,7 @@ class Collections
      * within a namespace scope are still global and not limited to that namespace.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::closedScopes()} method instead.
      *
@@ -194,6 +195,7 @@ class Collections
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_INTERFACE  => \T_INTERFACE,
         \T_TRAIT      => \T_TRAIT,
+        \T_ENUM       => \T_ENUM,
         \T_FUNCTION   => \T_FUNCTION,
         \T_CLOSURE    => \T_CLOSURE,
     ];
