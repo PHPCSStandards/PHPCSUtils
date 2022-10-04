@@ -41,15 +41,34 @@ class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test receiving an expected exception when an (invalid) interface property is passed.
+     * Test receiving an expected exception when an (invalid) interface or enum property is passed.
+     *
+     * @dataProvider dataNotClassPropertyException
+     *
+     * @param string $testMarker Comment which precedes the test case.
      *
      * @return void
      */
-    public function testNotClassPropertyException()
+    public function testNotClassPropertyException($testMarker)
     {
         $this->expectPhpcsException('$stackPtr is not a class member var');
 
-        $variable = $this->getTargetToken('/* testInterfaceProperty */', \T_VARIABLE);
+        $variable = $this->getTargetToken($testMarker, \T_VARIABLE);
         Variables::getMemberProperties(self::$phpcsFile, $variable);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testNotClassPropertyException()
+     *
+     * @return array
+     */
+    public function dataNotClassPropertyException()
+    {
+        return [
+            'interface property' => ['/* testInterfaceProperty */'],
+            'enum property'      => ['/* testEnumProperty */'],
+        ];
     }
 }

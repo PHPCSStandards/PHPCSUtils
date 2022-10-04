@@ -800,6 +800,10 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
+            'invalid-property-in-enum' => [
+                '/* testEnumProperty */',
+                [],
+            ],
         ];
     }
 
@@ -838,6 +842,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
             ['/* testGlobalVariable */'],
             ['/* testNestedMethodParam 1 */'],
             ['/* testNestedMethodParam 2 */'],
+            ['/* testEnumMethodParamNotProperty */'],
         ];
     }
 
