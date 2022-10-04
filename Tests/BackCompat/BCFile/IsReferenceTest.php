@@ -325,10 +325,6 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
-                '/* testClosureReturnByReference */',
-                true,
-            ],
-            [
                 '/* testPassByReferenceExactParameterA */',
                 false,
             ],
@@ -350,6 +346,10 @@ class IsReferenceTest extends UtilityMethodTestCase
             ],
             [
                 '/* testArrowFunctionPassByReferenceB */',
+                true,
+            ],
+            [
+                '/* testClosureReturnByReference */',
                 true,
             ],
             [
