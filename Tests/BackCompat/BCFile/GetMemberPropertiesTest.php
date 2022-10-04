@@ -764,6 +764,42 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => false,
                 ],
             ],
+            'php8-property-with-single-attribute' => [
+                '/* testPHP8PropertySingleAttribute */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'string',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8-property-with-multiple-attributes' => [
+                '/* testPHP8PropertyMultipleAttributes */',
+                [
+                    'scope'           => 'protected',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?int|float',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => true,
+                ],
+            ],
+            'php8-property-with-multiline-attribute' => [
+                '/* testPHP8PropertyMultilineAttribute */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'mixed',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
         ];
     }
 
