@@ -41,7 +41,7 @@ class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
      */
     public function testFindImplementedInterfaceNames($testMarker, $expected)
     {
-        $OOToken = $this->getTargetToken($testMarker, [\T_CLASS, \T_ANON_CLASS, \T_INTERFACE]);
+        $OOToken = $this->getTargetToken($testMarker, [\T_CLASS, \T_ANON_CLASS, \T_INTERFACE, \T_ENUM]);
         $result  = ObjectDeclarations::findImplementedInterfaceNames(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
     }

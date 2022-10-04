@@ -386,6 +386,7 @@ class Collections
      * DEPRECATED: OO structures which can use the "implements" keyword.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooCanImplement()} method instead.
      *
@@ -394,6 +395,7 @@ class Collections
     public static $OOCanImplement = [
         \T_CLASS      => \T_CLASS,
         \T_ANON_CLASS => \T_ANON_CLASS,
+        \T_ENUM       => \T_ENUM,
     ];
 
     /**
@@ -824,6 +826,7 @@ class Collections
      * OO structures which can use the "implements" keyword.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOCanImplement} property.
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @return array <int|string> => <int|string>
      */

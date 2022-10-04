@@ -235,7 +235,7 @@ class ObjectDeclarations
     }
 
     /**
-     * Retrieves the names of the interfaces that the specified class implements.
+     * Retrieves the names of the interfaces that the specified class or enum implements.
      *
      * Main differences with the PHPCS version:
      * - Bugs fixed:
@@ -251,9 +251,10 @@ class ObjectDeclarations
      *                                                                     the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 enums.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The stack position of the class.
+     * @param int                         $stackPtr  The stack position of the class or enum token.
      *
      * @return array|false Array with names of the implemented interfaces or `FALSE` on
      *                     error or if there are no implemented interface names.
