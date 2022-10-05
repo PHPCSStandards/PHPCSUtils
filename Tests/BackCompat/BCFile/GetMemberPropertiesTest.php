@@ -70,9 +70,6 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
             $expected['type_end_token'] += $variable;
         }
 
-        // Temporarily ignore the `is_readonly` key until support for readonly properties has been synced.
-        unset($result['is_readonly']);
-
         $this->assertSame($expected, $result);
     }
 
@@ -94,6 +91,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -106,6 +104,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?int',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -118,6 +117,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -130,6 +130,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'string',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -142,6 +143,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -154,6 +156,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'bool',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -166,6 +169,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -178,6 +182,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'array',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -190,6 +195,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -202,6 +208,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '?string',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -214,6 +221,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -226,6 +234,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -238,6 +247,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -250,6 +260,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -262,6 +273,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -274,6 +286,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -286,6 +299,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -298,6 +312,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -310,6 +325,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -322,6 +338,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'float',
                     'type_token'      => -6, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -6, // Offset from the T_VARIABLE token.
@@ -334,6 +351,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'float',
                     'type_token'      => -13, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -13, // Offset from the T_VARIABLE token.
@@ -346,6 +364,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '?string',
                     'type_token'      => -6, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -6, // Offset from the T_VARIABLE token.
@@ -358,6 +377,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '?string',
                     'type_token'      => -17, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -17, // Offset from the T_VARIABLE token.
@@ -370,6 +390,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -382,6 +403,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -394,6 +416,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -406,6 +429,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -418,6 +442,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -430,6 +455,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -442,6 +468,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -454,6 +481,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -466,6 +494,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -478,6 +507,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -490,6 +520,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?array',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -502,6 +533,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '\MyNamespace\MyClass',
                     'type_token'      => ($php8Names === true) ? -2 : -5, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -514,6 +546,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?ClassName',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -526,6 +559,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?Folder\ClassName',
                     'type_token'      => ($php8Names === true) ? -2 : -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -538,6 +572,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '\MyNamespace\MyClass\Foo',
                     'type_token'      => ($php8Names === true) ? -15 : -18, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -550,6 +585,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -566,6 +602,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -578,6 +615,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '',
                     'type_token'      => false,
                     'type_end_token'  => false,
@@ -590,6 +628,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => true,
+                    'is_readonly'     => false,
                     'type'            => 'miXed',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -602,6 +641,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?mixed',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -614,6 +654,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?namespace\Name',
                     'type_token'      => ($php8Names === true) ? -2 : -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -626,6 +667,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'int|float',
                     'type_token'      => -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -638,6 +680,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'MyClassA|\Package\MyClassB',
                     'type_token'      => ($php8Names === true) ? -4 : -7, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -650,6 +693,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'array|bool|int|float|NULL|object|string',
                     'type_token'      => -14, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -662,6 +706,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'false|mixed|self|parent|iterable|Resource',
                     'type_token'      => -12, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -674,7 +719,9 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
-                    'type'            => 'callable||void', // Missing static, but that's OK as not an allowed syntax.
+                    'is_readonly'     => false,
+                    // Missing static, but that's OK as not an allowed syntax.
+                    'type'            => 'callable||void',
                     'type_token'      => -6, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => false,
@@ -686,6 +733,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?int|float',
                     'type_token'      => -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -698,6 +746,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'null',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -710,6 +759,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'false',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -722,6 +772,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'bool|FALSE',
                     'type_token'      => -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -734,6 +785,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'object|ClassName',
                     'type_token'      => -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -746,6 +798,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'iterable|array|Traversable',
                     'type_token'      => -6, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -758,9 +811,114 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'int|string|INT',
                     'type_token'      => -10, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-readonly-property' => [
+                '/* testPHP81Readonly */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => 'int',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-readonly-property-with-nullable-type' => [
+                '/* testPHP81ReadonlyWithNullableType */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => '?array',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => true,
+                ],
+            ],
+            'php8.1-readonly-property-with-union-type' => [
+                '/* testPHP81ReadonlyWithUnionType */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => 'string|int',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-readonly-property-with-union-type-with-null' => [
+                '/* testPHP81ReadonlyWithUnionTypeWithNull */',
+                [
+                    'scope'           => 'protected',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => 'string|null',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-readonly-property-with-union-type-no-visibility' => [
+                '/* testPHP81OnlyReadonlyWithUnionType */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => false,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => 'string|int',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-readonly-property-with-multi-union-type-no-visibility' => [
+                '/* testPHP81OnlyReadonlyWithUnionTypeMultiple */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => false,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => '\InterfaceA|\Sub\InterfaceB|false',
+                    'type_token'      => ($php8Names === true) ? -7 : -11, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -3, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-readonly-and-static-property' => [
+                '/* testPHP81ReadonlyAndStatic */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => true,
+                    'is_readonly'     => true,
+                    'type'            => '?string',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => true,
+                ],
+            ],
+            'php8.1-readonly-mixed-case-keyword' => [
+                '/* testPHP81ReadonlyMixedCase */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => true,
+                    'is_readonly'     => true,
+                    'type'            => '',
+                    'type_token'      => false,
+                    'type_end_token'  => false,
                     'nullable_type'   => false,
                 ],
             ],
@@ -770,6 +928,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'string',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -782,6 +941,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => '?int|float',
                     'type_token'      => -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
@@ -794,6 +954,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
+                    'is_readonly'     => false,
                     'type'            => 'mixed',
                     'type_token'      => -2, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.

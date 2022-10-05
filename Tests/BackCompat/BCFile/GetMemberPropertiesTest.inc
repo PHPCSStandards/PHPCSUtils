@@ -242,6 +242,31 @@ $anon = class() {
     /* testPHP8DuplicateTypeInUnionWhitespaceAndComment */
     // Intentional fatal error - duplicate types are not allowed in union types, but that's not the concern of the method.
     public int |string| /*comment*/ INT $duplicateTypeInUnion;
+
+    /* testPHP81Readonly */
+    public readonly int $readonly;
+
+    /* testPHP81ReadonlyWithNullableType */
+    public readonly ?array $readonlyWithNullableType;
+
+    /* testPHP81ReadonlyWithUnionType */
+    public readonly string|int $readonlyWithUnionType;
+
+    /* testPHP81ReadonlyWithUnionTypeWithNull */
+    protected ReadOnly string|null $readonlyWithUnionTypeWithNull;
+
+    /* testPHP81OnlyReadonlyWithUnionType */
+    readonly string|int $onlyReadonly;
+
+    /* testPHP81OnlyReadonlyWithUnionTypeMultiple */
+    readonly \InterfaceA|\Sub\InterfaceB|false
+        $onlyReadonly;
+
+    /* testPHP81ReadonlyAndStatic */
+    readonly private static ?string $readonlyAndStatic;
+
+    /* testPHP81ReadonlyMixedCase */
+    public ReadONLY static $readonlyMixedCase;
 };
 
 $anon = class {
