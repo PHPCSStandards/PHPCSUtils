@@ -39,6 +39,8 @@ $a = [
 /* testStaticArrowFunction */
 static fn ($a) => $a;
 
+return 0;
+
 /* testArrowFunctionReturnValue */
 fn(): array => [a($a, $b)];
 
@@ -52,4 +54,3 @@ $foo = foo(
     fn() => [$row[0], $row[3]]
 );
 
-return 0;
