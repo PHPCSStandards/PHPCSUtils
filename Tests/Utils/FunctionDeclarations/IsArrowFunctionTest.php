@@ -10,8 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
-use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
@@ -28,7 +27,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class IsArrowFunctionTest extends UtilityMethodTestCase
+class IsArrowFunctionTest extends PolyfilledTestCase
 {
 
     /**
@@ -38,6 +37,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $result = FunctionDeclarations::isArrowFunction(self::$phpcsFile, 10000);
         $this->assertFalse($result, 'Failed isArrowFunction() test');
 
@@ -52,6 +57,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testUnsupportedToken()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $stackPtr = $this->getTargetToken('/* testConstantDeclaration */', \T_CONST);
 
         $result = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -68,6 +79,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testTStringNotFn()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $stackPtr = $this->getTargetToken('/* testNotTheRightContent */', \T_STRING);
 
         $result = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -98,6 +115,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
             $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
         }
 
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
         $result   = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -124,6 +147,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
         if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
             $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
         }
+
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::getArrowFunctionOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
 
         $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
@@ -683,45 +712,5 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
         ];
-    }
-
-    /**
-     * Verify that the build-in caching is used when caching is enabled.
-     *
-     * @return void
-     */
-    public function testResultIsCached()
-    {
-        // The test case used is specifically selected to be one which will always reach the cache check.
-        $methodName = 'PHPCSUtils\\Utils\\FunctionDeclarations::getArrowFunctionOpenClose';
-        $cases      = $this->dataArrowFunction();
-        $testMarker = $cases['live-coding']['testMarker'];
-        $expected   = $cases['live-coding']['expected'];
-
-        $stackPtr = $this->getTargetToken($testMarker, Collections::arrowFunctionTokensBC(), 'fn');
-
-        // Change from offsets to absolute token positions.
-        if ($expected['get'] !== false) {
-            foreach ($expected['get'] as $key => $value) {
-                $expected['get'][$key] += $stackPtr;
-            }
-        }
-
-        // Verify the caching works.
-        $origStatus     = Cache::$enabled;
-        Cache::$enabled = true;
-
-        $resultFirstRun  = FunctionDeclarations::getArrowFunctionOpenClose(self::$phpcsFile, $stackPtr);
-        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
-        $resultSecondRun = FunctionDeclarations::getArrowFunctionOpenClose(self::$phpcsFile, $stackPtr);
-
-        if ($origStatus === false) {
-            Cache::clear();
-        }
-        Cache::$enabled = $origStatus;
-
-        $this->assertSame($expected['get'], $resultFirstRun, 'First result did not match expectation');
-        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
-        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

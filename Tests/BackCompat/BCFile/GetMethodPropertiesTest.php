@@ -496,9 +496,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -640,9 +638,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -902,9 +898,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -927,9 +921,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -942,8 +934,11 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
-    {
+    protected function getMethodPropertiesTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [T_FUNCTION, T_CLOSURE, T_FN]
+    ) {
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 

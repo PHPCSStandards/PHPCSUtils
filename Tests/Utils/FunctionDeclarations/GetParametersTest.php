@@ -89,11 +89,11 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @param string $commentString   The comment which preceeds the test.
      * @param array  $targetTokenType Optional. The token type to search for after $commentString.
-     *                                Defaults to the function/closure tokens.
+     *                                Defaults to the function/closure/arrow tokens.
      *
      * @return void
      */
-    public function testNoParams($commentString, $targetTokenType = [\T_FUNCTION, \T_CLOSURE])
+    public function testNoParams($commentString, $targetTokenType = [\T_FUNCTION, \T_CLOSURE, \T_FN])
     {
         $target = $this->getTargetToken($commentString, $targetTokenType);
         $result = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
@@ -104,16 +104,16 @@ class GetParametersTest extends BCFile_GetMethodParametersTest
     /**
      * Test helper.
      *
-     * @param string $commentString The comment which preceeds the test.
-     * @param array  $expected      The expected function output.
-     * @param array  $targetType    Optional. The token type to search for after $commentString.
-     *                              Defaults to the function/closure tokens.
+     * @param string $marker     The comment which preceeds the test.
+     * @param array  $expected   The expected function output.
+     * @param array  $targetType Optional. The token type to search for after $marker.
+     *                           Defaults to the function/closure/arrow tokens.
      *
      * @return void
      */
-    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
+    protected function getMethodParametersTestHelper($marker, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN])
     {
-        $target = $this->getTargetToken($commentString, $targetType);
+        $target = $this->getTargetToken($marker, $targetType);
         $found  = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
 
         foreach ($expected as $key => $param) {

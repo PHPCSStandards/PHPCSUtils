@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
 use PHPCSUtils\BackCompat\Helper;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
@@ -31,7 +31,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class IsArrowFunction2926Test extends UtilityMethodTestCase
+class IsArrowFunction2926Test extends PolyfilledTestCase
 {
 
     /**
@@ -120,6 +120,12 @@ class IsArrowFunction2926Test extends UtilityMethodTestCase
      */
     public function testIsArrowFunction($testMarker, $expected, $targetContent = null)
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
         $result   = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -140,6 +146,12 @@ class IsArrowFunction2926Test extends UtilityMethodTestCase
      */
     public function testGetArrowFunctionOpenClose($testMarker, $expected, $targetContent = 'fn')
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::getArrowFunctionOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $targets  = Collections::arrowFunctionTokensBC();
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
 
