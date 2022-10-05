@@ -111,6 +111,7 @@ class BCFile
      *   'name'                => '$var',  // The variable name.
      *   'token'               => integer, // The stack pointer to the variable name.
      *   'content'             => string,  // The full content of the variable definition.
+     *   'has_attributes'      => boolean, // Does the parameter have one or more attributes attached ?
      *   'pass_by_reference'   => boolean, // Is the variable passed by reference?
      *   'reference_token'     => integer, // The stack pointer to the reference operator
      *                                     // or FALSE if the param is not passed by reference.
@@ -206,6 +207,7 @@ class BCFile
         $defaultStart     = null;
         $equalToken       = null;
         $paramCount       = 0;
+        $hasAttributes    = false;
         $passByReference  = false;
         $referenceToken   = false;
         $variableLength   = false;
@@ -236,6 +238,12 @@ class BCFile
             }
 
             switch ($tokens[$i]['code']) {
+                case T_ATTRIBUTE:
+                    $hasAttributes = true;
+
+                    // Skip to the end of the attribute.
+                    $i = $tokens[$i]['attribute_closer'];
+                    break;
                 case T_BITWISE_AND:
                     if ($defaultStart === null) {
                         $passByReference = true;
@@ -356,6 +364,7 @@ class BCFile
                         $vars[$paramCount]['default_equal_token'] = $equalToken;
                     }
 
+                    $vars[$paramCount]['has_attributes']      = $hasAttributes;
                     $vars[$paramCount]['pass_by_reference']   = $passByReference;
                     $vars[$paramCount]['reference_token']     = $referenceToken;
                     $vars[$paramCount]['variable_length']     = $variableLength;
@@ -381,6 +390,7 @@ class BCFile
                     $paramStart       = ($i + 1);
                     $defaultStart     = null;
                     $equalToken       = null;
+                    $hasAttributes    = false;
                     $passByReference  = false;
                     $referenceToken   = false;
                     $variableLength   = false;
