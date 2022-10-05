@@ -148,6 +148,7 @@ class FunctionDeclarations
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
      * - Support for PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
+     * - Support for the PHP 8.2 `true` type.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
@@ -157,6 +158,7 @@ class FunctionDeclarations
      * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
+     * @since 1.0.0-alpha4 Added support for PHP 8.2 true type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -245,6 +247,12 @@ class FunctionDeclarations
         $nullableReturnType = false;
         $hasBody            = false;
         $returnTypeTokens   = Collections::returnTypeTokens();
+
+        /*
+         * BC PHPCS < 3.x.x: The union type separator is not (yet) retokenized correctly
+         * for union types containing the `true` type.
+         */
+        $returnTypeTokens[\T_BITWISE_OR] = \T_BITWISE_OR;
 
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {

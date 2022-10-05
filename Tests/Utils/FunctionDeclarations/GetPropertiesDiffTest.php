@@ -87,6 +87,52 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP 8.2 stand-alone `true` type.
+     *
+     * @return void
+     */
+    public function testPHP82PseudoTypeTrue()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?true',
+            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP 8.2 type declaration with (illegal) type false combined with type true.
+     *
+     * @return void
+     */
+    public function testPHP82PseudoTypeFalseAndTrue()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'true|false',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.
