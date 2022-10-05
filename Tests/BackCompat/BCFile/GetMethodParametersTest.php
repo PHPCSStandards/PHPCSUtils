@@ -204,6 +204,107 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify variable.
+     *
+     * @return void
+     */
+    public function testVariable()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => '$var',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify default value parsing with a single function param.
+     *
+     * @return void
+     */
+    public function testSingleDefaultValue()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$var1',
+            'content'             => '$var1=self::CONSTANT',
+            'default'             => 'self::CONSTANT',
+            'default_token'       => 6, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify default value parsing.
+     *
+     * @return void
+     */
+    public function testDefaultValues()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$var1',
+            'content'             => '$var1=1',
+            'default'             => '1',
+            'default_token'       => 6, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 7, // Offset from the T_FUNCTION token.
+        ];
+        $expected[1] = [
+            'token'               => 9, // Offset from the T_FUNCTION token.
+            'name'                => '$var2',
+            'content'             => "\$var2='value'",
+            'default'             => "'value'",
+            'default_token'       => 11, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify type hint parsing.
      *
      * @return void
@@ -307,107 +408,6 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint_token'     => 11, // Offset from the T_FUNCTION token.
             'type_hint_end_token' => ($php8Names === true) ? 11 : 12, // Offset from the T_FUNCTION token.
             'nullable_type'       => true,
-            'comma_token'         => false,
-        ];
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
-    }
-
-    /**
-     * Verify variable.
-     *
-     * @return void
-     */
-    public function testVariable()
-    {
-        $expected    = [];
-        $expected[0] = [
-            'token'               => 4, // Offset from the T_FUNCTION token.
-            'name'                => '$var',
-            'content'             => '$var',
-            'pass_by_reference'   => false,
-            'reference_token'     => false,
-            'variable_length'     => false,
-            'variadic_token'      => false,
-            'type_hint'           => '',
-            'type_hint_token'     => false,
-            'type_hint_end_token' => false,
-            'nullable_type'       => false,
-            'comma_token'         => false,
-        ];
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
-    }
-
-    /**
-     * Verify default value parsing with a single function param.
-     *
-     * @return void
-     */
-    public function testSingleDefaultValue()
-    {
-        $expected    = [];
-        $expected[0] = [
-            'token'               => 4, // Offset from the T_FUNCTION token.
-            'name'                => '$var1',
-            'content'             => '$var1=self::CONSTANT',
-            'default'             => 'self::CONSTANT',
-            'default_token'       => 6, // Offset from the T_FUNCTION token.
-            'default_equal_token' => 5, // Offset from the T_FUNCTION token.
-            'pass_by_reference'   => false,
-            'reference_token'     => false,
-            'variable_length'     => false,
-            'variadic_token'      => false,
-            'type_hint'           => '',
-            'type_hint_token'     => false,
-            'type_hint_end_token' => false,
-            'nullable_type'       => false,
-            'comma_token'         => false,
-        ];
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
-    }
-
-    /**
-     * Verify default value parsing.
-     *
-     * @return void
-     */
-    public function testDefaultValues()
-    {
-        $expected    = [];
-        $expected[0] = [
-            'token'               => 4, // Offset from the T_FUNCTION token.
-            'name'                => '$var1',
-            'content'             => '$var1=1',
-            'default'             => '1',
-            'default_token'       => 6, // Offset from the T_FUNCTION token.
-            'default_equal_token' => 5, // Offset from the T_FUNCTION token.
-            'pass_by_reference'   => false,
-            'reference_token'     => false,
-            'variable_length'     => false,
-            'variadic_token'      => false,
-            'type_hint'           => '',
-            'type_hint_token'     => false,
-            'type_hint_end_token' => false,
-            'nullable_type'       => false,
-            'comma_token'         => 7, // Offset from the T_FUNCTION token.
-        ];
-        $expected[1] = [
-            'token'               => 9, // Offset from the T_FUNCTION token.
-            'name'                => '$var2',
-            'content'             => "\$var2='value'",
-            'default'             => "'value'",
-            'default_token'       => 11, // Offset from the T_FUNCTION token.
-            'default_equal_token' => 10, // Offset from the T_FUNCTION token.
-            'pass_by_reference'   => false,
-            'reference_token'     => false,
-            'variable_length'     => false,
-            'variadic_token'      => false,
-            'type_hint'           => '',
-            'type_hint_token'     => false,
-            'type_hint_end_token' => false,
-            'nullable_type'       => false,
             'comma_token'         => false,
         ];
 
