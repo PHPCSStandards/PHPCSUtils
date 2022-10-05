@@ -1899,6 +1899,36 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify and document behaviour when there are comments within a parameter declaration.
+     *
+     * @return void
+     */
+    public function testCommentsInParameter()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 19, // Offset from the T_FUNCTION token.
+            'name'                => '$param',
+            'content'             => '// Leading comment.
+    ?MyClass /*-*/ & /*-*/.../*-*/ $param /*-*/ = /*-*/ \'default value\' . /*-*/ \'second part\' // Trailing comment.',
+            'default'             => '\'default value\' . /*-*/ \'second part\' // Trailing comment.',
+            'default_token'       => 27, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 23, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => true,
+            'reference_token'     => 13, // Offset from the T_FUNCTION token.
+            'variable_length'     => true,
+            'variadic_token'      => 16, // Offset from the T_FUNCTION token.
+            'type_hint'           => '?MyClass',
+            'type_hint_token'     => 9, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify handling of a closure.
      *
      * @return void

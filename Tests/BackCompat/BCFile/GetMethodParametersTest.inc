@@ -214,6 +214,12 @@ abstract class ConstructorPropertyPromotionAbstractMethod {
     abstract public function __construct(public callable $y, private ...$x);
 }
 
+/* testCommentsInParameter */
+function commentsInParams(
+    // Leading comment.
+    ?MyClass /*-*/ & /*-*/.../*-*/ $param /*-*/ = /*-*/ 'default value' . /*-*/ 'second part' // Trailing comment.
+) {}
+
 /* testFunctionCallFnPHPCS353-354 */
 $value = $obj->fn(true);
 
