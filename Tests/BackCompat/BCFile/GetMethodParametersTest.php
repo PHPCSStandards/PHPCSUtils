@@ -1748,6 +1748,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'public',
             'visibility_token'    => 6, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 13,
         ];
         $expected[1] = [
@@ -1768,6 +1769,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'protected',
             'visibility_token'    => 16, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 23,
         ];
         $expected[2] = [
@@ -1788,6 +1790,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'private',
             'visibility_token'    => 26, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 33,
         ];
 
@@ -1817,6 +1820,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'protected',
             'visibility_token'    => 4, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 11,
         ];
         $expected[1] = [
@@ -1837,6 +1841,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => true,
             'property_visibility' => 'public',
             'visibility_token'    => 13, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 24,
         ];
         $expected[2] = [
@@ -1854,6 +1859,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'private',
             'visibility_token'    => 26, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => false,
         ];
 
@@ -1883,6 +1889,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'public',
             'visibility_token'    => 4, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 9,
         ];
         $expected[1] = [
@@ -1898,6 +1905,56 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint_token'     => 12, // Offset from the T_FUNCTION token.
             'type_hint_end_token' => 12, // Offset from the T_FUNCTION token.
             'nullable_type'       => true,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8 constructor with property promotion using PHP 8.1 readonly keyword.
+     *
+     * @return void
+     */
+    public function testPHP81ConstructorPropertyPromotionWithReadOnly()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 11, // Offset from the T_FUNCTION token.
+            'name'                => '$promotedProp',
+            'content'             => 'public readonly ?int $promotedProp',
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?int',
+            'type_hint_token'     => 9, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'property_visibility' => 'public',
+            'visibility_token'    => 4, // Offset from the T_FUNCTION token.
+            'property_readonly'   => true,
+            'readonly_token'      => 6, // Offset from the T_FUNCTION token.
+            'comma_token'         => 12,
+        ];
+        $expected[1] = [
+            'token'               => 23, // Offset from the T_FUNCTION token.
+            'name'                => '$promotedToo',
+            'content'             => 'ReadOnly private string|bool &$promotedToo',
+            'has_attributes'      => false,
+            'pass_by_reference'   => true,
+            'reference_token'     => 22, // Offset from the T_FUNCTION token.
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'string|bool',
+            'type_hint_token'     => 18, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 20, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'property_visibility' => 'private',
+            'visibility_token'    => 16, // Offset from the T_FUNCTION token.
+            'property_readonly'   => true,
+            'readonly_token'      => 14, // Offset from the T_FUNCTION token.
             'comma_token'         => false,
         ];
 
@@ -1927,6 +1984,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'private',
             'visibility_token'    => 4, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => false,
         ];
 
@@ -1956,6 +2014,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'public',
             'visibility_token'    => 4, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => 9,
         ];
         $expected[1] = [
@@ -1973,6 +2032,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'private',
             'visibility_token'    => 11, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => false,
         ];
 
@@ -2036,6 +2096,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'nullable_type'       => false,
             'property_visibility' => 'private',
             'visibility_token'    => ($php8Names === true) ? 10 : 13, // Offset from the T_FUNCTION token.
+            'property_readonly'   => false,
             'comma_token'         => ($php8Names === true) ? 15 : 18, // Offset from the T_FUNCTION token.
         ];
         $expected[1] = [
@@ -2389,6 +2450,9 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             }
             if (isset($param['visibility_token'])) {
                 $expected[$key]['visibility_token'] += $target;
+            }
+            if (isset($param['readonly_token'])) {
+                $expected[$key]['readonly_token'] += $target;
             }
         }
 
