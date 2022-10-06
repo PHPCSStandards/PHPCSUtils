@@ -177,6 +177,14 @@ class IsOOPropertyTest extends UtilityMethodTestCase
                 'testMarker' => '/* testFunctionCallParameter */',
                 'expected'   => false,
             ],
+            'enum-property' => [
+                'testMarker' => '/* testEnumProp */',
+                'expected'   => false,
+            ],
+            'enum-method-param' => [
+                'testMarker' => '/* testEnumMethodParameter */',
+                'expected'   => false,
+            ],
         ];
     }
 }
