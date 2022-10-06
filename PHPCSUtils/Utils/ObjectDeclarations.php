@@ -138,11 +138,13 @@ class ObjectDeclarations
      *   - Handling of PHPCS annotations.
      *   - Handling of unorthodox docblock placement.
      * - Defensive coding against incorrect calls to this method.
+     * - Support for PHP 8.2 readonly classes.
      *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getClassProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for the PHP 8.2 readonly keyword.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_CLASS`
@@ -154,6 +156,7 @@ class ObjectDeclarations
      *               array(
      *                 'is_abstract' => false, // TRUE if the abstract keyword was found.
      *                 'is_final'    => false, // TRUE if the final keyword was found.
+     *                 'is_readonly' => false, // TRUE if the readonly keyword was found.
      *               );
      *               ```
      *
@@ -172,6 +175,7 @@ class ObjectDeclarations
         $properties = [
             'is_abstract' => false,
             'is_final'    => false,
+            'is_readonly' => false,
         ];
 
         for ($i = ($stackPtr - 1); $i > 0; $i--) {
@@ -186,6 +190,10 @@ class ObjectDeclarations
 
                 case \T_FINAL:
                     $properties['is_final'] = true;
+                    break;
+
+                case \T_READONLY:
+                    $properties['is_readonly'] = true;
                     break;
             }
         }

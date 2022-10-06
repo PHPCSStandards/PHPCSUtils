@@ -164,6 +164,7 @@ class Collections
      * DEPRECATED: Modifier keywords which can be used for a class declaration.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the T_READONLY token for PHP 8.2 readonly classes.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::classModifierKeywords()} method instead.
      *
@@ -172,6 +173,7 @@ class Collections
     public static $classModifierKeywords = [
         \T_FINAL    => \T_FINAL,
         \T_ABSTRACT => \T_ABSTRACT,
+        \T_READONLY => \T_READONLY,
     ];
 
     /**
