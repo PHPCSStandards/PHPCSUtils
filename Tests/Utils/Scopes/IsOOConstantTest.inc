@@ -33,7 +33,7 @@ interface MyInterface {
 }
 
 trait MyTrait {
-    // Intentional parse error. Constants are not allowed in traits.
+    // Prior to PHP 8.2, this was a parse error. Since PHP 8.2, constants are allowed in traits.
     /* testTraitConst */
     const BAR = false;
 }

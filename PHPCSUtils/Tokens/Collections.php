@@ -401,10 +401,11 @@ class Collections
     /**
      * DEPRECATED: OO scopes in which constants can be declared.
      *
-     * Note: traits can not declare constants.
+     * Note: traits can only declare constants since PHP 8.2.
      *
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
+     * @since 1.0.0-alpha4 Added the T_TRAIT token for PHP 8.2 constants in traits.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooConstantScopes()} method instead.
      *
@@ -415,6 +416,7 @@ class Collections
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_INTERFACE  => \T_INTERFACE,
         \T_ENUM       => \T_ENUM,
+        \T_TRAIT      => \T_TRAIT,
     ];
 
     /**
@@ -846,10 +848,11 @@ class Collections
     /**
      * OO scopes in which constants can be declared.
      *
-     * Note: traits can not declare constants.
+     * Note: traits can only declare constants since PHP 8.2.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOConstantScopes} property.
      * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
+     * @since 1.0.0-alpha4 Added the T_TRAIT token for PHP 8.2 constants in traits.
      *
      * @return array <int|string> => <int|string>
      */
