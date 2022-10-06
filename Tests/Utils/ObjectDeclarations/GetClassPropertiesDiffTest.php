@@ -75,7 +75,7 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
                 ],
             ],
             'unorthodox-docblock-placement' => [
-                'testMarker' => '/* testWithDocblockWithWeirdlyPlacedProperty */',
+                'testMarker' => '/* testWithDocblockWithWeirdlyPlacedModifier */',
                 'expected'   => [
                     'is_abstract' => false,
                     'is_final'    => true,

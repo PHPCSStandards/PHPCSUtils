@@ -5,7 +5,7 @@ final
     // phpcs:ignore Standard.Cat.SniffName -- Just because.
     class PHPCSAnnotation {}
 
-/* testWithDocblockWithWeirdlyPlacedProperty */
+/* testWithDocblockWithWeirdlyPlacedModifier */
 final
 
 /**
@@ -15,4 +15,4 @@ final
  *
  * @phpcs:disable Standard.Cat.SniffName -- Just because.
  */
-class ClassWithPropertyBeforeDocblock {}
+class ClassWithModifierBeforeDocblock {}
