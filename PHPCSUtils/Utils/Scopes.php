@@ -56,9 +56,10 @@ class Scopes
     }
 
     /**
-     * Check whether a T_CONST token is a class/interface constant declaration.
+     * Check whether a T_CONST token is a class/interface/enum constant declaration.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 enums.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position in the stack of the

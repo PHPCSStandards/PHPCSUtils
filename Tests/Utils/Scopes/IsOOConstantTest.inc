@@ -37,3 +37,14 @@ trait MyTrait {
     /* testTraitConst */
     const BAR = false;
 }
+
+enum Suit: string
+{
+    /* testEnumConst */
+    const FOO = 'bar';
+
+    case Hearts = 'H';
+    case Diamonds = 'D';
+    case Clubs = 'C';
+    case Spades = 'S';
+}
