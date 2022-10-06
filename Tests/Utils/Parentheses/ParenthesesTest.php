@@ -12,8 +12,6 @@ namespace PHPCSUtils\Tests\Utils\Parentheses;
 
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Tokens\TokenHelper;
 use PHPCSUtils\Utils\Parentheses;
 
 /**
@@ -413,8 +411,6 @@ class ParenthesesTest extends UtilityMethodTestCase
 
     /**
      * Test that a function named fn sees the T_FUNCTION token as owner, not the T_FN token.
-     *
-     * This specifically tests the BC-layer for arrow functions.
      *
      * @return void
      */
@@ -956,11 +952,6 @@ class ParenthesesTest extends UtilityMethodTestCase
         // Add expected results for all owner types not listed in the data provider.
         $expectedResults += $this->ownerDefaults;
 
-        if (TokenHelper::tokenExists('T_FN') === false) {
-            $expectedResults['T_STRING'] = $expectedResults['T_FN'];
-            unset($expectedResults['T_FN']);
-        }
-
         foreach ($expectedResults as $ownerType => $expected) {
             $result = Parentheses::hasOwner(self::$phpcsFile, $stackPtr, \constant($ownerType));
             $this->assertSame(
@@ -1319,8 +1310,6 @@ class ParenthesesTest extends UtilityMethodTestCase
      */
     public function dataLastOwnerIn()
     {
-        $arrowFunctionOwners = Collections::arrowFunctionTokensBC();
-
         return [
             'testElseIfWithClosure-$a-closure' => [
                 'testName'    => 'testElseIfWithClosure-$a',
@@ -1374,7 +1363,7 @@ class ParenthesesTest extends UtilityMethodTestCase
             ],
             'testArrowFunction-$param' => [
                 'testName'    => 'testArrowFunction-$param',
-                'validOwners' => $arrowFunctionOwners,
+                'validOwners' => [\T_FN],
                 'expected'    => -2,
             ],
 
@@ -1385,7 +1374,7 @@ class ParenthesesTest extends UtilityMethodTestCase
             ],
             'testArrowFunctionReturnByRef' => [
                 'testName'    => 'testArrowFunctionReturnByRef',
-                'validOwners' => $arrowFunctionOwners,
+                'validOwners' => [\T_FN],
                 'expected'    => -4,
             ],
             'testIfEmpty-$c-unset' => [
