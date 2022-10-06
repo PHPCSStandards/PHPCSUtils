@@ -85,11 +85,6 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testAnonClassExtendsWithoutParens */',
                 \T_ANON_CLASS,
             ],
-
-            /*
-             * Note: this particular test *will* throw tokenizer "undefined offset" notices on PHPCS 2.6.0,
-             * but the test will pass.
-             */
             'live-coding' => [
                 '/* testLiveCoding */',
                 \T_FUNCTION,

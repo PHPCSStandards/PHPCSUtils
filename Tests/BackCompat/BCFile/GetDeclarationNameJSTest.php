@@ -134,10 +134,6 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      */
     public function testGetDeclarationNameES6Method()
     {
-        if (\version_compare(static::$phpcsVersion, '3.0.0', '<') === true) {
-            $this->markTestSkipped('Support for JS ES6 method has not been backfilled for PHPCS 2.x (yet)');
-        }
-
         $target = $this->getTargetToken('/* testMethod */', [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION]);
         $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
         $this->assertSame('methodName', $result);
