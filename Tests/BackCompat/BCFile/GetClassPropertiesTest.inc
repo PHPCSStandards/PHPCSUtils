@@ -6,6 +6,9 @@ interface NotAClass {}
 /* testAnonClass */
 $anon = new class() {};
 
+/* testEnum */
+enum NotAClassEither {}
+
 /* testClassWithoutProperties */
 class ClassWithoutProperties {}
 

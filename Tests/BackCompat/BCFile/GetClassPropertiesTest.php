@@ -71,6 +71,10 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 '/* testAnonClass */',
                 \T_ANON_CLASS,
             ],
+            'enum' => [
+                '/* testEnum */',
+                \T_ENUM,
+            ],
         ];
     }
 
