@@ -239,6 +239,12 @@ class ParametersWithAttributes(
     ) {}
 }
 
+/* testPHP81NewInInitializers */
+function newInInitializers(
+    TypeA $new = new TypeA(self::CONST_VALUE),
+    \Package\TypeB $newToo = new \Package\TypeB(10, 'string'),
+) {}
+
 /* testFunctionCallFnPHPCS353-354 */
 $value = $obj->fn(true);
 

@@ -2167,6 +2167,56 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify behaviour when the default value uses the "new" keyword, as is allowed per PHP 8.1.
+     *
+     * @return void
+     */
+    public function testPHP81NewInInitializers()
+    {
+        $php8Names = parent::usesPhp8NameTokens();
+
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 8, // Offset from the T_FUNCTION token.
+            'name'                => '$new',
+            'content'             => 'TypeA $new = new TypeA(self::CONST_VALUE)',
+            'default'             => 'new TypeA(self::CONST_VALUE)',
+            'default_token'       => 12, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'TypeA',
+            'type_hint_token'     => 6, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 6, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => 20,
+        ];
+        $expected[1] = [
+            'token'               => ($php8Names === true) ? 25 : 28, // Offset from the T_FUNCTION token.
+            'name'                => '$newToo',
+            'content'             => '\Package\TypeB $newToo = new \Package\TypeB(10, \'string\')',
+            'default'             => "new \Package\TypeB(10, 'string')",
+            'default_token'       => ($php8Names === true) ? 29 : 32, // Offset from the T_FUNCTION token.
+            'default_equal_token' => ($php8Names === true) ? 27 : 30, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '\Package\TypeB',
+            'type_hint_token'     => 23, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => ($php8Names === true) ? 23 : 26, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => ($php8Names === true) ? 38 : 44,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify handling of a closure.
      *
      * @return void
