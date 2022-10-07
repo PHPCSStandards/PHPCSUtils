@@ -21,11 +21,12 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @link https://www.php.net/language.operators PHP manual on operators.
  *
- * @since 1.0.0 The `isReference()` method is based on and inspired by
- *              the method of the same name in the PHPCS native `File` class.
- *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
- *              The `isUnaryPlusMinus()` method is, in part, inspired by the
- *              `Squiz.WhiteSpace.OperatorSpacing` sniff.
+ * @since 1.0.0        The `isReference()` method is based on and inspired by
+ *                     the method of the same name in the PHPCS native `File` class.
+ *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ *                     The `isUnaryPlusMinus()` method is, in part, inspired by the
+ *                     `Squiz.WhiteSpace.OperatorSpacing` sniff.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class Operators
 {
@@ -55,6 +56,8 @@ class Operators
         \T_INLINE_THEN         => true,
         \T_INLINE_ELSE         => true,
         \T_CASE                => true,
+        \T_FN_ARROW            => true,
+        \T_MATCH_ARROW         => true,
     ];
 
     /**
@@ -62,13 +65,12 @@ class Operators
      *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
-     * - Improved handling of select tokenizer errors involving short lists/short arrays.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
@@ -87,10 +89,7 @@ class Operators
 
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
-        if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
-            || $tokens[$tokenBefore]['code'] === \T_CLOSURE
-            || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
-        ) {
+        if (isset(Collections::functionDeclarationTokens()[$tokens[$tokenBefore]['code']]) === true) {
             // Function returns a reference.
             return true;
         }
@@ -121,7 +120,7 @@ class Operators
         if ($lastOpener !== false) {
             $lastOwner = Parentheses::getOwner($phpcsFile, $lastOpener);
 
-            if (isset(Collections::functionDeclarationTokensBC()[$tokens[$lastOwner]['code']]) === true
+            if (isset(Collections::functionDeclarationTokens()[$tokens[$lastOwner]['code']]) === true
                 // As of PHPCS 4.x, `T_USE` is a parenthesis owner.
                 || $tokens[$lastOwner]['code'] === \T_USE
             ) {
@@ -137,12 +136,11 @@ class Operators
 
         /*
          * Pass by reference in function calls, assign by reference in arrays and
-         * closure use by reference in PHPCS 2.x and 3.x.
+         * closure use by reference in PHPCS 3.x.
          */
         if ($tokens[$tokenBefore]['code'] === \T_OPEN_PARENTHESIS
             || $tokens[$tokenBefore]['code'] === \T_COMMA
             || $tokens[$tokenBefore]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$tokenBefore]['code'] === \T_OPEN_SQUARE_BRACKET // PHPCS 2.8.0 < 3.3.0.
         ) {
             if ($tokens[$tokenAfter]['code'] === \T_VARIABLE) {
                 return true;
@@ -212,17 +210,7 @@ class Operators
             || isset(Tokens::$assignmentTokens[$tokens[$prev]['code']]) === true
             || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
             || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
-            || $tokens[$prev]['type'] === 'T_FN_ARROW'
-            || $tokens[$prev]['type'] === 'T_MATCH_ARROW'
         ) {
-            return true;
-        }
-
-        /*
-         * BC for PHPCS < 3.1.0 in which the PHP 5.5 T_YIELD token was not yet backfilled.
-         * Note: not accounting for T_YIELD_FROM as that would be a parse error anyway.
-         */
-        if ($tokens[$prev]['code'] === \T_STRING && $tokens[$prev]['content'] === 'yield') {
             return true;
         }
 

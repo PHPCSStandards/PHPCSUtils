@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Tests\Utils\Operators;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Utils\Numbers;
 use PHPCSUtils\Utils\Operators;
 
 /**
@@ -54,30 +53,11 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $expected   The expected boolean return value.
-     * @param bool   $maybeSkip  Whether the "should this test be skipped" check should be executed.
-     *                           Defaults to false.
      *
      * @return void
      */
-    public function testIsUnaryPlusMinus($testMarker, $expected, $maybeSkip = false)
+    public function testIsUnaryPlusMinus($testMarker, $expected)
     {
-        if ($maybeSkip === true) {
-            /*
-             * Skip the test if this is PHP 7.4 or a PHPCS version which backfills the token sequence
-             * to one token as in that case, the plus/minus token won't exist
-             */
-            if (\version_compare(\PHP_VERSION_ID, '70399', '>') === true) {
-                $this->markTestSkipped('Test irrelevant as the target token won\'t exist when on PHP >= 7.4');
-            }
-
-            if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>=') === true) {
-                $this->markTestSkipped(
-                    'Test irrelevant as the target token won\'t exist when on PHPCS >= '
-                    . Numbers::UNSUPPORTED_PHPCS_VERSION
-                );
-            }
-        }
-
         $stackPtr = $this->getTargetToken($testMarker, [\T_PLUS, \T_MINUS]);
         $result   = Operators::isUnaryPlusMinus(self::$phpcsFile, $stackPtr);
 
@@ -305,16 +285,6 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
             'operator-sequence-unary-end' => [
                 'testMarker' => '/* testSequenceUnaryEnd */',
                 'expected'   => true,
-            ],
-            'php-7.4-underscore-float-containing-plus' => [
-                'testMarker' => '/* testPHP74NumericLiteralFloatContainingPlus */',
-                'expected'   => false,
-                'maybeSkip'  => true, // Skip for PHP 7.4 & PHPCS 3.5.3+.
-            ],
-            'php-7.4-underscore-float-containing-minus' => [
-                'testMarker' => '/* testPHP74NumericLiteralFloatContainingMinus */',
-                'expected'   => false,
-                'maybeSkip'  => true, // Skip for PHP 7.4 & PHPCS 3.5.3+.
             ],
             'php-7.4-underscore-int-calculation-1' => [
                 'testMarker' => '/* testPHP74NumericLiteralIntCalc1 */',

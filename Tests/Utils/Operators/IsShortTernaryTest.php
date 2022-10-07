@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Tests\Utils\Operators;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\TokenHelper;
 use PHPCSUtils\Utils\Operators;
 
 /**
@@ -93,77 +92,6 @@ class IsShortTernaryTest extends UtilityMethodTestCase
             'short-ternary-comments-annotations' => [
                 'testMarker' => '/* testShortTernaryWithCommentAndAnnotations */',
                 'expected'   => true,
-            ],
-        ];
-    }
-
-    /**
-     * Safeguard that incorrectly tokenized T_INLINE_THEN or T_INLINE_ELSE tokens are correctly
-     * rejected as not short ternary.
-     *
-     * {@internal None of these are really problematic, but better to be safe than sorry.}
-     *
-     * @dataProvider dataIsShortTernaryTokenizerIssues
-     *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $tokenType  The token code to look for.
-     *
-     * @return void
-     */
-    public function testIsShortTernaryTokenizerIssues($testMarker, $tokenType = \T_INLINE_THEN)
-    {
-        $stackPtr = $this->getTargetToken($testMarker, $tokenType);
-        $result   = Operators::isShortTernary(self::$phpcsFile, $stackPtr);
-        $this->assertFalse($result);
-    }
-
-    /**
-     * Data provider.
-     *
-     * @see testIsShortTernaryTokenizerIssues() For the array format.
-     *
-     * @return array
-     */
-    public function dataIsShortTernaryTokenizerIssues()
-    {
-        $targetCoalesce = [\T_INLINE_THEN];
-        if (\defined('T_COALESCE')) {
-            $targetCoalesce[] = \T_COALESCE;
-        }
-
-        $targetCoalesceAndEquals = $targetCoalesce;
-        if (TokenHelper::tokenExists('T_COALESCE_EQUAL')) {
-            $targetCoalesceAndEquals[] = \T_COALESCE_EQUAL;
-        }
-
-        $targetNullable = [\T_INLINE_THEN];
-        if (\defined('T_NULLABLE')) {
-            $targetNullable[] = \T_NULLABLE;
-        }
-
-        return [
-            'null-coalesce' => [
-                'testMarker' => '/* testDontConfuseWithNullCoalesce */',
-                'tokenType'  => $targetCoalesce,
-            ],
-            'null-coalesce-equals' => [
-                'testMarker' => '/* testDontConfuseWithNullCoalesceEquals */',
-                'tokenType'  => $targetCoalesceAndEquals,
-            ],
-            'nullable-property' => [
-                'testMarker' => '/* testDontConfuseWithNullable1 */',
-                'tokenType'  => $targetNullable,
-            ],
-            'nullable-param-type' => [
-                'testMarker' => '/* testDontConfuseWithNullable2 */',
-                'tokenType'  => $targetNullable,
-            ],
-            'nullable-return-type' => [
-                'testMarker' => '/* testDontConfuseWithNullable3 */',
-                'tokenType'  => $targetNullable,
-            ],
-            'parse-error' => [
-                'testMarker' => '/* testParseError */',
             ],
         ];
     }

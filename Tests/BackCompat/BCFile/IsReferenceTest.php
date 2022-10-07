@@ -88,6 +88,14 @@ class IsReferenceTest extends UtilityMethodTestCase
     public function dataIsReference()
     {
         return [
+            'issue-1971-list-first-in-file' => [
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271A */',
+                'expected'   => true,
+            ],
+            'issue-1971-list-first-in-file-nested' => [
+                'testMarker' => '/* testTokenizerIssue1971PHPCSlt330gt271B */',
+                'expected'   => true,
+            ],
             'bitwise and: param in function call' => [
                 '/* testBitwiseAndA */',
                 false,
@@ -355,6 +363,18 @@ class IsReferenceTest extends UtilityMethodTestCase
             'bitwise and: param default value in arrow fn declaration' => [
                 '/* testBitwiseAndArrowFunctionInDefault */',
                 false,
+            ],
+            'issue-1284-short-list-directly-after-close-curly-control-structure' => [
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280A */',
+                'expected'   => true,
+            ],
+            'issue-1284-short-list-directly-after-close-curly-control-structure-second-item' => [
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280B */',
+                'expected'   => true,
+            ],
+            'issue-1284-short-array-directly-after-close-curly-control-structure' => [
+                'testMarker' => '/* testTokenizerIssue1284PHPCSlt280C */',
+                'expected'   => true,
             ],
         ];
     }
