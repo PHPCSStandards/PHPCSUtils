@@ -242,6 +242,15 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                     'const'    => ['SOME_CONSTANT' => 'Some\NS\Constants\CONSTANT_NAME'],
                 ],
             ],
+
+            'parse-error-plain-reserved-keyword' => [
+                'testMarker' => '/* testUsePlainReservedKeyword */',
+                'expected'   => [
+                    'name'     => ['ClassName' => 'Vendor\break\ClassName'],
+                    'function' => [],
+                    'const'    => [],
+                ],
+            ],
             'parse-error-function-plain-reserved-keyword' => [
                 'testMarker' => '/* testUseFunctionPlainReservedKeyword */',
                 'expected'   => [

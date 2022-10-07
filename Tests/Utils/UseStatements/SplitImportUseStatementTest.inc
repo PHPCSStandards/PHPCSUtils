@@ -69,6 +69,10 @@ use Some\NS\ {
    AnotherLevel,
 };
 
+/* testUsePlainReservedKeyword */
+// Intentional parse error - use of reserved keyword in namespace.
+use Vendor\break\ClassName;
+
 /* testUseFunctionPlainReservedKeyword */
 // Intentional parse error - use of reserved keyword in namespace.
 use function Vendor\YourNamespace\switch\yourFunction;
