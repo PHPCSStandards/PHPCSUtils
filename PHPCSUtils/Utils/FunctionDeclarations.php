@@ -360,7 +360,6 @@ final class FunctionDeclarations
      * - More efficient and more stable looping of the default value.
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
-     * - Support for the PHP 8.2 `true` type.
      * - The results of this function call are cached during a PHPCS run for faster response times.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
@@ -439,12 +438,6 @@ final class FunctionDeclarations
         $readonlyToken    = null;
 
         $parameterTypeTokens = Collections::parameterTypeTokens();
-
-        /*
-         * BC PHPCS < 3.x.x: The union type separator is not (yet) retokenized correctly
-         * for union types containing the `true` type.
-         */
-        $parameterTypeTokens[\T_BITWISE_OR] = \T_BITWISE_OR;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
             if (isset($parameterTypeTokens[$tokens[$i]['code']]) === true
