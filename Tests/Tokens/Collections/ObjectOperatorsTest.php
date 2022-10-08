@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -33,18 +32,6 @@ class ObjectOperatorsTest extends TestCase
      */
     public function testObjectOperators()
     {
-        $version  = Helper::getVersion();
-        $expected = [
-            \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR,
-            \T_DOUBLE_COLON    => \T_DOUBLE_COLON,
-        ];
-
-        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
-            || \version_compare($version, '3.5.7', '>=') === true
-        ) {
-            $expected[\T_NULLSAFE_OBJECT_OPERATOR] = \T_NULLSAFE_OBJECT_OPERATOR;
-        }
-
-        $this->assertSame($expected, Collections::objectOperators());
+        $this->assertSame(Collections::$objectOperators, Collections::objectOperators());
     }
 }
