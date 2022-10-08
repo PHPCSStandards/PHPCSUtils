@@ -65,6 +65,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
             'arrayTokensBC',
             'classModifierKeywords',
             'closedScopes',
+            'constantModifierKeywords',
             'controlStructureTokens',
             'functionDeclarationTokens',
             'incrementDecrementOperators',

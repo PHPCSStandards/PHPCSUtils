@@ -32,6 +32,8 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  *                                                    (PHPCS cross-version compatible).
  * @method static array classModifierKeywords()       Modifier keywords which can be used for a class declaration.
  * @method static array closedScopes()                List of tokens which represent "closed" scopes.
+ * @method static array constantModifierKeywords()    Tokens which can be used as modifiers for a constant
+ *                                                    declaration (in OO structures).
  * @method static array controlStructureTokens()      Control structure tokens.
  * @method static array functionDeclarationTokens()   Tokens which represent a keyword which starts
  *                                                    a function declaration.
@@ -207,6 +209,23 @@ final class Collections
         \T_ENUM       => \T_ENUM,
         \T_FUNCTION   => \T_FUNCTION,
         \T_CLOSURE    => \T_CLOSURE,
+    ];
+
+    /**
+     * Modifier keywords which can be used for constant declarations (in OO structures).
+     *
+     * - PHP 7.1 added class constants visibility support.
+     * - PHP 8.1 added support for final class constants.
+     *
+     * @since 1.0.0-alpha4 Use the {@see Collections::constantModifierKeywords()} method for access.
+     *
+     * @var array <int|string> => <int|string>
+     */
+    private static $constantModifierKeywords = [
+        \T_PUBLIC    => \T_PUBLIC,
+        \T_PRIVATE   => \T_PRIVATE,
+        \T_PROTECTED => \T_PROTECTED,
+        \T_FINAL     => \T_FINAL,
     ];
 
     /**
