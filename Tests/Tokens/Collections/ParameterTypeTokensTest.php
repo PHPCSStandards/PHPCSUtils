@@ -40,10 +40,10 @@ class ParameterTypeTokensTest extends TestCase
             \T_PARENT       => \T_PARENT,
             \T_FALSE        => \T_FALSE,
             \T_NULL         => \T_NULL,
-            \T_BITWISE_OR   => \T_BITWISE_OR,
-            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-            \T_NAMESPACE    => \T_NAMESPACE,
             \T_STRING       => \T_STRING,
+            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+            \T_TYPE_UNION   => \T_TYPE_UNION,
+            \T_NAMESPACE    => \T_NAMESPACE,
         ];
 
         if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
@@ -52,10 +52,6 @@ class ParameterTypeTokensTest extends TestCase
             $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
             $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
             $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
-        }
-
-        if (\version_compare($version, '3.6.0', '>=') === true) {
-            $expected[\T_TYPE_UNION] = \T_TYPE_UNION;
         }
 
         $this->assertSame($expected, Collections::parameterTypeTokens());

@@ -341,6 +341,7 @@ class Collections
      * DEPRECATED: Token types which can be encountered in a parameter type declaration.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} or
      *                          {@see Collections::parameterTypeTokensBC()} method instead.
@@ -351,8 +352,11 @@ class Collections
         \T_CALLABLE     => \T_CALLABLE,
         \T_SELF         => \T_SELF,
         \T_PARENT       => \T_PARENT,
+        \T_FALSE        => \T_FALSE,
+        \T_NULL         => \T_NULL,
         \T_STRING       => \T_STRING,
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        \T_TYPE_UNION   => \T_TYPE_UNION,
     ];
 
     /**
@@ -376,6 +380,7 @@ class Collections
      * DEPRECATED: Token types which can be encountered in a property type declaration.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} or
      *                          {@see Collections::propertyTypeTokensBC()} method instead.
@@ -386,14 +391,18 @@ class Collections
         \T_CALLABLE     => \T_CALLABLE,
         \T_SELF         => \T_SELF,
         \T_PARENT       => \T_PARENT,
+        \T_FALSE        => \T_FALSE,
+        \T_NULL         => \T_NULL,
         \T_STRING       => \T_STRING,
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        \T_TYPE_UNION   => \T_TYPE_UNION,
     ];
 
     /**
      * DEPRECATED: Token types which can be encountered in a return type declaration.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} or
      *                          {@see Collections::returnTypeTokensBC()} method instead.
@@ -401,12 +410,15 @@ class Collections
      * @var array <int|string> => <int|string>
      */
     public static $returnTypeTokens = [
-        \T_STRING       => \T_STRING,
         \T_CALLABLE     => \T_CALLABLE,
         \T_SELF         => \T_SELF,
         \T_PARENT       => \T_PARENT,
         \T_STATIC       => \T_STATIC,
+        \T_FALSE        => \T_FALSE,
+        \T_NULL         => \T_NULL,
+        \T_STRING       => \T_STRING,
         \T_NS_SEPARATOR => \T_NS_SEPARATOR,
+        \T_TYPE_UNION   => \T_TYPE_UNION,
     ];
 
     /**
@@ -1055,8 +1067,6 @@ class Collections
     /**
      * Token types which can be encountered in a parameter type declaration.
      *
-     * Note: this is a method, not a property as the `T_TYPE_UNION` token for PHP 8.0 union types may not exist.
-     *
      * Sister-method to the {@see Collections::parameterTypeTokensBC()} method.
      * This method supports PHPCS 3.3.0 and up.
      * The {@see Collections::parameterTypeTokensBC()} method supports PHPCS 2.6.0 and up.
@@ -1072,29 +1082,15 @@ class Collections
      * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$parameterTypeTokens} property.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION token for union type support in PHPCS > 3.6.0.
      *
      * @return array <int|string> => <int|string>
      */
     public static function parameterTypeTokens()
     {
-        $tokens = [
-            \T_CALLABLE   => \T_CALLABLE,
-            \T_SELF       => \T_SELF,
-            \T_PARENT     => \T_PARENT,
-            \T_FALSE      => \T_FALSE,      // Union types only.
-            \T_NULL       => \T_NULL,       // Union types only.
-            \T_BITWISE_OR => \T_BITWISE_OR, // Union types for PHPCS < 3.6.0.
-        ];
-
+        $tokens  = self::$parameterTypeTokens;
         $tokens += self::namespacedNameTokens();
-
-        // PHPCS > 3.6.0: a new token was introduced for the union type separator.
-        if (\defined('T_TYPE_UNION') === true) {
-            $tokens[\T_TYPE_UNION] = \T_TYPE_UNION;
-        }
 
         return $tokens;
     }
@@ -1163,8 +1159,6 @@ class Collections
     /**
      * Token types which can be encountered in a property type declaration.
      *
-     * Note: this is a method, not a property as the `T_TYPE_UNION` token for PHP 8.0 union types may not exist.
-     *
      * Sister-method to the {@see Collections::propertyTypeTokensBC()} method.
      * This method supports PHPCS 3.3.0 and up.
      * The {@see Collections::propertyTypeTokensBC()} method supports PHPCS 2.6.0 and up.
@@ -1180,29 +1174,15 @@ class Collections
      * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC() Related method (cross-version).
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION token for union type support in PHPCS > 3.6.0.
      *
      * @return array <int|string> => <int|string>
      */
     public static function propertyTypeTokens()
     {
-        $tokens = [
-            \T_CALLABLE   => \T_CALLABLE,
-            \T_SELF       => \T_SELF,
-            \T_PARENT     => \T_PARENT,
-            \T_FALSE      => \T_FALSE,      // Union types only.
-            \T_NULL       => \T_NULL,       // Union types only.
-            \T_BITWISE_OR => \T_BITWISE_OR, // Union types for PHPCS < 3.6.0.
-        ];
-
+        $tokens  = self::$propertyTypeTokens;
         $tokens += self::namespacedNameTokens();
-
-        // PHPCS > 3.6.0: a new token was introduced for the union type separator.
-        if (\defined('T_TYPE_UNION') === true) {
-            $tokens[\T_TYPE_UNION] = \T_TYPE_UNION;
-        }
 
         return $tokens;
     }
@@ -1244,8 +1224,6 @@ class Collections
     /**
      * Token types which can be encountered in a return type declaration.
      *
-     * Note: this is a method, not a property as the `T_TYPE_UNION` token for PHP 8.0 union types may not exist.
-     *
      * Sister-method to the {@see Collections::returnTypeTokensBC()} method.
      * This method supports PHPCS 3.3.0 and up.
      * The {@see Collections::returnTypeTokensBC()} method supports PHPCS 2.6.0 and up.
@@ -1261,29 +1239,16 @@ class Collections
      * @see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC() Related method (cross-version).
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$returnTypeTokens} property.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION token for union type support in PHPCS > 3.6.0.
      *
      * @return array <int|string> => <int|string>
      */
     public static function returnTypeTokens()
     {
-        $tokens = [
-            \T_CALLABLE   => \T_CALLABLE,
-            \T_FALSE      => \T_FALSE,      // Union types only.
-            \T_NULL       => \T_NULL,       // Union types only.
-            \T_ARRAY      => \T_ARRAY,      // Arrow functions PHPCS < 3.5.4 + union types.
-            \T_BITWISE_OR => \T_BITWISE_OR, // Union types for PHPCS < 3.6.0.
-        ];
-
+        $tokens  = self::$returnTypeTokens;
         $tokens += self::ooHierarchyKeywords();
         $tokens += self::namespacedNameTokens();
-
-        // PHPCS > 3.6.0: a new token was introduced for the union type separator.
-        if (\defined('T_TYPE_UNION') === true) {
-            $tokens[\T_TYPE_UNION] = \T_TYPE_UNION;
-        }
 
         return $tokens;
     }
