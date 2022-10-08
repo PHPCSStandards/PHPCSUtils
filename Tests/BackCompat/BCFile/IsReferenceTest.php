@@ -325,7 +325,7 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
-                '/* testPassByReferenceExactParameterA */',
+                '/* testBitwiseAndExactParameterA */',
                 false,
             ],
             [
@@ -337,7 +337,7 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
-                '/* testPassByReferenceExactParameterD */',
+                '/* testBitwiseAndExactParameterD */',
                 false,
             ],
             [
@@ -353,7 +353,7 @@ class IsReferenceTest extends UtilityMethodTestCase
                 true,
             ],
             [
-                '/* testArrowFunctionNonReferenceInDefault */',
+                '/* testBitwiseAndArrowFunctionInDefault */',
                 false,
             ],
         ];
