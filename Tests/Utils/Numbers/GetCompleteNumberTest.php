@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Utils\Numbers;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Numbers;
 
@@ -18,7 +17,6 @@ use PHPCSUtils\Utils\Numbers;
  * Tests for the \PHPCSUtils\Utils\Numbers::getCompleteNumber() method.
  *
  * @covers \PHPCSUtils\Utils\Numbers::getCompleteNumber
- * @covers \PHPCSUtils\Utils\Numbers::updateResult
  *
  * @group numbers
  *
@@ -26,59 +24,6 @@ use PHPCSUtils\Utils\Numbers;
  */
 class GetCompleteNumberTest extends UtilityMethodTestCase
 {
-
-    /**
-     * The PHPCS version being used to run the tests.
-     *
-     * @var string
-     */
-    public static $phpcsVersion = '0';
-
-    /**
-     * Whether or not the tests are being run on PHP 7.4 or higher.
-     *
-     * @var bool
-     */
-    public static $php74OrHigher = false;
-
-    /**
-     * Whether or not the tests are being run on PHP 8.1 or higher.
-     *
-     * @var bool
-     */
-    public static $php81OrHigher = false;
-
-    /**
-     * Whether the PHPCS version used to run the tests contains support for PHP 7.4 numeric literal separators.
-     *
-     * @var string
-     */
-    public static $usableBackfill = false;
-
-    /**
-     * Whether the PHPCS version used to run the tests contains support for PHP 8.1 explicit octal notation.
-     *
-     * @var string
-     */
-    public static $explicitOctalSupport = false;
-
-    /**
-     * Initialize the static properties, if not done before.
-     *
-     * @return void
-     */
-    public static function setUpStaticProperties()
-    {
-        if (self::$phpcsVersion !== '0') {
-            return;
-        }
-
-        self::$phpcsVersion         = Helper::getVersion();
-        self::$php74OrHigher        = \version_compare(\PHP_VERSION_ID, '70399', '>');
-        self::$php81OrHigher        = \version_compare(\PHP_VERSION_ID, '80099', '>');
-        self::$usableBackfill       = \version_compare(self::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>');
-        self::$explicitOctalSupport = \version_compare(self::$phpcsVersion, '3.7.0', '>=');
-    }
 
     /**
      * Test receiving an exception when a non-numeric token is passed to the method.
@@ -94,25 +39,6 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test receiving an exception when running PHPCS 3.5.3.
-     *
-     * @return void
-     */
-    public function testUnsupportedPhpcsException()
-    {
-        if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '!=') === true) {
-            $this->markTestSkipped('Test only applicable to PHPCS ' . Numbers::UNSUPPORTED_PHPCS_VERSION);
-        }
-
-        $this->expectPhpcsException(
-            'The PHPCSUtils\Utils\Numbers::getCompleteNumber() method does not support PHPCS '
-        );
-
-        $stackPtr = $this->getTargetToken('/* testPHP74IntDecimalMultiUnderscore */', \T_LNUMBER);
-        Numbers::getCompleteNumber(self::$phpcsFile, $stackPtr);
-    }
-
-    /**
      * Test correctly identifying all tokens belonging to a numeric literal.
      *
      * @dataProvider dataGetCompleteNumber
@@ -124,13 +50,6 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
      */
     public function testGetCompleteNumber($testMarker, $expected)
     {
-        // Skip the test(s) on unsupported PHPCS versions.
-        if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
-            $this->markTestSkipped(
-                'PHPCS ' . static::$phpcsVersion . ' is not supported due to buggy numeric string literal backfill.'
-            );
-        }
-
         $stackPtr                = $this->getTargetToken($testMarker, [\T_LNUMBER, \T_DNUMBER]);
         $expected['last_token'] += $stackPtr;
 
@@ -153,17 +72,6 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
      */
     public function dataGetCompleteNumber()
     {
-        self::setUpStaticProperties();
-        $multiToken = true;
-        if (self::$php74OrHigher === true || self::$usableBackfill === true) {
-            $multiToken = false;
-        }
-
-        $octalMultiToken = true;
-        if (self::$php81OrHigher === true || self::$explicitOctalSupport === true) {
-            $octalMultiToken = false;
-        }
-
         /*
          * Disabling the hexnumeric string detection for the rest of the file.
          * These are only strings within the context of PHPCS and need to be tested as such.
@@ -273,7 +181,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '1000000000',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-larger-than-intmax-is-float' => [
@@ -284,7 +192,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '10223372036854775810',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float' => [
@@ -295,7 +203,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '107925284.88',
-                    'last_token'   => $multiToken ? 2 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-decimal-single-underscore' => [
@@ -306,7 +214,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '13500',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float-exponent-negative' => [
@@ -317,7 +225,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '6.674083e-11',
-                    'last_token'   => $multiToken ? 3 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float-exponent-positive' => [
@@ -328,7 +236,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '6.674083e+11',
-                    'last_token'   => $multiToken ? 3 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-decimal-multi-underscore-2' => [
@@ -339,7 +247,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '299792458',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-hex' => [
@@ -350,7 +258,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '3405705229',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-binary' => [
@@ -361,7 +269,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '95',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-octal' => [
@@ -372,7 +280,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '48673',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float-exponent-multi-underscore' => [
@@ -383,7 +291,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '12.34e123',
-                    'last_token'   => $multiToken ? 3 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
 
@@ -396,7 +304,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '667083',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-calculation-2' => [
@@ -407,7 +315,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '74083',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float-calculation-1' => [
@@ -418,7 +326,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '6.67408e3',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float-calculation-2' => [
@@ -429,7 +337,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_DNUMBER,
                     'type'         => 'T_DNUMBER',
                     'decimal'      => '6.67408e3',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-integer-whitespace' => [
@@ -440,7 +348,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '107925284',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-float-comments' => [
@@ -451,7 +359,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '107925284',
-                    'last_token'   => $multiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
 
@@ -554,7 +462,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '48673',
-                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-8.1-explicit-octal-uppercase' => [
@@ -565,7 +473,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '48673',
-                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-8.1-explicit-octal-with-separator' => [
@@ -576,7 +484,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '48673',
-                    'last_token'   => $octalMultiToken ? 1 : ($multiToken ? 2 : 0), // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-8.1-invalid-octal-1' => [
@@ -598,7 +506,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '2',
-                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-8.1-invalid-octal-3' => [
@@ -609,7 +517,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '2',
-                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-8.1-invalid-octal-4' => [
@@ -620,7 +528,7 @@ class GetCompleteNumberTest extends UtilityMethodTestCase
                     'code'         => \T_LNUMBER,
                     'type'         => 'T_LNUMBER',
                     'decimal'      => '2',
-                    'last_token'   => $octalMultiToken ? 1 : 0, // Offset from $stackPtr.
+                    'last_token'   => 0, // Offset from $stackPtr.
                 ],
             ],
             'php-7.4-8.1-invalid-explicit-octal' => [

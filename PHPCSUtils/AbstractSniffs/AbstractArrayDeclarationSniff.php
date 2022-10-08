@@ -23,6 +23,7 @@ use PHPCSUtils\Utils\TextStrings;
  * Abstract sniff to easily examine all parts of an array declaration.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 abstract class AbstractArrayDeclarationSniff implements Sniff
 {
@@ -482,16 +483,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
 
             // Take PHP 7.4 numeric literal separators into account.
             if ($this->tokens[$i]['code'] === \T_LNUMBER || $this->tokens[$i]['code'] === \T_DNUMBER) {
-                try {
-                    $number   = Numbers::getCompleteNumber($phpcsFile, $i);
-                    $content .= $number['content'];
-                    $i        = $number['last_token'];
-                } catch (RuntimeException $e) {
-                    // This must be PHP 3.5.3 with the broken backfill. Let's presume it's a ordinary number.
-                    // If it's not, the sniff will bow out on the following T_STRING anyway if the
-                    // backfill was broken.
-                    $content .= \str_replace('_', '', $this->tokens[$i]['content']);
-                }
+                $number   = Numbers::getCompleteNumber($phpcsFile, $i);
+                $content .= $number['content'];
+                $i        = $number['last_token'];
                 continue;
             }
 
