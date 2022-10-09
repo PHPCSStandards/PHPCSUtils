@@ -163,6 +163,17 @@ $anon = new class() {};
 /* testHasParamsAnonClass */
 $anon = new class( $param1, $param2 ) {};
 
+/* testPHP81FirstClassCallableNotFunctionCallGlobalFunction */
+$fn = strlen(...);
+
+/* testPHP81FirstClassCallableNotFunctionCallOOMethod */
+$fn = $this->method(
+   ...
+);
+
+/* testPHP81FirstClassCallableNotFunctionCallVariableStaticOOMethod */
+$fn = $name1::$name2( /*comment*/ ...);
+
 // Intentional parse error.
 /* testNoCloseParenthesis */
 $array = array(1, 2, 3

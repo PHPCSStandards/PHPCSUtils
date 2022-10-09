@@ -369,6 +369,24 @@ class HasParametersTest extends UtilityMethodTestCase
                 'expected'   => true,
             ],
 
+            // PHP 8.1 first class callables are callbacks, not function calls.
+            'no-params-php81-first-class-callable-global-function' => [
+                'testMarker' => '/* testPHP81FirstClassCallableNotFunctionCallGlobalFunction */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
+            ],
+            'no-params-php81-first-class-callable-oo-method' => [
+                'testMarker' => '/* testPHP81FirstClassCallableNotFunctionCallOOMethod */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
+            ],
+            'no-params-php81-first-class-callable-variable-static-oo-method' => [
+                'testMarker'    => '/* testPHP81FirstClassCallableNotFunctionCallVariableStaticOOMethod */',
+                'targetType'    => \T_VARIABLE,
+                'expected'      => false,
+                'targetContent' => '$name2',
+            ],
+
             // Defensive coding against parse errors and live coding.
             'defense-in-depth-no-close-parens' => [
                 'testMarker' => '/* testNoCloseParenthesis */',
