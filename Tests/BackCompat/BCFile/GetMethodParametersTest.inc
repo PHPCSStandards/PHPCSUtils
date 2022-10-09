@@ -235,6 +235,27 @@ function() use() {};
 /* testClosureUse */
 function() use( $foo, $bar ) {};
 
+/* testFunctionParamListWithTrailingComma */
+function trailingComma(
+    ?string $foo  /*comment*/ ,
+    $bar = 0,
+) {}
+
+/* testClosureParamListWithTrailingComma */
+function(
+    $foo,
+    $bar,
+) {};
+
+/* testArrowFunctionParamListWithTrailingComma */
+$fn = fn( ?int $a , ...$b, ) => $b;
+
+/* testClosureUseWithTrailingComma */
+function() use(
+    $foo  /*comment*/ ,
+    $bar,
+) {};
+
 /* testInvalidUse */
 function() use {}; // Intentional parse error.
 

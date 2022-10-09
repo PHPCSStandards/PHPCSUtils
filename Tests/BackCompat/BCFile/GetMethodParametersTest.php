@@ -1998,6 +1998,169 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify function declarations with trailing commas are handled correctly.
+     *
+     * @return void
+     */
+    public function testFunctionParamListWithTrailingComma()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 9, // Offset from the T_FUNCTION token.
+            'name'                => '$foo',
+            'content'             => '?string $foo  /*comment*/',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?string',
+            'type_hint_token'     => 7, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 7, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'comma_token'         => 13, // Offset from the T_FUNCTION token.
+        ];
+        $expected[1] = [
+            'token'               => 16, // Offset from the T_FUNCTION token.
+            'name'                => '$bar',
+            'content'             => '$bar = 0',
+            'default'             => '0',
+            'default_token'       => 20, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 18, // Offset from the T_FUNCTION token.
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 21, // Offset from the T_FUNCTION token.
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify closure declarations with trailing commas are handled correctly.
+     *
+     * @return void
+     */
+    public function testClosureParamListWithTrailingComma()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4, // Offset from the T_FUNCTION token.
+            'name'                => '$foo',
+            'content'             => '$foo',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 5, // Offset from the T_FUNCTION token.
+        ];
+        $expected[1] = [
+            'token'               => 8, // Offset from the T_FUNCTION token.
+            'name'                => '$bar',
+            'content'             => '$bar',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 9, // Offset from the T_FUNCTION token.
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify arrow function declarations with trailing commas are handled correctly.
+     *
+     * @return void
+     */
+    public function testArrowFunctionParamListWithTrailingComma()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 6, // Offset from the T_FN token.
+            'name'                => '$a',
+            'content'             => '?int $a',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?int',
+            'type_hint_token'     => 4, // Offset from the T_FN token.
+            'type_hint_end_token' => 4, // Offset from the T_FN token.
+            'nullable_type'       => true,
+            'comma_token'         => 8, // Offset from the T_FN token.
+        ];
+        $expected[1] = [
+            'token'               => 11, // Offset from the T_FN token.
+            'name'                => '$b',
+            'content'             => '...$b',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => true,
+            'variadic_token'      => 10, // Offset from the T_FN token.
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 12, // Offset from the T_FN token.
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify closure T_USE statements with trailing commas are handled correctly.
+     *
+     * @return void
+     */
+    public function testClosureUseWithTrailingComma()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4, // Offset from the T_USE token.
+            'name'                => '$foo',
+            'content'             => '$foo  /*comment*/',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 8, // Offset from the T_USE token.
+        ];
+        $expected[1] = [
+            'token'               => 11, // Offset from the T_USE token.
+            'name'                => '$bar',
+            'content'             => '$bar',
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 12, // Offset from the T_USE token.
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, [T_USE]);
+    }
+
+    /**
      * Test helper.
      *
      * @param string $marker     The comment which preceeds the test.
