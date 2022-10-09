@@ -65,8 +65,8 @@ test(param: 1, param: 2);
 // Error Exception, but not the concern of PHPCSUtils. Should still be handled.
 array_fill(start_index: 0, ...[100, 50]);
 
-/* testCompileErrorIncorrectOrderWithVariadic */
-// Not the concern of PHPCSUtils. Should still be handled.
+/* testPHP81NamedParamAfterVariadic */
+// Prior to PHP 8.1, this was a compile error, but this is now supported.
 test(...$values, param: $value);
 
 /* testParseErrorNoValue */
