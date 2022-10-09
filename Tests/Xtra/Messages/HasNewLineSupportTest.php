@@ -8,22 +8,21 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Utils\MessageHelper;
+namespace PHPCSUtils\Tests\Xtra\Messages;
 
 use PHP_CodeSniffer\Reporter;
 use PHP_CodeSniffer\Reports\Full;
 use PHPCSUtils\Tests\PolyfilledTestCase;
-use PHPCSUtils\Utils\MessageHelper;
 
 /**
- * Tests for the \PHPCSUtils\Utils\MessageHelper::hasNewLineSupport() method.
+ * Tests for new line handling in PHPCS error/warning messages.
  *
- * {@internal Note: this is largely testing PHPCS native functionality, but as PHPCS doesn't
+ * {@internal Note: this is testing PHPCS native functionality, but as PHPCS doesn't
  * have any unit tests in place for this functionality, that's not a bad thing.}
  *
- * @covers \PHPCSUtils\Utils\MessageHelper::hasNewLineSupport
+ * @coversNothing
  *
- * @group messagehelper
+ * @group xtra
  *
  * @since 1.0.0
  */
@@ -37,33 +36,22 @@ class HasNewLineSupportTest extends PolyfilledTestCase
      *
      * @var string
      */
-    const CODE = 'PHPCSUtils.MessageHelper.HasNewLineSupportTest.Found';
+    const CODE = 'PHPCSUtils.Xtra.HasNewLineSupportTest.Found';
 
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
      * @var array
      */
-    protected static $selectedSniff = ['PHPCSUtils.MessageHelper.HasNewLineSupportTest'];
+    protected static $selectedSniff = ['PHPCSUtils.Xtra.HasNewLineSupportTest'];
 
     /**
-     * Test the hasNewLineSupport() detection.
+     * Test that PHPCS properly supports new lines in error messages.
      *
      * @return void
      */
     public function testHasNewLineSupport()
     {
-        $result = MessageHelper::hasNewLineSupport();
-        $this->assertIsBool($result);
-
-        if ($result === false) {
-            return;
-        }
-
-        /*
-         * Test the actual message returned for PHPCS versions which have proper new line support.
-         */
-
         /*
          * Set up the expected output.
          * phpcs:disable Generic.Files.LineLength.TooLong

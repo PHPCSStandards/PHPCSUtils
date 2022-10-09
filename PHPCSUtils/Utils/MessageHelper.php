@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
-use PHPCSUtils\BackCompat\Helper;
 
 /**
  * Helper functions for creating PHPCS error/warning messages.
@@ -107,20 +106,6 @@ class MessageHelper
     public static function stringToErrorcode($text)
     {
         return \preg_replace('`[^a-z0-9_]`i', '_', $text);
-    }
-
-    /**
-     * Check whether PHPCS can properly handle new lines in violation messages.
-     *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2093
-     *
-     * @since 1.0.0-alpha4
-     *
-     * @return bool
-     */
-    public static function hasNewLineSupport()
-    {
-        return \version_compare(Helper::getVersion(), '3.3.1', '>=');
     }
 
     /**
