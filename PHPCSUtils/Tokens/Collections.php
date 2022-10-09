@@ -202,6 +202,7 @@ class Collections
      * DEPRECATED: Control structure tokens.
      *
      * @since 1.0.0-alpha2
+     * @since 1.0.0-alpha4 Added the T_MATCH token for PHP 8.0 match expressions.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::controlStructureTokens()} method instead.
      *
@@ -217,6 +218,7 @@ class Collections
         \T_DO      => \T_DO,
         \T_WHILE   => \T_WHILE,
         \T_DECLARE => \T_DECLARE,
+        \T_MATCH   => \T_MATCH,
     ];
 
     /**
