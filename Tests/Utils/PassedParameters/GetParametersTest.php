@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\PassedParameters;
@@ -321,10 +320,7 @@ class GetParametersTest extends UtilityMethodTestCase
                     ],
                     3 => [
                         'start' => 31,
-                        // Account for null coalesce tokenization difference.
-                        'end'   => (Helper::getVersion() === '2.6.0' && \PHP_VERSION_ID < 59999)
-                            ? 53
-                            : 51,
+                        'end'   => 51,
                         'raw'   => '\'hey\' => $baz ??
         [\'one\'] ??
         [\'two\']',
