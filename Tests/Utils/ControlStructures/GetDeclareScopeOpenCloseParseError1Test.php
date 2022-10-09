@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ControlStructures;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ControlStructures;
 
 /**
@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class GetDeclareScopeOpenCloseParseError1Test extends UtilityMethodTestCase
+class GetDeclareScopeOpenCloseParseError1Test extends PolyfilledTestCase
 {
 
     /**
@@ -32,6 +32,12 @@ class GetDeclareScopeOpenCloseParseError1Test extends UtilityMethodTestCase
      */
     public function testGetDeclareScopeOpenCloseParseError()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $stackPtr = $this->getTargetToken('/* testNoCloseParenthesis */', \T_DECLARE);
         $result   = ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $stackPtr);
         $this->assertFalse($result);

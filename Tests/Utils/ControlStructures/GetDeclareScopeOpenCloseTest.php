@@ -10,8 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ControlStructures;
 
-use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ControlStructures;
 
 /**
@@ -23,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
+class GetDeclareScopeOpenCloseTest extends PolyfilledTestCase
 {
 
     /**
@@ -33,6 +32,12 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $this->assertFalse(ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, 10000));
     }
 
@@ -43,6 +48,12 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNotDeclare()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $target = $this->getTargetToken('/* testNotDeclare */', \T_ECHO);
         $this->assertFalse(ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $target));
     }
@@ -59,6 +70,12 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
      */
     public function testGetDeclareScopeOpenClose($testMarker, $expected)
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $stackPtr = $this->getTargetToken($testMarker, \T_DECLARE);
 
         // Translate offsets to absolute token positions.
@@ -192,44 +209,5 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
                 'expected'   => false,
             ],
         ];
-    }
-
-    /**
-     * Verify that the build-in caching is used when caching is enabled.
-     *
-     * @return void
-     */
-    public function testResultIsCached()
-    {
-        // The test case used is specifically selected to be one which will always reach the cache check.
-        $methodName = 'PHPCSUtils\\Utils\\ControlStructures::getDeclareScopeOpenClose';
-        $cases      = $this->dataGetDeclareScopeOpenClose();
-        $testMarker = $cases['mixed-nested-level-4']['testMarker'];
-        $expected   = $cases['mixed-nested-level-4']['expected'];
-
-        $stackPtr = $this->getTargetToken($testMarker, \T_DECLARE);
-
-        // Translate offsets to absolute token positions.
-        if (isset($expected['opener'], $expected['closer']) === true) {
-            $expected['opener'] += $stackPtr;
-            $expected['closer'] += $stackPtr;
-        }
-
-        // Verify the caching works.
-        $origStatus     = Cache::$enabled;
-        Cache::$enabled = true;
-
-        $resultFirstRun  = ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $stackPtr);
-        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
-        $resultSecondRun = ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $stackPtr);
-
-        if ($origStatus === false) {
-            Cache::clear();
-        }
-        Cache::$enabled = $origStatus;
-
-        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
-        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
-        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }
