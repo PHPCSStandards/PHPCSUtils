@@ -41,9 +41,10 @@ class Arrays
         \T_ARRAY            => \T_ARRAY,
         \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY,
 
-        // Inline function and control structures to skip over.
+        // Inline function, control structures and other things to skip over.
         \T_FN               => \T_FN,
         \T_MATCH            => \T_MATCH,
+        \T_ATTRIBUTE        => \T_ATTRIBUTE,
     ];
 
     /**
@@ -297,6 +298,7 @@ class Arrays
      * @since 1.0.0
      * @since 1.0.0-alpha2 Now allows for arrow functions in arrays.
      * @since 1.0.0-alpha4 Now allows for match expressions in arrays.
+     * @since 1.0.0-alpha4 Now allows for attributes in arrays.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
      * @param int                         $start     Stack pointer to the start of the array item.
@@ -351,6 +353,14 @@ class Arrays
                 && isset($tokens[$doubleArrow]['scope_closer']) === true
             ) {
                 $doubleArrow = $tokens[$doubleArrow]['scope_closer'];
+                continue;
+            }
+
+            // Skip over attributes which may contain arrays as a passed parameters.
+            if ($tokens[$doubleArrow]['code'] === \T_ATTRIBUTE
+                && isset($tokens[$doubleArrow]['attribute_closer'])
+            ) {
+                $doubleArrow = $tokens[$doubleArrow]['attribute_closer'];
                 continue;
             }
 
