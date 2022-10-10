@@ -23,6 +23,7 @@ use PHPCSUtils\Utils\Parentheses;
  * Utility functions to retrieve information when working with lists.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class Lists
 {
@@ -295,20 +296,11 @@ class Lists
         switch ($tokens[ $stackPtr ]['code']) {
             case \T_LIST:
                 if (isset($tokens[$stackPtr]['parenthesis_opener'])) {
-                    // PHPCS 3.5.0.
                     $opener = $tokens[$stackPtr]['parenthesis_opener'];
-                } else {
-                    // PHPCS < 3.5.0.
-                    $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
-                    if ($nextNonEmpty !== false
-                        && $tokens[$nextNonEmpty]['code'] === \T_OPEN_PARENTHESIS
-                    ) {
-                        $opener = $nextNonEmpty;
-                    }
-                }
 
-                if (isset($opener, $tokens[$opener]['parenthesis_closer'])) {
-                    $closer = $tokens[$opener]['parenthesis_closer'];
+                    if (isset($tokens[$opener]['parenthesis_closer'])) {
+                        $closer = $tokens[$opener]['parenthesis_closer'];
+                    }
                 }
                 break;
 
