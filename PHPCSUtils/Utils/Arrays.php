@@ -43,6 +43,7 @@ class Arrays
 
         // Inline function and control structures to skip over.
         \T_FN               => \T_FN,
+        \T_MATCH            => \T_MATCH,
     ];
 
     /**
@@ -295,6 +296,7 @@ class Arrays
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Now allows for arrow functions in arrays.
+     * @since 1.0.0-alpha4 Now allows for match expressions in arrays.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
      * @param int                         $start     Stack pointer to the start of the array item.
@@ -344,7 +346,8 @@ class Arrays
 
             // Skip over closed scopes which may contain foreach structures or generators.
             if ((isset(Collections::closedScopes()[$tokens[$doubleArrow]['code']]) === true
-                || $tokens[$doubleArrow]['code'] === \T_FN)
+                || $tokens[$doubleArrow]['code'] === \T_FN
+                || $tokens[$doubleArrow]['code'] === \T_MATCH)
                 && isset($tokens[$doubleArrow]['scope_closer']) === true
             ) {
                 $doubleArrow = $tokens[$doubleArrow]['scope_closer'];

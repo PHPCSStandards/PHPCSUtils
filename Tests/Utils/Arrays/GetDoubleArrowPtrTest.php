@@ -219,6 +219,21 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 'testMarker' => '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
                 'expected'   => 10,
             ],
+
+            // Safeguard that PHP 8.0 match expressions are handled correctly.
+            'test-no-arrow-value-match-expression' => [
+                'testMarker' => '/* testNoArrowValueMatchExpr */',
+                'expected'   => false,
+            ],
+            'test-double-arrow-value-match-expression' => [
+                'testMarker' => '/* testArrowValueMatchExpr */',
+                'expected'   => 8,
+            ],
+            'test-double-arrow-key-match-expression' => [
+                'testMarker' => '/* testArrowKeyMatchExpr */',
+                'expected'   => 38,
+            ],
+
             'test-empty-array-item' => [
                 'testMarker' => '/* testEmptyArrayItem */',
                 'expected'   => false,
