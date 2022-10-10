@@ -25,7 +25,6 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodParameters method.
@@ -73,11 +72,11 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             ],
             'function-call-fn-phpcs-3.5.3-3.5.4' => [
                 '/* testFunctionCallFnPHPCS353-354 */',
-                Collections::arrowFunctionTokensBC(),
+                [T_FN, T_STRING],
             ],
             'fn-live-coding' => [
                 '/* testArrowFunctionLiveCoding */',
-                Collections::arrowFunctionTokensBC(),
+                [T_FN, T_STRING],
             ],
         ];
     }

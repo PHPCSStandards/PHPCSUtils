@@ -502,6 +502,32 @@ class Collections
     ];
 
     /**
+     * Throw a deprecation notice with a standardized deprecation message.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @param string $method      The name of the method which is deprecated.
+     * @param string $version     The version since which the method is deprecated.
+     * @param string $replacement What to use instead.
+     *
+     * @return void
+     */
+    private static function triggerDeprecation($method, $version, $replacement)
+    {
+        \trigger_error(
+            \sprintf(
+                'The %1$s::%2$s() method is deprecated since PHPCSUtils %3$s.'
+                . ' Use %4$s instead.',
+                __CLASS__,
+                $method,
+                $version,
+                $replacement
+            ),
+            \E_USER_DEPRECATED
+        );
+    }
+
+    /**
      * Tokens for control structures which can use the alternative control structure syntax.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$alternativeControlStructureSyntaxTokens}
@@ -581,32 +607,19 @@ class Collections
     }
 
     /**
-     * Tokens which can represent the arrow function keyword.
-     *
-     * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
-     *
-     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()           Determine whether an arbitrary token
-     *                                                                          is in actual fact an arrow function
-     *                                                                          keyword.
-     * @see \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose() Get an arrow function's parentheses
-     *                                                                          and scope openers and closers.
+     * DEPRECATED: Tokens which can represent the arrow function keyword.
      *
      * @since 1.0.0-alpha2
+     *
+     * @deprecated 1.0.0-alpha4 Use the `T_FN` token constant instead.
      *
      * @return array <int|string> => <int|string>
      */
     public static function arrowFunctionTokensBC()
     {
-        $tokens = [
-            \T_STRING => \T_STRING,
-        ];
+        self::triggerDeprecation(__FUNCTION__, '1.0.0-alpha4', 'the `T_FN` token');
 
-        if (TokenHelper::tokenExists('T_FN') === true) {
-            // PHP 7.4 or PHPCS 3.5.3+.
-            $tokens[\T_FN] = \T_FN;
-        }
-
-        return $tokens;
+        return [\T_FN => \T_FN];
     }
 
     /**
@@ -676,69 +689,37 @@ class Collections
     /**
      * Tokens which can represent a keyword which starts a function declaration.
      *
-     * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
-     *
-     * Sister-method to the {@see Collections::functionDeclarationTokensBC()} method.
-     * This method supports PHPCS 3.5.3 and up.
-     * The {@see Collections::functionDeclarationTokensBC()} method supports PHPCS 2.6.0 and up.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC() Related method (PHPCS 2.6.0+).
-     *
      * @since 1.0.0-alpha3
      *
      * @return array <int|string> => <int|string>
      */
     public static function functionDeclarationTokens()
     {
-        $tokens = [
+        return [
             \T_FUNCTION => \T_FUNCTION,
             \T_CLOSURE  => \T_CLOSURE,
+            \T_FN       => \T_FN,
         ];
-
-        if (TokenHelper::tokenExists('T_FN') === true) {
-            // PHP 7.4 or PHPCS 3.5.3+.
-            $tokens[\T_FN] = \T_FN;
-        }
-
-        return $tokens;
     }
 
     /**
-     * Tokens which can represent a keyword which starts a function declaration.
-     *
-     * Note: this is a method, not a property as the `T_FN` token for arrow functions may not exist.
-     *
-     * Sister-method to the {@see Collections::functionDeclarationTokens()} method.
-     * The {@see Collections::functionDeclarationTokens()} method supports PHPCS 3.5.3 and up.
-     * This method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - This method accounts for when the `T_FN` token doesn't exist.
-     *
-     * Note: if this method is used, the {@see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()}
-     * method needs to be used on arrow function tokens to verify whether it really is an arrow function
-     * declaration or not.
-     *
-     * It is recommended to use the {@see Collections::functionDeclarationTokens()} method instead of
-     * this method if a standard does not need to support PHPCS < 3.5.3.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::functionDeclarationTokens() Related method (PHPCS 3.5.3+).
-     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()   Arrow function verification.
+     * DEPRECATED: Tokens which represent a keyword which starts a function declaration.
      *
      * @since 1.0.0-alpha3
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::functionDeclarationTokens()} method instead.
      *
      * @return array <int|string> => <int|string>
      */
     public static function functionDeclarationTokensBC()
     {
-        $tokens = [
-            \T_FUNCTION => \T_FUNCTION,
-            \T_CLOSURE  => \T_CLOSURE,
-        ];
+        self::triggerDeprecation(
+            __FUNCTION__,
+            '1.0.0-alpha4',
+            \sprintf('the %s::functionDeclarationTokens() method', __CLASS__)
+        );
 
-        $tokens += self::arrowFunctionTokensBC();
-
-        return $tokens;
+        return self::functionDeclarationTokens();
     }
 
     /**

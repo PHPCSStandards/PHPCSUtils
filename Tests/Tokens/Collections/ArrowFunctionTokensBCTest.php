@@ -10,14 +10,14 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Test class.
  *
  * @covers \PHPCSUtils\Tokens\Collections::arrowFunctionTokensBC
+ * @covers \PHPCSUtils\Tokens\Collections::triggerDeprecation
  *
  * @group collections
  *
@@ -33,16 +33,15 @@ class ArrowFunctionTokensBCTest extends TestCase
      */
     public function testArrowFunctionTokensBC()
     {
-        $version  = Helper::getVersion();
-        $expected = [
-            \T_STRING => \T_STRING,
-        ];
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'Collections::arrowFunctionTokensBC() method is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
 
-        if (\version_compare($version, '3.5.3', '>=') === true
-            || \version_compare(\PHP_VERSION_ID, '70399', '>=') === true
-        ) {
-            $expected[\T_FN] = \T_FN;
-        }
+        $expected = [
+            \T_FN => \T_FN,
+        ];
 
         $this->assertSame($expected, Collections::arrowFunctionTokensBC());
     }

@@ -12,7 +12,6 @@ namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tests\PolyfilledTestCase;
-use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -126,7 +125,7 @@ class IsArrowFunction2926Test extends PolyfilledTestCase
             . ' Use the `T_FN` token instead.'
         );
 
-        $targets  = Collections::arrowFunctionTokensBC();
+        $targets  = [\T_FN, \T_STRING];
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
         $result   = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected['is'], $result);
@@ -152,7 +151,7 @@ class IsArrowFunction2926Test extends PolyfilledTestCase
             . ' Use the `T_FN` token instead.'
         );
 
-        $targets  = Collections::arrowFunctionTokensBC();
+        $targets  = [\T_FN, \T_STRING];
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
 
         // Change from offsets to absolute token positions.

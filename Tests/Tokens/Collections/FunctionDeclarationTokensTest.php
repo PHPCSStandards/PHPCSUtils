@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -33,17 +32,11 @@ class FunctionDeclarationTokensTest extends TestCase
      */
     public function testFunctionDeclarationTokens()
     {
-        $version  = Helper::getVersion();
         $expected = [
             \T_FUNCTION => \T_FUNCTION,
             \T_CLOSURE  => \T_CLOSURE,
+            \T_FN       => \T_FN,
         ];
-
-        if (\version_compare($version, '3.5.3', '>=') === true
-            || \version_compare(\PHP_VERSION_ID, '70399', '>=') === true
-        ) {
-            $expected[\T_FN] = \T_FN;
-        }
 
         $this->assertSame($expected, Collections::functionDeclarationTokens());
     }
