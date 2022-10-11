@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -33,20 +32,14 @@ class NamespacedNameTokensTest extends TestCase
      */
     public function testNamespacedNameTokens()
     {
-        $version  = Helper::getVersion();
         $expected = [
-            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-            \T_NAMESPACE    => \T_NAMESPACE,
-            \T_STRING       => \T_STRING,
+            \T_NS_SEPARATOR         => \T_NS_SEPARATOR,
+            \T_NAMESPACE            => \T_NAMESPACE,
+            \T_STRING               => \T_STRING,
+            \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+            \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+            \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
         ];
-
-        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
-            || \version_compare($version, '3.5.7', '>=') === true
-        ) {
-            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
-            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
-            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
-        }
 
         $this->assertSame($expected, Collections::namespacedNameTokens());
     }

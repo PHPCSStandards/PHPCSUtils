@@ -10,8 +10,6 @@
 
 namespace PHPCSUtils\Tokens;
 
-use PHPCSUtils\Tokens\TokenHelper;
-
 /**
  * Collections of related tokens as often used and needed for sniffs.
  *
@@ -22,6 +20,7 @@ use PHPCSUtils\Tokens\TokenHelper;
  * @see \PHPCSUtils\BackCompat\BCTokens Backward compatible version of the PHPCS native token groups.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class Collections
 {
@@ -232,6 +231,28 @@ class Collections
         \T_SEMICOLON          => \T_SEMICOLON,
         \T_OPEN_CURLY_BRACKET => \T_OPEN_CURLY_BRACKET,
         \T_CLOSE_TAG          => \T_CLOSE_TAG,
+    ];
+
+    /**
+     * Tokens used for "names", be it namespace, OO, function or constant names.
+     *
+     * Includes the tokens introduced in PHP 8.0 for "Namespaced names as single token".
+     *
+     * Note: the PHP 8.0 namespaced name tokens are backfilled in PHPCS since PHPCS 3.5.7,
+     * but are not used yet (the PHP 8.0 tokenization is "undone" in PHPCS).
+     * As of PHPCS 4.0.0, these tokens _will_ be used and the PHP 8.0 tokenization is respected.
+     *
+     * @link https://wiki.php.net/rfc/namespaced_names_as_token
+     *
+     * @since 1.0.0-alpha4 Use the {@see Collections::nameTokens()} method for access.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    private static $nameTokens = [
+        \T_STRING               => \T_STRING,
+        \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+        \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+        \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
     ];
 
     /**
@@ -673,7 +694,7 @@ class Collections
     public static function functionCallTokens()
     {
         // Function calls and class instantiation.
-        $tokens              = self::nameTokens();
+        $tokens              = self::$nameTokens;
         $tokens[\T_VARIABLE] = \T_VARIABLE;
 
         // Class instantiation only.
@@ -797,7 +818,7 @@ class Collections
             \T_NAMESPACE    => \T_NAMESPACE,
         ];
 
-        $tokens += self::nameTokens();
+        $tokens += self::$nameTokens;
 
         return $tokens;
     }
@@ -805,9 +826,11 @@ class Collections
     /**
      * The tokens used for "names", be it namespace, OO, function or constant names.
      *
-     * Includes the tokens introduced in PHP 8.0 for "Namespaced names as single token" when available.
+     * Includes the tokens introduced in PHP 8.0 for "Namespaced names as single token".
      *
-     * Note: this is a method, not a property as the PHP 8.0 identifier name tokens may not exist.
+     * Note: the PHP 8.0 namespaced name tokens are backfilled in PHPCS since PHPCS 3.5.7,
+     * but are not used yet (the PHP 8.0 tokenization is "undone" in PHPCS).
+     * As of PHPCS 4.0.0, these tokens _will_ be used and the PHP 8.0 tokenization is respected.
      *
      * @link https://wiki.php.net/rfc/namespaced_names_as_token
      *
@@ -817,28 +840,7 @@ class Collections
      */
     public static function nameTokens()
     {
-        $tokens = [
-            \T_STRING => \T_STRING,
-        ];
-
-        /*
-         * PHP >= 8.0 in combination with PHPCS < 3.5.7 and all PHP versions in combination
-         * with PHPCS >= 3.5.7, though when using PHPCS 3.5.7 < 4.0.0, these tokens are
-         * not yet in use, i.e. the PHP 8.0 change is "undone" for PHPCS 3.x.
-         */
-        if (TokenHelper::tokenExists('T_NAME_QUALIFIED') === true) {
-            $tokens[\T_NAME_QUALIFIED] = \T_NAME_QUALIFIED;
-        }
-
-        if (TokenHelper::tokenExists('T_NAME_FULLY_QUALIFIED') === true) {
-            $tokens[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
-        }
-
-        if (TokenHelper::tokenExists('T_NAME_RELATIVE') === true) {
-            $tokens[\T_NAME_RELATIVE] = \T_NAME_RELATIVE;
-        }
-
-        return $tokens;
+        return self::$nameTokens;
     }
 
     /**
