@@ -10,14 +10,14 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Test class.
  *
  * @covers \PHPCSUtils\Tokens\Collections::returnTypeTokensBC
+ * @covers \PHPCSUtils\Tokens\Collections::triggerDeprecation
  *
  * @group collections
  *
@@ -33,14 +33,12 @@ class ReturnTypeTokensBCTest extends TestCase
      */
     public function testReturnTypeTokensBC()
     {
-        $version  = Helper::getVersion();
-        $expected = Collections::returnTypeTokens();
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'Collections::returnTypeTokensBC() method is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the PHPCSUtils\Tokens\Collections::returnTypeTokens() method instead.'
+        );
 
-        if (\version_compare($version, '3.99.99', '<=') === true) {
-            $expected[\T_RETURN_TYPE] = \T_RETURN_TYPE;
-            $expected[\T_ARRAY_HINT]  = \T_ARRAY_HINT;
-        }
-
-        $this->assertSame($expected, Collections::returnTypeTokensBC());
+        $this->assertSame(Collections::returnTypeTokens(), Collections::returnTypeTokensBC());
     }
 }

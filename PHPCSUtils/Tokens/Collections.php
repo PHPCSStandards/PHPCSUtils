@@ -404,8 +404,7 @@ class Collections
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} or
-     *                          {@see Collections::returnTypeTokensBC()} method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -1053,20 +1052,6 @@ class Collections
     /**
      * Token types which can be encountered in a return type declaration.
      *
-     * Sister-method to the {@see Collections::returnTypeTokensBC()} method.
-     * This method supports PHPCS 3.3.0 and up.
-     * The {@see Collections::returnTypeTokensBC()} method supports PHPCS 2.6.0 and up.
-     *
-     * Notable differences:
-     * - The {@see Collections::returnTypeTokensBC()} method will include the `T_ARRAY_HINT`
-     *   and the `T_RETURN_TYPE` tokens when used with PHPCS 2.x and 3.x.
-     *   These token constants will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use this method instead of the {@see Collections::returnTypeTokensBC()}
-     * method if a standard does not need to support PHPCS < 3.3.0.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::returnTypeTokensBC() Related method (cross-version).
-     *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$returnTypeTokens} property.
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
@@ -1083,49 +1068,25 @@ class Collections
     }
 
     /**
-     * Token types which can be encountered in a return type declaration (cross-version).
-     *
-     * Sister-method to the {@see Collections::returnTypeTokens()} method.
-     * The {@see Collections::returnTypeTokens()} method supports PHPCS 3.3.0 and up.
-     * This method supports PHPCS 2.6.0 and up.
-     *
-     * Notable differences:
-     * - This method will include the `T_ARRAY_HINT` and the `T_RETURN_TYPE` tokens when
-     *   used with PHPCS 2.x and 3.x.
-     *   These token constants will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use the {@see Collections::returnTypeTokens()} method instead of
-     * this method if a standard does not need to support PHPCS < 3.3.0.
+     * DEPRECATED: Token types which can be encountered in a return type declaration (cross-version).
      *
      * @see \PHPCSUtils\Tokens\Collections::returnTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} method instead.
      *
      * @return array <int|string> => <int|string>
      */
     public static function returnTypeTokensBC()
     {
-        $tokens = self::returnTypeTokens();
+        self::triggerDeprecation(
+            __FUNCTION__,
+            '1.0.0-alpha4',
+            \sprintf('the %s::returnTypeTokens() method', __CLASS__)
+        );
 
-        /*
-         * PHPCS < 4.0. Needed for support of PHPCS 2.4.0 < 3.3.0.
-         * For PHPCS 3.3.0+ the constant is no longer used.
-         */
-        if (\defined('T_RETURN_TYPE') === true) {
-            $tokens[\T_RETURN_TYPE] = \T_RETURN_TYPE;
-        }
-
-        /*
-         * PHPCS < 4.0. Needed for support of PHPCS < 2.8.0 / PHPCS < 3.5.3 for arrow functions.
-         * For PHPCS 3.5.3+ the constant is no longer used.
-         */
-        if (\defined('T_ARRAY_HINT') === true) {
-            $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        return $tokens;
+        return self::returnTypeTokens();
     }
 
     /**
