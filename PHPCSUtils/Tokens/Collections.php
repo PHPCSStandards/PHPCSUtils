@@ -383,8 +383,7 @@ class Collections
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} or
-     *                          {@see Collections::propertyTypeTokensBC()} method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -1015,20 +1014,6 @@ class Collections
     /**
      * Token types which can be encountered in a property type declaration.
      *
-     * Sister-method to the {@see Collections::propertyTypeTokensBC()} method.
-     * This method supports PHPCS 3.3.0 and up.
-     * The {@see Collections::propertyTypeTokensBC()} method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - The {@see Collections::propertyTypeTokensBC()} method will include the `T_ARRAY_HINT` token
-     *   when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use this method instead of the {@see Collections::propertyTypeTokensBC()}
-     * method if a standard does not need to support PHPCS < 3.3.0.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC() Related method (cross-version).
-     *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
@@ -1044,37 +1029,25 @@ class Collections
     }
 
     /**
-     * Token types which can be encountered in a property type declaration (cross-version).
-     *
-     * Sister-method to the {@see Collections::propertyTypeTokens()} method.
-     * The {@see Collections::propertyTypeTokens()} method supports PHPCS 3.3.0 and up.
-     * This method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - This method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use the {@see Collections::propertyTypeTokens()} method instead of
-     * this method if a standard does not need to support PHPCS < 3.3.0.
+     * DEPRECATED: Token types which can be encountered in a property type declaration (cross-version).
      *
      * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} method instead.
      *
      * @return array <int|string> => <int|string>
      */
     public static function propertyTypeTokensBC()
     {
-        $tokens = self::propertyTypeTokens();
+        self::triggerDeprecation(
+            __FUNCTION__,
+            '1.0.0-alpha4',
+            \sprintf('the %s::propertyTypeTokens() method', __CLASS__)
+        );
 
-        // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. For PHPCS 3.3.0+ the constant is no longer used.
-        if (\defined('T_ARRAY_HINT') === true) {
-            $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        return $tokens;
+        return self::propertyTypeTokens();
     }
 
     /**
