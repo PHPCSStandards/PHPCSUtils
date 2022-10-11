@@ -66,6 +66,28 @@ class Collections
     ];
 
     /**
+     * Tokens which can open an array (PHPCS cross-version compatible).
+     *
+     * Includes `T_OPEN_SQUARE_BRACKET` to allow for handling intermittent tokenizer issues related
+     * to the retokenization to `T_OPEN_SHORT_ARRAY`.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC()      Related method to retrieve tokens used
+     *                                                           for arrays (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortArrayTokensBC() Related method to retrieve only tokens used
+     *                                                           for short arrays (PHPCS cross-version).
+     *
+     * @since 1.0.0-alpha4 Use the {@see Collections::arrayOpenTokensBC()} method for access.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    private static $arrayOpenTokensBC = [
+        \T_ARRAY               => \T_ARRAY,
+        \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
+    ];
+
+    /**
      * DEPRECATED: Tokens which are used to create arrays.
      *
      * @since 1.0.0-alpha1
@@ -149,6 +171,19 @@ class Collections
         \T_DO      => \T_DO,
         \T_WHILE   => \T_WHILE,
         \T_DECLARE => \T_DECLARE,
+    ];
+
+    /**
+     * Tokens which represent a keyword which starts a function declaration.
+     *
+     * @since 1.0.0-alpha4 Use the {@see Collections::functionDeclarationTokens()} method for access.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    private static $functionDeclarationTokens = [
+        \T_FUNCTION => \T_FUNCTION,
+        \T_CLOSURE  => \T_CLOSURE,
+        \T_FN       => \T_FN,
     ];
 
     /**
@@ -382,6 +417,18 @@ class Collections
     ];
 
     /**
+     * Tokens which open PHP.
+     *
+     * @since 1.0.0-alpha4 Use the {@see Collections::phpOpenTags()} method for access.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    private static $phpOpenTags = [
+        \T_OPEN_TAG           => \T_OPEN_TAG,
+        \T_OPEN_TAG_WITH_ECHO => \T_OPEN_TAG_WITH_ECHO,
+    ];
+
+    /**
      * DEPRECATED: Modifier keywords which can be used for a property declaration.
      *
      * @since 1.0.0-alpha1
@@ -582,11 +629,7 @@ class Collections
      */
     public static function arrayOpenTokensBC()
     {
-        return [
-            \T_ARRAY               => \T_ARRAY,
-            \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
-            \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
-        ];
+        return self::$arrayOpenTokensBC;
     }
 
     /**
@@ -699,7 +742,7 @@ class Collections
 
         // Class instantiation only.
         $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
-        $tokens               += self::ooHierarchyKeywords();
+        $tokens               += self::$OOHierarchyKeywords;
 
         return $tokens;
     }
@@ -713,11 +756,7 @@ class Collections
      */
     public static function functionDeclarationTokens()
     {
-        return [
-            \T_FUNCTION => \T_FUNCTION,
-            \T_CLOSURE  => \T_CLOSURE,
-            \T_FN       => \T_FN,
-        ];
+        return self::$functionDeclarationTokens;
     }
 
     /**
@@ -737,7 +776,7 @@ class Collections
             \sprintf('the %s::functionDeclarationTokens() method', __CLASS__)
         );
 
-        return self::functionDeclarationTokens();
+        return self::$functionDeclarationTokens;
     }
 
     /**
@@ -941,7 +980,7 @@ class Collections
         $tokens[\T_UNSET] = \T_UNSET;
 
         // Array tokens.
-        $tokens += self::arrayOpenTokensBC();
+        $tokens += self::$arrayOpenTokensBC;
 
         return $tokens;
     }
@@ -994,10 +1033,7 @@ class Collections
      */
     public static function phpOpenTags()
     {
-        return [
-            \T_OPEN_TAG           => \T_OPEN_TAG,
-            \T_OPEN_TAG_WITH_ECHO => \T_OPEN_TAG_WITH_ECHO,
-        ];
+        return self::$phpOpenTags;
     }
 
     /**
@@ -1063,7 +1099,7 @@ class Collections
     public static function returnTypeTokens()
     {
         $tokens  = self::$returnTypeTokens;
-        $tokens += self::ooHierarchyKeywords();
+        $tokens += self::$OOHierarchyKeywords;
         $tokens += self::namespacedNameTokens();
 
         return $tokens;
