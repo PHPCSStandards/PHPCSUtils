@@ -345,8 +345,7 @@ class Collections
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} or
-     *                          {@see Collections::parameterTypeTokensBC()} method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -950,20 +949,6 @@ class Collections
     /**
      * Token types which can be encountered in a parameter type declaration.
      *
-     * Sister-method to the {@see Collections::parameterTypeTokensBC()} method.
-     * This method supports PHPCS 3.3.0 and up.
-     * The {@see Collections::parameterTypeTokensBC()} method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - The {@see Collections::parameterTypeTokensBC()} method will include the `T_ARRAY_HINT` token
-     *   when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use this method instead of the {@see Collections::parameterTypeTokensBC()}
-     * method if a standard does not need to support PHPCS < 3.3.0.
-     *
-     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC() Related method (cross-version).
-     *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$parameterTypeTokens} property.
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
@@ -979,37 +964,25 @@ class Collections
     }
 
     /**
-     * Token types which can be encountered in a parameter type declaration (cross-version).
-     *
-     * Sister-method to the {@see Collections::parameterTypeTokens()} method.
-     * The {@see Collections::parameterTypeTokens()} method supports PHPCS 3.3.0 and up.
-     * This method supports PHPCS 2.6.0 and up.
-     *
-     * Notable difference:
-     * - This method will include the `T_ARRAY_HINT` token when used with PHPCS 2.x and 3.x.
-     *   This token constant will no longer exist in PHPCS 4.x.
-     *
-     * It is recommended to use {@see Collections::parameterTypeTokens()} method instead of
-     * this method if a standard does not need to support PHPCS < 3.3.0.
+     * DEPRECATED: Token types which can be encountered in a parameter type declaration (cross-version).
      *
      * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokens() Related method (PHPCS 3.3.0+).
      *
      * @since 1.0.0-alpha3
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
+     *
+     * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} method instead.
      *
      * @return array <int|string> => <int|string>
      */
     public static function parameterTypeTokensBC()
     {
-        $tokens = self::parameterTypeTokens();
+        self::triggerDeprecation(
+            __FUNCTION__,
+            '1.0.0-alpha4',
+            \sprintf('the %s::parameterTypeTokens() method', __CLASS__)
+        );
 
-        // PHPCS < 4.0; Needed for support of PHPCS < 3.3.0. As of PHPCS 3.3.0+ the constant is no longer used.
-        if (\defined('T_ARRAY_HINT') === true) {
-            $tokens[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        return $tokens;
+        return self::parameterTypeTokens();
     }
 
     /**
