@@ -11,6 +11,7 @@
 namespace PHPCSUtils\BackCompat;
 
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\InvalidTokenArray;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Tokens\TokenHelper;
 
@@ -140,6 +141,8 @@ class BCTokens
      *                     Unused as none of the methods take arguments.
      *
      * @return array <int|string> => <int|string> Token array
+     *
+     * @throws \PHPCSUtils\Exceptions\InvalidTokenArray When an invalid token array is requested.
      */
     public static function __callStatic($name, $args)
     {
@@ -147,8 +150,8 @@ class BCTokens
             return Tokens::${$name};
         }
 
-        // Default to an empty array.
-        return [];
+        // Unknown token array requested.
+        throw InvalidTokenArray::create($name);
     }
 
     /**
