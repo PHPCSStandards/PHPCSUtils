@@ -31,7 +31,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $equalityTokens = [
+    private $equalityTokens = [
         \T_IS_EQUAL            => \T_IS_EQUAL,
         \T_IS_NOT_EQUAL        => \T_IS_NOT_EQUAL,
         \T_IS_IDENTICAL        => \T_IS_IDENTICAL,
@@ -45,7 +45,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $booleanOperators = [
+    private $booleanOperators = [
         \T_BOOLEAN_AND => \T_BOOLEAN_AND,
         \T_BOOLEAN_OR  => \T_BOOLEAN_OR,
         \T_LOGICAL_AND => \T_LOGICAL_AND,
@@ -58,7 +58,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $castTokens = [
+    private $castTokens = [
         \T_INT_CAST    => \T_INT_CAST,
         \T_STRING_CAST => \T_STRING_CAST,
         \T_DOUBLE_CAST => \T_DOUBLE_CAST,
@@ -74,7 +74,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $scopeModifiers = [
+    private $scopeModifiers = [
         \T_PRIVATE   => \T_PRIVATE,
         \T_PUBLIC    => \T_PUBLIC,
         \T_PROTECTED => \T_PROTECTED,
@@ -85,7 +85,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $methodPrefixes = [
+    private $methodPrefixes = [
         \T_PRIVATE   => \T_PRIVATE,
         \T_PUBLIC    => \T_PUBLIC,
         \T_PROTECTED => \T_PROTECTED,
@@ -99,7 +99,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $blockOpeners = [
+    private $blockOpeners = [
         \T_OPEN_CURLY_BRACKET  => \T_OPEN_CURLY_BRACKET,
         \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
         \T_OPEN_PARENTHESIS    => \T_OPEN_PARENTHESIS,
@@ -111,7 +111,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $stringTokens = [
+    private $stringTokens = [
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_DOUBLE_QUOTED_STRING     => \T_DOUBLE_QUOTED_STRING,
     ];
@@ -121,7 +121,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $bracketTokens = [
+    private $bracketTokens = [
         \T_OPEN_CURLY_BRACKET   => \T_OPEN_CURLY_BRACKET,
         \T_CLOSE_CURLY_BRACKET  => \T_CLOSE_CURLY_BRACKET,
         \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
@@ -135,7 +135,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $includeTokens = [
+    private $includeTokens = [
         \T_REQUIRE_ONCE => \T_REQUIRE_ONCE,
         \T_REQUIRE      => \T_REQUIRE,
         \T_INCLUDE_ONCE => \T_INCLUDE_ONCE,
@@ -147,7 +147,7 @@ class UnchangedTokenArraysTest extends TestCase
      *
      * @var array <int|string> => <int|string>
      */
-    protected $heredocTokens = [
+    private $heredocTokens = [
         \T_START_HEREDOC => \T_START_HEREDOC,
         \T_END_HEREDOC   => \T_END_HEREDOC,
         \T_HEREDOC       => \T_HEREDOC,
