@@ -37,11 +37,6 @@ final class PropertyBasedTokenArraysTest extends TestCase
      */
     public function testPropertyBasedTokenArrays($name)
     {
-        /*
-         * While most properties are still `public`, some aren't, so we may as well set
-         * the test up to use reflection from the start, as the intention is to make
-         * all relevant properties `private`.
-         */
         $reflProp = new ReflectionProperty('PHPCSUtils\Tokens\Collections', $name);
         $reflProp->setAccessible(true);
         $expected = $reflProp->getValue();
@@ -60,6 +55,8 @@ final class PropertyBasedTokenArraysTest extends TestCase
     public function dataPropertyBasedTokenArrays()
     {
         $names = [
+            'alternativeControlStructureSyntaxes',
+            'alternativeControlStructureSyntaxClosers',
             'arrayOpenTokensBC',
             'arrayTokens',
             'arrayTokensBC',
@@ -75,6 +72,11 @@ final class PropertyBasedTokenArraysTest extends TestCase
             'namespaceDeclarationClosers',
             'nameTokens',
             'objectOperators',
+            'ooCanExtend',
+            'ooCanImplement',
+            'ooConstantScopes',
+            'ooHierarchyKeywords',
+            'ooPropertyScopes',
             'phpOpenTags',
             'propertyModifierKeywords',
             'shortArrayListOpenTokensBC',
@@ -82,6 +84,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
             'shortArrayTokensBC',
             'shortListTokens',
             'shortListTokensBC',
+            'textStringStartTokens',
         ];
 
         $data = [];
