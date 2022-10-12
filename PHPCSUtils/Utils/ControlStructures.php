@@ -194,66 +194,6 @@ final class ControlStructures
     }
 
     /**
-     * Get the scope opener and closer for a DECLARE statement.
-     *
-     * A `declare` statement can be:
-     * - applied to the rest of the file, like `declare(ticks=1);`
-     * - applied to a limited scope using curly braces;
-     * - applied to a limited scope using the alternative control structure syntax.
-     *
-     * In the first case, the statement - correctly - won't have a scope opener/closer.
-     * In the second case, the statement will have the scope opener/closer indexes.
-     * In the last case, due to a bug in the PHPCS Tokenizer, it won't have the scope opener/closer indexes,
-     * while it really should. This bug was fixed in PHPCS 3.5.4.
-     *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2843 PHPCS PR #2843
-     *
-     * @since      1.0.0
-     * @deprecated 1.0.0-alpha4 Check the scope_opener/scope_closer instead.
-     *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the token we are checking.
-     *
-     * @return array|false An array with the token pointers; or `FALSE` if not a `DECLARE` token
-     *                     or if the opener/closer could not be determined.
-     *                     The format of the array return value is:
-     *                     ```php
-     *                     array(
-     *                       'opener' => integer, // Stack pointer to the scope opener.
-     *                       'closer' => integer, // Stack pointer to the scope closer.
-     *                     )
-     *                     ```
-     */
-    public static function getDeclareScopeOpenClose(File $phpcsFile, $stackPtr)
-    {
-        \trigger_error(
-            \sprintf(
-                'The %s() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
-                . ' Check for the "scope_opener"/"scope_closer" keys instead.',
-                __METHOD__
-            ),
-            \E_USER_DEPRECATED
-        );
-
-        $tokens = $phpcsFile->getTokens();
-
-        if (isset($tokens[$stackPtr]) === false
-            || $tokens[$stackPtr]['code'] !== \T_DECLARE
-        ) {
-            return false;
-        }
-
-        if (isset($tokens[$stackPtr]['scope_opener'], $tokens[$stackPtr]['scope_closer']) === true) {
-            return [
-                'opener' => $tokens[$stackPtr]['scope_opener'],
-                'closer' => $tokens[$stackPtr]['scope_closer'],
-            ];
-        }
-
-        return false;
-    }
-
-    /**
      * Retrieve the exception(s) being caught in a CATCH condition.
      *
      * @since 1.0.0-alpha3
