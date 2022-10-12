@@ -10,48 +10,24 @@
 
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\TextStrings;
 
 /**
- * Tests for the \PHPCSUtils\Utils\TextStrings::getDoubleQuotedString() method covering a specific tokenizer
+ * Tests for the \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString() method covering a specific tokenizer
  * issue as reported upstream in {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3604 PHPCS 3604}.
  *
- * @covers \PHPCSUtils\Utils\TextStrings::getEndOfDoubleQuotedString
+ * {@internal The exceptions thrown by the method are tested in the `GetCompleteTextStringTest` class.}
+ *
+ * @covers \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString
  *
  * @group textstrings
  *
  * @since 1.0.0
  */
-class GetEndOfDoubleQuotedStringTest extends UtilityMethodTestCase
+class GetEndOfCompleteTextStringTest extends UtilityMethodTestCase
 {
-
-    /**
-     * Test passing a non-existent token pointer.
-     *
-     * @return void
-     */
-    public function testNonExistentToken()
-    {
-        $this->expectPhpcsException('$stackPtr must be of type T_DOUBLE_QUOTED_STRING');
-
-        TextStrings::getEndOfDoubleQuotedString(self::$phpcsFile, 100000);
-    }
-
-    /**
-     * Test receiving an expected exception when a non text string is passed.
-     *
-     * @return void
-     */
-    public function testNotATextStringException()
-    {
-        $this->expectPhpcsException('$stackPtr must be of type T_DOUBLE_QUOTED_STRING');
-
-        $next = $this->getTargetToken('/* testNotDoubleQuotedString */', \T_CONSTANT_ENCAPSED_STRING);
-        TextStrings::getEndOfDoubleQuotedString(self::$phpcsFile, $next);
-    }
 
     /**
      * Test correctly retrieving the contents of a double quoted text string with potentially problematic
@@ -67,7 +43,7 @@ class GetEndOfDoubleQuotedStringTest extends UtilityMethodTestCase
     public function testGetEndOfDoubleQuotedString($testMarker, $expectedContent)
     {
         $stackPtr = $this->getTargetToken($testMarker, \T_DOUBLE_QUOTED_STRING);
-        $result   = TextStrings::getEndOfDoubleQuotedString(self::$phpcsFile, $stackPtr);
+        $result   = TextStrings::getEndOfCompleteTextString(self::$phpcsFile, $stackPtr);
 
         $this->assertSame($expectedContent, GetTokensAsString::normal(self::$phpcsFile, $stackPtr, $result));
     }
@@ -81,7 +57,7 @@ class GetEndOfDoubleQuotedStringTest extends UtilityMethodTestCase
      */
     public function dataGetEndOfDoubleQuotedString()
     {
-        $data = [
+        return [
             'Simple embedded variable 1' => [
                 'testMarker'      => '/* testSimple1 */',
                 'expectedContent' => '"$foo"',
@@ -169,13 +145,13 @@ class GetEndOfDoubleQuotedStringTest extends UtilityMethodTestCase
             'Problem embed at end of line in multi-line text string' => [
                 'testMarker'      => '/* testProblemEmbedAtEndOfLineInMultiLineString */',
                 'expectedContent' => '"Testing ${foo["${bar[\'baz\']}"]}
-',
+and more testing"',
             ],
             'Multi-line problem embed in multi-line text string' => [
                 'testMarker'      => '/* testMultilineProblemEmbedInMultiLineString */',
                 'expectedContent' => '"Testing ${foo["${bar
   [\'baz\']
-}',
+}"]} and more testing"',
             ],
 
             'Parse error at end of file' => [
@@ -184,13 +160,5 @@ class GetEndOfDoubleQuotedStringTest extends UtilityMethodTestCase
 ',
             ],
         ];
-
-        $version = Helper::getVersion();
-        if (\version_compare($version, '3.7.0', '>=') === true) {
-            $data['Multi-line problem embed in multi-line text string']['expectedContent'] = '"Testing ${foo["${bar
-';
-        }
-
-        return $data;
     }
 }
