@@ -777,22 +777,6 @@ final class Collections
     }
 
     /**
-     * DEPRECATED: Tokens which can represent the arrow function keyword.
-     *
-     * @since 1.0.0-alpha2
-     *
-     * @deprecated 1.0.0-alpha4 Use the `T_FN` token constant instead.
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function arrowFunctionTokensBC()
-    {
-        self::triggerDeprecation(__FUNCTION__, '1.0.0-alpha4', 'the `T_FN` token');
-
-        return [\T_FN => \T_FN];
-    }
-
-    /**
      * Tokens which can represent function calls and function-call-like language constructs.
      *
      * @see \PHPCSUtils\Tokens\Collections::parameterPassingTokens() Related method.
@@ -812,26 +796,6 @@ final class Collections
         $tokens               += self::$OOHierarchyKeywords;
 
         return $tokens;
-    }
-
-    /**
-     * DEPRECATED: Tokens which represent a keyword which starts a function declaration.
-     *
-     * @since 1.0.0-alpha3
-     *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::functionDeclarationTokens()} method instead.
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function functionDeclarationTokensBC()
-    {
-        self::triggerDeprecation(
-            __FUNCTION__,
-            '1.0.0-alpha4',
-            \sprintf('the %s::functionDeclarationTokens() method', __CLASS__)
-        );
-
-        return self::$functionDeclarationTokens;
     }
 
     /**
@@ -971,28 +935,6 @@ final class Collections
     }
 
     /**
-     * DEPRECATED: Token types which can be encountered in a parameter type declaration (cross-version).
-     *
-     * @see \PHPCSUtils\Tokens\Collections::parameterTypeTokens() Related method (PHPCS 3.3.0+).
-     *
-     * @since 1.0.0-alpha3
-     *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} method instead.
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function parameterTypeTokensBC()
-    {
-        self::triggerDeprecation(
-            __FUNCTION__,
-            '1.0.0-alpha4',
-            \sprintf('the %s::parameterTypeTokens() method', __CLASS__)
-        );
-
-        return self::parameterTypeTokens();
-    }
-
-    /**
      * Token types which can be encountered in a property type declaration.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
@@ -1009,28 +951,6 @@ final class Collections
         $tokens += self::namespacedNameTokens();
 
         return $tokens;
-    }
-
-    /**
-     * DEPRECATED: Token types which can be encountered in a property type declaration (cross-version).
-     *
-     * @see \PHPCSUtils\Tokens\Collections::propertyTypeTokens() Related method (PHPCS 3.3.0+).
-     *
-     * @since 1.0.0-alpha3
-     *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} method instead.
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function propertyTypeTokensBC()
-    {
-        self::triggerDeprecation(
-            __FUNCTION__,
-            '1.0.0-alpha4',
-            \sprintf('the %s::propertyTypeTokens() method', __CLASS__)
-        );
-
-        return self::propertyTypeTokens();
     }
 
     /**
@@ -1051,28 +971,6 @@ final class Collections
         $tokens += self::namespacedNameTokens();
 
         return $tokens;
-    }
-
-    /**
-     * DEPRECATED: Token types which can be encountered in a return type declaration (cross-version).
-     *
-     * @see \PHPCSUtils\Tokens\Collections::returnTypeTokens() Related method (PHPCS 3.3.0+).
-     *
-     * @since 1.0.0-alpha3
-     *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} method instead.
-     *
-     * @return array <int|string> => <int|string>
-     */
-    public static function returnTypeTokensBC()
-    {
-        self::triggerDeprecation(
-            __FUNCTION__,
-            '1.0.0-alpha4',
-            \sprintf('the %s::returnTypeTokens() method', __CLASS__)
-        );
-
-        return self::returnTypeTokens();
     }
 
     /**
