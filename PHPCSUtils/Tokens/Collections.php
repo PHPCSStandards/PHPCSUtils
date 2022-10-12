@@ -468,21 +468,6 @@ final class Collections
     ];
 
     /**
-     * DEPRECATED: Tokens types which can be encountered in the fully/partially qualified name of an OO structure.
-     *
-     * @since 1.0.0-alpha3
-     *
-     * @deprecated 1.0.0-alpha4 Use the {@see Collections::namespacedNameTokens()} method instead.
-     *
-     * @var array <int|string> => <int|string>
-     */
-    public static $OONameTokens = [
-        \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-        \T_STRING       => \T_STRING,
-        \T_NAMESPACE    => \T_NAMESPACE,
-    ];
-
-    /**
      * DEPRECATED: OO scopes in which properties can be declared.
      *
      * Note: interfaces can not declare properties.
