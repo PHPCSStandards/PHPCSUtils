@@ -175,17 +175,14 @@ $closure = function() use /*comment*/ ($varA, &$varB){};
 /* testArrowFunctionReturnByReference */
 fn&($x) => $x;
 
-/* testClosureReturnByReference */
-$closure = function &($param) use ($value) {};
-
 $closure = function (
-    /* testPassByReferenceExactParameterA */
+    /* testBitwiseAndExactParameterA */
     $a = MY_CONSTANT & parent::OTHER_CONSTANT,
     /* testPassByReferenceExactParameterB */
     &$b,
     /* testPassByReferenceExactParameterC */
     &...$c,
-    /* testPassByReferenceExactParameterD */
+    /* testBitwiseAndExactParameterD */
     $d = E_NOTICE & E_STRICT,
 ) {};
 
@@ -196,5 +193,8 @@ $fn = fn(array &$one) => 1;
 /* testArrowFunctionPassByReferenceB */
 $fn = fn($param, &...$moreParams) => 1;
 
-/* testArrowFunctionNonReferenceInDefault */
+/* testClosureReturnByReference */
+$closure = function &($param) use ($value) {};
+
+/* testBitwiseAndArrowFunctionInDefault */
 $fn = fn( $one = E_NOTICE & E_STRICT) => 1;
