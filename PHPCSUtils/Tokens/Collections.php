@@ -346,27 +346,6 @@ final class Collections
     ];
 
     /**
-     * DEPRECATED: Tokens for the PHP magic constants.
-     *
-     * @since 1.0.0-alpha3
-     *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHP_CodeSniffer\Util\Tokens::$magicConstants} property
-     *                          or the {@see \PHPCSUtils\BackCompat\BCTokens::magicConstants()} method instead.
-     *
-     * @var array <int|string> => <int|string>
-     */
-    public static $magicConstants = [
-        \T_CLASS_C  => \T_CLASS_C,
-        \T_DIR      => \T_DIR,
-        \T_FILE     => \T_FILE,
-        \T_FUNC_C   => \T_FUNC_C,
-        \T_LINE     => \T_LINE,
-        \T_METHOD_C => \T_METHOD_C,
-        \T_NS_C     => \T_NS_C,
-        \T_TRAIT_C  => \T_TRAIT_C,
-    ];
-
-    /**
      * DEPRECATED: List of tokens which can end a namespace declaration statement.
      *
      * @since 1.0.0-alpha1
