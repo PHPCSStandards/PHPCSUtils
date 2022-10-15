@@ -519,8 +519,9 @@ class GetParametersNamedTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
-            'named-args-compile-error-incorrect-order-variadic' => [
-                'testMarker' => '/* testCompileErrorIncorrectOrderWithVariadic */',
+            // Prior to PHP 8.1, this was a compile error, but this is now supported.
+            'named-args-after-variadic' => [
+                'testMarker' => '/* testPHP81NamedParamAfterVariadic */',
                 'targetType' => \T_STRING,
                 'expected'   => [
                     1 => [
