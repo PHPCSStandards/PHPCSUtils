@@ -25,7 +25,6 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodParameters method.
@@ -73,11 +72,11 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             ],
             'function-call-fn-phpcs-3.5.3-3.5.4' => [
                 '/* testFunctionCallFnPHPCS353-354 */',
-                Collections::arrowFunctionTokensBC(),
+                [T_FN, T_STRING],
             ],
             'fn-live-coding' => [
                 '/* testArrowFunctionLiveCoding */',
-                Collections::arrowFunctionTokensBC(),
+                [T_FN, T_STRING],
             ],
         ];
     }
@@ -123,11 +122,11 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @param string $commentString   The comment which preceeds the test.
      * @param array  $targetTokenType Optional. The token type to search for after $commentString.
-     *                                Defaults to the function/closure tokens.
+     *                                Defaults to the function/closure/arrow tokens.
      *
      * @return void
      */
-    public function testNoParams($commentString, $targetTokenType = [T_FUNCTION, T_CLOSURE])
+    public function testNoParams($commentString, $targetTokenType = [T_FUNCTION, T_CLOSURE, \T_FN])
     {
         $target = $this->getTargetToken($commentString, $targetTokenType);
         $result = BCFile::getMethodParameters(self::$phpcsFile, $target);
@@ -481,9 +480,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -509,9 +506,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -1127,9 +1122,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -1383,9 +1376,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'comma_token'         => false,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -1443,7 +1434,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
-     * Verify recognition of PHP8 union type declaration with all pseudo types..
+     * Verify recognition of PHP8 union type declaration with all pseudo types.
      *
      * Note: "Resource" is not a type, but seen as a class name.
      *
@@ -1979,16 +1970,16 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     /**
      * Test helper.
      *
-     * @param string $commentString The comment which preceeds the test.
-     * @param array  $expected      The expected function output.
-     * @param array  $targetType    Optional. The token type to search for after $commentString.
-     *                              Defaults to the function/closure tokens.
+     * @param string $marker     The comment which preceeds the test.
+     * @param array  $expected   The expected function output.
+     * @param array  $targetType Optional. The token type to search for after $marker.
+     *                           Defaults to the function/closure/arrow tokens.
      *
      * @return void
      */
-    protected function getMethodParametersTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
+    protected function getMethodParametersTestHelper($marker, $expected, $targetType = [T_FUNCTION, T_CLOSURE, T_FN])
     {
-        $target = $this->getTargetToken($commentString, $targetType);
+        $target = $this->getTargetToken($marker, $targetType);
         $found  = BCFile::getMethodParameters(self::$phpcsFile, $target);
 
         foreach ($expected as $key => $param) {

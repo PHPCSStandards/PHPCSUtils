@@ -1,6 +1,8 @@
 <?php
 
-namespace PHP_CodeSniffer\Tests\Core\File;
+/* testTokenizerIssue1971PHPCSlt330gt271A */
+// This has to be the first test in the file!
+[&$a, [$b, /* testTokenizerIssue1971PHPCSlt330gt271B */ &$c]] = $array;
 
 /* testBitwiseAndA */
 error_reporting( E_NOTICE & E_STRICT );
@@ -198,3 +200,11 @@ $closure = function &($param) use ($value) {};
 
 /* testBitwiseAndArrowFunctionInDefault */
 $fn = fn( $one = E_NOTICE & E_STRICT) => 1;
+
+/* testTokenizerIssue1284PHPCSlt280A */
+if ($foo) {}
+[&$a, /* testTokenizerIssue1284PHPCSlt280B */ &$b] = $c;
+
+/* testTokenizerIssue1284PHPCSlt280C */
+if ($foo) {}
+[&$a, $b];

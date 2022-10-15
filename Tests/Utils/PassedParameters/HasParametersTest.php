@@ -173,8 +173,7 @@ class HasParametersTest extends UtilityMethodTestCase
             ],
             'no-params-function-call-5-new-self' => [
                 'testMarker' => '/* testNoParamsFunctionCall5 */',
-                // In PHPCS < 2.8.0, self in "new self" is tokenized as T_STRING.
-                'targetType' => [\T_SELF, \T_STRING],
+                'targetType' => \T_SELF,
                 'expected'   => false,
             ],
             'no-params-function-call-6-new-static' => [
@@ -184,8 +183,7 @@ class HasParametersTest extends UtilityMethodTestCase
             ],
             'no-params-function-call-7-new-parent' => [
                 'testMarker' => '/* testNoParamsFunctionCall7 */',
-                // In PHPCS < 3.7.0, parent in "new parent" is tokenized as T_STRING.
-                'targetType' => [\T_PARENT, \T_STRING],
+                'targetType' => \T_PARENT,
                 'expected'   => false,
             ],
 
@@ -201,8 +199,7 @@ class HasParametersTest extends UtilityMethodTestCase
             ],
             'has-params-function-call-3-new-self' => [
                 'testMarker' => '/* testHasParamsFunctionCall3 */',
-                // In PHPCS < 2.8.0, self in "new self" is tokenized as T_STRING.
-                'targetType' => [\T_SELF, \T_STRING],
+                'targetType' => \T_SELF,
                 'expected'   => true,
             ],
             'has-params-function-call-4-new-static' => [
@@ -212,8 +209,7 @@ class HasParametersTest extends UtilityMethodTestCase
             ],
             'has-params-function-call-5-new-parent' => [
                 'testMarker' => '/* testHasParamsFunctionCall5 */',
-                // In PHPCS < 3.7.0, parent in "new parent" is tokenized as T_STRING.
-                'targetType' => [\T_PARENT, \T_STRING],
+                'targetType' => \T_PARENT,
                 'expected'   => true,
             ],
             'has-params-function-call-6-self-as-method-name' => [

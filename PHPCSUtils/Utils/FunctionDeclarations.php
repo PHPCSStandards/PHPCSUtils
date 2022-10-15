@@ -13,9 +13,6 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
-use PHPCSUtils\BackCompat\Helper;
-use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
@@ -25,12 +22,13 @@ use PHPCSUtils\Utils\UseStatements;
 /**
  * Utility functions for use when examining function declaration statements.
  *
- * @since 1.0.0 The `FunctionDeclarations::getProperties()` and the
- *              `FunctionDeclarations::getParameters()` methods are based on and
- *              inspired by respectively the `getMethodProperties()`
- *              and `getMethodParameters()` methods in the PHPCS native
- *              `PHP_CodeSniffer\Files\File` class.
- *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0        The `FunctionDeclarations::getProperties()` and the
+ *                     `FunctionDeclarations::getParameters()` methods are based on and
+ *                     inspired by respectively the `getMethodProperties()`
+ *                     and `getMethodParameters()` methods in the PHPCS native
+ *                     `PHP_CodeSniffer\Files\File` class.
+ *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class FunctionDeclarations
 {
@@ -114,25 +112,6 @@ class FunctionDeclarations
     ];
 
     /**
-     * Tokens which can be the end token of an arrow function.
-     *
-     * @since 1.0.0
-     *
-     * @var array <int|string> => <true>
-     */
-    private static $arrowFunctionEndTokens = [
-        \T_COLON                => true,
-        \T_COMMA                => true,
-        \T_SEMICOLON            => true,
-        \T_CLOSE_PARENTHESIS    => true,
-        \T_CLOSE_SQUARE_BRACKET => true,
-        \T_CLOSE_CURLY_BRACKET  => true,
-        \T_CLOSE_SHORT_ARRAY    => true,
-        \T_OPEN_TAG             => true,
-        \T_CLOSE_TAG            => true,
-    ];
-
-    /**
      * Returns the declaration name for a function.
      *
      * Alias for the {@see \PHPCSUtils\Utils\ObjectDeclarations::getName()} method.
@@ -168,15 +147,13 @@ class FunctionDeclarations
      *      parse errors or live coding.
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
-     * - To allow for backward compatible handling of arrow functions, this method will also accept
-     *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      *
@@ -209,13 +186,10 @@ class FunctionDeclarations
      */
     public static function getProperties(File $phpcsFile, $stackPtr)
     {
-        $tokens         = $phpcsFile->getTokens();
-        $arrowOpenClose = self::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
+        $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
-            || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
-                && $tokens[$stackPtr]['code'] !== \T_CLOSURE
-                && $arrowOpenClose === false)
+            || isset(Collections::functionDeclarationTokens()[$tokens[$stackPtr]['code']]) === false
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or an arrow function');
         }
@@ -269,23 +243,17 @@ class FunctionDeclarations
         $returnTypeEndToken = false;
         $nullableReturnType = false;
         $hasBody            = false;
-        $returnTypeTokens   = Collections::returnTypeTokensBC();
+        $returnTypeTokens   = Collections::returnTypeTokens();
 
         $parenthesisCloser = null;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
             $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
-        } elseif ($arrowOpenClose !== false) {
-            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
-            $parenthesisCloser = $arrowOpenClose['parenthesis_closer'];
         }
 
         if (isset($parenthesisCloser) === true) {
             $scopeOpener = null;
             if (isset($tokens[$stackPtr]['scope_opener']) === true) {
                 $scopeOpener = $tokens[$stackPtr]['scope_opener'];
-            } elseif ($arrowOpenClose !== false) {
-                // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3.
-                $scopeOpener = $arrowOpenClose['scope_opener'];
             }
 
             for ($i = $parenthesisCloser; $i < $phpcsFile->numTokens; $i++) {
@@ -300,23 +268,7 @@ class FunctionDeclarations
                     break;
                 }
 
-                /*
-                 * Work-around for a scope map tokenizer bug in PHPCS.
-                 * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
-                 */
-                if ($scopeOpener === null && $tokens[$i]['code'] === \T_OPEN_CURLY_BRACKET) {
-                    // End of function definition for which the scope opener is incorrectly not set.
-                    $hasBody = true;
-                    break;
-                }
-
-                if ($tokens[$i]['type'] === 'T_NULLABLE'
-                    // Handle nullable tokens in PHPCS < 2.8.0.
-                    || (\defined('T_NULLABLE') === false && $tokens[$i]['code'] === \T_INLINE_THEN)
-                    // Handle nullable tokens with arrow functions in PHPCS 2.8.0 - 2.9.0.
-                    || ($arrowOpenClose !== false && $tokens[$i]['code'] === \T_INLINE_THEN
-                        && \version_compare(Helper::getVersion(), '2.9.1', '<') === true)
-                ) {
+                if ($tokens[$i]['code'] === \T_NULLABLE) {
                     $nullableReturnType = true;
                 }
 
@@ -397,15 +349,13 @@ class FunctionDeclarations
      * - More efficient and more stable checking whether a `T_USE` token is a closure use.
      * - More efficient and more stable looping of the default value.
      * - Clearer exception message when a non-closure use token was passed to the function.
-     * - To allow for backward compatible handling of arrow functions, this method will also accept
-     *   `T_STRING` tokens and examine them to check if these are arrow functions.
      * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 constructor property promotion.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
@@ -424,14 +374,11 @@ class FunctionDeclarations
      */
     public static function getParameters(File $phpcsFile, $stackPtr)
     {
-        $tokens         = $phpcsFile->getTokens();
-        $arrowOpenClose = self::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
+        $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
-            || ($tokens[$stackPtr]['code'] !== \T_FUNCTION
-                && $tokens[$stackPtr]['code'] !== \T_CLOSURE
-                && $tokens[$stackPtr]['code'] !== \T_USE
-                && $arrowOpenClose === false)
+            || (isset(Collections::functionDeclarationTokens()[$tokens[$stackPtr]['code']]) === false
+                && $tokens[$stackPtr]['code'] !== \T_USE)
         ) {
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
         }
@@ -445,9 +392,6 @@ class FunctionDeclarations
             ) {
                 throw new RuntimeException('$stackPtr was not a valid closure T_USE');
             }
-        } elseif ($arrowOpenClose !== false) {
-            // Arrow function in combination with PHP < 7.4 or PHPCS < 3.5.3/4/5.
-            $opener = $arrowOpenClose['parenthesis_opener'];
         } else {
             if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {
                 // Live coding or syntax error, so no params to find.
@@ -481,60 +425,48 @@ class FunctionDeclarations
         $visibilityToken  = null;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
-            // Changed from checking 'code' to 'type' to allow for T_NULLABLE not existing in PHPCS < 2.8.0.
-            switch ($tokens[$i]['type']) {
-                case 'T_BITWISE_AND':
+            if (isset(Collections::parameterTypeTokens()[$tokens[$i]['code']]) === true
+                // Self and parent are valid, static invalid, but was probably intended as type declaration.
+                || $tokens[$i]['code'] === \T_STATIC
+            ) {
+                if ($typeHintToken === false) {
+                    $typeHintToken = $i;
+                }
+
+                $typeHint        .= $tokens[$i]['content'];
+                $typeHintEndToken = $i;
+                continue;
+            }
+
+            switch ($tokens[$i]['code']) {
+                case \T_BITWISE_AND:
                     $passByReference = true;
                     $referenceToken  = $i;
                     break;
 
-                case 'T_VARIABLE':
+                case \T_VARIABLE:
                     $currVar = $i;
                     break;
 
-                case 'T_ELLIPSIS':
+                case \T_ELLIPSIS:
                     $variableLength = true;
                     $variadicToken  = $i;
                     break;
 
-                case 'T_ARRAY_HINT': // PHPCS < 3.3.0.
-                case 'T_CALLABLE':
-                case 'T_SELF':
-                case 'T_PARENT':
-                case 'T_STATIC': // Self and parent are valid, static invalid, but was probably intended as type hint.
-                case 'T_FALSE': // Union types.
-                case 'T_NULL': // Union types.
-                case 'T_STRING':
-                case 'T_NAMESPACE':
-                case 'T_NS_SEPARATOR':
-                case 'T_NAME_QUALIFIED':
-                case 'T_NAME_FULLY_QUALIFIED':
-                case 'T_NAME_RELATIVE':
-                case 'T_BITWISE_OR': // Union type separator PHPCS < 3.6.0.
-                case 'T_TYPE_UNION': // Union type separator PHPCS >= 3.6.0.
-                    if ($typeHintToken === false) {
-                        $typeHintToken = $i;
-                    }
-
-                    $typeHint        .= $tokens[$i]['content'];
-                    $typeHintEndToken = $i;
-                    break;
-
-                case 'T_NULLABLE':
-                case 'T_INLINE_THEN': // PHPCS < 2.8.0.
+                case \T_NULLABLE:
                     $nullableType     = true;
                     $typeHint        .= $tokens[$i]['content'];
                     $typeHintEndToken = $i;
                     break;
 
-                case 'T_PUBLIC':
-                case 'T_PROTECTED':
-                case 'T_PRIVATE':
+                case \T_PUBLIC:
+                case \T_PROTECTED:
+                case \T_PRIVATE:
                     $visibilityToken = $i;
                     break;
 
-                case 'T_CLOSE_PARENTHESIS':
-                case 'T_COMMA':
+                case \T_CLOSE_PARENTHESIS:
+                case \T_COMMA:
                     // If it's null, then there must be no parameters for this
                     // method.
                     if ($currVar === null) {
@@ -594,7 +526,7 @@ class FunctionDeclarations
                     ++$paramCount;
                     break;
 
-                case 'T_EQUAL':
+                case \T_EQUAL:
                     $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
                     $equalToken   = $i;
 
@@ -635,26 +567,12 @@ class FunctionDeclarations
      * Check if an arbitrary token is the "fn" keyword for a PHP 7.4 arrow function.
      *
      * Helper function for cross-version compatibility with both PHP as well as PHPCS.
-     * - PHP 7.4+ will tokenize most tokens with the content "fn" as `T_FN`, even when it isn't an arrow function.
-     * - PHPCS < 3.5.3 will tokenize arrow functions keywords as `T_STRING`.
-     * - PHPCS 3.5.3/3.5.4 will tokenize the keyword differently depending on which PHP version is used
-     *   and similar to PHP will tokenize most tokens with the content "fn" as `T_FN`, even when it's not an
-     *   arrow function.
-     *   > Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as `T_FN` are not 100% the same as those tokenized
-     *   by PHP 7.4+ as `T_FN`.
-     *
-     * Either way, the `T_FN` token is not a reliable search vector for finding or examining
-     * arrow functions, at least not until PHPCS 3.5.5.
-     * This function solves that and will give reliable results in the same way as this is now
-     * solved in PHPCS 3.5.5.
-     *
-     * > Note: Bugs are still being found and reported about how PHPCS tokenizes the arrow functions.
-     * This method will keep up with upstream changes and backport them, in as far possible, to allow
-     * for sniffing arrow functions in PHPCS < current.
+     * As of PHPCS 3.5.6, this function is no longer be needed.
      *
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose() Related function.
      *
-     * @since 1.0.0
+     * @since      1.0.0
+     * @deprecated 1.0.0-alpha4 Use the T_FN token constant instead.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The token to check. Typically a T_FN or
@@ -666,25 +584,22 @@ class FunctionDeclarations
      */
     public static function isArrowFunction(File $phpcsFile, $stackPtr)
     {
+        \trigger_error(
+            \sprintf(
+                'The %s() function is deprecated since PHPCSUtils 1.0.0-alpha4. Use the `T_FN` token instead.',
+                __METHOD__
+            ),
+            \E_USER_DEPRECATED
+        );
+
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]) === false) {
             return false;
         }
 
-        if ($tokens[$stackPtr]['type'] === 'T_FN'
+        if ($tokens[$stackPtr]['code'] === \T_FN
             && isset($tokens[$stackPtr]['scope_closer']) === true
         ) {
-            return true;
-        }
-
-        if (isset(Collections::arrowFunctionTokensBC()[$tokens[$stackPtr]['code']]) === false
-            || \strtolower($tokens[$stackPtr]['content']) !== 'fn'
-        ) {
-            return false;
-        }
-
-        $openClose = self::getArrowFunctionOpenClose($phpcsFile, $stackPtr);
-        if ($openClose !== false && isset($openClose['scope_closer'])) {
             return true;
         }
 
@@ -696,14 +611,12 @@ class FunctionDeclarations
      * for an arrow function.
      *
      * Helper function for cross-version compatibility with both PHP as well as PHPCS.
-     * In PHPCS versions prior to PHPCS 3.5.3/3.5.4, the `T_FN` token is not yet backfilled
-     * and does not have parenthesis opener/closer nor scope opener/closer indexes assigned
-     * in the `$tokens` array.
+     * As of PHPCS 3.5.6, this function is no longer be needed.
      *
      * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction() Related function.
      *
-     * @since 1.0.0
-     * @since 1.0.0-alpha4 Handling of PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
+     * @since      1.0.0
+     * @deprecated 1.0.0-alpha4 Use the T_FN token constant instead.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The token to retrieve the openers/closers for.
@@ -723,19 +636,23 @@ class FunctionDeclarations
      */
     public static function getArrowFunctionOpenClose(File $phpcsFile, $stackPtr)
     {
+        \trigger_error(
+            \sprintf(
+                'The %s() function is deprecated since PHPCSUtils 1.0.0-alpha4. Use the `T_FN` token instead.',
+                __METHOD__
+            ),
+            \E_USER_DEPRECATED
+        );
+
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::arrowFunctionTokensBC()[$tokens[$stackPtr]['code']]) === false
-            || \strtolower($tokens[$stackPtr]['content']) !== 'fn'
+            || $tokens[$stackPtr]['code'] !== \T_FN
         ) {
             return false;
         }
 
-        if ($tokens[$stackPtr]['type'] === 'T_FN'
-            && isset($tokens[$stackPtr]['scope_closer']) === true
-            && \version_compare(Helper::getVersion(), '3.5.4', '>') === true
-        ) {
+        if (isset($tokens[$stackPtr]['scope_closer']) === true) {
             // The keys will either all be set or none will be set, so no additional checks needed.
             return [
                 'parenthesis_opener' => $tokens[$stackPtr]['parenthesis_opener'],
@@ -745,137 +662,7 @@ class FunctionDeclarations
             ];
         }
 
-        /*
-         * This is either a T_STRING token pre-PHP 7.4, or T_FN on PHP 7.4 in combination
-         * with PHPCS < 3.5.3/4/5.
-         *
-         * Now see about finding the relevant arrow function tokens.
-         */
-        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
-            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
-        }
-
-        $returnValue = [];
-
-        $nextNonEmpty = $phpcsFile->findNext(
-            (Tokens::$emptyTokens + [\T_BITWISE_AND]),
-            ($stackPtr + 1),
-            null,
-            true
-        );
-        if ($nextNonEmpty === false || $tokens[$nextNonEmpty]['code'] !== \T_OPEN_PARENTHESIS) {
-            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-            return false;
-        }
-
-        $returnValue['parenthesis_opener'] = $nextNonEmpty;
-        if (isset($tokens[$nextNonEmpty]['parenthesis_closer']) === false) {
-            // Shouldn't be possible, but just in case.
-            // @codeCoverageIgnoreStart
-            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-            return false;
-            // @codeCoverageIgnoreEnd
-        }
-
-        $returnValue['parenthesis_closer'] = $tokens[$nextNonEmpty]['parenthesis_closer'];
-
-        $ignore                 = Tokens::$emptyTokens;
-        $ignore                += Collections::returnTypeTokensBC();
-        $ignore[\T_COLON]       = \T_COLON;
-        $ignore[\T_INLINE_ELSE] = \T_INLINE_ELSE; // Return type colon on PHPCS < 2.9.1.
-        $ignore[\T_INLINE_THEN] = \T_INLINE_THEN; // Nullable type indicator on PHPCS < 2.9.1.
-
-        if (\defined('T_NULLABLE') === true) {
-            $ignore[\T_NULLABLE] = \T_NULLABLE;
-        }
-
-        $arrow = $phpcsFile->findNext(
-            $ignore,
-            ($tokens[$nextNonEmpty]['parenthesis_closer'] + 1),
-            null,
-            true
-        );
-
-        if ($arrow === false
-            || ($tokens[$arrow]['code'] !== \T_DOUBLE_ARROW && $tokens[$arrow]['type'] !== 'T_FN_ARROW')
-        ) {
-            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-            return false;
-        }
-
-        $returnValue['scope_opener'] = $arrow;
-        $inTernary                   = false;
-        $lastEndToken                = null;
-
-        for ($scopeCloser = ($arrow + 1); $scopeCloser < $phpcsFile->numTokens; $scopeCloser++) {
-            if (isset(self::$arrowFunctionEndTokens[$tokens[$scopeCloser]['code']]) === true
-                // BC for misidentified ternary else in some PHPCS versions.
-                && ($tokens[$scopeCloser]['code'] !== \T_COLON || $inTernary === false)
-            ) {
-                if ($lastEndToken !== null
-                    && $tokens[$scopeCloser]['code'] === \T_CLOSE_PARENTHESIS
-                    && $tokens[$scopeCloser]['parenthesis_opener'] < $arrow
-                ) {
-                    $scopeCloser = $lastEndToken;
-                }
-
-                break;
-            }
-
-            if (isset(Collections::arrowFunctionTokensBC()[$tokens[$scopeCloser]['code']]) === true) {
-                $nested = self::getArrowFunctionOpenClose($phpcsFile, $scopeCloser);
-                if ($nested !== false && isset($nested['scope_closer'])) {
-                    // We minus 1 here in case the closer can be shared with us.
-                    $scopeCloser = ($nested['scope_closer'] - 1);
-                    continue;
-                }
-            }
-
-            if (isset($tokens[$scopeCloser]['scope_closer']) === true
-                && $tokens[$scopeCloser]['code'] !== \T_INLINE_ELSE
-                && $tokens[$scopeCloser]['code'] !== \T_END_HEREDOC
-                && $tokens[$scopeCloser]['code'] !== \T_END_NOWDOC
-            ) {
-                // We minus 1 here in case the closer can be shared with us.
-                $scopeCloser = ($tokens[$scopeCloser]['scope_closer'] - 1);
-                continue;
-            }
-
-            if (isset($tokens[$scopeCloser]['parenthesis_closer']) === true) {
-                $scopeCloser  = $tokens[$scopeCloser]['parenthesis_closer'];
-                $lastEndToken = $scopeCloser;
-                continue;
-            }
-
-            if (isset($tokens[$scopeCloser]['bracket_closer']) === true) {
-                $scopeCloser  = $tokens[$scopeCloser]['bracket_closer'];
-                $lastEndToken = $scopeCloser;
-                continue;
-            }
-
-            if ($tokens[$scopeCloser]['code'] === \T_INLINE_THEN) {
-                $inTernary = true;
-                continue;
-            }
-
-            if ($tokens[$scopeCloser]['code'] === \T_INLINE_ELSE) {
-                if ($inTernary === false) {
-                    break;
-                }
-
-                $inTernary = false;
-            }
-        }
-
-        if ($scopeCloser === $phpcsFile->numTokens) {
-            Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-            return false;
-        }
-
-        $returnValue['scope_closer'] = $scopeCloser;
-
-        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
-        return $returnValue;
+        return [];
     }
 
     /**
@@ -992,7 +779,7 @@ class FunctionDeclarations
             return false;
         }
 
-        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, BCTokens::ooScopeTokens());
+        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, Tokens::$ooScopeTokens);
         if ($scopePtr === false) {
             return false;
         }

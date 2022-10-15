@@ -221,9 +221,7 @@ class SpacesFixerNoSpaceTest extends UtilityMethodTestCase
         $expectedMessage = \sprintf(static::MSG, static::MSG_REPLACEMENT_1, $expected['found']);
         $this->assertSame($expectedMessage, $messages[0]['message'], 'Message comparison failed');
 
-        // PHPCS 2.x places `unknownSniff.` before the actual error code for utility tests with a dummy error code.
-        $errorCodeResult = \str_replace('unknownSniff.', '', $messages[0]['source']);
-        $this->assertSame(static::CODE, $errorCodeResult, 'Error code comparison failed');
+        $this->assertSame(static::CODE, $messages[0]['source'], 'Error code comparison failed');
 
         $this->assertSame($expected['fixable'], $messages[0]['fixable'], 'Fixability comparison failed');
 

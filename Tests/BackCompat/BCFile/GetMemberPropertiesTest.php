@@ -70,6 +70,9 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
             $expected['type_end_token'] += $variable;
         }
 
+        // Temporarily ignore the `is_readonly` key until support for readonly properties has been synced.
+        unset($result['is_readonly']);
+
         $this->assertSame($expected, $result);
     }
 

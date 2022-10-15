@@ -13,17 +13,16 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPCSUtils\Utils\Lists;
 
 /**
  * Utility functions for use when examining arrays.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class Arrays
 {
@@ -31,18 +30,19 @@ class Arrays
     /**
      * The tokens to target to find the double arrow in an array item.
      *
-     * Note: this array does not contain the `T_FN` token as it may or may not exist.
-     * If it exists, it will be added in the `getDoubleArrowPtr()` function.
-     *
      * @since 1.0.0
      *
      * @var array <int|string> => <int|string>
      */
     private static $doubleArrowTargets = [
         \T_DOUBLE_ARROW     => \T_DOUBLE_ARROW,
+
+        // Nested arrays.
         \T_ARRAY            => \T_ARRAY,
         \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY,
-        \T_STRING           => \T_STRING, // BC for T_FN token in PHPCS < 3.5.3 icw PHP < 7.4.
+
+        // Inline function and control structures to skip over.
+        \T_FN               => \T_FN,
     ];
 
     /**
@@ -171,7 +171,7 @@ class Arrays
                  *
                  * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
                  */
-                if (isset(BCTokens::magicConstants()[$tokens[$prevNonEmpty]['code']]) === true) {
+                if (isset(Tokens::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
                     Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
                     return false;
                 }
@@ -322,7 +322,6 @@ class Arrays
 
         $targets  = self::$doubleArrowTargets;
         $targets += Collections::closedScopes();
-        $targets += Collections::arrowFunctionTokensBC();
 
         $doubleArrow = ($start - 1);
         $returnValue = false;
@@ -343,33 +342,16 @@ class Arrays
                 break;
             }
 
-            /*
-             * BC: work-around a bug in PHPCS 3.5.4 where the double arrow is incorrectly tokenized as T_STRING.
-             *
-             * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2865
-             */
-            if ($tokens[$doubleArrow]['code'] === \T_STRING && $tokens[$doubleArrow]['content'] === '=>') {
-                $returnValue = $doubleArrow;
-                break;
-            }
-
             // Skip over closed scopes which may contain foreach structures or generators.
-            if (isset(Collections::closedScopes()[$tokens[$doubleArrow]['code']]) === true
+            if ((isset(Collections::closedScopes()[$tokens[$doubleArrow]['code']]) === true
+                || $tokens[$doubleArrow]['code'] === \T_FN)
                 && isset($tokens[$doubleArrow]['scope_closer']) === true
             ) {
                 $doubleArrow = $tokens[$doubleArrow]['scope_closer'];
                 continue;
             }
 
-            // BC for PHP 7.4 arrow functions with PHPCS < 3.5.3.
-            if (isset(Collections::arrowFunctionTokensBC()[$tokens[$doubleArrow]['code']]) === true
-                && FunctionDeclarations::isArrowFunction($phpcsFile, $doubleArrow) === false
-            ) {
-                // Not an arrow function, continue looking.
-                continue;
-            }
-
-            // Start of nested long/short array or arrow function.
+            // Start of nested long/short array.
             break;
         } while ($doubleArrow < $end);
 

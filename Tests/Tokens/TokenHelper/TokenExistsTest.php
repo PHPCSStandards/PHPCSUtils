@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\TokenHelper;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\TokenHelper;
 use PHPUnit\Framework\TestCase;
 
@@ -56,12 +55,15 @@ class TokenExistsTest extends TestCase
     /**
      * Data provider.
      *
+     * {@internal This dataprovider does not currently contain any tests for
+     *            PHP native tokens which may not exist (depending on the PHPCS version).
+     *            These tests are not relevant at this time with the current minimum
+     *            PHPCS version of 3.7.1, but this may change again in the future.}
+     *
      * @return array
      */
     public function dataTokenExists()
     {
-        $phpcsVersion = Helper::getVersion();
-
         return [
             'Token which doesn\'t exist either way' => [
                 'name'     => 'T_DOESNOTEXIST',
@@ -74,21 +76,6 @@ class TokenExistsTest extends TestCase
             'PHPCS native token which always exists (in the PHPCS versions supported)' => [
                 'name'     => 'T_CLOSURE',
                 'expected' => true,
-            ],
-            'PHP native token which may not exist - PHP 7.4 T_FN' => [
-                'name'     => 'T_FN',
-                'expected' => (\version_compare($phpcsVersion, '3.5.3', '>=')
-                                || \version_compare(\PHP_VERSION_ID, '70399', '>=')),
-            ],
-            'PHP native token which may not exist - PHP 8.0 T_NULLSAFE_OBJECT_OPERATOR' => [
-                'name'     => 'T_NULLSAFE_OBJECT_OPERATOR',
-                'expected' => (\version_compare($phpcsVersion, '3.5.7', '>=')
-                                || \version_compare(\PHP_VERSION_ID, '79999', '>=')),
-            ],
-            'PHP native token which may not exist - PHP 8.1 T_ENUM' => [
-                'name'     => 'T_ENUM',
-                'expected' => (\version_compare($phpcsVersion, '3.7.0', '>=')
-                                || \version_compare(\PHP_VERSION_ID, '80099', '>=')),
             ],
             'Mocked polyfilled token' => [
                 'name'     => 'T_FAKETOKEN',

@@ -12,22 +12,15 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
-use PHPCSUtils\BackCompat\Helper;
 
 /**
  * Utility functions for working with integer/float tokens.
  *
- * PHP 7.4 introduced numeric literal separators which break number tokenization in older PHP versions.
- * PHPCS backfills this since PHPCS 3.5.3/4.
+ * PHP 7.4 introduced numeric literal separators. PHPCS backfills this since PHPCS 3.5.3/4.
+ * PHP 8.1 introduced an explicit octal notation. This is backfilled in PHPCS since PHPCS 3.7.0.
  *
- * Along the same lines, PHP 8.1 introduced an explicit octal notation which also breaks number tokenization
- * in older PHP versions. This is backfilled in PHPCS since PHPCS 3.7.0.
- *
- * In other words, if an external standard intends to support PHPCS < 3.7.0 and PHP < 8.1, working
- * with number tokens has suddenly become a challenge.
- *
- * The functions in this class have been put in place to ease that pain and it is
- * *strongly* recommended to always use these functions when sniffing for and examining the
+ * While there are currently no unsupported numeric syntaxes, the methods in this class
+ * can still be useful for external standards which need to examine the
  * contents of `T_LNUMBER` or `T_DNUMBER` tokens.
  *
  * @link https://www.php.net/migration74.new-features.php#migration74.new-features.core.numeric-literal-separator
@@ -36,6 +29,11 @@ use PHPCSUtils\BackCompat\Helper;
  *       PHP Manual on the introduction of the integer octal literal prefix.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0-alpha4 Removed the following class constants:
+ *                     - `Numbers::REGEX_NUMLIT_STRING`
+ *                     - `Numbers::REGEX_HEX_NUMLIT_STRING`
+ *                     - `Numbers::UNSUPPORTED_PHPCS_VERSION`
  */
 class Numbers
 {
@@ -103,82 +101,10 @@ class Numbers
         `ixD';
 
     /**
-     * Regex to determine if a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.
-     *
-     * Cross-version compatibility helper for PHP 7.4 numeric literals with underscore separators.
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    const REGEX_NUMLIT_STRING = '`^((?<![\.e])_[0-9][0-9e\.]*)+$`iD';
-
-    /**
-     * Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a hexidecimal numeric literal sequence.
-     *
-     * Cross-version compatibility helper for PHP 7.4 numeric literals with underscore separators.
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    const REGEX_HEX_NUMLIT_STRING = '`^((?<!\.)_[0-9A-F]*)+$`iD';
-
-    /**
-     * PHPCS versions in which the backfill for PHP 7.4 numeric literal separators is broken.
-     *
-     * @since 1.0.0
-     * @since 1.0.0-alpha2 Changed from a property to a class constant.
-     *                     Changed from an array to a string.
-     *
-     * @var string
-     */
-    const UNSUPPORTED_PHPCS_VERSION = '3.5.3';
-
-    /**
-     * Valid tokens which could be part of a numeric literal sequence in PHP < 7.4.
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    private static $numericLiteralAcceptedTokens = [
-        \T_LNUMBER => true,
-        \T_DNUMBER => true,
-        \T_STRING  => true,
-    ];
-
-    /**
-     * Retrieve information about a number token in a cross-version compatible manner.
+     * Retrieve information about a number token.
      *
      * Helper function to deal with numeric literals, potentially with underscore separators
      * and/or explicit octal notation.
-     *
-     * PHP < 7.4 does not tokenize numeric literals containing underscores correctly.
-     * As of PHPCS 3.5.3, PHPCS contains a backfill, but this backfill was buggy in the initial
-     * implementation. A fix for this broken backfill is included in PHPCS 3.5.4.
-     *
-     * PHP < 8.1 does not tokenize explicit octal notation for literal integers correctly.
-     * PHPCS backfills this as of PHPCS 3.7.0.
-     *
-     * Either way, this function can be used with all PHPCS/PHP combinations and will, if necessary,
-     * provide a backfill for PHPCS/PHP combinations where PHP 7.4 numbers with underscore separators
-     * and/or octals using the explicit octal prefix, are tokenized incorrectly - with the exception
-     * of PHPCS 3.5.3 as the buggyness of the original backfill implementation makes it impossible
-     * to provide reliable results.
-     *
-     * Note: invalid explicit octals will be handled correctly by the method, but may result
-     * in a content "split" for the "last token".
-     * > Example:
-     * > In PHP < 8.1 `0o282` will tokenize as `T_LNUMBER` 0 + `T_STRING` `o282`.
-     * > This method will return `'0o2'` as the complete number content and the second token as the
-     * > `'last_token'`, even though there is still a part of the content of the second token
-     * > which is not included.
-     *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546 PHPCS issue #2546
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771   PHPCS PR #2771
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3481   PHPCS PR #3481
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3552   PHPCS PR #3552
      *
      * @since 1.0.0
      *
@@ -189,10 +115,8 @@ class Numbers
      *               The format of the array return value is:
      *               ```php
      *               array(
-     *                 'orig_content' => string, // The (potentially concatenated) original
-     *                                           // content of the tokens;
-     *                 'content'      => string, // The (potentially concatenated) content,
-     *                                           // underscore(s) removed;
+     *                 'orig_content' => string, // The original content of the token(s);
+     *                 'content'      => string, // The content, underscore(s) removed;
      *                 'code'         => int,    // The token code of the number, either
      *                                           // T_LNUMBER or T_DNUMBER.
      *                 'type'         => string, // The token type, either 'T_LNUMBER'
@@ -200,21 +124,17 @@ class Numbers
      *                 'decimal'      => string, // The decimal value of the number;
      *                 'last_token'   => int,    // The stackPtr to the last token which was
      *                                           // part of the number.
-     *                                           // This will be the same as the original
-     *                                           // stackPtr if it is not a PHP 7.4 number
-     *                                           // with underscores.
+     *                                           // At this time, this will be always be the original
+     *                                           // stackPtr. This may change in the future if
+     *                                           // new numeric syntaxes would be added to PHP.
      *               )
      *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
      *                                                      `T_LNUMBER` or `T_DNUMBER`.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If this function is called in combination
-     *                                                      with an unsupported PHPCS version.
      */
     public static function getCompleteNumber(File $phpcsFile, $stackPtr)
     {
-        static $php74, $php81, $phpcsVersion, $phpcsWithBackfill, $phpcsWithOctalSupport;
-
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
@@ -225,26 +145,8 @@ class Numbers
             );
         }
 
-        if (isset($php74, $php81, $phpcsVersion, $phpcsWithBackfill, $phpcsWithOctalSupport) === false) {
-            $php74                 = \version_compare(\PHP_VERSION_ID, '70399', '>');
-            $php81                 = \version_compare(\PHP_VERSION_ID, '80099', '>');
-            $phpcsVersion          = Helper::getVersion();
-            $phpcsWithBackfill     = \version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '>');
-            $phpcsWithOctalSupport = \version_compare($phpcsVersion, '3.7.0', '>=');
-        }
-
-        /*
-         * Bow out for PHPCS version(s) with broken tokenization of PHP 7.4 numeric literals with
-         * separators, including for PHP 7.4, as the backfill kicks in for PHP 7.4 while it shouldn't.
-         *
-         * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546
-         */
-        if (\version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
-            throw new RuntimeException('The ' . __METHOD__ . '() method does not support PHPCS ' . $phpcsVersion);
-        }
-
         $content = $tokens[$stackPtr]['content'];
-        $result  = [
+        return [
             'orig_content' => $content,
             'content'      => \str_replace('_', '', $content),
             'code'         => $tokens[$stackPtr]['code'],
@@ -252,136 +154,6 @@ class Numbers
             'decimal'      => self::getDecimalValue($content),
             'last_token'   => $stackPtr,
         ];
-
-        /*
-         * When things are already correctly tokenized for both situations handled by this method,
-         * there's not much to do.
-         */
-        if ($php81 === true || $phpcsWithOctalSupport === true) {
-            return $result;
-        }
-
-        /*
-         * Potentially handle explicit octal notation.
-         */
-        if (isset($tokens[($stackPtr + 1)]) === true
-            && $tokens[($stackPtr + 1)]['code'] === \T_STRING
-            && \strtolower($tokens[($stackPtr + 1)]['content'][0]) === 'o'
-            && $tokens[($stackPtr + 1)]['content'][1] !== '_'
-            && \preg_match('`^(o[0-7]+(?:_[0-7]+)?)[0-9_]*`i', $tokens[($stackPtr + 1)]['content'], $matches) === 1
-        ) {
-            $content .= $matches[1];
-            $result   = self::updateResult($result, $content, ($stackPtr + 1), true);
-        }
-
-        /*
-         * Check if numeric literal notation needs handling.
-         */
-        if ($php74 === true
-            || $phpcsWithBackfill === true
-            || isset($tokens[($result['last_token'] + 1)]) === false
-            || $tokens[($result['last_token'] + 1)]['code'] !== \T_STRING
-            || $tokens[($result['last_token'] + 1)]['content'][0] !== '_'
-        ) {
-            return $result;
-        }
-
-        $hex = false;
-        if (\strpos($content, '0x') === 0) {
-            $hex = true;
-        }
-
-        $lastChar = \substr($content, -1);
-        if (\preg_match('`[0-9]`', $lastChar) !== 1) {
-            if ($hex === false || \preg_match('`[A-F]`i', $lastChar) !== 1) {
-                // Last character not valid for numeric literal sequence with underscores.
-                // No need to look any further.
-                return $result;
-            }
-        }
-
-        /*
-         * OK, so this could potentially be a PHP 7.4 number with an underscore separator with PHPCS
-         * being run on PHP < 7.4.
-         */
-
-        $regex = self::REGEX_NUMLIT_STRING;
-        if ($hex === true) {
-            $regex = self::REGEX_HEX_NUMLIT_STRING;
-        }
-
-        $next      = $result['last_token'];
-        $lastToken = $result['last_token'];
-
-        while (isset($tokens[++$next], self::$numericLiteralAcceptedTokens[$tokens[$next]['code']]) === true) {
-            if ($tokens[$next]['code'] === \T_STRING
-                && \preg_match($regex, $tokens[$next]['content']) !== 1
-            ) {
-                break;
-            }
-
-            $content  .= $tokens[$next]['content'];
-            $lastToken = $next;
-            $lastChar  = \substr(\strtolower($content), -1);
-
-            // Support floats.
-            if ($lastChar === 'e'
-                && isset($tokens[($next + 1)], $tokens[($next + 2)]) === true
-                && ($tokens[($next + 1)]['code'] === \T_MINUS
-                || $tokens[($next + 1)]['code'] === \T_PLUS)
-                && $tokens[($next + 2)]['code'] === \T_LNUMBER
-            ) {
-                $content  .= $tokens[($next + 1)]['content'];
-                $content  .= $tokens[($next + 2)]['content'];
-                $next     += 2;
-                $lastToken = $next;
-            }
-
-            // Don't look any further if the last char is not valid before a separator.
-            if (\preg_match('`[0-9]`', $lastChar) !== 1) {
-                if ($hex === false || \preg_match('`[a-f]`i', $lastChar) !== 1) {
-                    break;
-                }
-            }
-        }
-
-        return self::updateResult($result, $content, $lastToken, $hex);
-    }
-
-    /**
-     * Helper function to update the result array for the getCompleteNumber() method.
-     *
-     * @param array  $result     Current result array.
-     * @param string $newContent The new content for the number to update the array for.
-     * @param int    $lastToken  Stack pointer to the last token for the accumulated content.
-     * @param bool   $isInt      Whether we know for sure this is not a float.
-     *
-     * @return array
-     */
-    private static function updateResult(array $result, $newContent, $lastToken, $isInt = false)
-    {
-        $result['orig_content'] = $newContent;
-        $result['content']      = \str_replace('_', '', $newContent);
-        $result['decimal']      = self::getDecimalValue($result['content']);
-        $result['last_token']   = $lastToken;
-
-        // Determine actual token type.
-        $type = $result['type'];
-        if ($type === 'T_LNUMBER') {
-            if ($isInt === false
-                && (\strpos($result['content'], '.') !== false
-                || \stripos($result['content'], 'e') !== false)
-            ) {
-                $type = 'T_DNUMBER';
-            } elseif (($result['decimal'] + 0) > \PHP_INT_MAX) {
-                $type = 'T_DNUMBER';
-            }
-        }
-
-        $result['code'] = \constant($type);
-        $result['type'] = $type;
-
-        return $result;
     }
 
     /**

@@ -22,7 +22,6 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodProperties method.
@@ -70,11 +69,11 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             ],
             'function-call-fn-phpcs-3.5.3-3.5.4' => [
                 '/* testFunctionCallFnPHPCS353-354 */',
-                Collections::arrowFunctionTokensBC(),
+                [T_FN, T_STRING],
             ],
             'fn-live-coding' => [
                 '/* testArrowFunctionLiveCoding */',
-                Collections::arrowFunctionTokensBC(),
+                [T_FN, T_STRING],
             ],
         ];
     }
@@ -496,9 +495,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -640,9 +637,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -902,9 +897,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -927,9 +920,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'has_body'              => true,
         ];
 
-        $arrowTokenTypes = Collections::arrowFunctionTokensBC();
-
-        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected, $arrowTokenTypes);
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
     }
 
     /**
@@ -942,8 +933,11 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [T_FUNCTION, T_CLOSURE])
-    {
+    protected function getMethodPropertiesTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [T_FUNCTION, T_CLOSURE, T_FN]
+    ) {
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 

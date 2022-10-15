@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -33,32 +32,21 @@ class ReturnTypeTokensTest extends TestCase
      */
     public function testReturnTypeTokens()
     {
-        $version  = Helper::getVersion();
         $expected = [
-            \T_CALLABLE     => \T_CALLABLE,
-            \T_FALSE        => \T_FALSE,
-            \T_NULL         => \T_NULL,
-            \T_ARRAY        => \T_ARRAY,
-            \T_BITWISE_OR   => \T_BITWISE_OR,
-            \T_PARENT       => \T_PARENT,
-            \T_SELF         => \T_SELF,
-            \T_STATIC       => \T_STATIC,
-            \T_NS_SEPARATOR => \T_NS_SEPARATOR,
-            \T_NAMESPACE    => \T_NAMESPACE,
-            \T_STRING       => \T_STRING,
+            \T_CALLABLE             => \T_CALLABLE,
+            \T_SELF                 => \T_SELF,
+            \T_PARENT               => \T_PARENT,
+            \T_STATIC               => \T_STATIC,
+            \T_FALSE                => \T_FALSE,
+            \T_NULL                 => \T_NULL,
+            \T_STRING               => \T_STRING,
+            \T_NS_SEPARATOR         => \T_NS_SEPARATOR,
+            \T_TYPE_UNION           => \T_TYPE_UNION,
+            \T_NAMESPACE            => \T_NAMESPACE,
+            \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+            \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+            \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
         ];
-
-        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
-            || \version_compare($version, '3.5.7', '>=') === true
-        ) {
-            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
-            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
-            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
-        }
-
-        if (\version_compare($version, '3.6.0', '>=') === true) {
-            $expected[\T_TYPE_UNION] = \T_TYPE_UNION;
-        }
 
         $this->assertSame($expected, Collections::returnTypeTokens());
     }

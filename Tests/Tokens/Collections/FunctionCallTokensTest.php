@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -33,25 +32,16 @@ class FunctionCallTokensTest extends TestCase
      */
     public function testFunctionCallTokens()
     {
-        $version  = Helper::getVersion();
         $expected = [
-            \T_STRING => \T_STRING,
-        ];
-
-        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
-            || \version_compare($version, '3.5.7', '>=') === true
-        ) {
-            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
-            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
-            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
-        }
-
-        $expected += [
-            \T_VARIABLE   => \T_VARIABLE,
-            \T_ANON_CLASS => \T_ANON_CLASS,
-            \T_PARENT     => \T_PARENT,
-            \T_SELF       => \T_SELF,
-            \T_STATIC     => \T_STATIC,
+            \T_STRING               => \T_STRING,
+            \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+            \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+            \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
+            \T_VARIABLE             => \T_VARIABLE,
+            \T_ANON_CLASS           => \T_ANON_CLASS,
+            \T_PARENT               => \T_PARENT,
+            \T_SELF                 => \T_SELF,
+            \T_STATIC               => \T_STATIC,
         ];
 
         $this->assertSame($expected, Collections::functionCallTokens());

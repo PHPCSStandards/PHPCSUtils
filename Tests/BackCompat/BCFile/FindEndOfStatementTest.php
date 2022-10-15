@@ -24,7 +24,6 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::findEndOfStatement method.
@@ -175,7 +174,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionArrayValue()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionArrayValue */', Collections::arrowFunctionTokensBC());
+        $start = $this->getTargetToken('/* testArrowFunctionArrayValue */', T_FN);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame(($start + 9), $found);
@@ -189,7 +188,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
     public function testStaticArrowFunction()
     {
         $static = $this->getTargetToken('/* testStaticArrowFunction */', T_STATIC);
-        $fn     = $this->getTargetToken('/* testStaticArrowFunction */', Collections::arrowFunctionTokensBC());
+        $fn     = $this->getTargetToken('/* testStaticArrowFunction */', T_FN);
 
         $endOfStatementStatic = BCFile::findEndOfStatement(self::$phpcsFile, $static);
         $endOfStatementFn     = BCFile::findEndOfStatement(self::$phpcsFile, $fn);
@@ -204,7 +203,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionReturnValue()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionReturnValue */', Collections::arrowFunctionTokensBC());
+        $start = $this->getTargetToken('/* testArrowFunctionReturnValue */', T_FN);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame(($start + 18), $found);
@@ -217,7 +216,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionAsArgument()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionAsArgument */', Collections::arrowFunctionTokensBC());
+        $start = $this->getTargetToken('/* testArrowFunctionAsArgument */', T_FN);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame(($start + 8), $found);
@@ -230,10 +229,7 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionWithArrayAsArgument()
     {
-        $start = $this->getTargetToken(
-            '/* testArrowFunctionWithArrayAsArgument */',
-            Collections::arrowFunctionTokensBC()
-        );
+        $start = $this->getTargetToken('/* testArrowFunctionWithArrayAsArgument */', T_FN);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame(($start + 17), $found);

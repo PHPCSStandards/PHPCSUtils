@@ -3,9 +3,6 @@
 // These tests mirror the upstream Core\Tokenizer\DoubleQuotedStringsTest.
 // Test source: https://gist.github.com/iluuu1994/72e2154fc4150f2258316b0255b698f2#file-test-php
 
-/* testNotDoubleQuotedString */
-$var = 'test';
-
 /* testSimple1 */
 "$foo";
 /* testSimple2 */

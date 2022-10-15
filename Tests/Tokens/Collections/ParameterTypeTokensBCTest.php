@@ -10,14 +10,14 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Test class.
  *
  * @covers \PHPCSUtils\Tokens\Collections::parameterTypeTokensBC
+ * @covers \PHPCSUtils\Tokens\Collections::triggerDeprecation
  *
  * @group collections
  *
@@ -33,13 +33,12 @@ class ParameterTypeTokensBCTest extends TestCase
      */
     public function testParameterTypeTokensBC()
     {
-        $version  = Helper::getVersion();
-        $expected = Collections::parameterTypeTokens();
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'Collections::parameterTypeTokensBC() method is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the PHPCSUtils\Tokens\Collections::parameterTypeTokens() method instead.'
+        );
 
-        if (\version_compare($version, '3.99.99', '<=') === true) {
-            $expected[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        $this->assertSame($expected, Collections::parameterTypeTokensBC());
+        $this->assertSame(Collections::parameterTypeTokens(), Collections::parameterTypeTokensBC());
     }
 }

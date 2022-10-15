@@ -32,7 +32,7 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
      */
     public function testInvalidTokenPassed()
     {
-        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE or T_TRAIT');
+        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
 
         $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
         BCFile::getDeclarationName(self::$phpcsFile, $target);
@@ -85,11 +85,6 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testAnonClassExtendsWithoutParens */',
                 \T_ANON_CLASS,
             ],
-
-            /*
-             * Note: this particular test *will* throw tokenizer "undefined offset" notices on PHPCS 2.6.0,
-             * but the test will pass.
-             */
             'live-coding' => [
                 '/* testLiveCoding */',
                 \T_FUNCTION,

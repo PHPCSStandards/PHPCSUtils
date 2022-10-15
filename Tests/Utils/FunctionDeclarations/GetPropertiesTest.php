@@ -75,8 +75,11 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
-    {
+    protected function getMethodPropertiesTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN]
+    ) {
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 

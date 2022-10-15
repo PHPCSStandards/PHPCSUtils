@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -54,7 +55,7 @@ class GetParametersParseError2Test extends UtilityMethodTestCase
      */
     public function testParseError()
     {
-        $target = $this->getTargetToken('/* testParseError */', [\T_FUNCTION, \T_CLOSURE]);
+        $target = $this->getTargetToken('/* testParseError */', Collections::functionDeclarationTokens());
         $result = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
 
         $this->assertSame([], $result);

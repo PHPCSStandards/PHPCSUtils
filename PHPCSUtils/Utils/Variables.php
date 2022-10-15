@@ -20,9 +20,10 @@ use PHPCSUtils\Utils\TextStrings;
 /**
  * Utility functions for use when examining variables.
  *
- * @since 1.0.0 The `Variables::getMemberProperties()` method is based on and inspired by
- *              the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
- *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0        The `Variables::getMemberProperties()` method is based on and inspired by
+ *                     the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
+ *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class Variables
 {
@@ -169,7 +170,7 @@ class Variables
         $typeToken          = false;
         $typeEndToken       = false;
         $nullableType       = false;
-        $propertyTypeTokens = Collections::propertyTypeTokensBC();
+        $propertyTypeTokens = Collections::propertyTypeTokens();
 
         if ($i < $stackPtr) {
             // We've found a type.
@@ -179,10 +180,7 @@ class Variables
                     break;
                 }
 
-                if ($tokens[$i]['type'] === 'T_NULLABLE'
-                    // Handle nullable types in PHPCS < 3.5.0 and for PHP-4 style `var` properties in PHPCS < 3.5.4.
-                    || $tokens[$i]['code'] === \T_INLINE_THEN
-                ) {
+                if ($tokens[$i]['code'] === \T_NULLABLE) {
                     $nullableType = true;
                 }
 

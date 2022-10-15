@@ -120,9 +120,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
         $expectedMessage = \sprintf(self::MSG, self::MSG_REPLACEMENT_1, $expected['found']);
         $this->assertSame($expectedMessage, $messages[0]['message'], 'Message comparison failed');
 
-        // PHPCS 2.x places `unknownSniff.` before the actual error code for utility tests with a dummy error code.
-        $errorCodeResult = \str_replace('unknownSniff.', '', $messages[0]['source']);
-        $this->assertSame(self::CODE, $errorCodeResult, 'Error code comparison failed');
+        $this->assertSame(self::CODE, $messages[0]['source'], 'Error code comparison failed');
 
         $this->assertSame($expected['fixable'], $messages[0]['fixable'], 'Fixability comparison failed');
 

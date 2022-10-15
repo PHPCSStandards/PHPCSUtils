@@ -96,8 +96,11 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    protected function getPropertiesTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
-    {
+    protected function getPropertiesTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN]
+    ) {
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 

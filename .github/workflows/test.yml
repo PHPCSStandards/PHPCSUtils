@@ -19,6 +19,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # - COMPOSER_ROOT_VERSION is needed to get round the recursive dependency when using CI.
+  COMPOSER_ROOT_VERSION: '1.99.99'
+
 jobs:
   lint:
     if: ${{ github.ref != 'refs/heads/develop' }}
@@ -76,53 +80,24 @@ jobs:
         # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
         #
         # IMPORTANT: test runs shouldn't fail because of PHPCS being incompatible with a PHP version.
-        # - PHPCS will run without errors on PHP 5.4 - 7.2 on any version.
-        # - PHP 7.3 needs PHPCS 2.9.2 and 3.3.1+ to run without notices.
-        #   As deprecations are ignored for older PHPCS versions, our tests still shouldn't fail.
-        # - PHP 7.4 needs PHPCS 3.5.0+ to run without notices.
-        #   As deprecations are ignored for older PHPCS versions, our tests still shouldn't fail.
-        # - PHP 8.0 needs PHPCS 3.5.0+ to run without (fatal) errors.
-        #   To run reliably though, PHPCS 3.5.6 is needed, which undoes the PHP 8.0 comment tokenization changes is needed.
-        # - PHP 8.1 needs PHPCS 3.5.0+ to run without (fatal) errors.
-        #   To run reliably though, PHPCS 3.5.6 is needed, which undoes the PHP 8.0 comment tokenization changes is needed.
-        #   Additionally, until the new PHP 8.1 "&" tokenization is accounted for in various functions,
-        #   tests will fail in combination with PHPCS < 3.6.1 (in which the new tokenization was undone).
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
-        php: ['5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
-        phpcs_version: ['2.6.0', '2.7.1', '2.8.1', '2.9.2', '3.1.0', '3.2.0', '3.3.1', '3.4.2', '3.5.0', '3.5.6', '3.6.0', 'dev-master']
+        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
+        phpcs_version: ['3.7.1', 'dev-master']
         risky: [false]
         experimental: [false]
 
-        exclude:
-          # Remove the builds which will already be run via quicktest/code coverage.
-          - php: '5.4'
-            phpcs_version: '2.6.0'
-          - php: '5.4'
-            phpcs_version: 'dev-master'
-          - php: '7.3'
-            phpcs_version: '2.9.2'
-
         include:
-          # Add builds against PHP 8.0/8.1, but only against PHPCS versions which won't fatal out.
-          - php: '8.0'
-            phpcs_version: '3.5.6'
+          - php: '5.6'
+            phpcs_version: '3.7.1'
             risky: false
             experimental: false
-          - php: '8.0'
-            phpcs_version: '3.6.0'
-            risky: false
-            experimental: false
+            extensions: ':iconv' # Run with iconv disabled.
           - php: '8.0'
             phpcs_version: 'dev-master'
             risky: false
             experimental: false
-            extensions: ':iconv' # Run one build with iconv disabled.
-
-          - php: '8.1'
-            phpcs_version: '3.6.1' # dev-master is run in the code coverage job.
-            risky: false
-            experimental: false
+            extensions: ':iconv' # Run with iconv disabled.
 
           # Experimental builds. These are allowed to fail.
           - php: '8.2'
@@ -176,6 +151,10 @@ jobs:
       - name: 'Composer: set PHPCS version for tests'
         run: composer require --no-update squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}"
 
+      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
+      - name: 'Composer: remove PHPCSDevCS'
+        run: composer remove --dev --no-update phpcsstandards/phpcsdevcs
+
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies - normal
@@ -228,13 +207,13 @@ jobs:
         include:
           - php: '8.1'
             phpcs_version: 'dev-master'
-          - php: '7.3'
-            phpcs_version: '2.9.2'
+          - php: '8.1'
+            phpcs_version: '3.7.1'
             extensions: ':iconv' # Run one build with iconv disabled.
           - php: '5.4'
             phpcs_version: 'dev-master'
           - php: '5.4'
-            phpcs_version: '2.6.0'
+            phpcs_version: '3.7.1'
 
     name: "Coverage: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
@@ -304,6 +283,7 @@ jobs:
           PHPCSUTILS_USE_CACHE: false
 
       # Uploading the results with PHP Coveralls v1 won't work from GH Actions, so switch the PHP version.
+      # Also PHP Coveralls itself (still) isn't fully compatible with PHP 8.0+.
       - name: Switch to PHP 7.4
         if: ${{ success() && matrix.php != '7.4' }}
         uses: shivammathur/setup-php@v2

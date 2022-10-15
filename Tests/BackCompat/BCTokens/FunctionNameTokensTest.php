@@ -34,30 +34,24 @@ class FunctionNameTokensTest extends TestCase
      */
     public function testFunctionNameTokens()
     {
-        $version  = Helper::getVersion();
         $expected = [
-            \T_STRING       => \T_STRING,
-            \T_EVAL         => \T_EVAL,
-            \T_EXIT         => \T_EXIT,
-            \T_INCLUDE      => \T_INCLUDE,
-            \T_INCLUDE_ONCE => \T_INCLUDE_ONCE,
-            \T_REQUIRE      => \T_REQUIRE,
-            \T_REQUIRE_ONCE => \T_REQUIRE_ONCE,
-            \T_ISSET        => \T_ISSET,
-            \T_UNSET        => \T_UNSET,
-            \T_EMPTY        => \T_EMPTY,
-            \T_SELF         => \T_SELF,
-            \T_STATIC       => \T_STATIC,
-            \T_PARENT       => \T_PARENT,
+            \T_STRING               => \T_STRING,
+            \T_EVAL                 => \T_EVAL,
+            \T_EXIT                 => \T_EXIT,
+            \T_INCLUDE              => \T_INCLUDE,
+            \T_INCLUDE_ONCE         => \T_INCLUDE_ONCE,
+            \T_REQUIRE              => \T_REQUIRE,
+            \T_REQUIRE_ONCE         => \T_REQUIRE_ONCE,
+            \T_ISSET                => \T_ISSET,
+            \T_UNSET                => \T_UNSET,
+            \T_EMPTY                => \T_EMPTY,
+            \T_SELF                 => \T_SELF,
+            \T_STATIC               => \T_STATIC,
+            \T_PARENT               => \T_PARENT,
+            \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+            \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+            \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
         ];
-
-        if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
-            || \version_compare($version, '3.5.7', '>=') === true
-        ) {
-            $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
-            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
-            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
-        }
 
         \asort($expected);
 
@@ -87,14 +81,10 @@ class FunctionNameTokensTest extends TestCase
              * Don't fail this test on the difference between PHPCS 4.x and 3.x.
              * This test is only run against `dev-master` and `dev-master` is still PHPCS 3.x.
              */
-            $expected = Tokens::$functionNameTokens;
-            if (\version_compare(\PHP_VERSION_ID, '80000', '>=') === true
-                || \version_compare($version, '3.5.7', '>=') === true
-            ) {
-                $expected[\T_NAME_QUALIFIED]       = \T_NAME_QUALIFIED;
-                $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
-                $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
-            }
+            $expected                    = Tokens::$functionNameTokens;
+            $expected[\T_NAME_QUALIFIED] = \T_NAME_QUALIFIED;
+            $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
+            $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
 
             \asort($expected);
 

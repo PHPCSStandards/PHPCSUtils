@@ -19,12 +19,13 @@ use PHPCSUtils\Utils\GetTokensAsString;
 /**
  * Utility functions for use when examining object declaration statements.
  *
- * @since 1.0.0 The `ObjectDeclarations::get(Declaration)Name()`,
- *              `ObjectDeclarations::getClassProperties()`, `ObjectDeclarations::findExtendedClassName()`
- *              and `ObjectDeclarations::findImplementedInterfaceNames()` methods are based on and
- *              inspired by the methods of the same name in the PHPCS native
- *              `PHP_CodeSniffer\Files\File` class.
- *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0        The `ObjectDeclarations::get(Declaration)Name()`,
+ *                     `ObjectDeclarations::getClassProperties()`, `ObjectDeclarations::findExtendedClassName()`
+ *                     and `ObjectDeclarations::findImplementedInterfaceNames()` methods are based on and
+ *                     inspired by the methods of the same name in the PHPCS native
+ *                     `PHP_CodeSniffer\Files\File` class.
+ *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class ObjectDeclarations
 {
@@ -42,11 +43,6 @@ class ObjectDeclarations
      *   being extended/interface being implemented.
      *   Using this version of the utility method, either the complete name (invalid or not) will
      *   be returned or `null` in case of no name (parse error).
-     *
-     * Note:
-     * - For ES6 classes in combination with PHPCS 2.x, passing a `T_STRING` token to
-     *   this method will be accepted for JS files.
-     * - Support for JS ES6 method syntax has not been back-filled for PHPCS < 3.0.0.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Cross-version compatible version of the original.
@@ -76,17 +72,6 @@ class ObjectDeclarations
         }
 
         $tokenCode = $tokens[$stackPtr]['code'];
-
-        /*
-         * BC: Work-around JS ES6 classes not being tokenized as T_CLASS in PHPCS < 3.0.0.
-         */
-        if (isset($phpcsFile->tokenizerType)
-            && $phpcsFile->tokenizerType === 'JS'
-            && $tokenCode === \T_STRING
-            && $tokens[$stackPtr]['content'] === 'class'
-        ) {
-            $tokenCode = \T_CLASS;
-        }
 
         if ($tokenCode !== \T_FUNCTION
             && $tokenCode !== \T_CLASS
@@ -133,17 +118,7 @@ class ObjectDeclarations
         $tokenAfterNameEnd = $phpcsFile->findNext($exclude, $nameStart, $stopPoint);
 
         if ($tokenAfterNameEnd === false) {
-            $content = null;
-
-            /*
-             * BC: In PHPCS 2.6.0, in case of live coding, the last token in a file will be tokenized
-             * as T_STRING, but won't have the `content` index set.
-             */
-            if (isset($tokens[$nameStart]['content'])) {
-                $content = $tokens[$nameStart]['content'];
-            }
-
-            return $content;
+            return $tokens[$nameStart]['content'];
         }
 
         // Name starts with number, so is composed of multiple tokens.
@@ -330,24 +305,13 @@ class ObjectDeclarations
 
         if (isset($tokens[$stackPtr]) === false
             || isset($allowedFor[$tokens[$stackPtr]['code']]) === false
+            || isset($tokens[$stackPtr]['scope_opener']) === false
         ) {
             return false;
         }
 
-        if (isset($tokens[$stackPtr]['scope_opener']) === true) {
-            $scopeOpener = $tokens[$stackPtr]['scope_opener'];
-        } else {
-            /*
-             * Work-around for a scope map tokenizer bug in PHPCS.
-             * {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3066}
-             */
-            $scopeOpener = $phpcsFile->findNext(\T_OPEN_CURLY_BRACKET, ($stackPtr + 1), null);
-            if ($scopeOpener === false) {
-                return false;
-            }
-        }
-
-        $keywordPtr = $phpcsFile->findNext($keyword, ($stackPtr + 1), $scopeOpener);
+        $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+        $keywordPtr  = $phpcsFile->findNext($keyword, ($stackPtr + 1), $scopeOpener);
         if ($keywordPtr === false) {
             return false;
         }

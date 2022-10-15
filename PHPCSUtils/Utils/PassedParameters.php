@@ -24,6 +24,7 @@ use PHPCSUtils\Utils\NamingConventions;
  * class instantiations, array declarations, isset and unset constructs.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class PassedParameters
 {
@@ -90,7 +91,6 @@ class PassedParameters
             );
         }
 
-        // Reminder: `new parent` only tokenizes as `T_PARENT` since PHPCS 3.7.0.
         if (isset(Collections::ooHierarchyKeywords()[$tokens[$stackPtr]['code']]) === true) {
             $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
             if ($tokens[$prev]['code'] !== \T_NEW) {
@@ -182,9 +182,7 @@ class PassedParameters
      *               1 => array(
      *                 'name_start' => int,    // The stack pointer to the first token in the parameter name.
      *                 'name_end'   => int,    // The stack pointer to the last token in the parameter name.
-     *                                         // This will normally be the colon, but may be different in
-     *                                         // PHPCS versions prior to the version adding support for
-     *                                         // named parameters (PHPCS 3.6.0).
+     *                                         // This will point to the colon.
      *                 'name'       => string, // The parameter name as a string (without the colon).
      *                 'start'      => int,    // The stack pointer to the first token in the parameter value.
      *                 'end'        => int,    // The stack pointer to the last token in the parameter value.
@@ -276,7 +274,7 @@ class PassedParameters
                 && $tokens[$nextComma]['code'] !== $tokens[$closer]['code']
             ) {
                 // Just in case.
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             // Ok, we've reached the end of the parameter.
@@ -285,37 +283,21 @@ class PassedParameters
             if ($mayHaveNames === true) {
                 $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
                 if ($firstNonEmpty !== $paramEnd) {
-                    /*
-                     * BC: Prior to support for named parameters being added to PHPCS in PHPCS 3.6.0, the
-                     * parameter name + the colon would in most cases be tokenized as one token: T_GOTO_LABEL.
-                     */
-                    if ($tokens[$firstNonEmpty]['code'] === \T_GOTO_LABEL) {
-                        $parameters[$cnt]['name_start'] = $paramStart;
-                        $parameters[$cnt]['name_end']   = $firstNonEmpty;
-                        $parameters[$cnt]['name']       = \substr($tokens[$firstNonEmpty]['content'], 0, -1);
-                        $paramStart                     = ($firstNonEmpty + 1);
-                    } else {
-                        // PHPCS 3.6.0 and select situations in PHPCS < 3.6.0.
-                        $secondNonEmpty = $phpcsFile->findNext(
-                            Tokens::$emptyTokens,
-                            ($firstNonEmpty + 1),
-                            ($paramEnd + 1),
-                            true
-                        );
+                    $secondNonEmpty = $phpcsFile->findNext(
+                        Tokens::$emptyTokens,
+                        ($firstNonEmpty + 1),
+                        ($paramEnd + 1),
+                        true
+                    );
 
-                        /*
-                         * BC: Checking the content of the colon token instead of the token type as in PHPCS < 3.6.0
-                         * the colon _may_ be tokenized as `T_STRING` or even `T_INLINE_ELSE`.
-                         */
-                        if ($tokens[$secondNonEmpty]['content'] === ':'
-                            && ($tokens[$firstNonEmpty]['type'] === 'T_PARAM_NAME'
+                    if ($tokens[$secondNonEmpty]['code'] === \T_COLON
+                        && ($tokens[$firstNonEmpty]['type'] === 'T_PARAM_NAME'
                             || NamingConventions::isValidIdentifierName($tokens[$firstNonEmpty]['content']) === true)
-                        ) {
-                            $parameters[$cnt]['name_start'] = $paramStart;
-                            $parameters[$cnt]['name_end']   = $secondNonEmpty;
-                            $parameters[$cnt]['name']       = $tokens[$firstNonEmpty]['content'];
-                            $paramStart                     = ($secondNonEmpty + 1);
-                        }
+                    ) {
+                        $parameters[$cnt]['name_start'] = $paramStart;
+                        $parameters[$cnt]['name_end']   = $secondNonEmpty;
+                        $parameters[$cnt]['name']       = $tokens[$firstNonEmpty]['content'];
+                        $paramStart                     = ($secondNonEmpty + 1);
                     }
                 }
             }

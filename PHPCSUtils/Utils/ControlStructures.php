@@ -13,13 +13,13 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 
 /**
  * Utility functions for use when examining control structures.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 class ControlStructures
 {
@@ -64,16 +64,6 @@ class ControlStructures
             $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
             if ($next !== false && $tokens[$next]['code'] === \T_IF) {
                 $stackPtr = $next;
-            }
-        }
-
-        // Deal with declare alternative syntax without scope opener.
-        if ($tokens[$stackPtr]['code'] === \T_DECLARE && isset($tokens[$stackPtr]['scope_opener']) === false) {
-            $declareOpenClose = self::getDeclareScopeOpenClose($phpcsFile, $stackPtr);
-            if ($declareOpenClose !== false) {
-                // Set the opener + closer in the tokens array. This will only affect our local copy.
-                $tokens[$stackPtr]['scope_opener'] = $declareOpenClose['opener'];
-                $tokens[$stackPtr]['scope_closer'] = $declareOpenClose['closer'];
             }
         }
 
@@ -210,15 +200,12 @@ class ControlStructures
      * In the first case, the statement - correctly - won't have a scope opener/closer.
      * In the second case, the statement will have the scope opener/closer indexes.
      * In the last case, due to a bug in the PHPCS Tokenizer, it won't have the scope opener/closer indexes,
-     * while it really should. This bug is fixed in PHPCS 3.5.4.
-     *
-     * In other words, if a sniff needs to support PHPCS < 3.5.4 and needs to take the alternative
-     * control structure syntax into account, this method can be used to retrieve the
-     * scope opener/closer for the declare statement.
+     * while it really should. This bug was fixed in PHPCS 3.5.4.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2843 PHPCS PR #2843
      *
-     * @since 1.0.0
+     * @since      1.0.0
+     * @deprecated 1.0.0-alpha4 Check the scope_opener/scope_closer instead.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
@@ -235,6 +222,15 @@ class ControlStructures
      */
     public static function getDeclareScopeOpenClose(File $phpcsFile, $stackPtr)
     {
+        \trigger_error(
+            \sprintf(
+                'The %s() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+                . ' Check for the "scope_opener"/"scope_closer" keys instead.',
+                __METHOD__
+            ),
+            \E_USER_DEPRECATED
+        );
+
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
@@ -250,107 +246,7 @@ class ControlStructures
             ];
         }
 
-        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
-            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
-        }
-
-        $declareCount = 0;
-        $opener       = null;
-        $closer       = null;
-        $returnValue  = false;
-
-        for ($i = $stackPtr; $i < $phpcsFile->numTokens; $i++) {
-            if ($tokens[$i]['code'] !== \T_DECLARE && $tokens[$i]['code'] !== \T_ENDDECLARE) {
-                continue;
-            }
-
-            if ($tokens[$i]['code'] === \T_ENDDECLARE) {
-                --$declareCount;
-
-                if ($declareCount !== 0) {
-                    continue;
-                }
-
-                // OK, we reached the target enddeclare.
-                $closer = $i;
-                break;
-            }
-
-            if ($tokens[$i]['code'] === \T_DECLARE) {
-                ++$declareCount;
-
-                // Find the scope opener
-                if (isset($tokens[$i]['parenthesis_closer']) === false) {
-                    // Parse error or live coding, nothing to do.
-                    break;
-                }
-
-                $scopeOpener = $phpcsFile->findNext(
-                    Tokens::$emptyTokens,
-                    ($tokens[$i]['parenthesis_closer'] + 1),
-                    null,
-                    true
-                );
-
-                if ($scopeOpener === false) {
-                    // Live coding, nothing to do.
-                    break;
-                }
-
-                // Remember the scope opener for our target declare.
-                if ($declareCount === 1) {
-                    $opener = $scopeOpener;
-                }
-
-                $i = $scopeOpener;
-
-                switch ($tokens[$scopeOpener]['code']) {
-                    case \T_COLON:
-                        // Nothing particular to do. Just continue the loop.
-                        break;
-
-                    case \T_OPEN_CURLY_BRACKET:
-                        /*
-                         * Live coding or nested declare statement with curlies.
-                         */
-
-                        if (isset($tokens[$scopeOpener]['scope_closer']) === false) {
-                            // Live coding, nothing to do.
-                            break 2;
-                        }
-
-                        // Jump over the statement.
-                        $i = $tokens[$scopeOpener]['scope_closer'];
-                        --$declareCount;
-
-                        break;
-
-                    case \T_SEMICOLON:
-                    case \T_CLOSE_TAG:
-                        // Nested single line declare statement.
-                        --$declareCount;
-                        break;
-
-                    default:
-                        // This is an unexpected token. Most likely a parse error. Bow out.
-                        break 2;
-                }
-            }
-
-            if ($declareCount === 0) {
-                break;
-            }
-        }
-
-        if (isset($opener, $closer)) {
-            $returnValue = [
-                'opener' => $opener,
-                'closer' => $closer,
-            ];
-        }
-
-        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
-        return $returnValue;
+        return false;
     }
 
     /**
