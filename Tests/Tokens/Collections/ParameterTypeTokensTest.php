@@ -37,6 +37,7 @@ class ParameterTypeTokensTest extends TestCase
             \T_SELF                 => \T_SELF,
             \T_PARENT               => \T_PARENT,
             \T_FALSE                => \T_FALSE,
+            \T_TRUE                 => \T_TRUE,
             \T_NULL                 => \T_NULL,
             \T_STRING               => \T_STRING,
             \T_NS_SEPARATOR         => \T_NS_SEPARATOR,

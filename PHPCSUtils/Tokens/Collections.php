@@ -476,6 +476,7 @@ class Collections
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
+     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::parameterTypeTokens()} method instead.
      *
@@ -486,6 +487,7 @@ class Collections
         \T_SELF              => \T_SELF,
         \T_PARENT            => \T_PARENT,
         \T_FALSE             => \T_FALSE,
+        \T_TRUE              => \T_TRUE,
         \T_NULL              => \T_NULL,
         \T_STRING            => \T_STRING,
         \T_NS_SEPARATOR      => \T_NS_SEPARATOR,
@@ -530,6 +532,7 @@ class Collections
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
+     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyTypeTokens()} method instead.
      *
@@ -540,6 +543,7 @@ class Collections
         \T_SELF              => \T_SELF,
         \T_PARENT            => \T_PARENT,
         \T_FALSE             => \T_FALSE,
+        \T_TRUE              => \T_TRUE,
         \T_NULL              => \T_NULL,
         \T_STRING            => \T_STRING,
         \T_NS_SEPARATOR      => \T_NS_SEPARATOR,
@@ -553,6 +557,7 @@ class Collections
      * @since 1.0.0-alpha1
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
+     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::returnTypeTokens()} method instead.
      *
@@ -564,6 +569,7 @@ class Collections
         \T_PARENT            => \T_PARENT,
         \T_STATIC            => \T_STATIC,
         \T_FALSE             => \T_FALSE,
+        \T_TRUE              => \T_TRUE,
         \T_NULL              => \T_NULL,
         \T_STRING            => \T_STRING,
         \T_NS_SEPARATOR      => \T_NS_SEPARATOR,
@@ -922,6 +928,7 @@ class Collections
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
+     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
      *
      * @return array <int|string> => <int|string>
      */
@@ -962,6 +969,7 @@ class Collections
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
+     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
      *
      * @return array <int|string> => <int|string>
      */
@@ -1002,6 +1010,7 @@ class Collections
      * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
      * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
+     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
      *
      * @return array <int|string> => <int|string>
      */
