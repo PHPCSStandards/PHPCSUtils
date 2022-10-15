@@ -896,6 +896,125 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP8.1 intersection type declaration.
+     *
+     * @return void
+     */
+    public function testPHP8IntersectionTypes()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'Foo&Bar',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8.1 intersection type declaration with more types.
+     *
+     * @return void
+     */
+    public function testPHP81MoreIntersectionTypes()
+    {
+        $php8Names = parent::usesPhp8NameTokens();
+
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'MyClassA&\Package\MyClassB&\Package\MyClassC',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => ($php8Names === true) ? 11 : 17, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8.1 intersection type declaration in arrow function.
+     *
+     * @return void
+     */
+    public function testPHP81IntersectionArrowFunction()
+    {
+        $php8Names = parent::usesPhp8NameTokens();
+
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'MyClassA&\Package\MyClassB',
+            'return_type_token'     => 6, // Offset from the T_FN token.
+            'return_type_end_token' => ($php8Names === true) ? 8 : 11, // Offset from the T_FN token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8.1 intersection type declaration with illegal simple types.
+     *
+     * @return void
+     */
+    public function testPHP81IllegalIntersectionTypes()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'string&int',
+            'return_type_token'     => 6, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8.1 intersection type declaration with (illegal) nullability.
+     *
+     * @return void
+     */
+    public function testPHP81NullableIntersectionTypes()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?Foo&Bar',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264

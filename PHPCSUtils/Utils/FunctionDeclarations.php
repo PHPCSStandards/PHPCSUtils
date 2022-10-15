@@ -156,6 +156,7 @@ class FunctionDeclarations
      * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      * @since 1.0.0-alpha3 Added support for PHP 8.0 static return type.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token to
@@ -364,6 +365,7 @@ class FunctionDeclarations
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 parameter attributes.
      * @since 1.0.0-alpha4 Added support for PHP 8.1 readonly keyword for constructor property promotion.
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token

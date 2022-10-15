@@ -42,6 +42,7 @@ class ReturnTypeTokensTest extends TestCase
             \T_STRING               => \T_STRING,
             \T_NS_SEPARATOR         => \T_NS_SEPARATOR,
             \T_TYPE_UNION           => \T_TYPE_UNION,
+            \T_TYPE_INTERSECTION    => \T_TYPE_INTERSECTION,
             \T_NAMESPACE            => \T_NAMESPACE,
             \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
             \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
