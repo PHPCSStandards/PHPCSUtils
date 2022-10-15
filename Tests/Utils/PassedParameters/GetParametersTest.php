@@ -538,6 +538,55 @@ class GetParametersTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+
+            // PHP 7.4 argument unpacking array expressions.
+            'long-array-with-argument-unpacking-via-spread-operator' => [
+                'testMarker' => '/* testPHP74UnpackingInLongArrayExpression */',
+                'targetType' => \T_ARRAY,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 3,
+                        'raw'   => '...$arr1',
+                    ],
+                    2 => [
+                        'start' => 5,
+                        'end'   => 9,
+                        'raw'   => '...arrGen()',
+                    ],
+                    3 => [
+                        'start' => 11,
+                        'end'   => 26,
+                        'raw'   => "...new ArrayIterator(['a', 'b', 'c'])",
+                    ],
+                ],
+            ],
+            'short-array-with-argument-unpacking-via-spread-operator' => [
+                'testMarker' => '/* testPHP74UnpackingInShortArrayExpression */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => [
+                    1 => [
+                        'start' => 1,
+                        'end'   => 1,
+                        'raw'   => "'banana'",
+                    ],
+                    2 => [
+                        'start' => 3,
+                        'end'   => 5,
+                        'raw'   => '...$parts',
+                    ],
+                    3 => [
+                        'start' => 7,
+                        'end'   => 8,
+                        'raw'   => "'watermelon'",
+                    ],
+                    4 => [
+                        'start' => 10,
+                        'end'   => 18,
+                        'raw'   => '...["a" => 2]',
+                    ],
+                ],
+            ],
         ];
     }
 

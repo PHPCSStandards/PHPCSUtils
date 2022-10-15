@@ -124,3 +124,10 @@ unset( $variable, $object->property, static::$property, $array[$name], );
 $anon = new class( $param1, $param2 ) {
     public function __construct($param1, $param2) {}
 };
+
+/* testPHP74UnpackingInLongArrayExpression */
+$arr4 = array(...$arr1, ...arrGen(), ...new ArrayIterator(['a', 'b', 'c']));
+
+/* testPHP74UnpackingInShortArrayExpression */
+// Also includes code sample for PHP 8.1 unpacking with string keys.
+$fruits = ['banana', ...$parts, 'watermelon', ...["a" => 2],];
