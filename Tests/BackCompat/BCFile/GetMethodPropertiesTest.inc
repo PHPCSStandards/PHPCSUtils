@@ -151,6 +151,9 @@ fn&(?string $a) : ?string => $b;
 /* testFunctionCallFnPHPCS353-354 */
 $value = $obj->fn(true);
 
+/* testFunctionDeclarationNestedInTernaryPHPCS2975 */
+return (!$a ? [ new class { public function b(): c {} } ] : []);
+
 /* testArrowFunctionLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 $fn = fn

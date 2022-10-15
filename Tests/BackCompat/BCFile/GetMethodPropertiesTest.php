@@ -924,6 +924,30 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test handling of function declaration nested in a ternary, where the colon for the
+     * return type was incorrectly tokenized as T_INLINE_ELSE prior to PHPCS 3.5.7.
+     *
+     * @return void
+     */
+    public function testFunctionDeclarationNestedInTernaryPHPCS2975()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => true,
+            'return_type'           => 'c',
+            'return_type_token'     => 7, // Offset from the T_FN token.
+            'return_type_end_token' => 7, // Offset from the T_FN token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test helper.
      *
      * @param string $commentString The comment which preceeds the test.
