@@ -55,4 +55,21 @@ class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
         self::$caseFile = \dirname(\dirname(__DIR__)) . '/BackCompat/BCFile/GetClassPropertiesTest.inc';
         parent::setUpTestFile();
     }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetClassProperties() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetClassProperties()
+    {
+        $data = parent::dataGetClassProperties();
+        foreach ($data as $name => $dataset) {
+            $data[$name][1]['is_readonly'] = false;
+        }
+
+        return $data;
+    }
 }

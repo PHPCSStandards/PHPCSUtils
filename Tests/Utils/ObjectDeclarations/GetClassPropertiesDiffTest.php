@@ -72,6 +72,7 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
                 'expected'   => [
                     'is_abstract' => false,
                     'is_final'    => true,
+                    'is_readonly' => false,
                 ],
             ],
             'unorthodox-docblock-placement' => [
@@ -79,6 +80,47 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
                 'expected'   => [
                     'is_abstract' => false,
                     'is_final'    => true,
+                    'is_readonly' => false,
+                ],
+            ],
+            'readonly' => [
+                '/* testReadonlyClass */',
+                [
+                    'is_abstract' => false,
+                    'is_final'    => false,
+                    'is_readonly' => true,
+                ],
+            ],
+            'final-readonly' => [
+                '/* testFinalReadonlyClass */',
+                [
+                    'is_abstract' => false,
+                    'is_final'    => true,
+                    'is_readonly' => true,
+                ],
+            ],
+            'readonly-final' => [
+                '/* testReadonlyFinalClass */',
+                [
+                    'is_abstract' => false,
+                    'is_final'    => true,
+                    'is_readonly' => true,
+                ],
+            ],
+            'abstract-readonly' => [
+                '/* testAbstractReadonlyClass */',
+                [
+                    'is_abstract' => true,
+                    'is_final'    => false,
+                    'is_readonly' => true,
+                ],
+            ],
+            'readonly-abstract' => [
+                '/* testReadonlyAbstractClass */',
+                [
+                    'is_abstract' => true,
+                    'is_final'    => false,
+                    'is_readonly' => true,
                 ],
             ],
         ];
