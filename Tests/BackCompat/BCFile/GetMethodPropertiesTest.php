@@ -850,6 +850,52 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP8.1 type "never".
+     *
+     * @return void
+     */
+    public function testPHP81NeverType()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'never',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP8.1 type "never"  with (illegal) nullability.
+     *
+     * @return void
+     */
+    public function testPHP81NullableNeverType()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?never',
+            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test for incorrect tokenization of array return type declarations in PHPCS < 2.8.0.
      *
      * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/1264
