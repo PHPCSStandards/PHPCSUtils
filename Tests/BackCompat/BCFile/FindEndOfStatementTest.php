@@ -234,4 +234,161 @@ class FindEndOfStatementTest extends UtilityMethodTestCase
 
         $this->assertSame(($start + 17), $found);
     }
+
+    /**
+     * Test simple match expression case.
+     *
+     * @return void
+     */
+    public function testMatchCase()
+    {
+        $start = $this->getTargetToken('/* testMatchCase */', T_LNUMBER);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 5), $found);
+
+        $start = $this->getTargetToken('/* testMatchCase */', T_CONSTANT_ENCAPSED_STRING);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 1), $found);
+    }
+
+    /**
+     * Test simple match expression default case.
+     *
+     * @return void
+     */
+    public function testMatchDefault()
+    {
+        $start = $this->getTargetToken('/* testMatchDefault */', T_MATCH_DEFAULT);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 4), $found);
+
+        $start = $this->getTargetToken('/* testMatchDefault */', T_CONSTANT_ENCAPSED_STRING);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame($start, $found);
+    }
+
+    /**
+     * Test multiple comma-separated match expression case values.
+     *
+     * @return void
+     */
+    public function testMatchMultipleCase()
+    {
+        $start = $this->getTargetToken('/* testMatchMultipleCase */', T_LNUMBER);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+        $this->assertSame(($start + 13), $found);
+
+        $start += 6;
+        $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+        $this->assertSame(($start + 7), $found);
+    }
+
+    /**
+     * Test match expression default case with trailing comma.
+     *
+     * @return void
+     */
+    public function testMatchDefaultComma()
+    {
+        $start = $this->getTargetToken('/* testMatchDefaultComma */', T_MATCH_DEFAULT);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 5), $found);
+    }
+
+    /**
+     * Test match expression with function call.
+     *
+     * @return void
+     */
+    public function testMatchFunctionCall()
+    {
+        $start = $this->getTargetToken('/* testMatchFunctionCall */', T_STRING);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 12), $found);
+
+        $start += 8;
+        $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 1), $found);
+    }
+
+    /**
+     * Test match expression with function call in the arm.
+     *
+     * @return void
+     */
+    public function testMatchFunctionCallArm()
+    {
+        // Check the first case.
+        $start = $this->getTargetToken('/* testMatchFunctionCallArm */', T_STRING);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 21), $found);
+
+        // Check the second case.
+        $start += 24;
+        $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 21), $found);
+    }
+
+    /**
+     * Test match expression with closure.
+     *
+     * @return void
+     */
+    public function testMatchClosure()
+    {
+        $start = $this->getTargetToken('/* testMatchClosure */', T_LNUMBER);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 14), $found);
+
+        $start += 17;
+        $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 14), $found);
+    }
+
+    /**
+     * Test match expression with array declaration.
+     *
+     * @return void
+     */
+    public function testMatchArray()
+    {
+        $start = $this->getTargetToken('/* testMatchArray */', T_LNUMBER);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 11), $found);
+
+        $start += 14;
+        $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 22), $found);
+    }
+
+    /**
+     * Test nested match expressions.
+     *
+     * @return void
+     */
+    public function testNestedMatch()
+    {
+        $start = $this->getTargetToken('/* testNestedMatch */', T_LNUMBER);
+        $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 30), $found);
+
+        $start += 21;
+        $found  = BCFile::findEndOfStatement(self::$phpcsFile, $start);
+
+        $this->assertSame(($start + 5), $found);
+    }
 }
