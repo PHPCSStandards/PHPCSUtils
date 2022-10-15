@@ -89,6 +89,7 @@ class Variables
      * @since 1.0.0
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
      * @since 1.0.0-alpha4 No longer gets confused by PHP 8.0 property attributes.
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 readonly properties.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
@@ -101,6 +102,7 @@ class Variables
      *                 'scope'           => string,  // Public, private, or protected.
      *                 'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
      *                 'is_static'       => boolean, // TRUE if the static keyword was found.
+     *                 'is_readonly'     => boolean, // TRUE if the readonly keyword was found.
      *                 'type'            => string,  // The type of the var (empty if no type specified).
      *                 'type_token'      => integer, // The stack pointer to the start of the type
      *                                               // or FALSE if there is no type.
@@ -133,6 +135,7 @@ class Variables
         $scope          = 'public';
         $scopeSpecified = false;
         $isStatic       = false;
+        $isReadonly     = false;
 
         $startOfStatement = $phpcsFile->findPrevious(
             [
@@ -164,6 +167,9 @@ class Variables
                     break;
                 case \T_STATIC:
                     $isStatic = true;
+                    break;
+                case \T_READONLY:
+                    $isReadonly = true;
                     break;
             }
         }
@@ -205,6 +211,7 @@ class Variables
             'scope'           => $scope,
             'scope_specified' => $scopeSpecified,
             'is_static'       => $isStatic,
+            'is_readonly'     => $isReadonly,
             'type'            => $type,
             'type_token'      => $typeToken,
             'type_end_token'  => $typeEndToken,

@@ -343,6 +343,8 @@ class FunctionDeclarations
      * ```php
      *   'property_visibility' => string,  // The property visibility as declared.
      *   'visibility_token'    => integer, // The stack pointer to the visibility modifier token.
+     *   'property_readonly'   => bool,    // TRUE if the readonly keyword was found.
+     *   'readonly_token'      => integer, // The stack pointer to the readonly modifier token.
      * ```
      *
      * Main differences with the PHPCS version:
@@ -361,6 +363,7 @@ class FunctionDeclarations
      * @since 1.0.0-alpha4 Added support for PHP 8.0 constructor property promotion.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 parameter attributes.
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 readonly keyword for constructor property promotion.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -426,6 +429,7 @@ class FunctionDeclarations
         $typeHintEndToken = false;
         $nullableType     = false;
         $visibilityToken  = null;
+        $readonlyToken    = null;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
             if (isset(Collections::parameterTypeTokens()[$tokens[$i]['code']]) === true
@@ -475,6 +479,10 @@ class FunctionDeclarations
                     $visibilityToken = $i;
                     break;
 
+                case \T_READONLY:
+                    $readonlyToken = $i;
+                    break;
+
                 case \T_CLOSE_PARENTHESIS:
                 case \T_COMMA:
                     // If it's null, then there must be no parameters for this
@@ -511,6 +519,12 @@ class FunctionDeclarations
                     if ($visibilityToken !== null) {
                         $vars[$paramCount]['property_visibility'] = $tokens[$visibilityToken]['content'];
                         $vars[$paramCount]['visibility_token']    = $visibilityToken;
+                        $vars[$paramCount]['property_readonly']   = false;
+                    }
+
+                    if ($readonlyToken !== null) {
+                        $vars[$paramCount]['property_readonly'] = true;
+                        $vars[$paramCount]['readonly_token']    = $readonlyToken;
                     }
 
                     if ($tokens[$i]['code'] === \T_COMMA) {
@@ -534,6 +548,7 @@ class FunctionDeclarations
                     $typeHintEndToken = false;
                     $nullableType     = false;
                     $visibilityToken  = null;
+                    $readonlyToken    = null;
 
                     ++$paramCount;
                     break;

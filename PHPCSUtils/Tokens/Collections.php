@@ -503,6 +503,7 @@ class Collections
      * DEPRECATED: Modifier keywords which can be used for a property declaration.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the T_READONLY token for PHP 8.1 readonly properties.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::propertyModifierKeywords()} method instead.
      *
@@ -514,6 +515,7 @@ class Collections
         \T_PROTECTED => \T_PROTECTED,
         \T_STATIC    => \T_STATIC,
         \T_VAR       => \T_VAR,
+        \T_READONLY  => \T_READONLY,
     ];
 
     /**

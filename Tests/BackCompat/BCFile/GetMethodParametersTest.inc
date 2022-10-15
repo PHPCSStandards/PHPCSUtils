@@ -201,6 +201,11 @@ class ConstructorPropertyPromotionAndNormalParams {
     public function __construct(public int $promotedProp, ?int $normalArg) {}
 }
 
+class ConstructorPropertyPromotionWithReadOnly {
+    /* testPHP81ConstructorPropertyPromotionWithReadOnly */
+    public function __construct(public readonly ?int $promotedProp, ReadOnly private string|bool &$promotedToo) {}
+}
+
 /* testPHP8ConstructorPropertyPromotionGlobalFunction */
 // Intentional fatal error. Property promotion not allowed in non-constructor, but that's not the concern of this method.
 function globalFunction(private $x) {}
