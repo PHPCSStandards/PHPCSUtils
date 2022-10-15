@@ -66,6 +66,8 @@ class PassedParameters
      *
      * @since 1.0.0
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
+     * @since 1.0.0-alpha4 Added defensive coding against PHP 8.1 first class callables
+     *                     being passed as if they were function calls.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
      * @param int                         $stackPtr     The position of function call name,
@@ -138,8 +140,11 @@ class PassedParameters
             return false;
         }
 
+        $ignore              = Tokens::$emptyTokens;
+        $ignore[\T_ELLIPSIS] = \T_ELLIPSIS; // Prevent PHP 8.1 first class callables from being seen as function calls.
+
         $closeParenthesis = $tokens[$next]['parenthesis_closer'];
-        $nextNextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($next + 1), ($closeParenthesis + 1), true);
+        $nextNextNonEmpty = $phpcsFile->findNext($ignore, ($next + 1), ($closeParenthesis + 1), true);
 
         if ($nextNextNonEmpty === $closeParenthesis) {
             // No parameters.
