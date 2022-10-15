@@ -370,9 +370,9 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens representing context sensitive keywords in PHP.
      *
-     * @var array<int|string, int|string>
+     * @link https://wiki.php.net/rfc/context_sensitive_lexer
      *
-     * https://wiki.php.net/rfc/context_sensitive_lexer
+     * @var array<int|string, int|string>
      */
     private $contextSensitiveKeywords = [
         \T_ABSTRACT     => \T_ABSTRACT,

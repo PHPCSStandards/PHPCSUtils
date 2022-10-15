@@ -37,9 +37,9 @@ final class Variables
      * The variables names are set without the leading dollar sign to allow this array
      * to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
      *
-     * @since 1.0.0
+     * @link https://php.net/reserved.variables PHP Manual on reserved variables
      *
-     * @link http://php.net/reserved.variables PHP Manual on reserved variables
+     * @since 1.0.0
      *
      * @var array <string> => <bool>
      */

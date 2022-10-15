@@ -173,7 +173,7 @@ final class TextStrings
     /**
      * Strip text delimiter quotes from an arbitrary text string.
      *
-     * Intended for use with the "contents" of a `T_CONSTANT_ENCAPSED_STRING` / `T_DOUBLE_QUOTED_STRING`.
+     * Intended for use with the "content" of a `T_CONSTANT_ENCAPSED_STRING` / `T_DOUBLE_QUOTED_STRING`.
      *
      * - Prevents stripping mis-matched quotes.
      * - Prevents stripping quotes from the textual content of the text string.
@@ -195,6 +195,8 @@ final class TextStrings
      * Note: this function gets the complete variables/expressions _as they are embedded_,
      * i.e. including potential curly brace wrappers, array access, method calls etc.
      *
+     * @since 1.0.0-alpha4
+     *
      * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
      *
      * @return array<int, string> Array of encountered variable names/expressions with the offset at which
@@ -207,6 +209,8 @@ final class TextStrings
 
     /**
      * Strip embedded variables/expressions from an arbitrary string.
+     *
+     * @since 1.0.0-alpha4
      *
      * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
      *
@@ -230,8 +234,11 @@ final class TextStrings
      *
      * This method handles all types of embeds, including recognition of whether an embed is escaped or not.
      *
-     * @link https://www.php.net/manual/en/language.types.string.php#language.types.string.parsing
-     * @link https://wiki.php.net/rfc/deprecate_dollar_brace_string_interpolation
+     * @link https://www.php.net/language.types.string#language.types.string.parsing PHP Manual on string parsing
+     * @link https://wiki.php.net/rfc/deprecate_dollar_brace_string_interpolation    PHP RFC on deprecating select
+     *                                                                               string interpolation syntaxes
+     *
+     * @since 1.0.0-alpha4
      *
      * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
      *

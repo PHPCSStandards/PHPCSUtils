@@ -462,7 +462,7 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
     /**
      * Test object call on result of static function call with arrow function as parameter and wrapped within an array.
      *
-     * @link https://github.com/squizlabs/php_codesniffer/issues/2849
+     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2849
      * @link https://github.com/squizlabs/PHP_CodeSniffer/commit/fbf67efc3fc0c2a355f5585d49f4f6fe160ff2f9
      *
      * @return void
