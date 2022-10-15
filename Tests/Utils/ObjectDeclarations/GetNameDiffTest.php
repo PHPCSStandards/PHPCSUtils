@@ -87,7 +87,7 @@ class GetNameDiffTest extends UtilityMethodTestCase
     public function testGetName($testMarker, $expected, $targetType = null)
     {
         if (isset($targetType) === false) {
-            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION];
+            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM, \T_FUNCTION];
         }
 
         $target = $this->getTargetToken($testMarker, $targetType);

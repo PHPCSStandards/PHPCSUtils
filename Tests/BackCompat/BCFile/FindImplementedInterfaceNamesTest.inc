@@ -29,6 +29,15 @@ class testFECNClassThatExtendsAndImplements extends testFECNClass implements Int
 /* testClassThatImplementsAndExtends */
 class testFECNClassThatImplementsAndExtends implements \InterfaceA, InterfaceB extends testFECNClass {}
 
+/* testBackedEnumWithoutImplements */
+enum Suit:string {}
+
+/* testEnumImplements */
+enum Suit implements Colorful {}
+
+/* testBackedEnumImplements */
+enum Suit: string implements Colorful, \Deck {}
+
 /* testAnonClassImplements */
 $anon = class() implements testFIINInterface {}
 

@@ -121,6 +121,18 @@ class IsOOMethodTest extends UtilityMethodTestCase
                 'testMarker' => '/* testTraitMethod */',
                 'expected'   => true,
             ],
+            'enum-method' => [
+                'testMarker' => '/* testEnumMethod */',
+                'expected'   => true,
+            ],
+            'enum-nested-function' => [
+                'testMarker' => '/* testEnumNestedFunction */',
+                'expected'   => false,
+            ],
+            'enum-nested-closure' => [
+                'testMarker' => '/* testEnumNestedClosure */',
+                'expected'   => false,
+            ],
         ];
     }
 }

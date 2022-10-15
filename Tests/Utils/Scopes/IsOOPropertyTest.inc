@@ -87,3 +87,12 @@ if ( has_filter( 'comments_open' ) === false ) {
     /* testFunctionCallParameter */
     }, $priority, 2 );
 }
+
+enum MyEnum {
+    // Intentional parse error. Properties are not allowed in enums.
+    /* testEnumProp */
+    public $enumProp = false;
+
+    /* testEnumMethodParameter */
+    public function something($param = false);
+}

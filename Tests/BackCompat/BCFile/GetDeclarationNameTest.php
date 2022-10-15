@@ -106,7 +106,7 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
     public function testGetDeclarationName($testMarker, $expected, $targetType = null)
     {
         if (isset($targetType) === false) {
-            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION];
+            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM, \T_FUNCTION];
         }
 
         $target = $this->getTargetToken($testMarker, $targetType);
@@ -179,6 +179,18 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
             'function-named-fn' => [
                 '/* testFunctionFn */',
                 'fn',
+            ],
+            'enum-pure' => [
+                '/* testPureEnum */',
+                'Foo',
+            ],
+            'enum-backed-space-between-name-and-colon' => [
+                '/* testBackedEnumSpaceBetweenNameAndColon */',
+                'Hoo',
+            ],
+            'enum-backed-no-space-between-name-and-colon' => [
+                '/* testBackedEnumNoSpaceBetweenNameAndColon */',
+                'Suit',
             ],
         ];
     }

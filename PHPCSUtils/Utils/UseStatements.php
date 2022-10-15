@@ -80,7 +80,7 @@ class UseStatements
         }
 
         $traitScopes = Tokens::$ooScopeTokens;
-        // Only classes and traits can import traits.
+        // Only classes, traits and enums can import traits.
         unset($traitScopes[\T_INTERFACE]);
 
         if (isset($traitScopes[$tokens[$lastCondition]['code']]) === true) {

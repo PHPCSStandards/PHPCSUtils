@@ -184,6 +184,7 @@ class Collections
      * within a namespace scope are still global and not limited to that namespace.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::closedScopes()} method instead.
      *
@@ -194,6 +195,7 @@ class Collections
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_INTERFACE  => \T_INTERFACE,
         \T_TRAIT      => \T_TRAIT,
+        \T_ENUM       => \T_ENUM,
         \T_FUNCTION   => \T_FUNCTION,
         \T_CLOSURE    => \T_CLOSURE,
     ];
@@ -384,6 +386,7 @@ class Collections
      * DEPRECATED: OO structures which can use the "implements" keyword.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooCanImplement()} method instead.
      *
@@ -392,6 +395,7 @@ class Collections
     public static $OOCanImplement = [
         \T_CLASS      => \T_CLASS,
         \T_ANON_CLASS => \T_ANON_CLASS,
+        \T_ENUM       => \T_ENUM,
     ];
 
     /**
@@ -400,6 +404,7 @@ class Collections
      * Note: traits can not declare constants.
      *
      * @since 1.0.0-alpha1
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @deprecated 1.0.0-alpha4 Use the {@see Collections::ooConstantScopes()} method instead.
      *
@@ -409,6 +414,7 @@ class Collections
         \T_CLASS      => \T_CLASS,
         \T_ANON_CLASS => \T_ANON_CLASS,
         \T_INTERFACE  => \T_INTERFACE,
+        \T_ENUM       => \T_ENUM,
     ];
 
     /**
@@ -820,6 +826,7 @@ class Collections
      * OO structures which can use the "implements" keyword.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOCanImplement} property.
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @return array <int|string> => <int|string>
      */
@@ -834,6 +841,7 @@ class Collections
      * Note: traits can not declare constants.
      *
      * @since 1.0.0-alpha4 This method replaces the {@see Collections::$OOConstantScopes} property.
+     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
      *
      * @return array <int|string> => <int|string>
      */
