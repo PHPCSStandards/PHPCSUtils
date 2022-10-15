@@ -87,6 +87,24 @@ $array = [
     /* testDoubleArrowTokenizedAsTstring-PHPCS2865 */
     $obj->fn => 'value',
 
+    /* testNoArrowValueMatchExpr */
+    match($a) {
+        FOO     => BAR,
+        default => [0 => BAZ],
+    },
+
+    /* testArrowValueMatchExpr */
+    'key' => match($a) {
+        [0 => 10] => BAR,
+        default   => BAZ,
+    },
+
+    /* testArrowKeyMatchExpr */
+    match($a) {
+        FOO     => BAR,
+        default => [0 => 10],
+    } => 'value',
+
     /* testEmptyArrayItem */
     // Intentional parse error.
     ,

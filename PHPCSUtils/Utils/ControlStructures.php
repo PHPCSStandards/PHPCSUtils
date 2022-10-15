@@ -37,6 +37,7 @@ class ControlStructures
      * regarded as empty.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 match control structures.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile  The file being scanned.
      * @param int                         $stackPtr   The position of the token we are checking.

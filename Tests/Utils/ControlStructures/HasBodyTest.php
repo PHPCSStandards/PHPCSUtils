@@ -311,6 +311,29 @@ class HasBodyTest extends UtilityMethodTestCase
                 'hasBody'         => true,
                 'hasNonEmptyBody' => true,
             ],
+
+            /*
+             * Match without body cannot be tested as, in that case, `match` will tokenize as `T_STRING`.
+             * Without body (`match();`), match will either yield a parse error
+             * or be interpreted as a function call (`\match();` or `self::match()` etc).
+             */
+
+            'match-empty-body' => [
+                'testMarker'      => '/* testMatchEmptyBody */',
+                'hasBody'         => true,
+                'hasNonEmptyBody' => false,
+            ],
+            'match-empty-body-comment-only' => [
+                'testMarker'      => '/* testMatchEmptyBodyWithComment */',
+                'hasBody'         => true,
+                'hasNonEmptyBody' => false,
+            ],
+            'match-with-code' => [
+                'testMarker'      => '/* testMatchWithCode */',
+                'hasBody'         => true,
+                'hasNonEmptyBody' => true,
+            ],
+
             'else-live-coding' => [
                 'testMarker'      => '/* testElseLiveCoding */',
                 'hasBody'         => true,
