@@ -107,7 +107,7 @@ class IsOOConstantTest extends UtilityMethodTestCase
             ],
             'trait-const' => [
                 'testMarker' => '/* testTraitConst */',
-                'expected'   => false,
+                'expected'   => true,
             ],
             'enum-const' => [
                 'testMarker' => '/* testEnumConst */',
