@@ -11,7 +11,7 @@
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)][phpcsutils-packagist]
 [![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml)
 [![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)][phpcsutils-tests-gha]
-[![Tested on PHP 5.4 to 8.1](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1-brightgreen.svg?maxAge=2419200)][phpcsutils-tests-gha]
+[![Tested on PHP 5.4 to 8.2](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1%20|%208.2-brightgreen.svg?maxAge=2419200)][phpcsutils-tests-gha]
 [![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg?branch=develop)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils?branch=develop)
 
 [![Docs Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/ghpages.yml/badge.svg)][phpcsutils-web]
@@ -33,7 +33,7 @@
 
 ## Features
 
-[PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer] (or "PHPCS" for short).
+[PHPCSUtils][phpcsutils-repo] is a set of utilities to aid developers of sniffs for [PHP_CodeSniffer] (or "PHPCS" for short).
 
 This package offers the following features:
 
@@ -89,6 +89,7 @@ To see detailed information about all the available abstract sniffs, utility fun
 If your external PHP_CodeSniffer standard only supports Composer-based installs, integrating PHPCSUtils is pretty straight forward.
 
 Run the following from the root of your external PHPCS standard's project:
+
 ```bash
 composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 composer require phpcsstandards/phpcsutils:^1.0
@@ -104,6 +105,7 @@ No further action needed. You can start using all the utility functions, abstrac
 >
 > :information_source: As of Composer 2.2, Composer will [ask for permission](https://blog.packagist.com/composer-2-2/#more-secure-plugin-execution) to allow the Composer PHPCS plugin to execute code. For the plugin to be functional, permission needs to be granted.
 > This can be done ahead of time by instructing your users to run the following command before installing your standard:
+>
 > ```bash
 > composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 > ```
@@ -130,10 +132,13 @@ Your installation instructions for a non-Composer based installation will probab
 > * Download the \[latest _YourStandardName_ release\] and unzip/untar it into an arbitrary directory.
 >     You can also choose to clone the repository using git.
 > * Add the path to the directory in which you placed your copy of the _YourStandardName_ repo to the PHP_CodeSniffer configuration using the below command:
+>
 >    ```bash
 >    phpcs --config-set installed_paths /path/to/YourStandardName
 >    ```
+>
 >    **Warning**: :warning: The `installed_paths` command overwrites any previously set `installed_paths`. If you have previously set `installed_paths` for other external standards, run `phpcs --config-show` first and then run the `installed_paths` command with all the paths you need separated by comma's, i.e.:
+>
 >    ```bash
 >    phpcs --config-set installed_paths /path/1,/path/2,/path/3
 >    ```
@@ -143,10 +148,13 @@ For things to continue working when you add PHPCSUtils to your standard, you nee
 > * **Next, download the [latest PHPCSUtils release][phpcsutils-releases] and unzip/untar it into an arbitrary directory.**
 >     You can also choose to clone the repository using git.
 > * Add the path to the **directories** in which you placed your copy of the _YourStandardName_ repo **and the PHPCSUtils repo** to the PHP_CodeSniffer configuration using the below command:
+>
 >    ```bash
 >    phpcs --config-set installed_paths /path/to/YourStandardName,/path/to/PHPCSUtils
 >    ```
+>
 >    **Warning**: :warning: The `installed_paths` command overwrites any previously set `installed_paths`. If you have previously set `installed_paths` for other external standards, run `phpcs --config-show` first and then run the `installed_paths` command with all the paths you need separated by comma's, i.e.:
+>
 >    ```bash
 >    phpcs --config-set installed_paths /path/1,/path/2,/path/3
 >    ```
@@ -193,9 +201,11 @@ pointing to the PHPCS directory.
 
 </details>
 
-Once that's done, you will need to make a small tweak to your own dev environment to get the unit tests runnning for a non-Composer based install:
+Once that's done, you will need to make a small tweak to your own dev environment to get the unit tests running for a non-Composer based install:
+
 * Copy your project's `phpunit.xml.dist` file to `phpunit.xml`.
 * Add the following to the `phpunit.xml` file within the `<phpunit>` tags, replacing `/path/to/PHPCSUtils` with the path in which you installed PHPCSUtils on your local system:
+
     ```xml
     <php>
         <env name="PHPCSUTILS_DIR" value="/path/to/PHPCSUtils"/>
@@ -205,7 +215,7 @@ Once that's done, you will need to make a small tweak to your own dev environmen
 
 ## Frequently Asked Questions
 
-<div id="faq">
+<div class="faq">
 
 ### Q: How does this all work without an external standard needing to register an autoloader?
 
@@ -219,8 +229,8 @@ If your standard includes both PHPCS native sniffs as well as your own sniffs, y
 
 ### Q: Do the utilities work with javascript/CSS files?
 
-A: JS/CSS support will be removed from PHP_CodeSniffer in PHPCS 4.x.
-While at this time, some of the utilies _may_ work with JS/CSS files, PHPCSUtils does not offer formal support for JS/CSS sniffing with PHP_CodeSniffer and will stop any existing support once PHPCS 4.x has been released.
+A: JS/CSS support will be removed from `PHP_CodeSniffer` in PHPCS 4.x.
+While at this time, some of the utilities _may_ work with JS/CSS files, PHPCSUtils does not offer formal support for JS/CSS sniffing with `PHP_CodeSniffer` and will stop any existing support once PHPCS 4.x has been released.
 
 ### Q: Are all file encodings supported?
 
@@ -228,10 +238,14 @@ A: No. The UTF-8 file encoding is the only officially supported encoding. Suppor
 
 > **It is recommended to advise your users to save their files as UTF-8 encoded for the best results.**
 
-Note: PHP_CodeSniffer 3.x defaults to UTF-8 as the expected file encoding.
+Note: `PHP_CodeSniffer` 3.x defaults to UTF-8 as the expected file encoding.
+
+</div>
 
 
 ## Potential Support Questions from your End-Users
+
+<div class="faq">
 
 ### Q: A user reports a fatal "class not found" error for a class from PHPCSUtils
 
@@ -244,14 +258,16 @@ Note: PHP_CodeSniffer 3.x defaults to UTF-8 as the expected file encoding.
 
 > :bulb: **Pro-tip**: if you want to prevent the fatal error and show a _friendlier_ error message instead, add `<rule ref="PHPCSUtils"/>` to your standard's `ruleset.xml` file.
 >
-> With that in place, PHP_CodeSniffer will show a _"ERROR: the "PHPCSUtils" coding standard is not installed."_ message if PHPCSUtils is missing as soon as the ruleset loading is finished.
+> With that in place, `PHP_CodeSniffer` will show a _"ERROR: the "PHPCSUtils" coding standard is not installed."_ message if PHPCSUtils is missing as soon as the ruleset loading is finished.
 
 ---
 
 > :bulb: **Pro-tip**: provide upgrade instructions for your end-users. For Composer-based installs, those should look like this:
+>
 > ```bash
-> composer update your/cs-package --with-dependencies
+> composer update your/cs-package --with-[all-]dependencies
 > ```
+>
 > That way, when the user updates your coding standards package, they will automatically also update PHPCSUtils.
 
 ---
@@ -268,11 +284,12 @@ If you are unsure whether the changes you are proposing would be welcome, please
 
 ## License
 
-This code is released under the [GNU Lesser General Public License (LGPLv3)](http://www.gnu.org/copyleft/lesser.html).
+This code is released under the [GNU Lesser General Public License (LGPLv3)](https://www.gnu.org/copyleft/lesser.html).
 
 
 [PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
 [Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
+[phpcsutils-repo]:       https://github.com/PHPCSStandards/PHPCSUtils
 [phpcsutils-web]:        https://phpcsutils.com/
 [phpcsutils-packagist]:  https://packagist.org/packages/phpcsstandards/phpcsutils
 [phpcsutils-releases]:   https://github.com/PHPCSStandards/PHPCSUtils/releases
