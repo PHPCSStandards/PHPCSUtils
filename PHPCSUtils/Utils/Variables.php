@@ -88,6 +88,7 @@ class Variables
      *
      * @since 1.0.0
      * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 No longer gets confused by PHP 8.0 property attributes.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
@@ -138,6 +139,7 @@ class Variables
                 \T_SEMICOLON,
                 \T_OPEN_CURLY_BRACKET,
                 \T_CLOSE_CURLY_BRACKET,
+                \T_ATTRIBUTE_END,
             ],
             ($stackPtr - 1)
         );

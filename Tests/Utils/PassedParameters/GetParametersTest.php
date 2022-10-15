@@ -587,6 +587,39 @@ class GetParametersTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+
+            // PHP 8.0: function calls in attributes.
+            'function-call-within-an-attribute' => [
+                'testMarker' => '/* testPHP80FunctionCallInAttribute */',
+                'targetType' => \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 10,
+                        'raw'   => '[1, 2, 3]',
+                    ],
+                ],
+            ],
+
+            // PHP 8.0: skipping over attributes.
+            'function-call-with-attributes-attached-to-passed-closure' => [
+                'testMarker' => '/* testPHP80SkippingOverAttributes */',
+                'targetType' => \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 4,
+                        'raw'   => '$value',
+                    ],
+                    2 => [
+                        'start' => 6,
+                        'end'   => 39,
+                        'raw'   => '#[MyAttribute()]
+    #[AnotherAttribute([1, 2, 3])]
+    function() { /* do something */}',
+                    ],
+                ],
+            ],
         ];
     }
 

@@ -234,6 +234,16 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 'expected'   => 38,
             ],
 
+            // Safeguard that double arrows in PHP 8.0 attributes are disregarded.
+            'test-no-arrow-value-closure-with-attached-attribute-containing-arrow' => [
+                'testMarker' => '/* testNoArrowValueClosureWithAttribute */',
+                'expected'   => false,
+            ],
+            'test-double-arrow-key-closure-with-attached-attribute-containing-arrow' => [
+                'testMarker' => '/* testArrowKeyClosureWithAttribute */',
+                'expected'   => 31,
+            ],
+
             'test-empty-array-item' => [
                 'testMarker' => '/* testEmptyArrayItem */',
                 'expected'   => false,

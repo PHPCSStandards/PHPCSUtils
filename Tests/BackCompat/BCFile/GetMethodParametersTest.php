@@ -162,6 +162,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 5, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => '&$var',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 4, // Offset from the T_FUNCTION token.
             'variable_length'     => false,
@@ -188,6 +189,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'array $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -214,6 +216,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 4, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => '$var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -243,6 +246,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'self::CONSTANT',
             'default_token'       => 6, // Offset from the T_FUNCTION token.
             'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -272,6 +276,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '1',
             'default_token'       => 6, // Offset from the T_FUNCTION token.
             'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -289,6 +294,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "'value'",
             'default_token'       => 11, // Offset from the T_FUNCTION token.
             'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -315,6 +321,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => 'foo $var1',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -330,6 +337,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 11, // Offset from the T_FUNCTION token.
             'name'                => '$var2',
             'content'             => 'bar $var2',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -356,6 +364,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'self $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -384,6 +393,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 7, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => '?int $var1',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -399,6 +409,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => ($php8Names === true) ? 13 : 14, // Offset from the T_FUNCTION token.
             'name'                => '$var2',
             'content'             => '?\bar $var2',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -428,6 +439,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '10 & 20',
             'default_token'       => 8, // Offset from the T_FUNCTION token.
             'default_equal_token' => 6, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -454,6 +466,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 4, // Offset from the T_FN token.
             'name'                => '$a',
             'content'             => 'int $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -469,6 +482,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FN token.
             'name'                => '$b',
             'content'             => '...$b',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -495,6 +509,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_FN token.
             'name'                => '$a',
             'content'             => '?string $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -524,6 +539,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '[]',
             'default_token'       => 8, // Offset from the T_FUNCTION token.
             'default_equal_token' => 6, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -541,6 +557,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'array(1, 2, 3)',
             'default_token'       => 16, // Offset from the T_FUNCTION token.
             'default_equal_token' => 14, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -567,6 +584,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 4, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => '$var1',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -584,6 +602,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'M_PI',
             'default_token'       => 11, // Offset from the T_FUNCTION token.
             'default_equal_token' => 9, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -613,6 +632,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'FOO ? \'bar\' : 10',
             'default_token'       => 9, // Offset from the T_FUNCTION token.
             'default_equal_token' => 7, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -627,6 +647,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 24, // Offset from the T_FUNCTION token.
             'name'                => '$b',
             'content'             => '? bool $b',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -653,6 +674,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 9, // Offset from the T_FUNCTION token.
             'name'                => '$a',
             'content'             => 'int ... $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -679,6 +701,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 7, // Offset from the T_FUNCTION token.
             'name'                => '$a',
             'content'             => '&...$a',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 5, // Offset from the T_FUNCTION token.
             'variable_length'     => true,
@@ -705,6 +728,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 4, // Offset from the T_FUNCTION token.
             'name'                => '$unit',
             'content'             => '$unit',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -719,6 +743,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 10, // Offset from the T_FUNCTION token.
             'name'                => '$intervals',
             'content'             => 'DateInterval ...$intervals',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -747,6 +772,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => ($php8Names === true) ? 7 : 12, // Offset from the T_FUNCTION token.
             'name'                => '$a',
             'content'             => '\Package\Sub\ClassName $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -761,6 +787,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => ($php8Names === true) ? 13 : 20, // Offset from the T_FUNCTION token.
             'name'                => '$b',
             'content'             => '?Sub\AnotherClass $b',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -787,6 +814,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 9, // Offset from the T_FUNCTION token.
             'name'                => '$a',
             'content'             => '?ClassName $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -801,6 +829,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 15, // Offset from the T_FUNCTION token.
             'name'                => '$b',
             'content'             => 'self $b',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -815,6 +844,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 21, // Offset from the T_FUNCTION token.
             'name'                => '$c',
             'content'             => 'parent $c',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -829,6 +859,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 27, // Offset from the T_FUNCTION token.
             'name'                => '$d',
             'content'             => 'object $d',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -843,6 +874,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 34, // Offset from the T_FUNCTION token.
             'name'                => '$e',
             'content'             => '?int $e',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -857,6 +889,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 41, // Offset from the T_FUNCTION token.
             'name'                => '$f',
             'content'             => 'string &$f',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 40, // Offset from the T_FUNCTION token.
             'variable_length'     => false,
@@ -871,6 +904,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 47, // Offset from the T_FUNCTION token.
             'name'                => '$g',
             'content'             => 'iterable $g',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -888,6 +922,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'true',
             'default_token'       => 57, // Offset from the T_FUNCTION token.
             'default_equal_token' => 55, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -905,6 +940,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "'is_null'",
             'default_token'       => 67, // Offset from the T_FUNCTION token.
             'default_equal_token' => 65, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -922,6 +958,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '1.1',
             'default_token'       => 77, // Offset from the T_FUNCTION token.
             'default_equal_token' => 75, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -936,6 +973,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 84, // Offset from the T_FUNCTION token.
             'name'                => '$k',
             'content'             => 'array ...$k',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -962,6 +1000,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 7, // Offset from the T_FN token.
             'name'                => '$a',
             'content'             => '?ClassName $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -976,6 +1015,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 13, // Offset from the T_FN token.
             'name'                => '$b',
             'content'             => 'self $b',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -990,6 +1030,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 19, // Offset from the T_FN token.
             'name'                => '$c',
             'content'             => 'parent $c',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1004,6 +1045,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 25, // Offset from the T_FN token.
             'name'                => '$d',
             'content'             => 'object $d',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1018,6 +1060,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 32, // Offset from the T_FN token.
             'name'                => '$e',
             'content'             => '?int $e',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1032,6 +1075,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 39, // Offset from the T_FN token.
             'name'                => '$f',
             'content'             => 'string &$f',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 38, // Offset from the T_FN token.
             'variable_length'     => false,
@@ -1046,6 +1090,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 45, // Offset from the T_FN token.
             'name'                => '$g',
             'content'             => 'iterable $g',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1063,6 +1108,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'true',
             'default_token'       => 55, // Offset from the T_FN token.
             'default_equal_token' => 53, // Offset from the T_FN token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1080,6 +1126,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "'is_null'",
             'default_token'       => 65, // Offset from the T_FN token.
             'default_equal_token' => 63, // Offset from the T_FN token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1097,6 +1144,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '1.1',
             'default_token'       => 75, // Offset from the T_FN token.
             'default_equal_token' => 73, // Offset from the T_FN token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1111,6 +1159,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 82, // Offset from the T_FN token.
             'name'                => '$k',
             'content'             => 'array ...$k',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -1142,6 +1191,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     ?\MyNS /* comment */
         \ SubCat // phpcs:ignore Standard.Cat.Sniff -- for reasons.
             \  MyClass $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1159,6 +1209,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "'default' /* test*/",
             'default_token'       => ($php8Names === true) ? 36 : 37, // Offset from the T_FUNCTION token.
             'default_equal_token' => ($php8Names === true) ? 32 : 33, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1176,6 +1227,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     ? /*comment*/
         bool // phpcs:disable Stnd.Cat.Sniff -- For reasons.
         & /*test*/ ... /* phpcs:ignore */ $c',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => ($php8Names === true) ? 53 : 54, // Offset from the T_FUNCTION token.
             'variable_length'     => true,
@@ -1202,6 +1254,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => 'mixed &...$var1',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 6, // Offset from the T_FUNCTION token.
             'variable_length'     => true,
@@ -1228,6 +1281,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 7, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => '?Mixed $var1',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1256,6 +1310,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => ($php8Names === true) ? 7 : 9, // Offset from the T_FUNCTION token.
             'name'                => '$var1',
             'content'             => '?namespace\Name $var1',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1282,6 +1337,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$number',
             'content'             => 'int|float $number',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1296,6 +1352,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 17, // Offset from the T_FUNCTION token.
             'name'                => '$obj',
             'content'             => 'self|parent &...$obj',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 15, // Offset from the T_FUNCTION token.
             'variable_length'     => true,
@@ -1322,6 +1379,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 9, // Offset from the T_FUNCTION token.
             'name'                => '$paramA',
             'content'             => 'float|null &$paramA',
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 8, // Offset from the T_FUNCTION token.
             'variable_length'     => false,
@@ -1336,6 +1394,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 17, // Offset from the T_FUNCTION token.
             'name'                => '$paramB',
             'content'             => 'string|int ...$paramB',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -1364,7 +1423,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'content'             => 'int|float $var = CONSTANT_A | CONSTANT_B',
             'default'             => 'CONSTANT_A | CONSTANT_B',
             'default_token'       => 10, // Offset from the T_FUNCTION token.
-            'default_equal_token' => 8, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 8,  // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1393,6 +1453,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => ($php8Names === true) ? 8 : 11, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'MyClassA|\Package\MyClassB $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1419,6 +1480,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 20, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'array|bool|callable|int|float|null|object|string $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1447,6 +1509,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 16, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'false|mixed|self|parent|iterable|Resource $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1473,6 +1536,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$number',
             'content'             => '?int|float $number',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1502,6 +1566,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'null',
             'default_token'       => 10, // Offset from the T_FUNCTION token.
             'default_equal_token' => 8, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1531,6 +1596,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'false',
             'default_token'       => 10, // Offset from the T_FUNCTION token.
             'default_equal_token' => 8, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1560,6 +1626,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'false',
             'default_token'       => 12, // Offset from the T_FUNCTION token.
             'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1586,6 +1653,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'object|ClassName $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1612,6 +1680,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 10, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'iterable|array|Traversable $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1638,6 +1707,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 17, // Offset from the T_FUNCTION token.
             'name'                => '$var',
             'content'             => 'int | string /*comment*/ | INT $var',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1667,6 +1737,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '0.0',
             'default_token'       => 12, // Offset from the T_FUNCTION token.
             'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1686,6 +1757,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "''",
             'default_token'       => 22, // Offset from the T_FUNCTION token.
             'default_equal_token' => 20, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1705,6 +1777,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => 'null',
             'default_token'       => 32, // Offset from the T_FUNCTION token.
             'default_equal_token' => 30, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1733,6 +1806,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 10, // Offset from the T_FUNCTION token.
             'name'                => '$x',
             'content'             => 'protected float|int $x',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1752,6 +1826,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "'test'",
             'default_token'       => 23, // Offset from the T_FUNCTION token.
             'default_equal_token' => 21, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 18, // Offset from the T_FUNCTION token.
             'variable_length'     => false,
@@ -1768,6 +1843,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 30, // Offset from the T_FUNCTION token.
             'name'                => '$z',
             'content'             => 'private mixed $z',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1796,6 +1872,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$promotedProp',
             'content'             => 'public int $promotedProp',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1812,6 +1889,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 14, // Offset from the T_FUNCTION token.
             'name'                => '$normalArg',
             'content'             => '?int $normalArg',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1838,6 +1916,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_FUNCTION token.
             'name'                => '$x',
             'content'             => 'private $x',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1866,6 +1945,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$y',
             'content'             => 'public callable $y',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1882,6 +1962,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 14, // Offset from the T_FUNCTION token.
             'name'                => '$x',
             'content'             => 'private ...$x',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -1914,6 +1995,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '\'default value\' . /*-*/ \'second part\' // Trailing comment.',
             'default_token'       => 27, // Offset from the T_FUNCTION token.
             'default_equal_token' => 23, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => true,
             'reference_token'     => 13, // Offset from the T_FUNCTION token.
             'variable_length'     => true,
@@ -1923,6 +2005,101 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint_end_token' => 9, // Offset from the T_FUNCTION token.
             'nullable_type'       => true,
             'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify behaviour when parameters have attributes attached.
+     *
+     * @return void
+     */
+    public function testParameterAttributesInFunctionDeclaration()
+    {
+        $php8Names = parent::usesPhp8NameTokens();
+
+        $expected    = [];
+        $expected[0] = [
+            'token'               => ($php8Names === true) ? 14 : 17, // Offset from the T_FUNCTION token.
+            'name'                => '$constructorPropPromTypedParamSingleAttribute',
+            'content'             => '#[\MyExample\MyAttribute] private string'
+                . ' $constructorPropPromTypedParamSingleAttribute',
+            'has_attributes'      => true,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'string',
+            'type_hint_token'     => ($php8Names === true) ? 12 : 15, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => ($php8Names === true) ? 12 : 15, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'property_visibility' => 'private',
+            'visibility_token'    => ($php8Names === true) ? 10 : 13, // Offset from the T_FUNCTION token.
+            'comma_token'         => ($php8Names === true) ? 15 : 18, // Offset from the T_FUNCTION token.
+        ];
+        $expected[1] = [
+            'token'               => ($php8Names === true) ? 36 : 39, // Offset from the T_FUNCTION token.
+            'name'                => '$typedParamSingleAttribute',
+            'content'             => '#[MyAttr([1, 2])]
+        Type|false
+        $typedParamSingleAttribute',
+            'has_attributes'      => true,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'Type|false',
+            'type_hint_token'     => ($php8Names === true) ? 31 : 34, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => ($php8Names === true) ? 33 : 36, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => ($php8Names === true) ? 37 : 40, // Offset from the T_FUNCTION token.
+        ];
+        $expected[2] = [
+            'token'               => ($php8Names === true) ? 56 : 59, // Offset from the T_FUNCTION token.
+            'name'                => '$nullableTypedParamMultiAttribute',
+            'content'             => '#[MyAttribute(1234), MyAttribute(5678)] ?int $nullableTypedParamMultiAttribute',
+            'has_attributes'      => true,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?int',
+            'type_hint_token'     => ($php8Names === true) ? 54 : 57, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => ($php8Names === true) ? 54 : 57, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'comma_token'         => ($php8Names === true) ? 57 : 60, // Offset from the T_FUNCTION token.
+        ];
+        $expected[3] = [
+            'token'               => ($php8Names === true) ? 71 : 74, // Offset from the T_FUNCTION token.
+            'name'                => '$nonTypedParamTwoAttributes',
+            'content'             => '#[WithoutArgument] #[SingleArgument(0)] $nonTypedParamTwoAttributes',
+            'has_attributes'      => true,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => ($php8Names === true) ? 72 : 75, // Offset from the T_FUNCTION token.
+        ];
+        $expected[4] = [
+            'token'               => ($php8Names === true) ? 92 : 95, // Offset from the T_FUNCTION token.
+            'name'                => '$otherParam',
+            'content'             => '#[MyAttribute(array("key" => "value"))]
+        &...$otherParam',
+            'has_attributes'      => true,
+            'pass_by_reference'   => true,
+            'reference_token'     => ($php8Names === true) ? 90 : 93, // Offset from the T_FUNCTION token.
+            'variable_length'     => true,
+            'variadic_token'      => ($php8Names === true) ? 91 : 94, // Offset from the T_FUNCTION token.
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => ($php8Names === true) ? 93 : 96, // Offset from the T_FUNCTION token.
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -1943,6 +2120,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => "'test'",
             'default_token'       => 7, // Offset from the T_FUNCTION token.
             'default_equal_token' => 5, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1969,6 +2147,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 3, // Offset from the T_USE token.
             'name'                => '$foo',
             'content'             => '$foo',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -1983,6 +2162,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_USE token.
             'name'                => '$bar',
             'content'             => '$bar',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2009,6 +2189,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 9, // Offset from the T_FUNCTION token.
             'name'                => '$foo',
             'content'             => '?string $foo  /*comment*/',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2026,6 +2207,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'default'             => '0',
             'default_token'       => 20, // Offset from the T_FUNCTION token.
             'default_equal_token' => 18, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2052,6 +2234,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 4, // Offset from the T_FUNCTION token.
             'name'                => '$foo',
             'content'             => '$foo',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2066,6 +2249,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 8, // Offset from the T_FUNCTION token.
             'name'                => '$bar',
             'content'             => '$bar',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2092,6 +2276,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 6, // Offset from the T_FN token.
             'name'                => '$a',
             'content'             => '?int $a',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2106,6 +2291,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 11, // Offset from the T_FN token.
             'name'                => '$b',
             'content'             => '...$b',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => true,
@@ -2132,6 +2318,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 4, // Offset from the T_USE token.
             'name'                => '$foo',
             'content'             => '$foo  /*comment*/',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,
@@ -2146,6 +2333,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'token'               => 11, // Offset from the T_USE token.
             'name'                => '$bar',
             'content'             => '$bar',
+            'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
             'variable_length'     => false,

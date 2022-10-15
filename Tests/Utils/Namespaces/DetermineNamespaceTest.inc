@@ -114,7 +114,12 @@ echo 0;
 /**
  * Docblock to skip over.
  */
+#[
+    AttributeToSkipOver,
+    AnotherAttribute,
+]
 class Foo {
+    #[AttributeToSkipOver()] #[AnotherAttribute]
     function test() {
         /* testNonScopedNamedNamespace2Nested */
         echo 0;

@@ -43,6 +43,7 @@ class PassedParameters
         \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
         \T_OPEN_PARENTHESIS     => \T_OPEN_PARENTHESIS,
         \T_DOC_COMMENT_OPEN_TAG => \T_DOC_COMMENT_OPEN_TAG,
+        \T_ATTRIBUTE            => \T_ATTRIBUTE,
     ];
 
     /**
@@ -267,6 +268,14 @@ class PassedParameters
                 && isset($tokens[$nextComma]['comment_closer'])
             ) {
                 $nextComma = $tokens[$nextComma]['comment_closer'];
+                continue;
+            }
+
+            // Skip over attributes.
+            if ($tokens[$nextComma]['code'] === \T_ATTRIBUTE
+                && isset($tokens[$nextComma]['attribute_closer'])
+            ) {
+                $nextComma = $tokens[$nextComma]['attribute_closer'];
                 continue;
             }
 

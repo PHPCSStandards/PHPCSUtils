@@ -285,6 +285,7 @@ class Namespaces
             \T_CLOSE_SHORT_ARRAY,
             \T_CLOSE_SQUARE_BRACKET,
             \T_DOC_COMMENT_CLOSE_TAG,
+            \T_ATTRIBUTE_END,
         ];
         $returnValue = false;
 
@@ -324,6 +325,12 @@ class Namespaces
                 continue;
             } elseif (isset($tokens[$prev]['parenthesis_opener']) === true) {
                 $prev = $tokens[$prev]['parenthesis_opener'];
+                continue;
+            }
+
+            // Skip over potentially large attributes.
+            if (isset($tokens[$prev]['attribute_opener'])) {
+                $prev = $tokens[$prev]['attribute_opener'];
                 continue;
             }
 

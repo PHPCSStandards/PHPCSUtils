@@ -105,6 +105,12 @@ $array = [
         default => [0 => 10],
     } => 'value',
 
+    /* testNoArrowValueClosureWithAttribute */
+    #[MyAttribute([0 => 'value'])] function() { /* do something */ }(),
+
+    /* testArrowKeyClosureWithAttribute */
+    #[MyAttribute([0 => 'value'])] function() { /* do something */ }() => 'value',
+
     /* testEmptyArrayItem */
     // Intentional parse error.
     ,
