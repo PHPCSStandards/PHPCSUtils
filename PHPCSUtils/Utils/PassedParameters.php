@@ -305,8 +305,7 @@ class PassedParameters
                     );
 
                     if ($tokens[$secondNonEmpty]['code'] === \T_COLON
-                        && ($tokens[$firstNonEmpty]['type'] === 'T_PARAM_NAME'
-                            || NamingConventions::isValidIdentifierName($tokens[$firstNonEmpty]['content']) === true)
+                        && $tokens[$firstNonEmpty]['code'] === \T_PARAM_NAME
                     ) {
                         $parameters[$cnt]['name_start'] = $paramStart;
                         $parameters[$cnt]['name_end']   = $secondNonEmpty;
