@@ -12,6 +12,7 @@ namespace PHPCSUtils\TestUtils;
 
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Exceptions\TestMarkerNotFound;
 use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -325,9 +326,9 @@ abstract class UtilityMethodTestCase extends TestCase
      * Note: the test delimiter comment MUST start with `/* test` to allow this function to
      * distinguish between comments used *in* a test and test delimiters.
      *
-     * If the delimiter comment is not found, the test will automatically be failed.
-     *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Will throw an exception whether the delimiter comment or the target
+     *                     token is not found.
      *
      * @param string           $commentString The complete delimiter comment to look for as a string.
      *                                        This string should include the comment opener and closer.
@@ -336,6 +337,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @return int
      *
+     * @throws \PHPCSUtils\Exceptions\TestMarkerNotFound When the delimiter comment for the test was not found.
      * @throws \PHPCSUtils\Exceptions\TestTargetNotFound When the target token cannot be found.
      */
     public function getTargetToken($commentString, $tokenType, $tokenContent = null)
@@ -350,8 +352,7 @@ abstract class UtilityMethodTestCase extends TestCase
         );
 
         if ($comment === false) {
-            $msg = 'Failed to find the test marker: ' . $commentString;
-            $this->fail($msg);
+            throw TestMarkerNotFound::create($commentString, self::$phpcsFile->getFilename());
         }
 
         $tokens = self::$phpcsFile->getTokens();
