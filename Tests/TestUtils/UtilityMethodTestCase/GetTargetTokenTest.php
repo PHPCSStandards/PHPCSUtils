@@ -149,34 +149,11 @@ class GetTargetTokenTest extends PolyfilledTestCase
      *
      * @return void
      */
-    public function testGetTargetTokenNotFound()
-    {
-        $msg       = 'Failed to find test target token for comment string: ';
-        $exception = 'PHPUnit\Framework\AssertionFailedError';
-        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
-            // PHPUnit < 6.
-            $exception = 'PHPUnit_Framework_AssertionFailedError';
-        }
-
-        $this->expectException($exception);
-        $this->expectExceptionMessage($msg);
-
-        $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a');
-    }
-
-    /**
-     * Test the behaviour of the getTargetToken() method when the target is not found.
-     *
-     * @return void
-     */
     public function testGetTargetTokenNotFoundException()
     {
-        $msg       = 'Failed to find test target token for comment string: ';
-        $exception = '\RuntimeException';
+        $this->expectException('PHPCSUtils\Exceptions\TestTargetNotFound');
+        $this->expectExceptionMessage('Failed to find test target token for comment string: ');
 
-        $this->expectException($exception);
-        $this->expectExceptionMessage($msg);
-
-        $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a', false);
+        $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a');
     }
 }
