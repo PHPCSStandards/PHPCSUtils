@@ -8,17 +8,20 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\BackCompat\BCTokens;
+namespace PHPCSUtils\Tests\Xtra\Tokens;
 
-use PHPCSUtils\BackCompat\BCTokens;
+use PHP_CodeSniffer\Util\Tokens;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test class.
+ * Test the PHPCS native `Tokens::tokenName()` method.
  *
- * @covers \PHPCSUtils\BackCompat\BCTokens::tokenName
+ * {@internal Note: this is testing PHPCS native functionality, but as PHPCS doesn't
+ * have any unit tests in place for this functionality, that's not a bad thing.}
  *
- * @group tokens
+ * @coversNothing
+ *
+ * @group xtra
  *
  * @since 1.0.0
  */
@@ -37,7 +40,7 @@ class TokenNameTest extends TestCase
      */
     public function testTokenName($tokenCode, $expected)
     {
-        $this->assertSame($expected, BCTokens::tokenName($tokenCode));
+        $this->assertSame($expected, Tokens::tokenName($tokenCode));
     }
 
     /**

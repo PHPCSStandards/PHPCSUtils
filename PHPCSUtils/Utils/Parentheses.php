@@ -83,8 +83,7 @@ class Parentheses
             $stackPtr = $tokens[$stackPtr]['parenthesis_opener'];
         }
 
-        $skip         = Tokens::$emptyTokens;
-        $prevNonEmpty = $phpcsFile->findPrevious($skip, ($stackPtr - 1), null, true);
+        $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
         if ($prevNonEmpty !== false
             && isset(self::$extraParenthesesOwners[$tokens[$prevNonEmpty]['code']]) === true
         ) {
