@@ -131,15 +131,8 @@ class GetTargetTokenTest extends PolyfilledTestCase
      */
     public function testGetTargetTokenCommentNotFound()
     {
-        $msg       = 'Failed to find the test marker: ';
-        $exception = 'PHPUnit\Framework\AssertionFailedError';
-        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
-            // PHPUnit < 6.
-            $exception = 'PHPUnit_Framework_AssertionFailedError';
-        }
-
-        $this->expectException($exception);
-        $this->expectExceptionMessage($msg);
+        $this->expectException('PHPCSUtils\Exceptions\TestMarkerNotFound');
+        $this->expectExceptionMessage('Failed to find the test marker: ');
 
         $this->getTargetToken('/* testCommentDoesNotExist */', [\T_VARIABLE], '$a');
     }
