@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-class GetOpenCloseTest extends UtilityMethodTestCase
+final class GetOpenCloseTest extends UtilityMethodTestCase
 {
 
     /**

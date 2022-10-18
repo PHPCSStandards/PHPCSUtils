@@ -18,7 +18,7 @@ use PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff;
  *
  * @since 1.0.0
  */
-class ArrayDeclarationSniffTestDouble extends AbstractArrayDeclarationSniff
+final class ArrayDeclarationSniffTestDouble extends AbstractArrayDeclarationSniff
 {
 
     /**

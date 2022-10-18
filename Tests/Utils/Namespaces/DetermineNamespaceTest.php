@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @since 1.0.0
  */
-class DetermineNamespaceTest extends UtilityMethodTestCase
+final class DetermineNamespaceTest extends UtilityMethodTestCase
 {
 
     /**

@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\GetTokensAsString;
  * @since 1.0.0
  * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class TextStrings
+final class TextStrings
 {
 
     /**

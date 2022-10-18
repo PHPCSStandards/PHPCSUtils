@@ -25,7 +25,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class SetTest extends UtilityMethodTestCase
+final class SetTest extends UtilityMethodTestCase
 {
 
     /**

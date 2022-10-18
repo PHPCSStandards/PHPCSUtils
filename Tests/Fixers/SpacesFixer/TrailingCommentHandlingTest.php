@@ -22,7 +22,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class TrailingCommentHandlingTest extends UtilityMethodTestCase
+final class TrailingCommentHandlingTest extends UtilityMethodTestCase
 {
 
     /**

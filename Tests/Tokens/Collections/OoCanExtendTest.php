@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class OoCanExtendTest extends TestCase
+final class OoCanExtendTest extends TestCase
 {
 
     /**

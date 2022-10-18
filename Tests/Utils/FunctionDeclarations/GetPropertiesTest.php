@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
+final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
 {
 
     /**

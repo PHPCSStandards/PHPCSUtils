@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\GetClassPropertiesTest as BCFile_GetClass
  *
  * @since 1.0.0
  */
-class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
+final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
 {
 
     /**

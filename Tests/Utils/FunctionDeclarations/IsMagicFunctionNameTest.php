@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class IsMagicFunctionNameTest extends TestCase
+final class IsMagicFunctionNameTest extends TestCase
 {
 
     /**

@@ -23,7 +23,7 @@ use PHP_CodeSniffer\Files\File;
  *                     the external PHPCompatibility & WPCS standards.
  * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Helper
+final class Helper
 {
 
     /**

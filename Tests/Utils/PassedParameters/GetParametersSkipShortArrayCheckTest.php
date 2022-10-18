@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
+final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
 {
 
     /**

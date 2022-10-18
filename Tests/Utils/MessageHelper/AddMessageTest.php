@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\MessageHelper;
  *
  * @since 1.0.0
  */
-class AddMessageTest extends UtilityMethodTestCase
+final class AddMessageTest extends UtilityMethodTestCase
 {
 
     /**

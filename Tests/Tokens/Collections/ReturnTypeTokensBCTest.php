@@ -23,7 +23,7 @@ use Yoast\PHPUnitPolyfills\TestCases\TestCase;
  *
  * @since 1.0.0
  */
-class ReturnTypeTokensBCTest extends TestCase
+final class ReturnTypeTokensBCTest extends TestCase
 {
 
     /**

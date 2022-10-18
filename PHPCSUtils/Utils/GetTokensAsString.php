@@ -26,7 +26,7 @@ use PHP_CodeSniffer\Util\Tokens;
  *              PHPCS native `File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile::getTokensAsString()}.
  */
-class GetTokensAsString
+final class GetTokensAsString
 {
 
     /**

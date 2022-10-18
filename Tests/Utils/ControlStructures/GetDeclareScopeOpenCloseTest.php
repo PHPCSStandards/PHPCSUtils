@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class GetDeclareScopeOpenCloseTest extends PolyfilledTestCase
+final class GetDeclareScopeOpenCloseTest extends PolyfilledTestCase
 {
 
     /**

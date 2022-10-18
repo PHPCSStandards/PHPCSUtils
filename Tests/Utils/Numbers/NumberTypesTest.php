@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class NumberTypesTest extends TestCase
+final class NumberTypesTest extends TestCase
 {
 
     /**

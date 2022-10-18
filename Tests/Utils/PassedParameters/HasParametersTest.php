@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class HasParametersTest extends UtilityMethodTestCase
+final class HasParametersTest extends UtilityMethodTestCase
 {
 
     /**

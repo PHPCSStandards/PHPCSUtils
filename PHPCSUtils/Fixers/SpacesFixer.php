@@ -20,7 +20,7 @@ use PHPCSUtils\Utils\Numbers;
  *
  * @since 1.0.0
  */
-class SpacesFixer
+final class SpacesFixer
 {
 
     /**

@@ -25,7 +25,7 @@ use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
  *
  * @since 1.0.0
  */
-class ConfigDataTest extends TestCase
+final class ConfigDataTest extends TestCase
 {
     use ExpectException;
 

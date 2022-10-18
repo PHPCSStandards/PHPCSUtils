@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class IsArrowFunctionTest extends PolyfilledTestCase
+final class IsArrowFunctionTest extends PolyfilledTestCase
 {
 
     /**

@@ -28,7 +28,7 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-class UseTypeTest extends UtilityMethodTestCase
+final class UseTypeTest extends UtilityMethodTestCase
 {
 
     /**

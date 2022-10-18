@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetParameterCountTest extends UtilityMethodTestCase
+final class GetParameterCountTest extends UtilityMethodTestCase
 {
 
     /**

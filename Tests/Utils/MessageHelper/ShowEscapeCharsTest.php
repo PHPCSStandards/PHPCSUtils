@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class ShowEscapeCharsTest extends TestCase
+final class ShowEscapeCharsTest extends TestCase
 {
 
     /**

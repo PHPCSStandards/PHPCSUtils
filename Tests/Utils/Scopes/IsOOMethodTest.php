@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Scopes;
  *
  * @since 1.0.0
  */
-class IsOOMethodTest extends UtilityMethodTestCase
+final class IsOOMethodTest extends UtilityMethodTestCase
 {
 
     /**

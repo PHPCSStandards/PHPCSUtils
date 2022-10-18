@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @since 1.0.0
  */
-class UtilityMethodTestCaseTest extends PolyfilledTestCase
+final class UtilityMethodTestCaseTest extends PolyfilledTestCase
 {
 
     /**

@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @since 1.0.0
  */
-class GetDeclaredNameTest extends UtilityMethodTestCase
+final class GetDeclaredNameTest extends UtilityMethodTestCase
 {
 
     /**

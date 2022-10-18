@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class FirstCharTest extends TestCase
+final class FirstCharTest extends TestCase
 {
 
     /**

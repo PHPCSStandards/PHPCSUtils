@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\GetTokensAsString;
  *
  * @since 1.0.0
  */
-class GetTokensAsStringTest extends UtilityMethodTestCase
+final class GetTokensAsStringTest extends UtilityMethodTestCase
 {
 
     /**

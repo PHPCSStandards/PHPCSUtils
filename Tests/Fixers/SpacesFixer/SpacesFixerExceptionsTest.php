@@ -22,7 +22,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class SpacesFixerExceptionsTest extends UtilityMethodTestCase
+final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
 {
 
     /**

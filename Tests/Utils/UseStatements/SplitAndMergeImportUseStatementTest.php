@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
+final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
 {
 
     /**

@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class TokenExistsTest extends TestCase
+final class TokenExistsTest extends TestCase
 {
 
     /**

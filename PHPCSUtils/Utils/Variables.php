@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\TextStrings;
  *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Variables
+final class Variables
 {
 
     /**

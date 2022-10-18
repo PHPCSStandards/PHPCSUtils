@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\IsReferenceTest as BCFile_IsReferenceTest
  *
  * @since 1.0.0
  */
-class IsReferenceTest extends BCFile_IsReferenceTest
+final class IsReferenceTest extends BCFile_IsReferenceTest
 {
 
     /**

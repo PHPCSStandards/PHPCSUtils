@@ -26,7 +26,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @since 1.0.0
  */
-class HasNewLineSupportTest extends PolyfilledTestCase
+final class HasNewLineSupportTest extends PolyfilledTestCase
 {
 
     /**

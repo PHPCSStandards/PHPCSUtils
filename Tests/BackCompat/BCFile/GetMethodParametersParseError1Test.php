@@ -23,7 +23,7 @@ use PHPCSUtils\Tokens\Collections;
  *
  * @since 1.0.0
  */
-class GetMethodParametersParseError1Test extends UtilityMethodTestCase
+final class GetMethodParametersParseError1Test extends UtilityMethodTestCase
 {
 
     /**

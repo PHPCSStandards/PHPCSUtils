@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class GetParametersDiffTest extends UtilityMethodTestCase
+final class GetParametersDiffTest extends UtilityMethodTestCase
 {
 
     /**

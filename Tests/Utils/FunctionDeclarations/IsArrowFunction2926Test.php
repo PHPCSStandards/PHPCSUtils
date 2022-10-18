@@ -30,7 +30,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class IsArrowFunction2926Test extends PolyfilledTestCase
+final class IsArrowFunction2926Test extends PolyfilledTestCase
 {
 
     /**

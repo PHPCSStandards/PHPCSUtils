@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
+final class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
 {
 
     /**

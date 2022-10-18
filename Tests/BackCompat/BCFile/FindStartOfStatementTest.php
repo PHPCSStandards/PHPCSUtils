@@ -20,7 +20,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class FindStartOfStatementTest extends UtilityMethodTestCase
+final class FindStartOfStatementTest extends UtilityMethodTestCase
 {
 
     /**

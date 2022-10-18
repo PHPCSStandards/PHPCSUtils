@@ -25,7 +25,7 @@ use PHP_CodeSniffer\Util\Tokens;
  *                     and `eval()` as parentheses owners to all applicable functions.
  * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Parentheses
+final class Parentheses
 {
 
     /**

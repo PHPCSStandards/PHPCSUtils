@@ -35,7 +35,7 @@ use PHP_CodeSniffer\Files\File;
  *                     - `Numbers::REGEX_HEX_NUMLIT_STRING`
  *                     - `Numbers::UNSUPPORTED_PHPCS_VERSION`
  */
-class Numbers
+final class Numbers
 {
 
     /**

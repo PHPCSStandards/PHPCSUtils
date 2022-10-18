@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class HasBodyParseError1Test extends UtilityMethodTestCase
+final class HasBodyParseError1Test extends UtilityMethodTestCase
 {
 
     /**

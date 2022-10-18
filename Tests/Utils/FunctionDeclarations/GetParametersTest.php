@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class GetParametersTest extends BCFile_GetMethodParametersTest
+final class GetParametersTest extends BCFile_GetMethodParametersTest
 {
 
     /**

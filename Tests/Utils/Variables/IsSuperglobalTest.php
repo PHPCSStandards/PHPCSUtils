@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\Variables;
  *
  * @since 1.0.0
  */
-class IsSuperglobalTest extends UtilityMethodTestCase
+final class IsSuperglobalTest extends UtilityMethodTestCase
 {
 
     /**

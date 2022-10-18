@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class AlternativeControlStructureSyntaxClosersTest extends TestCase
+final class AlternativeControlStructureSyntaxClosersTest extends TestCase
 {
 
     /**

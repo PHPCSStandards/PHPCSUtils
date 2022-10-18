@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-class IsShortArrayOrListTest extends UtilityMethodTestCase
+final class IsShortArrayOrListTest extends UtilityMethodTestCase
 {
 
     /**

@@ -24,7 +24,7 @@ namespace PHPCSUtils\Utils;
  *
  * @since 1.0.0-alpha3
  */
-class NamingConventions
+final class NamingConventions
 {
 
     /**

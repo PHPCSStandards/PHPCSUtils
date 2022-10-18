@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class FunctionNameTokensTest extends TestCase
+final class FunctionNameTokensTest extends TestCase
 {
 
     /**

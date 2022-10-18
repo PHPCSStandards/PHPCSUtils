@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class HasBodyTest extends UtilityMethodTestCase
+final class HasBodyTest extends UtilityMethodTestCase
 {
 
     /**

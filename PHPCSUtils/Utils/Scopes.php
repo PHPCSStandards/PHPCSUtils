@@ -21,7 +21,7 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @since 1.0.0
  */
-class Scopes
+final class Scopes
 {
 
     /**

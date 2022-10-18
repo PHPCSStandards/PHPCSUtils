@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerTestCase;
  *
  * @since 1.0.0
  */
-class SpacesFixerNewlineTest extends SpacesFixerTestCase
+final class SpacesFixerNewlineTest extends SpacesFixerTestCase
 {
 
     /**

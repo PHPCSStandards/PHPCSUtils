@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @since 1.0.0
  */
-class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
+final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
 {
 
     /**

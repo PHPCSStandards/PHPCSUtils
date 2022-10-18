@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class IsElseIfTest extends UtilityMethodTestCase
+final class IsElseIfTest extends UtilityMethodTestCase
 {
 
     /**
