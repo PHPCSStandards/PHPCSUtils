@@ -23,7 +23,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class ExpectPhpcsExceptionTest extends UtilityMethodTestCase
+final class ExpectPhpcsExceptionTest extends UtilityMethodTestCase
 {
 
     /**

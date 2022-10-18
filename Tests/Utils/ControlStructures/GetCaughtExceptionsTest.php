@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class GetCaughtExceptionsTest extends UtilityMethodTestCase
+final class GetCaughtExceptionsTest extends UtilityMethodTestCase
 {
 
     /**

@@ -52,7 +52,7 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  * @method static array shortListTokensBC()           Tokens which are used for short lists
  *                                                    (PHPCS cross-version compatible).
  */
-class Collections
+final class Collections
 {
 
     /**

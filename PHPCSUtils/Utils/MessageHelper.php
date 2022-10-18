@@ -17,7 +17,7 @@ use PHP_CodeSniffer\Files\File;
  *
  * @since 1.0.0
  */
-class MessageHelper
+final class MessageHelper
 {
 
     /**

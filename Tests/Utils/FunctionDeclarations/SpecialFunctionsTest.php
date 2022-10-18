@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class SpecialFunctionsTest extends UtilityMethodTestCase
+final class SpecialFunctionsTest extends UtilityMethodTestCase
 {
 
     /**

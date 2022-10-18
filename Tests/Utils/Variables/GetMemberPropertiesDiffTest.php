@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\Variables;
  *
  * @since 1.0.0
  */
-class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
+final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
 {
 
     /**

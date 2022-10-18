@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class GetNameJSTest extends BCFile_GetDeclarationNameJSTest
+final class GetNameJSTest extends BCFile_GetDeclarationNameJSTest
 {
 
     /**

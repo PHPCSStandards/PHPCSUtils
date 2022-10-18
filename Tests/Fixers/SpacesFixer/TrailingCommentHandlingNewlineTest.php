@@ -22,7 +22,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
+final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
 {
 
     /**
@@ -87,12 +87,12 @@ class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
             self::$phpcsFile,
             $stackPtr,
             $secondPtr,
-            static::SPACES,
-            static::MSG,
-            static::CODE,
+            self::SPACES,
+            self::MSG,
+            self::CODE,
             'error',
             0,
-            static::METRIC
+            self::METRIC
         );
 
         $result = \array_merge(self::$phpcsFile->getErrors(), self::$phpcsFile->getWarnings());

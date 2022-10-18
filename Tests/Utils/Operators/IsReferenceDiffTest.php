@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\Operators;
  *
  * @since 1.0.0
  */
-class IsReferenceDiffTest extends UtilityMethodTestCase
+final class IsReferenceDiffTest extends UtilityMethodTestCase
 {
 
     /**

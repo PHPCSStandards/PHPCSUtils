@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Operators;
  *
  * @since 1.0.0
  */
-class IsShortTernaryTest extends UtilityMethodTestCase
+final class IsShortTernaryTest extends UtilityMethodTestCase
 {
 
     /**

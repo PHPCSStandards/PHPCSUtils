@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class GetClassPropertiesDiffTest extends UtilityMethodTestCase
+final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
 {
 
     /**

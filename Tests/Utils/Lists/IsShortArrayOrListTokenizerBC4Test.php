@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-class IsShortArrayOrListTokenizerBC4Test extends UtilityMethodTestCase
+final class IsShortArrayOrListTokenizerBC4Test extends UtilityMethodTestCase
 {
 
     /**

@@ -26,7 +26,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @since 1.0.0
  */
-class HasNewLineSupportTest extends PolyfilledTestCase
+final class HasNewLineSupportTest extends PolyfilledTestCase
 {
 
     /**
@@ -89,7 +89,7 @@ EOD;
             // phpcs:ignore Generic.Files.LineLength.TooLong
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nAenean felis urna, dictum vitae lobortis vitae, maximus nec enim. Etiam euismod placerat efficitur. Nulla eu felis ipsum.\nCras vitae ultrices turpis. Ut consectetur ligula in justo tincidunt mattis.\n\nAliquam fermentum magna id venenatis placerat. Curabitur lobortis nulla sit amet consequat fermentum. Aenean malesuada tristique aliquam. Donec eget placerat nisl.\n\nMorbi mollis, risus vel venenatis accumsan, urna dolor faucibus risus, ut congue purus augue vel ipsum.\nCurabitur nec dolor est. Suspendisse nec quam non ligula aliquam tempus. Donec laoreet maximus leo, in eleifend odio interdum vitae.",
             $stackPtr,
-            static::CODE
+            self::CODE
         );
 
         /*

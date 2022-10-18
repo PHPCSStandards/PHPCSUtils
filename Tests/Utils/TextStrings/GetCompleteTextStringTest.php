@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\TextStrings;
  *
  * @since 1.0.0
  */
-class GetCompleteTextStringTest extends UtilityMethodTestCase
+final class GetCompleteTextStringTest extends UtilityMethodTestCase
 {
 
     /**

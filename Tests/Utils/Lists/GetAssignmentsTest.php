@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-class GetAssignmentsTest extends UtilityMethodTestCase
+final class GetAssignmentsTest extends UtilityMethodTestCase
 {
 
     /**

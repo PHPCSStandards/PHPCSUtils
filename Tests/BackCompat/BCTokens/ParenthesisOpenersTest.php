@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class ParenthesisOpenersTest extends TestCase
+final class ParenthesisOpenersTest extends TestCase
 {
 
     /**

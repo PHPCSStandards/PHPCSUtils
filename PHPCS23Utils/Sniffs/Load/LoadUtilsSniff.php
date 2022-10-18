@@ -24,7 +24,7 @@ require_once \dirname(\dirname(\dirname(__DIR__))) . '/phpcsutils-autoload.php';
  *
  * @since 1.0.0
  */
-class LoadUtilsSniff
+final class LoadUtilsSniff
 {
 
     /**

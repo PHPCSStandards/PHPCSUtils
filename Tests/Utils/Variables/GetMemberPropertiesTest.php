@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\GetMemberPropertiesTest as BCFile_GetMemb
  *
  * @since 1.0.0
  */
-class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
+final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
 {
 
     /**

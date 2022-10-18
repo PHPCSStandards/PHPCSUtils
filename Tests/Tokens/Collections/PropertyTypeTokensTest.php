@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class PropertyTypeTokensTest extends TestCase
+final class PropertyTypeTokensTest extends TestCase
 {
 
     /**

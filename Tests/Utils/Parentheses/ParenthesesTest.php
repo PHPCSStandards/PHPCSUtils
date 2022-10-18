@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @since 1.0.0
  */
-class ParenthesesTest extends UtilityMethodTestCase
+final class ParenthesesTest extends UtilityMethodTestCase
 {
 
     /**

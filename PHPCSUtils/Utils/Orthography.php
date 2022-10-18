@@ -21,7 +21,7 @@ use PHPCSUtils\BackCompat\Helper;
  *
  * @since 1.0.0
  */
-class Orthography
+final class Orthography
 {
 
     /**

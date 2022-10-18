@@ -15,7 +15,7 @@ namespace PHPCSUtils\Tokens;
  *
  * @since 1.0.0
  */
-class TokenHelper
+final class TokenHelper
 {
 
     /**

@@ -70,7 +70,7 @@ use PHPCSUtils\Tokens\Collections;
  *                                                 is about _text_ strings.
  * @method static array textStringTokens()         Tokens that represent text strings.
  */
-class BCTokens
+final class BCTokens
 {
 
     /**

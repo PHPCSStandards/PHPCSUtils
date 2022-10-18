@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Conditions;
  *
  * @since 1.0.0
  */
-class GetConditionTest extends BCFile_GetConditionTest
+final class GetConditionTest extends BCFile_GetConditionTest
 {
 
     /**

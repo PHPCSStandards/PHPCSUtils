@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetParametersWithLimitTest extends UtilityMethodTestCase
+final class GetParametersWithLimitTest extends UtilityMethodTestCase
 {
 
     /**

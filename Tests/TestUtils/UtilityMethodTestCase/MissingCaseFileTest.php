@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @since 1.0.0
  */
-class MissingCaseFileTest extends PolyfilledTestCase
+final class MissingCaseFileTest extends PolyfilledTestCase
 {
 
     /**

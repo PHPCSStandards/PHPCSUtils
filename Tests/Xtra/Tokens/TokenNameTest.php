@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class TokenNameTest extends TestCase
+final class TokenNameTest extends TestCase
 {
 
     /**

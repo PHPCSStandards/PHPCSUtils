@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Context;
  *
  * @since 1.0.0
  */
-class InEmptyTest extends UtilityMethodTestCase
+final class InEmptyTest extends UtilityMethodTestCase
 {
 
     /**

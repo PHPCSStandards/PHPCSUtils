@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
+final class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
 {
 
     /**

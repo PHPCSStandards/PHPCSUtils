@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetActualArrayKeyTest extends UtilityMethodTestCase
+final class GetActualArrayKeyTest extends UtilityMethodTestCase
 {
 
     /**

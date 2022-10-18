@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Context;
  *
  * @since 1.0.0
  */
-class InForeachConditionTest extends UtilityMethodTestCase
+final class InForeachConditionTest extends UtilityMethodTestCase
 {
 
     /**

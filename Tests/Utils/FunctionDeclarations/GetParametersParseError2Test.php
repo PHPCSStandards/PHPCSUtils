@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class GetParametersParseError2Test extends UtilityMethodTestCase
+final class GetParametersParseError2Test extends UtilityMethodTestCase
 {
 
     /**

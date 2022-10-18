@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
+final class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
 {
 
     /**

@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
+final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
 {
 
     /**

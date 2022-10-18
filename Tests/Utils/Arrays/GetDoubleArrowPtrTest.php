@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetDoubleArrowPtrTest extends UtilityMethodTestCase
+final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
 {
 
     /**

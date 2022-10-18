@@ -32,7 +32,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class FindEndOfStatementTest extends UtilityMethodTestCase
+final class FindEndOfStatementTest extends UtilityMethodTestCase
 {
 
     /**

@@ -22,7 +22,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class TrailingCommentHandlingTest extends UtilityMethodTestCase
+final class TrailingCommentHandlingTest extends UtilityMethodTestCase
 {
 
     /**
@@ -130,7 +130,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
         // Check that no metric is recorded.
         $metrics = self::$phpcsFile->getMetrics();
         $this->assertFalse(
-            isset($metrics[static::METRIC]['values'][$expected['found']]),
+            isset($metrics[self::METRIC]['values'][$expected['found']]),
             'Failed recorded metric check'
         );
     }

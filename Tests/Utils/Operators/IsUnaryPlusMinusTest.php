@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTestCase;
  *
  * @since 1.0.0
  */
-class IsUnaryPlusMinusTest extends IsUnaryPlusMinusTestCase
+final class IsUnaryPlusMinusTest extends IsUnaryPlusMinusTestCase
 {
 
     /**

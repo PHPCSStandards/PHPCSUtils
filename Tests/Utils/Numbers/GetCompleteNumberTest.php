@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Numbers;
  *
  * @since 1.0.0
  */
-class GetCompleteNumberTest extends UtilityMethodTestCase
+final class GetCompleteNumberTest extends UtilityMethodTestCase
 {
 
     /**

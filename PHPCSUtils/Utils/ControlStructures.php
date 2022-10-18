@@ -21,7 +21,7 @@ use PHPCSUtils\Tokens\Collections;
  * @since 1.0.0
  * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class ControlStructures
+final class ControlStructures
 {
 
     /**
