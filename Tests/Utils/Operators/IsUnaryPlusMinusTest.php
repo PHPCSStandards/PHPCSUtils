@@ -10,8 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Operators;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Utils\Operators;
+use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTestCase;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Operators::isUnaryPlusMinus() method.
@@ -22,47 +21,8 @@ use PHPCSUtils\Utils\Operators;
  *
  * @since 1.0.0
  */
-class IsUnaryPlusMinusTest extends UtilityMethodTestCase
+class IsUnaryPlusMinusTest extends IsUnaryPlusMinusTestCase
 {
-
-    /**
-     * Test that false is returned when a non-existent token is passed.
-     *
-     * @return void
-     */
-    public function testNonExistentToken()
-    {
-        $this->assertFalse(Operators::isUnaryPlusMinus(self::$phpcsFile, 10000));
-    }
-
-    /**
-     * Test that false is returned when a non-plus/minus token is passed.
-     *
-     * @return void
-     */
-    public function testNotPlusMinusToken()
-    {
-        $target = $this->getTargetToken('/* testNonUnaryPlus */', \T_LNUMBER);
-        $this->assertFalse(Operators::isUnaryPlusMinus(self::$phpcsFile, $target));
-    }
-
-    /**
-     * Test whether a T_PLUS or T_MINUS token is a unary operator.
-     *
-     * @dataProvider dataIsUnaryPlusMinus
-     *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param bool   $expected   The expected boolean return value.
-     *
-     * @return void
-     */
-    public function testIsUnaryPlusMinus($testMarker, $expected)
-    {
-        $stackPtr = $this->getTargetToken($testMarker, [\T_PLUS, \T_MINUS]);
-        $result   = Operators::isUnaryPlusMinus(self::$phpcsFile, $stackPtr);
-
-        $this->assertSame($expected, $result);
-    }
 
     /**
      * Data provider.

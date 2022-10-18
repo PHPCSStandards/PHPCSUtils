@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Operators;
 
-use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTest;
+use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTestCase;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Operators::isUnaryPlusMinus() method.
@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTest;
  *
  * @since 1.0.0
  */
-class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTest
+class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTestCase
 {
 
     /**
