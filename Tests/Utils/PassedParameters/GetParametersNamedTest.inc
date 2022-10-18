@@ -70,7 +70,7 @@ array_fill(start_index: 0, ...[100, 50]);
 test(...$values, param: $value);
 
 /* testParseErrorNoValue */
-// Not the concern of PHPCSUtils. Should still be handled.
+// Not the concern of PHPCSUtils. Should still be handled (but currently isn't).
 //test(param1:, param2:);
 
 /* testParseErrorDynamicName */

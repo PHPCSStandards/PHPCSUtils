@@ -96,4 +96,9 @@
         <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
     </rule>
 
+    <!-- Allow for return value from PassedParameters::getParameters() having mixed keys. -->
+    <rule ref="Universal.Arrays.MixedArrayKeyTypes">
+        <exclude-pattern>/Tests/Utils/PassedParameters/GetParametersNamedTest\.php$</exclude-pattern>
+    </rule>
+
 </ruleset>

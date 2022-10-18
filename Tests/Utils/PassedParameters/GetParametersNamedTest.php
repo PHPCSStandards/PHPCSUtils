@@ -50,12 +50,11 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
         // in relation to the target token.
         // Change these to exact positions based on the retrieved stackPtr.
         foreach ($expected as $key => $value) {
-            $expected[$key]['start'] = ($stackPtr + $value['start']);
-            $expected[$key]['end']   = ($stackPtr + $value['end']);
+            $expected[$key]['start'] += $stackPtr;
+            $expected[$key]['end']   += $stackPtr;
 
-            if (isset($value['name_start'], $value['name_end']) === true) {
-                $expected[$key]['name_start'] = ($stackPtr + $value['name_start']);
-                $expected[$key]['name_end']   = ($stackPtr + $value['name_end']);
+            if (isset($value['name_token'])) {
+                $expected[$key]['name_token'] += $stackPtr;
             }
         }
 
@@ -108,26 +107,23 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNamedArgs */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'start_index' => [
                         'name'       => 'start_index',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '0',
                     ],
-                    2 => [
-                        'name_start' => 7,
-                        'name_end'   => 9,
+                    'count' => [
                         'name'       => 'count',
+                        'name_token' => 8,
                         'start'      => 10,
                         'end'        => 11,
                         'raw'        => '100',
                     ],
-                    3 => [
-                        'name_start' => 13,
-                        'name_end'   => 15,
+                    'value' => [
                         'name'       => 'value',
+                        'name_token' => 14,
                         'start'      => 16,
                         'end'        => 17,
                         'raw'        => '50',
@@ -138,26 +134,23 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNamedArgsMultiline */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 6,
+                    'start_index' => [
                         'name'       => 'start_index',
+                        'name_token' => 4,
                         'start'      => 7,
                         'end'        => 8,
                         'raw'        => '0',
                     ],
-                    2 => [
-                        'name_start' => 10,
-                        'name_end'   => 14,
+                    'count' => [
                         'name'       => 'count',
+                        'name_token' => 12,
                         'start'      => 15,
                         'end'        => 16,
                         'raw'        => '100',
                     ],
-                    3 => [
-                        'name_start' => 18,
-                        'name_end'   => 22,
+                    'value' => [
                         'name'       => 'value',
+                        'name_token' => 20,
                         'start'      => 23,
                         'end'        => 24,
                         'raw'        => '50',
@@ -168,26 +161,23 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNamedArgsWithWhitespaceAndComments */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 3,
-                        'name_end'   => 6,
+                    'start_index' => [
                         'name'       => 'start_index',
+                        'name_token' => 4,
                         'start'      => 7,
                         'end'        => 8,
                         'raw'        => '0',
                     ],
-                    2 => [
-                        'name_start' => 10,
-                        'name_end'   => 17,
+                    'count' => [
                         'name'       => 'count',
+                        'name_token' => 13,
                         'start'      => 18,
                         'end'        => 19,
                         'raw'        => '100',
                     ],
-                    3 => [
-                        'name_start' => 21,
-                        'name_end'   => 23,
+                    'value' => [
                         'name'       => 'value',
+                        'name_token' => 22,
                         'start'      => 24,
                         'end'        => 25,
                         'raw'        => '50',
@@ -203,10 +193,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                         'end'        => 2,
                         'raw'        => '$string',
                     ],
-                    2 => [
-                        'name_start' => 4,
-                        'name_end'   => 6,
+                    'double_encode' => [
                         'name'       => 'double_encode',
+                        'name_token' => 5,
                         'start'      => 7,
                         'end'        => 8,
                         'raw'        => 'false',
@@ -217,26 +206,23 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedFunctionCallOuter */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 5,
+                    'start_index' => [
                         'name'       => 'start_index',
+                        'name_token' => 4,
                         'start'      => 6,
                         'end'        => 17,
                         'raw'        => '/* testNestedFunctionCallInner1 */ $obj->getPos(skip: false)',
                     ],
-                    2 => [
-                        'name_start' => 19,
-                        'name_end'   => 22,
+                    'count' => [
                         'name'       => 'count',
+                        'name_token' => 21,
                         'start'      => 23,
                         'end'        => 32,
                         'raw'        => '/* testNestedFunctionCallInner2 */ count(array_or_countable: $array)',
                     ],
-                    3 => [
-                        'name_start' => 34,
-                        'name_end'   => 37,
+                    'value' => [
                         'name'       => 'value',
+                        'name_token' => 36,
                         'start'      => 38,
                         'end'        => 40,
                         'raw'        => '50',
@@ -247,10 +233,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedFunctionCallInner1 */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'skip' => [
                         'name'       => 'skip',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => 'false',
@@ -261,10 +246,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedFunctionCallInner2 */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'array_or_countable' => [
                         'name'       => 'array_or_countable',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '$array',
@@ -275,18 +259,16 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker'    => '/* testNamespacedFQNFunction */',
                 'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
                 'expected'      => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'label' => [
                         'name'       => 'label',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '$string',
                     ],
-                    2 => [
-                        'name_start' => 7,
-                        'name_end'   => 9,
+                    'more' => [
                         'name'       => 'more',
+                        'name_token' => 8,
                         'start'      => 10,
                         'end'        => 10,
                         'raw'        => 'false',
@@ -298,18 +280,16 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testVariableFunction */',
                 'targetType' => \T_VARIABLE,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'label' => [
                         'name'       => 'label',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '$string',
                     ],
-                    2 => [
-                        'name_start' => 7,
-                        'name_end'   => 9,
+                    'more' => [
                         'name'       => 'more',
+                        'name_token' => 8,
                         'start'      => 10,
                         'end'        => 10,
                         'raw'        => 'false',
@@ -320,18 +300,16 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testClassInstantiationStatic */',
                 'targetType' => \T_STATIC,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'label' => [
                         'name'       => 'label',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '$string',
                     ],
-                    2 => [
-                        'name_start' => 7,
-                        'name_end'   => 9,
+                    'more' => [
                         'name'       => 'more',
+                        'name_token' => 8,
                         'start'      => 10,
                         'end'        => 10,
                         'raw'        => 'false',
@@ -342,18 +320,16 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testAnonClass */',
                 'targetType' => \T_ANON_CLASS,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'label' => [
                         'name'       => 'label',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '$string',
                     ],
-                    2 => [
-                        'name_start' => 7,
-                        'name_end'   => 9,
+                    'more' => [
                         'name'       => 'more',
+                        'name_token' => 8,
                         'start'      => 10,
                         'end'        => 11,
                         'raw'        => 'false',
@@ -364,26 +340,23 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNonAsciiNames */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    '💩💩💩' => [
                         'name'       => '💩💩💩',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 6,
                         'raw'        => '[]',
                     ],
-                    2 => [
-                        'name_start' => 8,
-                        'name_end'   => 10,
+                    'Пасха' => [
                         'name'       => 'Пасха',
+                        'name_token' => 9,
                         'start'      => 11,
                         'end'        => 12,
                         'raw'        => "'text'",
                     ],
-                    3 => [
-                        'name_start' => 14,
-                        'name_end'   => 16,
+                    '_valid' => [
                         'name'       => '_valid',
+                        'name_token' => 15,
                         'start'      => 17,
                         'end'        => 18,
                         'raw'        => '123',
@@ -399,10 +372,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                         'end'        => 11,
                         'raw'        => '$cond ? true : false',
                     ],
-                    2 => [
-                        'name_start' => 13,
-                        'name_end'   => 15,
+                    'name' => [
                         'name'       => 'name',
+                        'name_token' => 14,
                         'start'      => 16,
                         'end'        => 18,
                         'raw'        => '$value2',
@@ -413,18 +385,16 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNamedArgWithTernary */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 4,
+                    'label' => [
                         'name'       => 'label',
+                        'name_token' => 3,
                         'start'      => 5,
                         'end'        => 14,
                         'raw'        => '$cond ? true : false',
                     ],
-                    2 => [
-                        'name_start' => 16,
-                        'name_end'   => 18,
+                    'more' => [
                         'name'       => 'more',
+                        'name_token' => 17,
                         'start'      => 19,
                         'end'        => 29,
                         'raw'        => '$cond ? CONSTANT_A : CONSTANT_B',
@@ -435,10 +405,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testTernaryWithFunctionCallsInThenElse */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 4,
+                    'label' => [
                         'name'       => 'label',
+                        'name_token' => 3,
                         'start'      => 5,
                         'end'        => 7,
                         'raw'        => '$something',
@@ -449,10 +418,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testTernaryWithFunctionCallsInElse */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 4,
+                    'more' => [
                         'name'       => 'more',
+                        'name_token' => 3,
                         'start'      => 5,
                         'end'        => 7,
                         'raw'        => '$something_else',
@@ -463,10 +431,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testCompileErrorNamedBeforePositional */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'param' => [
                         'name'       => 'param',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '$bar',
@@ -482,18 +449,16 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testDuplicateName */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'param' => [
                         'name'       => 'param',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '1',
                     ],
                     2 => [
-                        'name_start' => 7,
-                        'name_end'   => 9,
                         'name'       => 'param',
+                        'name_token' => 8,
                         'start'      => 10,
                         'end'        => 11,
                         'raw'        => '2',
@@ -504,10 +469,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testIncorrectOrderWithVariadic */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 3,
+                    'start_index' => [
                         'name'       => 'start_index',
+                        'name_token' => 2,
                         'start'      => 4,
                         'end'        => 5,
                         'raw'        => '0',
@@ -529,10 +493,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                         'end'        => 3,
                         'raw'        => '...$values',
                     ],
-                    2 => [
-                        'name_start' => 5,
-                        'name_end'   => 7,
+                    'param' => [
                         'name'       => 'param',
+                        'name_token' => 6,
                         'start'      => 8,
                         'end'        => 9,
                         'raw'        => '$value',
@@ -554,74 +517,65 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 'testMarker' => '/* testReservedKeywordAsName */',
                 'targetType' => \T_STRING,
                 'expected'   => [
-                    1 => [
-                        'name_start' => 2,
-                        'name_end'   => 5,
+                    'abstract' => [
                         'name'       => 'abstract',
+                        'name_token' => 4,
                         'start'      => 6,
                         'end'        => 7,
                         'raw'        => '$value',
                     ],
-                    2 => [
-                        'name_start' => 9,
-                        'name_end'   => 12,
+                    'class' => [
                         'name'       => 'class',
+                        'name_token' => 11,
                         'start'      => 13,
                         'end'        => 14,
                         'raw'        => '$value',
                     ],
-                    3 => [
-                        'name_start' => 16,
-                        'name_end'   => 19,
+                    'const' => [
                         'name'       => 'const',
+                        'name_token' => 18,
                         'start'      => 20,
                         'end'        => 21,
                         'raw'        => '$value',
                     ],
-                    4 => [
-                        'name_start' => 23,
-                        'name_end'   => 26,
+                    'function' => [
                         'name'       => 'function',
+                        'name_token' => 25,
                         'start'      => 27,
                         'end'        => 28,
                         'raw'        => '$value',
                     ],
-                    5 => [
-                        'name_start' => 30,
-                        'name_end'   => 33,
+                    'iterable' => [
                         'name'       => 'iterable',
+                        'name_token' => 32,
                         'start'      => 34,
                         'end'        => 35,
                         'raw'        => '$value',
                     ],
-                    6 => [
-                        'name_start' => 37,
-                        'name_end'   => 40,
+                    'match' => [
                         'name'       => 'match',
+                        'name_token' => 39,
                         'start'      => 41,
                         'end'        => 42,
                         'raw'        => '$value',
                     ],
-                    7 => [
-                        'name_start' => 44,
-                        'name_end'   => 47,
+                    'protected' => [
                         'name'       => 'protected',
+                        'name_token' => 46,
                         'start'      => 48,
                         'end'        => 49,
                         'raw'        => '$value',
                     ],
-                    8 => [
-                        'name_start' => 51,
-                        'name_end'   => 54,
+                    'object' => [
                         'name'       => 'object',
+                        'name_token' => 53,
                         'start'      => 55,
                         'end'        => 56,
                         'raw'        => '$value',
                     ],
-                    9 => [
-                        'name_start' => 58,
-                        'name_end'   => 61,
+                    'parent' => [
                         'name'       => 'parent',
+                        'name_token' => 60,
                         'start'      => 62,
                         'end'        => 63,
                         'raw'        => '$value',

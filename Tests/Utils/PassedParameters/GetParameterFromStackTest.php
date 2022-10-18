@@ -159,9 +159,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
 
         $expected['start'] += $stackPtr;
         $expected['end']   += $stackPtr;
-        if (isset($expected['name_start'], $expected['name_end']) === true) {
-            $expected['name_start'] += $stackPtr;
-            $expected['name_end']   += $stackPtr;
+        if (isset($expected['name_token'])) {
+            $expected['name_token'] += $stackPtr;
         }
         $expected['clean'] = $expected['raw'];
 
@@ -182,9 +181,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
             'all-named-non-standard-order' => [
                 'testMarker' => '/* testAllParamsNamedNonStandardOrder */',
                 'expected'   => [
-                    'name_start' => 46,
-                    'name_end'   => 49,
                     'name'       => 'value',
+                    'name_token' => 48,
                     'start'      => 50,
                     'end'        => 51,
                     'raw'        => "'value'",
@@ -229,9 +227,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
             $expected           = $expectedName;
             $expected['start'] += $stackPtr;
             $expected['end']   += $stackPtr;
-            if (isset($expected['name_start'], $expected['name_end']) === true) {
-                $expected['name_start'] += $stackPtr;
-                $expected['name_end']   += $stackPtr;
+            if (isset($expected['name_token'])) {
+                $expected['name_token'] += $stackPtr;
             }
             $expected['clean'] = $expected['raw'];
         }
@@ -250,9 +247,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
             $expected           = $expectedExpires;
             $expected['start'] += $stackPtr;
             $expected['end']   += $stackPtr;
-            if (isset($expected['name_start'], $expected['name_end']) === true) {
-                $expected['name_start'] += $stackPtr;
-                $expected['name_end']   += $stackPtr;
+            if (isset($expected['name_token'])) {
+                $expected['name_token'] += $stackPtr;
             }
             $expected['clean'] = $expected['raw'];
         }
@@ -271,9 +267,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
             $expected           = $expectedHttpOnly;
             $expected['start'] += $stackPtr;
             $expected['end']   += $stackPtr;
-            if (isset($expected['name_start'], $expected['name_end']) === true) {
-                $expected['name_start'] += $stackPtr;
-                $expected['name_end']   += $stackPtr;
+            if (isset($expected['name_token'])) {
+                $expected['name_token'] += $stackPtr;
             }
             $expected['clean'] = $expected['raw'];
         }
@@ -313,25 +308,22 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
             'all-params-all-named-standard-order' => [
                 'testMarker'       => '/* testAllParamsNamedStandardOrder */',
                 'expectedName'     => [
-                    'name_start' => 2,
-                    'name_end'   => 5,
                     'name'       => 'name',
+                    'name_token' => 4,
                     'start'      => 6,
                     'end'        => 7,
                     'raw'        => "'name'",
                 ],
                 'expectedExpires'  => [
-                    'name_start' => 16,
-                    'name_end'   => 19,
                     'name'       => 'expires_or_options',
+                    'name_token' => 18,
                     'start'      => 20,
                     'end'        => 37,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'expectedHttpOnly' => [
-                    'name_start' => 60,
-                    'name_end'   => 63,
                     'name'       => 'httponly',
+                    'name_token' => 62,
                     'start'      => 64,
                     'end'        => 66,
                     'raw'        => 'false',
@@ -340,25 +332,22 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
             'all-params-all-named-random-order' => [
                 'testMarker'       => '/* testAllParamsNamedNonStandardOrder */',
                 'expectedName'     => [
-                    'name_start' => 32,
-                    'name_end'   => 35,
                     'name'       => 'name',
+                    'name_token' => 34,
                     'start'      => 36,
                     'end'        => 37,
                     'raw'        => "'name'",
                 ],
                 'expectedExpires'  => [
-                    'name_start' => 2,
-                    'name_end'   => 5,
                     'name'       => 'expires_or_options',
+                    'name_token' => 4,
                     'start'      => 6,
                     'end'        => 23,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'expectedHttpOnly' => [
-                    'name_start' => 53,
-                    'name_end'   => 56,
                     'name'       => 'httponly',
+                    'name_token' => 55,
                     'start'      => 57,
                     'end'        => 58,
                     'raw'        => 'false',
@@ -377,9 +366,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'expectedHttpOnly' => [
-                    'name_start' => 44,
-                    'name_end'   => 47,
                     'name'       => 'httponly',
+                    'name_token' => 46,
                     'start'      => 48,
                     'end'        => 49,
                     'raw'        => 'false',
@@ -393,9 +381,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
                     'raw'        => "'name'",
                 ],
                 'expectedExpires'  => [
-                    'name_start' => 6,
-                    'name_end'   => 9,
                     'name'       => 'expires_or_options',
+                    'name_token' => 8,
                     'start'      => 10,
                     'end'        => 27,
                     'raw'        => 'time() + (60 * 60 * 24)',
@@ -410,14 +397,102 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
                     'raw'        => "'name'",
                 ],
                 'expectedExpires'  => [
-                    'name_start' => 6,
-                    'name_end'   => 9,
                     'name'       => 'expires',
+                    'name_token' => 8,
                     'start'      => 10,
                     'end'        => 27,
                     'raw'        => 'time() + (60 * 60 * 24)',
                 ],
                 'expectedHttpOnly' => false,
+            ],
+        ];
+    }
+
+    /**
+     * Test retrieving the parameter details from a function call with a named parameter after a variadic one.
+     *
+     * This is supported since PHP 8.1.
+     *
+     * @dataProvider dataGetParameterFromStackNamedAfterVariadic
+     *
+     * @param string      $offset   The positional offfset to pass.
+     * @param array       $names    The parameter names to pass.
+     * @param array|false $expected The expected result array for the parameter.
+     *
+     * @return void
+     */
+    public function testGetParameterFromStackNamedAfterVariadic($offset, $names, $expected)
+    {
+        $stackPtr = $this->getTargetToken('/* testPHP81NamedParamAfterVariadic */', \T_STRING);
+
+        if ($expected !== false) {
+            // Start/end token position values in the expected array are set as offsets
+            // in relation to the target token.
+            // Change these to exact positions based on the retrieved stackPtr.
+            $expected['start'] += $stackPtr;
+            $expected['end']   += $stackPtr;
+            if (isset($expected['name_token'])) {
+                $expected['name_token'] += $stackPtr;
+            }
+            $expected['clean'] = $expected['raw'];
+        }
+
+        $parameters = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+        $result     = PassedParameters::getParameterFromStack($parameters, $offset, $names);
+
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetParameterFromStackNamedAfterVariadic() For the array format.
+     *
+     * @return array
+     */
+    public function dataGetParameterFromStackNamedAfterVariadic()
+    {
+        return [
+            'first param, positional' => [
+                'offset'   => 1,
+                'names'    => ['none'],
+                'expected' => [
+                    'start' => 2,
+                    'end'   => 2,
+                    'raw'   => '$positional',
+                ],
+            ],
+            'second param, positional, variadic' => [
+                'offset'   => 2,
+                'names'    => ['none'],
+                'expected' => [
+                    'start' => 4,
+                    'end'   => 6,
+                    'raw'   => '...$variadic',
+                ],
+            ],
+            'named param "namedA"' => [
+                'offset'   => 5,
+                'names'    => ['alternative', 'namedA'],
+                'expected' => [
+                    'name'       => 'namedA',
+                    'name_token' => 9,
+                    'start'      => 11,
+                    'end'        => 12,
+                    'raw'        => '$valueA',
+                ],
+            ],
+            'named param "namedB"' => [
+                // Position intentionally set to 2 to collide with the variadic param (which may contain named params).
+                'offset'   => 2,
+                'names'    => ['namedB'],
+                'expected' => [
+                    'name'       => 'namedB',
+                    'name_token' => 15,
+                    'start'      => 17,
+                    'end'        => 18,
+                    'raw'        => '$valueB',
+                ],
             ],
         ];
     }
