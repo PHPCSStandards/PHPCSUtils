@@ -106,4 +106,38 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
             ],
         ];
     }
+
+    /**
+     * Test retrieving the actual array key from a heredoc when the key could contain interpolation, but doesn't,
+     * as the interpolation is escaped.
+     *
+     * @return void
+     */
+    public function testGetActualArrayKeyFromHeredocWithEscapedVarInKey()
+    {
+        $testObj         = new ArrayDeclarationSniffTestDouble();
+        $testObj->tokens = self::$phpcsFile->getTokens();
+
+        $stackPtr   = $this->getTargetToken('/* testHeredocWithEscapedVarInKey */', [\T_ARRAY, \T_OPEN_SHORT_ARRAY]);
+        $arrayItems = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        $expected = [
+            1 => 'a{$b}c',
+            2 => 'a$bc',
+            3 => '$\{abc}',
+        ];
+
+        $this->assertCount(\count($expected), $arrayItems);
+
+        foreach ($arrayItems as $itemNr => $arrayItem) {
+            $arrowPtr = Arrays::getDoubleArrowPtr(self::$phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            $result   = $testObj->getActualArrayKey(self::$phpcsFile, $arrayItem['start'], ($arrowPtr - 1));
+            $this->assertSame(
+                $expected[$itemNr],
+                $result,
+                'Failed: actual key ' . $result . ' is not the same as the expected key ' . $expected[$itemNr]
+                    . ' for item number ' . $itemNr
+            );
+        }
+    }
 }
