@@ -64,6 +64,7 @@
     <!-- Double arrow alignment gets very fiddly with multi-line test data provider arrays. -->
     <rule ref="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned">
         <exclude-pattern>/Tests/*Test\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/*TestCase\.php$</exclude-pattern>
     </rule>
 
     <!-- Allow slightly different code style and file docblocks for classes imported from PHPCS. -->
