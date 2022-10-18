@@ -494,7 +494,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                 $text = TextStrings::getCompleteTextString($phpcsFile, $i);
 
                 // Check if there's a variable in the heredoc.
-                if (\preg_match('`(?<![\\\\])\$`', $text) === 1) {
+                if ($text !== TextStrings::stripEmbeds($text)) {
                     return;
                 }
 

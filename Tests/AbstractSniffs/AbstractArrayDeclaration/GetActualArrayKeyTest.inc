@@ -15,6 +15,14 @@ my $var text
 EOD
                                 => 'excluded',
     $var['key']{1}              => 'excluded',
+    <<<EOD
+my complex {${getName()}} text
+EOD
+                                => 'excluded',
+    <<<EOD
+$var text
+EOD
+                                => 'excluded',
 ];
 
 /* testAllEmptyString */
@@ -111,4 +119,20 @@ abc
 NOW
                => 6,
     "abc"      => 7,
+];
+
+/* testHeredocWithEscapedVarInKey */
+$heredocStringKeyWithEscapedVar = [
+    <<<EOD
+a{\$b}c
+EOD
+              => 1,
+    <<<EOD
+a\$bc
+EOD
+              => 2,
+    <<<EOD
+$\{abc}
+EOD
+              => 3,
 ];
