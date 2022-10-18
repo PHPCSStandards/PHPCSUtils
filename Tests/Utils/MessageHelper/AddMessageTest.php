@@ -69,7 +69,7 @@ final class AddMessageTest extends UtilityMethodTestCase
             'Message added. Text: %s',
             $stackPtr,
             $isError,
-            static::CODE,
+            self::CODE,
             [$tokens[$stackPtr]['content']],
             $severity
         );
@@ -94,7 +94,7 @@ final class AddMessageTest extends UtilityMethodTestCase
                 'isError'    => true,
                 'expected'   => [
                     'message' => "Message added. Text: 'test 1'",
-                    'source'  => static::CODE,
+                    'source'  => self::CODE,
                     'fixable' => false,
                 ],
             ],
@@ -103,7 +103,7 @@ final class AddMessageTest extends UtilityMethodTestCase
                 'isError'    => false,
                 'expected'   => [
                     'message' => "Message added. Text: 'test 2'",
-                    'source'  => static::CODE,
+                    'source'  => self::CODE,
                     'fixable' => false,
                 ],
             ],
@@ -134,7 +134,7 @@ final class AddMessageTest extends UtilityMethodTestCase
             'Message added. Text: %s',
             $stackPtr,
             $isError,
-            static::CODE,
+            self::CODE,
             [$tokens[$stackPtr]['content']],
             $severity
         );
@@ -160,7 +160,7 @@ final class AddMessageTest extends UtilityMethodTestCase
                 'isError'    => true,
                 'expected'   => [
                     'message' => "Message added. Text: 'test 3'",
-                    'source'  => static::CODE,
+                    'source'  => self::CODE,
                     'fixable' => true,
                 ],
             ],
@@ -169,7 +169,7 @@ final class AddMessageTest extends UtilityMethodTestCase
                 'isError'    => false,
                 'expected'   => [
                     'message' => "Message added. Text: 'test 4'",
-                    'source'  => static::CODE,
+                    'source'  => self::CODE,
                     'fixable' => true,
                 ],
             ],

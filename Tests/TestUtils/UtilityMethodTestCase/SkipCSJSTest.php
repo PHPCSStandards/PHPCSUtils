@@ -50,7 +50,7 @@ final class SkipJSCSSTest extends PolyfilledTestCase
      */
     public function testSkipJsCss()
     {
-        if (\version_compare(static::$phpcsVersion, '3.99.99', '>') === true) {
+        if (\version_compare(parent::$phpcsVersion, '3.99.99', '>') === true) {
             $msg       = 'JS and CSS support has been removed in PHPCS 4.';
             $exception = 'PHPUnit\Framework\SkippedTestError';
             if (\class_exists('PHPUnit_Framework_SkippedTestError')) {
