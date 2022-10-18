@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Fixers\SpacesFixer;
 
-use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerNoSpaceTest;
+use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerTestCase;
 
 /**
  * Tests for the \PHPCSUtils\Fixers\SpacesFixer::checkAndFix() method.
@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerNoSpaceTest;
  *
  * @since 1.0.0
  */
-class SpacesFixerTwoSpaceTest extends SpacesFixerNoSpaceTest
+class SpacesFixerTwoSpaceTest extends SpacesFixerTestCase
 {
 
     /**
