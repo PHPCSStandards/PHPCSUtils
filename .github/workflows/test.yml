@@ -116,7 +116,22 @@ jobs:
             risky: true
             experimental: true
 
-          - php: '7.4'
+          - php: '5.4'
+            phpcs_version: '3.7.1'
+            risky: true
+            experimental: true
+
+          - php: '5.4'
+            phpcs_version: 'dev-master'
+            risky: true
+            experimental: true
+
+          - php: '8.1'
+            phpcs_version: '3.7.1'
+            risky: true
+            experimental: true
+
+          - php: '8.1'
             phpcs_version: 'dev-master'
             risky: true
             experimental: true
@@ -169,23 +184,33 @@ jobs:
           composer-options: --ignore-platform-reqs
 
       - name: Run the unit tests without caching (non-risky)
-        if: matrix.risky == false
+        if: ${{ matrix.risky == false }}
         run: vendor/bin/phpunit --no-coverage
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
       - name: Run the unit tests with caching (non-risky)
-        if: matrix.risky == false
+        if: ${{ matrix.risky == false }}
         run: vendor/bin/phpunit --testsuite PHPCSUtils --no-coverage --repeat 2
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: true
 
-      - name: Run the unit tests (risky)
-        if: ${{ matrix.risky }}
+      # Only run the "compare with PHPCS" group against dev-master as it ensures that PHPCSUtils
+      # functionality is up to date with `dev-master`, so would quickly fail on older PHPCS.
+      - name: Run the unit tests (risky, comparewithPHPCS)
+        if: ${{ matrix.risky && matrix.phpcs_version == 'dev-master' }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit --no-coverage --group compareWithPHPCS --exclude-group nothing
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+
+      # Run the "xtra" group against high and low PHPCS as these are tests safeguarding PHPCS itself.
+      - name: Run the unit tests (risky, xtra)
+        if: ${{ matrix.risky }}
+        # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
+        run: vendor/bin/phpunit --no-coverage --group xtra --exclude-group nothing
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
 

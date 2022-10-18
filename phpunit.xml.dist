@@ -50,6 +50,8 @@
     <groups>
         <exclude>
             <group>compareWithPHPCS</group>
+            <!-- Extra tests are basically testing PHPCS itself, not PHPCSUtils. -->
+            <group>xtra</group>
         </exclude>
     </groups>
 
