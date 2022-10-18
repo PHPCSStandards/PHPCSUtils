@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
@@ -363,6 +364,7 @@ final class FunctionDeclarations
      * - Clearer exception message when a non-closure use token was passed to the function.
      * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      * - Support for the PHP 8.2 `true` type.
+     * - The results of this function call are cached during a PHPCS run for faster response times.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMethodParameters() Cross-version compatible version of the original.
@@ -421,6 +423,10 @@ final class FunctionDeclarations
         if (isset($tokens[$opener]['parenthesis_closer']) === false) {
             // Live coding or syntax error, so no params to find.
             return [];
+        }
+
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
         }
 
         $closer = $tokens[$opener]['parenthesis_closer'];
@@ -607,6 +613,7 @@ final class FunctionDeclarations
             }
         }
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $vars);
         return $vars;
     }
 
