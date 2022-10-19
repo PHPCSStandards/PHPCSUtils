@@ -8,7 +8,7 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Utils\Lists;
+namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Tokens\Collections;

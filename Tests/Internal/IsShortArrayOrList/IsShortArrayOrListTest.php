@@ -8,7 +8,7 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Utils\Arrays;
+namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;

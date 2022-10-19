@@ -8,7 +8,7 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Utils\Lists;
+namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Tokens\Collections;
@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-final class IsShortArrayOrListTokenizerBC4Test extends UtilityMethodTestCase
+final class IsShortArrayOrListTokenizerBC2Test extends UtilityMethodTestCase
 {
 
     /**
@@ -101,18 +101,19 @@ final class IsShortArrayOrListTokenizerBC4Test extends UtilityMethodTestCase
     public function dataIsShortArrayOrList()
     {
         return [
-            'issue-1971-short-list-first-in-file' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271G */',
+            // Make sure the utility method does not throw false positives for a short array at the start of a file.
+            'issue-1971-short-array-first-in-file' => [
+                '/* testTokenizerIssue1971PHPCSlt330gt271C */',
                 [
-                    'array' => false,
-                    'list'  => true,
+                    'array' => true,
+                    'list'  => false,
                 ],
             ],
-            'issue-1971-short-list-first-in-file-nested' => [
-                '/* testTokenizerIssue1971PHPCSlt330gt271H */',
+            'issue-1971-short-array-first-in-file-nested' => [
+                '/* testTokenizerIssue1971PHPCSlt330gt271D */',
                 [
-                    'array' => false,
-                    'list'  => true,
+                    'array' => true,
+                    'list'  => false,
                 ],
             ],
         ];
