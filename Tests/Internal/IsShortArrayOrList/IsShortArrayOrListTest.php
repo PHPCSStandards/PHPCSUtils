@@ -213,6 +213,14 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 '/* testDeeplyNestedShortList */',
                 IsShortArrayOrList::SHORT_LIST,
             ],
+            'short-list-in-braced-control-structure' => [
+                '/* testShortListInBracedControlStructure */',
+                IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-in-alternative-control-structure' => [
+                '/* testShortListInAlternativeControlStructure */',
+                IsShortArrayOrList::SHORT_LIST,
+            ],
 
             // Invalid syntaxes.
             'short-list-nested-empty' => [

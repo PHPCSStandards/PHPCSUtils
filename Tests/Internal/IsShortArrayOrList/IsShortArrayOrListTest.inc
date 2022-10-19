@@ -83,6 +83,18 @@ $array = [
 
 [$x, [ $y, /* testDeeplyNestedShortList */ [$z]], $q] = $a;
 
+if ( true ) {
+    /* testShortListInBracedControlStructure */
+    [ $a ] = [ 'hi' ];
+}
+
+if ( true ) :
+    /* testShortListInAlternativeControlStructure */
+    [ $a ] = [ 'hi' ];
+endif;
+
+return $a ?? '';
+
 
 /* ===== Tests involving various illegal syntaxes/parse errors. ===== */
 

@@ -131,6 +131,10 @@ final class IsShortArrayBracketBC1Test extends UtilityMethodTestCase
                 'testMarker' => '/* testTokenizerIssue3172PHPCSlt360B */',
                 'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
             ],
+            'issue-3632-short-list-in-non-braced-control-structure' => [
+                'testMarker' => '/* testTokenizerIssue3632PHPCSlt372 */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
         ];
     }
 }
