@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Lists;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Lists;
 
@@ -63,7 +64,7 @@ final class IsShortArrayOrListTokenizerBC2Test extends UtilityMethodTestCase
      */
     public function testIsShortArray($testMarker, $expected)
     {
-        $stackPtr = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]);
+        $stackPtr = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
         $result   = Arrays::isShortArray(self::$phpcsFile, $stackPtr);
 
         $this->assertSame($expected['array'], $result);
@@ -83,7 +84,7 @@ final class IsShortArrayOrListTokenizerBC2Test extends UtilityMethodTestCase
      */
     public function testIsShortList($testMarker, $expected)
     {
-        $stackPtr = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]);
+        $stackPtr = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
         $result   = Lists::isShortList(self::$phpcsFile, $stackPtr);
 
         $this->assertSame($expected['list'], $result);

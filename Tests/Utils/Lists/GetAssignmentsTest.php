@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\Utils\Lists;
 
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Lists;
 
 /**
@@ -539,7 +540,7 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
             ],
             'short-list-with-keys-nested-lists' => [
                 'testMarker'  => '/* testShortListWithKeysNestedLists */',
-                'targetToken' => [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET],
+                'targetToken' => Collections::shortArrayListOpenTokensBC(),
                 'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' => [&$a, $b]',

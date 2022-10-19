@@ -45,6 +45,8 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  * @method static array objectOperators()             Object operator tokens.
  * @method static array phpOpenTags()                 Tokens which open PHP.
  * @method static array propertyModifierKeywords()    Modifier keywords which can be used for a property declaration.
+ * @method static array shortArrayListOpenTokensBC()  Tokens which can open a short array or short list
+ *                                                    (PHPCS cross-version compatible).
  * @method static array shortArrayTokens()            Tokens which are used for short arrays.
  * @method static array shortArrayTokensBC()          Tokens which are used for short arrays
  *                                                    (PHPCS cross-version compatible).
@@ -575,6 +577,22 @@ final class Collections
         \T_NS_SEPARATOR      => \T_NS_SEPARATOR,
         \T_TYPE_UNION        => \T_TYPE_UNION,
         \T_TYPE_INTERSECTION => \T_TYPE_INTERSECTION,
+    ];
+
+    /**
+     * Tokens which can open a short array or short list (PHPCS cross-version compatible).
+     *
+     * Includes `T_OPEN_SQUARE_BRACKET` to allow for handling intermittent tokenizer issues related
+     * to the retokenization to `T_OPEN_SHORT_ARRAY`.
+     * Should only be used selectively.
+     *
+     * @since 1.0.0-alpha4 Use the {@see Collections::shortArrayListOpenTokensBC()} method for access.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    private static $shortArrayListOpenTokensBC = [
+        \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
     ];
 
     /**

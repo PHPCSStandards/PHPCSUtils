@@ -75,6 +75,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
             'objectOperators',
             'phpOpenTags',
             'propertyModifierKeywords',
+            'shortArrayListOpenTokensBC',
             'shortArrayTokens',
             'shortArrayTokensBC',
             'shortListTokens',

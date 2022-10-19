@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\PassedParameters;
 
 /**
@@ -113,7 +114,7 @@ final class HasParametersTest extends UtilityMethodTestCase
 
         $self = $this->getTargetToken(
             '/* testShortListNotShortArray */',
-            [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+            Collections::shortArrayListOpenTokensBC()
         );
         PassedParameters::hasParameters(self::$phpcsFile, $self);
     }

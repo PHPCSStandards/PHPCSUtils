@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Lists;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Lists;
 
 /**
@@ -46,7 +47,7 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNotListToken($testMarker)
     {
-        $target = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]);
+        $target = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
         $this->assertFalse(Lists::getOpenClose(self::$phpcsFile, $target));
     }
 

@@ -232,7 +232,7 @@ final class Lists
         $parentOpen = $opener;
         do {
             $parentOpen = $phpcsFile->findPrevious(
-                [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET], // BC: PHPCS#1971.
+                Collections::shortArrayListOpenTokensBC(), // BC: PHPCS#1971.
                 ($parentOpen - 1),
                 null,
                 false,

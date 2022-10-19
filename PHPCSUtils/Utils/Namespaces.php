@@ -64,11 +64,10 @@ final class Namespaces
                 + Tokens::$castTokens
                 + Tokens::$blockOpeners
                 + Collections::incrementDecrementOperators()
-                + Collections::objectOperators();
+                + Collections::objectOperators()
+                + Collections::shortArrayListOpenTokensBC();
 
-            $findAfter[\T_OPEN_CURLY_BRACKET]  = \T_OPEN_CURLY_BRACKET;
-            $findAfter[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
-            $findAfter[\T_OPEN_SHORT_ARRAY]    = \T_OPEN_SHORT_ARRAY;
+            $findAfter[\T_OPEN_CURLY_BRACKET] = \T_OPEN_CURLY_BRACKET;
         }
 
         $tokens = $phpcsFile->getTokens();

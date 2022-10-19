@@ -103,8 +103,7 @@ final class PassedParameters
             }
         }
 
-        if (($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET)
+        if (isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === true
             && $isShortArray !== true
             && Arrays::isShortArray($phpcsFile, $stackPtr) === false
         ) {
@@ -119,9 +118,7 @@ final class PassedParameters
         }
 
         // Deal with short array syntax.
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
-        ) {
+        if (isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === true) {
             if ($next === $tokens[$stackPtr]['bracket_closer']) {
                 // No parameters.
                 return false;
@@ -224,9 +221,7 @@ final class PassedParameters
         $tokens = $phpcsFile->getTokens();
 
         // Mark the beginning and end tokens.
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
-        ) {
+        if (isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === true) {
             $opener = $stackPtr;
             $closer = $tokens[$stackPtr]['bracket_closer'];
         } else {
