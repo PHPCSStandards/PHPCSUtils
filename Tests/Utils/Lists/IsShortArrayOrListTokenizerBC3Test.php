@@ -55,7 +55,7 @@ final class IsShortArrayOrListTokenizerBC3Test extends UtilityMethodTestCase
      * even when the token is incorrectly tokenized.
      *
      * @dataProvider dataIsShortArrayOrList
-     * @covers       \PHPCSUtils\Utils\Arrays::isShortArray
+     * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool[] $expected   The expected boolean return value for list and array.
@@ -75,7 +75,7 @@ final class IsShortArrayOrListTokenizerBC3Test extends UtilityMethodTestCase
      * even when the token is incorrectly tokenized.
      *
      * @dataProvider dataIsShortArrayOrList
-     * @covers       \PHPCSUtils\Utils\Lists::isShortList
+     * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool[] $expected   The expected boolean return value for list and array.

@@ -180,7 +180,7 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
      * Test whether a T_OPEN_SHORT_ARRAY token is a short array.
      *
      * @dataProvider dataIsShortArrayOrList
-     * @covers       \PHPCSUtils\Utils\Arrays::isShortArray
+     * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
      *
      * @param string           $testMarker  The comment which prefaces the target token in the test file.
      * @param bool[]           $expected    The expected boolean return value for list and array.
@@ -200,7 +200,7 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
      * Test whether a T_OPEN_SHORT_ARRAY token is a short list.
      *
      * @dataProvider dataIsShortArrayOrList
-     * @covers       \PHPCSUtils\Utils\Lists::isShortList
+     * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
      *
      * @param string           $testMarker  The comment which prefaces the target token in the test file.
      * @param bool[]           $expected    The expected boolean return value for list and array.
