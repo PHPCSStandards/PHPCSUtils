@@ -10,11 +10,8 @@
 
 namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
-use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Internal\IsShortArrayOrList;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Utils\Arrays;
-use PHPCSUtils\Utils\Lists;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Arrays::isShortArray() and
@@ -230,71 +227,5 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
         ];
-    }
-
-    /**
-     * Verify that the build-in caching is used when caching is enabled.
-     *
-     * @covers \PHPCSUtils\Utils\Arrays::isShortArray
-     *
-     * @return void
-     */
-    public function testIsShortArrayResultIsCached()
-    {
-        $methodName = 'PHPCSUtils\\Utils\\Arrays::isShortArray';
-        $testMarker = '/* testShortArrayUnionFirst */';
-        $expected   = true;
-
-        $stackPtr = $this->getTargetToken($testMarker, \T_OPEN_SHORT_ARRAY);
-
-        // Verify the caching works.
-        $origStatus     = Cache::$enabled;
-        Cache::$enabled = true;
-
-        $resultFirstRun  = Arrays::isShortArray(self::$phpcsFile, $stackPtr);
-        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
-        $resultSecondRun = Arrays::isShortArray(self::$phpcsFile, $stackPtr);
-
-        if ($origStatus === false) {
-            Cache::clear();
-        }
-        Cache::$enabled = $origStatus;
-
-        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
-        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
-        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
-    }
-
-    /**
-     * Verify that the build-in caching is used when caching is enabled.
-     *
-     * @covers \PHPCSUtils\Utils\Lists::isShortList
-     *
-     * @return void
-     */
-    public function testIsShortListResultIsCached()
-    {
-        $methodName = 'PHPCSUtils\\Utils\\Lists::isShortList';
-        $testMarker = '/* testShortListWithNestingAndKeys */';
-        $expected   = true;
-
-        $stackPtr = $this->getTargetToken($testMarker, \T_OPEN_SHORT_ARRAY);
-
-        // Verify the caching works.
-        $origStatus     = Cache::$enabled;
-        Cache::$enabled = true;
-
-        $resultFirstRun  = Lists::isShortList(self::$phpcsFile, $stackPtr);
-        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
-        $resultSecondRun = Lists::isShortList(self::$phpcsFile, $stackPtr);
-
-        if ($origStatus === false) {
-            Cache::clear();
-        }
-        Cache::$enabled = $origStatus;
-
-        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
-        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
-        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

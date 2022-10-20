@@ -13,7 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\Internal\IsShortArrayOrList;
+use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Tokens\Collections;
 
 /**
@@ -64,25 +64,7 @@ final class Arrays
      */
     public static function isShortArray(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Is this one of the tokens this function handles ?
-        if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::shortArrayTokensBC()[$tokens[$stackPtr]['code']]) === false
-        ) {
-            return false;
-        }
-
-        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
-            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
-        }
-
-        $solver      = new IsShortArrayOrList($phpcsFile, $stackPtr);
-        $type        = $solver->solve();
-        $returnValue = ($type === IsShortArrayOrList::SHORT_ARRAY);
-
-        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
-        return $returnValue;
+        return IsShortArrayOrListWithCache::isShortArray($phpcsFile, $stackPtr);
     }
 
     /**
