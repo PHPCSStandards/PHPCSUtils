@@ -74,15 +74,6 @@ final class IsShortArrayOrList
     private $phpcsFile;
 
     /**
-     * The current stack pointer.
-     *
-     * @since 1.0.0-alpha4
-     *
-     * @var int
-     */
-    private $stackPtr;
-
-    /**
      * The token stack from the current file.
      *
      * @since 1.0.0-alpha4
@@ -142,7 +133,7 @@ final class IsShortArrayOrList
      * @since 1.0.0-alpha4
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the short array bracket token.
+     * @param int                         $stackPtr  The position of the short array opener token.
      *
      * @return void
      *
@@ -153,21 +144,16 @@ final class IsShortArrayOrList
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::shortArrayTokensBC()[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             throw new RuntimeException(
-                'The IsShortArrayOrList class expects to be passed a short array or square bracket token.'
+                'The IsShortArrayOrList class expects to be passed a T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET token.'
             );
         }
 
         $this->phpcsFile = $phpcsFile;
-        $this->stackPtr  = $stackPtr;
         $this->tokens    = $tokens;
-
-        $this->opener = $stackPtr;
-        if (isset($this->tokens[$stackPtr]['bracket_opener'])) {
-            $this->opener = $this->tokens[$stackPtr]['bracket_opener'];
-        }
+        $this->opener    = $stackPtr;
 
         $this->closer = $stackPtr;
         if (isset($this->tokens[$stackPtr]['bracket_closer'])) {

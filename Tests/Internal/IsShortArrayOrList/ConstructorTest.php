@@ -31,7 +31,7 @@ final class ConstructorTest extends UtilityMethodTestCase
     public function testNonExistentToken()
     {
         $this->expectPhpcsException(
-            'The IsShortArrayOrList class expects to be passed a short array or square bracket token.'
+            'The IsShortArrayOrList class expects to be passed a T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET token.'
         );
 
         new IsShortArrayOrList(self::$phpcsFile, 100000);
@@ -40,17 +40,17 @@ final class ConstructorTest extends UtilityMethodTestCase
     /**
      * Test receiving an exception when a non-bracket token is passed.
      *
-     * @dataProvider dataNotBracket
+     * @dataProvider dataNotOpenBracket
      *
      * @param string           $testMarker The comment which prefaces the target token in the test file.
      * @param int|string|array $targetType The token type(s) to look for.
      *
      * @return void
      */
-    public function testNotBracket($testMarker, $targetType)
+    public function testNotOpenBracket($testMarker, $targetType)
     {
         $this->expectPhpcsException(
-            'The IsShortArrayOrList class expects to be passed a short array or square bracket token.'
+            'The IsShortArrayOrList class expects to be passed a T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET token.'
         );
 
         $target = $this->getTargetToken($testMarker, $targetType);
@@ -64,7 +64,7 @@ final class ConstructorTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotBracket()
+    public function dataNotOpenBracket()
     {
         return [
             'long-array' => [
@@ -74,6 +74,18 @@ final class ConstructorTest extends UtilityMethodTestCase
             'long-list' => [
                 'testMarker' => '/* testLongList */',
                 'targetType' => \T_LIST,
+            ],
+            'short-array-close-bracket' => [
+                'testMarker' => '/* testShortArray */',
+                'targetType' => \T_CLOSE_SHORT_ARRAY,
+            ],
+            'short-list-close-bracket' => [
+                'testMarker' => '/* testShortList */',
+                'targetType' => \T_CLOSE_SHORT_ARRAY,
+            ],
+            'square-brackets-close-bracket' => [
+                'testMarker' => '/* testSquareBrackets */',
+                'targetType' => \T_CLOSE_SQUARE_BRACKET,
             ],
         ];
     }
@@ -110,25 +122,13 @@ final class ConstructorTest extends UtilityMethodTestCase
                 'testMarker' => '/* testShortArray */',
                 'targetType' => \T_OPEN_SHORT_ARRAY,
             ],
-            'short-array-close-bracket' => [
-                'testMarker' => '/* testShortArray */',
-                'targetType' => \T_CLOSE_SHORT_ARRAY,
-            ],
             'short-list-open-bracket' => [
                 'testMarker' => '/* testShortList */',
                 'targetType' => \T_OPEN_SHORT_ARRAY,
             ],
-            'short-list-close-bracket' => [
-                'testMarker' => '/* testShortList */',
-                'targetType' => \T_CLOSE_SHORT_ARRAY,
-            ],
             'square-brackets-open-bracket' => [
                 'testMarker' => '/* testSquareBrackets */',
                 'targetType' => \T_OPEN_SQUARE_BRACKET,
-            ],
-            'square-brackets-close-bracket' => [
-                'testMarker' => '/* testSquareBrackets */',
-                'targetType' => \T_CLOSE_SQUARE_BRACKET,
             ],
         ];
     }

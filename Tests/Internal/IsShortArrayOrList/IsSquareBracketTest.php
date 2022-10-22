@@ -43,14 +43,13 @@ final class IsSquareBracketTest extends UtilityMethodTestCase
      *
      * @dataProvider dataSquareBrackets
      *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetToken The token type(s) to look for.
+     * @param string $testMarker The comment which prefaces the target token in the test file.
      *
      * @return void
      */
-    public function testSquareBrackets($testMarker, $targetToken = \T_OPEN_SQUARE_BRACKET)
+    public function testSquareBrackets($testMarker)
     {
-        $stackPtr = $this->getTargetToken($testMarker, $targetToken);
+        $stackPtr = $this->getTargetToken($testMarker, \T_OPEN_SQUARE_BRACKET);
         $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
@@ -69,7 +68,6 @@ final class IsSquareBracketTest extends UtilityMethodTestCase
         return [
             'array-assignment-no-key' => [
                 'testMarker'  => '/* testArrayAssignmentEmpty */',
-                'targetToken' => \T_CLOSE_SQUARE_BRACKET,
             ],
             'array-assignment-string-key' => [
                 'testMarker' => '/* testArrayAssignmentStringKey */',
@@ -82,7 +80,6 @@ final class IsSquareBracketTest extends UtilityMethodTestCase
             ],
             'array-access-string-key' => [
                 'testMarker'  => '/* testArrayAccessStringKey */',
-                'targetToken' => \T_CLOSE_SQUARE_BRACKET,
             ],
             'array-access-int-key-1' => [
                 'testMarker' => '/* testArrayAccessIntKey1 */',

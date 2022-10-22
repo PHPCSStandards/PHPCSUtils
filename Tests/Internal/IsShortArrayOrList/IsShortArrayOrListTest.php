@@ -130,10 +130,9 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'testMarker' => '/* testShortList */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
-            'short-list-detect-on-close-bracket' => [
-                'testMarker' => '/* testShortListDetectOnCloseBracket */',
+            'short-list-multi-item' => [
+                'testMarker' => '/* testShortListMultiItem */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
-                'targetType' => \T_CLOSE_SHORT_ARRAY,
             ],
             'short-list-with-keys' => [
                 'testMarker' => '/* testShortListWithKeys */',
@@ -154,7 +153,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
             'short-array-in-chained-assignment' => [
                 'testMarker' => '/* testShortArrayMultiAssign */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
-                'targetType' => \T_CLOSE_SHORT_ARRAY,
             ],
             'short-array-with-nesting-and-keys' => [
                 'testMarker' => '/* testShortArrayWithNestingAndKeys */',

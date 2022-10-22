@@ -38,7 +38,7 @@ echo 'just here to prevent the below test running into a tokenizer issue tested 
 /* testShortList */
 [$b] = $c;
 
-/* testShortListDetectOnCloseBracket */
+/* testShortListMultiItem */
 [$a, $b] = $c;
 
 /* testShortListWithKeys */
