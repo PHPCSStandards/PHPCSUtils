@@ -58,6 +58,10 @@ $array = [
     1 => ["x" => $x2, "y" => $y2],
     /* testNestedShortArrayWithKeys_3 */
     'key' => ["x" => $x3, "y" => $y3],
+    /* testNestedShortArrayPHP74UnpackingWithoutKeys */
+    ...[$x3, $y3],
+    /* testNestedShortArrayPHP81UnpackingWithKeys */
+    ...["x" => $x3, "y" => $y3],
 ];
 
 /* testShortListWithNestingAndKeys */

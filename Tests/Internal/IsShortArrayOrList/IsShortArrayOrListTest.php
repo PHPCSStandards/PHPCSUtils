@@ -170,6 +170,14 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedShortArrayWithKeys_3 */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
+            'short-array-nested-unpacking-without-keys-php74' => [
+                'testMarker' => '/* testNestedShortArrayPHP74UnpackingWithoutKeys */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-nested-unpacking-with-keys-php81' => [
+                'testMarker' => '/* testNestedShortArrayPHP81UnpackingWithKeys */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
             'short-list-with-nesting-and-keys' => [
                 'testMarker' => '/* testShortListWithNestingAndKeys */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
