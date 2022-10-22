@@ -126,6 +126,10 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'testMarker' => '/* testShortListInForeach */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
+            'short-array-in-attribute' => [
+                'testMarker' => '/* testShortArrayInAttribute */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
             'short-list' => [
                 'testMarker' => '/* testShortList */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,

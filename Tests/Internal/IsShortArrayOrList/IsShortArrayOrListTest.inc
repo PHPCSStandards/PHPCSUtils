@@ -33,7 +33,8 @@ if([1, 2] !== /* testShortArrayNonIdenticalSecond */ [3, 4]) {}
 
 foreach ([1, 2, 3] as /* testShortListInForeach */ [$id, $name, $info]) {}
 
-echo 'just here to prevent the below test running into a tokenizer issue tested separately';
+/* testShortArrayInAttribute */
+$var = #[MyAttribute([1, self::MYCONSTANT])] fn($a) => $something;
 
 /* testShortList */
 [$b] = $c;
