@@ -31,7 +31,6 @@ if([1, 2] <> /* testShortArrayNotEqualBracketsSecond */ [3, 4]) {}
 /* testShortArrayNonIdenticalFirst */
 if([1, 2] !== /* testShortArrayNonIdenticalSecond */ [3, 4]) {}
 
-/* testShortArrayInForeach */
 foreach ([1, 2, 3] as /* testShortListInForeach */ [$id, $name, $info]) {}
 
 echo 'just here to prevent the below test running into a tokenizer issue tested separately';
@@ -47,16 +46,6 @@ echo 'just here to prevent the below test running into a tokenizer issue tested 
 
 /* testShortListWithNesting */
 [$a, /* testShortListNested */ [$b]] = array(new stdclass, array(new stdclass));
-
-/* testShortListInForeachWithKey */
-foreach ($data as $key => [$id, $name, $info]) {}
-
-foreach ($array as [$a, /* testShortListInForeachNested */ [$b, $c]]) {}
-
-/* testShortListInForeachWithKeysDetectOnCloseBracket */
-foreach ($data as ["id" => $id, "name" => $name]) {}
-
-echo 'just here to prevent the below test running into a tokenizer issue tested separately';
 
 /* testShortlistMultiAssign */
 $foo = [$baz, $bat] = /* testShortArrayMultiAssign */ [$a, $b] + [$c, $d];
@@ -108,10 +97,6 @@ return $a ?? '';
 /* testShortListNestedLongList */
 // Invalid list as mixing short list syntax with list() is not allowed, but it is short list syntax.
 [list($a, $b), list($c, $d)] = [[1, 2], [3, 4]];
-
-/* testForeachWithoutAs */
-// Parse error.
-foreach([1,2,3]) {}
 
 /* testNestedAnonClassWithTraitUseAs */
 // Parse error, but not our concern, it is short array syntax.

@@ -125,10 +125,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 '/* testShortArrayNonIdenticalSecond */',
                 IsShortArrayOrList::SHORT_ARRAY,
             ],
-            'short-array-in-foreach' => [
-                '/* testShortArrayInForeach */',
-                IsShortArrayOrList::SHORT_ARRAY,
-            ],
             'short-list-in-foreach' => [
                 '/* testShortListInForeach */',
                 IsShortArrayOrList::SHORT_LIST,
@@ -154,20 +150,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 '/* testShortListNested */',
                 IsShortArrayOrList::SHORT_LIST,
             ],
-            'short-list-in-foreach-with-key' => [
-                '/* testShortListInForeachWithKey */',
-                IsShortArrayOrList::SHORT_LIST,
-            ],
-            'short-list-in-foreach-nested' => [
-                '/* testShortListInForeachNested */',
-                IsShortArrayOrList::SHORT_LIST,
-            ],
-            'short-list-in-foreach-with-keys-detect-on-close-bracket' => [
-                '/* testShortListInForeachWithKeysDetectOnCloseBracket */',
-                IsShortArrayOrList::SHORT_LIST,
-                \T_CLOSE_SHORT_ARRAY,
-            ],
-
             'short-list-in-chained-assignment' => [
                 '/* testShortlistMultiAssign */',
                 IsShortArrayOrList::SHORT_LIST,
@@ -234,11 +216,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
             'short-list-nested-long-list' => [
                 '/* testShortListNestedLongList */',
                 IsShortArrayOrList::SHORT_LIST,
-            ],
-            'parse-error-foreach-without-as' => [
-                '/* testForeachWithoutAs */',
-                // Unknown from a foreach perspective, but then the "normal" rules kick in.
-                IsShortArrayOrList::SHORT_ARRAY,
             ],
             'parse-error-anon-class-trait-use-as' => [
                 '/* testNestedAnonClassWithTraitUseAs */',
