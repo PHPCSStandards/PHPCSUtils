@@ -11,6 +11,12 @@ if ($array === [1, 2]) {}
 /* testShortArrayInForeach */
 foreach ([1, 2, 3] as /* testShortListInForeach */ [$id, $name, $info]) {}
 
+/* testShortArrayInForeachWithNestedShortList */
+foreach([$a, $b, [$d, $g, [$h]] = $array] as $c) {}
+
+/* testShortArrayInForeachWithAssignment */
+foreach($array = [$a, $b, [$d, $g, [$h]]] as $c) {}
+
 /* testShortListInForeachWithKey */
 foreach ($data as $key => [$id, $name, $info]) {}
 
@@ -27,6 +33,8 @@ foreach ([/* testShortArrayInForeachNestedAtStart */ [$b, $c], $d]      as $k =>
 foreach ([$a, /* testShortArrayInForeachNestedInMiddle */ [$b, $c], $d] as $k => $v) {}
 foreach ([$a, /* testShortArrayInForeachNestedAtEnd */ [$b, $c]]        as $k => $v) {}
 
+foreach ([$a, /* testShortArrayEmptyInForeachNestedInMiddle */ 'a' => [], $d] as $k => $v) {}
+
 foreach ($array as [/* testShortListInForeachNestedAtStart */ [$b, $c], $d]) {}
 foreach ($array as [$a, /* testShortListInForeachNestedInMiddle */ [$b, $c], $d]) {}
 foreach ($array as [$a, /* testShortListInForeachNestedAtEnd */ [$b, $c]]) {}
@@ -37,6 +45,14 @@ foreach ($array as [$a, /* testShortListInForeachNestedAtEnd */ [$b, $c]]) {}
 foreach ($array as $key => $value[$this->get_key(/* testShortArrayInFunctionCallInForeach */ [$b])]) {}
 
 foreach([$a, $b, /* testShortListNestedInShortArrayInForeach */ [$d, $g, /* testNestedShortListNestedInShortArrayInForeach */ [$h]] = $array] as $c) {}
+
+/* testShortArrayAsKeyAfterAs */
+// Fatal error. Cannot use temporary expression in write context.
+foreach ($array as [1,2,3][$a] => [$b, $c]) {}
+
+/* testParseError */
+// Parse error: missing close square bracket.
+foreach ($array as [$a => [$b, $c], $d) {}
 
 /* testForeachWithoutAs */
 // Parse error.

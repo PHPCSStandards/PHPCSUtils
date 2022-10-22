@@ -76,6 +76,15 @@ final class IsInForeachTest extends UtilityMethodTestCase
                 'testMarker' => '/* testShortArrayInForeach */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
+            'resolved: short array in foreach with nested shortlist' => [
+                'testMarker' => '/* testShortArrayInForeachWithNestedShortList */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'resolved: short array in foreach with assignment' => [
+                'testMarker' => '/* testShortArrayInForeachWithAssignment */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+
             'resolved: short list in foreach' => [
                 'testMarker' => '/* testShortListInForeach */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
@@ -121,6 +130,11 @@ final class IsInForeachTest extends UtilityMethodTestCase
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
 
+            'resolved-on-outer: short array empty in foreach nested in middle' => [
+                'testMarker' => '/* testShortArrayEmptyInForeachNestedInMiddle */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+
             'resolved-on-outer: short list in foreach nested at start' => [
                 'testMarker' => '/* testShortListInForeachNestedAtStart */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
@@ -160,6 +174,16 @@ final class IsInForeachTest extends UtilityMethodTestCase
             'undetermined: nested short list nested in short array in foreach' => [
                 'testMarker' => '/* testNestedShortListNestedInShortArrayInForeach */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+
+            'undetermined: short array in foreach as key after as' => [
+                'testMarker' => '/* testShortArrayAsKeyAfterAs */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+
+            'undetermined: parse error missing bracket' => [
+                'testMarker' => '/* testParseError */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
 
             'undetermined: parse error foreach without as' => [

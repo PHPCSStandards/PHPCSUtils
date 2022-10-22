@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Utils\Context;
 use PHPCSUtils\Utils\Lists;
 use PHPCSUtils\Utils\Parentheses;
 
@@ -304,14 +305,34 @@ final class IsShortArrayOrList
      */
     private function isInForeach()
     {
-        if ($this->beforeOpener !== false
-            && ($this->tokens[$this->beforeOpener]['code'] === \T_AS
-                || $this->tokens[$this->beforeOpener]['code'] === \T_DOUBLE_ARROW)
-            && Parentheses::lastOwnerIn($this->phpcsFile, $this->beforeOpener, \T_FOREACH) !== false
-        ) {
-            return self::SHORT_LIST;
+        $inForeach = Context::inForeachCondition($this->phpcsFile, $this->opener);
+        if ($inForeach === false) {
+            return false;
         }
 
+        switch ($inForeach) {
+            case 'beforeAs':
+                if ($this->tokens[$this->afterCloser]['code'] === \T_AS) {
+                    return self::SHORT_ARRAY;
+                }
+
+                break;
+
+            case 'afterAs':
+                if ($this->tokens[$this->afterCloser]['code'] === \T_CLOSE_PARENTHESIS) {
+                    $owner = Parentheses::getOwner($this->phpcsFile, $this->afterCloser);
+                    if ($owner !== false && $this->tokens[$owner]['code'] === \T_FOREACH) {
+                        return self::SHORT_LIST;
+                    }
+                }
+
+                break;
+        }
+
+        /*
+         * Everything else will be a nested set of brackets (provided we're talking valid PHP),
+         * so disregard as it can not be determined yet.
+         */
         return false;
     }
 }
