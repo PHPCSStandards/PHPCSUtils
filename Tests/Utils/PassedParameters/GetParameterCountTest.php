@@ -277,6 +277,10 @@ final class GetParameterCountTest extends UtilityMethodTestCase
                 'expected'      => 1,
                 'targetContent' => ($php8Names === true) ? null : 'myfunction',
             ],
+            'function-call-named-params-duplicate-name' => [
+                'testMarker'    => '/* testFunctionCallNamedParamsDuplicateName */',
+                'expected'      => 2,
+            ],
 
             // Long arrays.
             'long-array-1' => [

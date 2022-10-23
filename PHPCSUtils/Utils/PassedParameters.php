@@ -17,7 +17,6 @@ use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\GetTokensAsString;
-use PHPCSUtils\Utils\NamingConventions;
 
 /**
  * Utility functions to retrieve information about parameters passed to function calls,
@@ -157,8 +156,9 @@ final class PassedParameters
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by
-     *                     introducing the new `'name_start'`, `'name_end'` and `'name'` index keys.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by introducing
+     *                     the `'name'` and `'name_token'` index keys as well as using the name
+     *                     as the index for the top-level array for named parameters.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
      * @param int                         $stackPtr     The position of function call name,
@@ -170,7 +170,7 @@ final class PassedParameters
      *                                                  Efficiency tweak for when this has already been established,
      *                                                  Use with EXTREME care.
      *
-     * @return array A multi-dimentional array information on each parameter/array item.
+     * @return array A multi-dimentional array with information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
      *               ```php
      *               1 => array(
@@ -180,22 +180,19 @@ final class PassedParameters
      *                 'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
      *               )
      *               ```
-     *               For function calls passing named arguments, the format is as follows:
+     *               If a named parameter is encountered in a function call, the top-level index will not be
+     *               the parameter _position_, but the _parameter name_ and the array will include two extra keys:
      *               ```php
-     *               1 => array(
-     *                 'name_start' => int,    // The stack pointer to the first token in the parameter name.
-     *                 'name_end'   => int,    // The stack pointer to the last token in the parameter name.
-     *                                         // This will point to the colon.
-     *                 'name'       => string, // The parameter name as a string (without the colon).
-     *                 'start'      => int,    // The stack pointer to the first token in the parameter value.
-     *                 'end'        => int,    // The stack pointer to the last token in the parameter value.
-     *                 'raw'        => string, // A string with the contents of all tokens between `start` and `end`.
-     *                 'clean'      => string, // Same as `raw`, but all comment tokens have been stripped out.
+     *               'parameter_name' => array(
+     *                 'name'       => string, // The parameter name (without the colon).
+     *                 'name_token' => int,    // The stack pointer to the parameter name token.
+     *                 ...
      *               )
      *               ```
      *               The `'start'`, `'end'`, `'raw'` and `'clean'` indexes will always contain just and only
      *               information on the parameter value.
-     *               _Note: The array starts at index 1._
+     *               _Note: The array starts at index 1 for positional parameters._
+     *                     _The key for named parameters will be the parameter name._
      *               If no parameters/array items are found, an empty array will be returned.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
@@ -288,6 +285,7 @@ final class PassedParameters
 
             // Ok, we've reached the end of the parameter.
             $paramEnd = ($nextComma - 1);
+            $key      = $cnt;
 
             if ($mayHaveNames === true) {
                 $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
@@ -302,18 +300,22 @@ final class PassedParameters
                     if ($tokens[$secondNonEmpty]['code'] === \T_COLON
                         && $tokens[$firstNonEmpty]['code'] === \T_PARAM_NAME
                     ) {
-                        $parameters[$cnt]['name_start'] = $paramStart;
-                        $parameters[$cnt]['name_end']   = $secondNonEmpty;
-                        $parameters[$cnt]['name']       = $tokens[$firstNonEmpty]['content'];
+                        if (isset($parameters[$tokens[$firstNonEmpty]['content']]) === false) {
+                            // Set the key to be the name, but only if we've not seen this name before.
+                            $key = $tokens[$firstNonEmpty]['content'];
+                        }
+
+                        $parameters[$key]['name']       = $tokens[$firstNonEmpty]['content'];
+                        $parameters[$key]['name_token'] = $firstNonEmpty;
                         $paramStart                     = ($secondNonEmpty + 1);
                     }
                 }
             }
 
-            $parameters[$cnt]['start'] = $paramStart;
-            $parameters[$cnt]['end']   = $paramEnd;
-            $parameters[$cnt]['raw']   = \trim(GetTokensAsString::normal($phpcsFile, $paramStart, $paramEnd));
-            $parameters[$cnt]['clean'] = \trim(GetTokensAsString::noComments($phpcsFile, $paramStart, $paramEnd));
+            $parameters[$key]['start'] = $paramStart;
+            $parameters[$key]['end']   = $paramEnd;
+            $parameters[$key]['raw']   = \trim(GetTokensAsString::normal($phpcsFile, $paramStart, $paramEnd));
+            $parameters[$key]['clean'] = \trim(GetTokensAsString::noComments($phpcsFile, $paramStart, $paramEnd));
 
             // Check if there are more tokens before the closing parenthesis.
             // Prevents function calls with trailing comma's from setting an extra parameter:
@@ -476,7 +478,18 @@ final class PassedParameters
             return false;
         }
 
-        // First check for positional parameters.
+        // First check for a named parameter.
+        if (empty($paramNames) === false) {
+            $paramNames = (array) $paramNames;
+            foreach ($paramNames as $name) {
+                // Note: parameter names are case-sensitive!.
+                if (isset($parameters[$name]) === true) {
+                    return $parameters[$name];
+                }
+            }
+        }
+
+        // Next check for positional parameters.
         if (isset($parameters[$paramOffset]) === true
             && isset($parameters[$paramOffset]['name']) === false
         ) {
@@ -487,19 +500,6 @@ final class PassedParameters
             throw new RuntimeException(
                 'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
             );
-        }
-
-        $paramNames = \array_flip((array) $paramNames);
-
-        // Next check if a named parameter was passed with the specified name.
-        foreach ($parameters as $paramDetails) {
-            if (isset($paramDetails['name']) === false) {
-                continue;
-            }
-
-            if (isset($paramNames[$paramDetails['name']]) === true) {
-                return $paramDetails;
-            }
         }
 
         return false;

@@ -162,6 +162,10 @@ Partially\Qualified\myfunction( $a );
 /* testFunctionCallNamespaceOperator */
 namespace\myfunction( $a );
 
+/* testFunctionCallNamedParamsDuplicateName */
+// Error Exception, but not the concern of PHPCSUtils. Should still be handled.
+test(param: 1, param: 2);
+
 /* testLongArray1 */
 $foo = array( 1, 2, 3, 4, 5, 6, true );
 

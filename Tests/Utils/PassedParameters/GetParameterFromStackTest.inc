@@ -57,3 +57,7 @@ setcookie(
     'name',
     expires: time() + (60 * 60 * 24),
 );
+
+/* testPHP81NamedParamAfterVariadic */
+// Prior to PHP 8.1, this was a compile error, but this is now supported.
+test($positional, ...$variadic, namedA: $valueA, namedB: $valueB);
