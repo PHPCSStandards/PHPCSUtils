@@ -54,7 +54,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
         if (isset($tokenContent)) {
             $result = $this->getTargetToken($commentString, $tokenType, $tokenContent);
         } else {
-            $result = $this->getTargetToken($commentString, $tokenType);
+            $result = self::getTargetToken($commentString, $tokenType);
         }
 
         $this->assertSame($expected, $result);
@@ -147,6 +147,6 @@ final class GetTargetTokenTest extends PolyfilledTestCase
         $this->expectException('PHPCSUtils\Exceptions\TestTargetNotFound');
         $this->expectExceptionMessage('Failed to find test target token for comment string: ');
 
-        $this->getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a');
+        self::getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a');
     }
 }

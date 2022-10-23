@@ -329,6 +329,7 @@ abstract class UtilityMethodTestCase extends TestCase
      * @since 1.0.0
      * @since 1.0.0-alpha4 Will throw an exception whether the delimiter comment or the target
      *                     token is not found.
+     * @since 1.0.0-alpha4 This method is now `static`, which allows for it to be used in "set up before class".
      *
      * @param string           $commentString The complete delimiter comment to look for as a string.
      *                                        This string should include the comment opener and closer.
@@ -340,7 +341,7 @@ abstract class UtilityMethodTestCase extends TestCase
      * @throws \PHPCSUtils\Exceptions\TestMarkerNotFound When the delimiter comment for the test was not found.
      * @throws \PHPCSUtils\Exceptions\TestTargetNotFound When the target token cannot be found.
      */
-    public function getTargetToken($commentString, $tokenType, $tokenContent = null)
+    public static function getTargetToken($commentString, $tokenType, $tokenContent = null)
     {
         $start   = (self::$phpcsFile->numTokens - 1);
         $comment = self::$phpcsFile->findPrevious(
