@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration;
 
 use PHPCSUtils\Tests\PolyfilledTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff class.
@@ -48,10 +49,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortList()
     {
-        $target = $this->getTargetToken(
-            '/* testShortList */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortList */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -86,10 +84,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testEmptyArray()
     {
-        $target = $this->getTargetToken(
-            '/* testEmptyArray */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testEmptyArray */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -126,7 +121,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken(
             '/* testSingleLineShortArrayNoKeysNoTrailingComma */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+            Collections::arrayOpenTokensBC()
         );
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
@@ -193,7 +188,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken(
             '/* testMultiLineLongArrayKeysTrailingComma */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+            Collections::arrayOpenTokensBC()
         );
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
@@ -290,7 +285,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken(
             '/* testMultiLineShortArrayMixedKeysNoKeys */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+            Collections::arrayOpenTokensBC()
         );
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
@@ -383,10 +378,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testEmptyArrayItem()
     {
-        $target = $this->getTargetToken(
-            '/* testEmptyArrayItem */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testEmptyArrayItem */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -417,10 +409,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortCircuitOnProcessOpenClose()
     {
-        $target = $this->getTargetToken(
-            '/* testShortCircuit */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -455,10 +444,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortCircuitOnProcessKey()
     {
-        $target = $this->getTargetToken(
-            '/* testShortCircuit */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -493,10 +479,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortCircuitOnProcessNoKey()
     {
-        $target = $this->getTargetToken(
-            '/* testShortCircuit */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -531,10 +514,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortCircuitOnProcessArrow()
     {
-        $target = $this->getTargetToken(
-            '/* testShortCircuit */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -569,10 +549,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortCircuitOnProcessValue()
     {
-        $target = $this->getTargetToken(
-            '/* testShortCircuit */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
@@ -607,10 +584,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testShortCircuitOnProcessComma()
     {
-        $target = $this->getTargetToken(
-            '/* testShortCircuit */',
-            [\T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
-        );
+        $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
         $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
             ->setMethods($this->methodsToMock)
