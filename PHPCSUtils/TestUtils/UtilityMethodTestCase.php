@@ -11,7 +11,9 @@
 namespace PHPCSUtils\TestUtils;
 
 use PHP_CodeSniffer\Exceptions\TokenizerException;
+use PHP_CodeSniffer\Files\File;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Exceptions\TestFileNotFound;
 use PHPCSUtils\Exceptions\TestMarkerNotFound;
 use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPUnit\Framework\TestCase;
@@ -343,6 +345,10 @@ abstract class UtilityMethodTestCase extends TestCase
      */
     public static function getTargetToken($commentString, $tokenType, $tokenContent = null)
     {
+        if ((self::$phpcsFile instanceof File) === false) {
+            throw new TestFileNotFound();
+        }
+
         $start   = (self::$phpcsFile->numTokens - 1);
         $comment = self::$phpcsFile->findPrevious(
             \T_COMMENT,
