@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @since 1.0.0
  */
-final class SkipJSCSSTest extends PolyfilledTestCase
+final class SkipJSCSSTestsOnPHPCS4Test extends PolyfilledTestCase
 {
 
     /**
