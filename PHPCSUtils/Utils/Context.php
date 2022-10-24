@@ -85,6 +85,33 @@ final class Context
     }
 
     /**
+     * Check whether an arbitrary token is within an attribute.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the token we are checking.
+     *
+     * @return bool
+     */
+    public static function inAttribute(File $phpcsFile, $stackPtr)
+    {
+        $tokens = $phpcsFile->getTokens();
+
+        // Check for the existence of the token.
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if (isset($tokens[$stackPtr]['attribute_opener'], $tokens[$stackPtr]['attribute_closer']) === false) {
+            return false;
+        }
+
+        return ($stackPtr !== $tokens[$stackPtr]['attribute_opener']
+            && $stackPtr !== $tokens[$stackPtr]['attribute_closer']);
+    }
+
+    /**
      * Check whether an arbitrary token is in a foreach condition and if so, in which part:
      * before or after the "as".
      *
