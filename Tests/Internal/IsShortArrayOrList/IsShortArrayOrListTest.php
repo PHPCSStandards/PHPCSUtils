@@ -216,6 +216,39 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
 
+            'short-array-in-match-condition' => [
+                'testMarker' => '/* testShortArrayConditionInMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-nested-in-match-condition' => [
+                'testMarker' => '/* testNestedShortArrayConditionInMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-in-match-return-expression' => [
+                'testMarker' => '/* testShortArrayReturnedFromMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-array-nested-in-match-return-expression' => [
+                'testMarker' => '/* testNestedShortArrayReturnedFromMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+            'short-list-in-match-condition' => [
+                'testMarker' => '/* testShortListConditionInMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-nested-in-match-condition' => [
+                'testMarker' => '/* testNestedShortListConditionInMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-in-match-return-expression' => [
+                'testMarker' => '/* testShortListReturnedFromMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'short-list-nested-in-match-return-expression' => [
+                'testMarker' => '/* testNestedShortListReturnedFromMatchExpression */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+
             // Invalid syntaxes.
             'short-list-nested-empty' => [
                 'testMarker' => '/* testNestedShortListEmpty */',

@@ -97,6 +97,50 @@ $array = [
     'skip' => [$b],
 ];
 
+$match = match($foo) {
+    /* testShortArrayConditionInMatchExpression */
+    [$bar]  => 10,
+    default => 20,
+};
+
+$match = match($foo) {
+    [$bar, /* testNestedShortArrayConditionInMatchExpression */ [$baz], $bal] => 10,
+    default => 20,
+};
+
+$match = match($foo) {
+    /* testShortArrayReturnedFromMatchExpression */
+    10 => [$bar],
+    default => 20,
+};
+
+$match = match($foo) {
+    10 => [$bar, /* testNestedShortArrayReturnedFromMatchExpression */ [$baz], $bal],
+    default => 20,
+};
+
+$match = match($foo) {
+    /* testShortListConditionInMatchExpression */
+    [$bar] = $array => 10,
+    default => 20,
+};
+
+$match = match($foo) {
+    [$bar, /* testNestedShortListConditionInMatchExpression */ [$baz], $bal] = $array => 10,
+    default => 20,
+};
+
+$match = match($foo) {
+    /* testShortListReturnedFromMatchExpression */
+    10 => [$bar] = $array,
+    default => 20,
+};
+
+$match = match($foo) {
+    10 => [$bar, /* testNestedShortListReturnedFromMatchExpression */ [$baz], $bal] = $array,
+    default => 20,
+};
+
 
 /* ===== Tests involving various illegal syntaxes/parse errors. ===== */
 
