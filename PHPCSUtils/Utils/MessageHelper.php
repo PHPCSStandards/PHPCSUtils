@@ -99,13 +99,20 @@ final class MessageHelper
      *
      * @since 1.0.0-alpha4
      *
-     * @param string $text Arbitrary text string intended to be used in an error code.
+     * @param string $text       Arbitrary text string intended to be used in an error code.
+     * @param bool   $strtolower Whether or not to convert the text string to lowercase.
      *
      * @return string
      */
-    public static function stringToErrorcode($text)
+    public static function stringToErrorcode($text, $strtolower = false)
     {
-        return \preg_replace('`[^a-z0-9_]`i', '_', $text);
+        $text = \preg_replace('`[^a-z0-9_]`i', '_', $text);
+
+        if ($strtolower === true) {
+            $text = \strtolower($text);
+        }
+
+        return $text;
     }
 
     /**
