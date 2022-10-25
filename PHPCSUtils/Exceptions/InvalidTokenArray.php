@@ -29,7 +29,6 @@ final class InvalidTokenArray extends RuntimeException
      */
     public static function create($name)
     {
-        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
         $stack = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2);
 
         return new self(
