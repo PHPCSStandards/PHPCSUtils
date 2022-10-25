@@ -1,4 +1,4 @@
-# Template to use for release PRs from `develop` to `master`
+# Template to use for release PRs from `develop` to `stable`
 
 PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH DAY YEAR**.
 
@@ -35,7 +35,7 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
 - [ ] Close the milestone
 - [ ] Open a new milestone for the next release
 - [ ] If any open PRs/issues which were milestoned for this release did not make it into the release, update their milestone.
-- [ ] Fast-forward `develop` to be equal to `master`
+- [ ] Fast-forward `develop` to be equal to `stable`
 
 ### Publicize
 

@@ -309,7 +309,7 @@ This initial alpha release contains the following utility classes:
 * [`Variables`]: Utility functions for use when examining variables.
 
 
-[Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...HEAD
+[Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
 [1.0.0-alpha3]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha2...1.0.0-alpha3
 [1.0.0-alpha2]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha1...1.0.0-alpha2
 
