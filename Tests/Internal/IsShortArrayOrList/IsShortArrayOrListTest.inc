@@ -1,14 +1,6 @@
 <?php
 
-/* ===== Tests involving tokens correctly tokenized as square brackets. ===== */
-
-/* testSquareBrackets */
-$b[] = $c;
-
 /* ===== Tests involving tokens correctly tokenized as short array brackets. ===== */
-
-/* testShortArrayNonNested */
-$array = [$a];
 
 /* testShortArrayInComparison */
 if( [$a, /* testShortArrayNestedInComparison */ [$b]] === $array ) {};
@@ -30,14 +22,6 @@ if([1, 2] <> /* testShortArrayNotEqualBracketsSecond */ [3, 4]) {}
 
 /* testShortArrayNonIdenticalFirst */
 if([1, 2] !== /* testShortArrayNonIdenticalSecond */ [3, 4]) {}
-
-foreach ([1, 2, 3] as /* testShortListInForeach */ [$id, $name, $info]) {}
-
-/* testShortArrayInAttribute */
-$var = #[MyAttribute([1, self::MYCONSTANT])] fn($a) => $something;
-
-/* testShortList */
-[$b] = $c;
 
 /* testShortListMultiItem */
 [$a, $b] = $c;
@@ -168,6 +152,3 @@ array_map(function($a) {
 /* testParseError */
 // Parse error, but not our concern, it is short array syntax.
 use Something as [$a];
-
-// Intentional parse error. This has to be the last test in the file.
-[$a, /* testLiveCodingNested */ [$b]

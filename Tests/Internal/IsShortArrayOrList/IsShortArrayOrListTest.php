@@ -14,11 +14,13 @@ use PHPCSUtils\Internal\IsShortArrayOrList;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
- * Tests for the \PHPCSUtils\Utils\Arrays::isShortArray() and
- * the \PHPCSUtils\Utils\Lists::isShortList() methods.
+ * Tests for the \PHPCSUtils\Internal\IsShortArrayOrList class.
  *
- * @group arrays
- * @group lists
+ * Note: these tests don't _strictly_ test any particular part of the class, they test
+ * the whole class and non-method specific tests for the `IsShortArrayOrList` class
+ * should be added to this file.
+ *
+ * @coversNothing
  *
  * @since 1.0.0
  */
@@ -30,17 +32,15 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
      * a short list or a real square bracket.
      *
      * @dataProvider dataIsShortArrayOrList
-     * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param string           $expected   The expected return value.
-     * @param int|string|array $targetType The token type(s) to test. Defaults to T_OPEN_SHORT_ARRAY.
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     * @param string $expected   The expected return value.
      *
      * @return void
      */
-    public function testIsShortArrayOrList($testMarker, $expected, $targetType = \T_OPEN_SHORT_ARRAY)
+    public function testIsShortArrayOrList($testMarker, $expected)
     {
-        $stackPtr = $this->getTargetToken($testMarker, $targetType);
+        $stackPtr = $this->getTargetToken($testMarker, \T_OPEN_SHORT_ARRAY);
         $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
@@ -57,15 +57,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
     public function dataIsShortArrayOrList()
     {
         return [
-            'square-brackets' => [
-                'testMarker' => '/* testSquareBrackets */',
-                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
-                'targetType' => \T_OPEN_SQUARE_BRACKET,
-            ],
-            'short-array-not-nested' => [
-                'testMarker' => '/* testShortArrayNonNested */',
-                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
-            ],
             'short-array-comparison-no-assignment' => [
                 'testMarker' => '/* testShortArrayInComparison */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
@@ -121,18 +112,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
             'short-array-not-identical-after' => [
                 'testMarker' => '/* testShortArrayNonIdenticalSecond */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
-            ],
-            'short-list-in-foreach' => [
-                'testMarker' => '/* testShortListInForeach */',
-                'expected'   => IsShortArrayOrList::SHORT_LIST,
-            ],
-            'short-array-in-attribute' => [
-                'testMarker' => '/* testShortArrayInAttribute */',
-                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
-            ],
-            'short-list' => [
-                'testMarker' => '/* testShortList */',
-                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-multi-item' => [
                 'testMarker' => '/* testShortListMultiItem */',
@@ -268,10 +247,6 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
             ],
             'parse-error-use-as' => [
                 'testMarker' => '/* testParseError */',
-                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
-            ],
-            'parse-error-live-coding' => [
-                'testMarker' => '/* testLiveCodingNested */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
         ];

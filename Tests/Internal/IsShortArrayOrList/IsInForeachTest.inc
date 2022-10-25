@@ -28,6 +28,7 @@ foreach ($array as [&$a, $b]) {}
 
 
 /* ===== Tests involving brackets within a foreach condition INDIRECTLY handled by isInForeach(). ===== */
+// Handled by the function for the outer set of brackets via walkOutside().
 
 foreach ([/* testShortArrayInForeachNestedAtStart */ [$b, $c], $d]      as $k => $v) {}
 foreach ([$a, /* testShortArrayInForeachNestedInMiddle */ [$b, $c], $d] as $k => $v) {}
