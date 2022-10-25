@@ -103,7 +103,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\BCFile\u003A\u003AgetDeclarationName\u0028\u0029",
             "name": "getDeclarationName",
-            "summary": "Returns\u0020the\u0020declaration\u0020names\u0020for\u0020classes,\u0020interfaces,\u0020traits,\u0020and\u0020functions.",
+            "summary": "Returns\u0020the\u0020declaration\u0020name\u0020for\u0020classes,\u0020interfaces,\u0020traits,\u0020enums,\u0020and\u0020functions.",
             "url": "classes/PHPCSUtils-BackCompat-BCFile.html#method_getDeclarationName"
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\BCFile\u003A\u003AgetMethodParameters\u0028\u0029",
@@ -163,7 +163,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\BCFile\u003A\u003AfindImplementedInterfaceNames\u0028\u0029",
             "name": "findImplementedInterfaceNames",
-            "summary": "Returns\u0020the\u0020names\u0020of\u0020the\u0020interfaces\u0020that\u0020the\u0020specified\u0020class\u0020implements.",
+            "summary": "Returns\u0020the\u0020names\u0020of\u0020the\u0020interfaces\u0020that\u0020the\u0020specified\u0020class\u0020or\u0020enum\u0020implements.",
             "url": "classes/PHPCSUtils-BackCompat-BCFile.html#method_findImplementedInterfaceNames"
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens",
@@ -173,53 +173,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003A__callStatic\u0028\u0029",
             "name": "__callStatic",
-            "summary": "Handle\u0020calls\u0020to\u0020\u0028undeclared\u0029\u0020methods\u0020for\u0020token\u0020arrays\u0020which\u0020haven\u0027t\u0020received\u0020any\nchanges\u0020since\u0020PHPCS\u00202.6.0.",
+            "summary": "Handle\u0020calls\u0020to\u0020\u0028undeclared\u0029\u0020methods\u0020for\u0020token\u0020arrays\u0020which\u0020haven\u0027t\u0020received\u0020any\nchanges\u0020since\u0020PHPCS\u00203.7.1.",
             "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method___callStatic"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AassignmentTokens\u0028\u0029",
-            "name": "assignmentTokens",
-            "summary": "Tokens\u0020that\u0020represent\u0020assignment\u0020operators.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_assignmentTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AcomparisonTokens\u0028\u0029",
-            "name": "comparisonTokens",
-            "summary": "Tokens\u0020that\u0020represent\u0020comparison\u0020operators.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_comparisonTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AarithmeticTokens\u0028\u0029",
-            "name": "arithmeticTokens",
-            "summary": "Tokens\u0020that\u0020represent\u0020arithmetic\u0020operators.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_arithmeticTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003Aoperators\u0028\u0029",
-            "name": "operators",
-            "summary": "Tokens\u0020that\u0020perform\u0020operations.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_operators"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AparenthesisOpeners\u0028\u0029",
-            "name": "parenthesisOpeners",
-            "summary": "Token\u0020types\u0020that\u0020open\u0020parentheses.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_parenthesisOpeners"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AphpcsCommentTokens\u0028\u0029",
-            "name": "phpcsCommentTokens",
-            "summary": "Tokens\u0020that\u0020are\u0020comments\u0020containing\u0020PHPCS\u0020instructions.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_phpcsCommentTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AtextStringTokens\u0028\u0029",
-            "name": "textStringTokens",
-            "summary": "Tokens\u0020that\u0020represent\u0020text\u0020strings.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_textStringTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AfunctionNameTokens\u0028\u0029",
             "name": "functionNameTokens",
             "summary": "Tokens\u0020that\u0020represent\u0020the\u0020names\u0020of\u0020called\u0020functions.",
             "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_functionNameTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\BackCompat\\BCTokens\u003A\u003AooScopeTokens\u0028\u0029",
-            "name": "ooScopeTokens",
-            "summary": "Tokens\u0020that\u0020open\u0020class\u0020and\u0020object\u0020scopes.",
-            "url": "classes/PHPCSUtils-BackCompat-BCTokens.html#method_ooScopeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\BackCompat\\Helper",
             "name": "Helper",
@@ -293,8 +253,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\TestUtils\\UtilityMethodTestCase\u003A\u003AresetTestFile\u0028\u0029",
             "name": "resetTestFile",
-            "summary": "Clean\u0020up\u0020after\u0020finished\u0020test.",
+            "summary": "Clean\u0020up\u0020after\u0020finished\u0020test\u0020by\u0020resetting\u0020all\u0020static\u0020properties\u0020to\u0020their\u0020default\u0020values.",
             "url": "classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_resetTestFile"
+        },                {
+            "fqsen": "\\PHPCSUtils\\TestUtils\\UtilityMethodTestCase\u003A\u003AusesPhp8NameTokens\u0028\u0029",
+            "name": "usesPhp8NameTokens",
+            "summary": "Check\u0020whether\u0020or\u0020not\u0020the\u0020PHP\u00208.0\u0020identifier\u0020name\u0020tokens\u0020will\u0020be\u0020in\u0020use.",
+            "url": "classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_usesPhp8NameTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\TestUtils\\UtilityMethodTestCase\u003A\u003AgetTargetToken\u0028\u0029",
             "name": "getTargetToken",
@@ -341,174 +306,229 @@ Search.appendIndex(
             "summary": "Collections\u0020of\u0020related\u0020tokens\u0020as\u0020often\u0020used\u0020and\u0020needed\u0020for\u0020sniffs.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html"
         },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A__callStatic\u0028\u0029",
+            "name": "__callStatic",
+            "summary": "Handle\u0020calls\u0020to\u0020\u0028undeclared\u0029\u0020methods\u0020for\u0020token\u0020arrays\u0020which\u0020don\u0027t\u0020need\u0020special\u0020handling.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method___callStatic"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AalternativeControlStructureSyntaxes\u0028\u0029",
+            "name": "alternativeControlStructureSyntaxes",
+            "summary": "Tokens\u0020for\u0020control\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020alternative\u0020control\u0020structure\u0020syntax.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_alternativeControlStructureSyntaxes"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AalternativeControlStructureSyntaxClosers\u0028\u0029",
+            "name": "alternativeControlStructureSyntaxClosers",
+            "summary": "Tokens\u0020representing\u0020alternative\u0020control\u0020structure\u0020syntax\u0020closer\u0020keywords.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_alternativeControlStructureSyntaxClosers"
+        },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AarrowFunctionTokensBC\u0028\u0029",
             "name": "arrowFunctionTokensBC",
-            "summary": "Tokens\u0020which\u0020can\u0020represent\u0020the\u0020arrow\u0020function\u0020keyword.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020can\u0020represent\u0020the\u0020arrow\u0020function\u0020keyword.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_arrowFunctionTokensBC"
         },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AfunctionDeclarationTokens\u0028\u0029",
-            "name": "functionDeclarationTokens",
-            "summary": "Tokens\u0020which\u0020can\u0020represent\u0020a\u0020keyword\u0020which\u0020starts\u0020a\u0020function\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_functionDeclarationTokens"
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AfunctionCallTokens\u0028\u0029",
+            "name": "functionCallTokens",
+            "summary": "Tokens\u0020which\u0020can\u0020represent\u0020function\u0020calls\u0020and\u0020function\u002Dcall\u002Dlike\u0020language\u0020constructs.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_functionCallTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AfunctionDeclarationTokensBC\u0028\u0029",
             "name": "functionDeclarationTokensBC",
-            "summary": "Tokens\u0020which\u0020can\u0020represent\u0020a\u0020keyword\u0020which\u0020starts\u0020a\u0020function\u0020declaration.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020represent\u0020a\u0020keyword\u0020which\u0020starts\u0020a\u0020function\u0020declaration.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_functionDeclarationTokensBC"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AnamespacedNameTokens\u0028\u0029",
+            "name": "namespacedNameTokens",
+            "summary": "Tokens\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020fully,\u0020partially\u0020or\u0020unqualified\u0020name.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_namespacedNameTokens"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooCanExtend\u0028\u0029",
+            "name": "ooCanExtend",
+            "summary": "OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022extends\u0022\u0020keyword.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooCanExtend"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooCanImplement\u0028\u0029",
+            "name": "ooCanImplement",
+            "summary": "OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022implements\u0022\u0020keyword.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooCanImplement"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooConstantScopes\u0028\u0029",
+            "name": "ooConstantScopes",
+            "summary": "OO\u0020scopes\u0020in\u0020which\u0020constants\u0020can\u0020be\u0020declared.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooConstantScopes"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooHierarchyKeywords\u0028\u0029",
+            "name": "ooHierarchyKeywords",
+            "summary": "Tokens\u0020types\u0020used\u0020for\u0020\u0022forwarding\u0022\u0020calls\u0020within\u0020OO\u0020structures.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooHierarchyKeywords"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooPropertyScopes\u0028\u0029",
+            "name": "ooPropertyScopes",
+            "summary": "OO\u0020scopes\u0020in\u0020which\u0020properties\u0020can\u0020be\u0020declared.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooPropertyScopes"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AparameterPassingTokens\u0028\u0029",
+            "name": "parameterPassingTokens",
+            "summary": "Tokens\u0020which\u0020can\u0020be\u0020passed\u0020to\u0020the\u0020methods\u0020in\u0020the\u0020PassedParameter\u0020class.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_parameterPassingTokens"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024parameterTypeTokens",
+            "name": "parameterTypeTokens",
+            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_parameterTypeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AparameterTypeTokensBC\u0028\u0029",
             "name": "parameterTypeTokensBC",
-            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
+            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_parameterTypeTokensBC"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024propertyTypeTokens",
+            "name": "propertyTypeTokens",
+            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_propertyTypeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003ApropertyTypeTokensBC\u0028\u0029",
             "name": "propertyTypeTokensBC",
-            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
+            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_propertyTypeTokensBC"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024returnTypeTokens",
+            "name": "returnTypeTokens",
+            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_returnTypeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AreturnTypeTokensBC\u0028\u0029",
             "name": "returnTypeTokensBC",
-            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
+            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_returnTypeTokensBC"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AtextStringStartTokens\u0028\u0029",
+            "name": "textStringStartTokens",
+            "summary": "Tokens\u0020which\u0020can\u0020start\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_textStringStartTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024alternativeControlStructureSyntaxTokens",
             "name": "alternativeControlStructureSyntaxTokens",
-            "summary": "Control\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020alternative\u0020control\u0020structure\u0020syntax.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020for\u0020control\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020alternative\u0020control\u0020structure\u0020syntax.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024alternativeControlStructureSyntaxCloserTokens",
             "name": "alternativeControlStructureSyntaxCloserTokens",
-            "summary": "Alternative\u0020control\u0020structure\u0020syntax\u0020closer\u0020keyword\u0020tokens.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020representing\u0020alternative\u0020control\u0020structure\u0020syntax\u0020closer\u0020keywords.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxCloserTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024arrayTokens",
             "name": "arrayTokens",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020arrays.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020arrays.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024arrayTokensBC",
             "name": "arrayTokensBC",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020arrays.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020arrays\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokensBC"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024classModifierKeywords",
             "name": "classModifierKeywords",
-            "summary": "Modifier\u0020keywords\u0020which\u0020can\u0020be\u0020used\u0020for\u0020a\u0020class\u0020declaration.",
+            "summary": "DEPRECATED\u003A\u0020Modifier\u0020keywords\u0020which\u0020can\u0020be\u0020used\u0020for\u0020a\u0020class\u0020declaration.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_classModifierKeywords"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024closedScopes",
             "name": "closedScopes",
-            "summary": "List\u0020of\u0020tokens\u0020which\u0020represent\u0020\u0022closed\u0022\u0020scopes.",
+            "summary": "DEPRECATED\u003A\u0020List\u0020of\u0020tokens\u0020which\u0020represent\u0020\u0022closed\u0022\u0020scopes.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_closedScopes"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024controlStructureTokens",
             "name": "controlStructureTokens",
-            "summary": "Control\u0020structure\u0020tokens.",
+            "summary": "DEPRECATED\u003A\u0020Control\u0020structure\u0020tokens.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_controlStructureTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024incrementDecrementOperators",
             "name": "incrementDecrementOperators",
-            "summary": "Increment\/decrement\u0020operator\u0020tokens.",
+            "summary": "DEPRECATED\u003A\u0020Increment\/decrement\u0020operator\u0020tokens.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_incrementDecrementOperators"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024listTokens",
             "name": "listTokens",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020lists.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020lists.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_listTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024listTokensBC",
             "name": "listTokensBC",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020lists.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020lists\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_listTokensBC"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024magicConstants",
             "name": "magicConstants",
-            "summary": "Tokens\u0020for\u0020the\u0020PHP\u0020magic\u0020constants.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020for\u0020the\u0020PHP\u0020magic\u0020constants.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_magicConstants"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024namespaceDeclarationClosers",
             "name": "namespaceDeclarationClosers",
-            "summary": "List\u0020of\u0020tokens\u0020which\u0020can\u0020end\u0020a\u0020namespace\u0020declaration\u0020statement.",
+            "summary": "DEPRECATED\u003A\u0020List\u0020of\u0020tokens\u0020which\u0020can\u0020end\u0020a\u0020namespace\u0020declaration\u0020statement.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_namespaceDeclarationClosers"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024objectOperators",
             "name": "objectOperators",
-            "summary": "Object\u0020operators.",
+            "summary": "DEPRECATED\u003A\u0020Object\u0020operator\u0020tokens.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_objectOperators"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOCanExtend",
             "name": "OOCanExtend",
-            "summary": "OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022extends\u0022\u0020keyword.",
+            "summary": "DEPRECATED\u003A\u0020OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022extends\u0022\u0020keyword.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOCanExtend"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOCanImplement",
             "name": "OOCanImplement",
-            "summary": "OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022implements\u0022\u0020keyword.",
+            "summary": "DEPRECATED\u003A\u0020OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022implements\u0022\u0020keyword.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOCanImplement"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOConstantScopes",
             "name": "OOConstantScopes",
-            "summary": "OO\u0020scopes\u0020in\u0020which\u0020constants\u0020can\u0020be\u0020declared.",
+            "summary": "DEPRECATED\u003A\u0020OO\u0020scopes\u0020in\u0020which\u0020constants\u0020can\u0020be\u0020declared.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOConstantScopes"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOHierarchyKeywords",
             "name": "OOHierarchyKeywords",
-            "summary": "Tokens\u0020types\u0020used\u0020for\u0020\u0022forwarding\u0022\u0020calls\u0020within\u0020OO\u0020structures.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020types\u0020used\u0020for\u0020\u0022forwarding\u0022\u0020calls\u0020within\u0020OO\u0020structures.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOHierarchyKeywords"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OONameTokens",
             "name": "OONameTokens",
-            "summary": "Tokens\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020the\u0020fully\/partially\u0020qualified\u0020name\u0020of\u0020an\u0020OO\u0020structure.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020the\u0020fully\/partially\u0020qualified\u0020name\u0020of\u0020an\u0020OO\u0020structure.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OONameTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOPropertyScopes",
             "name": "OOPropertyScopes",
-            "summary": "OO\u0020scopes\u0020in\u0020which\u0020properties\u0020can\u0020be\u0020declared.",
+            "summary": "DEPRECATED\u003A\u0020OO\u0020scopes\u0020in\u0020which\u0020properties\u0020can\u0020be\u0020declared.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOPropertyScopes"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024parameterTypeTokens",
-            "name": "parameterTypeTokens",
-            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_parameterTypeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024propertyModifierKeywords",
             "name": "propertyModifierKeywords",
-            "summary": "Modifier\u0020keywords\u0020which\u0020can\u0020be\u0020used\u0020for\u0020a\u0020property\u0020declaration.",
+            "summary": "DEPRECATED\u003A\u0020Modifier\u0020keywords\u0020which\u0020can\u0020be\u0020used\u0020for\u0020a\u0020property\u0020declaration.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_propertyModifierKeywords"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024propertyTypeTokens",
-            "name": "propertyTypeTokens",
-            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_propertyTypeTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024returnTypeTokens",
-            "name": "returnTypeTokens",
-            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_returnTypeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortArrayTokens",
             "name": "shortArrayTokens",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020arrays.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020arrays.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortArrayTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortArrayTokensBC",
             "name": "shortArrayTokensBC",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020arrays.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020arrays\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortArrayTokensBC"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortListTokens",
             "name": "shortListTokens",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020lists.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020lists.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortListTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortListTokensBC",
             "name": "shortListTokensBC",
-            "summary": "Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020lists.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020lists\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortListTokensBC"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024textStingStartTokens",
             "name": "textStingStartTokens",
-            "summary": "Tokens\u0020which\u0020can\u0020start\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
+            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020can\u0020start\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#property_textStingStartTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Arrays",
@@ -798,7 +818,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Numbers\u003A\u003AgetCompleteNumber\u0028\u0029",
             "name": "getCompleteNumber",
-            "summary": "Retrieve\u0020information\u0020about\u0020a\u0020number\u0020token\u0020in\u0020a\u0020cross\u002Dversion\u0020compatible\u0020manner.",
+            "summary": "Retrieve\u0020information\u0020about\u0020a\u0020number\u0020token.",
             "url": "classes/PHPCSUtils-Utils-Numbers.html#method_getCompleteNumber"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Numbers\u003A\u003AgetDecimalValue\u0028\u0029",
@@ -856,21 +876,6 @@ Search.appendIndex(
             "summary": "Regex\u0020to\u0020determine\u0020whether\u0020the\u0020contents\u0020of\u0020an\u0020arbitrary\u0020string\u0020represents\u0020a\u0020float.",
             "url": "classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_FLOAT"
         },                {
-            "fqsen": "\\PHPCSUtils\\Utils\\Numbers\u003A\u003AREGEX_NUMLIT_STRING",
-            "name": "REGEX_NUMLIT_STRING",
-            "summary": "Regex\u0020to\u0020determine\u0020if\u0020a\u0020T_STRING\u0020following\u0020a\u0020T_\u005BDL\u005DNUMBER\u0020is\u0020part\u0020of\u0020a\u0020numeric\u0020literal\u0020sequence.",
-            "url": "classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_NUMLIT_STRING"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Utils\\Numbers\u003A\u003AREGEX_HEX_NUMLIT_STRING",
-            "name": "REGEX_HEX_NUMLIT_STRING",
-            "summary": "Regex\u0020to\u0020determine\u0020is\u0020a\u0020T_STRING\u0020following\u0020a\u0020T_\u005BDL\u005DNUMBER\u0020is\u0020part\u0020of\u0020a\u0020hexidecimal\u0020numeric\u0020literal\u0020sequence.",
-            "url": "classes/PHPCSUtils-Utils-Numbers.html#constant_REGEX_HEX_NUMLIT_STRING"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Utils\\Numbers\u003A\u003AUNSUPPORTED_PHPCS_VERSION",
-            "name": "UNSUPPORTED_PHPCS_VERSION",
-            "summary": "PHPCS\u0020versions\u0020in\u0020which\u0020the\u0020backfill\u0020for\u0020PHP\u00207.4\u0020numeric\u0020literal\u0020separators\u0020is\u0020broken.",
-            "url": "classes/PHPCSUtils-Utils-Numbers.html#constant_UNSUPPORTED_PHPCS_VERSION"
-        },                {
             "fqsen": "\\PHPCSUtils\\Utils\\ObjectDeclarations",
             "name": "ObjectDeclarations",
             "summary": "Utility\u0020functions\u0020for\u0020use\u0020when\u0020examining\u0020object\u0020declaration\u0020statements.",
@@ -878,7 +883,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\ObjectDeclarations\u003A\u003AgetName\u0028\u0029",
             "name": "getName",
-            "summary": "Retrieves\u0020the\u0020declaration\u0020name\u0020for\u0020classes,\u0020interfaces,\u0020traits,\u0020and\u0020functions.",
+            "summary": "Retrieves\u0020the\u0020declaration\u0020name\u0020for\u0020classes,\u0020interfaces,\u0020traits,\u0020enums\u0020and\u0020functions.",
             "url": "classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_getName"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\ObjectDeclarations\u003A\u003AgetClassProperties\u0028\u0029",
@@ -893,7 +898,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\ObjectDeclarations\u003A\u003AfindImplementedInterfaceNames\u0028\u0029",
             "name": "findImplementedInterfaceNames",
-            "summary": "Retrieves\u0020the\u0020names\u0020of\u0020the\u0020interfaces\u0020that\u0020the\u0020specified\u0020class\u0020implements.",
+            "summary": "Retrieves\u0020the\u0020names\u0020of\u0020the\u0020interfaces\u0020that\u0020the\u0020specified\u0020class\u0020or\u0020enum\u0020implements.",
             "url": "classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_findImplementedInterfaceNames"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\ObjectDeclarations\u003A\u003AfindExtendedInterfaceNames\u0028\u0029",
@@ -948,12 +953,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses",
             "name": "Parentheses",
-            "summary": "Utility\u0020functions\u0020for\u0020use\u0020when\u0020examining\u0020parenthesis\u0020tokens\u0020and\u0020arbitrary\u0020tokens\u0020wrapped\u0020in\nparentheses.",
+            "summary": "Utility\u0020functions\u0020for\u0020use\u0020when\u0020examining\u0020parenthesis\u0020tokens\u0020and\u0020arbitrary\u0020tokens\u0020wrapped\nin\u0020parentheses.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetOwner\u0028\u0029",
             "name": "getOwner",
-            "summary": "Get\u0020the\u0020pointer\u0020to\u0020the\u0020parentheses\u0020owner\u0020of\u0020an\u0020open\/close\u0020parenthesis.",
+            "summary": "Get\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020owner\u0020of\u0020an\u0020open\/close\u0020parenthesis.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getOwner"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AisOwnerIn\u0028\u0029",
@@ -968,47 +973,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetFirstOpener\u0028\u0029",
             "name": "getFirstOpener",
-            "summary": "Retrieve\u0020the\u0020position\u0020of\u0020the\u0020opener\u0020to\u0020the\u0020first\u0020\u0028outer\u0029\u0020set\u0020of\u0020parentheses\u0020an\u0020arbitrary\ntoken\u0020is\u0020wrapped\u0020in,\u0020where\u0020the\u0020parentheses\u0020owner\u0020is\u0020within\u0020the\u0020set\u0020of\u0020valid\u0020owners.",
+            "summary": "Retrieve\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020opener\u0020of\u0020the\u0020first\u0020\u0028outer\u0029\u0020set\u0020of\u0020parentheses\nan\u0020arbitrary\u0020token\u0020is\u0020wrapped\u0020in.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstOpener"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetFirstCloser\u0028\u0029",
             "name": "getFirstCloser",
-            "summary": "Retrieve\u0020the\u0020position\u0020of\u0020the\u0020closer\u0020to\u0020the\u0020first\u0020\u0028outer\u0029\u0020set\u0020of\u0020parentheses\u0020an\u0020arbitrary\ntoken\u0020is\u0020wrapped\u0020in,\u0020where\u0020the\u0020parentheses\u0020owner\u0020is\u0020within\u0020the\u0020set\u0020of\u0020valid\u0020owners.",
+            "summary": "Retrieve\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020closer\u0020of\u0020the\u0020first\u0020\u0028outer\u0029\u0020set\u0020of\u0020parentheses\nan\u0020arbitrary\u0020token\u0020is\u0020wrapped\u0020in.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstCloser"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetFirstOwner\u0028\u0029",
             "name": "getFirstOwner",
-            "summary": "Retrieve\u0020the\u0020position\u0020of\u0020the\u0020parentheses\u0020owner\u0020to\u0020the\u0020first\u0020\u0028outer\u0029\u0020set\u0020of\u0020parentheses\u0020an\narbitrary\u0020token\u0020is\u0020wrapped\u0020in,\u0020where\u0020the\u0020parentheses\u0020owner\u0020is\u0020within\u0020the\u0020set\u0020of\u0020valid\u0020owners.",
+            "summary": "Retrieve\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020owner\u0020of\u0020the\u0020first\u0020\u0028outer\u0029\u0020set\u0020of\u0020parentheses\nan\u0020arbitrary\u0020token\u0020is\u0020wrapped\u0020in.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getFirstOwner"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetLastOpener\u0028\u0029",
             "name": "getLastOpener",
-            "summary": "Retrieve\u0020the\u0020position\u0020of\u0020the\u0020opener\u0020to\u0020the\u0020last\u0020\u0028inner\u0029\u0020set\u0020of\u0020parentheses\u0020an\u0020arbitrary\ntoken\u0020is\u0020wrapped\u0020in,\u0020where\u0020the\u0020parentheses\u0020owner\u0020is\u0020within\u0020the\u0020set\u0020of\u0020valid\u0020owners.",
+            "summary": "Retrieve\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020opener\u0020of\u0020the\u0020last\u0020\u0028inner\u0029\u0020set\u0020of\u0020parentheses\nan\u0020arbitrary\u0020token\u0020is\u0020wrapped\u0020in.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getLastOpener"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetLastCloser\u0028\u0029",
             "name": "getLastCloser",
-            "summary": "Retrieve\u0020the\u0020position\u0020of\u0020the\u0020closer\u0020to\u0020the\u0020last\u0020\u0028inner\u0029\u0020set\u0020of\u0020parentheses\u0020an\u0020arbitrary\ntoken\u0020is\u0020wrapped\u0020in,\u0020where\u0020the\u0020parentheses\u0020owner\u0020is\u0020within\u0020the\u0020set\u0020of\u0020valid\u0020owners.",
+            "summary": "Retrieve\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020closer\u0020of\u0020the\u0020last\u0020\u0028inner\u0029\u0020set\u0020of\u0020parentheses\nan\u0020arbitrary\u0020token\u0020is\u0020wrapped\u0020in.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getLastCloser"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AgetLastOwner\u0028\u0029",
             "name": "getLastOwner",
-            "summary": "Retrieve\u0020the\u0020position\u0020of\u0020the\u0020parentheses\u0020owner\u0020to\u0020the\u0020last\u0020\u0028inner\u0029\u0020set\u0020of\u0020parentheses\u0020an\narbitrary\u0020token\u0020is\u0020wrapped\u0020in\u0020where\u0020the\u0020parentheses\u0020owner\u0020is\u0020within\u0020the\u0020set\u0020of\u0020valid\u0020owners.",
+            "summary": "Retrieve\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020parentheses\u0020owner\u0020of\u0020the\u0020last\u0020\u0028inner\u0029\u0020set\u0020of\u0020parentheses\nan\u0020arbitrary\u0020token\u0020is\u0020wrapped\u0020in.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_getLastOwner"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AfirstOwnerIn\u0028\u0029",
             "name": "firstOwnerIn",
-            "summary": "Check\u0020whether\u0020the\u0020owner\u0020of\u0020a\u0020outermost\u0020wrapping\u0020set\u0020of\u0020parentheses\u0020of\u0020an\u0020arbitrary\u0020token\nis\u0020within\u0020a\u0020limited\u0020set\u0020of\u0020acceptable\u0020token\u0020types.",
+            "summary": "Check\u0020whether\u0020the\u0020owner\u0020of\u0020the\u0020outermost\u0020wrapping\u0020set\u0020of\u0020parentheses\u0020of\u0020an\u0020arbitrary\u0020token\nis\u0020within\u0020a\u0020limited\u0020set\u0020of\u0020acceptable\u0020token\u0020types.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_firstOwnerIn"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Parentheses\u003A\u003AlastOwnerIn\u0028\u0029",
             "name": "lastOwnerIn",
-            "summary": "Check\u0020whether\u0020the\u0020owner\u0020of\u0020a\u0020innermost\u0020wrapping\u0020set\u0020of\u0020parentheses\u0020of\u0020an\u0020arbitrary\u0020token\nis\u0020within\u0020a\u0020limited\u0020set\u0020of\u0020acceptable\u0020token\u0020types.",
+            "summary": "Check\u0020whether\u0020the\u0020owner\u0020of\u0020the\u0020innermost\u0020wrapping\u0020set\u0020of\u0020parentheses\u0020of\u0020an\u0020arbitrary\u0020token\nis\u0020within\u0020a\u0020limited\u0020set\u0020of\u0020acceptable\u0020token\u0020types.",
             "url": "classes/PHPCSUtils-Utils-Parentheses.html#method_lastOwnerIn"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\PassedParameters",
             "name": "PassedParameters",
-            "summary": "Utility\u0020functions\u0020to\u0020retrieve\u0020information\u0020about\u0020parameters\u0020passed\u0020to\u0020function\u0020calls,\narray\u0020declarations,\u0020isset\u0020and\u0020unset\u0020constructs.",
+            "summary": "Utility\u0020functions\u0020to\u0020retrieve\u0020information\u0020about\u0020parameters\u0020passed\u0020to\u0020function\u0020calls,\nclass\u0020instantiations,\u0020array\u0020declarations,\u0020isset\u0020and\u0020unset\u0020constructs.",
             "url": "classes/PHPCSUtils-Utils-PassedParameters.html"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\PassedParameters\u003A\u003AhasParameters\u0028\u0029",
@@ -1031,6 +1036,11 @@ Search.appendIndex(
             "summary": "Count\u0020the\u0020number\u0020of\u0020parameters\u0020which\u0020have\u0020been\u0020passed.",
             "url": "classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameterCount"
         },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\PassedParameters\u003A\u003AgetParameterFromStack\u0028\u0029",
+            "name": "getParameterFromStack",
+            "summary": "Get\u0020information\u0020on\u0020a\u0020specific\u0020function\u0020call\u0020parameter\u0020passed.",
+            "url": "classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameterFromStack"
+        },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Scopes",
             "name": "Scopes",
             "summary": "Utility\u0020functions\u0020for\u0020use\u0020when\u0020examining\u0020token\u0020scopes.",
@@ -1043,7 +1053,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Scopes\u003A\u003AisOOConstant\u0028\u0029",
             "name": "isOOConstant",
-            "summary": "Check\u0020whether\u0020a\u0020T_CONST\u0020token\u0020is\u0020a\u0020class\/interface\u0020constant\u0020declaration.",
+            "summary": "Check\u0020whether\u0020a\u0020T_CONST\u0020token\u0020is\u0020a\u0020class\/interface\/trait\/enum\u0020constant\u0020declaration.",
             "url": "classes/PHPCSUtils-Utils-Scopes.html#method_isOOConstant"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Scopes\u003A\u003AisOOProperty\u0028\u0029",
@@ -1053,7 +1063,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Scopes\u003A\u003AisOOMethod\u0028\u0029",
             "name": "isOOMethod",
-            "summary": "Check\u0020whether\u0020a\u0020T_FUNCTION\u0020token\u0020is\u0020a\u0020class\/interface\/trait\u0020method\u0020declaration.",
+            "summary": "Check\u0020whether\u0020a\u0020T_FUNCTION\u0020token\u0020is\u0020a\u0020class\/interface\/trait\/enum\u0020method\u0020declaration.",
             "url": "classes/PHPCSUtils-Utils-Scopes.html#method_isOOMethod"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\TextStrings",
@@ -1066,10 +1076,40 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020complete\u0020contents\u0020of\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
             "url": "classes/PHPCSUtils-Utils-TextStrings.html#method_getCompleteTextString"
         },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003AgetEndOfCompleteTextString\u0028\u0029",
+            "name": "getEndOfCompleteTextString",
+            "summary": "Get\u0020the\u0020stack\u0020pointer\u0020to\u0020the\u0020end\u0020of\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
+            "url": "classes/PHPCSUtils-Utils-TextStrings.html#method_getEndOfCompleteTextString"
+        },                {
             "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003AstripQuotes\u0028\u0029",
             "name": "stripQuotes",
-            "summary": "Strip\u0020text\u0020delimiter\u0020quotes\u0020from\u0020an\u0020arbitrary\u0020string.",
+            "summary": "Strip\u0020text\u0020delimiter\u0020quotes\u0020from\u0020an\u0020arbitrary\u0020text\u0020string.",
             "url": "classes/PHPCSUtils-Utils-TextStrings.html#method_stripQuotes"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003AgetEmbeds\u0028\u0029",
+            "name": "getEmbeds",
+            "summary": "Get\u0020the\u0020embedded\u0020variables\/expressions\u0020from\u0020an\u0020arbitrary\u0020string.",
+            "url": "classes/PHPCSUtils-Utils-TextStrings.html#method_getEmbeds"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003AstripEmbeds\u0028\u0029",
+            "name": "stripEmbeds",
+            "summary": "Strip\u0020embedded\u0020variables\/expressions\u0020from\u0020an\u0020arbitrary\u0020string.",
+            "url": "classes/PHPCSUtils-Utils-TextStrings.html#method_stripEmbeds"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003AgetStripEmbeds\u0028\u0029",
+            "name": "getStripEmbeds",
+            "summary": "Split\u0020an\u0020arbitrary\u0020text\u0020string\u0020into\u0020embedded\u0020variables\/expressions\u0020and\u0020remaining\u0020text.",
+            "url": "classes/PHPCSUtils-Utils-TextStrings.html#method_getStripEmbeds"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003ASTART_OF_EMBED",
+            "name": "START_OF_EMBED",
+            "summary": "Regex\u0020to\u0020match\u0020the\u0020start\u0020of\u0020an\u0020embedded\u0020variable\/expression.",
+            "url": "classes/PHPCSUtils-Utils-TextStrings.html#constant_START_OF_EMBED"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\TextStrings\u003A\u003ATYPE1_EMBED_AFTER_DOLLAR",
+            "name": "TYPE1_EMBED_AFTER_DOLLAR",
+            "summary": "Regex\u0020to\u0020match\u0020a\u0020\u0022type\u00201\u0022\u0020\u002D\u0020directly\u0020embedded\u0020\u002D\u0020variable\u0020without\u0020the\u0020dollar\u0020sign.",
+            "url": "classes/PHPCSUtils-Utils-TextStrings.html#constant_TYPE1_EMBED_AFTER_DOLLAR"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\UseStatements",
             "name": "UseStatements",
@@ -1105,6 +1145,11 @@ Search.appendIndex(
             "name": "splitAndMergeImportUseStatement",
             "summary": "Split\u0020an\u0020import\u0020use\u0020statement\u0020into\u0020individual\u0020imports\u0020and\u0020merge\u0020it\u0020with\u0020an\u0020array\u0020of\u0020previously\nseen\u0020import\u0020use\u0020statements.",
             "url": "classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\UseStatements\u003A\u003AmergeImportUseStatements\u0028\u0029",
+            "name": "mergeImportUseStatements",
+            "summary": "Merge\u0020two\u0020import\u0020use\u0020statement\u0020arrays.",
+            "url": "classes/PHPCSUtils-Utils-UseStatements.html#method_mergeImportUseStatements"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Variables",
             "name": "Variables",
@@ -1151,6 +1196,116 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/default.html#constant_PHPCSUTILS_PHPUNIT_ALIASES_SET"
         },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\InvalidTokenArray",
+            "name": "InvalidTokenArray",
+            "summary": "Exception\u0020thrown\u0020when\u0020an\u0020non\u002Dexistent\u0020token\u0020array\u0020is\u0020requested.",
+            "url": "classes/PHPCSUtils-Exceptions-InvalidTokenArray.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\InvalidTokenArray\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Create\u0020a\u0020new\u0020invalid\u0020token\u0020array\u0020exception\u0020with\u0020a\u0020standardized\u0020text.",
+            "url": "classes/PHPCSUtils-Exceptions-InvalidTokenArray.html#method_create"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\TestFileNotFound",
+            "name": "TestFileNotFound",
+            "summary": "Exception\u0020thrown\u0020when\u0020the\u0020UtilityMethodTestCase\u003A\u003AgetTargetToken\u0028\u0029\u0020method\u0020is\u0020run\u0020without\u0020a\ntokenized\u0020test\u0020case\u0020file\u0020being\u0020available.",
+            "url": "classes/PHPCSUtils-Exceptions-TestFileNotFound.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\TestFileNotFound\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Create\u0020a\u0020new\u0020\u0022test\u0020file\u0020not\u0020found\u0022\u0020exception\u0020with\u0020a\u0020standardized\u0020text.",
+            "url": "classes/PHPCSUtils-Exceptions-TestFileNotFound.html#method___construct"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\TestMarkerNotFound",
+            "name": "TestMarkerNotFound",
+            "summary": "Exception\u0020thrown\u0020when\u0020a\u0020delimiter\u0020comment\u0020can\u0020not\u0020be\u0020found\u0020in\u0020a\u0020test\u0020case\u0020file.",
+            "url": "classes/PHPCSUtils-Exceptions-TestMarkerNotFound.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\TestMarkerNotFound\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Create\u0020a\u0020new\u0020\u0022test\u0020marker\u0020not\u0020found\u0022\u0020exception\u0020with\u0020a\u0020standardized\u0020text.",
+            "url": "classes/PHPCSUtils-Exceptions-TestMarkerNotFound.html#method_create"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\TestTargetNotFound",
+            "name": "TestTargetNotFound",
+            "summary": "Exception\u0020thrown\u0020when\u0020a\u0020test\u0020target\u0020token\u0020can\u0020not\u0020be\u0020found\u0020in\u0020a\u0020test\u0020case\u0020file.",
+            "url": "classes/PHPCSUtils-Exceptions-TestTargetNotFound.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions\\TestTargetNotFound\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Create\u0020a\u0020new\u0020\u0022test\u0020target\u0020token\u0020not\u0020found\u0022\u0020exception\u0020with\u0020a\u0020standardized\u0020text.",
+            "url": "classes/PHPCSUtils-Exceptions-TestTargetNotFound.html#method_create"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\TokenHelper",
+            "name": "TokenHelper",
+            "summary": "Helpers\u0020for\u0020working\u0020with\u0020tokens.",
+            "url": "classes/PHPCSUtils-Tokens-TokenHelper.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Tokens\\TokenHelper\u003A\u003AtokenExists\u0028\u0029",
+            "name": "tokenExists",
+            "summary": "Check\u0020whether\u0020a\u0020PHP\u0020native\u0020token\u0020exists\u0020\u0028for\u0020real\u0029.",
+            "url": "classes/PHPCSUtils-Tokens-TokenHelper.html#method_tokenExists"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context",
+            "name": "Context",
+            "summary": "Utility\u0020functions\u0020for\u0020examining\u0020in\u0020which\u0020context\u0020a\u0020certain\u0020token\u0020is\u0020used.",
+            "url": "classes/PHPCSUtils-Utils-Context.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context\u003A\u003AinEmpty\u0028\u0029",
+            "name": "inEmpty",
+            "summary": "Check\u0020whether\u0020an\u0020arbitrary\u0020token\u0020is\u0020within\u0020a\u0020call\u0020to\u0020empty\u0028\u0029.",
+            "url": "classes/PHPCSUtils-Utils-Context.html#method_inEmpty"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context\u003A\u003AinIsset\u0028\u0029",
+            "name": "inIsset",
+            "summary": "Check\u0020whether\u0020an\u0020arbitrary\u0020token\u0020is\u0020within\u0020a\u0020call\u0020to\u0020isset\u0028\u0029.",
+            "url": "classes/PHPCSUtils-Utils-Context.html#method_inIsset"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context\u003A\u003AinUnset\u0028\u0029",
+            "name": "inUnset",
+            "summary": "Check\u0020whether\u0020an\u0020arbitrary\u0020token\u0020is\u0020within\u0020a\u0020call\u0020to\u0020unset\u0028\u0029.",
+            "url": "classes/PHPCSUtils-Utils-Context.html#method_inUnset"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context\u003A\u003AinAttribute\u0028\u0029",
+            "name": "inAttribute",
+            "summary": "Check\u0020whether\u0020an\u0020arbitrary\u0020token\u0020is\u0020within\u0020an\u0020attribute.",
+            "url": "classes/PHPCSUtils-Utils-Context.html#method_inAttribute"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context\u003A\u003AinForeachCondition\u0028\u0029",
+            "name": "inForeachCondition",
+            "summary": "Check\u0020whether\u0020an\u0020arbitrary\u0020token\u0020is\u0020in\u0020a\u0020foreach\u0020condition\u0020and\u0020if\u0020so,\u0020in\u0020which\u0020part\u003A\nbefore\u0020or\u0020after\u0020the\u0020\u0022as\u0022.",
+            "url": "classes/PHPCSUtils-Utils-Context.html#method_inForeachCondition"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\Context\u003A\u003AinForCondition\u0028\u0029",
+            "name": "inForCondition",
+            "summary": "Check\u0020whether\u0020an\u0020arbitrary\u0020token\u0020is\u0020in\u0020a\u0020for\u0020condition\u0020and\u0020if\u0020so,\u0020in\u0020which\u0020part\u003A\nthe\u0020first,\u0020second\u0020or\u0020third\u0020expression.",
+            "url": "classes/PHPCSUtils-Utils-Context.html#method_inForCondition"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\MessageHelper",
+            "name": "MessageHelper",
+            "summary": "Helper\u0020functions\u0020for\u0020creating\u0020PHPCS\u0020error\/warning\u0020messages.",
+            "url": "classes/PHPCSUtils-Utils-MessageHelper.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\MessageHelper\u003A\u003AaddMessage\u0028\u0029",
+            "name": "addMessage",
+            "summary": "Add\u0020a\u0020PHPCS\u0020message\u0020to\u0020the\u0020output\u0020stack\u0020as\u0020either\u0020a\u0020warning\u0020or\u0020an\u0020error.",
+            "url": "classes/PHPCSUtils-Utils-MessageHelper.html#method_addMessage"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\MessageHelper\u003A\u003AaddFixableMessage\u0028\u0029",
+            "name": "addFixableMessage",
+            "summary": "Add\u0020a\u0020PHPCS\u0020message\u0020to\u0020the\u0020output\u0020stack\u0020as\u0020either\u0020a\u0020fixable\u0020warning\u0020or\u0020a\u0020fixable\u0020error.",
+            "url": "classes/PHPCSUtils-Utils-MessageHelper.html#method_addFixableMessage"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\MessageHelper\u003A\u003AstringToErrorcode\u0028\u0029",
+            "name": "stringToErrorcode",
+            "summary": "Convert\u0020an\u0020arbitrary\u0020text\u0020string\u0020to\u0020an\u0020alphanumeric\u0020string\u0020with\u0020underscores.",
+            "url": "classes/PHPCSUtils-Utils-MessageHelper.html#method_stringToErrorcode"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Utils\\MessageHelper\u003A\u003AshowEscapeChars\u0028\u0029",
+            "name": "showEscapeChars",
+            "summary": "Make\u0020the\u0020whitespace\u0020escape\u0020codes\u0020used\u0020in\u0020an\u0020arbitrary\u0020text\u0020string\u0020visible.",
+            "url": "classes/PHPCSUtils-Utils-MessageHelper.html#method_showEscapeChars"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -1170,6 +1325,11 @@ Search.appendIndex(
             "name": "BackCompat",
             "summary": "",
             "url": "namespaces/phpcsutils-backcompat.html"
+        },                {
+            "fqsen": "\\PHPCSUtils\\Exceptions",
+            "name": "Exceptions",
+            "summary": "",
+            "url": "namespaces/phpcsutils-exceptions.html"
         },                {
             "fqsen": "\\PHPCSUtils\\Fixers",
             "name": "Fixers",

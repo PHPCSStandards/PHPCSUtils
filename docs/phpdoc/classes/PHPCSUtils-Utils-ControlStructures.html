@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -131,7 +135,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ControlStructures.php"><a href="files/phpcsutils-utils-controlstructures.html"><abbr title="PHPCSUtils/Utils/ControlStructures.php">ControlStructures.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
@@ -151,6 +155,16 @@
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
                                                                                 
                                              
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Dropped support for PHPCS &lt; 3.7.1.</p>
+</section>
+
                                     </dd>
                         </dl>
 
@@ -219,7 +233,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ControlStructures.php"><a href="files/phpcsutils-utils-controlstructures.html"><abbr title="PHPCSUtils/Utils/ControlStructures.php">ControlStructures.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">372</span>
+    <span class="phpdocumentor-element-found-in__line">278</span>
 
     </aside>
 
@@ -266,6 +280,16 @@
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 identifier name tokenization.</p>
+</section>
+
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
@@ -310,7 +334,7 @@ each caught exception:</p>
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+            -deprecated                        -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getDeclareScopeOpenClose">
         getDeclareScopeOpenClose()
@@ -319,13 +343,13 @@ each caught exception:</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ControlStructures.php"><a href="files/phpcsutils-utils-controlstructures.html"><abbr title="PHPCSUtils/Utils/ControlStructures.php">ControlStructures.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">235</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">Get the scope opener and closer for a DECLARE statement.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getDeclareScopeOpenClose</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span></code>
 
@@ -339,10 +363,7 @@ each caught exception:</p>
 <p>In the first case, the statement - correctly - won't have a scope opener/closer.
 In the second case, the statement will have the scope opener/closer indexes.
 In the last case, due to a bug in the PHPCS Tokenizer, it won't have the scope opener/closer indexes,
-while it really should. This bug is fixed in PHPCS 3.5.4.</p>
-<p>In other words, if a sniff needs to support PHPCS &lt; 3.5.4 and needs to take the alternative
-control structure syntax into account, this method can be used to retrieve the
-scope opener/closer for the declare statement.</p>
+while it really should. This bug was fixed in PHPCS 3.5.4.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -389,6 +410,16 @@ scope opener/closer for the declare statement.</p>
                                                                                 
                                              
                                     </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Check the scope_opener/scope_closer instead.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -419,7 +450,7 @@ The format of the array return value is:</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ControlStructures.php"><a href="files/phpcsutils-utils-controlstructures.html"><abbr title="PHPCSUtils/Utils/ControlStructures.php">ControlStructures.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
@@ -484,6 +515,16 @@ Defaults to <code class="prettyprint">true</code>.</p>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 match control structures.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -509,7 +550,7 @@ when it has a non-empty body.
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ControlStructures.php"><a href="files/phpcsutils-utils-controlstructures.html"><abbr title="PHPCSUtils/Utils/ControlStructures.php">ControlStructures.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">153</span>
 
     </aside>
 

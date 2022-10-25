@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -131,12 +135,12 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
             <p class="phpdocumentor-summary">Utility functions to retrieve information about parameters passed to function calls,
-array declarations, isset and unset constructs.</p>
+class instantiations, array declarations, isset and unset constructs.</p>
 
 
 
@@ -152,6 +156,16 @@ array declarations, isset and unset constructs.</p>
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
                                                                                 
                                              
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Dropped support for PHPCS &lt; 3.7.1.</p>
+</section>
+
                                     </dd>
                         </dl>
 
@@ -179,6 +193,13 @@ array declarations, isset and unset constructs.</p>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Count the number of parameters which have been passed.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameterFromStack">getParameterFromStack()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|false    </span>
+</dt>
+<dd>Get information on a specific function call parameter passed.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters">getParameters()</a>
@@ -220,7 +241,7 @@ array declarations, isset and unset constructs.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">303</span>
+    <span class="phpdocumentor-element-found-in__line">398</span>
 
     </aside>
 
@@ -228,7 +249,7 @@ array declarations, isset and unset constructs.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getParameter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getParameter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramOffset</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramNames</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span></code>
 
         <section class="phpdocumentor-description"><p>See <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters"><abbr title="\PHPCSUtils\Utils\PassedParameters::hasParameters()">PassedParameters::hasParameters()</abbr></a> for information on the supported constructs.</p>
 </section>
@@ -249,8 +270,8 @@ array declarations, isset and unset constructs.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> token.</p>
+                    <section class="phpdocumentor-description"><p>The position of function call name,
+language construct or array open token.</p>
 </section>
 
             </dd>
@@ -263,6 +284,26 @@ array declarations, isset and unset constructs.</p>
 </section>
 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$paramNames</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Optional. Either the name of the target parameter
+to retrieve as a string or an array of names for the
+same target parameter.
+Only relevant for function calls.
+An arrays of names is supported to allow for functions
+for which the parameter names have undergone name
+changes over time.
+When specified, the name will take precedence over the
+offset.
+For PHP 8 support, it is STRONGLY recommended to
+always pass both the offset as well as the parameter
+name when examining function calls.</p>
+</section>
+
+            </dd>
             </dl>
 
     
@@ -272,12 +313,33 @@ array declarations, isset and unset constructs.</p>
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameterFromStack"><abbr title="\PHPCSUtils\Utils\PassedParameters::getParameterFromStack()">PassedParameters::getParameterFromStack()</abbr></a></span>
+                                        
+                                                 <section class="phpdocumentor-description"><p>For when the parameter stack of a function call is
+already retrieved.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
                                                                                 
                                              
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added the <code class="prettyprint">$paramNames</code> parameter.</p>
+</section>
+
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
@@ -290,21 +352,27 @@ accepted types or doesn't exist.</p>
 </section>
 
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If a function call parameter is requested and
+the <code class="prettyprint">$paramName</code> parameter is not passed.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>Array with information on the parameter/array item at the specified offset.
+            <section class="phpdocumentor-description"><p>Array with information on the parameter/array item at the specified offset,
+or with the specified name.
 Or <code class="prettyprint">FALSE</code> if the specified parameter/array item is not found.
-The format of the return value is:</p>
-<pre class="prettyprint"><code class="language-php">array(
-  'start' =&gt; int,    // The stack pointer to the first token in the parameter/array item.
-  'end'   =&gt; int,    // The stack pointer to the last token in the parameter/array item.
-  'raw'   =&gt; string, // A string with the contents of all tokens between `start` and `end`.
-  'clean' =&gt; string, // Same as `raw`, but all comment tokens have been stripped out.
-)
-</code></pre>
+See <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters"><abbr title="\PHPCSUtils\Utils\PassedParameters::getParameters()">PassedParameters::getParameters()</abbr></a> for the format of the returned
+(single-dimensional) array.</p>
 </section>
 
     
@@ -322,7 +390,7 @@ The format of the return value is:</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">330</span>
+    <span class="phpdocumentor-element-found-in__line">441</span>
 
     </aside>
 
@@ -351,8 +419,8 @@ The format of the return value is:</p>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> token.</p>
+                    <section class="phpdocumentor-description"><p>The position of function call name,
+language construct or array open token.</p>
 </section>
 
             </dd>
@@ -397,6 +465,111 @@ accepted types or doesn't exist.</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getParameterFromStack">
+        getParameterFromStack()
+        <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameterFromStack" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">480</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get information on a specific function call parameter passed.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getParameterFromStack</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parameters</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramOffset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$paramNames</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span></code>
+
+        <section class="phpdocumentor-description"><p>This is an efficiency method to correctly handle positional versus named parameters
+for function calls when multiple parameters need to be examined.</p>
+<p>See <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters"><abbr title="\PHPCSUtils\Utils\PassedParameters::hasParameters()">PassedParameters::hasParameters()</abbr></a> for information on the supported constructs.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$parameters</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The output of a previous call to <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters"><abbr title="\PHPCSUtils\Utils\PassedParameters::getParameters()">PassedParameters::getParameters()</abbr></a>.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$paramOffset</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The 1-based index position of the parameter to retrieve.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$paramNames</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Either the name of the target parameter to retrieve
+as a string or an array of names for the same target parameter.
+An array of names is supported to allow for functions
+for which the parameter names have undergone name
+changes over time.
+The name will take precedence over the offset.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the <code class="prettyprint">$paramNames</code> parameter is not passed
+and the requested parameter was not passed
+as a positional parameter in the function call
+being examined.</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Array with information on the parameter at the specified offset,
+or with the specified name.
+Or <code class="prettyprint">FALSE</code> if the specified parameter is not found.
+See <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters"><abbr title="\PHPCSUtils\Utils\PassedParameters::getParameters()">PassedParameters::getParameters()</abbr></a> for the format of the returned
+(single-dimensional) array.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getParameters">
         getParameters()
         <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameters" class="headerlink"><i class="fas fa-link"></i></a>
@@ -404,7 +577,7 @@ accepted types or doesn't exist.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">181</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
@@ -412,7 +585,7 @@ accepted types or doesn't exist.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$limit</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">true|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isShortArray</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
         <section class="phpdocumentor-description"><p>See <a href="classes/PHPCSUtils-Utils-PassedParameters.html#method_hasParameters"><abbr title="\PHPCSUtils\Utils\PassedParameters::hasParameters()">PassedParameters::hasParameters()</abbr></a> for information on the supported constructs.</p>
 </section>
@@ -433,8 +606,32 @@ accepted types or doesn't exist.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code>, or <code class="prettyprint">T_UNSET</code> token.</p>
+                    <section class="phpdocumentor-description"><p>The position of function call name,
+language construct or array open token.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$limit</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Optional. Limit the parameter retrieval to the first #
+parameters/array entries.
+Use with care on function calls, as this can break
+support for named parameters!</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$isShortArray</span>
+                : <span class="phpdocumentor-signature__argument__return-type">true|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Optional. Short-circuit the short array check for
+<code class="prettyprint">T_OPEN_SHORT_ARRAY</code> tokens if it isn't necessary.
+Efficiency tweak for when this has already been established,
+Use with EXTREME care.</p>
 </section>
 
             </dd>
@@ -454,6 +651,28 @@ accepted types or doesn't exist.</p>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added the <code class="prettyprint">$limit</code> and <code class="prettyprint">$isShortArray</code> parameters.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 function calls with named arguments by introducing
+the <code class="prettyprint">'name'</code> and <code class="prettyprint">'name_token'</code> index keys as well as using the name
+as the index for the top-level array for named parameters.</p>
+</section>
+
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
@@ -470,7 +689,7 @@ accepted types or doesn't exist.</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>A multi-dimentional array information on each parameter/array item.
+            <section class="phpdocumentor-description"><p>A multi-dimentional array with information on each parameter/array item.
 The information gathered about each parameter/array item is in the following format:</p>
 <pre class="prettyprint"><code class="language-php">1 =&gt; array(
   'start' =&gt; int,    // The stack pointer to the first token in the parameter/array item.
@@ -479,7 +698,18 @@ The information gathered about each parameter/array item is in the following for
   'clean' =&gt; string, // Same as `raw`, but all comment tokens have been stripped out.
 )
 </code></pre>
-<p><em>Note: The array starts at index 1.</em>
+<p>If a named parameter is encountered in a function call, the top-level index will not be
+the parameter <em>position</em>, but the <em>parameter name</em> and the array will include two extra keys:</p>
+<pre class="prettyprint"><code class="language-php">'parameter_name' =&gt; array(
+  'name'       =&gt; string, // The parameter name (without the colon).
+  'name_token' =&gt; int,    // The stack pointer to the parameter name token.
+  ...
+)
+</code></pre>
+<p>The <code class="prettyprint">'start'</code>, <code class="prettyprint">'end'</code>, <code class="prettyprint">'raw'</code> and <code class="prettyprint">'clean'</code> indexes will always contain just and only
+information on the parameter value.
+<em>Note: The array starts at index 1 for positional parameters.</em>
+<em>The key for named parameters will be the parameter name.</em>
 If no parameters/array items are found, an empty array will be returned.</p>
 </section>
 
@@ -498,7 +728,7 @@ If no parameters/array items are found, an empty array will be returned.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/PassedParameters.php"><a href="files/phpcsutils-utils-passedparameters.html"><abbr title="PHPCSUtils/Utils/PassedParameters.php">PassedParameters.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -506,16 +736,21 @@ If no parameters/array items are found, an empty array will be returned.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">hasParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">hasParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">true|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isShortArray</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"><ul>
-<li>If passed a <code class="prettyprint">T_STRING</code> or <code class="prettyprint">T_VARIABLE</code> stack pointer, it will treat it as a function call.
+<li>If passed a <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_NAME_FULLY_QUALIFIED</code>, <code class="prettyprint">T_NAME_RELATIVE</code>, <code class="prettyprint">T_NAME_QUALIFIED</code>
+or <code class="prettyprint">T_VARIABLE</code> stack pointer, it will treat it as a function call.
 If a <code class="prettyprint">T_STRING</code> or <code class="prettyprint">T_VARIABLE</code> which is <em>not</em> a function call is passed, the behaviour is
 undetermined.</li>
-<li>If passed a <code class="prettyprint">T_SELF</code> or <code class="prettyprint">T_STATIC</code> stack pointer, it will accept it as a
-function call when used like <code class="prettyprint">new self()</code>.</li>
+<li>If passed a <code class="prettyprint">T_ANON_CLASS</code> stack pointer, it will accept it as a class instantiation.</li>
+<li>If passed a <code class="prettyprint">T_SELF</code>, <code class="prettyprint">T_STATIC</code> or <code class="prettyprint">T_PARENT</code> stack pointer, it will accept it as a
+class instantiation function call when used like <code class="prettyprint">new self()</code>.</li>
 <li>If passed a <code class="prettyprint">T_ARRAY</code> or <code class="prettyprint">T_OPEN_SHORT_ARRAY</code> stack pointer, it will detect
-whether the array has values or is empty.</li>
+whether the array has values or is empty.
+For purposes of backward-compatibility with older PHPCS versions, <code class="prettyprint">T_OPEN_SQUARE_BRACKET</code>
+tokens will also be accepted and will be checked whether they are in reality
+a short array opener.</li>
 <li>If passed a <code class="prettyprint">T_ISSET</code> or <code class="prettyprint">T_UNSET</code> stack pointer, it will detect whether those
 language constructs have &quot;parameters&quot;.</li>
 </ul>
@@ -537,8 +772,20 @@ language constructs have &quot;parameters&quot;.</li>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_STRING</code>, <code class="prettyprint">T_VARIABLE</code>, <code class="prettyprint">T_ARRAY</code>,
-<code class="prettyprint">T_OPEN_SHORT_ARRAY</code>, <code class="prettyprint">T_ISSET</code>, or <code class="prettyprint">T_UNSET</code> token.</p>
+                    <section class="phpdocumentor-description"><p>The position of function call name,
+language construct or array open token.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$isShortArray</span>
+                : <span class="phpdocumentor-signature__argument__return-type">true|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Optional. Short-circuit the short array check for
+<code class="prettyprint">T_OPEN_SHORT_ARRAY</code> tokens if it isn't necessary.
+Efficiency tweak for when this has already been established,
+Use with EXTREME care.</p>
 </section>
 
             </dd>
@@ -557,6 +804,37 @@ language constructs have &quot;parameters&quot;.</li>
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
                                                                                 
                                              
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added the <code class="prettyprint">$isShortArray</code> parameter.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 identifier name tokenization.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added defensive coding against PHP 8.1 first class callables
+being passed as if they were function calls.</p>
+</section>
+
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>

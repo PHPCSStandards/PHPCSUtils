@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -479,7 +483,7 @@ in the token stack to the specified end position (inclusive) without whitespace 
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">noEmpties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"><p>This is, for instance, useful to retrieve a namespace name without stray whitespace or comments.
+        <section class="phpdocumentor-description"><p>This is useful, for instance, to retrieve a namespace name without stray whitespace or comments.
 Use this function selectively and with care!</p>
 </section>
 
@@ -571,7 +575,7 @@ Use this function selectively and with care!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/GetTokensAsString.php"><a href="files/phpcsutils-utils-gettokensasstring.html"><abbr title="PHPCSUtils/Utils/GetTokensAsString.php">GetTokensAsString.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -582,11 +586,7 @@ the token stack to the specified end position (inclusive).</p>
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">normal</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"><p>This is the default behaviour for PHPCS.</p>
-<p>If the <code class="prettyprint">tabWidth</code> is set, either via a (custom) ruleset, the config file or by passing it
-on the command-line, PHPCS will automatically replace tabs with spaces.
-The <code class="prettyprint">'content'</code> index key in the <code class="prettyprint">$tokens</code> array will contain the tab-replaced content.
-The <code class="prettyprint">'orig_content'</code> index key in the <code class="prettyprint">$tokens</code> array will contain the original content.</p>
+        <section class="phpdocumentor-description"><p>Alias for the <a href="classes/PHPCSUtils-Utils-GetTokensAsString.html#method_tabReplaced"><abbr title="\PHPCSUtils\Utils\GetTokensAsString::tabReplaced()">GetTokensAsString::tabReplaced()</abbr></a> method.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -627,26 +627,6 @@ The <code class="prettyprint">'orig_content'</code> index key in the <code class
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
-                                        
-                                                 <section class="phpdocumentor-description"><p>Similar length-based function.</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-BackCompat-BCFile.html#method_getTokensAsString"><abbr title="\PHPCSUtils\BackCompat\BCFile::getTokensAsString()">BCFile::getTokensAsString()</abbr></a></span>
-                                        
-                                                 <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -698,7 +678,7 @@ the token stack to the specified end position (inclusive).</p>
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">origContent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"><p>In contrast to the <a href="classes/PHPCSUtils-Utils-GetTokensAsString.html#method_normal"><abbr title="\PHPCSUtils\Utils\GetTokensAsString::normal()">GetTokensAsString::normal()</abbr></a> method, this method will return
+        <section class="phpdocumentor-description"><p>In contrast to the <a href="classes/PHPCSUtils-Utils-GetTokensAsString.html#method_tabReplaced"><abbr title="\PHPCSUtils\Utils\GetTokensAsString::tabReplaced()">GetTokensAsString::tabReplaced()</abbr></a> method, this method will return
 the original token content for the specified tokens.
 That means that if the original content contained tabs, the return value of this function
 will also contain tabs.</p>
@@ -816,7 +796,11 @@ the token stack to the specified end position (inclusive).</p>
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">tabReplaced</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$end</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"><p>Alias for the <a href="classes/PHPCSUtils-Utils-GetTokensAsString.html#method_normal"><abbr title="\PHPCSUtils\Utils\GetTokensAsString::normal()">GetTokensAsString::normal()</abbr></a> method.</p>
+        <section class="phpdocumentor-description"><p>This is the default behaviour for PHPCS.</p>
+<p>If the <code class="prettyprint">tabWidth</code> is set, either via a (custom) ruleset, the config file or by passing it
+on the command-line, PHPCS will automatically replace tabs with spaces.
+The <code class="prettyprint">'content'</code> index key in the <code class="prettyprint">$tokens</code> array will contain the tab-replaced content.
+The <code class="prettyprint">'orig_content'</code> index key in the <code class="prettyprint">$tokens</code> array will contain the original content.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -857,6 +841,26 @@ the token stack to the specified end position (inclusive).</p>
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Files\File::getTokensAsString()">File::getTokensAsString()</abbr></span>
+                                        
+                                                 <section class="phpdocumentor-description"><p>Similar length-based function.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-BackCompat-BCFile.html#method_getTokensAsString"><abbr title="\PHPCSUtils\BackCompat\BCFile::getTokensAsString()">BCFile::getTokensAsString()</abbr></a></span>
+                                        
+                                                 <section class="phpdocumentor-description"><p>Cross-version compatible version of the original.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">

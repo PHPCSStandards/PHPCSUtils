@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -134,14 +138,15 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">100</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
             <p class="phpdocumentor-summary">Base class for use when testing utility methods for PHP_CodeSniffer.</p>
 
-    <section class="phpdocumentor-description"><p>This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.</p>
-<p>This class is compatible with <a href="http://phpunit.de/">PHPUnit</a> 4.5 - 9.x providing the PHPCSUtils
+    <section class="phpdocumentor-description"><p>This class is compatible with PHP_CodeSniffer 3.x and contains preliminary compatibility with 4.x
+based on its currently known state/roadmap.</p>
+<p>This class is compatible with <a href="https://phpunit.de/">PHPUnit</a> 4.5 - 9.x providing the PHPCSUtils
 autoload file is included in the test bootstrap. For more information about that, please consult
 the project's <a href="https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md">README</a>.</p>
 <p>To allow for testing of tab vs space content, the <code class="prettyprint">tabWidth</code> is set to <code class="prettyprint">4</code> by default.</p>
@@ -225,6 +230,16 @@ for the PHPCSUtils utility functions themselves.</li>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Dropped support for PHPCS &lt; 3.7.1.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
 
@@ -300,7 +315,7 @@ compatible manner.</dd>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Clean up after finished test.</dd>
+<dd>Clean up after finished test by resetting all static properties to their default values.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_setUpTestFile">setUpTestFile()</a>
@@ -315,6 +330,13 @@ compatible manner.</dd>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Skip JS and CSS related tests on PHPCS 4.x.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_usesPhp8NameTokens">usesPhp8NameTokens()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check whether or not the PHP 8.0 identifier name tokens will be in use.</dd>
 
         </dl>
 
@@ -344,7 +366,7 @@ compatible manner.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -395,7 +417,7 @@ the same directory and named the same as the test class, but with an
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
@@ -445,7 +467,7 @@ the same directory and named the same as the test class, but with an
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 
     </aside>
 
@@ -492,7 +514,7 @@ the same directory and named the same as the test class, but with an
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -539,7 +561,7 @@ the same directory and named the same as the test class, but with an
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">169</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
@@ -591,7 +613,7 @@ the recording of these violations, as well as testing the fixer.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -644,7 +666,7 @@ the recording of these violations, as well as testing the fixer.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">389</span>
+    <span class="phpdocumentor-element-found-in__line">407</span>
 
     </aside>
 
@@ -705,7 +727,7 @@ Defaults to 'runtime'.</p>
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+                                    -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getTargetToken">
         getTargetToken()
@@ -714,7 +736,7 @@ Defaults to 'runtime'.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">331</span>
+    <span class="phpdocumentor-element-found-in__line">346</span>
 
     </aside>
 
@@ -722,11 +744,10 @@ Defaults to 'runtime'.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getTargetToken</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$commentString</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokenType</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokenContent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getTargetToken</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$commentString</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|string|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokenType</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tokenContent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
         <section class="phpdocumentor-description"><p>Note: the test delimiter comment MUST start with <code class="prettyprint">/* test</code> to allow this function to
 distinguish between comments used <em>in</em> a test and test delimiters.</p>
-<p>If the delimiter comment is not found, the test will automatically be failed.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -775,6 +796,47 @@ This string should include the comment opener and closer.</p>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Will throw an exception whether the delimiter comment or the target
+token is not found.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>This method is now <code class="prettyprint">static</code>, which allows for it to be used in &quot;set up before class&quot;.</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-Exceptions-TestMarkerNotFound.html"><abbr title="\PHPCSUtils\Exceptions\TestMarkerNotFound">TestMarkerNotFound</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>When the delimiter comment for the test was not found.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-Exceptions-TestTargetNotFound.html"><abbr title="\PHPCSUtils\Exceptions\TestTargetNotFound">TestTargetNotFound</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>When the target token cannot be found.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -796,11 +858,11 @@ This string should include the comment opener and closer.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">309</span>
+    <span class="phpdocumentor-element-found-in__line">294</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Clean up after finished test.</p>
+        <p class="phpdocumentor-summary">Clean up after finished test by resetting all static properties to their default values.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -853,7 +915,7 @@ method.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">193</span>
 
     </aside>
 
@@ -914,7 +976,7 @@ method.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">284</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 
     </aside>
 
@@ -957,6 +1019,59 @@ method.</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_usesPhp8NameTokens">
+        usesPhp8NameTokens()
+        <a href="classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_usesPhp8NameTokens" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php"><a href="files/phpcsutils-testutils-utilitymethodtestcase.html"><abbr title="PHPCSUtils/TestUtils/UtilityMethodTestCase.php">UtilityMethodTestCase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">320</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check whether or not the PHP 8.0 identifier name tokens will be in use.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">usesPhp8NameTokens</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"><p>The expected token positions/token counts for certain tokens will differ depending
+on whether the PHP 8.0 identifier name tokenization is used or the PHP &lt; 8.0
+identifier name tokenization.</p>
+<p>Tests can use this method to determine which flavour of tokenization to expect and
+to set test expectations accordingly.</p>
+</section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
         
     

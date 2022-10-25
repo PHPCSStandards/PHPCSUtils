@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -170,14 +174,14 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Check whether a T_CONST token is a class/interface constant declaration.</dd>
+<dd>Check whether a T_CONST token is a class/interface/trait/enum constant declaration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPCSUtils-Utils-Scopes.html#method_isOOMethod">isOOMethod()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Check whether a T_FUNCTION token is a class/interface/trait method declaration.</dd>
+<dd>Check whether a T_FUNCTION token is a class/interface/trait/enum method declaration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPCSUtils-Utils-Scopes.html#method_isOOProperty">isOOProperty()</a>
@@ -220,11 +224,11 @@ acceptable tokens.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Check whether a T_CONST token is a class/interface constant declaration.</p>
+        <p class="phpdocumentor-summary">Check whether a T_CONST token is a class/interface/trait/enum constant declaration.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -268,6 +272,26 @@ acceptable tokens.</dd>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 enums.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.2 constants in traits.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -289,11 +313,11 @@ acceptable tokens.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Check whether a T_FUNCTION token is a class/interface/trait method declaration.</p>
+        <p class="phpdocumentor-summary">Check whether a T_FUNCTION token is a class/interface/trait/enum method declaration.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -337,6 +361,16 @@ acceptable tokens.</dd>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 enums.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -358,7 +392,7 @@ acceptable tokens.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/Scopes.php"><a href="files/phpcsutils-utils-scopes.html"><abbr title="PHPCSUtils/Utils/Scopes.php">Scopes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 

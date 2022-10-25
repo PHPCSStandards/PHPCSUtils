@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -131,7 +135,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
@@ -151,6 +155,16 @@
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
                                                                                 
                                              
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Dropped support for PHPCS &lt; 3.7.1.</p>
+</section>
+
                                     </dd>
                         </dl>
 
@@ -194,6 +208,13 @@
 <dd>Determine whether a T_USE token represents a trait use statement.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_mergeImportUseStatements">mergeImportUseStatements()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Merge two import use statement arrays.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement">splitAndMergeImportUseStatement()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -234,7 +255,7 @@ seen import use statements.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
@@ -319,7 +340,7 @@ normally mean the code being examined contains a parse error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
@@ -401,7 +422,7 @@ normally mean the code being examined contains a parse error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">126</span>
 
     </aside>
 
@@ -483,7 +504,7 @@ normally mean the code being examined contains a parse error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
@@ -558,6 +579,98 @@ normally mean the code being examined contains a parse error.</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_mergeImportUseStatements">
+        mergeImportUseStatements()
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_mergeImportUseStatements" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">413</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Merge two import use statement arrays.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">mergeImportUseStatements</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$previousUseStatements</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currentUseStatement</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"><p>Beware: this method should only be used to combine the import use statements found in <em>one</em> file.
+Do NOT combine the statements of multiple files as the result will be inaccurate and unreliable.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$previousUseStatements</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The import <code class="prettyprint">use</code> statements collected so far.
+This should be either the output of a
+previous call to this method or the output of
+an earlier call to the
+<a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a>
+method.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$currentUseStatement</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The parsed import <code class="prettyprint">use</code> statements to merge with
+the previously collected use statements.
+This should be the output of a call to the
+<a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a>
+method.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a></span>
+                                        
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>A multi-level array containing information about the current <code class="prettyprint">use</code> statement combined with
+the previously collected <code class="prettyprint">use</code> statement information.
+See <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a> for more details about the array format.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_splitAndMergeImportUseStatement">
         splitAndMergeImportUseStatement()
         <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement" class="headerlink"><i class="fas fa-link"></i></a>
@@ -565,7 +678,7 @@ normally mean the code being examined contains a parse error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">386</span>
+    <span class="phpdocumentor-element-found-in__line">375</span>
 
     </aside>
 
@@ -640,6 +753,14 @@ method.</p>
                                         
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-Utils-UseStatements.html#method_mergeImportUseStatements"><abbr title="\PHPCSUtils\Utils\UseStatements::mergeImportUseStatements()">UseStatements::mergeImportUseStatements()</abbr></a></span>
+                                        
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
@@ -673,7 +794,7 @@ See <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseSt
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
@@ -721,6 +842,16 @@ See <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseSt
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
                                                                                 
                                              
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 identifier name tokenization.</p>
+</section>
+
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>

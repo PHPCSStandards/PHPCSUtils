@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -131,7 +135,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -156,6 +160,16 @@ and <code class="prettyprint">ObjectDeclarations::findImplementedInterfaceNames(
 inspired by the methods of the same name in the PHPCS native
 <code class="prettyprint">PHP_CodeSniffer\Files\File</code> class.
 Also see <a href="classes/PHPCSUtils-BackCompat-BCFile.html"><abbr title="\PHPCSUtils\BackCompat\BCFile">BCFile</abbr></a>.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Dropped support for PHPCS &lt; 3.7.1.</p>
 </section>
 
                                     </dd>
@@ -191,7 +205,7 @@ Also see <a href="classes/PHPCSUtils-BackCompat-BCFile.html"><abbr title="\PHPCS
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|false    </span>
 </dt>
-<dd>Retrieves the names of the interfaces that the specified class implements.</dd>
+<dd>Retrieves the names of the interfaces that the specified class or enum implements.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PHPCSUtils-Utils-ObjectDeclarations.html#method_getClassProperties">getClassProperties()</a>
@@ -205,7 +219,7 @@ Also see <a href="classes/PHPCSUtils-BackCompat-BCFile.html"><abbr title="\PHPCS
     <span>
                                 &nbsp;: string|null    </span>
 </dt>
-<dd>Retrieves the declaration name for classes, interfaces, traits, and functions.</dd>
+<dd>Retrieves the declaration name for classes, interfaces, traits, enums and functions.</dd>
 
         </dl>
 
@@ -233,7 +247,7 @@ Also see <a href="classes/PHPCSUtils-BackCompat-BCFile.html"><abbr title="\PHPCS
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">245</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 
     </aside>
 
@@ -253,10 +267,12 @@ and that use-case is not handled by this method.</p>
 <ul>
 <li>Handling of PHPCS annotations.</li>
 <li>Handling of comments.</li>
+<li>Handling of the namespace keyword used as operator.</li>
 </ul>
 </li>
 <li>Improved handling of parse errors.</li>
 <li>The returned name will be clean of superfluous whitespace and/or comments.</li>
+<li>Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP &amp; PHPCS.</li>
 </ul>
 </section>
 
@@ -351,7 +367,7 @@ is no extended class name.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">296</span>
+    <span class="phpdocumentor-element-found-in__line">288</span>
 
     </aside>
 
@@ -432,11 +448,11 @@ error or if there are no extended interface names.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">278</span>
+    <span class="phpdocumentor-element-found-in__line">270</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Retrieves the names of the interfaces that the specified class implements.</p>
+        <p class="phpdocumentor-summary">Retrieves the names of the interfaces that the specified class or enum implements.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -448,10 +464,12 @@ error or if there are no extended interface names.</p>
 <ul>
 <li>Handling of PHPCS annotations.</li>
 <li>Handling of comments.</li>
+<li>Handling of the namespace keyword used as operator.</li>
 </ul>
 </li>
 <li>Improved handling of parse errors.</li>
 <li>The returned name(s) will be clean of superfluous whitespace and/or comments.</li>
+<li>Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP &amp; PHPCS.</li>
 </ul>
 </section>
 
@@ -471,7 +489,7 @@ error or if there are no extended interface names.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The stack position of the class.</p>
+                    <section class="phpdocumentor-description"><p>The stack position of the class or enum token.</p>
 </section>
 
             </dd>
@@ -512,6 +530,16 @@ the original.</p>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 enums.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -536,7 +564,7 @@ error or if there are no implemented interface names.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">166</span>
 
     </aside>
 
@@ -552,10 +580,10 @@ error or if there are no implemented interface names.</p>
 <ul>
 <li>Handling of PHPCS annotations.</li>
 <li>Handling of unorthodox docblock placement.</li>
-<li>A class cannot both be abstract as well as final, so this utility should not allow for that.</li>
 </ul>
 </li>
 <li>Defensive coding against incorrect calls to this method.</li>
+<li>Support for PHP 8.2 readonly classes.</li>
 </ul>
 </section>
 
@@ -616,6 +644,16 @@ token to acquire the properties for.</p>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for the PHP 8.2 readonly keyword.</p>
+</section>
+
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
@@ -637,6 +675,7 @@ The format of the return value is:</p>
 <pre class="prettyprint"><code class="language-php">array(
   'is_abstract' =&gt; false, // TRUE if the abstract keyword was found.
   'is_final'    =&gt; false, // TRUE if the final keyword was found.
+  'is_readonly' =&gt; false, // TRUE if the readonly keyword was found.
 );
 </code></pre>
 </section>
@@ -656,11 +695,11 @@ The format of the return value is:</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Retrieves the declaration name for classes, interfaces, traits, and functions.</p>
+        <p class="phpdocumentor-summary">Retrieves the declaration name for classes, interfaces, traits, enums and functions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -677,12 +716,6 @@ to return the name of the <em>next</em> construct, a partial name and/or the nam
 being extended/interface being implemented.
 Using this version of the utility method, either the complete name (invalid or not) will
 be returned or <code class="prettyprint">null</code> in case of no name (parse error).</li>
-</ul>
-<p>Note:</p>
-<ul>
-<li>For ES6 classes in combination with PHPCS 2.x, passing a <code class="prettyprint">T_STRING</code> token to
-this method will be accepted for JS files.</li>
-<li>Support for JS ES6 method syntax has not been back-filled for PHPCS &lt; 3.0.0.</li>
 </ul>
 </section>
 
@@ -704,7 +737,7 @@ this method will be accepted for JS files.</li>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The position of the declaration token
 which declared the class, interface,
-trait, or function.</p>
+trait, enum or function.</p>
 </section>
 
             </dd>
@@ -744,6 +777,16 @@ trait, or function.</p>
                                                                                 
                                              
                                     </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 enums.</p>
+</section>
+
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
@@ -751,7 +794,8 @@ trait, or function.</p>
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
                                                             
                                                  <section class="phpdocumentor-description"><p>If the specified token is not of type
-<code class="prettyprint">T_FUNCTION</code>, <code class="prettyprint">T_CLASS</code>, <code class="prettyprint">T_TRAIT</code>, or <code class="prettyprint">T_INTERFACE</code>.</p>
+<code class="prettyprint">T_FUNCTION</code>, <code class="prettyprint">T_CLASS</code>, <code class="prettyprint">T_ANON_CLASS</code>,
+<code class="prettyprint">T_CLOSURE</code>, <code class="prettyprint">T_TRAIT</code>, <code class="prettyprint">T_ENUM</code> or <code class="prettyprint">T_INTERFACE</code>.</p>
 </section>
 
                                     </dd>
@@ -760,7 +804,7 @@ trait, or function.</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string|null</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>The name of the class, interface, trait, or function;
+            <section class="phpdocumentor-description"><p>The name of the class, interface, trait, enum, or function;
 or <code class="prettyprint">NULL</code> if the passed token doesn't exist, the function or
 class is anonymous or in case of a parse error/live coding.</p>
 </section>

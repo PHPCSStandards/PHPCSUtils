@@ -68,6 +68,10 @@
                 
             </li>
                     <li>
+                <a href="namespaces/phpcsutils-exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
                 <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
                 
             </li>
@@ -156,6 +160,16 @@ inspired by respectively the <code class="prettyprint">getMethodProperties()</co
 and <code class="prettyprint">getMethodParameters()</code> methods in the PHPCS native
 <code class="prettyprint">PHP_CodeSniffer\Files\File</code> class.
 Also see <a href="classes/PHPCSUtils-BackCompat-BCFile.html"><abbr title="\PHPCSUtils\BackCompat\BCFile">BCFile</abbr></a>.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Dropped support for PHPCS &lt; 3.7.1.</p>
 </section>
 
                                     </dd>
@@ -489,7 +503,7 @@ and comparisons against this list should therefore always be done in a case-inse
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+            -deprecated                        -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_getArrowFunctionOpenClose">
         getArrowFunctionOpenClose()
@@ -498,21 +512,19 @@ and comparisons against this list should therefore always be done in a case-inse
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">677</span>
+    <span class="phpdocumentor-element-found-in__line">695</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">Retrieve the parenthesis opener, parenthesis closer, the scope opener and the scope closer
 for an arrow function.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getArrowFunctionOpenClose</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|false</span></code>
 
         <section class="phpdocumentor-description"><p>Helper function for cross-version compatibility with both PHP as well as PHPCS.
-In PHPCS versions prior to PHPCS 3.5.3/3.5.4, the <code class="prettyprint">T_FN</code> token is not yet backfilled
-and does not have parenthesis opener/closer nor scope opener/closer indexes assigned
-in the <code class="prettyprint">$tokens</code> array.</p>
+As of PHPCS 3.5.6, this function is no longer be needed.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -563,6 +575,16 @@ only two tokens which can be the arrow function keyword.</p>
                                                                                 
                                              
                                     </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Use the T_FN token constant instead.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -594,7 +616,7 @@ The format of the return value is:</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
@@ -698,7 +720,7 @@ the function is anonymous or in case of a parse error/live coding.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">401</span>
+    <span class="phpdocumentor-element-found-in__line">394</span>
 
     </aside>
 
@@ -714,6 +736,7 @@ the function is anonymous or in case of a parse error/live coding.</p>
   'name'                =&gt; '$var',  // The variable name.
   'token'               =&gt; integer, // The stack pointer to the variable name.
   'content'             =&gt; string,  // The full content of the variable definition.
+  'has_attributes'      =&gt; boolean, // Does the parameter have one or more attributes attached ?
   'pass_by_reference'   =&gt; boolean, // Is the variable passed by reference?
   'reference_token'     =&gt; integer, // The stack pointer to the reference operator
                                     // or FALSE if the param is not passed by reference.
@@ -725,7 +748,8 @@ the function is anonymous or in case of a parse error/live coding.</p>
                                     // or FALSE if there is no type hint.
   'type_hint_end_token' =&gt; integer, // The stack pointer to the end of the type hint
                                     // or FALSE if there is no type hint.
-  'nullable_type'       =&gt; boolean, // TRUE if the var type is nullable.
+  'nullable_type'       =&gt; boolean, // TRUE if the var type is preceded by the nullability
+                                    // operator.
   'comma_token'         =&gt; integer, // The stack pointer to the comma after the param
                                     // or FALSE if this is the last param.
 )
@@ -735,14 +759,21 @@ the function is anonymous or in case of a parse error/live coding.</p>
   'default_token'       =&gt; integer, // The stack pointer to the start of the default value.
   'default_equal_token' =&gt; integer, // The stack pointer to the equals sign.
 </code></pre>
+<p>Parameters declared using PHP 8 constructor property promotion, have these additional array indexes:</p>
+<pre class="prettyprint"><code class="language-php">  'property_visibility' =&gt; string,  // The property visibility as declared.
+  'visibility_token'    =&gt; integer, // The stack pointer to the visibility modifier token.
+  'property_readonly'   =&gt; bool,    // TRUE if the readonly keyword was found.
+  'readonly_token'      =&gt; integer, // The stack pointer to the readonly modifier token.
+</code></pre>
 <p>Main differences with the PHPCS version:</p>
 <ul>
 <li>Defensive coding against incorrect calls to this method.</li>
 <li>More efficient and more stable checking whether a <code class="prettyprint">T_USE</code> token is a closure use.</li>
 <li>More efficient and more stable looping of the default value.</li>
 <li>Clearer exception message when a non-closure use token was passed to the function.</li>
-<li>To allow for backward compatible handling of arrow functions, this method will also accept
-<code class="prettyprint">T_STRING</code> tokens and examine them to check if these are arrow functions.</li>
+<li>Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP &amp; PHPCS.</li>
+<li>Support for the PHP 8.2 <code class="prettyprint">true</code> type.</li>
+<li>The results of this function call are cached during a PHPCS run for faster response times.</li>
 </ul>
 </section>
 
@@ -809,7 +840,77 @@ to acquire the parameters for.</p>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p>
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 7.4 arrow functions.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 union types.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 constructor property promotion.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 identifier name tokenization.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 parameter attributes.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 readonly keyword for constructor property promotion.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 intersection types.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.2 true type.</p>
 </section>
 
                                     </dd>
@@ -857,7 +958,7 @@ use token.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">207</span>
+    <span class="phpdocumentor-element-found-in__line">191</span>
 
     </aside>
 
@@ -879,9 +980,8 @@ parse errors or live coding.</li>
 </li>
 <li>Defensive coding against incorrect calls to this method.</li>
 <li>More efficient checking whether a function has a body.</li>
-<li>New <code class="prettyprint">&quot;return_type_end_token&quot;</code> (int|false) array index.</li>
-<li>To allow for backward compatible handling of arrow functions, this method will also accept
-<code class="prettyprint">T_STRING</code> tokens and examine them to check if these are arrow functions.</li>
+<li>Support for PHP 8.0 identifier name tokens in return types, cross-version PHP &amp; PHPCS.</li>
+<li>Support for the PHP 8.2 <code class="prettyprint">true</code> type.</li>
 </ul>
 </section>
 
@@ -948,7 +1048,7 @@ acquire the properties for.</p>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha2</span>
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>Added BC support for PHP 7.4 arrow functions.</p>
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 7.4 arrow functions.</p>
 </section>
 
                                     </dd>
@@ -959,6 +1059,36 @@ acquire the properties for.</p>
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
                                                                                 
                                                  <section class="phpdocumentor-description"><p>Added support for PHP 8.0 static return type.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.0 union types.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.1 intersection types.</p>
+</section>
+
+                                    </dd>
+                            <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Added support for PHP 8.2 true type.</p>
 </section>
 
                                     </dd>
@@ -988,7 +1118,8 @@ The format of the return value is:</p>
                                        // or FALSE if there is no return type.
   'return_type_end_token' =&gt; integer,  // The stack pointer to the end of the return type
                                        // or FALSE if there is no return type.
-  'nullable_return_type'  =&gt; false,    // TRUE if the return type is nullable.
+  'nullable_return_type'  =&gt; false,    // TRUE if the return type is preceded
+                                       // by the nullability operator.
   'is_abstract'           =&gt; false,    // TRUE if the abstract keyword was found.
   'is_final'              =&gt; false,    // TRUE if the final keyword was found.
   'is_static'             =&gt; false,    // TRUE if the static keyword was found.
@@ -1003,7 +1134,7 @@ The format of the return value is:</p>
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+            -deprecated                        -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_isArrowFunction">
         isArrowFunction()
@@ -1012,38 +1143,18 @@ The format of the return value is:</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">621</span>
+    <span class="phpdocumentor-element-found-in__line">643</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">Check if an arbitrary token is the &quot;fn&quot; keyword for a PHP 7.4 arrow function.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isArrowFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"><p>Helper function for cross-version compatibility with both PHP as well as PHPCS.</p>
-<ul>
-<li>PHP 7.4+ will tokenize most tokens with the content &quot;fn&quot; as <code class="prettyprint">T_FN</code>, even when it isn't an arrow function.</li>
-<li>PHPCS &lt; 3.5.3 will tokenize arrow functions keywords as <code class="prettyprint">T_STRING</code>.</li>
-<li>PHPCS 3.5.3/3.5.4 will tokenize the keyword differently depending on which PHP version is used
-and similar to PHP will tokenize most tokens with the content &quot;fn&quot; as <code class="prettyprint">T_FN</code>, even when it's not an
-arrow function.
-<blockquote>
-<p>Note: the tokens tokenized by PHPCS 3.5.3 - 3.5.4 as <code class="prettyprint">T_FN</code> are not 100% the same as those tokenized
-by PHP 7.4+ as <code class="prettyprint">T_FN</code>.</p>
-</blockquote>
-</li>
-</ul>
-<p>Either way, the <code class="prettyprint">T_FN</code> token is not a reliable search vector for finding or examining
-arrow functions, at least not until PHPCS 3.5.5.
-This function solves that and will give reliable results in the same way as this is now
-solved in PHPCS 3.5.5.</p>
-<blockquote>
-<p>Note: Bugs are still being found and reported about how PHPCS tokenizes the arrow functions.
-This method will keep up with upstream changes and backport them, in as far possible, to allow
-for sniffing arrow functions in PHPCS &lt; current.</p>
-</blockquote>
+        <section class="phpdocumentor-description"><p>Helper function for cross-version compatibility with both PHP as well as PHPCS.
+As of PHPCS 3.5.6, this function is no longer be needed.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1094,6 +1205,16 @@ tokens which can be the arrow function keyword.</p>
                                                                                 
                                              
                                     </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.0.0-alpha4</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Use the T_FN token constant instead.</p>
+</section>
+
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1118,7 +1239,7 @@ or in case of live coding/parse error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">839</span>
+    <span class="phpdocumentor-element-found-in__line">743</span>
 
     </aside>
 
@@ -1217,7 +1338,7 @@ sniff.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">865</span>
+    <span class="phpdocumentor-element-found-in__line">769</span>
 
     </aside>
 
@@ -1286,7 +1407,7 @@ sniff.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">886</span>
+    <span class="phpdocumentor-element-found-in__line">790</span>
 
     </aside>
 
@@ -1376,7 +1497,7 @@ sniff.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">907</span>
+    <span class="phpdocumentor-element-found-in__line">811</span>
 
     </aside>
 
@@ -1445,7 +1566,7 @@ sniff.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">929</span>
+    <span class="phpdocumentor-element-found-in__line">833</span>
 
     </aside>
 
@@ -1536,7 +1657,7 @@ checking is done in the sniff.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">970</span>
+    <span class="phpdocumentor-element-found-in__line">874</span>
 
     </aside>
 
@@ -1606,7 +1727,7 @@ double underscore method names.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">993</span>
+    <span class="phpdocumentor-element-found-in__line">897</span>
 
     </aside>
 
@@ -1687,7 +1808,7 @@ sniff.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/FunctionDeclarations.php"><a href="files/phpcsutils-utils-functiondeclarations.html"><abbr title="PHPCSUtils/Utils/FunctionDeclarations.php">FunctionDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1015</span>
+    <span class="phpdocumentor-element-found-in__line">919</span>
 
     </aside>
 
