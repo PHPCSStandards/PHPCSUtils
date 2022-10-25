@@ -2,7 +2,7 @@
     "name" : "phpcsstandards/phpcsutils",
     "description" : "A suite of utility functions for use with PHP_CodeSniffer",
     "type" : "phpcodesniffer-standard",
-    "keywords" : [ "phpcs", "phpcbf", "standards", "static analysis", "php_codesniffer", "phpcs2", "phpcs3", "tokens", "utility", "phpcodesniffer-standard" ],
+    "keywords" : [ "phpcs", "phpcbf", "standards", "static analysis", "php_codesniffer", "phpcs3", "tokens", "utility", "phpcodesniffer-standard" ],
     "license" : "LGPL-3.0-or-later",
     "homepage": "https://phpcsutils.com/",
     "authors" : [

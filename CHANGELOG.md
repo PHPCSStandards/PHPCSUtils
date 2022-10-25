@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-This projects adheres to [Keep a CHANGELOG](http://keepachangelog.com/) and uses [Semantic Versioning](http://semver.org/).
+This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and uses [Semantic Versioning](https://semver.org/).
 
 
 ## [Unreleased]
@@ -13,6 +13,7 @@ _Nothing yet._
 ## [1.0.0-alpha3] - 2020-06-29
 
 Notes:
+
 * While still in alpha, some BC-breaks may be introduced. These are clearly indicated in the changelog with the :warning: symbol.
 * Until PHPCS 4.x has been released, PHPCSUtils does not formally support it, though an effort is made to keep up with the changes and anticipate potential compatibility issues.
     For testing purposes, the composer configuration allows for PHPCSUtils to be installed with PHPCS 4.x.
@@ -26,7 +27,7 @@ Notes:
 * New [`PHPCSUtils\Utils\ControlStructures::getCaughtExceptions()`][ControlStructures::getCaughtExceptions] method. [#114], [#138]
 * New [`PHPCSUtils\Utils\UseStatements::splitAndMergeImportUseStatement()`][UseStatements::splitAndMergeImportUseStatement] method. [#117]
 
-#### PHPCS Backcompat
+#### PHPCS BackCompat
 
 * `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134], [PHPCS#2952]
 
@@ -60,7 +61,7 @@ Notes:
 
 ### Changed
 
-#### PHPCS Backcompat
+#### PHPCS BackCompat
 
 * `BCFile::getDeclarationName()`: has been made compatible with PHPCS 4.x. [#110]
 * `BCFile::getMethodProperties()`: has been made compatible with PHPCS 4.x. [#109]
@@ -108,7 +109,7 @@ Notes:
 
 * `AbstractArrayDeclarationSniff`: improved parse error handling. [#99]
 
-#### PHPCS Backcompat
+#### PHPCS BackCompat
 
 * `BCFile::findEndOfStatement()`: now supports arrow functions when used as a function argument, in line with the same change made in PHPCS 3.5.5. [#143]
 * `BcFile::isReference()`: bug fix, the reference operator was not recognized as such for closures declared to return by reference. [#160], [PHPCS#2977]
@@ -178,6 +179,7 @@ Notes:
 ## [1.0.0-alpha2] - 2020-02-16
 
 Note:
+
 * While still in alpha, some BC-breaks may be introduced. These are clearly indicated in the changelog with the :warning: symbol.
 
 ### Added
@@ -186,7 +188,7 @@ Note:
 * New [`PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction()`][FunctionDeclarations::isArrowFunction] method. [#77], [#79]
 * New [`PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose()`][FunctionDeclarations::getArrowFunctionOpenClose] method. [#77], [#79]
 
-#### PHPCS Backcompat
+#### PHPCS BackCompat
 
 * `BCFile::isReference()`: support for arrow functions returning by reference. [#77]
 * `BCFile::getMethodParameters()`: support for arrow functions. [#77], [#79]
@@ -217,7 +219,7 @@ Note:
 
 ### Changed
 
-#### PHPCS Backcompat
+#### PHPCS BackCompat
 
 * `BCFile::getCondition()`: sync with PHPCS 3.5.4 - added support for new `$first` parameter. [#73]
 
@@ -251,6 +253,7 @@ Note:
 ## 1.0.0-alpha1 - 2020-01-23
 
 Initial alpha release containing:
+
 * A `PHPCS23Utils` standard which can be used to allow an external PHPCS standard to be compatible with both PHPCS 2.x as well as 3.x.
 * A `PHPCSUtils` standard which contains generic utilities which can be used when writing sniffs.
     **_This standard does not contain any sniffs!_**
@@ -265,7 +268,7 @@ This initial alpha release contains the following utility classes:
 
 * [`AbstractArrayDeclarationSniff`]: to examine array declarations.
 
-### Backcompat
+### BackCompat
 
 * [`BCFile`]: Backport of the latest versions of PHPCS native utility functions from the `PHP_CodeSniffer\Files\File` class to make them available in older PHPCS versions without the bugs and other quirks that the older versions of the native functions had.
 * [`BCTokens`]: Backport of the latest versions of PHPCS native token arrays from the `PHP_CodeSniffer\Util\Tokens` class to make them available in older PHPCS versions.
