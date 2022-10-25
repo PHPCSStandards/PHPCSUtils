@@ -35,15 +35,15 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
      * @dataProvider dataIsShortArrayOrList
      * @covers       \PHPCSUtils\Internal\IsShortArrayOrList
      *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param string           $expected    The expected return value.
-     * @param int|string|array $targetToken The token type(s) to test. Defaults to T_OPEN_SHORT_ARRAY.
+     * @param string           $testMarker The comment which prefaces the target token in the test file.
+     * @param string           $expected   The expected return value.
+     * @param int|string|array $targetType The token type(s) to test. Defaults to T_OPEN_SHORT_ARRAY.
      *
      * @return void
      */
-    public function testIsShortArrayOrList($testMarker, $expected, $targetToken = \T_OPEN_SHORT_ARRAY)
+    public function testIsShortArrayOrList($testMarker, $expected, $targetType = \T_OPEN_SHORT_ARRAY)
     {
-        $stackPtr = $this->getTargetToken($testMarker, $targetToken);
+        $stackPtr = $this->getTargetToken($testMarker, $targetType);
         $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
@@ -61,173 +61,173 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
     {
         return [
             'square-brackets' => [
-                '/* testSquareBrackets */',
-                IsShortArrayOrList::SQUARE_BRACKETS,
-                \T_OPEN_SQUARE_BRACKET,
+                'testMarker' => '/* testSquareBrackets */',
+                'expected'   => IsShortArrayOrList::SQUARE_BRACKETS,
+                'targetType' => \T_OPEN_SQUARE_BRACKET,
             ],
             'short-array-not-nested' => [
-                '/* testShortArrayNonNested */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNonNested */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-comparison-no-assignment' => [
-                '/* testShortArrayInComparison */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayInComparison */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-comparison-no-assignment-nested' => [
-                '/* testShortArrayNestedInComparison */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNestedInComparison */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-union-before' => [
-                '/* testShortArrayUnionFirst */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayUnionFirst */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-union-after' => [
-                '/* testShortArrayUnionSecond */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayUnionSecond */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-equal-before' => [
-                '/* testShortArrayEqualFirst */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayEqualFirst */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-equal-after' => [
-                '/* testShortArrayEqualSecond */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayEqualSecond */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-identical-before' => [
-                '/* testShortArrayIdenticalFirst */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayIdenticalFirst */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-identical-after' => [
-                '/* testShortArrayIdenticalSecond */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayIdenticalSecond */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-not-equal-before' => [
-                '/* testShortArrayNotEqualFirst */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNotEqualFirst */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-not-equal-after' => [
-                '/* testShortArrayNotEqualSecond */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNotEqualSecond */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-not-equal-brackets-before' => [
-                '/* testShortArrayNotEqualBracketsFirst */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNotEqualBracketsFirst */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-not-equal-brackets-after' => [
-                '/* testShortArrayNotEqualBracketsSecond */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNotEqualBracketsSecond */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-not-identical-before' => [
-                '/* testShortArrayNonIdenticalFirst */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNonIdenticalFirst */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-not-identical-after' => [
-                '/* testShortArrayNonIdenticalSecond */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayNonIdenticalSecond */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-list-in-foreach' => [
-                '/* testShortListInForeach */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListInForeach */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list' => [
-                '/* testShortList */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortList */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-detect-on-close-bracket' => [
-                '/* testShortListDetectOnCloseBracket */',
-                IsShortArrayOrList::SHORT_LIST,
-                \T_CLOSE_SHORT_ARRAY,
+                'testMarker' => '/* testShortListDetectOnCloseBracket */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+                'targetType' => \T_CLOSE_SHORT_ARRAY,
             ],
             'short-list-with-keys' => [
-                '/* testShortListWithKeys */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListWithKeys */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-with-nesting' => [
-                '/* testShortListWithNesting */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListWithNesting */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-nested' => [
-                '/* testShortListNested */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListNested */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-in-chained-assignment' => [
-                '/* testShortlistMultiAssign */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortlistMultiAssign */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-array-in-chained-assignment' => [
-                '/* testShortArrayMultiAssign */',
-                IsShortArrayOrList::SHORT_ARRAY,
-                \T_CLOSE_SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayMultiAssign */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+                'targetType' => \T_CLOSE_SHORT_ARRAY,
             ],
             'short-array-with-nesting-and-keys' => [
-                '/* testShortArrayWithNestingAndKeys */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testShortArrayWithNestingAndKeys */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-nested-with-keys-1' => [
-                '/* testNestedShortArrayWithKeys_1 */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testNestedShortArrayWithKeys_1 */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-nested-with-keys-2' => [
-                '/* testNestedShortArrayWithKeys_2 */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testNestedShortArrayWithKeys_2 */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-array-nested-with-keys-3' => [
-                '/* testNestedShortArrayWithKeys_3 */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testNestedShortArrayWithKeys_3 */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'short-list-with-nesting-and-keys' => [
-                '/* testShortListWithNestingAndKeys */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListWithNestingAndKeys */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-nested-with-keys-1' => [
-                '/* testNestedShortListWithKeys_1 */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testNestedShortListWithKeys_1 */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-nested-with-keys-2' => [
-                '/* testNestedShortListWithKeys_2 */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testNestedShortListWithKeys_2 */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-nested-with-keys-3' => [
-                '/* testNestedShortListWithKeys_3 */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testNestedShortListWithKeys_3 */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-deeply-nested' => [
-                '/* testDeeplyNestedShortList */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testDeeplyNestedShortList */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-in-braced-control-structure' => [
-                '/* testShortListInBracedControlStructure */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListInBracedControlStructure */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-in-alternative-control-structure' => [
-                '/* testShortListInAlternativeControlStructure */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListInAlternativeControlStructure */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
 
             // Invalid syntaxes.
             'short-list-nested-empty' => [
-                '/* testNestedShortListEmpty */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testNestedShortListEmpty */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-without-vars' => [
-                '/* testShortListWithoutVars */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListWithoutVars */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'short-list-nested-long-list' => [
-                '/* testShortListNestedLongList */',
-                IsShortArrayOrList::SHORT_LIST,
+                'testMarker' => '/* testShortListNestedLongList */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'parse-error-anon-class-trait-use-as' => [
-                '/* testNestedAnonClassWithTraitUseAs */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testNestedAnonClassWithTraitUseAs */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'parse-error-use-as' => [
-                '/* testParseError */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testParseError */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
             'parse-error-live-coding' => [
-                '/* testLiveCodingNested */',
-                IsShortArrayOrList::SHORT_ARRAY,
+                'testMarker' => '/* testLiveCodingNested */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
         ];
     }
