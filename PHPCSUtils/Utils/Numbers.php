@@ -159,7 +159,7 @@ final class Numbers
     /**
      * Get the decimal number value of a numeric string.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators and explicit octal literals in numbers into account.
      *
      * @since 1.0.0
      *
@@ -282,7 +282,7 @@ final class Numbers
     /**
      * Verify whether the contents of an arbitrary string represents an octal integer.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators and explicit octal literals in numbers into account.
      *
      * @since 1.0.0
      *

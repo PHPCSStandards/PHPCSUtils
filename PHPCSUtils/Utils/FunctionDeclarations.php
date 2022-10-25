@@ -459,7 +459,11 @@ final class FunctionDeclarations
 
         for ($i = $paramStart; $i <= $closer; $i++) {
             if (isset($parameterTypeTokens[$tokens[$i]['code']]) === true
-                // Self and parent are valid, static invalid, but was probably intended as type declaration.
+                /*
+                 * Self and parent are valid, static invalid, but was probably intended as type declaration.
+                 * Note: constructor property promotion does not support static properties, so this should
+                 * still be a valid assumption.
+                 */
                 || $tokens[$i]['code'] === \T_STATIC
             ) {
                 if ($typeHintToken === false) {

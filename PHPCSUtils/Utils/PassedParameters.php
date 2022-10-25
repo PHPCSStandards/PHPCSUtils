@@ -64,6 +64,7 @@ final class PassedParameters
      *   language constructs have "parameters".
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added the `$isShortArray` parameter.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      * @since 1.0.0-alpha4 Added defensive coding against PHP 8.1 first class callables
      *                     being passed as if they were function calls.
@@ -156,6 +157,7 @@ final class PassedParameters
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added the `$limit` and `$isShortArray` parameters.
      * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by introducing
      *                     the `'name'` and `'name_token'` index keys as well as using the name
      *                     as the index for the top-level array for named parameters.
@@ -165,6 +167,8 @@ final class PassedParameters
      *                                                  language construct or array open token.
      * @param int                         $limit        Optional. Limit the parameter retrieval to the first #
      *                                                  parameters/array entries.
+     *                                                  Use with care on function calls, as this can break
+     *                                                  support for named parameters!
      * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
      *                                                  `T_OPEN_SHORT_ARRAY` tokens if it isn't necessary.
      *                                                  Efficiency tweak for when this has already been established,
@@ -361,6 +365,7 @@ final class PassedParameters
      *                                                already retrieved.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added the `$paramNames` parameter.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
      * @param int                         $stackPtr    The position of function call name,
@@ -445,18 +450,18 @@ final class PassedParameters
     /**
      * Get information on a specific function call parameter passed.
      *
-     * This is an efficiency method to correcty handle positional versus named parameters
+     * This is an efficiency method to correctly handle positional versus named parameters
      * for function calls when multiple parameters need to be examined.
      *
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
-     * @since 1.0.0
+     * @since 1.0.0-alpha4
      *
      * @param array           $parameters  The output of a previous call to {@see PassedParameters::getParameters()}.
      * @param int             $paramOffset The 1-based index position of the parameter to retrieve.
      * @param string|string[] $paramNames  Either the name of the target parameter to retrieve
      *                                     as a string or an array of names for the same target parameter.
-     *                                     An arrays of names is supported to allow for functions
+     *                                     An array of names is supported to allow for functions
      *                                     for which the parameter names have undergone name
      *                                     changes over time.
      *                                     The name will take precedence over the offset.

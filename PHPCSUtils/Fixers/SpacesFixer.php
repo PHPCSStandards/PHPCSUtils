@@ -51,7 +51,7 @@ final class SpacesFixer
      *                                                    when reporting an issue.
      * @param int                         $secondPtr      The stack pointer to the second token.
      *                                                    This token can be before or after the `$stackPtr`,
-     *                                                    but should only be seperated from the `$stackPtr`
+     *                                                    but should only be separated from the `$stackPtr`
      *                                                    by whitespace and/or comments/annotations.
      * @param string|int                  $expectedSpaces Number of spaces to enforce.
      *                                                    Valid values:

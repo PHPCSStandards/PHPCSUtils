@@ -39,8 +39,8 @@ final class TokenHelper
      * PHP-Parser polyfilled tokens will always have a negative integer value < 0, which is how
      * these are filtered out.}
      *
-     * @link https://github.com/sebastianbergmann/php-code-coverage/issues/798
-     * @link https://github.com/nikic/PHP-Parser/blob/master/lib/PhpParser/Lexer.php
+     * @link https://github.com/sebastianbergmann/php-code-coverage/issues/798       PHP-Code-Coverage#798
+     * @link https://github.com/nikic/PHP-Parser/blob/master/lib/PhpParser/Lexer.php PHP-Parser Lexer code
      *
      * @since 1.0.0-alpha4
      *

@@ -23,6 +23,8 @@ final class InvalidTokenArray extends RuntimeException
     /**
      * Create a new invalid token array exception with a standardized text.
      *
+     * @since 1.0.0-alpha4
+     *
      * @param string $name The name of the token array requested.
      *
      * @return \PHPCSUtils\Exceptions\InvalidTokenArray

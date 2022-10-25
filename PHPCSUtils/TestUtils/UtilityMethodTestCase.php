@@ -25,7 +25,7 @@ use ReflectionClass;
  * This class is compatible with PHP_CodeSniffer 3.x and contains preliminary compatibility with 4.x
  * based on its currently known state/roadmap.
  *
- * This class is compatible with {@link http://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
+ * This class is compatible with {@link https://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
  * autoload file is included in the test bootstrap. For more information about that, please consult
  * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *

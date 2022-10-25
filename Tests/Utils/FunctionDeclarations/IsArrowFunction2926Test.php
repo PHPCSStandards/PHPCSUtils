@@ -21,7 +21,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * These tests are based on the `Tokenizer/BackfillFnTokenTest` file in PHPCS itself.
  *
- * @link https://github.com/squizlabs/php_codesniffer/issues/2926
+ * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2926
  *
  * @covers \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction
  * @covers \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose

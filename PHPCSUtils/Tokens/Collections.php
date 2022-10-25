@@ -122,10 +122,10 @@ final class Collections
     /**
      * DEPRECATED: Tokens which are used to create arrays.
      *
-     * @see \PHPCSUtils\Tokens\Collections::arrayOpenTokensBC() Related method to retrieve only the "open"
-     *                                                          tokens used for arrays (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::arrayOpenTokensBC() Related method to retrieve only the "open" tokens
+     *                                                          used for arrays (PHPCS cross-version compatible).
      * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC()     Related method to retrieve tokens used
-     *                                                          for arrays (PHPCS cross-version).
+     *                                                          for arrays (PHPCS cross-version compatible).
      * @see \PHPCSUtils\Tokens\Collections::shortArrayTokens()  Related method to retrieve only tokens used
      *                                                          for short arrays.
      *
@@ -147,6 +147,11 @@ final class Collections
      * Includes `T_OPEN_SQUARE_BRACKET` and `T_CLOSE_SQUARE_BRACKET` to allow for handling
      * intermittent tokenizer issues related to the retokenization to `T_OPEN_SHORT_ARRAY`.
      * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::arrayOpenTokensBC()  Related method to retrieve only the "open" tokens
+     *                                                           used for arrays (PHPCS cross-version compatible).
+     * @see \PHPCSUtils\Tokens\Collections::shortArrayTokensBC() Related method to retrieve only tokens used
+     *                                                           for short arrays (PHPCS cross-version compatible).
      *
      * @since 1.0.0-alpha1
      *
@@ -303,7 +308,8 @@ final class Collections
      *
      * @since 1.0.0-alpha3
      *
-     * @deprecated 1.0.0-alpha4 Use the {@see \PHPCSUtils\BackCompat\BCTokens::magicConstants()} method instead.
+     * @deprecated 1.0.0-alpha4 Use the {@see \PHP_CodeSniffer\Util\Tokens::$magicConstants} property
+     *                          or the {@see \PHPCSUtils\BackCompat\BCTokens::magicConstants()} method instead.
      *
      * @var array <int|string> => <int|string>
      */
@@ -342,7 +348,7 @@ final class Collections
      * but are not used yet (the PHP 8.0 tokenization is "undone" in PHPCS).
      * As of PHPCS 4.0.0, these tokens _will_ be used and the PHP 8.0 tokenization is respected.
      *
-     * @link https://wiki.php.net/rfc/namespaced_names_as_token
+     * @link https://wiki.php.net/rfc/namespaced_names_as_token PHP RFC on namespaced names as single token
      *
      * @since 1.0.0-alpha4 Use the {@see Collections::nameTokens()} method for access.
      *

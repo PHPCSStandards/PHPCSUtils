@@ -33,7 +33,7 @@ final class Parentheses
      *
      * - `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EXIT` and `T_EVAL` are not PHPCS native parentheses
      *    owners, but are considered such for the purposes of this class.
-     *    Also {@see https://github.com/squizlabs/PHP_CodeSniffer/issues/3118}.
+     *    Also see {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/3118 PHPCS#3118}.
      *
      * @since 1.0.0-alpha4
      *

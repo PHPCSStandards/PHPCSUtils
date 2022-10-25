@@ -14,11 +14,7 @@ use PHPCSUtils\Fixers\SpacesFixer;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
- * Tests for the \PHPCSUtils\Fixers\SpacesFixer::checkAndFix() method.
- *
- * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
- *
- * @group fixers
+ * Test case for the \PHPCSUtils\Fixers\SpacesFixer::checkAndFix() method.
  *
  * @since 1.0.0
  */
@@ -109,6 +105,8 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
     /**
      * Test that no violation is reported for a test case complying with the correct number of spaces.
      *
+     * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
+     *
      * @dataProvider dataCheckAndFixNoError
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
@@ -174,6 +172,8 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
 
     /**
      * Test that violations are correctly reported.
+     *
+     * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
      *
      * @dataProvider dataCheckAndFix
      *
@@ -257,6 +257,8 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
 
     /**
      * Test that the fixes are correctly made.
+     *
+     * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
      *
      * @return void
      */
