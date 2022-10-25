@@ -88,6 +88,14 @@ endif;
 
 return $a ?? '';
 
+$array = [
+    /* testShortArrayInShortArrowFunction */
+    'key' => fn($p) : array => [$p],
+
+    // Prevent going straight to outer brackets for last item.
+    'skip' => [$b],
+];
+
 
 /* ===== Tests involving various illegal syntaxes/parse errors. ===== */
 

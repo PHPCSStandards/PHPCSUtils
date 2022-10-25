@@ -207,6 +207,11 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
 
+            'short-array-in-arrow-fn-return-expression' => [
+                'testMarker' => '/* testShortArrayInShortArrowFunction */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
+
             // Invalid syntaxes.
             'short-list-nested-empty' => [
                 'testMarker' => '/* testNestedShortListEmpty */',
