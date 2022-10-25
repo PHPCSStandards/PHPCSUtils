@@ -13,16 +13,18 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
-use PHPCSUtils\Utils\Parentheses;
 
 /**
  * Utility functions to retrieve information when working with lists.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Lists
+final class Lists
 {
 
     /**
@@ -64,106 +66,7 @@ class Lists
      */
     public static function isShortList(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Is this one of the tokens this function handles ?
-        if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortListTokensBC[$tokens[$stackPtr]['code']]) === false
-        ) {
-            return false;
-        }
-
-        /*
-         * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 - 3.2.3 where a `[` would be
-         * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
-         * preceded by a PHP open tag at the very start of the file.
-         *
-         * In that case, we also know for sure that it is a short list as long as the close
-         * bracket is followed by an `=` sign.
-         *
-         * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971
-         *
-         * Also work around a bug in the tokenizer of PHPCS < 2.8.0 where a `[` would be
-         * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
-         * preceded by a closing curly belonging to a control structure.
-         *
-         * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
-         */
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
-            || $tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET
-        ) {
-            $opener = $stackPtr;
-            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET) {
-                $opener = $tokens[$stackPtr]['bracket_opener'];
-            }
-
-            if (isset($tokens[$opener]['bracket_closer']) === false) {
-                // Definitely not a short list.
-                return false;
-            }
-
-            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-            if ((($prevNonEmpty === 0 && $tokens[$prevNonEmpty]['code'] === \T_OPEN_TAG) // Bug #1971.
-                || ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
-                    && isset($tokens[$prevNonEmpty]['scope_condition']))) // Bug #1284.
-            ) {
-                $closer       = $tokens[$opener]['bracket_closer'];
-                $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
-                if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        switch ($tokens[$stackPtr]['code']) {
-            case \T_OPEN_SHORT_ARRAY:
-                $opener = $stackPtr;
-                $closer = $tokens[$stackPtr]['bracket_closer'];
-                break;
-
-            case \T_CLOSE_SHORT_ARRAY:
-                $opener = $tokens[$stackPtr]['bracket_opener'];
-                $closer = $stackPtr;
-                break;
-        }
-
-        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($closer + 1), null, true);
-        if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_EQUAL) {
-            return true;
-        }
-
-        // Check for short list in foreach, i.e. `foreach($array as [$a, $b])`.
-        $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-        if ($prevNonEmpty !== false
-            && ($tokens[$prevNonEmpty]['code'] === \T_AS
-                || $tokens[$prevNonEmpty]['code'] === \T_DOUBLE_ARROW)
-            && Parentheses::lastOwnerIn($phpcsFile, $prevNonEmpty, \T_FOREACH) !== false
-        ) {
-            return true;
-        }
-
-        // Maybe this is a short list syntax nested inside another short list syntax ?
-        $parentOpen = $opener;
-        do {
-            $parentOpen = $phpcsFile->findPrevious(
-                [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET], // BC: PHPCS#1971.
-                ($parentOpen - 1),
-                null,
-                false,
-                null,
-                true
-            );
-
-            if ($parentOpen === false) {
-                return false;
-            }
-        } while (isset($tokens[$parentOpen]['bracket_closer']) === true
-            && $tokens[$parentOpen]['bracket_closer'] < $opener
-        );
-
-        return self::isShortList($phpcsFile, $parentOpen);
+        return IsShortArrayOrListWithCache::isShortList($phpcsFile, $stackPtr);
     }
 
     /**
@@ -201,7 +104,7 @@ class Lists
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$listTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::listTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
@@ -209,20 +112,11 @@ class Lists
         switch ($tokens[ $stackPtr ]['code']) {
             case \T_LIST:
                 if (isset($tokens[$stackPtr]['parenthesis_opener'])) {
-                    // PHPCS 3.5.0.
                     $opener = $tokens[$stackPtr]['parenthesis_opener'];
-                } else {
-                    // PHPCS < 3.5.0.
-                    $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
-                    if ($nextNonEmpty !== false
-                        && $tokens[$nextNonEmpty]['code'] === \T_OPEN_PARENTHESIS
-                    ) {
-                        $opener = $nextNonEmpty;
-                    }
-                }
 
-                if (isset($opener, $tokens[$opener]['parenthesis_closer'])) {
-                    $closer = $tokens[$opener]['parenthesis_closer'];
+                    if (isset($tokens[$opener]['parenthesis_closer'])) {
+                        $closer = $tokens[$opener]['parenthesis_closer'];
+                    }
                 }
                 break;
 
@@ -312,6 +206,10 @@ class Lists
         if ($openClose === false) {
             // The `getOpenClose()` method does the $stackPtr validation.
             throw new RuntimeException('The Lists::getAssignments() method expects a long/short list token.');
+        }
+
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
         }
 
         $opener = $openClose['opener'];
@@ -431,6 +329,7 @@ class Lists
             }
         }
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $vars);
         return $vars;
     }
 }

@@ -12,24 +12,46 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\Helper;
-use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
- * Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped in
- * parentheses.
+ * Utility functions for use when examining parenthesis tokens and arbitrary tokens wrapped
+ * in parentheses.
+ *
+ * In contrast to PHPCS natively, `isset()`, `unset()`, `empty()`, `exit()`, `die()` and `eval()`
+ * will be considered parentheses owners by the functions in this class.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Added support for `isset()`, `unset()`, `empty()`, `exit()`, `die()`
+ *                     and `eval()` as parentheses owners to all applicable functions.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Parentheses
+final class Parentheses
 {
 
     /**
-     * Get the pointer to the parentheses owner of an open/close parenthesis.
+     * Extra tokens which should be considered parentheses owners.
+     *
+     * - `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EXIT` and `T_EVAL` are not PHPCS native parentheses
+     *    owners, but are considered such for the purposes of this class.
+     *    Also see {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/3118 PHPCS#3118}.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @var array <int|string> => <int|string>
+     */
+    private static $extraParenthesesOwners = [
+        \T_ISSET => \T_ISSET,
+        \T_UNSET => \T_UNSET,
+        \T_EMPTY => \T_EMPTY,
+        \T_EXIT  => \T_EXIT,
+        \T_EVAL  => \T_EVAL,
+    ];
+
+    /**
+     * Get the stack pointer to the parentheses owner of an open/close parenthesis.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position of `T_OPEN/CLOSE_PARENTHESIS` token.
@@ -47,18 +69,9 @@ class Parentheses
         }
 
         /*
-         * `T_LIST` and `T_ANON_CLASS` only became parentheses owners in PHPCS 3.5.0.
-         * `T_FN` was only backfilled in PHPCS 3.5.3/4/5.
-         * - On PHP 7.4 with PHPCS < 3.5.3, T_FN will not yet be a parentheses owner.
-         * - On PHP < 7.4 with PHPCS < 3.5.3, T_FN will be tokenized as T_STRING and not yet be a parentheses owner.
-         *
-         * {@internal As the 'parenthesis_owner' index is only set on parentheses, we didn't need to do any
-         * input validation before, but now we do.}
+         * As the 'parenthesis_owner' index is only set on parentheses, we didn't need to do any
+         * input validation before, but now we do.
          */
-        if (\version_compare(Helper::getVersion(), '3.5.4', '>=') === true) {
-            return false;
-        }
-
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] !== \T_OPEN_PARENTHESIS
             && $tokens[$stackPtr]['code'] !== \T_CLOSE_PARENTHESIS)
@@ -72,12 +85,7 @@ class Parentheses
 
         $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
         if ($prevNonEmpty !== false
-            && ($tokens[$prevNonEmpty]['code'] === \T_LIST
-            || $tokens[$prevNonEmpty]['code'] === \T_ANON_CLASS
-            // Work-around: anon classes were, in certain circumstances, tokenized as T_CLASS prior to PHPCS 3.4.0.
-            || $tokens[$prevNonEmpty]['code'] === \T_CLASS
-            // Possibly an arrow function.
-            || FunctionDeclarations::isArrowFunction($phpcsFile, $prevNonEmpty) === true)
+            && isset(self::$extraParenthesesOwners[$tokens[$prevNonEmpty]['code']]) === true
         ) {
             return $prevNonEmpty;
         }
@@ -90,7 +98,7 @@ class Parentheses
      * set of valid owners.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
      * @param int                         $stackPtr    The position of `T_OPEN/CLOSE_PARENTHESIS` token.
@@ -109,23 +117,6 @@ class Parentheses
 
         $tokens      = $phpcsFile->getTokens();
         $validOwners = (array) $validOwners;
-
-        /*
-         * Work around tokenizer bug where anon classes were, in certain circumstances, tokenized
-         * as `T_CLASS` prior to PHPCS 3.4.0.
-         * As `T_CLASS` is normally not an parenthesis owner, we can safely add it to the array
-         * without doing a version check.
-         */
-        if (\in_array(\T_ANON_CLASS, $validOwners, true)) {
-            $validOwners[] = \T_CLASS;
-        }
-
-        /*
-         * Allow for T_FN token being tokenized as T_STRING before PHPCS 3.5.3.
-         */
-        if (\defined('T_FN') && \in_array(\T_FN, $validOwners, true)) {
-            $validOwners += Collections::arrowFunctionTokensBC();
-        }
 
         return \in_array($tokens[$owner]['code'], $validOwners, true);
     }
@@ -148,11 +139,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the opener to the first (outer) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses opener of the first (outer) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the opener to the first set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the opener to
+     * the first set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a nested set of parentheses.
      *
      * @since 1.0.0
      *
@@ -171,11 +163,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the closer to the first (outer) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses closer of the first (outer) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the closer to the first set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the closer to
+     * the first set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a nested set of parentheses.
      *
      * @since 1.0.0
      *
@@ -200,11 +193,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the parentheses owner to the first (outer) set of parentheses an
-     * arbitrary token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses owner of the first (outer) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the owner to the first set of parentheses surrounding
-     * the token will be returned or `false` if the first set of parentheses does not have an owner.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the owner of
+     * the first set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a nested set of parentheses.
      *
      * @since 1.0.0
      *
@@ -228,11 +222,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the opener to the last (inner) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses opener of the last (inner) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the opener to the last set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the opener to
+     * the last set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a set of parentheses higher up.
      *
      * @since 1.0.0
      *
@@ -251,11 +246,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the closer to the last (inner) set of parentheses an arbitrary
-     * token is wrapped in, where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses closer of the last (inner) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the closer to the last set of parentheses surrounding
-     * the token will be returned.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the closer to
+     * the last set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a set of parentheses higher up.
      *
      * @since 1.0.0
      *
@@ -280,11 +276,12 @@ class Parentheses
     }
 
     /**
-     * Retrieve the position of the parentheses owner to the last (inner) set of parentheses an
-     * arbitrary token is wrapped in where the parentheses owner is within the set of valid owners.
+     * Retrieve the stack pointer to the parentheses owner of the last (inner) set of parentheses
+     * an arbitrary token is wrapped in.
      *
-     * If no `$validOwners` are specified, the owner to the last set of parentheses surrounding
-     * the token will be returned or `false` if the last set of parentheses does not have an owner.
+     * If the optional `$validOwners` parameter is passed, the stack pointer to the owner of
+     * the last set of parentheses, which has an owner which is in the list of valid owners,
+     * will be returned. This may be a set of parentheses higher up.
      *
      * @since 1.0.0
      *
@@ -308,7 +305,7 @@ class Parentheses
     }
 
     /**
-     * Check whether the owner of a outermost wrapping set of parentheses of an arbitrary token
+     * Check whether the owner of the outermost wrapping set of parentheses of an arbitrary token
      * is within a limited set of acceptable token types.
      *
      * @since 1.0.0
@@ -336,7 +333,7 @@ class Parentheses
     }
 
     /**
-     * Check whether the owner of a innermost wrapping set of parentheses of an arbitrary token
+     * Check whether the owner of the innermost wrapping set of parentheses of an arbitrary token
      * is within a limited set of acceptable token types.
      *
      * @since 1.0.0

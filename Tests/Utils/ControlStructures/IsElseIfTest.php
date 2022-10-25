@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class IsElseIfTest extends UtilityMethodTestCase
+final class IsElseIfTest extends UtilityMethodTestCase
 {
 
     /**
@@ -74,59 +74,59 @@ class IsElseIfTest extends UtilityMethodTestCase
     {
         return [
             'if' => [
-                '/* testIf */',
-                false,
+                'testMarker' => '/* testIf */',
+                'expected'   => false,
             ],
             'elseif' => [
-                '/* testElseIf */',
-                true,
+                'testMarker' => '/* testElseIf */',
+                'expected'   => true,
             ],
             'else-if' => [
-                '/* testElseSpaceIf */',
-                true,
+                'testMarker' => '/* testElseSpaceIf */',
+                'expected'   => true,
             ],
             'else-if-with-comment-else' => [
-                '/* testElseCommentIfElse */',
-                true,
+                'testMarker' => '/* testElseCommentIfElse */',
+                'expected'   => true,
             ],
             'else-if-with-comment-if' => [
-                '/* testElseCommentIfIf */',
-                true,
+                'testMarker' => '/* testElseCommentIfIf */',
+                'expected'   => true,
             ],
             'else' => [
-                '/* testElse */',
-                false,
+                'testMarker' => '/* testElse */',
+                'expected'   => false,
             ],
 
             'alternative-syntax-if' => [
-                '/* testAlternativeIf */',
-                false,
+                'testMarker' => '/* testAlternativeIf */',
+                'expected'   => false,
             ],
             'alternative-syntax-elseif' => [
-                '/* testAlternativeElseIf */',
-                true,
+                'testMarker' => '/* testAlternativeElseIf */',
+                'expected'   => true,
             ],
             'alternative-syntax-else' => [
-                '/* testAlternativeElse */',
-                false,
+                'testMarker' => '/* testAlternativeElse */',
+                'expected'   => false,
             ],
 
             'inline-if' => [
-                '/* testInlineIf */',
-                false,
+                'testMarker' => '/* testInlineIf */',
+                'expected'   => false,
             ],
             'inline-elseif' => [
-                '/* testInlineElseIf */',
-                true,
+                'testMarker' => '/* testInlineElseIf */',
+                'expected'   => true,
             ],
             'inline-else' => [
-                '/* testInlineElse */',
-                false,
+                'testMarker' => '/* testInlineElse */',
+                'expected'   => false,
             ],
 
             'live-coding' => [
-                '/* testLiveCoding */',
-                false,
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => false,
             ],
         ];
     }

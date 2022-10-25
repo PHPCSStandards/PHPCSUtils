@@ -12,7 +12,6 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPCSUtils\Utils\Parentheses;
@@ -22,13 +21,14 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @link https://www.php.net/language.operators PHP manual on operators.
  *
- * @since 1.0.0 The `isReference()` method is based on and inspired by
- *              the method of the same name in the PHPCS native `File` class.
- *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
- *              The `isUnaryPlusMinus()` method is, in part, inspired by the
- *              `Squiz.WhiteSpace.OperatorSpacing` sniff.
+ * @since 1.0.0        The `isReference()` method is based on and inspired by
+ *                     the method of the same name in the PHPCS native `File` class.
+ *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ *                     The `isUnaryPlusMinus()` method is, in part, inspired by the
+ *                     `Squiz.WhiteSpace.OperatorSpacing` sniff.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Operators
+final class Operators
 {
 
     /**
@@ -41,6 +41,9 @@ class Operators
     private static $extraUnaryIndicators = [
         \T_STRING_CONCAT       => true,
         \T_RETURN              => true,
+        \T_EXIT                => true,
+        \T_CONTINUE            => true,
+        \T_BREAK               => true,
         \T_ECHO                => true,
         \T_PRINT               => true,
         \T_YIELD               => true,
@@ -53,6 +56,8 @@ class Operators
         \T_INLINE_THEN         => true,
         \T_INLINE_ELSE         => true,
         \T_CASE                => true,
+        \T_FN_ARROW            => true,
+        \T_MATCH_ARROW         => true,
     ];
 
     /**
@@ -60,13 +65,13 @@ class Operators
      *
      * Main differences with the PHPCS version:
      * - Defensive coding against incorrect calls to this method.
-     * - Improved handling of select tokenizer errors involving short lists/short arrays.
      *
      * @see \PHP_CodeSniffer\Files\File::isReference()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added BC support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_BITWISE_AND` token.
@@ -84,10 +89,7 @@ class Operators
 
         $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
 
-        if ($tokens[$tokenBefore]['code'] === \T_FUNCTION
-            || $tokens[$tokenBefore]['code'] === T_CLOSURE
-            || FunctionDeclarations::isArrowFunction($phpcsFile, $tokenBefore) === true
-        ) {
+        if (isset(Collections::functionDeclarationTokens()[$tokens[$tokenBefore]['code']]) === true) {
             // Function returns a reference.
             return true;
         }
@@ -102,7 +104,7 @@ class Operators
             return true;
         }
 
-        if (isset(BCTokens::assignmentTokens()[$tokens[$tokenBefore]['code']]) === true) {
+        if (isset(Tokens::$assignmentTokens[$tokens[$tokenBefore]['code']]) === true) {
             // This is directly after an assignment. It's a reference. Even if
             // it is part of an operation, the other tests will handle it.
             return true;
@@ -116,43 +118,36 @@ class Operators
 
         $lastOpener = Parentheses::getLastOpener($phpcsFile, $stackPtr);
         if ($lastOpener !== false) {
-            $lastOwner = Parentheses::lastOwnerIn($phpcsFile, $stackPtr, [\T_FUNCTION, \T_CLOSURE]);
-            if ($lastOwner !== false) {
+            $lastOwner = Parentheses::getOwner($phpcsFile, $lastOpener);
+
+            if (isset(Collections::functionDeclarationTokens()[$tokens[$lastOwner]['code']]) === true
+                // As of PHPCS 4.x, `T_USE` is a parenthesis owner.
+                || $tokens[$lastOwner]['code'] === \T_USE
+            ) {
                 $params = FunctionDeclarations::getParameters($phpcsFile, $lastOwner);
                 foreach ($params as $param) {
-                    if ($param['pass_by_reference'] === true) {
+                    if ($param['reference_token'] === $stackPtr) {
                         // Function parameter declared to be passed by reference.
                         return true;
                     }
                 }
-            } elseif (isset($tokens[$lastOpener]['parenthesis_owner']) === false) {
-                $prev = false;
-                for ($t = ($lastOpener - 1); $t >= 0; $t--) {
-                    if ($tokens[$t]['code'] !== \T_WHITESPACE) {
-                        $prev = $t;
-                        break;
-                    }
-                }
-
-                if ($prev !== false && $tokens[$prev]['code'] === \T_USE) {
-                    // Closure use by reference.
-                    return true;
-                }
             }
         }
 
-        // Pass by reference in function calls and assign by reference in arrays.
+        /*
+         * Pass by reference in function calls, assign by reference in arrays and
+         * closure use by reference in PHPCS 3.x.
+         */
         if ($tokens[$tokenBefore]['code'] === \T_OPEN_PARENTHESIS
             || $tokens[$tokenBefore]['code'] === \T_COMMA
             || $tokens[$tokenBefore]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$tokenBefore]['code'] === \T_OPEN_SQUARE_BRACKET // PHPCS 2.8.0 < 3.3.0.
         ) {
             if ($tokens[$tokenAfter]['code'] === \T_VARIABLE) {
                 return true;
             } else {
                 $skip   = Tokens::$emptyTokens;
-                $skip  += Collections::$OONameTokens;
-                $skip  += Collections::$OOHierarchyKeywords;
+                $skip  += Collections::namespacedNameTokens();
+                $skip  += Collections::ooHierarchyKeywords();
                 $skip[] = \T_DOUBLE_COLON;
 
                 $nextSignificantAfter = $phpcsFile->findNext(
@@ -199,7 +194,7 @@ class Operators
             return false;
         }
 
-        if (isset(BCTokens::operators()[$tokens[$next]['code']]) === true) {
+        if (isset(Tokens::$operators[$tokens[$next]['code']]) === true) {
             // Next token is an operator, so this is not a unary.
             return false;
         }
@@ -209,21 +204,13 @@ class Operators
         /*
          * Check the preceeding token for an indication that this is not an arithmetic operation.
          */
-        if (isset(BCTokens::operators()[$tokens[$prev]['code']]) === true
-            || isset(BCTokens::comparisonTokens()[$tokens[$prev]['code']]) === true
+        if (isset(Tokens::$operators[$tokens[$prev]['code']]) === true
+            || isset(Tokens::$comparisonTokens[$tokens[$prev]['code']]) === true
             || isset(Tokens::$booleanOperators[$tokens[$prev]['code']]) === true
-            || isset(BCTokens::assignmentTokens()[$tokens[$prev]['code']]) === true
+            || isset(Tokens::$assignmentTokens[$tokens[$prev]['code']]) === true
             || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
             || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
         ) {
-            return true;
-        }
-
-        /*
-         * BC for PHPCS < 3.1.0 in which the PHP 5.5 T_YIELD token was not yet backfilled.
-         * Note: not accounting for T_YIELD_FROM as that would be a parse error anyway.
-         */
-        if ($tokens[$prev]['code'] === \T_STRING && $tokens[$prev]['content'] === 'yield') {
             return true;
         }
 

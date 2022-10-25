@@ -12,7 +12,6 @@ namespace PHPCSUtils\Tests\Utils\Parentheses;
 
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Parentheses;
 
 /**
@@ -24,7 +23,7 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @since 1.0.0
  */
-class ParenthesesTest extends UtilityMethodTestCase
+final class ParenthesesTest extends UtilityMethodTestCase
 {
 
     /**
@@ -149,6 +148,42 @@ class ParenthesesTest extends UtilityMethodTestCase
             'marker'  => '/* testFunctionCallFnPHPCS353-354 */',
             'code'    => \T_TRUE,
         ],
+        'testArrowFunctionReturnByRef' => [
+            'marker'  => '/* testArrowFunctionByReference */',
+            'code'    => \T_VARIABLE,
+            'content' => '$x',
+        ],
+        'testIfIsset-$b' => [
+            'marker'  => '/* testIfWithIssetEmpty */',
+            'code'    => \T_VARIABLE,
+            'content' => '$b',
+        ],
+        'testIfEmpty-$c' => [
+            'marker'  => '/* testIfWithIssetEmpty */',
+            'code'    => \T_VARIABLE,
+            'content' => '$c',
+        ],
+        'testUnset-->' => [
+            'marker'  => '/* testUnset */',
+            'code'    => \T_OBJECT_OPERATOR,
+        ],
+        'testUnsetParenthesis' => [
+            'marker'  => '/* testUnset */',
+            'code'    => \T_OPEN_PARENTHESIS,
+        ],
+        'testEval-concat' => [
+            'marker'  => '/* testEval */',
+            'code'    => \T_STRING_CONCAT,
+        ],
+        'testIfExitDie-boolean-or' => [
+            'marker'  => '/* testExit */',
+            'code'    => \T_BOOLEAN_OR,
+        ],
+        'testIfExitDie-message' => [
+            'marker'  => '/* testExit */',
+            'code'    => \T_CONSTANT_ENCAPSED_STRING,
+            'content' => "'message'",
+        ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
             'code'    => \T_LNUMBER,
@@ -169,7 +204,9 @@ class ParenthesesTest extends UtilityMethodTestCase
      * This array is merged with expected result arrays for various unit tests
      * to make sure all possible parentheses owners are tested.
      *
-     * This array should be kept in sync with the Tokens::$parenthesisOpeners array.
+     * This array should be kept in sync with the Tokens::$parenthesisOpeners array
+     * + the extra tokens the Parentheses class allows for.
+     *
      * This array isn't auto-generated based on the array in Tokens as for these
      * tests we want to have access to the token constant names, not just their values.
      *
@@ -190,6 +227,13 @@ class ParenthesesTest extends UtilityMethodTestCase
         'T_CATCH'      => false,
         'T_DECLARE'    => false,
         'T_FN'         => false,
+
+        // Extra tokens.
+        'T_ISSET'      => false,
+        'T_UNSET'      => false,
+        'T_EMPTY'      => false,
+        'T_EXIT'       => false,
+        'T_EVAL'       => false,
     ];
 
     /**
@@ -343,7 +387,7 @@ class ParenthesesTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testPassingParenthesisCloseHandlinginBCLayer()
+    public function testPassingParenthesisCloseHandlingInBCLayer()
     {
         $stackPtr = $this->getTargetToken('/* testListOnCloseParens */', \T_CLOSE_PARENTHESIS);
 
@@ -367,8 +411,6 @@ class ParenthesesTest extends UtilityMethodTestCase
 
     /**
      * Test that a function named fn sees the T_FUNCTION token as owner, not the T_FN token.
-     *
-     * This specifically tests the BC-layer for arrow functions.
      *
      * @return void
      */
@@ -582,8 +624,8 @@ class ParenthesesTest extends UtilityMethodTestCase
     {
         $data = [
             'testIfWithArray-$a' => [
-                'testIfWithArray-$a',
-                [
+                'testName'        => 'testIfWithArray-$a',
+                'expectedResults' => [
                     'firstOpener'           => -2,
                     'firstCloser'           => 19,
                     'firstOwner'            => -4,
@@ -599,8 +641,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testIfWithArray-array' => [
-                'testIfWithArray-array',
-                [
+                'testName'        => 'testIfWithArray-array',
+                'expectedResults' => [
                     'firstOpener'           => -13,
                     'firstCloser'           => 8,
                     'firstOwner'            => -15,
@@ -616,8 +658,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testIfWithArray-$c' => [
-                'testIfWithArray-$c',
-                [
+                'testName'        => 'testIfWithArray-$c',
+                'expectedResults' => [
                     'firstOpener'           => -15,
                     'firstCloser'           => 6,
                     'firstOwner'            => -17,
@@ -633,8 +675,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testWhileWithClosure-$a' => [
-                'testWhileWithClosure-$a',
-                [
+                'testName'        => 'testWhileWithClosure-$a',
+                'expectedResults' => [
                     'firstOpener'           => -9,
                     'firstCloser'           => 30,
                     'firstOwner'            => -11,
@@ -650,8 +692,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testWhileWithClosure-$p' => [
-                'testWhileWithClosure-$p',
-                [
+                'testName'        => 'testWhileWithClosure-$p',
+                'expectedResults' => [
                     'firstOpener'           => -24,
                     'firstCloser'           => 15,
                     'firstOwner'            => -26,
@@ -667,8 +709,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testWhileWithClosure-$result' => [
-                'testWhileWithClosure-$result',
-                [
+                'testName'        => 'testWhileWithClosure-$result',
+                'expectedResults' => [
                     'firstOpener'           => -2,
                     'firstCloser'           => 37,
                     'firstOwner'            => -4,
@@ -684,8 +726,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testArrowFunction-$param' => [
-                'testArrowFunction-$param',
-                [
+                'testName'        => 'testArrowFunction-$param',
+                'expectedResults' => [
                     'firstOpener'           => -10,
                     'firstCloser'           => 11,
                     'firstOwner'            => -11,
@@ -701,8 +743,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testArrowFunction-get' => [
-                'testArrowFunction-get',
-                [
+                'testName'        => 'testArrowFunction-get',
+                'expectedResults' => [
                     'firstOpener'           => -17,
                     'firstCloser'           => 4,
                     'firstOwner'            => -18,
@@ -718,8 +760,8 @@ class ParenthesesTest extends UtilityMethodTestCase
                 ],
             ],
             'testMethodCalledFn-true' => [
-                'testMethodCalledFn-true',
-                [
+                'testName'        => 'testMethodCalledFn-true',
+                'expectedResults' => [
                     'firstOpener'           => -1,
                     'firstCloser'           => 1,
                     'firstOwner'            => false,
@@ -734,9 +776,145 @@ class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => false,
                 ],
             ],
+            'testArrowFunctionReturnByRef' => [
+                'testName'        => 'testArrowFunctionReturnByRef',
+                'expectedResults' => [
+                    'firstOpener'           => -1,
+                    'firstCloser'           => 1,
+                    'firstOwner'            => -4,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -4,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testIfIsset-$b' => [
+                'testName'        => 'testIfIsset-$b',
+                'expectedResults' => [
+                    'firstOpener'           => -8,
+                    'firstCloser'           => 14,
+                    'firstOwner'            => -10,
+                    'firstScopeOwnerOpener' => -8,
+                    'firstScopeOwnerCloser' => 14,
+                    'firstScopeOwnerOwner'  => -10,
+                    'lastOpener'            => -5,
+                    'lastCloser'            => 2,
+                    'lastOwner'             => -6,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -10,
+                ],
+            ],
+            'testIfEmpty-$c' => [
+                'testName'        => 'testIfEmpty-$c',
+                'expectedResults' => [
+                    'firstOpener'           => -19,
+                    'firstCloser'           => 3,
+                    'firstOwner'            => -21,
+                    'firstScopeOwnerOpener' => -19,
+                    'firstScopeOwnerCloser' => 3,
+                    'firstScopeOwnerOwner'  => -21,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -3,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -21,
+                ],
+            ],
+            'testUnset-->' => [
+                'testName'        => 'testUnset-->',
+                'expectedResults' => [
+                    'firstOpener'           => -8,
+                    'firstCloser'           => 2,
+                    'firstOwner'            => -9,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -8,
+                    'lastCloser'            => 2,
+                    'lastOwner'             => -9,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testUnsetParenthesis' => [
+                'testName'        => 'testUnsetParenthesis',
+                'expectedResults' => [
+                    'firstOpener'           => false,
+                    'firstCloser'           => false,
+                    'firstOwner'            => false,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => false,
+                    'lastCloser'            => false,
+                    'lastOwner'             => false,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testEval-concat' => [
+                'testName'        => 'testEval-concat',
+                'expectedResults' => [
+                    'firstOpener'           => -3,
+                    'firstCloser'           => 8,
+                    'firstOwner'            => -4,
+                    'firstScopeOwnerOpener' => false,
+                    'firstScopeOwnerCloser' => false,
+                    'firstScopeOwnerOwner'  => false,
+                    'lastOpener'            => -3,
+                    'lastCloser'            => 8,
+                    'lastOwner'             => -4,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testIfExitDie-boolean-or' => [
+                'testName'        => 'testIfExitDie-boolean-or',
+                'expectedResults' => [
+                    'firstOpener'           => -6,
+                    'firstCloser'           => 6,
+                    'firstOwner'            => -8,
+                    'firstScopeOwnerOpener' => -6,
+                    'firstScopeOwnerCloser' => 6,
+                    'firstScopeOwnerOwner'  => -8,
+                    'lastOpener'            => -6,
+                    'lastCloser'            => 6,
+                    'lastOwner'             => -8,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -8,
+                ],
+            ],
+            'testIfExitDie-message' => [
+                'testName'        => 'testIfExitDie-message',
+                'expectedResults' => [
+                    'firstOpener'           => -10,
+                    'firstCloser'           => 2,
+                    'firstOwner'            => -12,
+                    'firstScopeOwnerOpener' => -10,
+                    'firstScopeOwnerCloser' => 2,
+                    'firstScopeOwnerOwner'  => -12,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -2,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -12,
+                ],
+            ],
             'testParseError-1' => [
-                'testParseError-1',
-                [
+                'testName'        => 'testParseError-1',
+                'expectedResults' => [
                     'firstOpener'           => false,
                     'firstCloser'           => false,
                     'firstOwner'            => false,
@@ -774,11 +952,6 @@ class ParenthesesTest extends UtilityMethodTestCase
         // Add expected results for all owner types not listed in the data provider.
         $expectedResults += $this->ownerDefaults;
 
-        if (\defined('T_FN') === false) {
-            $expectedResults['T_STRING'] = $expectedResults['T_FN'];
-            unset($expectedResults['T_FN']);
-        }
-
         foreach ($expectedResults as $ownerType => $expected) {
             $result = Parentheses::hasOwner(self::$phpcsFile, $stackPtr, \constant($ownerType));
             $this->assertSame(
@@ -804,134 +977,175 @@ class ParenthesesTest extends UtilityMethodTestCase
     {
         return [
             'testIfWithArray-$a' => [
-                'testIfWithArray-$a',
-                ['T_IF' => true],
+                'testName'        => 'testIfWithArray-$a',
+                'expectedResults' => ['T_IF' => true],
             ],
 
             'testIfWithArray-array' => [
-                'testIfWithArray-array',
-                ['T_IF' => true],
+                'testName'        => 'testIfWithArray-array',
+                'expectedResults' => ['T_IF' => true],
             ],
             'testIfWithArray-$c' => [
-                'testIfWithArray-$c',
-                [
+                'testName'        => 'testIfWithArray-$c',
+                'expectedResults' => [
                     'T_ARRAY' => true,
                     'T_IF'    => true,
                 ],
             ],
             'testElseIfWithClosure-$a' => [
-                'testElseIfWithClosure-$a',
-                [
+                'testName'        => 'testElseIfWithClosure-$a',
+                'expectedResults' => [
                     'T_CLOSURE' => true,
                     'T_ELSEIF'  => true,
                 ],
             ],
             'testElseIfWithClosure-closure' => [
-                'testElseIfWithClosure-closure',
-                ['T_ELSEIF' => true],
+                'testName'        => 'testElseIfWithClosure-closure',
+                'expectedResults' => ['T_ELSEIF' => true],
             ],
             'testElseIfWithClosure-$array' => [
-                'testElseIfWithClosure-$array',
-                ['T_ELSEIF' => true],
+                'testName'        => 'testElseIfWithClosure-$array',
+                'expectedResults' => ['T_ELSEIF' => true],
             ],
             'testForeach-45' => [
-                'testForeach-45',
-                [
+                'testName'        => 'testForeach-45',
+                'expectedResults' => [
                     'T_ARRAY'   => true,
                     'T_FOREACH' => true,
                 ],
             ],
             'testForeach-$a' => [
-                'testForeach-$a',
-                [
+                'testName'        => 'testForeach-$a',
+                'expectedResults' => [
                     'T_LIST'    => true,
                     'T_FOREACH' => true,
                 ],
             ],
             'testForeach-$c' => [
-                'testForeach-$c',
-                [
+                'testName'        => 'testForeach-$c',
+                'expectedResults' => [
                     'T_LIST'    => true,
                     'T_FOREACH' => true,
                 ],
             ],
             'testFunctionwithArray-$param' => [
-                'testFunctionwithArray-$param',
-                ['T_FUNCTION' => true],
+                'testName'        => 'testFunctionwithArray-$param',
+                'expectedResults' => ['T_FUNCTION' => true],
             ],
             'testFunctionwithArray-2' => [
-                'testFunctionwithArray-2',
-                [
+                'testName'        => 'testFunctionwithArray-2',
+                'expectedResults' => [
                     'T_ARRAY'    => true,
                     'T_FUNCTION' => true,
                 ],
             ],
             'testForWithTernary-$a' => [
-                'testForWithTernary-$a',
-                ['T_FOR' => true],
+                'testName'        => 'testForWithTernary-$a',
+                'expectedResults' => ['T_FOR' => true],
             ],
             'testForWithTernary-$c' => [
-                'testForWithTernary-$c',
-                ['T_FOR' => true],
+                'testName'        => 'testForWithTernary-$c',
+                'expectedResults' => ['T_FOR' => true],
             ],
             'testForWithTernary-$array' => [
-                'testForWithTernary-$array',
-                ['T_FOR' => true],
+                'testName'        => 'testForWithTernary-$array',
+                'expectedResults' => ['T_FOR' => true],
             ],
             'testWhileWithClosure-$a' => [
-                'testWhileWithClosure-$a',
-                ['T_WHILE' => true],
+                'testName'        => 'testWhileWithClosure-$a',
+                'expectedResults' => ['T_WHILE' => true],
             ],
             'testWhileWithClosure-$p' => [
-                'testWhileWithClosure-$p',
-                [
+                'testName'        => 'testWhileWithClosure-$p',
+                'expectedResults' => [
                     'T_CLOSURE' => true,
                     'T_WHILE'   => true,
                 ],
             ],
             'testWhileWithClosure-$result' => [
-                'testWhileWithClosure-$result',
-                ['T_WHILE' => true],
+                'testName'        => 'testWhileWithClosure-$result',
+                'expectedResults' => ['T_WHILE' => true],
             ],
             'testAnonClass-implements' => [
-                'testAnonClass-implements',
-                ['T_ANON_CLASS' => true],
+                'testName'        => 'testAnonClass-implements',
+                'expectedResults' => ['T_ANON_CLASS' => true],
             ],
             'testAnonClass-$param' => [
-                'testAnonClass-$param',
-                [
+                'testName'        => 'testAnonClass-$param',
+                'expectedResults' => [
                     'T_ANON_CLASS' => true,
                     'T_FUNCTION'   => true,
                 ],
             ],
             'testAnonClass-$e' => [
-                'testAnonClass-$e',
-                [
+                'testName'        => 'testAnonClass-$e',
+                'expectedResults' => [
                     'T_ANON_CLASS' => true,
                     'T_CATCH'      => true,
                 ],
             ],
             'testAnonClass-$a' => [
-                'testAnonClass-$a',
-                [
+                'testName'        => 'testAnonClass-$a',
+                'expectedResults' => [
                     'T_ANON_CLASS' => true,
                     'T_WHILE'      => true,
                 ],
             ],
             'testArrowFunction-$param' => [
-                'testArrowFunction-$param',
-                [
+                'testName'        => 'testArrowFunction-$param',
+                'expectedResults' => [
                     'T_ARRAY' => true,
                     'T_FN'    => true,
                 ],
             ],
             'testMethodCalledFn-true' => [
-                'testMethodCalledFn-true',
-                [],
+                'testName'        => 'testMethodCalledFn-true',
+                'expectedResults' => [],
+            ],
+            'testArrowFunctionReturnByRef' => [
+                'testName'        => 'testArrowFunctionReturnByRef',
+                'expectedResults' => ['T_FN' => true],
+            ],
+            'testIfIsset-$b' => [
+                'testName'        => 'testIfIsset-$b',
+                'expectedResults' => [
+                    'T_IF'    => true,
+                    'T_ISSET' => true,
+                ],
+            ],
+            'testIfEmpty-$c' => [
+                'testName'        => 'testIfEmpty-$c',
+                'expectedResults' => [
+                    'T_IF'    => true,
+                    'T_EMPTY' => true,
+                ],
+            ],
+            'testUnset-->' => [
+                'testName'        => 'testUnset-->',
+                'expectedResults' => ['T_UNSET' => true],
+            ],
+            'testUnsetParenthesis' => [
+                'testName'        => 'testUnsetParenthesis',
+                'expectedResults' => [],
+            ],
+            'testEval-concat' => [
+                'testName'        => 'testEval-concat',
+                'expectedResults' => ['T_EVAL' => true],
+            ],
+            'testIfExitDie-boolean-or' => [
+                'testName'        => 'testIfExitDie-boolean-or',
+                'expectedResults' => ['T_IF' => true],
+            ],
+            'testIfExitDie-message' => [
+                'testName'        => 'testIfExitDie-message',
+                'expectedResults' => [
+                    'T_IF'   => true,
+                    'T_EXIT' => true,
+                ],
             ],
             'testParseError-1' => [
-                'testParseError-1',
-                [],
+                'testName'        => 'testParseError-1',
+                'expectedResults' => [],
             ],
         ];
     }
@@ -1007,59 +1221,59 @@ class ParenthesesTest extends UtilityMethodTestCase
     {
         return [
             'testElseIfWithClosure-$a-elseif' => [
-                'testElseIfWithClosure-$a',
-                [\T_ELSEIF],
-                -10,
+                'testName'    => 'testElseIfWithClosure-$a',
+                'validOwners' => [\T_ELSEIF],
+                'expected'    => -10,
             ],
             'testElseIfWithClosure-$a-array' => [
-                'testElseIfWithClosure-$a',
-                [\T_ARRAY],
-                false,
+                'testName'    => 'testElseIfWithClosure-$a',
+                'validOwners' => [\T_ARRAY],
+                'expected'    => false,
             ],
             'testForeach-45-foreach-for' => [
-                'testForeach-45',
-                [\T_FOREACH, \T_FOR],
-                -27,
+                'testName'    => 'testForeach-45',
+                'validOwners' => [\T_FOREACH, \T_FOR],
+                'expected'    => -27,
             ],
             'testForeach-45-array' => [
-                'testForeach-45',
-                [\T_ARRAY],
-                false,
+                'testName'    => 'testForeach-45',
+                'validOwners' => [\T_ARRAY],
+                'expected'    => false,
             ],
             'testForeach-$a-foreach-for' => [
-                'testForeach-$a',
-                [\T_FOREACH, \T_FOR],
-                -43,
+                'testName'    => 'testForeach-$a',
+                'validOwners' => [\T_FOREACH, \T_FOR],
+                'expected'    => -43,
             ],
             'testForeach-$a-list' => [
-                'testForeach-$a',
-                [\T_LIST],
-                false,
+                'testName'    => 'testForeach-$a',
+                'validOwners' => [\T_LIST],
+                'expected'    => false,
             ],
             'testFunctionwithArray-$param-function-closure' => [
-                'testFunctionwithArray-$param',
-                [\T_FUNCTION, \T_CLOSURE],
-                -4,
+                'testName'    => 'testFunctionwithArray-$param',
+                'validOwners' => [\T_FUNCTION, \T_CLOSURE],
+                'expected'    => -4,
             ],
             'testFunctionwithArray-$param-if-elseif-else' => [
-                'testFunctionwithArray-$param',
-                [\T_IF, \T_ELSEIF, \T_ELSE],
-                false,
+                'testName'    => 'testFunctionwithArray-$param',
+                'validOwners' => [\T_IF, \T_ELSEIF, \T_ELSE],
+                'expected'    => false,
             ],
             'testAnonClass-implements-anon-class' => [
-                'testAnonClass-implements',
-                [\T_ANON_CLASS],
-                -8,
+                'testName'    => 'testAnonClass-implements',
+                'validOwners' => [\T_ANON_CLASS],
+                'expected'    => -8,
             ],
             'testAnonClass-$e-function' => [
-                'testAnonClass-$e',
-                [\T_FUNCTION],
-                false,
+                'testName'    => 'testAnonClass-$e',
+                'validOwners' => [\T_FUNCTION],
+                'expected'    => false,
             ],
             'testAnonClass-$e-catch' => [
-                'testAnonClass-$e',
-                [\T_CATCH],
-                false,
+                'testName'    => 'testAnonClass-$e',
+                'validOwners' => [\T_CATCH],
+                'expected'    => false,
             ],
         ];
     }
@@ -1096,69 +1310,82 @@ class ParenthesesTest extends UtilityMethodTestCase
      */
     public function dataLastOwnerIn()
     {
-        $arrowFunctionOwners = Collections::arrowFunctionTokensBC();
-
         return [
             'testElseIfWithClosure-$a-closure' => [
-                'testElseIfWithClosure-$a',
-                [\T_CLOSURE],
-                -3,
+                'testName'    => 'testElseIfWithClosure-$a',
+                'validOwners' => [\T_CLOSURE],
+                'expected'    => -3,
             ],
             'testElseIfWithClosure-$a-array' => [
-                'testElseIfWithClosure-$a',
-                [\T_ARRAY],
-                false,
+                'testName'    => 'testElseIfWithClosure-$a',
+                'validOwners' => [\T_ARRAY],
+                'expected'    => false,
             ],
             'testForeach-45-array' => [
-                'testForeach-45',
-                [\T_ARRAY],
-                -2,
+                'testName'    => 'testForeach-45',
+                'validOwners' => [\T_ARRAY],
+                'expected'    => -2,
             ],
             'testForeach-45-foreach-for' => [
-                'testForeach-45',
-                [\T_FOREACH, \T_FOR],
-                false,
+                'testName'    => 'testForeach-45',
+                'validOwners' => [\T_FOREACH, \T_FOR],
+                'expected'    => false,
             ],
             'testForeach-$a-foreach-for' => [
-                'testForeach-$a',
-                [\T_FOREACH, \T_FOR],
-                false,
+                'testName'    => 'testForeach-$a',
+                'validOwners' => [\T_FOREACH, \T_FOR],
+                'expected'    => false,
             ],
             'testForeach-$a-list' => [
-                'testForeach-$a',
-                [\T_LIST],
-                -6,
+                'testName'    => 'testForeach-$a',
+                'validOwners' => [\T_LIST],
+                'expected'    => -6,
             ],
             'testFunctionwithArray-$param-function-closure' => [
-                'testFunctionwithArray-$param',
-                [\T_FUNCTION, \T_CLOSURE],
-                -4,
+                'testName'    => 'testFunctionwithArray-$param',
+                'validOwners' => [\T_FUNCTION, \T_CLOSURE],
+                'expected'    => -4,
             ],
             'testFunctionwithArray-$param-if-elseif-else' => [
-                'testFunctionwithArray-$param',
-                [\T_IF, \T_ELSEIF, \T_ELSE],
-                false,
+                'testName'    => 'testFunctionwithArray-$param',
+                'validOwners' => [\T_IF, \T_ELSEIF, \T_ELSE],
+                'expected'    => false,
             ],
             'testAnonClass-implements-anon-class' => [
-                'testAnonClass-implements',
-                [\T_ANON_CLASS],
-                -8,
+                'testName'    => 'testAnonClass-implements',
+                'validOwners' => [\T_ANON_CLASS],
+                'expected'    => -8,
             ],
             'testAnonClass-$e-function' => [
-                'testAnonClass-$e',
-                [\T_FUNCTION],
-                false,
+                'testName'    => 'testAnonClass-$e',
+                'validOwners' => [\T_FUNCTION],
+                'expected'    => false,
             ],
             'testArrowFunction-$param' => [
-                'testArrowFunction-$param',
-                $arrowFunctionOwners,
-                -2,
+                'testName'    => 'testArrowFunction-$param',
+                'validOwners' => [\T_FN],
+                'expected'    => -2,
             ],
 
             'testAnonClass-$e-catch' => [
-                'testAnonClass-$e',
-                [\T_CATCH],
-                -5,
+                'testName'    => 'testAnonClass-$e',
+                'validOwners' => [\T_CATCH],
+                'expected'    => -5,
+            ],
+            'testArrowFunctionReturnByRef' => [
+                'testName'    => 'testArrowFunctionReturnByRef',
+                'validOwners' => [\T_FN],
+                'expected'    => -4,
+            ],
+            'testIfEmpty-$c-unset' => [
+                'testName'    => 'testIfEmpty-$c',
+                'validOwners' => [\T_UNSET],
+                'expected'    => false,
+            ],
+            'testIfEmpty-$c-isset-empty' => [
+                'testName'    => 'testIfEmpty-$c',
+                'validOwners' => [\T_ISSET, \T_EMPTY],
+                'expected'    => -3,
             ],
         ];
     }

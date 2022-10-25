@@ -217,6 +217,28 @@ do
     echo $i;
 while (++$i <= 10);
 
+
+/*
+ * PHP 8.0 match expressions.
+ */
+
+/* testMatchEmptyBody */
+// Intentional fatal error, "unhandled match case", but not the concern of this method.
+$match = match($a) {};
+
+/* testMatchEmptyBodyWithComment */
+// Intentional fatal error, "unhandled match case", but not the concern of this method.
+$match = match($a) {
+    // Deliberately empty.
+};
+
+/* testMatchWithCode */
+$match = match ($a) {
+    0 => 'Foo',
+    1 => 'Bar',
+    2 => 'Baz',
+};
+
 // Live coding.
 // Intentional parse error. This test has to be the last in the file.
     if ($a) {

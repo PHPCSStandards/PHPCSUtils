@@ -16,17 +16,19 @@ use PHPCSUtils\Utils\Scopes;
 /**
  * Tests for the \PHPCSUtils\Utils\Scopes::isOOMethod() method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\Scopes
+ *
  * @group scopes
  *
  * @since 1.0.0
  */
-class IsOOMethodTest extends UtilityMethodTestCase
+final class IsOOMethodTest extends UtilityMethodTestCase
 {
 
     /**
      * Test passing a non-existent token pointer.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOMethod
+     * @covers ::isOOMethod
      *
      * @return void
      */
@@ -39,7 +41,7 @@ class IsOOMethodTest extends UtilityMethodTestCase
     /**
      * Test passing a non function token.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOMethod
+     * @covers ::isOOMethod
      *
      * @return void
      */
@@ -54,8 +56,8 @@ class IsOOMethodTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsOOMethod
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOMethod
-     * @covers \PHPCSUtils\Utils\Scopes::validDirectScope
+     * @covers ::isOOMethod
+     * @covers ::validDirectScope
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $expected   The expected function return value.
@@ -80,44 +82,56 @@ class IsOOMethodTest extends UtilityMethodTestCase
     {
         return [
             'global-function' => [
-                '/* testGlobalFunction */',
-                false,
+                'testMarker' => '/* testGlobalFunction */',
+                'expected'   => false,
             ],
             'nested-function' => [
-                '/* testNestedFunction */',
-                false,
+                'testMarker' => '/* testNestedFunction */',
+                'expected'   => false,
             ],
             'nested-closure' => [
-                '/* testNestedClosure */',
-                false,
+                'testMarker' => '/* testNestedClosure */',
+                'expected'   => false,
             ],
             'class-method' => [
-                '/* testClassMethod */',
-                true,
+                'testMarker' => '/* testClassMethod */',
+                'expected'   => true,
             ],
             'class-nested-function' => [
-                '/* testClassNestedFunction */',
-                false,
+                'testMarker' => '/* testClassNestedFunction */',
+                'expected'   => false,
             ],
             'class-nested-closure' => [
-                '/* testClassNestedClosure */',
-                false,
+                'testMarker' => '/* testClassNestedClosure */',
+                'expected'   => false,
             ],
             'class-abstract-method' => [
-                '/* testClassAbstractMethod */',
-                true,
+                'testMarker' => '/* testClassAbstractMethod */',
+                'expected'   => true,
             ],
             'anon-class-method' => [
-                '/* testAnonClassMethod */',
-                true,
+                'testMarker' => '/* testAnonClassMethod */',
+                'expected'   => true,
             ],
             'interface-method' => [
-                '/* testInterfaceMethod */',
-                true,
+                'testMarker' => '/* testInterfaceMethod */',
+                'expected'   => true,
             ],
             'trait-method' => [
-                '/* testTraitMethod */',
-                true,
+                'testMarker' => '/* testTraitMethod */',
+                'expected'   => true,
+            ],
+            'enum-method' => [
+                'testMarker' => '/* testEnumMethod */',
+                'expected'   => true,
+            ],
+            'enum-nested-function' => [
+                'testMarker' => '/* testEnumNestedFunction */',
+                'expected'   => false,
+            ],
+            'enum-nested-closure' => [
+                'testMarker' => '/* testEnumNestedClosure */',
+                'expected'   => false,
             ],
         ];
     }

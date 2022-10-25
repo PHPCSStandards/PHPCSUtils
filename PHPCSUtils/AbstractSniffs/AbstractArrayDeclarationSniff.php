@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Numbers;
 use PHPCSUtils\Utils\PassedParameters;
@@ -24,6 +24,7 @@ use PHPCSUtils\Utils\TextStrings;
  * Abstract sniff to easily examine all parts of an array declaration.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 abstract class AbstractArrayDeclarationSniff implements Sniff
 {
@@ -135,14 +136,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     final public function __construct()
     {
         // Enhance the list of accepted tokens.
-        $this->acceptedTokens += BCTokens::assignmentTokens();
-        $this->acceptedTokens += BCTokens::comparisonTokens();
-        $this->acceptedTokens += BCTokens::arithmeticTokens();
-        $this->acceptedTokens += BCTokens::operators();
-        $this->acceptedTokens += BCTokens::booleanOperators();
-        $this->acceptedTokens += BCTokens::castTokens();
-        $this->acceptedTokens += BCTokens::bracketTokens();
-        $this->acceptedTokens += BCTokens::heredocTokens();
+        $this->acceptedTokens += Tokens::$assignmentTokens;
+        $this->acceptedTokens += Tokens::$comparisonTokens;
+        $this->acceptedTokens += Tokens::$arithmeticTokens;
+        $this->acceptedTokens += Tokens::$operators;
+        $this->acceptedTokens += Tokens::$booleanOperators;
+        $this->acceptedTokens += Tokens::$castTokens;
+        $this->acceptedTokens += Tokens::$bracketTokens;
+        $this->acceptedTokens += Tokens::$heredocTokens;
     }
 
     /**
@@ -156,11 +157,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      */
     public function register()
     {
-        return [
-            \T_ARRAY,
-            \T_OPEN_SHORT_ARRAY,
-            \T_OPEN_SQUARE_BRACKET,
-        ];
+        return Collections::arrayOpenTokensBC();
     }
 
     /**
@@ -483,16 +480,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
 
             // Take PHP 7.4 numeric literal separators into account.
             if ($this->tokens[$i]['code'] === \T_LNUMBER || $this->tokens[$i]['code'] === \T_DNUMBER) {
-                try {
-                    $number   = Numbers::getCompleteNumber($phpcsFile, $i);
-                    $content .= $number['content'];
-                    $i        = $number['last_token'];
-                } catch (RuntimeException $e) {
-                    // This must be PHP 3.5.3 with the broken backfill. Let's presume it's a ordinary number.
-                    // If it's not, the sniff will bow out on the following T_STRING anyway if the
-                    // backfill was broken.
-                    $content .= \str_replace('_', '', $this->tokens[$i]['content']);
-                }
+                $number   = Numbers::getCompleteNumber($phpcsFile, $i);
+                $content .= $number['content'];
+                $i        = $number['last_token'];
                 continue;
             }
 
@@ -501,7 +491,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                 $text = TextStrings::getCompleteTextString($phpcsFile, $i);
 
                 // Check if there's a variable in the heredoc.
-                if (\preg_match('`(?<![\\\\])\$`', $text) === 1) {
+                if ($text !== TextStrings::stripEmbeds($text)) {
                     return;
                 }
 
@@ -550,7 +540,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                  * Shouldn't be possible. Either way, if it's not one of the above types,
                  * this is not a key we can handle.
                  */
-                return;
+                return; // @codeCoverageIgnore
         }
     }
 }

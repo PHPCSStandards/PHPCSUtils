@@ -5,7 +5,7 @@ final
     // phpcs:ignore Standard.Cat.SniffName -- Just because.
     class PHPCSAnnotation {}
 
-/* testWithDocblockWithWeirdlyPlacedProperty */
+/* testWithDocblockWithWeirdlyPlacedModifier */
 final
 
 /**
@@ -15,11 +15,21 @@ final
  *
  * @phpcs:disable Standard.Cat.SniffName -- Just because.
  */
-class ClassWithPropertyBeforeDocblock {}
+class ClassWithModifierBeforeDocblock {}
 
-/* testParseErrorAbstractFinal */
-final /* comment */
+/* testReadonlyClass */
+readonly class ReadOnlyClass {}
 
-    abstract // Intentional parse error, class cannot both be final and abstract.
+/* testFinalReadonlyClass */
+final readonly class FinalReadOnlyClass extends Foo {}
 
-        class AbstractFinal {}
+/* testReadonlyFinalClass */
+readonly /*comment*/ final class ReadOnlyFinalClass {}
+
+/* testAbstractReadonlyClass */
+abstract readonly class AbstractReadOnlyClass {}
+
+/* testReadonlyAbstractClass */
+readonly
+abstract
+class ReadOnlyAbstractClass {}

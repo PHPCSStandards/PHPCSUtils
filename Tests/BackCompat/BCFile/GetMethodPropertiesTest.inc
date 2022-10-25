@@ -41,9 +41,16 @@ class MyClass {
     function myFunction(): \MyNamespace\MyClass {}
 
     /* testReturnMultilineNamespace */
+    // Parse error in PHP 8.0.
     function myFunction(): \MyNamespace /** comment *\/ comment */
                            \MyClass /* comment */
                            \Foo {}
+
+    /* testReturnUnqualifiedName */
+    private function myFunction(): ?MyClass {}
+
+    /* testReturnPartiallyQualifiedName */
+    function myFunction(): Sub\Level\MyClass {}
 }
 
 abstract class MyClass
@@ -74,6 +81,83 @@ class ReturnMe {
     }
 }
 
+/* testPHP8MixedTypeHint */
+function mixedTypeHint() :mixed {}
+
+/* testPHP8MixedTypeHintNullable */
+// Intentional fatal error - nullability is not allowed with mixed, but that's not the concern of the method.
+function mixedTypeHintNullable(): ?mixed {}
+
+/* testNamespaceOperatorTypeHint */
+function namespaceOperatorTypeHint() : ?namespace\Name {}
+
+/* testPHP8UnionTypesSimple */
+function unionTypeSimple($number) : int|float {}
+
+/* testPHP8UnionTypesTwoClasses */
+$fn = fn($var): MyClassA|\Package\MyClassB => $var;
+
+/* testPHP8UnionTypesAllBaseTypes */
+function unionTypesAllBaseTypes() : array|bool|callable|int|float|null|Object|string {}
+
+/* testPHP8UnionTypesAllPseudoTypes */
+// Intentional fatal error - mixing types which cannot be combined, but that's not the concern of the method.
+function unionTypesAllPseudoTypes($var) : false|MIXED|self|parent|static|iterable|Resource|void {}
+
+/* testPHP8UnionTypesNullable */
+// Intentional fatal error - nullability is not allowed with union types, but that's not the concern of the method.
+$closure = function () use($a) :?int|float {};
+
+/* testPHP8PseudoTypeNull */
+// Intentional fatal error - null pseudotype is only allowed in union types, but that's not the concern of the method.
+function pseudoTypeNull(): null {}
+
+/* testPHP8PseudoTypeFalse */
+// Intentional fatal error - false pseudotype is only allowed in union types, but that's not the concern of the method.
+function pseudoTypeFalse(): false {}
+
+/* testPHP8PseudoTypeFalseAndBool */
+// Intentional fatal error - false pseudotype is not allowed in combination with bool, but that's not the concern of the method.
+function pseudoTypeFalseAndBool(): bool|false {}
+
+/* testPHP8ObjectAndClass */
+// Intentional fatal error - object is not allowed in combination with class name, but that's not the concern of the method.
+function objectAndClass(): object|ClassName {}
+
+/* testPHP8PseudoTypeIterableAndArray */
+// Intentional fatal error - iterable pseudotype is not allowed in combination with array or Traversable, but that's not the concern of the method.
+interface FooBar {
+    public function pseudoTypeIterableAndArray(): iterable|array|Traversable;
+}
+
+/* testPHP8DuplicateTypeInUnionWhitespaceAndComment */
+// Intentional fatal error - duplicate types are not allowed in union types, but that's not the concern of the method.
+function duplicateTypeInUnion(): int | /*comment*/ string | INT {}
+
+/* testPHP81NeverType */
+function never(): never {}
+
+/* testPHP81NullableNeverType */
+// Intentional fatal error - nullability is not allowed with never, but that's not the concern of the method.
+function nullableNever(): ?never {}
+
+/* testPHP8IntersectionTypes */
+function intersectionTypes(): Foo&Bar {}
+
+/* testPHP81MoreIntersectionTypes */
+function moreIntersectionTypes(): MyClassA&\Package\MyClassB&\Package\MyClassC {}
+
+/* testPHP81IntersectionArrowFunction */
+$fn = fn($var): MyClassA&\Package\MyClassB => $var;
+
+/* testPHP81IllegalIntersectionTypes */
+// Intentional fatal error - simple types are not allowed with intersection types, but that's not the concern of the method.
+$closure = function (): string&int {};
+
+/* testPHP81NullableIntersectionTypes */
+// Intentional fatal error - nullability is not allowed with intersection types, but that's not the concern of the method.
+$closure = function (): ?Foo&Bar {};
+
 /* testNotAFunction */
 return true;
 
@@ -90,6 +174,9 @@ fn&(?string $a) : ?string => $b;
 
 /* testFunctionCallFnPHPCS353-354 */
 $value = $obj->fn(true);
+
+/* testFunctionDeclarationNestedInTernaryPHPCS2975 */
+return (!$a ? [ new class { public function b(): c {} } ] : []);
 
 /* testArrowFunctionLiveCoding */
 // Intentional parse error. This has to be the last test in the file.

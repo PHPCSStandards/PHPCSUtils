@@ -13,37 +13,20 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
  * Utility functions to retrieve information about parameters passed to function calls,
- * array declarations, isset and unset constructs.
+ * class instantiations, array declarations, isset and unset constructs.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class PassedParameters
+final class PassedParameters
 {
-
-    /**
-     * The token types these methods can handle.
-     *
-     * @since 1.0.0
-     *
-     * @var array <int|string> => <irrelevant>
-     */
-    private static $allowedConstructs = [
-        \T_STRING              => true,
-        \T_VARIABLE            => true,
-        \T_SELF                => true,
-        \T_STATIC              => true,
-        \T_ARRAY               => true,
-        \T_OPEN_SHORT_ARRAY    => true,
-        \T_ISSET               => true,
-        \T_UNSET               => true,
-        // BC for various short array tokenizer issues. See the Arrays class for more details.
-        \T_OPEN_SQUARE_BRACKET => true,
-    ];
 
     /**
      * Tokens which are considered stop point, either because they are the end
@@ -59,43 +42,59 @@ class PassedParameters
         \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
         \T_OPEN_PARENTHESIS     => \T_OPEN_PARENTHESIS,
         \T_DOC_COMMENT_OPEN_TAG => \T_DOC_COMMENT_OPEN_TAG,
+        \T_ATTRIBUTE            => \T_ATTRIBUTE,
     ];
 
     /**
      * Checks if any parameters have been passed.
      *
-     * - If passed a `T_STRING` or `T_VARIABLE` stack pointer, it will treat it as a function call.
+     * - If passed a `T_STRING`, `T_NAME_FULLY_QUALIFIED`, `T_NAME_RELATIVE`, `T_NAME_QUALIFIED`
+     *   or `T_VARIABLE` stack pointer, it will treat it as a function call.
      *   If a `T_STRING` or `T_VARIABLE` which is *not* a function call is passed, the behaviour is
      *   undetermined.
-     * - If passed a `T_SELF` or `T_STATIC` stack pointer, it will accept it as a
-     *   function call when used like `new self()`.
+     * - If passed a `T_ANON_CLASS` stack pointer, it will accept it as a class instantiation.
+     * - If passed a `T_SELF`, `T_STATIC` or `T_PARENT` stack pointer, it will accept it as a
+     *   class instantiation function call when used like `new self()`.
      * - If passed a `T_ARRAY` or `T_OPEN_SHORT_ARRAY` stack pointer, it will detect
      *   whether the array has values or is empty.
+     *   For purposes of backward-compatibility with older PHPCS versions, `T_OPEN_SQUARE_BRACKET`
+     *   tokens will also be accepted and will be checked whether they are in reality
+     *   a short array opener.
      * - If passed a `T_ISSET` or `T_UNSET` stack pointer, it will detect whether those
      *   language constructs have "parameters".
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added the `$isShortArray` parameter.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
+     * @since 1.0.0-alpha4 Added defensive coding against PHP 8.1 first class callables
+     *                     being passed as if they were function calls.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET`, or `T_UNSET` token.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
+     * @param int                         $stackPtr     The position of function call name,
+     *                                                  language construct or array open token.
+     * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
+     *                                                  `T_OPEN_SHORT_ARRAY` tokens if it isn't necessary.
+     *                                                  Efficiency tweak for when this has already been established,
+     *                                                  Use with EXTREME care.
      *
      * @return bool
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
      */
-    public static function hasParameters(File $phpcsFile, $stackPtr)
+    public static function hasParameters(File $phpcsFile, $stackPtr, $isShortArray = null)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr], self::$allowedConstructs[$tokens[$stackPtr]['code']]) === false) {
+        if (isset($tokens[$stackPtr]) === false
+            || isset(Collections::parameterPassingTokens()[$tokens[$stackPtr]['code']]) === false
+        ) {
             throw new RuntimeException(
                 'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
             );
         }
 
-        if ($tokens[$stackPtr]['code'] === \T_SELF || $tokens[$stackPtr]['code'] === \T_STATIC) {
+        if (isset(Collections::ooHierarchyKeywords()[$tokens[$stackPtr]['code']]) === true) {
             $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
             if ($tokens[$prev]['code'] !== \T_NEW) {
                 throw new RuntimeException(
@@ -104,8 +103,8 @@ class PassedParameters
             }
         }
 
-        if (($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET)
+        if (isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === true
+            && $isShortArray !== true
             && Arrays::isShortArray($phpcsFile, $stackPtr) === false
         ) {
             throw new RuntimeException(
@@ -119,9 +118,7 @@ class PassedParameters
         }
 
         // Deal with short array syntax.
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
-        ) {
+        if (isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === true) {
             if ($next === $tokens[$stackPtr]['bracket_closer']) {
                 // No parameters.
                 return false;
@@ -140,8 +137,11 @@ class PassedParameters
             return false;
         }
 
+        $ignore              = Tokens::$emptyTokens;
+        $ignore[\T_ELLIPSIS] = \T_ELLIPSIS; // Prevent PHP 8.1 first class callables from being seen as function calls.
+
         $closeParenthesis = $tokens[$next]['parenthesis_closer'];
-        $nextNextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($next + 1), ($closeParenthesis + 1), true);
+        $nextNextNonEmpty = $phpcsFile->findNext($ignore, ($next + 1), ($closeParenthesis + 1), true);
 
         if ($nextNextNonEmpty === $closeParenthesis) {
             // No parameters.
@@ -157,12 +157,24 @@ class PassedParameters
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added the `$limit` and `$isShortArray` parameters.
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 function calls with named arguments by introducing
+     *                     the `'name'` and `'name_token'` index keys as well as using the name
+     *                     as the index for the top-level array for named parameters.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET`, or `T_UNSET` token.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile    The file where this token was found.
+     * @param int                         $stackPtr     The position of function call name,
+     *                                                  language construct or array open token.
+     * @param int                         $limit        Optional. Limit the parameter retrieval to the first #
+     *                                                  parameters/array entries.
+     *                                                  Use with care on function calls, as this can break
+     *                                                  support for named parameters!
+     * @param true|null                   $isShortArray Optional. Short-circuit the short array check for
+     *                                                  `T_OPEN_SHORT_ARRAY` tokens if it isn't necessary.
+     *                                                  Efficiency tweak for when this has already been established,
+     *                                                  Use with EXTREME care.
      *
-     * @return array A multi-dimentional array information on each parameter/array item.
+     * @return array A multi-dimentional array with information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
      *               ```php
      *               1 => array(
@@ -172,31 +184,53 @@ class PassedParameters
      *                 'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
      *               )
      *               ```
-     *               _Note: The array starts at index 1._
+     *               If a named parameter is encountered in a function call, the top-level index will not be
+     *               the parameter _position_, but the _parameter name_ and the array will include two extra keys:
+     *               ```php
+     *               'parameter_name' => array(
+     *                 'name'       => string, // The parameter name (without the colon).
+     *                 'name_token' => int,    // The stack pointer to the parameter name token.
+     *                 ...
+     *               )
+     *               ```
+     *               The `'start'`, `'end'`, `'raw'` and `'clean'` indexes will always contain just and only
+     *               information on the parameter value.
+     *               _Note: The array starts at index 1 for positional parameters._
+     *                     _The key for named parameters will be the parameter name._
      *               If no parameters/array items are found, an empty array will be returned.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
      */
-    public static function getParameters(File $phpcsFile, $stackPtr)
+    public static function getParameters(File $phpcsFile, $stackPtr, $limit = 0, $isShortArray = null)
     {
-        if (self::hasParameters($phpcsFile, $stackPtr) === false) {
+        if (self::hasParameters($phpcsFile, $stackPtr, $isShortArray) === false) {
             return [];
+        }
+
+        $effectiveLimit = (\is_int($limit) && $limit > 0) ? $limit : 0;
+
+        if (Cache::isCached($phpcsFile, __METHOD__, "$stackPtr-$effectiveLimit") === true) {
+            return Cache::get($phpcsFile, __METHOD__, "$stackPtr-$effectiveLimit");
+        }
+
+        if ($effectiveLimit !== 0 && Cache::isCached($phpcsFile, __METHOD__, "$stackPtr-0") === true) {
+            return \array_slice(Cache::get($phpcsFile, __METHOD__, "$stackPtr-0"), 0, $effectiveLimit, true);
         }
 
         // Ok, we know we have a valid token with parameters and valid open & close brackets/parenthesis.
         $tokens = $phpcsFile->getTokens();
 
         // Mark the beginning and end tokens.
-        if ($tokens[$stackPtr]['code'] === \T_OPEN_SHORT_ARRAY
-            || $tokens[$stackPtr]['code'] === \T_OPEN_SQUARE_BRACKET
-        ) {
+        if (isset(Collections::shortArrayListOpenTokensBC()[$tokens[$stackPtr]['code']]) === true) {
             $opener = $stackPtr;
             $closer = $tokens[$stackPtr]['bracket_closer'];
         } else {
             $opener = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
             $closer = $tokens[$opener]['parenthesis_closer'];
         }
+
+        $mayHaveNames = (isset(Collections::functionCallTokens()[$tokens[$stackPtr]['code']]) === true);
 
         $parameters   = [];
         $nextComma    = $opener;
@@ -238,19 +272,54 @@ class PassedParameters
                 continue;
             }
 
+            // Skip over attributes.
+            if ($tokens[$nextComma]['code'] === \T_ATTRIBUTE
+                && isset($tokens[$nextComma]['attribute_closer'])
+            ) {
+                $nextComma = $tokens[$nextComma]['attribute_closer'];
+                continue;
+            }
+
             if ($tokens[$nextComma]['code'] !== \T_COMMA
                 && $tokens[$nextComma]['code'] !== $tokens[$closer]['code']
             ) {
                 // Just in case.
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             // Ok, we've reached the end of the parameter.
-            $paramEnd                  = ($nextComma - 1);
-            $parameters[$cnt]['start'] = $paramStart;
-            $parameters[$cnt]['end']   = $paramEnd;
-            $parameters[$cnt]['raw']   = \trim(GetTokensAsString::normal($phpcsFile, $paramStart, $paramEnd));
-            $parameters[$cnt]['clean'] = \trim(GetTokensAsString::noComments($phpcsFile, $paramStart, $paramEnd));
+            $paramEnd = ($nextComma - 1);
+            $key      = $cnt;
+
+            if ($mayHaveNames === true) {
+                $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
+                if ($firstNonEmpty !== $paramEnd) {
+                    $secondNonEmpty = $phpcsFile->findNext(
+                        Tokens::$emptyTokens,
+                        ($firstNonEmpty + 1),
+                        ($paramEnd + 1),
+                        true
+                    );
+
+                    if ($tokens[$secondNonEmpty]['code'] === \T_COLON
+                        && $tokens[$firstNonEmpty]['code'] === \T_PARAM_NAME
+                    ) {
+                        if (isset($parameters[$tokens[$firstNonEmpty]['content']]) === false) {
+                            // Set the key to be the name, but only if we've not seen this name before.
+                            $key = $tokens[$firstNonEmpty]['content'];
+                        }
+
+                        $parameters[$key]['name']       = $tokens[$firstNonEmpty]['content'];
+                        $parameters[$key]['name_token'] = $firstNonEmpty;
+                        $paramStart                     = ($secondNonEmpty + 1);
+                    }
+                }
+            }
+
+            $parameters[$key]['start'] = $paramStart;
+            $parameters[$key]['end']   = $paramEnd;
+            $parameters[$key]['raw']   = \trim(GetTokensAsString::normal($phpcsFile, $paramStart, $paramEnd));
+            $parameters[$key]['clean'] = \trim(GetTokensAsString::noComments($phpcsFile, $paramStart, $paramEnd));
 
             // Check if there are more tokens before the closing parenthesis.
             // Prevents function calls with trailing comma's from setting an extra parameter:
@@ -262,12 +331,26 @@ class PassedParameters
                 true
             );
             if ($hasNextParam === false) {
+                // Reached the end, so for the purpose of caching, this should be saved as if no limit was set.
+                $effectiveLimit = 0;
+                break;
+            }
+
+            // Stop if there is a valid limit and the limit has been reached.
+            if ($effectiveLimit !== 0 && $cnt === $effectiveLimit) {
                 break;
             }
 
             // Prepare for the next parameter.
             $paramStart = ($nextComma + 1);
-            $cnt++;
+            ++$cnt;
+        }
+
+        if ($effectiveLimit !== 0 && $cnt === $effectiveLimit) {
+            Cache::set($phpcsFile, __METHOD__, "$stackPtr-$effectiveLimit", $parameters);
+        } else {
+            // Limit is 0 or total items is less than effective limit.
+            Cache::set($phpcsFile, __METHOD__, "$stackPtr-0", $parameters);
         }
 
         return $parameters;
@@ -278,37 +361,65 @@ class PassedParameters
      *
      * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
      *
+     * @see PassedParameters::getParameterFromStack() For when the parameter stack of a function call is
+     *                                                already retrieved.
+     *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added the `$paramNames` parameter.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile   The file where this token was found.
-     * @param int                         $stackPtr    The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                                 `T_OPEN_SHORT_ARRAY`, `T_ISSET` or `T_UNSET` token.
+     * @param int                         $stackPtr    The position of function call name,
+     *                                                 language construct or array open token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
+     * @param string|string[]             $paramNames  Optional. Either the name of the target parameter
+     *                                                 to retrieve as a string or an array of names for the
+     *                                                 same target parameter.
+     *                                                 Only relevant for function calls.
+     *                                                 An arrays of names is supported to allow for functions
+     *                                                 for which the parameter names have undergone name
+     *                                                 changes over time.
+     *                                                 When specified, the name will take precedence over the
+     *                                                 offset.
+     *                                                 For PHP 8 support, it is STRONGLY recommended to
+     *                                                 always pass both the offset as well as the parameter
+     *                                                 name when examining function calls.
      *
-     * @return array|false Array with information on the parameter/array item at the specified offset.
+     * @return array|false Array with information on the parameter/array item at the specified offset,
+     *                     or with the specified name.
      *                     Or `FALSE` if the specified parameter/array item is not found.
-     *                     The format of the return value is:
-     *                     ```php
-     *                     array(
-     *                       'start' => int,    // The stack pointer to the first token in the parameter/array item.
-     *                       'end'   => int,    // The stack pointer to the last token in the parameter/array item.
-     *                       'raw'   => string, // A string with the contents of all tokens between `start` and `end`.
-     *                       'clean' => string, // Same as `raw`, but all comment tokens have been stripped out.
-     *                     )
-     *                     ```
+     *                     See {@see PassedParameters::getParameters()} for the format of the returned
+     *                     (single-dimensional) array.
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
      *                                                      accepted types or doesn't exist.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If a function call parameter is requested and
+     *                                                      the `$paramName` parameter is not passed.
      */
-    public static function getParameter(File $phpcsFile, $stackPtr, $paramOffset)
+    public static function getParameter(File $phpcsFile, $stackPtr, $paramOffset, $paramNames = [])
     {
-        $parameters = self::getParameters($phpcsFile, $stackPtr);
+        $tokens = $phpcsFile->getTokens();
 
-        if (isset($parameters[$paramOffset]) === false) {
+        if (empty($paramNames) === true) {
+            $parameters = self::getParameters($phpcsFile, $stackPtr, $paramOffset);
+        } else {
+            $parameters = self::getParameters($phpcsFile, $stackPtr);
+        }
+
+        /*
+         * Non-function calls.
+         */
+        if (isset(Collections::functionCallTokens()[$tokens[$stackPtr]['code']]) === false) {
+            if (isset($parameters[$paramOffset]) === true) {
+                return $parameters[$paramOffset];
+            }
+
             return false;
         }
 
-        return $parameters[$paramOffset];
+        /*
+         * Function calls.
+         */
+        return self::getParameterFromStack($parameters, $paramOffset, $paramNames);
     }
 
     /**
@@ -319,8 +430,8 @@ class PassedParameters
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The position of the `T_STRING`, `T_VARIABLE`, `T_ARRAY`,
-     *                                               `T_OPEN_SHORT_ARRAY`, `T_ISSET` or `T_UNSET` token.
+     * @param int                         $stackPtr  The position of function call name,
+     *                                               language construct or array open token.
      *
      * @return int
      *
@@ -334,5 +445,68 @@ class PassedParameters
         }
 
         return \count(self::getParameters($phpcsFile, $stackPtr));
+    }
+
+    /**
+     * Get information on a specific function call parameter passed.
+     *
+     * This is an efficiency method to correctly handle positional versus named parameters
+     * for function calls when multiple parameters need to be examined.
+     *
+     * See {@see PassedParameters::hasParameters()} for information on the supported constructs.
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @param array           $parameters  The output of a previous call to {@see PassedParameters::getParameters()}.
+     * @param int             $paramOffset The 1-based index position of the parameter to retrieve.
+     * @param string|string[] $paramNames  Either the name of the target parameter to retrieve
+     *                                     as a string or an array of names for the same target parameter.
+     *                                     An array of names is supported to allow for functions
+     *                                     for which the parameter names have undergone name
+     *                                     changes over time.
+     *                                     The name will take precedence over the offset.
+     *
+     * @return array|false Array with information on the parameter at the specified offset,
+     *                     or with the specified name.
+     *                     Or `FALSE` if the specified parameter is not found.
+     *                     See {@see PassedParameters::getParameters()} for the format of the returned
+     *                     (single-dimensional) array.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the `$paramNames` parameter is not passed
+     *                                                      and the requested parameter was not passed
+     *                                                      as a positional parameter in the function call
+     *                                                      being examined.
+     */
+    public static function getParameterFromStack(array $parameters, $paramOffset, $paramNames)
+    {
+        if (empty($parameters) === true) {
+            return false;
+        }
+
+        // First check for a named parameter.
+        if (empty($paramNames) === false) {
+            $paramNames = (array) $paramNames;
+            foreach ($paramNames as $name) {
+                // Note: parameter names are case-sensitive!.
+                if (isset($parameters[$name]) === true) {
+                    return $parameters[$name];
+                }
+            }
+        }
+
+        // Next check for positional parameters.
+        if (isset($parameters[$paramOffset]) === true
+            && isset($parameters[$paramOffset]['name']) === false
+        ) {
+            return $parameters[$paramOffset];
+        }
+
+        if (empty($paramNames) === true) {
+            throw new RuntimeException(
+                'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
+            );
+        }
+
+        return false;
     }
 }

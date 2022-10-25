@@ -16,15 +16,16 @@ namespace PHPCSUtils\Utils;
  * Identifier names in PHP are:
  * - {@link https://www.php.net/language.namespaces.definition namespace} names;
  * - {@link https://www.php.net/language.oop5.basic class},
- *   {@link https://www.php.net/language.oop5.traits trait} and
- *   {@link https://www.php.net/language.oop5.interfaces interface} names;
+ *   {@link https://www.php.net/language.oop5.traits trait},
+ *   {@link https://www.php.net/language.oop5.interfaces interface} and
+ *   {@link https://www.php.net/language.types.enumerations enum} names;
  * - {@link https://www.php.net/functions.user-defined function and method} names;
  * - {@link https://www.php.net/language.variables.basics variable} names;
  * - {@link https://www.php.net/language.constants constant} names.
  *
  * @since 1.0.0-alpha3
  */
-class NamingConventions
+final class NamingConventions
 {
 
     /**

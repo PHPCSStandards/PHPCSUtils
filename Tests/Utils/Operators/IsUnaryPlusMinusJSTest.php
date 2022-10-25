@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Operators;
 
-use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTest;
+use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTestCase;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Operators::isUnaryPlusMinus() method.
@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTest;
  *
  * @since 1.0.0
  */
-class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTest
+final class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTestCase
 {
 
     /**
@@ -42,32 +42,32 @@ class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTest
     {
         return [
             'non-unary-plus' => [
-                '/* testNonUnaryPlus */',
-                false,
+                'testMarker' => '/* testNonUnaryPlus */',
+                'expected'   => false,
             ],
             'non-unary-minus' => [
-                '/* testNonUnaryMinus */',
-                false,
+                'testMarker' => '/* testNonUnaryMinus */',
+                'expected'   => false,
             ],
             'unary-minus-colon' => [
-                '/* testUnaryMinusColon */',
-                true,
+                'testMarker' => '/* testUnaryMinusColon */',
+                'expected'   => true,
             ],
             'unary-minus-switch-case' => [
-                '/* testUnaryMinusCase */',
-                true,
+                'testMarker' => '/* testUnaryMinusCase */',
+                'expected'   => true,
             ],
             'unary-minus-ternary-then' => [
-                '/* testUnaryMinusTernaryThen */',
-                true,
+                'testMarker' => '/* testUnaryMinusTernaryThen */',
+                'expected'   => true,
             ],
             'unary-minus-ternary-else' => [
-                '/* testUnaryPlusTernaryElse */',
-                true,
+                'testMarker' => '/* testUnaryPlusTernaryElse */',
+                'expected'   => true,
             ],
             'unary-minus-if-condition' => [
-                '/* testUnaryMinusIfCondition */',
-                true,
+                'testMarker' => '/* testUnaryMinusIfCondition */',
+                'expected'   => true,
             ],
         ];
     }

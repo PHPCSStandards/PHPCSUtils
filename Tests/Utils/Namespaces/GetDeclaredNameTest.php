@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @since 1.0.0
  */
-class GetDeclaredNameTest extends UtilityMethodTestCase
+final class GetDeclaredNameTest extends UtilityMethodTestCase
 {
 
     /**
@@ -46,11 +46,18 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the function.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testGetDeclaredNameClean($testMarker, $expected)
+    public function testGetDeclaredNameClean($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::getDeclaredName(self::$phpcsFile, $stackPtr, true);
 
@@ -64,11 +71,18 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the function.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testGetDeclaredNameDirty($testMarker, $expected)
+    public function testGetDeclaredNameDirty($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::getDeclaredName(self::$phpcsFile, $stackPtr, false);
 
@@ -86,50 +100,50 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
     {
         return [
             'global-namespace-curlies' => [
-                '/* testGlobalNamespaceCurlies */',
-                [
+                'testMarker' => '/* testGlobalNamespaceCurlies */',
+                'expected'   => [
                     'clean' => '',
                     'dirty' => '',
                 ],
             ],
             'namespace-semicolon' => [
-                '/* testNamespaceSemiColon */',
-                [
+                'testMarker' => '/* testNamespaceSemiColon */',
+                'expected'   => [
                     'clean' => 'Vendor',
                     'dirty' => 'Vendor',
                 ],
             ],
             'namespace-curlies' => [
-                '/* testNamespaceCurlies */',
-                [
+                'testMarker' => '/* testNamespaceCurlies */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sublevel\End',
                     'dirty' => 'Vendor\Package\Sublevel\End',
                 ],
             ],
             'namespace-curlies-no-space-at-end' => [
-                '/* testNamespaceCurliesNoSpaceAtEnd */',
-                [
+                'testMarker' => '/* testNamespaceCurliesNoSpaceAtEnd */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sublevel\Deeperlevel\End',
                     'dirty' => 'Vendor\Package\Sublevel\Deeperlevel\End',
                 ],
             ],
             'namespace-close-tag' => [
-                '/* testNamespaceCloseTag */',
-                [
+                'testMarker' => '/* testNamespaceCloseTag */',
+                'expected'   => [
                     'clean' => 'My\Name',
                     'dirty' => 'My\Name',
                 ],
             ],
             'namespace-close-tag-no-space-at-end' => [
-                '/* testNamespaceCloseTagNoSpaceAtEnd */',
-                [
+                'testMarker' => '/* testNamespaceCloseTagNoSpaceAtEnd */',
+                'expected'   => [
                     'clean' => 'My\Other\Name',
                     'dirty' => 'My\Other\Name',
                 ],
             ],
             'namespace-whitespace-tolerance' => [
-                '/* testNamespaceLotsOfWhitespace */',
-                [
+                'testMarker' => '/* testNamespaceLotsOfWhitespace */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sub\Deeperlevel\End',
                     'dirty' => 'Vendor \
     Package\
@@ -139,8 +153,8 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
                 ],
             ],
             'namespace-with-comments-and-annotations' => [
-                '/* testNamespaceWithCommentsWhitespaceAndAnnotations */',
-                [
+                'testMarker' => '/* testNamespaceWithCommentsWhitespaceAndAnnotations */',
+                'expected'   => [
                     'clean' => 'Vendor\Package\Sublevel\Deeper\End',
                     'dirty' => 'Vendor\/*comment*/
     Package\Sublevel  \ //phpcs:ignore Standard.Category.Sniff -- for reasons.
@@ -149,29 +163,30 @@ class GetDeclaredNameTest extends UtilityMethodTestCase
                 ],
             ],
             'namespace-operator' => [
-                '/* testNamespaceOperator */',
-                [
+                'testMarker' => '/* testNamespaceOperator */',
+                'expected'   => [
                     'clean' => false,
                     'dirty' => false,
                 ],
+                'skipOnPHP8' => true,
             ],
             'parse-error-reserved-keywords' => [
-                '/* testParseErrorReservedKeywords */',
-                [
+                'testMarker' => '/* testParseErrorReservedKeywords */',
+                'expected'   => [
                     'clean' => 'Vendor\while\Package\protected\name\try\this',
                     'dirty' => 'Vendor\while\Package\protected\name\try\this',
                 ],
             ],
             'parse-error-semicolon' => [
-                '/* testParseErrorSemiColon */',
-                [
+                'testMarker' => '/* testParseErrorSemiColon */',
+                'expected'   => [
                     'clean' => false,
                     'dirty' => false,
                 ],
             ],
             'live-coding' => [
-                '/* testLiveCoding */',
-                [
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => [
                     'clean' => false,
                     'dirty' => false,
                 ],

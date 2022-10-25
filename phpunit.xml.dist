@@ -5,14 +5,55 @@
     backupGlobals="true"
     bootstrap="./Tests/bootstrap.php"
     beStrictAboutTestsThatDoNotTestAnything="true"
+    convertErrorsToExceptions="true"
+    convertWarningsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertDeprecationsToExceptions="true"
     colors="true"
-    forceCoversAnnotation="true">
+    forceCoversAnnotation="true"
+    verbose="true"
+    >
 
     <testsuites>
+        <testsuite name="RunFirst">
+            <!--
+            Run caching tests separately as they will clear the caches.
+            -->
+            <file>./Tests/Internal/Cache/GetClearTest.php</file>
+            <file>./Tests/Internal/Cache/SetTest.php</file>
+            <file>./Tests/Internal/NoFileCache/GetClearTest.php</file>
+            <file>./Tests/Internal/NoFileCache/SetTest.php</file>
+
+            <!--
+            A number of tests need process isolation to allow for recording code coverage on
+            the setting of function local static variables.
+            However, using process isolation runs into trouble with PHPUnit 4.x/PHPCS 2.6.0.
+            Executing these specific tests in a separate testsuite, which is run
+            before the full test suite, will allow for the code coverage for these methods
+            to be recorded properly, while still allowing the tests to run on all supported
+            PHP/PHPUnit/PHPCS combinations.
+            -->
+            <file>./Tests/Utils/Namespaces/NamespaceTypeTest.php</file>
+        </testsuite>
         <testsuite name="PHPCSUtils">
             <directory suffix="Test.php">./Tests/</directory>
+
+            <exclude>Tests/Internal/Cache/GetClearTest.php</exclude>
+            <exclude>Tests/Internal/Cache/SetTest.php</exclude>
+            <exclude>Tests/Internal/NoFileCache/GetClearTest.php</exclude>
+            <exclude>Tests/Internal/NoFileCache/SetTest.php</exclude>
+
+            <exclude>Tests/Utils/Namespaces/NamespaceTypeTest.php</exclude>
         </testsuite>
     </testsuites>
+
+    <groups>
+        <exclude>
+            <group>compareWithPHPCS</group>
+            <!-- Extra tests are basically testing PHPCS itself, not PHPCSUtils. -->
+            <group>xtra</group>
+        </exclude>
+    </groups>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
@@ -22,6 +63,7 @@
     </filter>
 
     <logging>
+        <log type="coverage-text" target="php://stdout" showOnlySummary="true"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
 

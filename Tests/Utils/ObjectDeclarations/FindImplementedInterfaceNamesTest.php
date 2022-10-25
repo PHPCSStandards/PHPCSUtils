@@ -22,7 +22,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\FindImplementedInterfaceNamesTest as BCFi
  *
  * @since 1.0.0
  */
-class FindImplementedInterfaceNamesTest extends BCFile_FindImplInterfaceNamesTest
+final class FindImplementedInterfaceNamesTest extends BCFile_FindImplInterfaceNamesTest
 {
 
     /**

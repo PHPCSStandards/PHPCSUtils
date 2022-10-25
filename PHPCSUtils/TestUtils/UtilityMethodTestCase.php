@@ -10,18 +10,22 @@
 
 namespace PHPCSUtils\TestUtils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
+use PHP_CodeSniffer\Files\File;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Exceptions\TestFileNotFound;
+use PHPCSUtils\Exceptions\TestMarkerNotFound;
+use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
  * Base class for use when testing utility methods for PHP_CodeSniffer.
  *
- * This class is compatible with PHP_CodeSniffer 2.x as well as 3.x.
+ * This class is compatible with PHP_CodeSniffer 3.x and contains preliminary compatibility with 4.x
+ * based on its currently known state/roadmap.
  *
- * This class is compatible with {@link http://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
+ * This class is compatible with {@link https://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
  * autoload file is included in the test bootstrap. For more information about that, please consult
  * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *
@@ -96,6 +100,7 @@ use ReflectionClass;
  *   for the PHPCSUtils utility functions themselves.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 abstract class UtilityMethodTestCase extends TestCase
 {
@@ -204,59 +209,39 @@ abstract class UtilityMethodTestCase extends TestCase
 
         $contents = \file_get_contents($caseFile);
 
-        if (\version_compare(self::$phpcsVersion, '2.99.99', '>')) {
-            // PHPCS 3.x.
-            $config = new \PHP_CodeSniffer\Config();
+        $config = new \PHP_CodeSniffer\Config();
 
-            /*
-             * We just need to provide a standard so PHPCS will tokenize the file.
-             * The standard itself doesn't actually matter for testing utility methods,
-             * so use the smallest one to get the fastest results.
-             */
-            $config->standards = ['PSR1'];
+        /*
+         * We just need to provide a standard so PHPCS will tokenize the file.
+         * The standard itself doesn't actually matter for testing utility methods,
+         * so use the smallest one to get the fastest results.
+         */
+        $config->standards = ['PSR1'];
 
-            /*
-             * Limiting the run to just one sniff will make it, yet again, slightly faster.
-             * Picked the simplest/fastest sniff available which is registered in PSR1.
-             */
-            $config->sniffs = static::$selectedSniff;
+        /*
+         * Limiting the run to just one sniff will make it, yet again, slightly faster.
+         * Picked the simplest/fastest sniff available which is registered in PSR1.
+         */
+        $config->sniffs = static::$selectedSniff;
 
-            // Disable caching.
-            $config->cache = false;
+        // Disable caching.
+        $config->cache = false;
 
-            // Also set a tab-width to enable testing tab-replaced vs `orig_content`.
-            $config->tabWidth = static::$tabWidth;
+        // Also set a tab-width to enable testing tab-replaced vs `orig_content`.
+        $config->tabWidth = static::$tabWidth;
 
-            $ruleset = new \PHP_CodeSniffer\Ruleset($config);
+        $ruleset = new \PHP_CodeSniffer\Ruleset($config);
 
-            // Make sure the file gets parsed correctly based on the file type.
-            $contents = 'phpcs_input_file: ' . $caseFile . \PHP_EOL . $contents;
+        // Make sure the file gets parsed correctly based on the file type.
+        $contents = 'phpcs_input_file: ' . $caseFile . \PHP_EOL . $contents;
 
-            self::$phpcsFile = new \PHP_CodeSniffer\Files\DummyFile($contents, $ruleset, $config);
+        self::$phpcsFile = new \PHP_CodeSniffer\Files\DummyFile($contents, $ruleset, $config);
 
-            // Only tokenize the file, do not process it.
-            try {
-                self::$phpcsFile->parse();
-            } catch (TokenizerException $e) {
-                // PHPCS 3.5.0 and higher.
-            } catch (RuntimeException $e) {
-                // PHPCS 3.0.0 < 3.5.0.
-            }
-        } else {
-            // PHPCS 2.x.
-            $phpcs           = new \PHP_CodeSniffer(null, static::$tabWidth);
-            self::$phpcsFile = new \PHP_CodeSniffer_File(
-                $caseFile,
-                [],
-                [],
-                $phpcs
-            );
-
-            /*
-             * Using error silencing to drown out "undefined index" notices for tokenizer
-             * issues in PHPCS 2.x which won't get fixed anymore anyway.
-             */
-            @self::$phpcsFile->start($contents);
+        // Only tokenize the file, do not process it.
+        try {
+            self::$phpcsFile->parse();
+        } catch (TokenizerException $e) {
+            // PHPCS 3.5.0 and higher. This is handled below.
         }
 
         // Fail the test if the case file failed to tokenize.
@@ -295,7 +280,7 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Clean up after finished test.
+     * Clean up after finished test by resetting all static properties to their default values.
      *
      * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::tearDownAfterClass()}
      * method.
@@ -308,7 +293,33 @@ abstract class UtilityMethodTestCase extends TestCase
      */
     public static function resetTestFile()
     {
-        self::$phpcsFile = null;
+        self::$phpcsVersion  = '0';
+        self::$fileExtension = 'inc';
+        self::$caseFile      = '';
+        self::$tabWidth      = 4;
+        self::$phpcsFile     = null;
+        self::$selectedSniff = ['Dummy.Dummy.Dummy'];
+    }
+
+    /**
+     * Check whether or not the PHP 8.0 identifier name tokens will be in use.
+     *
+     * The expected token positions/token counts for certain tokens will differ depending
+     * on whether the PHP 8.0 identifier name tokenization is used or the PHP < 8.0
+     * identifier name tokenization.
+     *
+     * Tests can use this method to determine which flavour of tokenization to expect and
+     * to set test expectations accordingly.
+     *
+     * @codeCoverageIgnore Nothing to test.
+     *
+     * @since 1.0.0
+     *
+     * @return bool
+     */
+    public static function usesPhp8NameTokens()
+    {
+        return \version_compare(Helper::getVersion(), '3.99.99', '>=');
     }
 
     /**
@@ -317,9 +328,10 @@ abstract class UtilityMethodTestCase extends TestCase
      * Note: the test delimiter comment MUST start with `/* test` to allow this function to
      * distinguish between comments used *in* a test and test delimiters.
      *
-     * If the delimiter comment is not found, the test will automatically be failed.
-     *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Will throw an exception whether the delimiter comment or the target
+     *                     token is not found.
+     * @since 1.0.0-alpha4 This method is now `static`, which allows for it to be used in "set up before class".
      *
      * @param string           $commentString The complete delimiter comment to look for as a string.
      *                                        This string should include the comment opener and closer.
@@ -327,9 +339,16 @@ abstract class UtilityMethodTestCase extends TestCase
      * @param string           $tokenContent  Optional. The token content for the target token.
      *
      * @return int
+     *
+     * @throws \PHPCSUtils\Exceptions\TestMarkerNotFound When the delimiter comment for the test was not found.
+     * @throws \PHPCSUtils\Exceptions\TestTargetNotFound When the target token cannot be found.
      */
-    public function getTargetToken($commentString, $tokenType, $tokenContent = null)
+    public static function getTargetToken($commentString, $tokenType, $tokenContent = null)
     {
+        if ((self::$phpcsFile instanceof File) === false) {
+            throw new TestFileNotFound();
+        }
+
         $start   = (self::$phpcsFile->numTokens - 1);
         $comment = self::$phpcsFile->findPrevious(
             \T_COMMENT,
@@ -338,6 +357,10 @@ abstract class UtilityMethodTestCase extends TestCase
             false,
             $commentString
         );
+
+        if ($comment === false) {
+            throw TestMarkerNotFound::create($commentString, self::$phpcsFile->getFilename());
+        }
 
         $tokens = self::$phpcsFile->getTokens();
         $end    = ($start + 1);
@@ -363,12 +386,7 @@ abstract class UtilityMethodTestCase extends TestCase
         );
 
         if ($target === false) {
-            $msg = 'Failed to find test target token for comment string: ' . $commentString;
-            if ($tokenContent !== null) {
-                $msg .= ' With token content: ' . $tokenContent;
-            }
-
-            $this->fail($msg);
+            throw TestTargetNotFound::create($commentString, $tokenContent, self::$phpcsFile->getFilename());
         }
 
         return $target;

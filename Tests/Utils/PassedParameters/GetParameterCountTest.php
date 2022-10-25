@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\PassedParameters;
 
 /**
@@ -24,7 +25,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetParameterCountTest extends UtilityMethodTestCase
+final class GetParameterCountTest extends UtilityMethodTestCase
 {
 
     /**
@@ -32,17 +33,22 @@ class GetParameterCountTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterCount
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param int    $expected   The expected parameter count.
+     * @param string $testMarker    The comment which prefaces the target token in the test file.
+     * @param int    $expected      The expected parameter count.
+     * @param string $targetContent Optional. The content of the target token to find.
+     *                              Defaults to null (ignore content).
      *
      * @return void
      */
-    public function testGetParameterCount($testMarker, $expected)
+    public function testGetParameterCount($testMarker, $expected, $targetContent = null)
     {
-        $stackPtr = $this->getTargetToken(
-            $testMarker,
-            [\T_STRING, \T_ARRAY, \T_OPEN_SHORT_ARRAY, \T_ISSET, \T_UNSET]
-        );
+        $targetTypes                      = Collections::nameTokens();
+        $targetTypes[\T_ARRAY]            = \T_ARRAY;
+        $targetTypes[\T_OPEN_SHORT_ARRAY] = \T_OPEN_SHORT_ARRAY;
+        $targetTypes[\T_ISSET]            = \T_ISSET;
+        $targetTypes[\T_UNSET]            = \T_UNSET;
+
+        $stackPtr = $this->getTargetToken($testMarker, $targetTypes, $targetContent);
         $result   = PassedParameters::getParameterCount(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -56,271 +62,302 @@ class GetParameterCountTest extends UtilityMethodTestCase
      */
     public function dataGetParameterCount()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'function-call-0' => [
-                '/* testFunctionCall0 */',
-                0,
+                'testMarker' => '/* testFunctionCall0 */',
+                'expected'   => 0,
             ],
             'function-call-1' => [
-                '/* testFunctionCall1 */',
-                1,
+                'testMarker' => '/* testFunctionCall1 */',
+                'expected'   => 1,
             ],
             'function-call-2' => [
-                '/* testFunctionCall2 */',
-                2,
+                'testMarker' => '/* testFunctionCall2 */',
+                'expected'   => 2,
             ],
             'function-call-3' => [
-                '/* testFunctionCall3 */',
-                3,
+                'testMarker' => '/* testFunctionCall3 */',
+                'expected'   => 3,
             ],
             'function-call-4' => [
-                '/* testFunctionCall4 */',
-                4,
+                'testMarker' => '/* testFunctionCall4 */',
+                'expected'   => 4,
             ],
             'function-call-5' => [
-                '/* testFunctionCall5 */',
-                5,
+                'testMarker' => '/* testFunctionCall5 */',
+                'expected'   => 5,
             ],
             'function-call-6' => [
-                '/* testFunctionCall6 */',
-                6,
+                'testMarker' => '/* testFunctionCall6 */',
+                'expected'   => 6,
             ],
             'function-call-7' => [
-                '/* testFunctionCall7 */',
-                7,
+                'testMarker' => '/* testFunctionCall7 */',
+                'expected'   => 7,
             ],
             'function-call-8' => [
-                '/* testFunctionCall8 */',
-                1,
+                'testMarker' => '/* testFunctionCall8 */',
+                'expected'   => 1,
             ],
             'function-call-9' => [
-                '/* testFunctionCall9 */',
-                1,
+                'testMarker' => '/* testFunctionCall9 */',
+                'expected'   => 1,
             ],
             'function-call-10' => [
-                '/* testFunctionCall10 */',
-                1,
+                'testMarker' => '/* testFunctionCall10 */',
+                'expected'   => 1,
             ],
             'function-call-11' => [
-                '/* testFunctionCall11 */',
-                2,
+                'testMarker' => '/* testFunctionCall11 */',
+                'expected'   => 2,
             ],
             'function-call-12' => [
-                '/* testFunctionCall12 */',
-                1,
+                'testMarker' => '/* testFunctionCall12 */',
+                'expected'   => 1,
             ],
             'function-call-13' => [
-                '/* testFunctionCall13 */',
-                1,
+                'testMarker' => '/* testFunctionCall13 */',
+                'expected'   => 1,
             ],
             'function-call-14' => [
-                '/* testFunctionCall14 */',
-                1,
+                'testMarker' => '/* testFunctionCall14 */',
+                'expected'   => 1,
             ],
             'function-call-15' => [
-                '/* testFunctionCall15 */',
-                2,
+                'testMarker' => '/* testFunctionCall15 */',
+                'expected'   => 2,
             ],
             'function-call-16' => [
-                '/* testFunctionCall16 */',
-                6,
+                'testMarker' => '/* testFunctionCall16 */',
+                'expected'   => 6,
             ],
             'function-call-17' => [
-                '/* testFunctionCall17 */',
-                6,
+                'testMarker' => '/* testFunctionCall17 */',
+                'expected'   => 6,
             ],
             'function-call-18' => [
-                '/* testFunctionCall18 */',
-                6,
+                'testMarker' => '/* testFunctionCall18 */',
+                'expected'   => 6,
             ],
             'function-call-19' => [
-                '/* testFunctionCall19 */',
-                6,
+                'testMarker' => '/* testFunctionCall19 */',
+                'expected'   => 6,
             ],
             'function-call-20' => [
-                '/* testFunctionCall20 */',
-                6,
+                'testMarker' => '/* testFunctionCall20 */',
+                'expected'   => 6,
             ],
             'function-call-21' => [
-                '/* testFunctionCall21 */',
-                6,
+                'testMarker' => '/* testFunctionCall21 */',
+                'expected'   => 6,
             ],
             'function-call-22' => [
-                '/* testFunctionCall22 */',
-                6,
+                'testMarker' => '/* testFunctionCall22 */',
+                'expected'   => 6,
             ],
             'function-call-23' => [
-                '/* testFunctionCall23 */',
-                3,
+                'testMarker' => '/* testFunctionCall23 */',
+                'expected'   => 3,
             ],
             'function-call-24' => [
-                '/* testFunctionCall24 */',
-                1,
+                'testMarker' => '/* testFunctionCall24 */',
+                'expected'   => 1,
             ],
             'function-call-25' => [
-                '/* testFunctionCall25 */',
-                1,
+                'testMarker' => '/* testFunctionCall25 */',
+                'expected'   => 1,
             ],
             'function-call-26' => [
-                '/* testFunctionCall26 */',
-                1,
+                'testMarker' => '/* testFunctionCall26 */',
+                'expected'   => 1,
             ],
             'function-call-27' => [
-                '/* testFunctionCall27 */',
-                1,
+                'testMarker' => '/* testFunctionCall27 */',
+                'expected'   => 1,
             ],
             'function-call-28' => [
-                '/* testFunctionCall28 */',
-                1,
+                'testMarker' => '/* testFunctionCall28 */',
+                'expected'   => 1,
             ],
             'function-call-29' => [
-                '/* testFunctionCall29 */',
-                1,
+                'testMarker' => '/* testFunctionCall29 */',
+                'expected'   => 1,
             ],
             'function-call-30' => [
-                '/* testFunctionCall30 */',
-                1,
+                'testMarker' => '/* testFunctionCall30 */',
+                'expected'   => 1,
             ],
             'function-call-31' => [
-                '/* testFunctionCall31 */',
-                1,
+                'testMarker' => '/* testFunctionCall31 */',
+                'expected'   => 1,
             ],
             'function-call-32' => [
-                '/* testFunctionCall32 */',
-                1,
+                'testMarker' => '/* testFunctionCall32 */',
+                'expected'   => 1,
             ],
             'function-call-33' => [
-                '/* testFunctionCall33 */',
-                1,
+                'testMarker' => '/* testFunctionCall33 */',
+                'expected'   => 1,
             ],
             'function-call-34' => [
-                '/* testFunctionCall34 */',
-                1,
+                'testMarker' => '/* testFunctionCall34 */',
+                'expected'   => 1,
             ],
             'function-call-35' => [
-                '/* testFunctionCall35 */',
-                1,
+                'testMarker' => '/* testFunctionCall35 */',
+                'expected'   => 1,
             ],
             'function-call-36' => [
-                '/* testFunctionCall36 */',
-                1,
+                'testMarker' => '/* testFunctionCall36 */',
+                'expected'   => 1,
             ],
             'function-call-37' => [
-                '/* testFunctionCall37 */',
-                1,
+                'testMarker' => '/* testFunctionCall37 */',
+                'expected'   => 1,
             ],
             'function-call-38' => [
-                '/* testFunctionCall38 */',
-                1,
+                'testMarker' => '/* testFunctionCall38 */',
+                'expected'   => 1,
             ],
             'function-call-39' => [
-                '/* testFunctionCall39 */',
-                1,
+                'testMarker' => '/* testFunctionCall39 */',
+                'expected'   => 1,
             ],
             'function-call-40' => [
-                '/* testFunctionCall40 */',
-                1,
+                'testMarker' => '/* testFunctionCall40 */',
+                'expected'   => 1,
             ],
             'function-call-41' => [
-                '/* testFunctionCall41 */',
-                1,
+                'testMarker' => '/* testFunctionCall41 */',
+                'expected'   => 1,
             ],
             'function-call-42' => [
-                '/* testFunctionCall42 */',
-                1,
+                'testMarker' => '/* testFunctionCall42 */',
+                'expected'   => 1,
             ],
             'function-call-43' => [
-                '/* testFunctionCall43 */',
-                1,
+                'testMarker' => '/* testFunctionCall43 */',
+                'expected'   => 1,
             ],
             'function-call-44' => [
-                '/* testFunctionCall44 */',
-                1,
+                'testMarker' => '/* testFunctionCall44 */',
+                'expected'   => 1,
             ],
             'function-call-45' => [
-                '/* testFunctionCall45 */',
-                1,
+                'testMarker' => '/* testFunctionCall45 */',
+                'expected'   => 1,
             ],
             'function-call-46' => [
-                '/* testFunctionCall46 */',
-                1,
+                'testMarker' => '/* testFunctionCall46 */',
+                'expected'   => 1,
             ],
             'function-call-47' => [
-                '/* testFunctionCall47 */',
-                1,
+                'testMarker' => '/* testFunctionCall47 */',
+                'expected'   => 1,
+            ],
+            'function-call-fully-qualified' => [
+                'testMarker'    => '/* testFunctionCallFullyQualified */',
+                'expected'      => 1,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-fully-qualified-with-namespace' => [
+                'testMarker'    => '/* testFunctionCallFullyQualifiedWithNamespace */',
+                'expected'      => 1,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-partially-qualified' => [
+                'testMarker'    => '/* testFunctionCallPartiallyQualified */',
+                'expected'      => 1,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-namespace-operator' => [
+                'testMarker'    => '/* testFunctionCallNamespaceOperator */',
+                'expected'      => 1,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'function-call-named-params-duplicate-name' => [
+                'testMarker'    => '/* testFunctionCallNamedParamsDuplicateName */',
+                'expected'      => 2,
             ],
 
             // Long arrays.
             'long-array-1' => [
-                '/* testLongArray1 */',
-                7,
+                'testMarker' => '/* testLongArray1 */',
+                'expected'   => 7,
             ],
             'long-array-2' => [
-                '/* testLongArray2 */',
-                1,
+                'testMarker' => '/* testLongArray2 */',
+                'expected'   => 1,
             ],
             'long-array-3' => [
-                '/* testLongArray3 */',
-                6,
+                'testMarker' => '/* testLongArray3 */',
+                'expected'   => 6,
             ],
             'long-array-4' => [
-                '/* testLongArray4 */',
-                6,
+                'testMarker' => '/* testLongArray4 */',
+                'expected'   => 6,
             ],
             'long-array-5' => [
-                '/* testLongArray5 */',
-                6,
+                'testMarker' => '/* testLongArray5 */',
+                'expected'   => 6,
             ],
             'long-array-6' => [
-                '/* testLongArray6 */',
-                3,
+                'testMarker' => '/* testLongArray6 */',
+                'expected'   => 3,
             ],
             'long-array-7' => [
-                '/* testLongArray7 */',
-                3,
+                'testMarker' => '/* testLongArray7 */',
+                'expected'   => 3,
             ],
             'long-array-8' => [
-                '/* testLongArray8 */',
-                3,
+                'testMarker' => '/* testLongArray8 */',
+                'expected'   => 3,
             ],
 
             // Short arrays.
             'short-array-1' => [
-                '/* testShortArray1 */',
-                7,
+                'testMarker' => '/* testShortArray1 */',
+                'expected'   => 7,
             ],
             'short-array-2' => [
-                '/* testShortArray2 */',
-                1,
+                'testMarker' => '/* testShortArray2 */',
+                'expected'   => 1,
             ],
             'short-array-3' => [
-                '/* testShortArray3 */',
-                6,
+                'testMarker' => '/* testShortArray3 */',
+                'expected'   => 6,
             ],
             'short-array-4' => [
-                '/* testShortArray4 */',
-                6,
+                'testMarker' => '/* testShortArray4 */',
+                'expected'   => 6,
             ],
             'short-array-5' => [
-                '/* testShortArray5 */',
-                6,
+                'testMarker' => '/* testShortArray5 */',
+                'expected'   => 6,
             ],
             'short-array-6' => [
-                '/* testShortArray6 */',
-                3,
+                'testMarker' => '/* testShortArray6 */',
+                'expected'   => 3,
             ],
             'short-array-7' => [
-                '/* testShortArray7 */',
-                3,
+                'testMarker' => '/* testShortArray7 */',
+                'expected'   => 3,
             ],
             'short-array-8' => [
-                '/* testShortArray8 */',
-                3,
+                'testMarker' => '/* testShortArray8 */',
+                'expected'   => 3,
+            ],
+
+            'anon-class' => [
+                'testMarker' => '/* testAnonClass */',
+                'expected'   => 2,
             ],
 
             'array-with-empty-item' => [
-                '/* testArrayWithEmptyItem */',
-                3,
+                'testMarker' => '/* testArrayWithEmptyItem */',
+                'expected'   => 3,
             ],
         ];
     }

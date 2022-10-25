@@ -33,7 +33,18 @@ interface MyInterface {
 }
 
 trait MyTrait {
-    // Intentional parse error. Constants are not allowed in traits.
+    // Prior to PHP 8.2, this was a parse error. Since PHP 8.2, constants are allowed in traits.
     /* testTraitConst */
     const BAR = false;
+}
+
+enum Suit: string
+{
+    /* testEnumConst */
+    const FOO = 'bar';
+
+    case Hearts = 'H';
+    case Diamonds = 'D';
+    case Clubs = 'C';
+    case Spades = 'S';
 }

@@ -22,7 +22,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\FindExtendedClassNameTest as BCFile_FindE
  *
  * @since 1.0.0
  */
-class FindExtendedClassNameTest extends BCFile_FindExtendedClassNameTest
+final class FindExtendedClassNameTest extends BCFile_FindExtendedClassNameTest
 {
 
     /**

@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class IsEqualTest extends TestCase
+final class IsEqualTest extends TestCase
 {
 
     /**
@@ -52,49 +52,49 @@ class IsEqualTest extends TestCase
     {
         return [
             'a-z-0-9-only-same-case' => [
-                'abcdefghijklmnopqrstuvwxyz_0123456789',
-                'abcdefghijklmnopqrstuvwxyz_0123456789',
-                true,
+                'inputA'   => 'abcdefghijklmnopqrstuvwxyz_0123456789',
+                'inputB'   => 'abcdefghijklmnopqrstuvwxyz_0123456789',
+                'expected' => true,
             ],
             'a-z-0-9-only-different-case' => [
-                'ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789',
-                'abcdefghijklmnopqrstuvwxyz_0123456789',
-                true,
+                'inputA'   => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789',
+                'inputB'   => 'abcdefghijklmnopqrstuvwxyz_0123456789',
+                'expected' => true,
             ],
             'extended-ascii-same-case' => [
-                'ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢áíóúñÑ',
-                'ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢áíóúñÑ',
-                true,
+                'inputA'   => 'ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢áíóúñÑ',
+                'inputB'   => 'ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢áíóúñÑ',
+                'expected' => true,
             ],
             'extended-ascii-different-case' => [
-                'ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢áíóúñÑ',
-                'çÜÉÂÄÀÅÇÊËÈÏÎÌäåéÆæÔÖÒÛÙŸöü¢ÁÍÓÚÑñ',
-                false,
+                'inputA'   => 'ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢áíóúñÑ',
+                'inputB'   => 'çÜÉÂÄÀÅÇÊËÈÏÎÌäåéÆæÔÖÒÛÙŸöü¢ÁÍÓÚÑñ',
+                'expected' => false,
             ],
             'mixed-ascii-extended-ascii-same-case' => [
-                'Déjàvü',
-                'Déjàvü',
-                true,
+                'inputA'   => 'Déjàvü',
+                'inputB'   => 'Déjàvü',
+                'expected' => true,
             ],
             'mixed-ascii-extended-ascii-different-case-only-for-ascii' => [
-                'Déjàvü',
-                'déJàVü',
-                true,
+                'inputA'   => 'Déjàvü',
+                'inputB'   => 'déJàVü',
+                'expected' => true,
             ],
             'mixed-ascii-extended-ascii-different-case' => [
-                'Déjàvü',
-                'DÉJÀVÜ',
-                false,
+                'inputA'   => 'Déjàvü',
+                'inputB'   => 'DÉJÀVÜ',
+                'expected' => false,
             ],
             'emoji-name' => [
-                '💩💩💩',
-                '💩💩💩',
-                true,
+                'inputA'   => '💩💩💩',
+                'inputB'   => '💩💩💩',
+                'expected' => true,
             ],
             'invalid-input-but-not-relevant' => [
-                true,
-                true,
-                true,
+                'inputA'   => true,
+                'inputB'   => true,
+                'expected' => true,
             ],
         ];
     }

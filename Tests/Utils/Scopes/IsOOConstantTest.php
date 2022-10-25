@@ -16,17 +16,19 @@ use PHPCSUtils\Utils\Scopes;
 /**
  * Tests for the \PHPCSUtils\Utils\Scopes::isOOConstant() method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\Scopes
+ *
  * @group scopes
  *
  * @since 1.0.0
  */
-class IsOOConstantTest extends UtilityMethodTestCase
+final class IsOOConstantTest extends UtilityMethodTestCase
 {
 
     /**
      * Test passing a non-existent token pointer.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOConstant
+     * @covers ::isOOConstant
      *
      * @return void
      */
@@ -39,7 +41,7 @@ class IsOOConstantTest extends UtilityMethodTestCase
     /**
      * Test passing a non const token.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOConstant
+     * @covers ::isOOConstant
      *
      * @return void
      */
@@ -54,8 +56,8 @@ class IsOOConstantTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsOOConstant
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOConstant
-     * @covers \PHPCSUtils\Utils\Scopes::validDirectScope
+     * @covers ::isOOConstant
+     * @covers ::validDirectScope
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $expected   The expected function return value.
@@ -80,32 +82,36 @@ class IsOOConstantTest extends UtilityMethodTestCase
     {
         return [
             'global-const' => [
-                '/* testGlobalConst */',
-                false,
+                'testMarker' => '/* testGlobalConst */',
+                'expected'   => false,
             ],
             'function-const' => [
-                '/* testFunctionConst */',
-                false,
+                'testMarker' => '/* testFunctionConst */',
+                'expected'   => false,
             ],
             'class-const' => [
-                '/* testClassConst */',
-                true,
+                'testMarker' => '/* testClassConst */',
+                'expected'   => true,
             ],
             'method-const' => [
-                '/* testClassMethodConst */',
-                false,
+                'testMarker' => '/* testClassMethodConst */',
+                'expected'   => false,
             ],
             'anon-class-const' => [
-                '/* testAnonClassConst */',
-                true,
+                'testMarker' => '/* testAnonClassConst */',
+                'expected'   => true,
             ],
             'interface-const' => [
-                '/* testInterfaceConst */',
-                true,
+                'testMarker' => '/* testInterfaceConst */',
+                'expected'   => true,
             ],
             'trait-const' => [
-                '/* testTraitConst */',
-                false,
+                'testMarker' => '/* testTraitConst */',
+                'expected'   => true,
+            ],
+            'enum-const' => [
+                'testMarker' => '/* testEnumConst */',
+                'expected'   => true,
             ],
         ];
     }

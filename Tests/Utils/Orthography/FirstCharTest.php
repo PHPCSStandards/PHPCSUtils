@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class FirstCharTest extends TestCase
+final class FirstCharTest extends TestCase
 {
 
     /**
@@ -70,15 +70,15 @@ class FirstCharTest extends TestCase
         $data = [
             // Quotes should be stripped before passing the string.
             'double-quoted' => [
-                '"This is a test"',
-                [
+                'input'    => '"This is a test"',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => false,
                 ],
             ],
             'single-quoted' => [
-                "'This is a test'",
-                [
+                'input'    => "'This is a test'",
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => false,
                 ],
@@ -86,15 +86,15 @@ class FirstCharTest extends TestCase
 
             // Not starting with a letter.
             'start-numeric' => [
-                '12 Foostreet',
-                [
+                'input'    => '12 Foostreet',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => false,
                 ],
             ],
             'start-bracket' => [
-                '[Optional]',
-                [
+                'input'    => '[Optional]',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => false,
                 ],
@@ -102,17 +102,17 @@ class FirstCharTest extends TestCase
 
             // Leading whitespace.
             'english-lowercase-leading-whitespace' => [
-                '
+                'input'    => '
                 this is a test',
-                [
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ],
             'english-propercase-leading-whitespace' => [
-                '
+                'input'    => '
                 This is a test',
-                [
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
@@ -120,43 +120,43 @@ class FirstCharTest extends TestCase
 
             // First character lowercase.
             'english-lowercase' => [
-                'this is a test',
-                [
+                'input'    => 'this is a test',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ],
             'russian-lowercase' => [
-                'предназначена для‎',
-                [
+                'input'    => 'предназначена для‎',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ],
             'latvian-lowercase' => [
-                'ir domāta',
-                [
+                'input'    => 'ir domāta',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ],
             'armenian-lowercase' => [
-                'սա թեստ է',
-                [
+                'input'    => 'սա թեստ է',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ],
             'mandinka-lowercase' => [
-                'ŋanniya',
-                [
+                'input'    => 'ŋanniya',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ],
             'greek-lowercase' => [
-                'δημιουργήθηκε από',
-                [
+                'input'    => 'δημιουργήθηκε από',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
@@ -164,43 +164,43 @@ class FirstCharTest extends TestCase
 
             // First character capitalized.
             'english-propercase' => [
-                'This is a test',
-                [
+                'input'    => 'This is a test',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'russian-propercase' => [
-                'Дата написания этой книги',
-                [
+                'input'    => 'Дата написания этой книги',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'latvian-propercase' => [
-                'Šodienas datums',
-                [
+                'input'    => 'Šodienas datums',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'armenian-propercase' => [
-                'Սա թեստ է',
-                [
+                'input'    => 'Սա թեստ է',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'igbo-propercase' => [
-                'Ụbọchị tata bụ',
-                [
+                'input'    => 'Ụbọchị tata bụ',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'greek-propercase' => [
-                'Η σημερινή ημερομηνία',
-                [
+                'input'    => 'Η σημερινή ημερομηνία',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
@@ -208,36 +208,36 @@ class FirstCharTest extends TestCase
 
             // No concept of "case", but starting with a letter.
             'arabic' => [
-                'هذا اختبار',
-                [
+                'input'    => 'هذا اختبار',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'pashto' => [
-                'دا یوه آزموینه ده',
-                [
+                'input'    => 'دا یوه آزموینه ده',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'hebrew' => [
-                'זה מבחן',
-                [
+                'input'    => 'זה מבחן',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'chinese-traditional' => [
-                '這是一個測試',
-                [
+                'input'    => '這是一個測試',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
             ],
             'urdu' => [
-                'کا منشاء برائے',
-                [
+                'input'    => 'کا منشاء برائے',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],
@@ -257,16 +257,16 @@ class FirstCharTest extends TestCase
 
         if (\PCRE_VERSION >= 10) {
             $data['georgian'] = [
-                'ეს ტესტია',
-                [
+                'input'    => 'ეს ტესტია',
+                'expected' => [
                     'capitalized' => false,
                     'lowercase'   => true,
                 ],
             ];
         } else {
             $data['georgian'] = [
-                'ეს ტესტია',
-                [
+                'input'    => 'ეს ტესტია',
+                'expected' => [
                     'capitalized' => true,
                     'lowercase'   => false,
                 ],

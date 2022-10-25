@@ -28,7 +28,7 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-class UseTypeTest extends UtilityMethodTestCase
+final class UseTypeTest extends UtilityMethodTestCase
 {
 
     /**
@@ -122,96 +122,147 @@ class UseTypeTest extends UtilityMethodTestCase
     {
         return [
             'import-1' => [
-                '/* testUseImport1 */',
-                [
+                'testMarker' => '/* testUseImport1 */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => true,
                     'trait'   => false,
                 ],
             ],
             'import-2' => [
-                '/* testUseImport2 */',
-                [
+                'testMarker' => '/* testUseImport2 */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => true,
                     'trait'   => false,
                 ],
             ],
             'import-3' => [
-                '/* testUseImport3 */',
-                [
+                'testMarker' => '/* testUseImport3 */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => true,
                     'trait'   => false,
                 ],
             ],
             'import-4' => [
-                '/* testUseImport4 */',
-                [
+                'testMarker' => '/* testUseImport4 */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => true,
                     'trait'   => false,
                 ],
             ],
             'closure' => [
-                '/* testClosureUse */',
-                [
+                'testMarker' => '/* testClosureUse */',
+                'expected'   => [
                     'closure' => true,
                     'import'  => false,
                     'trait'   => false,
                 ],
             ],
             'trait' => [
-                '/* testUseTrait */',
-                [
+                'testMarker' => '/* testUseTrait */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => false,
                     'trait'   => true,
                 ],
             ],
             'closure-in-nested-class' => [
-                '/* testClosureUseNestedInClass */',
-                [
+                'testMarker' => '/* testClosureUseNestedInClass */',
+                'expected'   => [
                     'closure' => true,
                     'import'  => false,
                     'trait'   => false,
                 ],
             ],
             'trait-in-nested-anon-class' => [
-                '/* testUseTraitInNestedAnonClass */',
-                [
+                'testMarker' => '/* testUseTraitInNestedAnonClass */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => false,
                     'trait'   => true,
                 ],
             ],
             'trait-in-trait' => [
-                '/* testUseTraitInTrait */',
-                [
+                'testMarker' => '/* testUseTraitInTrait */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => false,
                     'trait'   => true,
                 ],
             ],
             'closure-nested-in-trait' => [
-                '/* testClosureUseNestedInTrait */',
-                [
+                'testMarker' => '/* testClosureUseNestedInTrait */',
+                'expected'   => [
                     'closure' => true,
                     'import'  => false,
                     'trait'   => false,
                 ],
             ],
             'trait-in-interface' => [
-                '/* testUseTraitInInterface */',
-                [
+                'testMarker' => '/* testUseTraitInInterface */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => false,
                     'trait'   => false,
                 ],
             ],
+
+            // Tests related to a specific issue with scope setting in PHPCS 2.x.
+            'parse-error-import-use-case-no-switch-1' => [
+                'testMarker' => '/* testUseImportPHPCS2CaseNoSwitchA */',
+                'expected'   => [
+                    'closure' => false,
+                    'import'  => true,
+                    'trait'   => false,
+                ],
+            ],
+            'parse-error-import-use-case-no-switch-2' => [
+                'testMarker' => '/* testUseImportPHPCS2CaseNoSwitchB */',
+                'expected'   => [
+                    'closure' => false,
+                    'import'  => true,
+                    'trait'   => false,
+                ],
+            ],
+            'parse-error-import-use-default-no-switch' => [
+                'testMarker' => '/* testUseImportPHPCS2DefaultNoSwitchA */',
+                'expected'   => [
+                    'closure' => false,
+                    'import'  => true,
+                    'trait'   => false,
+                ],
+            ],
+            'parse-error-trait-use-case-no-switch-1' => [
+                'testMarker' => '/* testUseImportPHPCS2CaseNoSwitchC */',
+                'expected'   => [
+                    'closure' => false,
+                    'import'  => false,
+                    'trait'   => true,
+                ],
+            ],
+            'parse-error-trait-use-case-no-switch-2' => [
+                'testMarker' => '/* testUseImportPHPCS2CaseNoSwitchD */',
+                'expected'   => [
+                    'closure' => false,
+                    'import'  => false,
+                    'trait'   => true,
+                ],
+            ],
+            'parse-error-trait-use-default-no-switch' => [
+                'testMarker' => '/* testUseImportPHPCS2DefaultNoSwitchB */',
+                'expected'   => [
+                    'closure' => false,
+                    'import'  => false,
+                    'trait'   => true,
+                ],
+            ],
+
             'live-coding' => [
-                '/* testLiveCoding */',
-                [
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => [
                     'closure' => false,
                     'import'  => false,
                     'trait'   => false,

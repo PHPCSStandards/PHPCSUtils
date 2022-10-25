@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
+final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
 {
 
     /**
@@ -75,23 +75,20 @@ class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      *
      * @return void
      */
-    protected function getMethodPropertiesTestHelper($commentString, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE])
-    {
+    protected function getMethodPropertiesTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN]
+    ) {
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 
         if ($expected['return_type_token'] !== false) {
             $expected['return_type_token'] += $function;
         }
-
-        /*
-         * Test the new `return_type_end_token` key which is not in the original datasets.
-         */
-        $this->assertArrayHasKey('return_type_end_token', $found);
-        $this->assertTrue($found['return_type_end_token'] === false || \is_int($found['return_type_end_token']));
-
-        // Remove the array key before doing the compare against the original dataset.
-        unset($found['return_type_end_token']);
+        if ($expected['return_type_end_token'] !== false) {
+            $expected['return_type_end_token'] += $function;
+        }
 
         $this->assertSame($expected, $found);
     }

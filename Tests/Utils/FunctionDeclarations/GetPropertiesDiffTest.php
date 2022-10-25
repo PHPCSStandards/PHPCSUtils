@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class GetPropertiesDiffTest extends UtilityMethodTestCase
+final class GetPropertiesDiffTest extends UtilityMethodTestCase
 {
 
     /**
@@ -87,19 +87,42 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test that the new "return_type_end_token" index is set correctly.
+     * Verify recognition of PHP 8.2 stand-alone `true` type.
      *
      * @return void
      */
-    public function testReturnTypeEndTokenIndex()
+    public function testPHP82PseudoTypeTrue()
     {
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
-            'return_type'           => '?\MyNamespace\MyClass\Foo',
+            'return_type'           => '?true',
             'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 20, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
             'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP 8.2 type declaration with (illegal) type false combined with type true.
+     *
+     * @return void
+     */
+    public function testPHP82PseudoTypeFalseAndTrue()
+    {
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => 'true|false',
+            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
+            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
             'is_static'             => false,
@@ -114,12 +137,17 @@ class GetPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @param string $commentString The comment which preceeds the test.
      * @param array  $expected      The expected function output.
+     * @param array  $targetType    Optional. The token type to search for after $commentString.
+     *                              Defaults to the function/closure tokens.
      *
      * @return void
      */
-    protected function getPropertiesTestHelper($commentString, $expected)
-    {
-        $function = $this->getTargetToken($commentString, [\T_FUNCTION, \T_CLOSURE]);
+    protected function getPropertiesTestHelper(
+        $commentString,
+        $expected,
+        $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN]
+    ) {
+        $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 
         if ($expected['return_type_token'] !== false) {

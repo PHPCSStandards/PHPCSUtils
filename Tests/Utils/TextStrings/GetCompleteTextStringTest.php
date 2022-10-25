@@ -10,19 +10,22 @@
 
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\TextStrings;
 
 /**
- * Tests for the \PHPCSUtils\Utils\TextStrings::getCompleteTextString() method.
+ * Tests for the \PHPCSUtils\Utils\TextStrings::getCompleteTextString() and
+ * \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString() methods.
  *
  * @covers \PHPCSUtils\Utils\TextStrings::getCompleteTextString
+ * @covers \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString
  *
  * @group textstrings
  *
  * @since 1.0.0
  */
-class GetCompleteTextStringTest extends UtilityMethodTestCase
+final class GetCompleteTextStringTest extends UtilityMethodTestCase
 {
 
     /**
@@ -40,24 +43,32 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
     /**
      * Test passing a non-existent token pointer.
      *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
      * @return void
      */
-    public function testNonExistentToken()
+    public function testNonExistentToken($method)
     {
         $this->expectPhpcsException(
             '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
             . ' or T_DOUBLE_QUOTED_STRING'
         );
 
-        TextStrings::getCompleteTextString(self::$phpcsFile, 100000);
+        TextStrings::$method(self::$phpcsFile, 100000);
     }
 
     /**
      * Test receiving an expected exception when a non text string is passed.
      *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
      * @return void
      */
-    public function testNotATextStringException()
+    public function testNotATextStringException($method)
     {
         $this->expectPhpcsException(
             '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
@@ -65,16 +76,20 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
         );
 
         $next = $this->getTargetToken('/* testNotATextString */', \T_RETURN);
-        TextStrings::getCompleteTextString(self::$phpcsFile, $next);
+        TextStrings::$method(self::$phpcsFile, $next);
     }
 
     /**
      * Test receiving an expected exception when a text string token is not the first token
      * of a multi-line text string.
      *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
      * @return void
      */
-    public function testNotFirstTextStringException()
+    public function testNotFirstTextStringException($method)
     {
         $this->expectPhpcsException('$stackPtr must be the start of the text string');
 
@@ -84,7 +99,20 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
             'second line
 '
         );
-        TextStrings::getCompleteTextString(self::$phpcsFile, $next);
+        TextStrings::$method(self::$phpcsFile, $next);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @return array
+     */
+    public function dataExceptions()
+    {
+        return [
+            'getCompleteTextString'      => ['getCompleteTextString'],
+            'getEndOfCompleteTextString' => ['getEndOfCompleteTextString'],
+        ];
     }
 
     /**
@@ -120,66 +148,120 @@ class GetCompleteTextStringTest extends UtilityMethodTestCase
     {
         return [
             'single-line-constant-encapsed-string' => [
-                '/* testSingleLineConstantEncapsedString */',
-                'single line text string',
-                "'single line text string'",
+                'testMarker'         => '/* testSingleLineConstantEncapsedString */',
+                'expected'           => 'single line text string',
+                'expectedWithQuotes' => "'single line text string'",
             ],
             'multi-line-constant-encapsed-string' => [
-                '/* testMultiLineConstantEncapsedString */',
-                'first line
+                'testMarker'         => '/* testMultiLineConstantEncapsedString */',
+                'expected'           => 'first line
 second line
 third line
 fourth line',
-                '"first line
+                'expectedWithQuotes' => '"first line
 second line
 third line
 fourth line"',
             ],
             'single-line-double-quoted-string' => [
-                '/* testSingleLineDoubleQuotedString */',
-                'single $line text string',
-                '"single $line text string"',
+                'testMarker'         => '/* testSingleLineDoubleQuotedString */',
+                'expected'           => 'single $line text string',
+                'expectedWithQuotes' => '"single $line text string"',
             ],
             'multi-line-double-quoted-string' => [
-                '/* testMultiLineDoubleQuotedString */',
-                'first line
+                'testMarker'         => '/* testMultiLineDoubleQuotedString */',
+                'expected'           => 'first line
 second $line
 third line
 fourth line',
-                '"first line
+                'expectedWithQuotes' => '"first line
 second $line
 third line
 fourth line"',
             ],
             'heredoc' => [
-                '/* testHeredocString */',
-                'first line
+                'testMarker'         => '/* testHeredocString */',
+                'expected'           => 'first line
 second $line
 third line
 fourth line',
-                'first line
+                'expectedWithQuotes' => 'first line
 second $line
 third line
 fourth line',
             ],
             'nowdoc' => [
-                '/* testNowdocString */',
-                'first line
+                'testMarker'         => '/* testNowdocString */',
+                'expected'           => 'first line
 second line
 third line
 fourth line',
-                'first line
+                'expectedWithQuotes' => 'first line
 second line
 third line
 fourth line',
             ],
+
+            'Single line double quoted string containing problem embeds' => [
+                'testMarker'         => '/* testMultipleProblemEmbedsInSingleLineDoubleQuotedString */',
+                'expected'           =>
+                    'My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}',
+                'expectedWithQuotes' =>
+                    '"My ${foo["${bar}"]} and ${foo["${bar[\'baz\']}"]} and also ${foo->{"${\'a\'}"}}"',
+            ],
+            'Multi-line double quoted string containing problem embeds' => [
+                'testMarker'         => '/* testProblemEmbedAtEndOfLineInMultiLineDoubleQuotedString */',
+                'expected'           => 'Testing ${foo["${bar[\'baz\']}"]}
+and more ${foo["${bar}"]} testing',
+                'expectedWithQuotes' => '"Testing ${foo["${bar[\'baz\']}"]}
+and more ${foo["${bar}"]} testing"',
+            ],
+            'Multi-line double quoted string containing multi-line problem embed' => [
+                'testMarker'         => '/* testMultilineProblemEmbedInMultiLineDoubleQuotedString */',
+                'expected'           => 'Testing ${foo["${bar
+  [\'baz\']
+}"]} and more testing',
+                'expectedWithQuotes' => '"Testing ${foo["${bar
+  [\'baz\']
+}"]} and more testing"',
+            ],
+
             'text-string-at-end-of-file' => [
-                '/* testTextStringAtEndOfFile */',
-                'first line
+                'testMarker'         => '/* testTextStringAtEndOfFile */',
+                'expected'           => 'first line
 last line',
-                "'first line
+                'expectedWithQuotes' => "'first line
 last line'",
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\TextStrings::getEndOfCompleteTextString';
+        $stackPtr   = $this->getTargetToken('/* testMultiLineDoubleQuotedString */', $this->targets);
+        $expected   = $stackPtr + 3;
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = TextStrings::getEndOfCompleteTextString(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = TextStrings::getEndOfCompleteTextString(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

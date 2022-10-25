@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class GetNameDiffTest extends UtilityMethodTestCase
+final class GetNameDiffTest extends UtilityMethodTestCase
 {
 
     /**
@@ -67,8 +67,8 @@ class GetNameDiffTest extends UtilityMethodTestCase
     {
         return [
             'live-coding' => [
-                '/* testLiveCoding */',
-                \T_CLASS,
+                'testMarker' => '/* testLiveCoding */',
+                'targetType' => \T_CLASS,
             ],
         ];
     }
@@ -87,7 +87,7 @@ class GetNameDiffTest extends UtilityMethodTestCase
     public function testGetName($testMarker, $expected, $targetType = null)
     {
         if (isset($targetType) === false) {
-            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION];
+            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM, \T_FUNCTION];
         }
 
         $target = $this->getTargetToken($testMarker, $targetType);
@@ -106,16 +106,16 @@ class GetNameDiffTest extends UtilityMethodTestCase
     {
         return [
             'trait-name-starts-with-number' => [
-                '/* testTraitStartingWithNumber */',
-                '5InvalidNameStartingWithNumber',
+                'testMarker' => '/* testTraitStartingWithNumber */',
+                'expected'   => '5InvalidNameStartingWithNumber',
             ],
             'interface-fully-numeric-name' => [
-                '/* testInterfaceFullyNumeric */',
-                '12345',
+                'testMarker' => '/* testInterfaceFullyNumeric */',
+                'expected'   => '12345',
             ],
             'using-reserved-keyword-as-name' => [
-                '/* testInvalidInterfaceName */',
-                'switch',
+                'testMarker' => '/* testInvalidInterfaceName */',
+                'expected'   => 'switch',
             ],
         ];
     }

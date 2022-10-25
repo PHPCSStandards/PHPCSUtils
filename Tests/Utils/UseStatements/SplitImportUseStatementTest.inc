@@ -29,7 +29,7 @@ use function MyNamespace\myFunction ?>
 use function Vendor\YourNamespace\yourFunction as FunctionAlias;
 
 /* testUseFunctionMultiple */
-use /* comment */ function foo\math\sin, foo\math\cos as FooCos, foo\math\cosh;
+use /* comment */ function foo\math\sin,foo\math\cos as FooCos,foo\math\cosh;
 
 /* testUseConstPlainUppercaseConstKeyword */
 use CONST MyNamespace\MY_CONST;
@@ -68,6 +68,10 @@ use Some\NS\ {
    function SubLevel\AnotherName,
    AnotherLevel,
 };
+
+/* testUsePlainReservedKeyword */
+// Intentional parse error - use of reserved keyword in namespace.
+use Vendor\break\ClassName;
 
 /* testUseFunctionPlainReservedKeyword */
 // Intentional parse error - use of reserved keyword in namespace.

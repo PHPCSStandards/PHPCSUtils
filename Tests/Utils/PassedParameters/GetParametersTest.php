@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -20,13 +20,14 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameters
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameter
+ * @covers \PHPCSUtils\Utils\PassedParameters::getParameterFromStack
  * @covers \PHPCSUtils\Utils\PassedParameters::hasParameters
  *
  * @group passedparameters
  *
  * @since 1.0.0
  */
-class GetParametersTest extends UtilityMethodTestCase
+final class GetParametersTest extends UtilityMethodTestCase
 {
 
     /**
@@ -91,9 +92,9 @@ class GetParametersTest extends UtilityMethodTestCase
     {
         return [
             'function-call' => [
-                '/* testFunctionCall */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testFunctionCall */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 3,
@@ -132,9 +133,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'function-call-nested' => [
-                '/* testFunctionCallNestedFunctionCall */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testFunctionCallNestedFunctionCall */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 9,
@@ -143,9 +144,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'another-function-call' => [
-                '/* testAnotherFunctionCall */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testAnotherFunctionCall */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 2,
@@ -180,9 +181,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             ],
             'function-call-trailing-comma' => [
-                '/* testFunctionCallTrailingComma */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testFunctionCallTrailingComma */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 5,
@@ -191,9 +192,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'function-call-nested-short-array' => [
-                '/* testFunctionCallNestedShortArray */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testFunctionCallNestedShortArray */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 34,
@@ -202,9 +203,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'function-call-nested-array-nested-closure-with-commas' => [
-                '/* testFunctionCallNestedArrayNestedClosureWithCommas */',
-                \T_STRING,
-                [
+                'testMarker' => '/* testFunctionCallNestedArrayNestedClosureWithCommas */',
+                'targetType' => \T_STRING,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 90,
@@ -228,9 +229,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Long array.
             'long-array' => [
-                '/* testLongArrayNestedFunctionCalls */',
-                \T_ARRAY,
-                [
+                'testMarker' => '/* testLongArrayNestedFunctionCalls */',
+                'targetType' => \T_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 8,
@@ -266,9 +267,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Short array.
             'short-array' => [
-                '/* testShortArrayNestedFunctionCalls */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker' => '/* testShortArrayNestedFunctionCalls */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 1,
@@ -302,9 +303,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'short-array-with-keys-ternary-and-null-coalesce' => [
-                '/* testShortArrayWithKeysTernaryAndNullCoalesce */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker' => '/* testShortArrayWithKeysTernaryAndNullCoalesce */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 7,
@@ -319,10 +320,7 @@ class GetParametersTest extends UtilityMethodTestCase
                     ],
                     3 => [
                         'start' => 31,
-                        // Account for null coalesce tokenization difference.
-                        'end'   => (Helper::getVersion() === '2.6.0' && \PHP_VERSION_ID < 59999)
-                            ? 53
-                            : 51,
+                        'end'   => 51,
                         'raw'   => '\'hey\' => $baz ??
         [\'one\'] ??
         [\'two\']',
@@ -332,9 +330,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Nested arrays.
             'nested-arrays-top-level' => [
-                '/* testNestedArraysToplevel */',
-                \T_ARRAY,
-                [
+                'testMarker' => '/* testNestedArraysToplevel */',
+                'targetType' => \T_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 38,
@@ -358,9 +356,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Array containing closure.
             'short-array-nested-closure-with-commas' => [
-                '/* testShortArrayNestedClosureWithCommas */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker' => '/* testShortArrayNestedClosureWithCommas */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 38,
@@ -380,9 +378,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Array containing anonymous class.
             'short-array-nested-anon-class' => [
-                '/* testShortArrayNestedAnonClass */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker' => '/* testShortArrayNestedAnonClass */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 1,
                         'end'   => 72,
@@ -413,9 +411,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Array arrow function and yield.
             'long-array-nested-arrow-function-with-yield' => [
-                '/* testLongArrayArrowFunctionWithYield */',
-                \T_ARRAY,
-                [
+                'testMarker' => '/* testLongArrayArrowFunctionWithYield */',
+                'targetType' => \T_ARRAY,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 8,
@@ -436,9 +434,9 @@ class GetParametersTest extends UtilityMethodTestCase
 
             // Function calling closure in variable.
             'variable-function-call' => [
-                '/* testVariableFunctionCall */',
-                \T_VARIABLE,
-                [
+                'testMarker' => '/* testVariableFunctionCall */',
+                'targetType' => \T_VARIABLE,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 2,
@@ -457,9 +455,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'static-variable-function-call' => [
-                '/* testStaticVariableFunctionCall */',
-                \T_VARIABLE,
-                [
+                'testMarker' => '/* testStaticVariableFunctionCall */',
+                'targetType' => \T_VARIABLE,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 4,
@@ -473,9 +471,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'isset' => [
-                '/* testIsset */',
-                \T_ISSET,
-                [
+                'testMarker' => '/* testIsset */',
+                'targetType' => \T_ISSET,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 4,
@@ -499,9 +497,9 @@ class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
             'unset' => [
-                '/* testUnset */',
-                \T_UNSET,
-                [
+                'testMarker' => '/* testUnset */',
+                'targetType' => \T_UNSET,
+                'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 3,
@@ -524,7 +522,146 @@ class GetParametersTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'anon-class' => [
+                'testMarker' => '/* testAnonClass */',
+                'targetType' => \T_ANON_CLASS,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 3,
+                        'raw'   => '$param1',
+                    ],
+                    2 => [
+                        'start' => 5,
+                        'end'   => 7,
+                        'raw'   => '$param2',
+                    ],
+                ],
+            ],
+
+            // PHP 7.4 argument unpacking array expressions.
+            'long-array-with-argument-unpacking-via-spread-operator' => [
+                'testMarker' => '/* testPHP74UnpackingInLongArrayExpression */',
+                'targetType' => \T_ARRAY,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 3,
+                        'raw'   => '...$arr1',
+                    ],
+                    2 => [
+                        'start' => 5,
+                        'end'   => 9,
+                        'raw'   => '...arrGen()',
+                    ],
+                    3 => [
+                        'start' => 11,
+                        'end'   => 26,
+                        'raw'   => "...new ArrayIterator(['a', 'b', 'c'])",
+                    ],
+                ],
+            ],
+            'short-array-with-argument-unpacking-via-spread-operator' => [
+                'testMarker' => '/* testPHP74UnpackingInShortArrayExpression */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => [
+                    1 => [
+                        'start' => 1,
+                        'end'   => 1,
+                        'raw'   => "'banana'",
+                    ],
+                    2 => [
+                        'start' => 3,
+                        'end'   => 5,
+                        'raw'   => '...$parts',
+                    ],
+                    3 => [
+                        'start' => 7,
+                        'end'   => 8,
+                        'raw'   => "'watermelon'",
+                    ],
+                    4 => [
+                        'start' => 10,
+                        'end'   => 18,
+                        'raw'   => '...["a" => 2]',
+                    ],
+                ],
+            ],
+
+            // PHP 8.0: function calls in attributes.
+            'function-call-within-an-attribute' => [
+                'testMarker' => '/* testPHP80FunctionCallInAttribute */',
+                'targetType' => \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 10,
+                        'raw'   => '[1, 2, 3]',
+                    ],
+                ],
+            ],
+
+            // PHP 8.0: skipping over attributes.
+            'function-call-with-attributes-attached-to-passed-closure' => [
+                'testMarker' => '/* testPHP80SkippingOverAttributes */',
+                'targetType' => \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 4,
+                        'raw'   => '$value',
+                    ],
+                    2 => [
+                        'start' => 6,
+                        'end'   => 39,
+                        'raw'   => '#[MyAttribute()]
+    #[AnotherAttribute([1, 2, 3])]
+    function() { /* do something */}',
+                    ],
+                ],
+            ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testGetParametersResultIsCached()
+    {
+        // The test case used is specifically selected as the raw and the clean param values will be the same.
+        $methodName = 'PHPCSUtils\\Utils\\PassedParameters::getParameters';
+        $cases      = $this->dataGetParameters();
+        $testMarker = $cases['isset']['testMarker'];
+        $targetType = $cases['isset']['targetType'];
+        $expected   = $cases['isset']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, [$targetType]);
+
+        // Translate offsets to exact token positions and set the "clean" key.
+        foreach ($expected as $key => $value) {
+            $expected[$key]['start'] = ($stackPtr + $value['start']);
+            $expected[$key]['end']   = ($stackPtr + $value['end']);
+            $expected[$key]['clean'] = $value['raw'];
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, "$stackPtr-0");
+        $resultSecondRun = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 
     /**
@@ -570,120 +707,120 @@ class GetParametersTest extends UtilityMethodTestCase
     {
         return [
             'function-call-param-4' => [
-                '/* testFunctionCall */',
-                \T_STRING,
-                4,
-                [
+                'testMarker'    => '/* testFunctionCall */',
+                'targetType'    => \T_STRING,
+                'paramPosition' => 4,
+                'expected'      => [
                     'start' => 11,
                     'end'   => 12,
                     'raw'   => '4',
                 ],
             ],
             'function-call-nested-param-1' => [
-                '/* testFunctionCallNestedFunctionCall */',
-                \T_STRING,
-                1,
-                [
+                'testMarker'    => '/* testFunctionCallNestedFunctionCall */',
+                'targetType'    => \T_STRING,
+                'paramPosition' => 1,
+                'expected'      => [
                     'start' => 2,
                     'end'   => 9,
                     'raw'   => 'dirname( __FILE__ )',
                 ],
             ],
             'another-function-call-param-1' => [
-                '/* testAnotherFunctionCall */',
-                \T_STRING,
-                1,
-                [
+                'testMarker'    => '/* testAnotherFunctionCall */',
+                'targetType'    => \T_STRING,
+                'paramPosition' => 1,
+                'expected'      => [
                     'start' => 2,
                     'end'   => 2,
                     'raw'   => '$stHour',
                 ],
             ],
             'another-function-call-param-6' => [
-                '/* testAnotherFunctionCall */',
-                \T_STRING,
-                6,
-                [
+                'testMarker'    => '/* testAnotherFunctionCall */',
+                'targetType'    => \T_STRING,
+                'paramPosition' => 6,
+                'expected'      => [
                     'start' => 22,
                     'end'   => 26,
                     'raw'   => '$arrStDt[2]',
                 ],
             ],
             'long-array-nested-function-calls-param-3' => [
-                '/* testLongArrayNestedFunctionCalls */',
-                \T_ARRAY,
-                3,
-                [
+                'testMarker'    => '/* testLongArrayNestedFunctionCalls */',
+                'targetType'    => \T_ARRAY,
+                'paramPosition' => 3,
+                'expected'      => [
                     'start' => 16,
                     'end'   => 26,
                     'raw'   => 'why(5, 1, 2)',
                 ],
             ],
             'simple-long-array-param-1' => [
-                '/* testSimpleLongArray */',
-                \T_ARRAY,
-                1,
-                [
+                'testMarker'    => '/* testSimpleLongArray */',
+                'targetType'    => \T_ARRAY,
+                'paramPosition' => 1,
+                'expected'      => [
                     'start' => 2,
                     'end'   => 3,
                     'raw'   => '1',
                 ],
             ],
             'simple-long-array-param-7' => [
-                '/* testSimpleLongArray */',
-                \T_ARRAY,
-                7,
-                [
+                'testMarker'    => '/* testSimpleLongArray */',
+                'targetType'    => \T_ARRAY,
+                'paramPosition' => 7,
+                'expected'      => [
                     'start' => 20,
                     'end'   => 22,
                     'raw'   => 'true',
                 ],
             ],
             'long-array-with-keys-param-' => [
-                '/* testLongArrayWithKeys */',
-                \T_ARRAY,
-                2,
-                [
+                'testMarker'    => '/* testLongArrayWithKeys */',
+                'targetType'    => \T_ARRAY,
+                'paramPosition' => 2,
+                'expected'      => [
                     'start' => 8,
                     'end'   => 13,
                     'raw'   => '\'b\' => $b',
                 ],
             ],
             'short-array-more-nested-function-calls-param-1' => [
-                '/* testShortArrayMoreNestedFunctionCalls */',
-                \T_OPEN_SHORT_ARRAY,
-                1,
-                [
+                'testMarker'    => '/* testShortArrayMoreNestedFunctionCalls */',
+                'targetType'    => \T_OPEN_SHORT_ARRAY,
+                'paramPosition' => 1,
+                'expected'      => [
                     'start' => 1,
                     'end'   => 13,
                     'raw'   => 'str_replace("../", "/", trim($value))',
                 ],
             ],
             'short-array-with-keys-and-ternary-param-3' => [
-                '/* testShortArrayWithKeysAndTernary */',
-                \T_OPEN_SHORT_ARRAY,
-                3,
-                [
+                'testMarker'    => '/* testShortArrayWithKeysAndTernary */',
+                'targetType'    => \T_OPEN_SHORT_ARRAY,
+                'paramPosition' => 3,
+                'expected'      => [
                     'start' => 14,
                     'end'   => 32,
                     'raw'   => '6 => (isset($c) ? $c : null)',
                 ],
             ],
             'nested-arrays-level-2-param-1' => [
-                '/* testNestedArraysLevel2 */',
-                \T_ARRAY,
-                1,
-                [
+                'testMarker'    => '/* testNestedArraysLevel2 */',
+                'targetType'    => \T_ARRAY,
+                'paramPosition' => 1,
+                'expected'      => [
                     'start' => 2,
                     'end'   => 2,
                     'raw'   => '1',
                 ],
             ],
             'nested-arrays-level-1-param-2' => [
-                '/* testNestedArraysLevel1 */',
-                \T_OPEN_SHORT_ARRAY,
-                2,
-                [
+                'testMarker'    => '/* testNestedArraysLevel1 */',
+                'targetType'    => \T_OPEN_SHORT_ARRAY,
+                'paramPosition' => 2,
+                'expected'      => [
                     'start' => 9,
                     'end'   => 21,
                     'raw'   => '1 => [1,2,3]',

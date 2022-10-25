@@ -14,20 +14,23 @@ use PHPCSUtils\Utils\FunctionDeclarations;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for the \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethodName() method.
+ * Tests for the \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethodName()
+ * and the \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethodName() method.
+ *
+ * @coversDefaultClass \PHPCSUtils\Utils\FunctionDeclarations
  *
  * @group functiondeclarations
  *
  * @since 1.0.0
  */
-class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
+final class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
 {
 
     /**
      * Test valid PHP native double underscore method names.
      *
      * @dataProvider dataIsPHPDoubleUnderscoreMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethodName
+     * @covers       ::isPHPDoubleUnderscoreMethodName
      *
      * @param string $name The function name to test.
      *
@@ -42,7 +45,7 @@ class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      * Test valid PHP native double underscore method names.
      *
      * @dataProvider dataIsPHPDoubleUnderscoreMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethodName
+     * @covers       ::isSpecialMethodName
      *
      * @param string $name The function name to test.
      *
@@ -98,7 +101,7 @@ class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      * Test function names which are not valid PHP native double underscore methods.
      *
      * @dataProvider dataIsNotPHPDoubleUnderscoreMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethodName
+     * @covers       ::isPHPDoubleUnderscoreMethodName
      *
      * @param string $name The function name to test.
      *
@@ -113,7 +116,7 @@ class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      * Test function names which are not valid PHP native double underscore methods.
      *
      * @dataProvider dataIsNotPHPDoubleUnderscoreMethodName
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethodName
+     * @covers       ::isSpecialMethodName
      *
      * @param string $name The function name to test.
      *

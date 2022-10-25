@@ -10,9 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Operators;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Utils\Numbers;
-use PHPCSUtils\Utils\Operators;
+use PHPCSUtils\Tests\Utils\Operators\IsUnaryPlusMinusTestCase;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Operators::isUnaryPlusMinus() method.
@@ -23,64 +21,8 @@ use PHPCSUtils\Utils\Operators;
  *
  * @since 1.0.0
  */
-class IsUnaryPlusMinusTest extends UtilityMethodTestCase
+final class IsUnaryPlusMinusTest extends IsUnaryPlusMinusTestCase
 {
-
-    /**
-     * Test that false is returned when a non-existent token is passed.
-     *
-     * @return void
-     */
-    public function testNonExistentToken()
-    {
-        $this->assertFalse(Operators::isUnaryPlusMinus(self::$phpcsFile, 10000));
-    }
-
-    /**
-     * Test that false is returned when a non-plus/minus token is passed.
-     *
-     * @return void
-     */
-    public function testNotPlusMinusToken()
-    {
-        $target = $this->getTargetToken('/* testNonUnaryPlus */', \T_LNUMBER);
-        $this->assertFalse(Operators::isUnaryPlusMinus(self::$phpcsFile, $target));
-    }
-
-    /**
-     * Test whether a T_PLUS or T_MINUS token is a unary operator.
-     *
-     * @dataProvider dataIsUnaryPlusMinus
-     *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param bool   $expected   The expected boolean return value.
-     * @param bool   $maybeSkip  Whether the "should this test be skipped" check should be executed.
-     *                           Defaults to false.
-     *
-     * @return void
-     */
-    public function testIsUnaryPlusMinus($testMarker, $expected, $maybeSkip = false)
-    {
-        if ($maybeSkip === true) {
-            /*
-             * Skip the test if this is PHP 7.4 or a PHPCS version which backfills the token sequence
-             * to one token as in that case, the plus/minus token won't exist
-             */
-            $skipMessage = 'Test irrelevant as the target token won\'t exist';
-            if (\version_compare(\PHP_VERSION_ID, '70399', '>') === true) {
-                $this->markTestSkipped($skipMessage);
-            }
-
-            if (\version_compare(static::$phpcsVersion, Numbers::UNSUPPORTED_PHPCS_VERSION, '>=') === true) {
-                $this->markTestSkipped($skipMessage);
-            }
-        }
-
-        $stackPtr = $this->getTargetToken($testMarker, [\T_PLUS, \T_MINUS]);
-        $result   = Operators::isUnaryPlusMinus(self::$phpcsFile, $stackPtr);
-
-        $this->assertSame($expected, $result);
-    }
 
     /**
      * Data provider.
@@ -93,219 +35,237 @@ class IsUnaryPlusMinusTest extends UtilityMethodTestCase
     {
         return [
             'non-unary-plus' => [
-                '/* testNonUnaryPlus */',
-                false,
+                'testMarker' => '/* testNonUnaryPlus */',
+                'expected'   => false,
             ],
             'non-unary-minus' => [
-                '/* testNonUnaryMinus */',
-                false,
+                'testMarker' => '/* testNonUnaryMinus */',
+                'expected'   => false,
             ],
             'non-unary-plus-arrays' => [
-                '/* testNonUnaryPlusArrays */',
-                false,
+                'testMarker' => '/* testNonUnaryPlusArrays */',
+                'expected'   => false,
             ],
             'unary-minus-arithmetic' => [
-                '/* testUnaryMinusArithmetic */',
-                true,
+                'testMarker' => '/* testUnaryMinusArithmetic */',
+                'expected'   => true,
             ],
             'unary-plus-arithmetic' => [
-                '/* testUnaryPlusArithmetic */',
-                true,
+                'testMarker' => '/* testUnaryPlusArithmetic */',
+                'expected'   => true,
             ],
             'unary-minus-concatenation' => [
-                '/* testUnaryMinusConcatenation */',
-                true,
+                'testMarker' => '/* testUnaryMinusConcatenation */',
+                'expected'   => true,
             ],
             'unary-plus-int-assignment' => [
-                '/* testUnaryPlusIntAssignment */',
-                true,
+                'testMarker' => '/* testUnaryPlusIntAssignment */',
+                'expected'   => true,
             ],
             'unary-minus-variable-assignment' => [
-                '/* testUnaryMinusVariableAssignment */',
-                true,
+                'testMarker' => '/* testUnaryMinusVariableAssignment */',
+                'expected'   => true,
             ],
             'unary-plus-float-assignment' => [
-                '/* testUnaryPlusFloatAssignment */',
-                true,
+                'testMarker' => '/* testUnaryPlusFloatAssignment */',
+                'expected'   => true,
             ],
             'unary-minus-bool-assignment' => [
-                '/* testUnaryMinusBoolAssignment */',
-                true,
+                'testMarker' => '/* testUnaryMinusBoolAssignment */',
+                'expected'   => true,
             ],
             'unary-plus-string-assignment-with-comment' => [
-                '/* testUnaryPlusStringAssignmentWithComment */',
-                true,
+                'testMarker' => '/* testUnaryPlusStringAssignmentWithComment */',
+                'expected'   => true,
             ],
             'unary-minus-string-assignment' => [
-                '/* testUnaryMinusStringAssignment */',
-                true,
+                'testMarker' => '/* testUnaryMinusStringAssignment */',
+                'expected'   => true,
             ],
             'unary-plus-plus-null-assignment' => [
-                '/* testUnaryPlusNullAssignment */',
-                true,
+                'testMarker' => '/* testUnaryPlusNullAssignment */',
+                'expected'   => true,
             ],
             'unary-minus-variable-variable-assignment' => [
-                '/* testUnaryMinusVariableVariableAssignment */',
-                true,
+                'testMarker' => '/* testUnaryMinusVariableVariableAssignment */',
+                'expected'   => true,
             ],
             'unary-plus-int-comparison' => [
-                '/* testUnaryPlusIntComparison */',
-                true,
+                'testMarker' => '/* testUnaryPlusIntComparison */',
+                'expected'   => true,
             ],
             'unary-plus-int-comparison-yoda' => [
-                '/* testUnaryPlusIntComparisonYoda */',
-                true,
+                'testMarker' => '/* testUnaryPlusIntComparisonYoda */',
+                'expected'   => true,
             ],
             'unary-minus-float-comparison' => [
-                '/* testUnaryMinusFloatComparison */',
-                true,
+                'testMarker' => '/* testUnaryMinusFloatComparison */',
+                'expected'   => true,
             ],
             'unary-minus-string-comparison-yoda' => [
-                '/* testUnaryMinusStringComparisonYoda */',
-                true,
+                'testMarker' => '/* testUnaryMinusStringComparisonYoda */',
+                'expected'   => true,
             ],
             'unary-plus-variable-boolean' => [
-                '/* testUnaryPlusVariableBoolean */',
-                true,
+                'testMarker' => '/* testUnaryPlusVariableBoolean */',
+                'expected'   => true,
             ],
             'unary-minus-variable-boolean' => [
-                '/* testUnaryMinusVariableBoolean */',
-                true,
+                'testMarker' => '/* testUnaryMinusVariableBoolean */',
+                'expected'   => true,
             ],
             'unary-plus-logical-xor' => [
-                '/* testUnaryPlusLogicalXor */',
-                true,
+                'testMarker' => '/* testUnaryPlusLogicalXor */',
+                'expected'   => true,
             ],
             'unary-minus-ternary-then' => [
-                '/* testUnaryMinusTernaryThen */',
-                true,
+                'testMarker' => '/* testUnaryMinusTernaryThen */',
+                'expected'   => true,
             ],
             'unary-plus-ternary-else' => [
-                '/* testUnaryPlusTernaryElse */',
-                true,
+                'testMarker' => '/* testUnaryPlusTernaryElse */',
+                'expected'   => true,
             ],
             'unary-minus-coalesce' => [
-                '/* testUnaryMinusCoalesce */',
-                true,
+                'testMarker' => '/* testUnaryMinusCoalesce */',
+                'expected'   => true,
             ],
             'unary-plus-int-return' => [
-                '/* testUnaryPlusIntReturn */',
-                true,
+                'testMarker' => '/* testUnaryPlusIntReturn */',
+                'expected'   => true,
             ],
             'unary-minus-float-return' => [
-                '/* testUnaryMinusFloatReturn */',
-                true,
+                'testMarker' => '/* testUnaryMinusFloatReturn */',
+                'expected'   => true,
+            ],
+            'unary-minus-int-exit' => [
+                'testMarker' => '/* testUnaryPlusIntExit */',
+                'expected'   => true,
             ],
             'unary-plus-print' => [
-                '/* testUnaryPlusPrint */',
-                true,
+                'testMarker' => '/* testUnaryPlusPrint */',
+                'expected'   => true,
             ],
             'unary-minus-echo' => [
-                '/* testUnaryMinusEcho */',
-                true,
+                'testMarker' => '/* testUnaryMinusEcho */',
+                'expected'   => true,
             ],
             'unary-plus-yield' => [
-                '/* testUnaryPlusYield */',
-                true,
+                'testMarker' => '/* testUnaryPlusYield */',
+                'expected'   => true,
             ],
             'unary-plus-array-access' => [
-                '/* testUnaryPlusArrayAccess */',
-                true,
+                'testMarker' => '/* testUnaryPlusArrayAccess */',
+                'expected'   => true,
             ],
             'unary-minus-string-array-access' => [
-                '/* testUnaryMinusStringArrayAccess */',
-                true,
+                'testMarker' => '/* testUnaryMinusStringArrayAccess */',
+                'expected'   => true,
             ],
             'unary-plus-long-array-assignment' => [
-                '/* testUnaryPlusLongArrayAssignment */',
-                true,
+                'testMarker' => '/* testUnaryPlusLongArrayAssignment */',
+                'expected'   => true,
             ],
             'unary-minus-long-array-assignment-key' => [
-                '/* testUnaryMinusLongArrayAssignmentKey */',
-                true,
+                'testMarker' => '/* testUnaryMinusLongArrayAssignmentKey */',
+                'expected'   => true,
             ],
             'unary-plus-long-array-assignment-value' => [
-                '/* testUnaryPlusLongArrayAssignmentValue */',
-                true,
+                'testMarker' => '/* testUnaryPlusLongArrayAssignmentValue */',
+                'expected'   => true,
             ],
             'unary-plus-short-array-assignment' => [
-                '/* testUnaryPlusShortArrayAssignment */',
-                true,
+                'testMarker' => '/* testUnaryPlusShortArrayAssignment */',
+                'expected'   => true,
             ],
             'non-unary-minus-short-array-assignment' => [
-                '/* testNonUnaryMinusShortArrayAssignment */',
-                false,
+                'testMarker' => '/* testNonUnaryMinusShortArrayAssignment */',
+                'expected'   => false,
             ],
             'unary-minus-casts' => [
-                '/* testUnaryMinusCast */',
-                true,
+                'testMarker' => '/* testUnaryMinusCast */',
+                'expected'   => true,
             ],
             'unary-plus-function-call-param' => [
-                '/* testUnaryPlusFunctionCallParam */',
-                true,
+                'testMarker' => '/* testUnaryPlusFunctionCallParam */',
+                'expected'   => true,
             ],
             'unary-minus-function-call-param' => [
-                '/* testUnaryMinusFunctionCallParam */',
-                true,
+                'testMarker' => '/* testUnaryMinusFunctionCallParam */',
+                'expected'   => true,
             ],
             'unary-plus-declare' => [
-                '/* testUnaryPlusDeclare */',
-                true,
+                'testMarker' => '/* testUnaryPlusDeclare */',
+                'expected'   => true,
             ],
             'unary-plus-switch-case' => [
-                '/* testUnaryPlusCase */',
-                true,
+                'testMarker' => '/* testUnaryPlusCase */',
+                'expected'   => true,
+            ],
+            'unary-plus-continue' => [
+                'testMarker' => '/* testUnaryPlusContinue */',
+                'expected'   => true,
             ],
             'unary-minus-switch-case' => [
-                '/* testUnaryMinusCase */',
-                true,
+                'testMarker' => '/* testUnaryMinusCase */',
+                'expected'   => true,
+            ],
+            'unary-plus-break' => [
+                'testMarker' => '/* testUnaryPlusBreak */',
+                'expected'   => true,
+            ],
+            'unary-minus-arrow-function' => [
+                'testMarker' => '/* testUnaryMinusArrowFunction */',
+                'expected'   => true,
+            ],
+            'unary-plus-match-arrow' => [
+                'testMarker' => '/* testUnaryPlusMatchArrow */',
+                'expected'   => true,
+            ],
+            'unary-minus-match-arrow' => [
+                'testMarker' => '/* testUnaryMinusMatchArrow */',
+                'expected'   => true,
+            ],
+            'unary-minus-match-default' => [
+                'testMarker' => '/* testUnaryMinusMatchDefault */',
+                'expected'   => true,
             ],
             'operator-sequence-non-unary-1' => [
-                '/* testSequenceNonUnary1 */',
-                false,
+                'testMarker' => '/* testSequenceNonUnary1 */',
+                'expected'   => false,
             ],
             'operator-sequence-non-unary-2' => [
-                '/* testSequenceNonUnary2 */',
-                false,
+                'testMarker' => '/* testSequenceNonUnary2 */',
+                'expected'   => false,
             ],
             'operator-sequence-non-unary-3' => [
-                '/* testSequenceNonUnary3 */',
-                false,
+                'testMarker' => '/* testSequenceNonUnary3 */',
+                'expected'   => false,
             ],
             'operator-sequence-unary-end' => [
-                '/* testSequenceUnaryEnd */',
-                true,
-            ],
-            'php-7.4-underscore-float-containing-plus' => [
-                '/* testPHP74NumericLiteralFloatContainingPlus */',
-                false,
-                true, // Skip for PHP 7.4 & PHPCS 3.5.3+.
-            ],
-            'php-7.4-underscore-float-containing-minus' => [
-                '/* testPHP74NumericLiteralFloatContainingMinus */',
-                false,
-                true, // Skip for PHP 7.4 & PHPCS 3.5.3+.
+                'testMarker' => '/* testSequenceUnaryEnd */',
+                'expected'   => true,
             ],
             'php-7.4-underscore-int-calculation-1' => [
-                '/* testPHP74NumericLiteralIntCalc1 */',
-                false,
+                'testMarker' => '/* testPHP74NumericLiteralIntCalc1 */',
+                'expected'   => false,
             ],
             'php-7.4-underscore-int-calculation-2' => [
-                '/* testPHP74NumericLiteralIntCalc2 */',
-                false,
+                'testMarker' => '/* testPHP74NumericLiteralIntCalc2 */',
+                'expected'   => false,
             ],
             'php-7.4-underscore-float-calculation-1' => [
-                '/* testPHP74NumericLiteralFloatCalc1 */',
-                false,
+                'testMarker' => '/* testPHP74NumericLiteralFloatCalc1 */',
+                'expected'   => false,
             ],
             'php-7.4-underscore-float-calculation-2' => [
-                '/* testPHP74NumericLiteralFloatCalc2 */',
-                false,
+                'testMarker' => '/* testPHP74NumericLiteralFloatCalc2 */',
+                'expected'   => false,
             ],
 
             'parse-error' => [
-                '/* testParseError */',
-                false,
+                'testMarker' => '/* testParseError */',
+                'expected'   => false,
             ],
         ];
     }

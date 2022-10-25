@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
+final class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
 {
 
     /**
@@ -41,7 +41,7 @@ class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
      */
     public function testFindImplementedInterfaceNames($testMarker, $expected)
     {
-        $OOToken = $this->getTargetToken($testMarker, [\T_CLASS, \T_ANON_CLASS, \T_INTERFACE]);
+        $OOToken = $this->getTargetToken($testMarker, [\T_CLASS, \T_ANON_CLASS, \T_INTERFACE, \T_ENUM]);
         $result  = ObjectDeclarations::findImplementedInterfaceNames(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
     }
@@ -57,15 +57,22 @@ class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
     {
         return [
             'phpcs-annotation-and-comments' => [
-                '/* testDeclarationWithComments */',
-                [
+                'testMarker' => '/* testDeclarationWithComments */',
+                'expected'   => [
                     '\Vendor\Package\Core\SubDir\SomeInterface',
                     'InterfaceB',
                 ],
             ],
+            'namespace-operator' => [
+                'testMarker' => '/* testDeclarationMultiImplementedNamespaceOperator */',
+                'expected'   => [
+                    'namespace\testInterfaceA',
+                    'namespace\testInterfaceB',
+                ],
+            ],
             'parse-error-stray-comma' => [
-                '/* testMultiImplementedStrayComma */',
-                [
+                'testMarker' => '/* testMultiImplementedStrayComma */',
+                'expected'   => [
                     0 => 'testInterfaceA',
                     1 => 'testInterfaceB',
                 ],

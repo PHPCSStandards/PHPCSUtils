@@ -5,8 +5,14 @@ interface NotAFunctionCallOrArray {}
 
 class Foo {
     public function Bar() {
-        /* testNotACallToConstructor */
-        $a = self::some_method();
+        /* testNotACallToConstructor1 */
+        $a = parent::SOME_CONSTANT;
+
+        /* testNotACallToConstructor2 */
+        $a = static::some_method();
+
+        /* testNotACallToConstructor3 */
+        $a = $obj instanceof self;
     }
 }
 
@@ -27,6 +33,17 @@ some_function( /*nothing here*/ );
 /* testNoParamsFunctionCall4 */
 $closure(/*nothing here*/);
 
+class HierarchyKeywordsNoParens {
+    public static function getInstance() {
+        /* testNoParamsFunctionCall5 */
+        $a = new self;
+        /* testNoParamsFunctionCall6 */
+        $a = new static;
+        /* testNoParamsFunctionCall7 */
+        $a = new parent;
+    }
+}
+
 // Function calls: has parameters.
 
 /* testHasParamsFunctionCall1 */
@@ -35,12 +52,42 @@ some_function( 1 );
 /* testHasParamsFunctionCall2 */
 $closure(1,2,3);
 
-class Bar {
+class HierarchyKeywordsWithParam {
     public static function getInstance() {
         /* testHasParamsFunctionCall3 */
-        return new self(true);
+        $a = new self(true);
+        /* testHasParamsFunctionCall4 */
+        $a = new static(true);
+        /* testHasParamsFunctionCall5 */
+        $a = new parent(true);
     }
 }
+
+class HierarchyKeywordsAsMethodNames {
+    public function self() {}
+    public function static() {}
+    public function parent() {
+        /* testHasParamsFunctionCall6 */
+        $a = self::self(true);
+        /* testHasParamsFunctionCall7 */
+        $a = $this->static(true);
+        /* testHasParamsFunctionCall8 */
+        $a = $this->parent(true);
+    }
+}
+
+/* testNoParamsFunctionCallFullyQualified */
+\myfunction(   );
+
+/* testHasParamsFunctionCallFullyQualifiedWithNamespace */
+\My\Named\myfunction( $a );
+
+/* testNoParamsFunctionCallPartiallyQualified */
+Partially\Qualified\myfunction();
+
+/* testHasParamsFunctionCallNamespaceOperator */
+namespace\myfunction( $a );
+
 
 // Arrays: no parameters.
 
@@ -106,6 +153,26 @@ unset(
       $hello,
 
 );
+
+/* testNoParamsNoParensAnonClass */
+$anon = new class extends FooBar {};
+
+/* testNoParamsWithParensAnonClass */
+$anon = new class() {};
+
+/* testHasParamsAnonClass */
+$anon = new class( $param1, $param2 ) {};
+
+/* testPHP81FirstClassCallableNotFunctionCallGlobalFunction */
+$fn = strlen(...);
+
+/* testPHP81FirstClassCallableNotFunctionCallOOMethod */
+$fn = $this->method(
+   ...
+);
+
+/* testPHP81FirstClassCallableNotFunctionCallVariableStaticOOMethod */
+$fn = $name1::$name2( /*comment*/ ...);
 
 // Intentional parse error.
 /* testNoCloseParenthesis */

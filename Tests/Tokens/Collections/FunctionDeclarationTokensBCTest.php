@@ -10,20 +10,20 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Test class.
  *
  * @covers \PHPCSUtils\Tokens\Collections::functionDeclarationTokensBC
+ * @covers \PHPCSUtils\Tokens\Collections::triggerDeprecation
  *
  * @group collections
  *
  * @since 1.0.0
  */
-class FunctionDeclarationTokensBCTest extends TestCase
+final class FunctionDeclarationTokensBCTest extends TestCase
 {
 
     /**
@@ -33,18 +33,17 @@ class FunctionDeclarationTokensBCTest extends TestCase
      */
     public function testFunctionDeclarationTokensBC()
     {
-        $version  = Helper::getVersion();
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'Collections::functionDeclarationTokensBC() method is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the PHPCSUtils\Tokens\Collections::functionDeclarationTokens() method instead.'
+        );
+
         $expected = [
             \T_FUNCTION => \T_FUNCTION,
             \T_CLOSURE  => \T_CLOSURE,
-            \T_STRING   => \T_STRING,
+            \T_FN       => \T_FN,
         ];
-
-        if (\version_compare($version, '3.5.3', '>=') === true
-            || \version_compare(\PHP_VERSION_ID, '70399', '>=') === true
-        ) {
-            $expected[\T_FN] = \T_FN;
-        }
 
         $this->assertSame($expected, Collections::functionDeclarationTokensBC());
     }

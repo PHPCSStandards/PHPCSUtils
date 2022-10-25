@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodParameters method.
@@ -22,7 +23,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class GetMethodParametersParseError1Test extends UtilityMethodTestCase
+final class GetMethodParametersParseError1Test extends UtilityMethodTestCase
 {
 
     /**
@@ -32,7 +33,7 @@ class GetMethodParametersParseError1Test extends UtilityMethodTestCase
      */
     public function testParseError()
     {
-        $target = $this->getTargetToken('/* testParseError */', [\T_FUNCTION, \T_CLOSURE]);
+        $target = $this->getTargetToken('/* testParseError */', Collections::functionDeclarationTokens());
         $result = BCFile::getMethodParameters(self::$phpcsFile, $target);
 
         $this->assertSame([], $result);

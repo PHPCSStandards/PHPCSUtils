@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @since 1.0.0
  */
-class NamespaceTypeTest extends UtilityMethodTestCase
+final class NamespaceTypeTest extends UtilityMethodTestCase
 {
 
     /**
@@ -60,11 +60,18 @@ class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the functions.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testIsDeclaration($testMarker, $expected)
+    public function testIsDeclaration($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::isDeclaration(self::$phpcsFile, $stackPtr);
 
@@ -78,11 +85,18 @@ class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected output for the functions.
+     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                           name tokenization is used (as the target token won't exist).
+     *                           Defaults to `false`.
      *
      * @return void
      */
-    public function testIsOperator($testMarker, $expected)
+    public function testIsOperator($testMarker, $expected, $skipOnPHP8 = false)
     {
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::isOperator(self::$phpcsFile, $stackPtr);
 
@@ -101,128 +115,144 @@ class NamespaceTypeTest extends UtilityMethodTestCase
     {
         return [
             'namespace-declaration' => [
-                '/* testNamespaceDeclaration */',
-                [
+                'testMarker' => '/* testNamespaceDeclaration */',
+                'expected'   => [
                     'declaration' => true,
                     'operator'    => false,
                 ],
             ],
             'namespace-declaration-with-comment' => [
-                '/* testNamespaceDeclarationWithComment */',
-                [
+                'testMarker' => '/* testNamespaceDeclarationWithComment */',
+                'expected'   => [
                     'declaration' => true,
                     'operator'    => false,
                 ],
             ],
             'namespace-declaration-scoped' => [
-                '/* testNamespaceDeclarationScoped */',
-                [
+                'testMarker' => '/* testNamespaceDeclarationScoped */',
+                'expected'   => [
                     'declaration' => true,
                     'operator'    => false,
                 ],
             ],
             'namespace-operator' => [
-                '/* testNamespaceOperator */',
-                [
+                'testMarker' => '/* testNamespaceOperator */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-with-annotation' => [
-                '/* testNamespaceOperatorWithAnnotation */',
-                [
+                'testMarker' => '/* testNamespaceOperatorWithAnnotation */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
             ],
             'namespace-operator-in-conditional' => [
-                '/* testNamespaceOperatorInConditional */',
-                [
+                'testMarker' => '/* testNamespaceOperatorInConditional */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-in-closed-scope' => [
-                '/* testNamespaceOperatorInClosedScope */',
-                [
+                'testMarker' => '/* testNamespaceOperatorInClosedScope */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-in-parentheses' => [
-                '/* testNamespaceOperatorInParentheses */',
-                [
+                'testMarker' => '/* testNamespaceOperatorInParentheses */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-global-namespace-start-of-statement-function-call' => [
-                '/* testNamespaceOperatorGlobalNamespaceStartOfStatementFunctionCall */',
-                [
+                'testMarker' => '/* testNamespaceOperatorGlobalNamespaceStartOfStatementFunctionCall */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-1' => [
-                '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken1 */',
-                [
+                'testMarker' => '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken1 */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-2' => [
-                '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken2 */',
-                [
+                'testMarker' => '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken2 */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
             ],
             'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-3' => [
-                '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken3 */',
-                [
+                'testMarker' => '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken3 */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => true,
                 ],
+                'skipOnPHP8' => true,
+            ],
+            'namespace-operator-global-namespace-start-of-statement-with-non-confusing-token-4' => [
+                'testMarker' => '/* testNamespaceOperatorGlobalNamespaceStartOfStatementCombiWithNonConfusingToken4 */',
+                'expected'   => [
+                    'declaration' => false,
+                    'operator'    => true,
+                ],
+                'skipOnPHP8' => true,
             ],
             'parse-error-scoped-namespace-declaration' => [
-                '/* testParseErrorScopedNamespaceDeclaration */',
-                [
+                'testMarker' => '/* testParseErrorScopedNamespaceDeclaration */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => false,
                 ],
             ],
             'parse-error-conditional-namespace' => [
-                '/* testParseErrorConditionalNamespace */',
-                [
+                'testMarker' => '/* testParseErrorConditionalNamespace */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => false,
                 ],
             ],
 
             'fatal-error-declaration-leading-slash' => [
-                '/* testFatalErrorDeclarationLeadingSlash */',
-                [
+                'testMarker' => '/* testFatalErrorDeclarationLeadingSlash */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => false,
                 ],
             ],
             'parse-error-double-colon' => [
-                '/* testParseErrorDoubleColon */',
-                [
+                'testMarker' => '/* testParseErrorDoubleColon */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => false,
                 ],
             ],
             'parse-error-semicolon' => [
-                '/* testParseErrorSemiColon */',
-                [
+                'testMarker' => '/* testParseErrorSemiColon */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => false,
                 ],
             ],
             'live-coding' => [
-                '/* testLiveCoding */',
-                [
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => [
                     'declaration' => false,
                     'operator'    => false,
                 ],

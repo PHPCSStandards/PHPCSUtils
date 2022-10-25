@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\UseStatements;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\UseStatements;
 
@@ -22,7 +23,7 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-class SplitImportUseStatementTest extends UtilityMethodTestCase
+final class SplitImportUseStatementTest extends UtilityMethodTestCase
 {
 
     /**
@@ -110,24 +111,24 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
     {
         return [
             'plain' => [
-                '/* testUsePlain */',
-                [
+                'testMarker' => '/* testUsePlain */',
+                'expected'   => [
                     'name'     => ['MyClass' => 'MyNamespace\MyClass'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'plain-aliased' => [
-                '/* testUsePlainAliased */',
-                [
+                'testMarker' => '/* testUsePlainAliased */',
+                'expected'   => [
                     'name'     => ['ClassAlias' => 'MyNamespace\YourClass'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'multiple-with-comments' => [
-                '/* testUseMultipleWithComments */',
-                [
+                'testMarker' => '/* testUseMultipleWithComments */',
+                'expected'   => [
                     'name'     => [
                         'ClassABC'   => 'Vendor\Foo\ClassA',
                         'InterfaceB' => 'Vendor\Bar\InterfaceB',
@@ -138,24 +139,24 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'function-plain-ends-on-close-tag' => [
-                '/* testUseFunctionPlainEndsOnCloseTag */',
-                [
+                'testMarker' => '/* testUseFunctionPlainEndsOnCloseTag */',
+                'expected'   => [
                     'name'     => [],
                     'function' => ['myFunction' => 'MyNamespace\myFunction'],
                     'const'    => [],
                 ],
             ],
             'function-plain-aliased' => [
-                '/* testUseFunctionPlainAliased */',
-                [
+                'testMarker' => '/* testUseFunctionPlainAliased */',
+                'expected'   => [
                     'name'     => [],
                     'function' => ['FunctionAlias' => 'Vendor\YourNamespace\yourFunction'],
                     'const'    => [],
                 ],
             ],
             'function-multiple' => [
-                '/* testUseFunctionMultiple */',
-                [
+                'testMarker' => '/* testUseFunctionMultiple */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [
                         'sin'    => 'foo\math\sin',
@@ -166,24 +167,24 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'const-plain-uppercase-const-keyword' => [
-                '/* testUseConstPlainUppercaseConstKeyword */',
-                [
+                'testMarker' => '/* testUseConstPlainUppercaseConstKeyword */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => ['MY_CONST' => 'MyNamespace\MY_CONST'],
                 ],
             ],
             'const-plain-aliased' => [
-                '/* testUseConstPlainAliased */',
-                [
+                'testMarker' => '/* testUseConstPlainAliased */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => ['CONST_ALIAS' => 'MyNamespace\YOUR_CONST'],
                 ],
             ],
             'const-multiple' => [
-                '/* testUseConstMultiple */',
-                [
+                'testMarker' => '/* testUseConstMultiple */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [
@@ -193,8 +194,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group' => [
-                '/* testGroupUse */',
-                [
+                'testMarker' => '/* testGroupUse */',
+                'expected'   => [
                     'name'     => [
                         'SomeClassA' => 'some\namespacing\SomeClassA',
                         'SomeClassB' => 'some\namespacing\deeper\level\SomeClassB',
@@ -205,8 +206,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group-function-trailing-comma' => [
-                '/* testGroupUseFunctionTrailingComma */',
-                [
+                'testMarker' => '/* testGroupUseFunctionTrailingComma */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [
                         'Msin'   => 'bar\math\Msin',
@@ -217,8 +218,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group-const' => [
-                '/* testGroupUseConst */',
-                [
+                'testMarker' => '/* testGroupUseConst */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [
@@ -228,8 +229,8 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                 ],
             ],
             'group-mixed' => [
-                '/* testGroupUseMixed */',
-                [
+                'testMarker' => '/* testGroupUseMixed */',
+                'expected'   => [
                     'name'     => [
                         'ClassName'    => 'Some\NS\ClassName',
                         'AnotherLevel' => 'Some\NS\AnotherLevel',
@@ -241,54 +242,95 @@ class SplitImportUseStatementTest extends UtilityMethodTestCase
                     'const'    => ['SOME_CONSTANT' => 'Some\NS\Constants\CONSTANT_NAME'],
                 ],
             ],
+
+            'parse-error-plain-reserved-keyword' => [
+                'testMarker' => '/* testUsePlainReservedKeyword */',
+                'expected'   => [
+                    'name'     => ['ClassName' => 'Vendor\break\ClassName'],
+                    'function' => [],
+                    'const'    => [],
+                ],
+            ],
             'parse-error-function-plain-reserved-keyword' => [
-                '/* testUseFunctionPlainReservedKeyword */',
-                [
+                'testMarker' => '/* testUseFunctionPlainReservedKeyword */',
+                'expected'   => [
                     'name'     => [],
                     'function' => ['yourFunction' => 'Vendor\YourNamespace\switch\yourFunction'],
                     'const'    => [],
                 ],
             ],
             'parse-error-const-plain-reserved-keyword' => [
-                '/* testUseConstPlainReservedKeyword */',
-                [
+                'testMarker' => '/* testUseConstPlainReservedKeyword */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => ['yourConst' => 'Vendor\YourNamespace\function\yourConst'],
                 ],
             ],
             'parse-error-plain-alias-reserved-keyword' => [
-                '/* testUsePlainAliasReservedKeyword */',
-                [
+                'testMarker' => '/* testUsePlainAliasReservedKeyword */',
+                'expected'   => [
                     'name'     => ['class' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'parse-error-plain-alias-reserved-keyword-function' => [
-                '/* testUsePlainAliasReservedKeywordFunction */',
-                [
+                'testMarker' => '/* testUsePlainAliasReservedKeywordFunction */',
+                'expected'   => [
                     'name'     => ['function' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'parse-error-plain-alias-reserved-keyword-const' => [
-                '/* testUsePlainAliasReservedKeywordConst */',
-                [
-                    'name'     => [],
+                'testMarker' => '/* testUsePlainAliasReservedKeywordConst */',
+                'expected'   => [
+                    'name'     => ['const' => 'Vendor\YourNamespace\ClassName'],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
             'parse-error' => [
-                '/* testParseError */',
-                [
+                'testMarker' => '/* testParseError */',
+                'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [],
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\UseStatements::splitImportUseStatement';
+        $cases      = $this->dataSplitImportUseStatement();
+        $testMarker = $cases['multiple-with-comments']['testMarker'];
+        $expected   = $cases['multiple-with-comments']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, \T_USE);
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = UseStatements::splitImportUseStatement(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = UseStatements::splitImportUseStatement(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

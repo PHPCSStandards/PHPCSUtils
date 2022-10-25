@@ -12,27 +12,30 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
-use PHPCSUtils\BackCompat\Helper;
 
 /**
  * Utility functions for working with integer/float tokens.
  *
- * PHP 7.4 introduced numeric literal separators which break number tokenization in older PHP versions.
- * PHPCS backfills this since PHPCS 3.5.3/4.
+ * PHP 7.4 introduced numeric literal separators. PHPCS backfills this since PHPCS 3.5.3/4.
+ * PHP 8.1 introduced an explicit octal notation. This is backfilled in PHPCS since PHPCS 3.7.0.
  *
- * In other words, if an external standard intends to support PHPCS < 3.5.4 and PHP < 7.4, working
- * with number tokens has suddenly become a challenge.
- *
- * The functions in this class have been put in place to ease that pain and it is
- * *strongly* recommended to always use these functions when sniffing for and examining the
+ * While there are currently no unsupported numeric syntaxes, the methods in this class
+ * can still be useful for external standards which need to examine the
  * contents of `T_LNUMBER` or `T_DNUMBER` tokens.
  *
  * @link https://www.php.net/migration74.new-features.php#migration74.new-features.core.numeric-literal-separator
  *       PHP Manual on numeric literal separators.
+ * @link https://www.php.net/manual/en/migration81.new-features.php#migration81.new-features.core.octal-literal-prefix
+ *       PHP Manual on the introduction of the integer octal literal prefix.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0-alpha4 Removed the following class constants:
+ *                     - `Numbers::REGEX_NUMLIT_STRING`
+ *                     - `Numbers::REGEX_HEX_NUMLIT_STRING`
+ *                     - `Numbers::UNSUPPORTED_PHPCS_VERSION`
  */
-class Numbers
+final class Numbers
 {
 
     /**
@@ -51,7 +54,7 @@ class Numbers
      *
      * @var string
      */
-    const REGEX_OCTAL_INT = '`^0[0-7]+$`D';
+    const REGEX_OCTAL_INT = '`^0[o]?[0-7]+$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a binary integer.
@@ -98,67 +101,10 @@ class Numbers
         `ixD';
 
     /**
-     * Regex to determine if a T_STRING following a T_[DL]NUMBER is part of a numeric literal sequence.
+     * Retrieve information about a number token.
      *
-     * Cross-version compatibility helper for PHP 7.4 numeric literals with underscore separators.
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    const REGEX_NUMLIT_STRING = '`^((?<![\.e])_[0-9][0-9e\.]*)+$`iD';
-
-    /**
-     * Regex to determine is a T_STRING following a T_[DL]NUMBER is part of a hexidecimal numeric literal sequence.
-     *
-     * Cross-version compatibility helper for PHP 7.4 numeric literals with underscore separators.
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    const REGEX_HEX_NUMLIT_STRING = '`^((?<!\.)_[0-9A-F]*)+$`iD';
-
-    /**
-     * PHPCS versions in which the backfill for PHP 7.4 numeric literal separators is broken.
-     *
-     * @since 1.0.0
-     * @since 1.0.0-alpha2 Changed from a property to a class constant.
-     *                     Changed from an array to a string.
-     *
-     * @var string
-     */
-    const UNSUPPORTED_PHPCS_VERSION = '3.5.3';
-
-    /**
-     * Valid tokens which could be part of a numeric literal sequence in PHP < 7.4.
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    private static $numericLiteralAcceptedTokens = [
-        \T_LNUMBER => true,
-        \T_DNUMBER => true,
-        \T_STRING  => true,
-    ];
-
-    /**
-     * Retrieve information about a number token in a cross-version compatible manner.
-     *
-     * Helper function to deal with numeric literals, potentially with underscore separators.
-     *
-     * PHP < 7.4 does not tokenize numeric literals containing underscores correctly.
-     * As of PHPCS 3.5.3, PHPCS contains a backfill, but this backfill was buggy in the initial
-     * implementation. A fix for this broken backfill is included in PHPCS 3.5.4.
-     *
-     * Either way, this function can be used with all PHPCS/PHP combinations and will, if necessary,
-     * provide a backfill for PHPCS/PHP combinations where PHP 7.4 numbers with underscore separators
-     * are tokenized incorrectly - with the exception of PHPCS 3.5.3 as the buggyness of the original
-     * backfill implementation makes it impossible to provide reliable results.
-     *
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546 PHPCS issue #2546
-     * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/2771   PHPCS PR #2771
+     * Helper function to deal with numeric literals, potentially with underscore separators
+     * and/or explicit octal notation.
      *
      * @since 1.0.0
      *
@@ -169,10 +115,8 @@ class Numbers
      *               The format of the array return value is:
      *               ```php
      *               array(
-     *                 'orig_content' => string, // The (potentially concatenated) original
-     *                                           // content of the tokens;
-     *                 'content'      => string, // The (potentially concatenated) content,
-     *                                           // underscore(s) removed;
+     *                 'orig_content' => string, // The original content of the token(s);
+     *                 'content'      => string, // The content, underscore(s) removed;
      *                 'code'         => int,    // The token code of the number, either
      *                                           // T_LNUMBER or T_DNUMBER.
      *                 'type'         => string, // The token type, either 'T_LNUMBER'
@@ -180,21 +124,17 @@ class Numbers
      *                 'decimal'      => string, // The decimal value of the number;
      *                 'last_token'   => int,    // The stackPtr to the last token which was
      *                                           // part of the number.
-     *                                           // This will be the same as the original
-     *                                           // stackPtr if it is not a PHP 7.4 number
-     *                                           // with underscores.
+     *                                           // At this time, this will be always be the original
+     *                                           // stackPtr. This may change in the future if
+     *                                           // new numeric syntaxes would be added to PHP.
      *               )
      *               ```
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
      *                                                      `T_LNUMBER` or `T_DNUMBER`.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If this function is called in combination
-     *                                                      with an unsupported PHPCS version.
      */
     public static function getCompleteNumber(File $phpcsFile, $stackPtr)
     {
-        static $php74, $phpcsVersion, $phpcsWithBackfill;
-
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
@@ -205,24 +145,8 @@ class Numbers
             );
         }
 
-        if (isset($php74, $phpcsVersion, $phpcsWithBackfill) === false) {
-            $php74             = \version_compare(\PHP_VERSION_ID, '70399', '>');
-            $phpcsVersion      = Helper::getVersion();
-            $phpcsWithBackfill = \version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '>');
-        }
-
-        /*
-         * Bow out for PHPCS version(s) with broken tokenization of PHP 7.4 numeric literals with
-         * separators, including for PHP 7.4, as the backfill kicks in for PHP 7.4 while it shouldn't.
-         *
-         * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2546
-         */
-        if (\version_compare($phpcsVersion, self::UNSUPPORTED_PHPCS_VERSION, '==') === true) {
-            throw new RuntimeException('The ' . __METHOD__ . '() method does not support PHPCS ' . $phpcsVersion);
-        }
-
         $content = $tokens[$stackPtr]['content'];
-        $result  = [
+        return [
             'orig_content' => $content,
             'content'      => \str_replace('_', '', $content),
             'code'         => $tokens[$stackPtr]['code'],
@@ -230,118 +154,27 @@ class Numbers
             'decimal'      => self::getDecimalValue($content),
             'last_token'   => $stackPtr,
         ];
-
-        // When things are already correctly tokenized, there's not much to do.
-        if ($php74 === true
-            || $phpcsWithBackfill === true
-            || isset($tokens[($stackPtr + 1)]) === false
-            || $tokens[($stackPtr + 1)]['code'] !== \T_STRING
-            || $tokens[($stackPtr + 1)]['content'][0] !== '_'
-        ) {
-            return $result;
-        }
-
-        $hex = false;
-        if (\strpos($content, '0x') === 0) {
-            $hex = true;
-        }
-
-        $lastChar = \substr($content, -1);
-        if (\preg_match('`[0-9]`', $lastChar) !== 1) {
-            if ($hex === false || \preg_match('`[A-F]`i', $lastChar) !== 1) {
-                // Last character not valid for numeric literal sequence with underscores.
-                // No need to look any further.
-                return $result;
-            }
-        }
-
-        /*
-         * OK, so this could potentially be a PHP 7.4 number with an underscore separator with PHPCS
-         * being run on PHP < 7.4.
-         */
-
-        $regex = self::REGEX_NUMLIT_STRING;
-        if ($hex === true) {
-            $regex = self::REGEX_HEX_NUMLIT_STRING;
-        }
-
-        $next      = $stackPtr;
-        $lastToken = $stackPtr;
-
-        while (isset($tokens[++$next], self::$numericLiteralAcceptedTokens[$tokens[$next]['code']]) === true) {
-            if ($tokens[$next]['code'] === \T_STRING
-                && \preg_match($regex, $tokens[$next]['content']) !== 1
-            ) {
-                break;
-            }
-
-            $content  .= $tokens[$next]['content'];
-            $lastToken = $next;
-            $lastChar  = \substr(\strtolower($content), -1);
-
-            // Support floats.
-            if ($lastChar === 'e'
-                && isset($tokens[($next + 1)], $tokens[($next + 2)]) === true
-                && ($tokens[($next + 1)]['code'] === \T_MINUS
-                || $tokens[($next + 1)]['code'] === \T_PLUS)
-                && $tokens[($next + 2)]['code'] === \T_LNUMBER
-            ) {
-                $content  .= $tokens[($next + 1)]['content'];
-                $content  .= $tokens[($next + 2)]['content'];
-                $next     += 2;
-                $lastToken = $next;
-            }
-
-            // Don't look any further if the last char is not valid before a separator.
-            if (\preg_match('`[0-9]`', $lastChar) !== 1) {
-                if ($hex === false || \preg_match('`[a-f]`i', $lastChar) !== 1) {
-                    break;
-                }
-            }
-        }
-
-        // OK, so we now have `content` including potential underscores. Let's strip them out.
-        $result['orig_content'] = $content;
-        $result['content']      = \str_replace('_', '', $content);
-        $result['decimal']      = self::getDecimalValue($result['content']);
-        $result['last_token']   = $lastToken;
-
-        // Determine actual token type.
-        $type = $result['type'];
-        if ($type === 'T_LNUMBER') {
-            if ($hex === false
-                && (\strpos($result['content'], '.') !== false
-                || \stripos($result['content'], 'e') !== false)
-            ) {
-                $type = 'T_DNUMBER';
-            } elseif (($result['decimal'] + 0) > \PHP_INT_MAX) {
-                $type = 'T_DNUMBER';
-            }
-        }
-
-        $result['code'] = \constant($type);
-        $result['type'] = $type;
-
-        return $result;
     }
 
     /**
      * Get the decimal number value of a numeric string.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators and explicit octal literals in numbers into account.
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary token content string.
+     * @param string $textString Arbitrary text string.
+     *                           This text string should be the (combined) token content of
+     *                           one or more tokens which together represent a number in PHP.
      *
      * @return string|false Decimal number as a string or `FALSE` if the passed parameter
      *                      was not a numeric string.
      *                      > Note: floating point numbers with exponent will not be expanded,
      *                      but returned as-is.
      */
-    public static function getDecimalValue($string)
+    public static function getDecimalValue($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
@@ -352,26 +185,26 @@ class Numbers
          * here to allow the hexdec(), bindec() functions to work correctly and for
          * the decimal/float to return a cross-version compatible decimal value.}
          */
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        if (self::isDecimalInt($string) === true) {
-            return $string;
+        if (self::isDecimalInt($textString) === true) {
+            return $textString;
         }
 
-        if (self::isHexidecimalInt($string) === true) {
-            return (string) \hexdec($string);
+        if (self::isHexidecimalInt($textString) === true) {
+            return (string) \hexdec($textString);
         }
 
-        if (self::isBinaryInt($string) === true) {
-            return (string) \bindec($string);
+        if (self::isBinaryInt($textString) === true) {
+            return (string) \bindec($textString);
         }
 
-        if (self::isOctalInt($string) === true) {
-            return (string) \octdec($string);
+        if (self::isOctalInt($textString) === true) {
+            return (string) \octdec($textString);
         }
 
-        if (self::isFloat($string) === true) {
-            return $string;
+        if (self::isFloat($textString) === true) {
+            return $textString;
         }
 
         return false;
@@ -384,20 +217,20 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isDecimalInt($string)
+    public static function isDecimalInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_DECIMAL_INT, $string) === 1);
+        return (\preg_match(self::REGEX_DECIMAL_INT, $textString) === 1);
     }
 
     /**
@@ -407,20 +240,20 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isHexidecimalInt($string)
+    public static function isHexidecimalInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_HEX_INT, $string) === 1);
+        return (\preg_match(self::REGEX_HEX_INT, $textString) === 1);
     }
 
     /**
@@ -430,43 +263,43 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isBinaryInt($string)
+    public static function isBinaryInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_BINARY_INT, $string) === 1);
+        return (\preg_match(self::REGEX_BINARY_INT, $textString) === 1);
     }
 
     /**
      * Verify whether the contents of an arbitrary string represents an octal integer.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators and explicit octal literals in numbers into account.
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isOctalInt($string)
+    public static function isOctalInt($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_OCTAL_INT, $string) === 1);
+        return (\preg_match(self::REGEX_OCTAL_INT, $textString) === 1);
     }
 
     /**
@@ -476,19 +309,19 @@ class Numbers
      *
      * @since 1.0.0
      *
-     * @param string $string Arbitrary string.
+     * @param string $textString Arbitrary string.
      *
      * @return bool
      */
-    public static function isFloat($string)
+    public static function isFloat($textString)
     {
-        if (\is_string($string) === false || $string === '') {
+        if (\is_string($textString) === false || $textString === '') {
             return false;
         }
 
         // Remove potential PHP 7.4 numeric literal separators.
-        $string = \str_replace('_', '', $string);
+        $textString = \str_replace('_', '', $textString);
 
-        return (\preg_match(self::REGEX_FLOAT, $string) === 1);
+        return (\preg_match(self::REGEX_FLOAT, $textString) === 1);
     }
 }

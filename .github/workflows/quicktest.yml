@@ -1,0 +1,85 @@
+name: Quicktest
+
+on:
+  # Run on pushes, including merges, to all branches except `stable` and `develop`.
+  push:
+    branches-ignore:
+      - stable
+      - develop
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  #### QUICK TEST STAGE ####
+  # This is a much quicker test which only runs the unit tests and linting against the low/high
+  # supported PHP/PHPCS combinations.
+  # These are basically the same builds as in the Test->Coverage workflow, but then without doing
+  # the code-coverage.
+  quicktest:
+    runs-on: ubuntu-latest
+
+    env:
+      # - COMPOSER_ROOT_VERSION is needed to get round the recursive dependency when using CI.
+      COMPOSER_ROOT_VERSION: '1.99.99'
+
+    strategy:
+      matrix:
+        php: ['5.4', 'latest']
+        phpcs_version: ['3.7.1', 'dev-master']
+
+    name: "QTest${{ matrix.phpcs_version == 'dev-master' && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # On stable PHPCS versions, allow for PHP deprecation notices.
+      # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
+      - name: Setup ini config
+        id: set_ini
+        run: |
+          if [ "${{ matrix.phpcs_version }}" != "dev-master" ]; then
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
+          else
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
+          coverage: none
+
+      - name: 'Composer: set PHPCS version for tests'
+        run: composer require --no-update squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}"
+
+      # Install dependencies and handle caching in one go.
+      # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
+      - name: Install Composer dependencies
+        uses: "ramsey/composer-install@v2"
+
+      - name: Lint against parse errors
+        if: matrix.phpcs_version == 'dev-master'
+        run: composer lint
+
+      - name: Run the unit tests without caching
+        run: vendor/bin/phpunit --no-coverage
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: false
+
+      - name: Run the unit tests with caching
+        run: vendor/bin/phpunit --testsuite PHPCSUtils --no-coverage --repeat 2
+        env:
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
+          PHPCSUTILS_USE_CACHE: true

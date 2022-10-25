@@ -150,6 +150,22 @@ json_encode(['a' => $a, 'b' => $b, 'c' => $c]);
 /* testFunctionCall47 */
 json_encode(['a' => $a, 'b' => $b, 'c' => $c,] + ['c' => $c, 'd' => $d,]);
 
+/* testFunctionCallFullyQualified */
+\myfunction( $a );
+
+/* testFunctionCallFullyQualifiedWithNamespace */
+\My\Named\myfunction( $a );
+
+/* testFunctionCallPartiallyQualified */
+Partially\Qualified\myfunction( $a );
+
+/* testFunctionCallNamespaceOperator */
+namespace\myfunction( $a );
+
+/* testFunctionCallNamedParamsDuplicateName */
+// Error Exception, but not the concern of PHPCSUtils. Should still be handled.
+test(param: 1, param: 2);
+
 /* testLongArray1 */
 $foo = array( 1, 2, 3, 4, 5, 6, true );
 
@@ -197,6 +213,11 @@ $bar = ['a' => $a, 'b' => $b, 'c' => (isset($c) ? $c : null)];
 
 /* testShortArray8 */
 $bar = [0 => $a, 2 => $b, 6 => (isset($c) ? $c : null)];
+
+/* testAnonClass */
+$anon = new class( $param1, $param2 ) {
+    public function __construct($param1, $param2) {}
+};
 
 /* testArrayWithEmptyItem */
 // Intentional parse error.

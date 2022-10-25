@@ -1,0 +1,41 @@
+name: Docs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+  pull_request:
+    paths:
+      - 'docs/**'
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  #### TEST DOCUMENTATION SITE GENERATION ####
+  test:
+    runs-on: ubuntu-latest
+
+    name: "Test build GHPages site"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Use the version as per https://pages.github.com/versions/
+          ruby-version: 2.7.4
+          bundler-cache: true
+          working-directory: docs
+
+      - name: Test building the GH Pages site
+        run: |
+          cd docs
+          bundle exec jekyll build

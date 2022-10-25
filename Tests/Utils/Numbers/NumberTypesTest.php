@@ -20,18 +20,20 @@ use PHPUnit\Framework\TestCase;
  * \PHPCSUtils\Utils\Numbers::isOctalInt() and the
  * \PHPCSUtils\Utils\Numbers::isFloat() method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\Numbers
+ *
  * @group numbers
  *
  * @since 1.0.0
  */
-class NumberTypesTest extends TestCase
+final class NumberTypesTest extends TestCase
 {
 
     /**
      * Test correctly recognizing an arbitrary string representing a decimal integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isDecimalInt
+     * @covers       ::isDecimalInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -47,7 +49,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a hexidecimal integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isHexidecimalInt
+     * @covers       ::isHexidecimalInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -63,7 +65,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a binary integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isBinaryInt
+     * @covers       ::isBinaryInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -79,7 +81,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing an octal integer.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isOctalInt
+     * @covers       ::isOctalInt
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -95,7 +97,7 @@ class NumberTypesTest extends TestCase
      * Test correctly recognizing an arbitrary string representing a decimal float.
      *
      * @dataProvider dataNumbers
-     * @covers       \PHPCSUtils\Utils\Numbers::isFloat
+     * @covers       ::isFloat
      *
      * @param string $input    The input string.
      * @param string $expected The expected output for the various functions.
@@ -123,8 +125,8 @@ class NumberTypesTest extends TestCase
         return [
             // Not strings.
             'not-a-string-bool' => [
-                true,
-                [
+                'input'    => true,
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -133,8 +135,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'not-a-string-int' => [
-                10,
-                [
+                'input'    => 10,
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -145,8 +147,8 @@ class NumberTypesTest extends TestCase
 
             // Not numeric strings.
             'empty-string' => [
-                '',
-                [
+                'input'    => '',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -155,8 +157,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'string-not-a-number' => [
-                'foobar',
-                [
+                'input'    => 'foobar',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -165,8 +167,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'string-not-a-number-with-full-stop' => [
-                'foo. bar',
-                [
+                'input'    => 'foo. bar',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -175,8 +177,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-hex' => [
-                '0xZBHI28',
-                [
+                'input'    => '0xZBHI28',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -185,8 +187,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-binary' => [
-                '0b121457182',
-                [
+                'input'    => '0b121457182',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -196,8 +198,18 @@ class NumberTypesTest extends TestCase
             ],
             'invalid-octal' => [
                 // Note: in PHP 5.x this would still be accepted, though not interpreted correctly.
-                '0289',
-                [
+                'input'    => '0289',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-explicit-octal' => [
+                'input'    => '0o289',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -206,8 +218,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-two-decimal-points' => [
-                '1.287.2763',
-                [
+                'input'    => '1.287.2763',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -216,8 +228,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-plus-no-exponent' => [
-                '1.287+2763',
-                [
+                'input'    => '1.287+2763',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -226,8 +238,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-minus-no-exponent' => [
-                '1287-2763',
-                [
+                'input'    => '1287-2763',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -236,8 +248,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-no-multiplier' => [
-                '2872e',
-                [
+                'input'    => '2872e',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -246,8 +258,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-plus-no-multiplier' => [
-                '1.2872e+',
-                [
+                'input'    => '1.2872e+',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -256,8 +268,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-minus-no-multiplier' => [
-                '1.2872e-',
-                [
+                'input'    => '1.2872e-',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -266,8 +278,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-multiplier-float' => [
-                '376e2.3',
-                [
+                'input'    => '376e2.3',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -276,8 +288,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-plus-multiplier-float' => [
-                '3.76e+2.3',
-                [
+                'input'    => '3.76e+2.3',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -286,8 +298,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-minus-multiplier-float' => [
-                '37.6e-2.3',
-                [
+                'input'    => '37.6e-2.3',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -296,8 +308,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-exponent-plus-minus-multiplier' => [
-                '37.6e+-2',
-                [
+                'input'    => '37.6e+-2',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -306,8 +318,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'invalid-float-double-exponent' => [
-                '37.6e2e6',
-                [
+                'input'    => '37.6e2e6',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -318,8 +330,8 @@ class NumberTypesTest extends TestCase
 
             // Decimal numeric strings.
             'decimal-single-digit-zero' => [
-                '0',
-                [
+                'input'    => '0',
+                'expected' => [
                     'decimal' => true,
                     'hex'     => false,
                     'binary'  => false,
@@ -328,8 +340,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'decimal-single-digit' => [
-                '9',
-                [
+                'input'    => '9',
+                'expected' => [
                     'decimal' => true,
                     'hex'     => false,
                     'binary'  => false,
@@ -338,8 +350,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'decimal-multi-digit' => [
-                '123456',
-                [
+                'input'    => '123456',
+                'expected' => [
                     'decimal' => true,
                     'hex'     => false,
                     'binary'  => false,
@@ -348,8 +360,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'decimal-multi-digit-php-7.4' => [
-                '12_34_56',
-                [
+                'input'    => '12_34_56',
+                'expected' => [
                     'decimal' => true,
                     'hex'     => false,
                     'binary'  => false,
@@ -361,8 +373,8 @@ class NumberTypesTest extends TestCase
             // Hexidecimal numeric strings.
             // phpcs:disable PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
             'hexidecimal-single-digit-zero' => [
-                '0x0',
-                [
+                'input'    => '0x0',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -371,8 +383,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'hexidecimal-single-digit' => [
-                '0xA',
-                [
+                'input'    => '0xA',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -381,8 +393,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'hexidecimal-multi-digit-all-numbers' => [
-                '0x123456',
-                [
+                'input'    => '0x123456',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -391,8 +403,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'hexidecimal-multi-digit-no-numbers' => [
-                '0xABCDEF',
-                [
+                'input'    => '0xABCDEF',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -401,8 +413,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'hexidecimal-multi-digit-mixed' => [
-                '0xAB02F6',
-                [
+                'input'    => '0xAB02F6',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -411,8 +423,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'hexidecimal-multi-digit-mixed-uppercase-x' => [
-                '0XAB953C',
-                [
+                'input'    => '0XAB953C',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -421,8 +433,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'hexidecimal-multi-digit-php-7.4' => [
-                '0x23_6A_3C',
-                [
+                'input'    => '0x23_6A_3C',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => true,
                     'binary'  => false,
@@ -434,8 +446,8 @@ class NumberTypesTest extends TestCase
 
             // Binary numeric strings.
             'binary-single-digit-zero' => [
-                '0b0',
-                [
+                'input'    => '0b0',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => true,
@@ -444,8 +456,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'binary-single-digit-one' => [
-                '0b1',
-                [
+                'input'    => '0b1',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => true,
@@ -454,8 +466,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'binary-multi-digit' => [
-                '0b1010',
-                [
+                'input'    => '0b1010',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => true,
@@ -464,8 +476,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'binary-multi-digit-uppercase-b' => [
-                '0B1000100100000',
-                [
+                'input'    => '0B1000100100000',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => true,
@@ -474,8 +486,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'binary-multi-digit-php-7.4' => [
-                '0b100_000_000_00',
-                [
+                'input'    => '0b100_000_000_00',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => true,
@@ -486,8 +498,8 @@ class NumberTypesTest extends TestCase
 
             // Octal numeric strings.
             'octal-single-digit-zero' => [
-                '00',
-                [
+                'input'    => '00',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -496,8 +508,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'octal-single-digit' => [
-                '07',
-                [
+                'input'    => '07',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -506,8 +518,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'octal-multi-digit' => [
-                '076543210',
-                [
+                'input'    => '076543210',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -516,8 +528,50 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'octal-multi-digit-php-7.4' => [
-                '020_631_542',
-                [
+                'input'    => '020_631_542',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+
+            // Octal numeric strings using PHP 8.1 explicit octal notation.
+            'explicit-octal-single-digit-zero' => [
+                'input'    => '0o0',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+            'explicit-octal-single-digit' => [
+                'input'    => '0O7',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+            'explicit-octal-multi-digit' => [
+                'input'    => '0o76543210',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => true,
+                    'float'   => false,
+                ],
+            ],
+            'explicit-octal-multi-digit-php-7.4' => [
+                'input'    => '0O20_631_542',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -528,8 +582,8 @@ class NumberTypesTest extends TestCase
 
             // Floating point numeric strings. Also see: decimal numeric strings.
             'float-single-digit-dot-zero' => [
-                '0.',
-                [
+                'input'    => '0.',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -538,8 +592,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-single-digit-dot' => [
-                '1.',
-                [
+                'input'    => '1.',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -548,8 +602,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-multi-digit-dot' => [
-                '56458.',
-                [
+                'input'    => '56458.',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -558,8 +612,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-multi-digit-dot-leading-zero' => [
-                '0023.',
-                [
+                'input'    => '0023.',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -568,8 +622,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-multi-digit-dot-php-7.4' => [
-                '521_879.',
-                [
+                'input'    => '521_879.',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -579,8 +633,8 @@ class NumberTypesTest extends TestCase
             ],
 
             'float-dot-single-digit-zero' => [
-                '.0',
-                [
+                'input'    => '.0',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -589,8 +643,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-dot-single-digit' => [
-                '.2',
-                [
+                'input'    => '.2',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -599,8 +653,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-dot-multi-digit' => [
-                '.232746',
-                [
+                'input'    => '.232746',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -609,8 +663,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-dot-multi-digit-trailing-zero' => [
-                '.345300',
-                [
+                'input'    => '.345300',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -619,8 +673,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-dot-multi-digit-php-7.4' => [
-                '.421_789_8',
-                [
+                'input'    => '.421_789_8',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -630,8 +684,8 @@ class NumberTypesTest extends TestCase
             ],
 
             'float-digit-dot-digit-single-zero' => [
-                '0.0',
-                [
+                'input'    => '0.0',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -640,8 +694,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-digit-dot-digit-single' => [
-                '9.1',
-                [
+                'input'    => '9.1',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -650,8 +704,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-digit-dot-digit-multi' => [
-                '7483.2182',
-                [
+                'input'    => '7483.2182',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -660,8 +714,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-digit-dot-digit-multi-leading-zero' => [
-                '002781.21928173',
-                [
+                'input'    => '002781.21928173',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -670,8 +724,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-digit-dot-digit-multi-trailing-zero' => [
-                '213.2987000',
-                [
+                'input'    => '213.2987000',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -680,8 +734,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-digit-dot-digit-multi-leading-zero-trailing-zero' => [
-                '07262.2760',
-                [
+                'input'    => '07262.2760',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -690,8 +744,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-digit-dot-digit-multi--php-7.4' => [
-                '07_262.276_720',
-                [
+                'input'    => '07_262.276_720',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -701,8 +755,8 @@ class NumberTypesTest extends TestCase
             ],
 
             'float-exponent-digit-dot-digit-zero-exp-single-digit' => [
-                '0.0e1',
-                [
+                'input'    => '0.0e1',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -711,8 +765,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-single-digit-dot-exp-double-digit' => [
-                '1.e28',
-                [
+                'input'    => '1.e28',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -721,8 +775,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-multi-digit-dot-exp-plus-digit' => [
-                '56458.e+2',
-                [
+                'input'    => '56458.e+2',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -731,8 +785,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-multi-digit-dot-leading-zero-exp-minus-digit' => [
-                '0023.e-44',
-                [
+                'input'    => '0023.e-44',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -742,8 +796,8 @@ class NumberTypesTest extends TestCase
             ],
 
             'float-exponent-dot-single-digit-zero-exp-minus-digit' => [
-                '.0e-1',
-                [
+                'input'    => '.0e-1',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -752,8 +806,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-dot-single-digit-exp-plus-digit-zero' => [
-                '.2e+0',
-                [
+                'input'    => '.2e+0',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -762,8 +816,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-dot-multi-digit-exp-multi-digit' => [
-                '.232746e41',
-                [
+                'input'    => '.232746e41',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -772,8 +826,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-dot-multi-digit-trailing-zero-exp-multi-digit' => [
-                '.345300e87',
-                [
+                'input'    => '.345300e87',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -783,8 +837,8 @@ class NumberTypesTest extends TestCase
             ],
 
             'float-exponent-digit-dot-digit-single-zero-exp-uppercase' => [
-                '0.0E2',
-                [
+                'input'    => '0.0E2',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -793,8 +847,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-digit-dot-digit-single-exp-uppercase' => [
-                '9.1E47',
-                [
+                'input'    => '9.1E47',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -803,8 +857,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-digit-dot-digit-multi-exp-minus-digit' => [
-                '7483.2182e-3',
-                [
+                'input'    => '7483.2182e-3',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -813,8 +867,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-digit-dot-digit-multi-leading-zero-exp-uppercase' => [
-                '002781.21928173E+56',
-                [
+                'input'    => '002781.21928173E+56',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -823,8 +877,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-digit-dot-digit-multi-trailing-zero-exp-plus-digit' => [
-                '213.2987000e+2',
-                [
+                'input'    => '213.2987000e+2',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -833,8 +887,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-digit-dot-digit-multi-leading-zero-trailing-zero-exp-digit' => [
-                '07262.2760e4',
-                [
+                'input'    => '07262.2760e4',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,
@@ -843,8 +897,8 @@ class NumberTypesTest extends TestCase
                 ],
             ],
             'float-exponent-digit-dot-digit-exp-digit-php-7.4' => [
-                '6.674_083e+1_1',
-                [
+                'input'    => '6.674_083e+1_1',
+                'expected' => [
                     'decimal' => false,
                     'hex'     => false,
                     'binary'  => false,

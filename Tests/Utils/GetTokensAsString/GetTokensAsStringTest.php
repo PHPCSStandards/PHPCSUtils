@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\GetTokensAsString;
  *
  * @since 1.0.0
  */
-class GetTokensAsStringTest extends UtilityMethodTestCase
+final class GetTokensAsStringTest extends UtilityMethodTestCase
 {
 
     /**
@@ -125,8 +125,8 @@ class GetTokensAsStringTest extends UtilityMethodTestCase
         $start = $this->getTargetToken($testMarker, $startTokenType);
         $end   = $this->getTargetToken($testMarker, \T_SEMICOLON);
 
-        $result = GetTokensAsString::normal(self::$phpcsFile, $start, $end);
-        $this->assertSame($expected['normal'], $result);
+        $result = GetTokensAsString::tabReplaced(self::$phpcsFile, $start, $end);
+        $this->assertSame($expected['tab_replaced'], $result);
     }
 
     /**
@@ -248,60 +248,81 @@ class GetTokensAsStringTest extends UtilityMethodTestCase
                 'marker'   => '/* testNamespace */',
                 'type'     => \T_NAMESPACE,
                 'expected' => [
-                    'normal'      => 'namespace Foo\Bar\Baz;',
-                    'orig'        => 'namespace Foo\Bar\Baz;',
-                    'no_comments' => 'namespace Foo\Bar\Baz;',
-                    'no_empties'  => 'namespaceFoo\Bar\Baz;',
-                    'compact'     => 'namespace Foo\Bar\Baz;',
-                    'compact_nc'  => 'namespace Foo\Bar\Baz;',
+                    'tab_replaced' => 'namespace Foo\Bar\Baz;',
+                    'orig'         => 'namespace Foo\Bar\Baz;',
+                    'no_comments'  => 'namespace Foo\Bar\Baz;',
+                    'no_empties'   => 'namespaceFoo\Bar\Baz;',
+                    'compact'      => 'namespace Foo\Bar\Baz;',
+                    'compact_nc'   => 'namespace Foo\Bar\Baz;',
                 ],
             ],
             'use-with-comments' => [
                 'marker'   => '/* testUseWithComments */',
                 'type'     => \T_STRING,
                 'expected' => [
-                    'normal'      => 'Foo /*comment*/ \ Bar
+                    'tab_replaced' => 'Foo /*comment*/ \ Bar
     // phpcs:ignore Stnd.Cat.Sniff --    For reasons.
     \ Bah;',
-                    'orig'        => 'Foo /*comment*/ \ Bar
+                    'orig'         => 'Foo /*comment*/ \ Bar
 	// phpcs:ignore Stnd.Cat.Sniff --	 For reasons.
 	\ Bah;',
-                    'no_comments' => 'Foo  \ Bar
+                    'no_comments'  => 'Foo  \ Bar
         \ Bah;',
-                    'no_empties'  => 'Foo\Bar\Bah;',
-                    'compact'     => 'Foo /*comment*/ \ Bar // phpcs:ignore Stnd.Cat.Sniff --    For reasons.
+                    'no_empties'   => 'Foo\Bar\Bah;',
+                    'compact'      => 'Foo /*comment*/ \ Bar // phpcs:ignore Stnd.Cat.Sniff --    For reasons.
  \ Bah;',
-                    'compact_nc'  => 'Foo \ Bar \ Bah;',
+                    'compact_nc'   => 'Foo \ Bar \ Bah;',
+                ],
+            ],
+            'calculation' => [
+                'marker'   => '/* testCalculation */',
+                'type'     => \T_LNUMBER,
+                'expected' => [
+                    'tab_replaced' => '1 + 2 +
+        // Comment.
+        3 + 4
+        + 5 + 6 + 7 > 20;',
+                    'orig'         => '1 + 2 +
+        // Comment.
+        3 + 4
+        + 5 + 6 + 7 > 20;',
+                    'no_comments'  => '1 + 2 +
+                3 + 4
+        + 5 + 6 + 7 > 20;',
+                    'no_empties'   => '1+2+3+4+5+6+7>20;',
+                    'compact'      => '1 + 2 + // Comment.
+ 3 + 4 + 5 + 6 + 7 > 20;',
+                    'compact_nc'   => '1 + 2 + 3 + 4 + 5 + 6 + 7 > 20;',
                 ],
             ],
             'echo-with-tabs' => [
                 'marker'   => '/* testEchoWithTabs */',
                 'type'     => \T_ECHO,
                 'expected' => [
-                    'normal'      => 'echo \'foo\',
+                    'tab_replaced' => 'echo \'foo\',
     \'bar\'   ,
         \'baz\';',
-                    'orig'        => 'echo \'foo\',
+                    'orig'         => 'echo \'foo\',
 	\'bar\'	,
 		\'baz\';',
-                    'no_comments' => 'echo \'foo\',
+                    'no_comments'  => 'echo \'foo\',
     \'bar\'   ,
         \'baz\';',
-                    'no_empties'  => 'echo\'foo\',\'bar\',\'baz\';',
-                    'compact'     => 'echo \'foo\', \'bar\' , \'baz\';',
-                    'compact_nc'  => 'echo \'foo\', \'bar\' , \'baz\';',
+                    'no_empties'   => 'echo\'foo\',\'bar\',\'baz\';',
+                    'compact'      => 'echo \'foo\', \'bar\' , \'baz\';',
+                    'compact_nc'   => 'echo \'foo\', \'bar\' , \'baz\';',
                 ],
             ],
             'end-of-file' => [
                 'marker'   => '/* testEndOfFile */',
                 'type'     => \T_ECHO,
                 'expected' => [
-                    'normal'      => 'echo   $foo;',
-                    'orig'        => 'echo   $foo;',
-                    'no_comments' => 'echo   $foo;',
-                    'no_empties'  => 'echo$foo;',
-                    'compact'     => 'echo $foo;',
-                    'compact_nc'  => 'echo $foo;',
+                    'tab_replaced' => 'echo   $foo;',
+                    'orig'         => 'echo   $foo;',
+                    'no_comments'  => 'echo   $foo;',
+                    'no_empties'   => 'echo$foo;',
+                    'compact'      => 'echo $foo;',
+                    'compact_nc'   => 'echo $foo;',
                 ],
             ],
         ];

@@ -22,7 +22,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class TrailingCommentHandlingTest extends UtilityMethodTestCase
+final class TrailingCommentHandlingTest extends UtilityMethodTestCase
 {
 
     /**
@@ -120,9 +120,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
         $expectedMessage = \sprintf(self::MSG, self::MSG_REPLACEMENT_1, $expected['found']);
         $this->assertSame($expectedMessage, $messages[0]['message'], 'Message comparison failed');
 
-        // PHPCS 2.x places `unknownSniff.` before the actual error code for utility tests with a dummy error code.
-        $errorCodeResult = \str_replace('unknownSniff.', '', $messages[0]['source']);
-        $this->assertSame(self::CODE, $errorCodeResult, 'Error code comparison failed');
+        $this->assertSame(self::CODE, $messages[0]['source'], 'Error code comparison failed');
 
         $this->assertSame($expected['fixable'], $messages[0]['fixable'], 'Fixability comparison failed');
 
@@ -132,7 +130,7 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
         // Check that no metric is recorded.
         $metrics = self::$phpcsFile->getMetrics();
         $this->assertFalse(
-            isset($metrics[static::METRIC]['values'][$expected['found']]),
+            isset($metrics[self::METRIC]['values'][$expected['found']]),
             'Failed recorded metric check'
         );
     }
@@ -149,8 +147,8 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
 
         $data = $this->dataCheckAndFix();
         foreach ($data as $dataset) {
-            $stackPtr  = $this->getTargetToken($dataset[0], \T_COMMENT);
-            $secondPtr = $this->getTargetToken($dataset[0], \T_LNUMBER, '3');
+            $stackPtr  = $this->getTargetToken($dataset['testMarker'], \T_COMMENT);
+            $secondPtr = $this->getTargetToken($dataset['testMarker'], \T_LNUMBER, '3');
 
             SpacesFixer::checkAndFix(
                 self::$phpcsFile,
@@ -159,16 +157,15 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
                 self::SPACES,
                 self::MSG,
                 self::CODE,
-                $dataset[1]
+                $dataset['type']
             );
         }
 
         $fixedFile = __DIR__ . '/TrailingCommentHandlingTest.inc.fixed';
-        $expected  = \file_get_contents($fixedFile);
         $result    = self::$phpcsFile->fixer->getContents();
 
-        $this->assertSame(
-            $expected,
+        $this->assertStringEqualsFile(
+            $fixedFile,
             $result,
             \sprintf(
                 'Fixed version of %s does not match expected version in %s',
@@ -189,20 +186,20 @@ class TrailingCommentHandlingTest extends UtilityMethodTestCase
     {
         return [
             'trailing-comment-not-fixable' => [
-                '/* testTrailingOpenCommentAsPtrA */',
-                [
+                'testMarker' => '/* testTrailingOpenCommentAsPtrA */',
+                'expected'   => [
                     'found'   => 'a new line',
                     'fixable' => false,
                 ],
-                'error',
+                'type'       => 'error',
             ],
             'trailing-comment-fixable' => [
-                '/* testTrailingClosedCommentAsPtrA */',
-                [
+                'testMarker' => '/* testTrailingClosedCommentAsPtrA */',
+                'expected'   => [
                     'found'   => 'a new line',
                     'fixable' => true,
                 ],
-                'error',
+                'type'       => 'error',
             ],
         ];
     }

@@ -12,25 +12,21 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Utils\FunctionDeclarations;
-use PHPCSUtils\Utils\Lists;
 
 /**
  * Utility functions for use when examining arrays.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Arrays
+final class Arrays
 {
 
     /**
      * The tokens to target to find the double arrow in an array item.
-     *
-     * Note: this array does not contain the `T_FN` token as it may or may not exist.
-     * If it exists, it will be added in the `getDoubleArrowPtr()` function.
      *
      * @since 1.0.0
      *
@@ -38,9 +34,15 @@ class Arrays
      */
     private static $doubleArrowTargets = [
         \T_DOUBLE_ARROW     => \T_DOUBLE_ARROW,
+
+        // Nested arrays.
         \T_ARRAY            => \T_ARRAY,
         \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY,
-        \T_STRING           => \T_STRING, // BC for T_FN token in PHPCS < 3.5.3 icw PHP < 7.4.
+
+        // Inline function, control structures and other things to skip over.
+        \T_FN               => \T_FN,
+        \T_MATCH            => \T_MATCH,
+        \T_ATTRIBUTE        => \T_ATTRIBUTE,
     ];
 
     /**
@@ -62,115 +64,7 @@ class Arrays
      */
     public static function isShortArray(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Is this one of the tokens this function handles ?
-        if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$shortArrayTokensBC[$tokens[$stackPtr]['code']]) === false
-        ) {
-            return false;
-        }
-
-        // All known tokenizer bugs are in PHPCS versions before 3.3.0.
-        $phpcsVersion = Helper::getVersion();
-
-        /*
-         * Deal with square brackets which may be incorrectly tokenized short arrays.
-         */
-        if (isset(Collections::$shortArrayTokens[$tokens[$stackPtr]['code']]) === false) {
-            if (\version_compare($phpcsVersion, '3.3.0', '>=')) {
-                // These will just be properly tokenized, plain square brackets. No need for further checks.
-                return false;
-            }
-
-            $opener = $stackPtr;
-            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET) {
-                $opener = $tokens[$stackPtr]['bracket_opener'];
-            }
-
-            if (isset($tokens[$opener]['bracket_closer']) === false) {
-                return false;
-            }
-
-            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-
-            if (\version_compare($phpcsVersion, '2.8.0', '>=')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 - 3.2.3 where a `[` would be
-                 * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
-                 * preceded by a PHP open tag at the very start of the file.
-                 *
-                 * If we have square brackets which are not that specific situation, they are just plain
-                 * square brackets.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971
-                 */
-                if ($prevNonEmpty !== 0 || $tokens[$prevNonEmpty]['code'] !== \T_OPEN_TAG) {
-                    return false;
-                }
-            }
-
-            if (\version_compare($phpcsVersion, '2.8.0', '<')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 2.8.0 where a `[` would be
-                 * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
-                 * preceded by a close curly of a control structure.
-                 *
-                 * If we have square brackets which are not that specific situation, they are just plain
-                 * square brackets.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
-                 */
-                if ($tokens[$prevNonEmpty]['code'] !== \T_CLOSE_CURLY_BRACKET
-                    || isset($tokens[$prevNonEmpty]['scope_condition']) === false
-                ) {
-                    return false;
-                }
-            }
-        } else {
-            /*
-             * Deal with short array brackets which may be incorrectly tokenized plain square brackets.
-             */
-            if (\version_compare($phpcsVersion, '2.9.0', '<')) {
-                $opener = $stackPtr;
-                if ($tokens[$stackPtr]['code'] === \T_CLOSE_SHORT_ARRAY) {
-                    $opener = $tokens[$stackPtr]['bracket_opener'];
-                }
-
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 2.9.0 where array dereferencing
-                 * of short array and string literals would be incorrectly tokenized as short array.
-                 * I.e. the square brackets in `'PHP'[0]` would be tokenized as short array.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1381
-                 */
-                $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-                if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
-                    || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
-                ) {
-                    return false;
-                }
-
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 and 2.8.1 where array dereferencing
-                 * of a variable variable would be incorrectly tokenized as short array.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
-                 */
-                if (\version_compare($phpcsVersion, '2.8.0', '>=')
-                    && $tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
-                ) {
-                    $openCurly     = $tokens[$prevNonEmpty]['bracket_opener'];
-                    $beforeCurlies = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($openCurly - 1), null, true);
-                    if ($tokens[$beforeCurlies]['code'] === \T_DOLLAR) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        // In all other circumstances, make sure this isn't a short list instead of a short array.
-        return (Lists::isShortList($phpcsFile, $stackPtr) === false);
+        return IsShortArrayOrListWithCache::isShortArray($phpcsFile, $stackPtr);
     }
 
     /**
@@ -208,7 +102,7 @@ class Arrays
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::$arrayTokensBC[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::arrayTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
@@ -251,6 +145,8 @@ class Arrays
      *
      * @since 1.0.0
      * @since 1.0.0-alpha2 Now allows for arrow functions in arrays.
+     * @since 1.0.0-alpha4 Now allows for match expressions in arrays.
+     * @since 1.0.0-alpha4 Now allows for attributes in arrays.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being examined.
      * @param int                         $start     Stack pointer to the start of the array item.
@@ -271,11 +167,16 @@ class Arrays
             );
         }
 
+        $cacheId = "$start-$end";
+        if (Cache::isCached($phpcsFile, __METHOD__, $cacheId) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $cacheId);
+        }
+
         $targets  = self::$doubleArrowTargets;
-        $targets += Collections::$closedScopes;
-        $targets += Collections::arrowFunctionTokensBC();
+        $targets += Collections::closedScopes();
 
         $doubleArrow = ($start - 1);
+        $returnValue = false;
         ++$end;
         do {
             $doubleArrow = $phpcsFile->findNext(
@@ -289,38 +190,33 @@ class Arrays
             }
 
             if ($tokens[$doubleArrow]['code'] === \T_DOUBLE_ARROW) {
-                return $doubleArrow;
-            }
-
-            /*
-             * BC: work-around a bug in PHPCS 3.5.4 where the double arrow is incorrectly tokenized as T_STRING.
-             *
-             * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2865
-             */
-            if ($tokens[$doubleArrow]['code'] === \T_STRING && $tokens[$doubleArrow]['content'] === '=>') {
-                return $doubleArrow;
+                $returnValue = $doubleArrow;
+                break;
             }
 
             // Skip over closed scopes which may contain foreach structures or generators.
-            if (isset(Collections::$closedScopes[$tokens[$doubleArrow]['code']]) === true
+            if ((isset(Collections::closedScopes()[$tokens[$doubleArrow]['code']]) === true
+                || $tokens[$doubleArrow]['code'] === \T_FN
+                || $tokens[$doubleArrow]['code'] === \T_MATCH)
                 && isset($tokens[$doubleArrow]['scope_closer']) === true
             ) {
                 $doubleArrow = $tokens[$doubleArrow]['scope_closer'];
                 continue;
             }
 
-            // BC for PHP 7.4 arrow functions with PHPCS < 3.5.3.
-            if (isset(Collections::arrowFunctionTokensBC()[$tokens[$doubleArrow]['code']]) === true
-                && FunctionDeclarations::isArrowFunction($phpcsFile, $doubleArrow) === false
+            // Skip over attributes which may contain arrays as a passed parameters.
+            if ($tokens[$doubleArrow]['code'] === \T_ATTRIBUTE
+                && isset($tokens[$doubleArrow]['attribute_closer'])
             ) {
-                // Not an arrow function, continue looking.
+                $doubleArrow = $tokens[$doubleArrow]['attribute_closer'];
                 continue;
             }
 
-            // Start of nested long/short array or arrow function.
+            // Start of nested long/short array.
             break;
         } while ($doubleArrow < $end);
 
-        return false;
+        Cache::set($phpcsFile, __METHOD__, $cacheId, $returnValue);
+        return $returnValue;
     }
 }

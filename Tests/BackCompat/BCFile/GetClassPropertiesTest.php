@@ -49,8 +49,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
         $this->expectPhpcsException('$stackPtr must be of type T_CLASS');
 
         $testClass = static::TEST_CLASS;
-        $interface = $this->getTargetToken($testMarker, $tokenType);
-        $testClass::getClassProperties(self::$phpcsFile, $interface);
+        $target    = $this->getTargetToken($testMarker, $tokenType);
+        $testClass::getClassProperties(self::$phpcsFile, $target);
     }
 
     /**
@@ -70,6 +70,10 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
             'anon-class' => [
                 '/* testAnonClass */',
                 \T_ANON_CLASS,
+            ],
+            'enum' => [
+                '/* testEnum */',
+                \T_ENUM,
             ],
         ];
     }
@@ -136,6 +140,13 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 [
                     'is_abstract' => false,
                     'is_final'    => false,
+                ],
+            ],
+            'abstract-final-parse-error' => [
+                '/* testParseErrorAbstractFinal */',
+                [
+                    'is_abstract' => true,
+                    'is_final'    => true,
                 ],
             ],
         ];

@@ -20,17 +20,29 @@ class testFIINNamespacedClass implements \PHP_CodeSniffer\Tests\Core\File\testFI
 /* testNonImplementedClass */
 class testFIINNonImplementedClass {}
 
+/* testNamespaceRelativeQualifiedClass */
+class testFIINQualifiedClass implements Core\File\RelativeInterface {}
+
 /* testClassThatExtendsAndImplements */
 class testFECNClassThatExtendsAndImplements extends testFECNClass implements InterfaceA, \NameSpaced\Cat\InterfaceB {}
 
 /* testClassThatImplementsAndExtends */
 class testFECNClassThatImplementsAndExtends implements \InterfaceA, InterfaceB extends testFECNClass {}
 
+/* testBackedEnumWithoutImplements */
+enum Suit:string {}
+
+/* testEnumImplements */
+enum Suit implements Colorful {}
+
+/* testBackedEnumImplements */
+enum Suit: string implements Colorful, \Deck {}
+
 /* testAnonClassImplements */
 $anon = class() implements testFIINInterface {}
 
 /* testMissingImplementsName */
-class testMissingExtendsName implements { /* missing interface name */  } // Internal parse error.
+class testMissingExtendsName implements { /* missing interface name */  } // Intentional parse error.
 
 // Intentional parse error. Has to be the last test in the file.
 /* testParseError */

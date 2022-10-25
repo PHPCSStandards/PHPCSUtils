@@ -21,7 +21,7 @@ use PHPCSUtils\Tests\BackCompat\BCFile\GetMemberPropertiesTest as BCFile_GetMemb
  *
  * @since 1.0.0
  */
-class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
+final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
 {
 
     /**
@@ -68,13 +68,12 @@ class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
         $data = parent::dataGetMemberProperties();
 
         /*
-         * Remove the data set related to the invalid interface property.
-         * This will now throw an exception instead.
+         * Remove the data set related to the invalid interface/enum properties.
+         * These will now throw an exception instead.
          */
         foreach ($data as $key => $value) {
-            if ($value[0] === '/* testInterfaceProperty */') {
+            if ($value[0] === '/* testInterfaceProperty */' || $value[0] === '/* testEnumProperty */') {
                 unset($data[$key]);
-                break;
             }
         }
 

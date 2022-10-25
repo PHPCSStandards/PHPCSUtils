@@ -10,7 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\Lists;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Lists;
 
 /**
@@ -22,7 +24,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-class GetAssignmentsTest extends UtilityMethodTestCase
+final class GetAssignmentsTest extends UtilityMethodTestCase
 {
 
     /**
@@ -66,12 +68,12 @@ class GetAssignmentsTest extends UtilityMethodTestCase
     {
         return [
             'not-a-list' => [
-                '/* testNotAList */',
-                \T_OPEN_SHORT_ARRAY,
+                'testMarker'  => '/* testNotAList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
             ],
             'live-coding' => [
-                '/* testLiveCoding */',
-                \T_LIST,
+                'testMarker'  => '/* testLiveCoding */',
+                'targetToken' => \T_LIST,
             ],
         ];
     }
@@ -130,19 +132,19 @@ class GetAssignmentsTest extends UtilityMethodTestCase
     {
         return [
             'long-list-empty' => [
-                '/* testEmptyLongList */',
-                \T_LIST,
-                [],
+                'testMarker'  => '/* testEmptyLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [],
             ],
             'short-list-empty' => [
-                '/* testEmptyShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                [],
+                'testMarker'  => '/* testEmptyShortList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [],
             ],
             'long-list-all-empty' => [
-                '/* testLongListOnlyEmpties */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListOnlyEmpties */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '',
                         'assignment'           => '',
@@ -190,14 +192,14 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-all-empty-with-comment' => [
-                '/* testShortListOnlyEmpties */',
-                \T_OPEN_SHORT_ARRAY,
-                [],
+                'testMarker'  => '/* testShortListOnlyEmpties */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [],
             ],
             'long-list-basic' => [
-                '/* testSimpleLongList */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testSimpleLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$id',
                         'assignment'           => '$id',
@@ -223,9 +225,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-basic' => [
-                '/* testSimpleShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testSimpleShortList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$this->propA',
                         'assignment'           => '$this->propA',
@@ -251,9 +253,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-in-foreach-keyed-with-ref' => [
-                '/* testShortListInForeachKeyedWithRef */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortListInForeachKeyedWithRef */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'id\' => & $id',
                         'assignment'           => '$id',
@@ -287,9 +289,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-nested' => [
-                '/* testNestedLongList */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testNestedLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$a',
                         'assignment'           => '$a',
@@ -315,9 +317,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-keys' => [
-                '/* testLongListWithKeys */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithKeys */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'name\' => $a',
                         'assignment'           => '$a',
@@ -366,9 +368,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-empties' => [
-                '/* testLongListWithEmptyEntries */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithEmptyEntries */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '',
                         'assignment'           => '',
@@ -460,9 +462,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-multi-line-keyed' => [
-                '/* testLongListMultiLineKeyedWithTrailingComma */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListMultiLineKeyedWithTrailingComma */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '"name" => $this->name',
                         'assignment'           => '$this->name',
@@ -537,9 +539,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-with-keys-nested-lists' => [
-                '/* testShortListWithKeysNestedLists */',
-                [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET],
-                [
+                'testMarker'  => '/* testShortListWithKeysNestedLists */',
+                'targetToken' => Collections::shortArrayListOpenTokensBC(),
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' => [&$a, $b]',
                         'assignment'           => '[&$a, $b]',
@@ -573,9 +575,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-array-vars' => [
-                '/* testLongListWithArrayVars */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithArrayVars */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$a[]',
                         'assignment'           => '$a[]',
@@ -612,9 +614,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'short-list-multi-line-with-variable-keys' => [
-                '/* testShortListMultiLineWithVariableKeys */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortListMultiLineWithVariableKeys */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' . \'b\'        => $a',
                         'assignment'           => '$a',
@@ -750,9 +752,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-with-close-parens-in-key' => [
-                '/* testLongListWithCloseParensInKey */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListWithCloseParensInKey */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => 'get_key()[1] => &$e',
                         'assignment'           => '$e',
@@ -771,9 +773,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-variable-vars' => [
-                '/* testLongListVariableVar */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListVariableVar */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '${$drink}',
                         'assignment'           => '${$drink}',
@@ -799,9 +801,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'long-list-keyed-with-nested-lists' => [
-                '/* testLongListKeyedNestedLists */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListKeyedNestedLists */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '\'a\' =>
         list("x" => $x1, "y" => $y1)',
@@ -837,9 +839,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'parse-error-long-list-mixed-keyed-unkeyed' => [
-                '/* testLongListMixedKeyedUnkeyed */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongListMixedKeyedUnkeyed */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     0 => [
                         'raw'                  => '$unkeyed',
                         'assignment'           => '$unkeyed',
@@ -869,9 +871,9 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
             'parse-error-short-list-empties-and-key' => [
-                '/* testShortListWithEmptiesAndKey */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortListWithEmptiesAndKey */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     0 => [
                         'raw'                  => '',
                         'assignment'           => '',
@@ -934,5 +936,60 @@ class GetAssignmentsTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName  = 'PHPCSUtils\\Utils\\Lists::getAssignments';
+        $cases       = $this->dataGetAssignments();
+        $testMarker  = $cases['short-list-with-keys-nested-lists']['testMarker'];
+        $targetToken = $cases['short-list-with-keys-nested-lists']['targetToken'];
+        $expected    = $cases['short-list-with-keys-nested-lists']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, $targetToken);
+
+        // Convert offsets to absolute positions.
+        foreach ($expected as $index => $subset) {
+            if (isset($subset['key_token'])) {
+                $expected[$index]['key_token'] += $stackPtr;
+            }
+            if (isset($subset['key_end_token'])) {
+                $expected[$index]['key_end_token'] += $stackPtr;
+            }
+            if (isset($subset['double_arrow_token'])) {
+                $expected[$index]['double_arrow_token'] += $stackPtr;
+            }
+            if (isset($subset['reference_token']) && $subset['reference_token'] !== false) {
+                $expected[$index]['reference_token'] += $stackPtr;
+            }
+            if (isset($subset['assignment_token']) && $subset['assignment_token'] !== false) {
+                $expected[$index]['assignment_token'] += $stackPtr;
+            }
+            if (isset($subset['assignment_end_token']) && $subset['assignment_end_token'] !== false) {
+                $expected[$index]['assignment_end_token'] += $stackPtr;
+            }
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Lists::getAssignments(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = Lists::getAssignments(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

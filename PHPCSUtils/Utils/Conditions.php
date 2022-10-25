@@ -20,7 +20,7 @@ use PHP_CodeSniffer\Files\File;
  *              PHPCS native `PHP_CodeSniffer\Files\File` class.
  *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
-class Conditions
+final class Conditions
 {
 
     /**

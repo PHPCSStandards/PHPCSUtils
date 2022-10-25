@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -27,14 +27,16 @@ use PHPCSUtils\Utils\Parentheses;
  * @link https://www.php.net/language.namespaces PHP Manual on namespaces.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Namespaces
+final class Namespaces
 {
 
     /**
      * Determine what a T_NAMESPACE token is used for.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_NAMESPACE` token.
@@ -56,17 +58,16 @@ class Namespaces
              * Set up array of tokens which can only be used in combination with the keyword as operator
              * and which cannot be confused with other keywords.
              */
-            $findAfter = BCTokens::assignmentTokens()
-                + BCTokens::comparisonTokens()
-                + BCTokens::operators()
+            $findAfter = Tokens::$assignmentTokens
+                + Tokens::$comparisonTokens
+                + Tokens::$operators
                 + Tokens::$castTokens
                 + Tokens::$blockOpeners
-                + Collections::$incrementDecrementOperators
-                + Collections::$objectOperators;
+                + Collections::incrementDecrementOperators()
+                + Collections::objectOperators()
+                + Collections::shortArrayListOpenTokensBC();
 
-            $findAfter[\T_OPEN_CURLY_BRACKET]  = \T_OPEN_CURLY_BRACKET;
-            $findAfter[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
-            $findAfter[\T_OPEN_SHORT_ARRAY]    = \T_OPEN_SHORT_ARRAY;
+            $findAfter[\T_OPEN_CURLY_BRACKET] = \T_OPEN_CURLY_BRACKET;
         }
 
         $tokens = $phpcsFile->getTokens();
@@ -98,12 +99,14 @@ class Namespaces
         $start = BCFile::findStartOfStatement($phpcsFile, $stackPtr);
         if ($start === $stackPtr
             && ($tokens[$next]['code'] === \T_STRING
+               || $tokens[$next]['code'] === \T_NAME_QUALIFIED
                || $tokens[$next]['code'] === \T_OPEN_CURLY_BRACKET)
         ) {
             return 'declaration';
         }
 
-        if ($tokens[$next]['code'] === \T_NS_SEPARATOR
+        if (($tokens[$next]['code'] === \T_NS_SEPARATOR
+            || $tokens[$next]['code'] === \T_NAME_FULLY_QUALIFIED) // PHP 8.0 parse error.
             && ($start !== $stackPtr
                 || $phpcsFile->findNext($findAfter, ($stackPtr + 1), null, false, null, true) !== false)
         ) {
@@ -185,7 +188,7 @@ class Namespaces
             return false;
         }
 
-        $endOfStatement = $phpcsFile->findNext(Collections::$namespaceDeclarationClosers, ($stackPtr + 1));
+        $endOfStatement = $phpcsFile->findNext(Collections::namespaceDeclarationClosers(), ($stackPtr + 1));
         if ($endOfStatement === false) {
             // Live coding or parse error.
             return false;
@@ -257,6 +260,9 @@ class Namespaces
          * - and that namespace declarations can't be nested in anything, so we can skip over any
          *   nesting structures.
          */
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
 
         // Start by breaking out of any scoped structures this token is in.
         $prev           = $stackPtr;
@@ -271,14 +277,16 @@ class Namespaces
             $prev = $firstParensOpener;
         }
 
-        $find = [
+        $find        = [
             \T_NAMESPACE,
             \T_CLOSE_CURLY_BRACKET,
             \T_CLOSE_PARENTHESIS,
             \T_CLOSE_SHORT_ARRAY,
             \T_CLOSE_SQUARE_BRACKET,
             \T_DOC_COMMENT_CLOSE_TAG,
+            \T_ATTRIBUTE_END,
         ];
+        $returnValue = false;
 
         do {
             $prev = $phpcsFile->findPrevious($find, ($prev - 1));
@@ -290,12 +298,6 @@ class Namespaces
                 // Stop if we encounter a scoped namespace declaration as we already know we're not in one.
                 if (isset($tokens[$prev]['scope_condition']) === true
                     && $tokens[$tokens[$prev]['scope_condition']]['code'] === \T_NAMESPACE
-                    /*
-                     * BC: Work around a bug where curlies for variable variables received an incorrect
-                     * and irrelevant scope condition in PHPCS < 3.3.0.
-                     * {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/1882}
-                     */
-                    && self::isDeclaration($phpcsFile, $tokens[$prev]['scope_condition']) === true
                 ) {
                     break;
                 }
@@ -304,7 +306,8 @@ class Namespaces
                 if (isset($tokens[$prev]['scope_condition']) === true) {
                     $prev = $tokens[$prev]['scope_condition'];
                 } elseif (isset($tokens[$prev]['scope_opener']) === true) {
-                    $prev = $tokens[$prev]['scope_opener'];
+                    // Shouldn't be possible, but just in case.
+                    $prev = $tokens[$prev]['scope_opener']; // @codeCoverageIgnore
                 }
 
                 continue;
@@ -324,6 +327,12 @@ class Namespaces
                 continue;
             }
 
+            // Skip over potentially large attributes.
+            if (isset($tokens[$prev]['attribute_opener'])) {
+                $prev = $tokens[$prev]['attribute_opener'];
+                continue;
+            }
+
             // Skip over potentially large docblocks.
             if (isset($tokens[$prev]['comment_opener'])) {
                 $prev = $tokens[$prev]['comment_opener'];
@@ -335,16 +344,19 @@ class Namespaces
                 && self::isDeclaration($phpcsFile, $prev) === true
             ) {
                 // Now make sure the token was not part of the declaration.
-                $endOfStatement = $phpcsFile->findNext(Collections::$namespaceDeclarationClosers, ($prev + 1));
+                $endOfStatement = $phpcsFile->findNext(Collections::namespaceDeclarationClosers(), ($prev + 1));
                 if ($endOfStatement > $stackPtr) {
-                    return false;
+                    // Token is part of the declaration, return false.
+                    break;
                 }
 
-                return $prev;
+                $returnValue = $prev;
+                break;
             }
         } while (true);
 
-        return false;
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
+        return $returnValue;
     }
 
     /**

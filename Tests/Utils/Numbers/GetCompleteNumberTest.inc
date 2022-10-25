@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Make sure that number literals are correctly identified.
+ * Make sure that number literals and explicit octals are correctly identified.
  */
 
 /* testNotAnLNumber */
@@ -13,6 +13,9 @@ const _100 = null;
  */
 /* testIntDecimal */
 $a = 1000000000;
+
+/* testIntLargerThanIntMaxIsFloat */
+$intMaxPlus3 = 10223372036854775810;
 
 /* testFloat */
 $b = 107925284.88;
@@ -38,6 +41,9 @@ $a = 100 'test'; // Intentional parse error, not our concern.
  */
 /* testPHP74IntDecimalMultiUnderscore */
 $threshold = 1_000_000_000;
+
+/* testPHP74IntLargerThanIntMaxIsFloat */
+$intMaxPlus3 = 10_223_372_036_854_775_810;
 
 /* testPHP74Float */
 $testValue = 107_925_284.88;
@@ -118,6 +124,32 @@ $a = 1_e2;   // next to e
 /* testPHP74Invalid8 */
 $a = 1e_2;   // next to e
 
+/*
+ * PHP 8.1 explicit octal notation.
+ */
+/* testPHP81ExplicitOctal */
+$octal = 0o137041;
+
+/* testPHP81ExplicitOctalUppercase */
+$octal = 0O137041;
+
+/* testPHP81ExplicitOctalWithSeparator */
+$octal = 0o137_041;
+
+/* testPHP81InvalidExplicitOctal1 */
+$invalidOctal = 0o91;
+
+/* testPHP81InvalidExplicitOctal2 */
+$invalidOctal = 0O282;
+
+/* testPHP81InvalidExplicitOctal3 */
+$invalidOctal = 0o28_2;
+
+/* testPHP81InvalidExplicitOctal4 */
+$invalidOctal = 0o2_82;
+
+/* testPHP74PHP81InvalidExplicitOctal */
+$invalid = 0o_123; // Underscore next to o.
 
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file (and on the last line) !

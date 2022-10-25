@@ -31,6 +31,9 @@ class testFECNNestedExtendedClass {
     }
 }
 
+/* testNamespaceRelativeQualifiedClass */
+class testFECNQualifiedClass extends Core\File\RelativeClass {}
+
 /* testClassThatExtendsAndImplements */
 class testFECNClassThatExtendsAndImplements extends testFECNClass implements InterfaceA, InterfaceB {}
 
@@ -44,7 +47,7 @@ $anon = new class( $a, $b ) extends testFECNExtendedAnonClass {};
 interface Multi extends \Package\FooInterface, \BarInterface {};
 
 /* testMissingExtendsName */
-class testMissingExtendsName extends { /* missing classname */ } // Internal parse error.
+class testMissingExtendsName extends { /* missing classname */ } // Intentional parse error.
 
 // Intentional parse error. Has to be the last test in the file.
 /* testParseError */

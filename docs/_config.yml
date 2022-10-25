@@ -8,19 +8,19 @@ github: [metadata]
 url: "https://phpcsutils.com"
 
 plugins:
-    - jekyll-github-metadata
-    - jemoji
-    - jekyll-mentions
-    - jekyll-seo-tag
-    - jekyll-sitemap
+  - jekyll-github-metadata
+  - jemoji
+  - jekyll-mentions
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 phpcsutils:
-    packagist: phpcsstandards/phpcsutils
+  packagist: phpcsstandards/phpcsutils
 
 # Theme info.
 title: PHPCSUtils
 description: "A suite of utility functions for use with PHP_CodeSniffer."
-logo: 
+logo:
 show_downloads: false
 google_analytics:
 
@@ -33,4 +33,34 @@ twitter:
 author:
   twitter: jrf_nl
 
-exclude: ['CNAME', '.gitignore', 'Gemfile', '*.bak', '*.orig']
+# Needed so the select HTML tags do not get removed *sigh*
+commonmark:
+  options: ["SMART", "FOOTNOTES", "UNSAFE"]
+  extensions: ["strikethrough", "autolink", "table"]
+
+# Files to exclude when generating the site.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - CNAME
+  - CONTRIBUTING.md
+  - LICENSE
+  - README.md
+  - apigen.neon
+  - buildtool.py
+  - Vagrantfile
+  - vagrant-provision.sh
+  - .gitignore
+  - .github
+  - .jekyll-metadata
+  - '*.bak'
+  - '*.orig'
+  - runit.bat

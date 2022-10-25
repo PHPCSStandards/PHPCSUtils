@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Operators;
  *
  * @since 1.0.0
  */
-class IsShortTernaryTest extends UtilityMethodTestCase
+final class IsShortTernaryTest extends UtilityMethodTestCase
 {
 
     /**
@@ -78,91 +78,20 @@ class IsShortTernaryTest extends UtilityMethodTestCase
     {
         return [
             'long-ternary' => [
-                '/* testLongTernary */',
-                false,
+                'testMarker' => '/* testLongTernary */',
+                'expected'   => false,
             ],
             'short-ternary-no-space' => [
-                '/* testShortTernaryNoSpace */',
-                true,
+                'testMarker' => '/* testShortTernaryNoSpace */',
+                'expected'   => true,
             ],
             'short-ternary-long-space' => [
-                '/* testShortTernaryLongSpace */',
-                true,
+                'testMarker' => '/* testShortTernaryLongSpace */',
+                'expected'   => true,
             ],
             'short-ternary-comments-annotations' => [
-                '/* testShortTernaryWithCommentAndAnnotations */',
-                true,
-            ],
-        ];
-    }
-
-    /**
-     * Safeguard that incorrectly tokenized T_INLINE_THEN or T_INLINE_ELSE tokens are correctly
-     * rejected as not short ternary.
-     *
-     * {@internal None of these are really problematic, but better to be safe than sorry.}
-     *
-     * @dataProvider dataIsShortTernaryTokenizerIssues
-     *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $tokenType  The token code to look for.
-     *
-     * @return void
-     */
-    public function testIsShortTernaryTokenizerIssues($testMarker, $tokenType = \T_INLINE_THEN)
-    {
-        $stackPtr = $this->getTargetToken($testMarker, $tokenType);
-        $result   = Operators::isShortTernary(self::$phpcsFile, $stackPtr);
-        $this->assertFalse($result);
-    }
-
-    /**
-     * Data provider.
-     *
-     * @see testIsShortTernaryTokenizerIssues() For the array format.
-     *
-     * @return array
-     */
-    public function dataIsShortTernaryTokenizerIssues()
-    {
-        $targetCoalesce = [\T_INLINE_THEN];
-        if (\defined('T_COALESCE')) {
-            $targetCoalesce[] = \T_COALESCE;
-        }
-
-        $targetCoalesceAndEquals = $targetCoalesce;
-        if (\defined('T_COALESCE_EQUAL')) {
-            $targetCoalesceAndEquals[] = \T_COALESCE_EQUAL;
-        }
-
-        $targetNullable = [\T_INLINE_THEN];
-        if (\defined('T_NULLABLE')) {
-            $targetNullable[] = \T_NULLABLE;
-        }
-
-        return [
-            'null-coalesce' => [
-                '/* testDontConfuseWithNullCoalesce */',
-                $targetCoalesce,
-            ],
-            'null-coalesce-equals' => [
-                '/* testDontConfuseWithNullCoalesceEquals */',
-                $targetCoalesceAndEquals,
-            ],
-            'nullable-property' => [
-                '/* testDontConfuseWithNullable1 */',
-                $targetNullable,
-            ],
-            'nullable-param-type' => [
-                '/* testDontConfuseWithNullable2 */',
-                $targetNullable,
-            ],
-            'nullable-return-type' => [
-                '/* testDontConfuseWithNullable3 */',
-                $targetNullable,
-            ],
-            'parse-error' => [
-                '/* testParseError */',
+                'testMarker' => '/* testShortTernaryWithCommentAndAnnotations */',
+                'expected'   => true,
             ],
         ];
     }

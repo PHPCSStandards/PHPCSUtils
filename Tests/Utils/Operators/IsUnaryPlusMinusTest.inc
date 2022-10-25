@@ -71,13 +71,16 @@ $a = $a ? -1 :
     + 10;
 
 /* testUnaryMinusCoalesce */
-$a = $a ?? -1 :
+$a = $a ?? -1 ;
 
 /* testUnaryPlusIntReturn */
 return +1;
 
 /* testUnaryMinusFloatReturn */
 return -1.1;
+
+/* testUnaryPlusIntExit */
+exit -1;
 
 /* testUnaryPlusPrint */
 print +$b;
@@ -126,14 +129,26 @@ declare( ticks = +10 );
 switch ($a) {
     /* testUnaryPlusCase */
     case +20:
-        // Something.
-        break;
+        /* testUnaryPlusContinue */
+        continue +2;
 
     /* testUnaryMinusCase */
     case -1.23:
-        // Something.
-        break;
+        /* testUnaryPlusBreak */
+        break +1;
 }
+
+/* testUnaryMinusArrowFunction */
+$fn = static fn(DateTime $a, DateTime $b): int => -($a->getTimestamp() <=> $b->getTimestamp());
+
+$matcher = match ($a) {
+    /* testUnaryPlusMatchArrow */
+    'a' => +1,
+    /* testUnaryMinusMatchArrow */
+    'b', 'c', 'd' => -2,
+    /* testUnaryMinusMatchDefault */
+    default => -3,
+};
 
 // Testing `$a = -+-+10`;
 $a =
@@ -145,12 +160,6 @@ $a =
     -
     /* testSequenceUnaryEnd */
     + /*comment*/ 10;
-
-/* testPHP74NumericLiteralFloatContainingPlus */
-$a = 6.674_083e+11;
-
-/* testPHP74NumericLiteralFloatContainingMinus */
-$a = 6.674_083e-1_1;
 
 /* testPHP74NumericLiteralIntCalc1 */
 $a = 667_083 - 11;

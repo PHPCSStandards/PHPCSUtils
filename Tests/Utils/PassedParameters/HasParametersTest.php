@@ -8,9 +8,10 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Utils\Operators;
+namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\PassedParameters;
 
 /**
@@ -22,7 +23,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class HasParametersTest extends UtilityMethodTestCase
+final class HasParametersTest extends UtilityMethodTestCase
 {
 
     /**
@@ -58,16 +59,46 @@ class HasParametersTest extends UtilityMethodTestCase
     /**
      * Test receiving an expected exception when T_SELF is passed not preceeded by `new`.
      *
+     * @dataProvider dataNotACallToConstructor
+     *
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType The type of token to look for.
+     *
      * @return void
      */
-    public function testNotACallToConstructor()
+    public function testNotACallToConstructor($testMarker, $targetType)
     {
         $this->expectPhpcsException(
             'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
         );
 
-        $self = $this->getTargetToken('/* testNotACallToConstructor */', \T_SELF);
+        $self = $this->getTargetToken($testMarker, $targetType);
         PassedParameters::hasParameters(self::$phpcsFile, $self);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testNotACallToConstructor() For the array format.
+     *
+     * @return array
+     */
+    public function dataNotACallToConstructor()
+    {
+        return [
+            'parent' => [
+                'testMarker' => '/* testNotACallToConstructor1 */',
+                'targetType' => \T_PARENT,
+            ],
+            'static' => [
+                'testMarker' => '/* testNotACallToConstructor2 */',
+                'targetType' => \T_STATIC,
+            ],
+            'self' => [
+                'testMarker' => '/* testNotACallToConstructor3 */',
+                'targetType' => \T_SELF,
+            ],
+        ];
     }
 
     /**
@@ -83,7 +114,7 @@ class HasParametersTest extends UtilityMethodTestCase
 
         $self = $this->getTargetToken(
             '/* testShortListNotShortArray */',
-            [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]
+            Collections::shortArrayListOpenTokensBC()
         );
         PassedParameters::hasParameters(self::$phpcsFile, $self);
     }
@@ -93,15 +124,17 @@ class HasParametersTest extends UtilityMethodTestCase
      *
      * @dataProvider dataHasParameters
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $targetType The type of token to look for.
-     * @param bool       $expected   Whether or not the function/array has parameters/values.
+     * @param string     $testMarker    The comment which prefaces the target token in the test file.
+     * @param int|string $targetType    The type of token to look for.
+     * @param bool       $expected      Whether or not the function/array has parameters/values.
+     * @param string     $targetContent Optional. The content of the target token to find.
+     *                                  Defaults to null (ignore content).
      *
      * @return void
      */
-    public function testHasParameters($testMarker, $targetType, $expected)
+    public function testHasParameters($testMarker, $targetType, $expected, $targetContent = null)
     {
-        $stackPtr = $this->getTargetToken($testMarker, $targetType);
+        $stackPtr = $this->getTargetToken($testMarker, $targetType, $targetContent);
         $result   = PassedParameters::hasParameters(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -115,156 +148,261 @@ class HasParametersTest extends UtilityMethodTestCase
      */
     public function dataHasParameters()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             // Function calls.
             'no-params-function-call-1' => [
-                '/* testNoParamsFunctionCall1 */',
-                \T_STRING,
-                false,
+                'testMarker' => '/* testNoParamsFunctionCall1 */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
             ],
             'no-params-function-call-2' => [
-                '/* testNoParamsFunctionCall2 */',
-                \T_STRING,
-                false,
+                'testMarker' => '/* testNoParamsFunctionCall2 */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
             ],
             'no-params-function-call-3' => [
-                '/* testNoParamsFunctionCall3 */',
-                \T_STRING,
-                false,
+                'testMarker' => '/* testNoParamsFunctionCall3 */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
             ],
             'no-params-function-call-4' => [
-                '/* testNoParamsFunctionCall4 */',
-                \T_VARIABLE,
-                false,
+                'testMarker' => '/* testNoParamsFunctionCall4 */',
+                'targetType' => \T_VARIABLE,
+                'expected'   => false,
             ],
+            'no-params-function-call-5-new-self' => [
+                'testMarker' => '/* testNoParamsFunctionCall5 */',
+                'targetType' => \T_SELF,
+                'expected'   => false,
+            ],
+            'no-params-function-call-6-new-static' => [
+                'testMarker' => '/* testNoParamsFunctionCall6 */',
+                'targetType' => \T_STATIC,
+                'expected'   => false,
+            ],
+            'no-params-function-call-7-new-parent' => [
+                'testMarker' => '/* testNoParamsFunctionCall7 */',
+                'targetType' => \T_PARENT,
+                'expected'   => false,
+            ],
+
             'has-params-function-call-1' => [
-                '/* testHasParamsFunctionCall1 */',
-                \T_STRING,
-                true,
+                'testMarker' => '/* testHasParamsFunctionCall1 */',
+                'targetType' => \T_STRING,
+                'expected'   => true,
             ],
             'has-params-function-call-2' => [
-                '/* testHasParamsFunctionCall2 */',
-                \T_VARIABLE,
-                true,
+                'testMarker' => '/* testHasParamsFunctionCall2 */',
+                'targetType' => \T_VARIABLE,
+                'expected'   => true,
             ],
-            'has-params-function-call-3' => [
-                '/* testHasParamsFunctionCall3 */',
-                // In PHPCS < 2.8.0, self in "new self" is tokenized as T_STRING.
-                [\T_SELF, \T_STRING],
-                true,
+            'has-params-function-call-3-new-self' => [
+                'testMarker' => '/* testHasParamsFunctionCall3 */',
+                'targetType' => \T_SELF,
+                'expected'   => true,
+            ],
+            'has-params-function-call-4-new-static' => [
+                'testMarker' => '/* testHasParamsFunctionCall4 */',
+                'targetType' => \T_STATIC,
+                'expected'   => true,
+            ],
+            'has-params-function-call-5-new-parent' => [
+                'testMarker' => '/* testHasParamsFunctionCall5 */',
+                'targetType' => \T_PARENT,
+                'expected'   => true,
+            ],
+            'has-params-function-call-6-self-as-method-name' => [
+                'testMarker'    => '/* testHasParamsFunctionCall6 */',
+                'targetType'    => \T_STRING,
+                'expected'      => true,
+                'targetContent' => 'self',
+            ],
+            'has-params-function-call-7-static-as-method-name' => [
+                'testMarker'    => '/* testHasParamsFunctionCall7 */',
+                'targetType'    => \T_STRING,
+                'expected'      => true,
+                'targetContent' => 'static',
+            ],
+            'has-params-function-call-8-parent-as-method-name' => [
+                'testMarker'    => '/* testHasParamsFunctionCall8 */',
+                'targetType'    => \T_STRING,
+                'expected'      => true,
+                'targetContent' => 'parent',
+            ],
+
+            'no-params-function-call-fully-qualified' => [
+                'testMarker'    => '/* testNoParamsFunctionCallFullyQualified */',
+                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'expected'      => false,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'has-params-function-call-fully-qualified-with-namespace' => [
+                'testMarker'    => '/* testHasParamsFunctionCallFullyQualifiedWithNamespace */',
+                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'expected'      => true,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'no-params-function-call-partially-qualified' => [
+                'testMarker'    => '/* testNoParamsFunctionCallPartiallyQualified */',
+                'targetType'    => ($php8Names === true) ? \T_NAME_QUALIFIED : \T_STRING,
+                'expected'      => false,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+            ],
+            'has-params-function-call-namespace-operator-relative' => [
+                'testMarker'    => '/* testHasParamsFunctionCallNamespaceOperator */',
+                'targetType'    => ($php8Names === true) ? \T_NAME_RELATIVE : \T_STRING,
+                'expected'      => true,
+                'targetContent' => ($php8Names === true) ? null : 'myfunction',
             ],
 
             // Arrays.
             'no-params-long-array-1' => [
-                '/* testNoParamsLongArray1 */',
-                \T_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsLongArray1 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => false,
             ],
             'no-params-long-array-2' => [
-                '/* testNoParamsLongArray2 */',
-                \T_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsLongArray2 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => false,
             ],
             'no-params-long-array-3' => [
-                '/* testNoParamsLongArray3 */',
-                \T_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsLongArray3 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => false,
             ],
             'no-params-long-array-4' => [
-                '/* testNoParamsLongArray4 */',
-                \T_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsLongArray4 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => false,
             ],
             'no-params-short-array-1' => [
-                '/* testNoParamsShortArray1 */',
-                \T_OPEN_SHORT_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsShortArray1 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => false,
             ],
             'no-params-short-array-2' => [
-                '/* testNoParamsShortArray2 */',
-                \T_OPEN_SHORT_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsShortArray2 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => false,
             ],
             'no-params-short-array-3' => [
-                '/* testNoParamsShortArray3 */',
-                \T_OPEN_SHORT_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsShortArray3 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => false,
             ],
             'no-params-short-array-4' => [
-                '/* testNoParamsShortArray4 */',
-                \T_OPEN_SHORT_ARRAY,
-                false,
+                'testMarker' => '/* testNoParamsShortArray4 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => false,
             ],
             'has-params-long-array-1' => [
-                '/* testHasParamsLongArray1 */',
-                \T_ARRAY,
-                true,
+                'testMarker' => '/* testHasParamsLongArray1 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => true,
             ],
             'has-params-long-array-2' => [
-                '/* testHasParamsLongArray2 */',
-                \T_ARRAY,
-                true,
+                'testMarker' => '/* testHasParamsLongArray2 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => true,
             ],
             'has-params-long-array-3' => [
-                '/* testHasParamsLongArray3 */',
-                \T_ARRAY,
-                true,
+                'testMarker' => '/* testHasParamsLongArray3 */',
+                'targetType' => \T_ARRAY,
+                'expected'   => true,
             ],
             'has-params-short-array-1' => [
-                '/* testHasParamsShortArray1 */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
+                'testMarker' => '/* testHasParamsShortArray1 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => true,
             ],
             'has-params-short-array-2' => [
-                '/* testHasParamsShortArray2 */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
+                'testMarker' => '/* testHasParamsShortArray2 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => true,
             ],
             'has-params-short-array-3' => [
-                '/* testHasParamsShortArray3 */',
-                \T_OPEN_SHORT_ARRAY,
-                true,
+                'testMarker' => '/* testHasParamsShortArray3 */',
+                'targetType' => \T_OPEN_SHORT_ARRAY,
+                'expected'   => true,
             ],
 
             // Isset.
             'no-params-isset' => [
-                '/* testNoParamsIsset */',
-                \T_ISSET,
-                false,
+                'testMarker' => '/* testNoParamsIsset */',
+                'targetType' => \T_ISSET,
+                'expected'   => false,
             ],
             'has-params-isset' => [
-                '/* testHasParamsIsset */',
-                \T_ISSET,
-                true,
+                'testMarker' => '/* testHasParamsIsset */',
+                'targetType' => \T_ISSET,
+                'expected'   => true,
             ],
 
             // Unset.
             'no-params-unset' => [
-                '/* testNoParamsUnset */',
-                \T_UNSET,
-                false,
+                'testMarker' => '/* testNoParamsUnset */',
+                'targetType' => \T_UNSET,
+                'expected'   => false,
             ],
             'has-params-unset' => [
-                '/* testHasParamsUnset */',
-                \T_UNSET,
-                true,
+                'testMarker' => '/* testHasParamsUnset */',
+                'targetType' => \T_UNSET,
+                'expected'   => true,
+            ],
+
+            // Anonymous class instantiation.
+            'no-params-no-parens-anon-class' => [
+                'testMarker' => '/* testNoParamsNoParensAnonClass */',
+                'targetType' => \T_ANON_CLASS,
+                'expected'   => false,
+            ],
+            'no-params-with-parens-anon-class' => [
+                'testMarker' => '/* testNoParamsWithParensAnonClass */',
+                'targetType' => \T_ANON_CLASS,
+                'expected'   => false,
+            ],
+            'has-params-anon-class' => [
+                'testMarker' => '/* testHasParamsAnonClass */',
+                'targetType' => \T_ANON_CLASS,
+                'expected'   => true,
+            ],
+
+            // PHP 8.1 first class callables are callbacks, not function calls.
+            'no-params-php81-first-class-callable-global-function' => [
+                'testMarker' => '/* testPHP81FirstClassCallableNotFunctionCallGlobalFunction */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
+            ],
+            'no-params-php81-first-class-callable-oo-method' => [
+                'testMarker' => '/* testPHP81FirstClassCallableNotFunctionCallOOMethod */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
+            ],
+            'no-params-php81-first-class-callable-variable-static-oo-method' => [
+                'testMarker'    => '/* testPHP81FirstClassCallableNotFunctionCallVariableStaticOOMethod */',
+                'targetType'    => \T_VARIABLE,
+                'expected'      => false,
+                'targetContent' => '$name2',
             ],
 
             // Defensive coding against parse errors and live coding.
             'defense-in-depth-no-close-parens' => [
-                '/* testNoCloseParenthesis */',
-                \T_ARRAY,
-                false,
+                'testMarker' => '/* testNoCloseParenthesis */',
+                'targetType' => \T_ARRAY,
+                'expected'   => false,
             ],
             'defense-in-depth-no-open-parens' => [
-                '/* testNoOpenParenthesis */',
-                \T_STRING,
-                false,
+                'testMarker' => '/* testNoOpenParenthesis */',
+                'targetType' => \T_STRING,
+                'expected'   => false,
             ],
             'defense-in-depth-live-coding' => [
-                '/* testLiveCoding */',
-                \T_ARRAY,
-                false,
+                'testMarker' => '/* testLiveCoding */',
+                'targetType' => \T_ARRAY,
+                'expected'   => false,
             ],
         ];
     }

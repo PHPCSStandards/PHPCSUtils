@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
+final class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
 {
 
     /**
@@ -77,42 +77,56 @@ class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
     {
         return [
             'not-extended' => [
-                '/* testInterface */',
-                false,
+                'testMarker' => '/* testInterface */',
+                'expected'   => false,
             ],
             'extends-one' => [
-                '/* testExtendedInterface */',
-                ['testInterface'],
+                'testMarker' => '/* testExtendedInterface */',
+                'expected'   => ['testInterface'],
             ],
             'extends-two' => [
-                '/* testMultiExtendedInterface */',
-                [
+                'testMarker' => '/* testMultiExtendedInterface */',
+                'expected'   => [
                     'testInterfaceA',
                     'testInterfaceB',
                 ],
             ],
             'extends-one-namespaced' => [
-                '/* testExtendedNamespacedInterface */',
-                ['\PHPCSUtils\Tests\ObjectDeclarations\testInterface'],
+                'testMarker' => '/* testExtendedNamespacedInterface */',
+                'expected'   => ['\PHPCSUtils\Tests\ObjectDeclarations\testInterface'],
             ],
             'extends-two-namespaced' => [
-                '/* testMultiExtendedNamespacedInterface */',
-                [
+                'testMarker' => '/* testMultiExtendedNamespacedInterface */',
+                'expected'   => [
                     '\PHPCSUtils\Tests\ObjectDeclarations\testInterfaceA',
                     '\PHPCSUtils\Tests\ObjectDeclarations\testFEINInterfaceB',
                 ],
             ],
             'extends-with-comments' => [
-                '/* testMultiExtendedInterfaceWithComments */',
-                [
+                'testMarker' => '/* testMultiExtendedInterfaceWithComments */',
+                'expected'   => [
                     'testInterfaceA',
                     '\PHPCSUtils\Tests\Some\Declarations\testInterfaceB',
                     '\testInterfaceC',
                 ],
             ],
+            'extends-partially-qualified-names' => [
+                'testMarker' => '/* testNamespaceRelativeQualifiedInterface */',
+                'expected'   => [
+                    'Core\File\RelativeInterface',
+                    'Another\RelativeInterface',
+                ],
+            ],
+            'extends-using-namespace-operator' => [
+                'testMarker' => '/* testExtendsUsingNamespaceOperator */',
+                'expected'   => [
+                    'namespace\BarInterface',
+                    'namespace\Sub\SomeOther',
+                ],
+            ],
             'parse-error' => [
-                '/* testParseError */',
-                false,
+                'testMarker' => '/* testParseError */',
+                'expected'   => false,
             ],
         ];
     }

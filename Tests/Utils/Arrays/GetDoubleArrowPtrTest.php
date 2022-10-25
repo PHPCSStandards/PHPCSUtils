@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\PassedParameters;
@@ -23,7 +24,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetDoubleArrowPtrTest extends UtilityMethodTestCase
+final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
 {
 
     /**
@@ -49,7 +50,7 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
             $target     = $this->getTargetToken('/* testGetDoubleArrowPtr */', [\T_OPEN_SHORT_ARRAY]);
             $parameters = PassedParameters::getParameters(self::$phpcsFile, $target);
 
-            foreach ($parameters as $index => $values) {
+            foreach ($parameters as $values) {
                 \preg_match('`^(/\* test[^*]+ \*/)`', $values['raw'], $matches);
                 if (empty($matches[1]) === false) {
                     self::$parameters[$matches[1]] = $values;
@@ -141,86 +142,154 @@ class GetDoubleArrowPtrTest extends UtilityMethodTestCase
     {
         return [
             'test-no-arrow' => [
-                '/* testValueNoArrow */',
-                false,
+                'testMarker' => '/* testValueNoArrow */',
+                'expected'   => false,
             ],
             'test-arrow-numeric-index' => [
-                '/* testArrowNumericIndex */',
-                8,
+                'testMarker' => '/* testArrowNumericIndex */',
+                'expected'   => 8,
             ],
             'test-arrow-string-index' => [
-                '/* testArrowStringIndex */',
-                8,
+                'testMarker' => '/* testArrowStringIndex */',
+                'expected'   => 8,
             ],
             'test-arrow-multi-token-index' => [
-                '/* testArrowMultiTokenIndex */',
-                12,
+                'testMarker' => '/* testArrowMultiTokenIndex */',
+                'expected'   => 12,
             ],
             'test-no-arrow-value-short-array' => [
-                '/* testNoArrowValueShortArray */',
-                false,
+                'testMarker' => '/* testNoArrowValueShortArray */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-long-array' => [
-                '/* testNoArrowValueLongArray */',
-                false,
+                'testMarker' => '/* testNoArrowValueLongArray */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-nested-arrays' => [
-                '/* testNoArrowValueNestedArrays */',
-                false,
+                'testMarker' => '/* testNoArrowValueNestedArrays */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-closure' => [
-                '/* testNoArrowValueClosure */',
-                false,
+                'testMarker' => '/* testNoArrowValueClosure */',
+                'expected'   => false,
             ],
             'test-arrow-value-short-array' => [
-                '/* testArrowValueShortArray */',
-                8,
+                'testMarker' => '/* testArrowValueShortArray */',
+                'expected'   => 8,
             ],
             'test-arrow-value-long-array' => [
-                '/* testArrowValueLongArray */',
-                8,
+                'testMarker' => '/* testArrowValueLongArray */',
+                'expected'   => 8,
             ],
             'test-arrow-value-closure' => [
-                '/* testArrowValueClosure */',
-                8,
+                'testMarker' => '/* testArrowValueClosure */',
+                'expected'   => 8,
             ],
             'test-no-arrow-value-anon-class-with-foreach' => [
-                '/* testNoArrowValueAnonClassForeach */',
-                false,
+                'testMarker' => '/* testNoArrowValueAnonClassForeach */',
+                'expected'   => false,
             ],
             'test-no-arrow-value-closure-with-keyed-yield' => [
-                '/* testNoArrowValueClosureYieldWithKey */',
-                false,
+                'testMarker' => '/* testNoArrowValueClosureYieldWithKey */',
+                'expected'   => false,
             ],
             'test-arrow-key-closure-with-keyed-yield' => [
-                '/* testArrowKeyClosureYieldWithKey */',
-                24,
+                'testMarker' => '/* testArrowKeyClosureYieldWithKey */',
+                'expected'   => 25,
             ],
             'test-arrow-value-fn-function' => [
-                '/* testFnFunctionWithKey */',
-                8,
+                'testMarker' => '/* testFnFunctionWithKey */',
+                'expected'   => 8,
             ],
             'test-no-arrow-value-fn-function' => [
-                '/* testNoArrowValueFnFunction */',
-                false,
+                'testMarker' => '/* testNoArrowValueFnFunction */',
+                'expected'   => false,
             ],
             'test-arrow-tstring-key-not-fn-function' => [
-                '/* testTstringKeyNotFnFunction */',
-                8,
+                'testMarker' => '/* testTstringKeyNotFnFunction */',
+                'expected'   => 8,
             ],
             // Test specifically for PHPCS 3.5.3 and 3.5.4 in which all "fn" tokens were tokenized as T_FN.
+            // While PHPCS < 3.7.1 is no longer supported, the test remains to safeguard against tokenizer regressions.
             'test-arrow-access-to-property-named-fn-as-key-phpcs-3.5.3-3.5.4' => [
-                '/* testKeyPropertyAccessFnPHPCS353-354 */',
-                12,
+                'testMarker' => '/* testKeyPropertyAccessFnPHPCS353-354 */',
+                'expected'   => 12,
             ],
             'test-double-arrow-incorrectly-tokenized-phpcs-issue-2865' => [
-                '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
-                10,
+                'testMarker' => '/* testDoubleArrowTokenizedAsTstring-PHPCS2865 */',
+                'expected'   => 10,
             ],
+
+            // Safeguard that PHP 8.0 match expressions are handled correctly.
+            'test-no-arrow-value-match-expression' => [
+                'testMarker' => '/* testNoArrowValueMatchExpr */',
+                'expected'   => false,
+            ],
+            'test-double-arrow-value-match-expression' => [
+                'testMarker' => '/* testArrowValueMatchExpr */',
+                'expected'   => 8,
+            ],
+            'test-double-arrow-key-match-expression' => [
+                'testMarker' => '/* testArrowKeyMatchExpr */',
+                'expected'   => 38,
+            ],
+
+            // Safeguard that double arrows in PHP 8.0 attributes are disregarded.
+            'test-no-arrow-value-closure-with-attached-attribute-containing-arrow' => [
+                'testMarker' => '/* testNoArrowValueClosureWithAttribute */',
+                'expected'   => false,
+            ],
+            'test-double-arrow-key-closure-with-attached-attribute-containing-arrow' => [
+                'testMarker' => '/* testArrowKeyClosureWithAttribute */',
+                'expected'   => 31,
+            ],
+
             'test-empty-array-item' => [
-                '/* testEmptyArrayItem */',
-                false,
+                'testMarker' => '/* testEmptyArrayItem */',
+                'expected'   => false,
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\Arrays::getDoubleArrowPtr';
+        $cases      = $this->dataGetDoubleArrowPtr();
+        $testMarker = $cases['test-arrow-value-short-array']['testMarker'];
+        $expected   = $cases['test-arrow-value-short-array']['expected'];
+
+        if (isset(self::$parameters[$testMarker]) === false) {
+            $this->fail('Test case not found for ' . $testMarker);
+        }
+
+        $start = self::$parameters[$testMarker]['start'];
+        $end   = self::$parameters[$testMarker]['end'];
+
+        // Change double arrow position from offset to exact position.
+        if ($expected !== false) {
+            $expected += $start;
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Arrays::getDoubleArrowPtr(self::$phpcsFile, $start, $end);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, "$start-$end");
+        $resultSecondRun = Arrays::getDoubleArrowPtr(self::$phpcsFile, $start, $end);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

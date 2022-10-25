@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class GetClassPropertiesDiffTest extends UtilityMethodTestCase
+final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
 {
 
     /**
@@ -68,24 +68,59 @@ class GetClassPropertiesDiffTest extends UtilityMethodTestCase
     {
         return [
             'phpcs-annotation' => [
-                '/* testPHPCSAnnotations */',
-                [
+                'testMarker' => '/* testPHPCSAnnotations */',
+                'expected'   => [
                     'is_abstract' => false,
                     'is_final'    => true,
+                    'is_readonly' => false,
                 ],
             ],
             'unorthodox-docblock-placement' => [
-                '/* testWithDocblockWithWeirdlyPlacedProperty */',
+                'testMarker' => '/* testWithDocblockWithWeirdlyPlacedModifier */',
+                'expected'   => [
+                    'is_abstract' => false,
+                    'is_final'    => true,
+                    'is_readonly' => false,
+                ],
+            ],
+            'readonly' => [
+                '/* testReadonlyClass */',
+                [
+                    'is_abstract' => false,
+                    'is_final'    => false,
+                    'is_readonly' => true,
+                ],
+            ],
+            'final-readonly' => [
+                '/* testFinalReadonlyClass */',
                 [
                     'is_abstract' => false,
                     'is_final'    => true,
+                    'is_readonly' => true,
                 ],
             ],
-            'abstract-final-parse-error' => [
-                '/* testParseErrorAbstractFinal */',
+            'readonly-final' => [
+                '/* testReadonlyFinalClass */',
+                [
+                    'is_abstract' => false,
+                    'is_final'    => true,
+                    'is_readonly' => true,
+                ],
+            ],
+            'abstract-readonly' => [
+                '/* testAbstractReadonlyClass */',
                 [
                     'is_abstract' => true,
                     'is_final'    => false,
+                    'is_readonly' => true,
+                ],
+            ],
+            'readonly-abstract' => [
+                '/* testReadonlyAbstractClass */',
+                [
+                    'is_abstract' => true,
+                    'is_final'    => false,
+                    'is_readonly' => true,
                 ],
             ],
         ];

@@ -16,17 +16,19 @@ use PHPCSUtils\Utils\Scopes;
 /**
  * Tests for the \PHPCSUtils\Utils\Scopes::isOOProperty method.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\Scopes
+ *
  * @group scopes
  *
  * @since 1.0.0
  */
-class IsOOPropertyTest extends UtilityMethodTestCase
+final class IsOOPropertyTest extends UtilityMethodTestCase
 {
 
     /**
      * Test passing a non-existent token pointer.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOProperty
+     * @covers ::isOOProperty
      *
      * @return void
      */
@@ -39,7 +41,7 @@ class IsOOPropertyTest extends UtilityMethodTestCase
     /**
      * Test passing a non variable token.
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOProperty
+     * @covers ::isOOProperty
      *
      * @return void
      */
@@ -54,8 +56,8 @@ class IsOOPropertyTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsOOProperty
      *
-     * @covers \PHPCSUtils\Utils\Scopes::isOOProperty
-     * @covers \PHPCSUtils\Utils\Scopes::validDirectScope
+     * @covers ::isOOProperty
+     * @covers ::validDirectScope
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param bool   $expected   The expected function return value.
@@ -80,100 +82,108 @@ class IsOOPropertyTest extends UtilityMethodTestCase
     {
         return [
             'global-var' => [
-                '/* testGlobalVar */',
-                false,
+                'testMarker' => '/* testGlobalVar */',
+                'expected'   => false,
             ],
             'function-param' => [
-                '/* testFunctionParameter */',
-                false,
+                'testMarker' => '/* testFunctionParameter */',
+                'expected'   => false,
             ],
             'function-local-var' => [
-                '/* testFunctionLocalVar */',
-                false,
+                'testMarker' => '/* testFunctionLocalVar */',
+                'expected'   => false,
             ],
             'class-property-public' => [
-                '/* testClassPropPublic */',
-                true,
+                'testMarker' => '/* testClassPropPublic */',
+                'expected'   => true,
             ],
             'class-property-var' => [
-                '/* testClassPropVar */',
-                true,
+                'testMarker' => '/* testClassPropVar */',
+                'expected'   => true,
             ],
             'class-property-static-protected' => [
-                '/* testClassPropStaticProtected */',
-                true,
+                'testMarker' => '/* testClassPropStaticProtected */',
+                'expected'   => true,
             ],
             'method-param' => [
-                '/* testMethodParameter */',
-                false,
+                'testMarker' => '/* testMethodParameter */',
+                'expected'   => false,
             ],
             'method-local-var' => [
-                '/* testMethodLocalVar */',
-                false,
+                'testMarker' => '/* testMethodLocalVar */',
+                'expected'   => false,
             ],
             'anon-class-property-private' => [
-                '/* testAnonClassPropPrivate */',
-                true,
+                'testMarker' => '/* testAnonClassPropPrivate */',
+                'expected'   => true,
             ],
             'anon-class-method-param' => [
-                '/* testAnonMethodParameter */',
-                false,
+                'testMarker' => '/* testAnonMethodParameter */',
+                'expected'   => false,
             ],
             'anon-class-method-local-var' => [
-                '/* testAnonMethodLocalVar */',
-                false,
+                'testMarker' => '/* testAnonMethodLocalVar */',
+                'expected'   => false,
             ],
             'interface-property' => [
-                '/* testInterfaceProp */',
-                false,
+                'testMarker' => '/* testInterfaceProp */',
+                'expected'   => false,
             ],
             'interface-method-param' => [
-                '/* testInterfaceMethodParameter */',
-                false,
+                'testMarker' => '/* testInterfaceMethodParameter */',
+                'expected'   => false,
             ],
             'trait-property' => [
-                '/* testTraitProp */',
-                true,
+                'testMarker' => '/* testTraitProp */',
+                'expected'   => true,
             ],
             'trait-method-param' => [
-                '/* testTraitMethodParameter */',
-                false,
+                'testMarker' => '/* testTraitMethodParameter */',
+                'expected'   => false,
             ],
             'class-multi-property-1' => [
-                '/* testClassMultiProp1 */',
-                true,
+                'testMarker' => '/* testClassMultiProp1 */',
+                'expected'   => true,
             ],
             'class-multi-property-2' => [
-                '/* testClassMultiProp2 */',
-                true,
+                'testMarker' => '/* testClassMultiProp2 */',
+                'expected'   => true,
             ],
             'class-multi-property-3' => [
-                '/* testClassMultiProp3 */',
-                true,
+                'testMarker' => '/* testClassMultiProp3 */',
+                'expected'   => true,
             ],
             'global-var-obj-access' => [
-                '/* testGlobalVarObj */',
-                false,
+                'testMarker' => '/* testGlobalVarObj */',
+                'expected'   => false,
             ],
             'nested-anon-class-property' => [
-                '/* testNestedAnonClassProp */',
-                true,
+                'testMarker' => '/* testNestedAnonClassProp */',
+                'expected'   => true,
             ],
             'double-nested-anon-class-property' => [
-                '/* testDoubleNestedAnonClassProp */',
-                true,
+                'testMarker' => '/* testDoubleNestedAnonClassProp */',
+                'expected'   => true,
             ],
             'double-nested-anon-class-method-param' => [
-                '/* testDoubleNestedAnonClassMethodParameter */',
-                false,
+                'testMarker' => '/* testDoubleNestedAnonClassMethodParameter */',
+                'expected'   => false,
             ],
             'double-nested-anon-class-method-local-var' => [
-                '/* testDoubleNestedAnonClassMethodLocalVar */',
-                false,
+                'testMarker' => '/* testDoubleNestedAnonClassMethodLocalVar */',
+                'expected'   => false,
             ],
             'function-call-param' => [
-                '/* testFunctionCallParameter */',
-                false,
+                'testMarker' => '/* testFunctionCallParameter */',
+                'expected'   => false,
+            ],
+            'enum-property' => [
+                'testMarker' => '/* testEnumProp */',
+                'expected'   => false,
+            ],
+            'enum-method-param' => [
+                'testMarker' => '/* testEnumMethodParameter */',
+                'expected'   => false,
             ],
         ];
     }

@@ -67,10 +67,10 @@ $array = [
     },
 
     /* testNoArrowValueClosureYieldWithKey */
-    function() { yield 'k' => $x },
+    function() { yield 'k' => $x; },
 
     /* testArrowKeyClosureYieldWithKey */
-    function() { yield 'k' => $x }() => 'value',
+    function() { yield 'k' => $x; }() => 'value',
 
     /* testFnFunctionWithKey */
     'fn' => fn ($x) => yield 'k' => $x,
@@ -86,6 +86,30 @@ $array = [
 
     /* testDoubleArrowTokenizedAsTstring-PHPCS2865 */
     $obj->fn => 'value',
+
+    /* testNoArrowValueMatchExpr */
+    match($a) {
+        FOO     => BAR,
+        default => [0 => BAZ],
+    },
+
+    /* testArrowValueMatchExpr */
+    'key' => match($a) {
+        [0 => 10] => BAR,
+        default   => BAZ,
+    },
+
+    /* testArrowKeyMatchExpr */
+    match($a) {
+        FOO     => BAR,
+        default => [0 => 10],
+    } => 'value',
+
+    /* testNoArrowValueClosureWithAttribute */
+    #[MyAttribute([0 => 'value'])] function() { /* do something */ }(),
+
+    /* testArrowKeyClosureWithAttribute */
+    #[MyAttribute([0 => 'value'])] function() { /* do something */ }() => 'value',
 
     /* testEmptyArrayItem */
     // Intentional parse error.

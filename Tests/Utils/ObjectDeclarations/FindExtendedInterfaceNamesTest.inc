@@ -28,6 +28,12 @@ interface testMultiExtendedInterfaceWithComments
 {
 }
 
+/* testNamespaceRelativeQualifiedInterface */
+interface testQualifiedInterfaces extends Core\File\RelativeInterface, Another\RelativeInterface {}
+
+/* testExtendsUsingNamespaceOperator */
+interface testWithNSOperator extends namespace\BarInterface, namespace\Sub\SomeOther {}
+
 // Intentional parse error. Has to be the last test in the file.
 /* testParseError */
 interface testParseError extends testInterface

@@ -88,7 +88,7 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
     {
         $testClass = static::TEST_CLASS;
 
-        $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE]);
+        $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE, T_ENUM]);
         $result  = $testClass::findImplementedInterfaceNames(self::$phpcsFile, $OOToken);
         $this->assertSame($expected, $result);
     }
@@ -127,6 +127,10 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 false,
             ],
             [
+                '/* testNamespaceRelativeQualifiedClass */',
+                ['Core\File\RelativeInterface'],
+            ],
+            [
                 '/* testClassThatExtendsAndImplements */',
                 [
                     'InterfaceA',
@@ -138,6 +142,21 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 [
                     '\InterfaceA',
                     'InterfaceB',
+                ],
+            ],
+            [
+                '/* testBackedEnumWithoutImplements */',
+                false,
+            ],
+            [
+                '/* testEnumImplements */',
+                ['Colorful'],
+            ],
+            [
+                '/* testBackedEnumImplements */',
+                [
+                    'Colorful',
+                    '\Deck',
                 ],
             ],
             [

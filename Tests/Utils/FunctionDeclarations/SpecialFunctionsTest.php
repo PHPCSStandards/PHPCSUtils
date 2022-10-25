@@ -19,20 +19,22 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  * \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod() and the
  * \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod() methods.
  *
+ * @coversDefaultClass \PHPCSUtils\Utils\FunctionDeclarations
+ *
  * @group functiondeclarations
  *
  * @since 1.0.0
  */
-class SpecialFunctionsTest extends UtilityMethodTestCase
+final class SpecialFunctionsTest extends UtilityMethodTestCase
 {
 
     /**
      * Test that the special function methods return false when passed a non-existent token.
      *
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicFunction
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod
+     * @covers ::isMagicFunction
+     * @covers ::isMagicMethod
+     * @covers ::isPHPDoubleUnderscoreMethod
+     * @covers ::isSpecialMethod
      *
      * @return void
      */
@@ -54,10 +56,10 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
     /**
      * Test that the special function methods return false when passed a non-function token.
      *
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicFunction
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod
-     * @covers \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod
+     * @covers ::isMagicFunction
+     * @covers ::isMagicMethod
+     * @covers ::isPHPDoubleUnderscoreMethod
+     * @covers ::isSpecialMethod
      *
      * @return void
      */
@@ -82,7 +84,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting magic functions.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isMagicFunction
+     * @covers       ::isMagicFunction
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -100,7 +102,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting magic methods.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isMagicMethod
+     * @covers       ::isMagicMethod
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -118,7 +120,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting PHP native double underscore methods.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isPHPDoubleUnderscoreMethod
+     * @covers       ::isPHPDoubleUnderscoreMethod
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -136,7 +138,7 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
      * Test correctly detecting magic methods and double underscore methods.
      *
      * @dataProvider dataItsAKindOfMagic
-     * @covers       \PHPCSUtils\Utils\FunctionDeclarations::isSpecialMethod
+     * @covers       ::isSpecialMethod
      *
      * @param string $testMarker The comment which prefaces the target token in the test file.
      * @param array  $expected   The expected return values for the various functions.
@@ -164,8 +166,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
     {
         return [
             'MagicMethodInClass' => [
-                '/* testMagicMethodInClass */',
-                [
+                'testMarker' => '/* testMagicMethodInClass */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -173,8 +175,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodInClassUppercase' => [
-                '/* testMagicMethodInClassUppercase */',
-                [
+                'testMarker' => '/* testMagicMethodInClassUppercase */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -182,8 +184,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodInClassMixedCase' => [
-                '/* testMagicMethodInClassMixedCase */',
-                [
+                'testMarker' => '/* testMagicMethodInClassMixedCase */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -191,8 +193,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicFunctionInClassNotGlobal' => [
-                '/* testMagicFunctionInClassNotGlobal */',
-                [
+                'testMarker' => '/* testMagicFunctionInClassNotGlobal */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -200,8 +202,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MethodInClassNotMagicName' => [
-                '/* testMethodInClassNotMagicName */',
-                [
+                'testMarker' => '/* testMethodInClassNotMagicName */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -209,8 +211,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodNotInClass' => [
-                '/* testMagicMethodNotInClass */',
-                [
+                'testMarker' => '/* testMagicMethodNotInClass */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -218,8 +220,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicFunction' => [
-                '/* testMagicFunction */',
-                [
+                'testMarker' => '/* testMagicFunction */',
+                'expected'   => [
                     'function' => true,
                     'method'   => false,
                     'double'   => false,
@@ -227,8 +229,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicFunctionInConditionMixedCase' => [
-                '/* testMagicFunctionInConditionMixedCase */',
-                [
+                'testMarker' => '/* testMagicFunctionInConditionMixedCase */',
+                'expected'   => [
                     'function' => true,
                     'method'   => false,
                     'double'   => false,
@@ -236,8 +238,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'FunctionNotMagicName' => [
-                '/* testFunctionNotMagicName */',
-                [
+                'testMarker' => '/* testFunctionNotMagicName */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -245,8 +247,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodInAnonClass' => [
-                '/* testMagicMethodInAnonClass */',
-                [
+                'testMarker' => '/* testMagicMethodInAnonClass */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -254,8 +256,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodInAnonClassUppercase' => [
-                '/* testMagicMethodInAnonClassUppercase */',
-                [
+                'testMarker' => '/* testMagicMethodInAnonClassUppercase */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -263,8 +265,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicFunctionInAnonClassNotGlobal' => [
-                '/* testMagicFunctionInAnonClassNotGlobal */',
-                [
+                'testMarker' => '/* testMagicFunctionInAnonClassNotGlobal */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -272,8 +274,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MethodInAnonClassNotMagicName' => [
-                '/* testMethodInAnonClassNotMagicName */',
-                [
+                'testMarker' => '/* testMethodInAnonClassNotMagicName */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -281,8 +283,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'DoubleUnderscoreMethodInClass' => [
-                '/* testDoubleUnderscoreMethodInClass */',
-                [
+                'testMarker' => '/* testDoubleUnderscoreMethodInClass */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => true,
@@ -290,8 +292,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'DoubleUnderscoreMethodInClassMixedcase' => [
-                '/* testDoubleUnderscoreMethodInClassMixedcase */',
-                [
+                'testMarker' => '/* testDoubleUnderscoreMethodInClassMixedcase */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => true,
@@ -300,8 +302,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
             ],
 
             'DoubleUnderscoreMethodInClassNotExtended' => [
-                '/* testDoubleUnderscoreMethodInClassNotExtended */',
-                [
+                'testMarker' => '/* testDoubleUnderscoreMethodInClassNotExtended */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -309,8 +311,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'DoubleUnderscoreMethodNotInClass' => [
-                '/* testDoubleUnderscoreMethodNotInClass */',
-                [
+                'testMarker' => '/* testDoubleUnderscoreMethodNotInClass */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -318,8 +320,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodInTrait' => [
-                '/* testMagicMethodInTrait */',
-                [
+                'testMarker' => '/* testMagicMethodInTrait */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -328,8 +330,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
             ],
 
             'DoubleUnderscoreMethodInTrait' => [
-                '/* testDoubleUnderscoreMethodInTrait */',
-                [
+                'testMarker' => '/* testDoubleUnderscoreMethodInTrait */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => true,
@@ -337,8 +339,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicFunctionInTraitNotGloba' => [
-                '/* testMagicFunctionInTraitNotGlobal */',
-                [
+                'testMarker' => '/* testMagicFunctionInTraitNotGlobal */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -346,8 +348,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MethodInTraitNotMagicName' => [
-                '/* testMethodInTraitNotMagicName */',
-                [
+                'testMarker' => '/* testMethodInTraitNotMagicName */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -355,8 +357,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicMethodInInterface' => [
-                '/* testMagicMethodInInterface */',
-                [
+                'testMarker' => '/* testMagicMethodInInterface */',
+                'expected'   => [
                     'function' => false,
                     'method'   => true,
                     'double'   => false,
@@ -365,8 +367,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
             ],
 
             'DoubleUnderscoreMethodInInterface' => [
-                '/* testDoubleUnderscoreMethodInInterface */',
-                [
+                'testMarker' => '/* testDoubleUnderscoreMethodInInterface */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => true,
@@ -374,8 +376,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MagicFunctionInInterfaceNotGlobal' => [
-                '/* testMagicFunctionInInterfaceNotGlobal */',
-                [
+                'testMarker' => '/* testMagicFunctionInInterfaceNotGlobal */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -383,8 +385,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'MethodInInterfaceNotMagicName' => [
-                '/* testMethodInInterfaceNotMagicName */',
-                [
+                'testMarker' => '/* testMethodInInterfaceNotMagicName */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -393,8 +395,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
             ],
 
             'NonMagicMethod' => [
-                '/* testNonMagicMethod */',
-                [
+                'testMarker' => '/* testNonMagicMethod */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -402,8 +404,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'NestedFunctionDeclarationMagicFunction' => [
-                '/* testNestedFunctionDeclarationMagicFunction */',
-                [
+                'testMarker' => '/* testNestedFunctionDeclarationMagicFunction */',
+                'expected'   => [
                     'function' => true,
                     'method'   => false,
                     'double'   => false,
@@ -411,8 +413,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'NestedFunctionDeclarationNonMagicFunction' => [
-                '/* testNestedFunctionDeclarationNonMagicFunction */',
-                [
+                'testMarker' => '/* testNestedFunctionDeclarationNonMagicFunction */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,
@@ -420,8 +422,8 @@ class SpecialFunctionsTest extends UtilityMethodTestCase
                 ],
             ],
             'NestedFunctionDeclarationNonSpecialFunction' => [
-                '/* testNestedFunctionDeclarationNonSpecialFunction */',
-                [
+                'testMarker' => '/* testNestedFunctionDeclarationNonSpecialFunction */',
+                'expected'   => [
                     'function' => false,
                     'method'   => false,
                     'double'   => false,

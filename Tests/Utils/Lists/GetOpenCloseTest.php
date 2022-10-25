@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Lists;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Lists;
 
 /**
@@ -22,7 +23,7 @@ use PHPCSUtils\Utils\Lists;
  *
  * @since 1.0.0
  */
-class GetOpenCloseTest extends UtilityMethodTestCase
+final class GetOpenCloseTest extends UtilityMethodTestCase
 {
 
     /**
@@ -46,7 +47,7 @@ class GetOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNotListToken($testMarker)
     {
-        $target = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]);
+        $target = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
         $this->assertFalse(Lists::getOpenClose(self::$phpcsFile, $target));
     }
 
@@ -103,49 +104,49 @@ class GetOpenCloseTest extends UtilityMethodTestCase
     {
         return [
             'long-list' => [
-                '/* testLongList */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     'opener' => 1,
                     'closer' => 14,
                 ],
             ],
             'long-list-nested' => [
-                '/* testNestedLongList */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testNestedLongList */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     'opener' => 2,
                     'closer' => 6,
                 ],
             ],
             'short-list' => [
-                '/* testShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     'opener' => 0,
                     'closer' => 9,
                 ],
             ],
             'short-list-nested' => [
-                '/* testNestedShortList */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testNestedShortList */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     'opener' => 0,
                     'closer' => 2,
                 ],
             ],
             'long-list-with-comments-and-annotations' => [
-                '/* testListWithCommentsAndAnnotations */',
-                \T_LIST,
-                [
+                'testMarker'  => '/* testListWithCommentsAndAnnotations */',
+                'targetToken' => \T_LIST,
+                'expected'    => [
                     'opener' => 7,
                     'closer' => 18,
                 ],
             ],
             'parse-error' => [
-                '/* testParseError */',
-                \T_LIST,
-                false,
+                'testMarker'  => '/* testParseError */',
+                'targetToken' => \T_LIST,
+                'expected'    => false,
             ],
         ];
     }

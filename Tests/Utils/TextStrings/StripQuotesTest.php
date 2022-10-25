@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class StripQuotesTest extends TestCase
+final class StripQuotesTest extends TestCase
 {
 
     /**
@@ -51,43 +51,43 @@ class StripQuotesTest extends TestCase
     {
         return [
             'simple-string-double-quotes' => [
-                '"dir_name"',
-                'dir_name',
+                'input'      => '"dir_name"',
+                'expected'   => 'dir_name',
             ],
             'simple-string-single-quotes' => [
-                "'soap.wsdl_cache'",
-                'soap.wsdl_cache',
+                'input'      => "'soap.wsdl_cache'",
+                'expected'   => 'soap.wsdl_cache',
             ],
             'string-with-escaped-quotes-within-1' => [
-                '"arbitrary-\'string\" with\' quotes within"',
-                'arbitrary-\'string\" with\' quotes within',
+                'input'      => '"arbitrary-\'string\" with\' quotes within"',
+                'expected'   => 'arbitrary-\'string\" with\' quotes within',
             ],
             'string-with-escaped-quotes-within-2' => [
-                '"\'quoted_name\'"',
-                '\'quoted_name\'',
+                'input'      => '"\'quoted_name\'"',
+                'expected'   => '\'quoted_name\'',
             ],
             'string-with-different-quotes-at-start-of-string' => [
-                "'\"quoted\" start of string'",
-                '"quoted" start of string',
+                'input'      => "'\"quoted\" start of string'",
+                'expected'   => '"quoted" start of string',
             ],
             'incomplete-quote-set-only-start-quote' => [
-                "'no stripping when there is only a start quote",
-                "'no stripping when there is only a start quote",
+                'input'      => "'no stripping when there is only a start quote",
+                'expected'   => "'no stripping when there is only a start quote",
             ],
             'incomplete-quote-set-only-end-quote' => [
-                'no stripping when there is only an end quote"',
-                'no stripping when there is only an end quote"',
+                'input'      => 'no stripping when there is only an end quote"',
+                'expected'   => 'no stripping when there is only an end quote"',
             ],
             'start-end-quote-mismatch' => [
-                "'no stripping when quotes at start/end are mismatched\"",
-                "'no stripping when quotes at start/end are mismatched\"",
+                'input'      => "'no stripping when quotes at start/end are mismatched\"",
+                'expected'   => "'no stripping when quotes at start/end are mismatched\"",
             ],
             'multi-line-string-single-quotes' => [
-                "'some
+                'input' => "'some
     text
         and
 more'",
-                'some
+                'expected' => 'some
     text
         and
 more',

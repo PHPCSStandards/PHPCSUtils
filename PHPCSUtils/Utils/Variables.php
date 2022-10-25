@@ -20,11 +20,12 @@ use PHPCSUtils\Utils\TextStrings;
 /**
  * Utility functions for use when examining variables.
  *
- * @since 1.0.0 The `Variables::getMemberProperties()` method is based on and inspired by
- *              the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
- *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0        The `Variables::getMemberProperties()` method is based on and inspired by
+ *                     the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
+ *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class Variables
+final class Variables
 {
 
     /**
@@ -36,9 +37,9 @@ class Variables
      * The variables names are set without the leading dollar sign to allow this array
      * to be used with array index keys as well. Think: `'_GET'` in `$GLOBALS['_GET']`.}
      *
-     * @since 1.0.0
+     * @link https://php.net/reserved.variables PHP Manual on reserved variables
      *
-     * @link http://php.net/reserved.variables PHP Manual on reserved variables
+     * @since 1.0.0
      *
      * @var array <string> => <bool>
      */
@@ -80,11 +81,18 @@ class Variables
      *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
+     * - Support PHP 8.0 identifier name tokens in property types, cross-version PHP & PHPCS.
+     * - Support for the PHP 8.2 `true` type.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
+     * @since 1.0.0-alpha4 No longer gets confused by PHP 8.0 property attributes.
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 readonly properties.
+     * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
+     * @since 1.0.0-alpha4 Added support for PHP 8.2 true type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
@@ -97,12 +105,14 @@ class Variables
      *                 'scope'           => string,  // Public, private, or protected.
      *                 'scope_specified' => boolean, // TRUE if the scope was explicitly specified.
      *                 'is_static'       => boolean, // TRUE if the static keyword was found.
+     *                 'is_readonly'     => boolean, // TRUE if the readonly keyword was found.
      *                 'type'            => string,  // The type of the var (empty if no type specified).
      *                 'type_token'      => integer, // The stack pointer to the start of the type
      *                                               // or FALSE if there is no type.
      *                 'type_end_token'  => integer, // The stack pointer to the end of the type
      *                                               // or FALSE if there is no type.
-     *                 'nullable_type'   => boolean, // TRUE if the type is nullable.
+     *                 'nullable_type'   => boolean, // TRUE if the type is preceded by the
+     *                                               // nullability operator.
      *               );
      *               ```
      *
@@ -123,17 +133,19 @@ class Variables
             throw new RuntimeException('$stackPtr is not a class member var');
         }
 
-        $valid = Collections::$propertyModifierKeywords + Tokens::$emptyTokens;
+        $valid = Collections::propertyModifierKeywords() + Tokens::$emptyTokens;
 
         $scope          = 'public';
         $scopeSpecified = false;
         $isStatic       = false;
+        $isReadonly     = false;
 
         $startOfStatement = $phpcsFile->findPrevious(
             [
                 \T_SEMICOLON,
                 \T_OPEN_CURLY_BRACKET,
                 \T_CLOSE_CURLY_BRACKET,
+                \T_ATTRIBUTE_END,
             ],
             ($stackPtr - 1)
         );
@@ -159,6 +171,9 @@ class Variables
                 case \T_STATIC:
                     $isStatic = true;
                     break;
+                case \T_READONLY:
+                    $isReadonly = true;
+                    break;
             }
         }
 
@@ -166,7 +181,13 @@ class Variables
         $typeToken          = false;
         $typeEndToken       = false;
         $nullableType       = false;
-        $propertyTypeTokens = Collections::propertyTypeTokensBC();
+        $propertyTypeTokens = Collections::propertyTypeTokens();
+
+        /*
+         * BC PHPCS < 3.x.x: The union type separator is not (yet) retokenized correctly
+         * for union types containing the `true` type.
+         */
+        $propertyTypeTokens[\T_BITWISE_OR] = \T_BITWISE_OR;
 
         if ($i < $stackPtr) {
             // We've found a type.
@@ -176,10 +197,7 @@ class Variables
                     break;
                 }
 
-                if ($tokens[$i]['type'] === 'T_NULLABLE'
-                    // Handle nullable types in PHPCS < 3.5.0 and for PHP-4 style `var` properties in PHPCS < 3.5.4.
-                    || $tokens[$i]['code'] === \T_INLINE_THEN
-                ) {
+                if ($tokens[$i]['code'] === \T_NULLABLE) {
                     $nullableType = true;
                 }
 
@@ -202,6 +220,7 @@ class Variables
             'scope'           => $scope,
             'scope_specified' => $scopeSpecified,
             'is_static'       => $isStatic,
+            'is_readonly'     => $isReadonly,
             'type'            => $type,
             'type_token'      => $typeToken,
             'type_end_token'  => $typeEndToken,

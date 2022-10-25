@@ -119,3 +119,27 @@ if ( isset(
 
 /* testUnset */
 unset( $variable, $object->property, static::$property, $array[$name], );
+
+/* testAnonClass */
+$anon = new class( $param1, $param2 ) {
+    public function __construct($param1, $param2) {}
+};
+
+/* testPHP74UnpackingInLongArrayExpression */
+$arr4 = array(...$arr1, ...arrGen(), ...new ArrayIterator(['a', 'b', 'c']));
+
+/* testPHP74UnpackingInShortArrayExpression */
+// Also includes code sample for PHP 8.1 unpacking with string keys.
+$fruits = ['banana', ...$parts, 'watermelon', ...["a" => 2],];
+
+/* testPHP80FunctionCallInAttribute */
+#[AttributeAttachedToClosure([1, 2, 3])]
+$closure = function() {};
+
+/* testPHP80SkippingOverAttributes */
+$result = function_call(
+    $value,
+    #[MyAttribute()]
+    #[AnotherAttribute([1, 2, 3])]
+    function() { /* do something */}
+);

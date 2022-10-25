@@ -1,0 +1,186 @@
+name: CS
+
+on:
+  # Run on all pushes and on all pull requests.
+  # Prevent the build from running when there are only irrelevant changes.
+  push:
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checkcs:
+    name: 'Basic CS and QA checks'
+    runs-on: ubuntu-latest
+
+    env:
+      XMLLINT_INDENT: '    '
+      # - COMPOSER_ROOT_VERSION is needed to get round the recursive dependency when using CI.
+      COMPOSER_ROOT_VERSION: '1.99.99'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: cs2pr
+
+      # Validate the composer.json file.
+      # @link https://getcomposer.org/doc/03-cli.md#validate
+      - name: Validate Composer installation
+        run: composer validate --no-check-all --strict
+
+      - name: 'Composer: adjust dependencies'
+        run: |
+          # The sniff stage doesn't run the unit tests, so no need for PHPUnit.
+          composer remove --no-update --dev phpunit/phpunit --no-scripts
+          # Using PHPCS `master` as an early detection system for bugs upstream.
+          composer require --no-update squizlabs/php_codesniffer:"dev-master"
+
+      # Install dependencies and handle caching in one go.
+      # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
+      - name: Install Composer dependencies
+        uses: "ramsey/composer-install@v2"
+
+      - name: Install xmllint
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y libxml2-utils
+
+      # Show XML violations inline in the file diff.
+      # @link https://github.com/marketplace/actions/xmllint-problem-matcher
+      - uses: korelstar/xmllint-problem-matcher@v1
+
+      # Validate the XML file.
+      # @link http://xmlsoft.org/xmllint.html
+      - name: Validate rulesets against schema
+        run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
+
+      # Check the code-style consistency of the XML file.
+      - name: Check XML code style
+        run: |
+          diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
+          diff -B ./PHPCS23Utils/ruleset.xml <(xmllint --format "./PHPCS23Utils/ruleset.xml")
+
+      # Check the code-style consistency of the PHP files.
+      - name: Check PHP code style
+        id: phpcs
+        run: vendor/bin/phpcs --report-full --report-checkstyle=./phpcs-report.xml
+
+      - name: Show PHPCS results in PR
+        if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+        run: cs2pr ./phpcs-report.xml
+
+  markdownlint:
+    name: 'Lint Markdown'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # This action also handles the caching of the dependencies.
+      # https://github.com/actions/setup-node
+      - name: Set up node and enable caching of dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # @link https://github.com/DavidAnson/markdownlint-cli2
+      # @link https://github.com/DavidAnson/markdownlint
+      - name: Install Markdownlint CLI2
+        run: npm install -g markdownlint-cli2
+
+      # @link https://github.com/marketplace/actions/problem-matcher-for-markdownlint-cli
+      - name: Enable showing issue in PRs
+        uses: xt0rted/markdownlint-problem-matcher@v2
+
+      - name: Check markdown with CLI2
+        run: markdownlint-cli2
+
+  remark:
+    name: 'QA Markdown'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up node and enable caching of dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # To make the command available on CLI, it needs to be installed globally.
+      - name: Install Remark CLI globally
+        run: npm install --global remark-cli --foreground-scripts true --fund false
+
+      # To allow for creating a custom config which references rules which are included
+      # in the presets, without having to install all rules individually, a local install
+      # works best (and installing the presets in the first place, of course).
+      #
+      # Note: the first group of packages are all part of the mono "Remark lint" repo.
+      # The second group of packages (heading-whitespace and down) are additional
+      # "external" rules/plugins.
+      - name: Install Remark rules locally
+        run: >
+          npm install --foreground-scripts true --fund false
+          remark-lint
+          remark-gfm
+          remark-preset-lint-consistent
+          remark-preset-lint-recommended
+          remark-preset-lint-markdown-style-guide
+          remark-lint-checkbox-content-indent
+          remark-lint-linebreak-style
+          remark-lint-no-duplicate-defined-urls
+          remark-lint-no-empty-url
+          remark-lint-no-heading-like-paragraph
+          remark-lint-no-reference-like-url
+          remark-lint-no-unneeded-full-reference-image
+          remark-lint-no-unneeded-full-reference-link
+          remark-lint-strikethrough-marker
+          remark-lint-heading-whitespace
+          remark-lint-list-item-punctuation
+          remark-lint-match-punctuation
+          remark-lint-no-hr-after-heading
+          remark-lint-are-links-valid-alive
+          remark-lint-are-links-valid-duplicate
+          remark-validate-links
+
+      - name: Run Remark-lint
+        run: remark . --frail
+
+      # @link https://github.com/reviewdog/action-remark-lint
+      - name: Show Remark-lint annotations in PR
+        if: ${{ failure() && github.event_name == 'pull_request' }}
+        uses: reviewdog/action-remark-lint@v5
+        with:
+          fail_on_error: true
+          install_deps: false
+          level: info
+          reporter: github-pr-check
+
+  yamllint:
+    name: 'Lint Yaml'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Yamllint on all yaml files in repo
+        run: yamllint . --format colored --strict
+
+      - name: Pipe Yamllint results on to GH for inline display
+        if: ${{ failure() }}
+        run: yamllint . --format github --strict

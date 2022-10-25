@@ -13,6 +13,7 @@ namespace PHPCSUtils\Tests\BackCompat\Helper;
 use PHP_CodeSniffer\Config;
 use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 
 /**
  * Test class.
@@ -24,8 +25,9 @@ use PHPUnit\Framework\TestCase;
  *
  * @since 1.0.0
  */
-class ConfigDataTest extends TestCase
+final class ConfigDataTest extends TestCase
 {
+    use ExpectException;
 
     /**
      * Test the getConfigData() and setConfigData() method when used in a cross-version compatible manner.
@@ -34,10 +36,6 @@ class ConfigDataTest extends TestCase
      */
     public function testConfigData34()
     {
-        if (\version_compare(Helper::getVersion(), '2.99.99', '<=') === true) {
-            $this->markTestSkipped('Test only applicable to PHPCS > 2.x');
-        }
-
         $config   = new Config();
         $original = Helper::getConfigData('arbitrary_name');
         $expected = 'expected';
@@ -57,7 +55,7 @@ class ConfigDataTest extends TestCase
      *
      * @return void
      */
-    public function testConfigDataPHPCS23()
+    public function testConfigDataPHPCS3()
     {
         if (\version_compare(Helper::getVersion(), '3.99.99', '>') === true) {
             $this->markTestSkipped('Test only applicable to PHPCS < 4.x');
@@ -87,17 +85,8 @@ class ConfigDataTest extends TestCase
             $this->markTestSkipped('Test only applicable to PHPCS 4.x');
         }
 
-        $msg       = 'Passing the $config parameter is required in PHPCS 4.x';
-        $exception = 'PHP_CodeSniffer\Exceptions\RuntimeException';
-
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
+        $this->expectExceptionMessage('Passing the $config parameter is required in PHPCS 4.x');
 
         Helper::setConfigData('arbitrary_name', 'test', true);
     }

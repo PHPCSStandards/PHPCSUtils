@@ -22,7 +22,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class GetTokensAsStringTest extends UtilityMethodTestCase
+final class GetTokensAsStringTest extends UtilityMethodTestCase
 {
 
     /**
@@ -118,67 +118,125 @@ class GetTokensAsStringTest extends UtilityMethodTestCase
      */
     public function dataGetTokensAsString()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'length-0' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 0,
                 '',
             ],
             'length-1' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 1,
-                'namespace',
+                '1',
             ],
             'length-2' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 2,
-                'namespace ',
+                '1 ',
             ],
             'length-3' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 3,
-                'namespace Foo',
+                '1 +',
             ],
             'length-4' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 4,
-                'namespace Foo\\',
+                '1 + ',
             ],
             'length-5' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 5,
-                'namespace Foo\Bar',
+                '1 + 2',
             ],
             'length-6' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 6,
-                'namespace Foo\Bar\\',
+                '1 + 2 ',
             ],
             'length-7' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 7,
-                'namespace Foo\Bar\Baz',
+                '1 + 2 +',
             ],
             'length-8' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
+                '/* testCalculation */',
+                \T_LNUMBER,
                 8,
-                'namespace Foo\Bar\Baz;',
+                '1 + 2 +
+',
             ],
             'length-9' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                9,
+                '1 + 2 +
+        ',
+            ],
+            'length-10' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                10,
+                '1 + 2 +
+        // Comment.
+',
+            ],
+            'length-11' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                11,
+                '1 + 2 +
+        // Comment.
+        ',
+            ],
+            'length-12' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                12,
+                '1 + 2 +
+        // Comment.
+        3',
+            ],
+            'length-13' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                13,
+                '1 + 2 +
+        // Comment.
+        3 ',
+            ],
+            'length-14' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                14,
+                '1 + 2 +
+        // Comment.
+        3 +',
+            ],
+            'length-34' => [
+                '/* testCalculation */',
+                \T_LNUMBER,
+                34,
+                '1 + 2 +
+        // Comment.
+        3 + 4
+        + 5 + 6 + 7 > 20;',
+            ],
+            'namespace' => [
                 '/* testNamespace */',
                 \T_NAMESPACE,
-                9,
-                'namespace Foo\Bar\Baz;
-',
+                ($php8Names === true) ? 4 : 8,
+                'namespace Foo\Bar\Baz;',
             ],
             'use-with-comments' => [
                 '/* testUseWithComments */',

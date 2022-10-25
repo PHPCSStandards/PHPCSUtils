@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Namespaces;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Namespaces;
 
@@ -24,7 +25,7 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @since 1.0.0
  */
-class DetermineNamespaceTest extends UtilityMethodTestCase
+final class DetermineNamespaceTest extends UtilityMethodTestCase
 {
 
     /**
@@ -89,104 +90,138 @@ class DetermineNamespaceTest extends UtilityMethodTestCase
     {
         return [
             'no-namespace' => [
-                '/* testNoNamespace */',
-                [
+                'testMarker' => '/* testNoNamespace */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'no-namespace-nested' => [
-                '/* testNoNamespaceNested */',
-                [
+                'testMarker' => '/* testNoNamespaceNested */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'non-scoped-namespace-1' => [
-                '/* testNonScopedNamedNamespace1 */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace1 */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 1 */',
                     'name' => 'Vendor\Package\Baz',
                 ],
             ],
             'non-scoped-namespace-1-nested' => [
-                '/* testNonScopedNamedNamespace1Nested */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace1Nested */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 1 */',
                     'name' => 'Vendor\Package\Baz',
                 ],
             ],
             'global-namespace-scoped' => [
-                '/* testGlobalNamespaceScoped */',
-                [
+                'testMarker' => '/* testGlobalNamespaceScoped */',
+                'expected'   => [
                     'ptr'  => '/* Scoped global namespace */',
                     'name' => '',
                 ],
             ],
             'global-namespace-scoped-nested' => [
-                '/* testGlobalNamespaceScopedNested */',
-                [
+                'testMarker' => '/* testGlobalNamespaceScopedNested */',
+                'expected'   => [
                     'ptr'  => '/* Scoped global namespace */',
                     'name' => '',
                 ],
             ],
             'no-namespace-after-unnamed-scoped' => [
-                '/* testNoNamespaceAfterUnnamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceAfterUnnamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'no-namespace-nested-after-unnamed-scoped' => [
-                '/* testNoNamespaceNestedAfterUnnamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceNestedAfterUnnamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'named-namespace-scoped' => [
-                '/* testNamedNamespaceScoped */',
-                [
+                'testMarker' => '/* testNamedNamespaceScoped */',
+                'expected'   => [
                     'ptr'  => '/* Scoped named namespace */',
                     'name' => 'Vendor\Package\Foo',
                 ],
             ],
             'named-namespace-scoped-nested' => [
-                '/* testNamedNamespaceScopedNested */',
-                [
+                'testMarker' => '/* testNamedNamespaceScopedNested */',
+                'expected'   => [
                     'ptr'  => '/* Scoped named namespace */',
                     'name' => 'Vendor\Package\Foo',
                 ],
             ],
             'no-namespace-after-named-scoped' => [
-                '/* testNoNamespaceAfterNamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceAfterNamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'no-namespace-nested-after-named-scoped' => [
-                '/* testNoNamespaceNestedAfterNamedScoped */',
-                [
+                'testMarker' => '/* testNoNamespaceNestedAfterNamedScoped */',
+                'expected'   => [
                     'ptr'  => false,
                     'name' => '',
                 ],
             ],
             'non-scoped-namespace-2' => [
-                '/* testNonScopedNamedNamespace2 */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace2 */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 2 */',
                     'name' => 'Vendor\Package\Foz',
                 ],
             ],
             'non-scoped-namespace-2-nested' => [
-                '/* testNonScopedNamedNamespace2Nested */',
-                [
+                'testMarker' => '/* testNonScopedNamedNamespace2Nested */',
+                'expected'   => [
                     'ptr'  => '/* Non-scoped named namespace 2 */',
                     'name' => 'Vendor\Package\Foz',
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testFindNamespacePtrResultIsCached()
+    {
+        // The test case used is specifically selected to be one which will always reach the cache check.
+        $methodName = 'PHPCSUtils\\Utils\\Namespaces::findNamespacePtr';
+        $cases      = $this->dataDetermineNamespace();
+        $testMarker = $cases['non-scoped-namespace-2']['testMarker'];
+        $expected   = $cases['non-scoped-namespace-2']['expected']['ptr'];
+
+        $stackPtr = $this->getTargetToken($testMarker, \T_ECHO);
+        $expected = $this->getTargetToken($expected, \T_NAMESPACE);
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 
     /**
@@ -200,7 +235,14 @@ class DetermineNamespaceTest extends UtilityMethodTestCase
         $result   = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
         $this->assertFalse($result, 'Failed checking that namespace declaration token is not regarded as namespaced');
 
-        $stackPtr = $this->getTargetToken('/* Non-scoped named namespace 2 */', \T_STRING, 'Package');
+        $targetType    = \T_STRING;
+        $targetContent = 'Package';
+        if (parent::usesPhp8NameTokens() === true) {
+            $targetType    = \T_NAME_QUALIFIED;
+            $targetContent = 'Vendor\Package\Foz';
+        }
+
+        $stackPtr = $this->getTargetToken('/* Non-scoped named namespace 2 */', $targetType, $targetContent);
         $result   = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
         $this->assertFalse($result, 'Failed checking that a token in the namespace name is not regarded as namespaced');
     }

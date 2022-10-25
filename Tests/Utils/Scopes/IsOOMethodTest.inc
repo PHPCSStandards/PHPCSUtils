@@ -38,3 +38,17 @@ trait MyTrait {
     /* testTraitMethod */
     public function something() {}
 }
+
+enum Suit implements Colorful
+{
+    case Hearts;
+
+    /* testEnumMethod */
+    public function color(): string {
+        /* testEnumNestedFunction */
+        function nested() {}
+
+        /* testEnumNestedClosure */
+        $c = function() {};
+    }
+}

@@ -32,7 +32,7 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
      */
     public function testInvalidTokenPassed()
     {
-        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE or T_TRAIT');
+        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
 
         $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
         BCFile::getDeclarationName(self::$phpcsFile, $target);
@@ -85,11 +85,6 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testAnonClassExtendsWithoutParens */',
                 \T_ANON_CLASS,
             ],
-
-            /*
-             * Note: this particular test *will* throw tokenizer "undefined offset" notices on PHPCS 2.6.0,
-             * but the test will pass.
-             */
             'live-coding' => [
                 '/* testLiveCoding */',
                 \T_FUNCTION,
@@ -111,7 +106,7 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
     public function testGetDeclarationName($testMarker, $expected, $targetType = null)
     {
         if (isset($targetType) === false) {
-            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_FUNCTION];
+            $targetType = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_ENUM, \T_FUNCTION];
         }
 
         $target = $this->getTargetToken($testMarker, $targetType);
@@ -184,6 +179,18 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
             'function-named-fn' => [
                 '/* testFunctionFn */',
                 'fn',
+            ],
+            'enum-pure' => [
+                '/* testPureEnum */',
+                'Foo',
+            ],
+            'enum-backed-space-between-name-and-colon' => [
+                '/* testBackedEnumSpaceBetweenNameAndColon */',
+                'Hoo',
+            ],
+            'enum-backed-no-space-between-name-and-colon' => [
+                '/* testBackedEnumNoSpaceBetweenNameAndColon */',
+                'Suit',
             ],
         ];
     }

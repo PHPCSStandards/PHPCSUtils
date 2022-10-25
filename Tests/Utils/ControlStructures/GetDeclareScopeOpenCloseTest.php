@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ControlStructures;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ControlStructures;
 
 /**
@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
+final class GetDeclareScopeOpenCloseTest extends PolyfilledTestCase
 {
 
     /**
@@ -32,6 +32,12 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $this->assertFalse(ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, 10000));
     }
 
@@ -42,6 +48,12 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNotDeclare()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $target = $this->getTargetToken('/* testNotDeclare */', \T_ECHO);
         $this->assertFalse(ControlStructures::getDeclareScopeOpenClose(self::$phpcsFile, $target));
     }
@@ -58,6 +70,12 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
      */
     public function testGetDeclareScopeOpenClose($testMarker, $expected)
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'ControlStructures::getDeclareScopeOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Check for the "scope_opener"/"scope_closer" keys instead.'
+        );
+
         $stackPtr = $this->getTargetToken($testMarker, \T_DECLARE);
 
         // Translate offsets to absolute token positions.
@@ -81,90 +99,114 @@ class GetDeclareScopeOpenCloseTest extends UtilityMethodTestCase
     {
         return [
             'file-scope' => [
-                '/* testFileScope */',
-                false,
+                'testMarker' => '/* testFileScope */',
+                'expected'   => false,
             ],
 
             'curlies' => [
-                '/* testCurlies */',
-                [
+                'testMarker' => '/* testCurlies */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 11,
                 ],
             ],
             'nested-curlies-outside' => [
-                '/* testNestedCurliesOutside */',
-                [
+                'testMarker' => '/* testNestedCurliesOutside */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 32,
                 ],
             ],
             'nested-curlies-inside' => [
-                '/* testNestedCurliesInside */',
-                [
+                'testMarker' => '/* testNestedCurliesInside */',
+                'expected'   => [
                     'opener' => 12,
                     'closer' => 17,
                 ],
             ],
 
             'alternative-syntax' => [
-                '/* testAlternativeSyntax */',
-                [
+                'testMarker' => '/* testAlternativeSyntax */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 11,
                 ],
             ],
             'alternative-syntax-nested-level-1' => [
-                '/* testAlternativeSyntaxNestedLevel1 */',
-                [
+                'testMarker' => '/* testAlternativeSyntaxNestedLevel1 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 50,
                 ],
             ],
             'alternative-syntax-nested-level-2' => [
-                '/* testAlternativeSyntaxNestedLevel2 */',
-                [
+                'testMarker' => '/* testAlternativeSyntaxNestedLevel2 */',
+                'expected'   => [
                     'opener' => 12,
                     'closer' => 34,
                 ],
             ],
             'alternative-syntax-nested-level-3' => [
-                '/* testAlternativeSyntaxNestedLevel3 */',
-                [
+                'testMarker' => '/* testAlternativeSyntaxNestedLevel3 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 12,
                 ],
             ],
 
             'mixed-nested-level-1' => [
-                '/* testMixedNestedLevel1 */',
-                [
+                'testMarker' => '/* testMixedNestedLevel1 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 61,
                 ],
             ],
             'mixed-nested-level-2' => [
-                '/* testMixedNestedLevel2 */',
-                [
+                'testMarker' => '/* testMixedNestedLevel2 */',
+                'expected'   => [
                     'opener' => 12,
                     'closer' => 46,
                 ],
             ],
             'mixed-nested-level-3' => [
-                '/* testMixedNestedLevel3 */',
-                [
+                'testMarker' => '/* testMixedNestedLevel3 */',
+                'expected'   => [
                     'opener' => 7,
                     'closer' => 24,
                 ],
             ],
             'mixed-nested-level-4' => [
-                '/* testMixedNestedLevel4 */',
-                false,
+                'testMarker' => '/* testMixedNestedLevel4 */',
+                'expected'   => false,
+            ],
+
+            'multi-directive-file-scoped' => [
+                'testMarker' => '/* testMultiDirectiveFileScope */',
+                'expected'   => false,
+            ],
+            'multi-directive-brace-scoped' => [
+                'testMarker' => '/* testMultiDirectiveBraces */',
+                'expected'   => [
+                    'opener' => 12,
+                    'closer' => 16,
+                ],
+            ],
+            'multi-directive-alt-syntax' => [
+                'testMarker' => '/* testMultiDirectiveAltSyntax */',
+                'expected'   => [
+                    'opener' => 11,
+                    'closer' => 15,
+                ],
+            ],
+
+            'php-close-tag' => [
+                'testMarker' => '/* testPHPCloseTag */',
+                'expected'   => false,
             ],
 
             'live-coding' => [
-                '/* testLiveCoding */',
-                false,
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => false,
             ],
         ];
     }

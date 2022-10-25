@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 
 /**
@@ -22,7 +23,7 @@ use PHPCSUtils\Utils\Arrays;
  *
  * @since 1.0.0
  */
-class GetOpenCloseTest extends UtilityMethodTestCase
+final class GetOpenCloseTest extends UtilityMethodTestCase
 {
 
     /**
@@ -46,7 +47,7 @@ class GetOpenCloseTest extends UtilityMethodTestCase
      */
     public function testNotArrayToken($testMarker)
     {
-        $target = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY, \T_OPEN_SQUARE_BRACKET]);
+        $target = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
         $this->assertFalse(Arrays::getOpenClose(self::$phpcsFile, $target));
     }
 
@@ -103,49 +104,49 @@ class GetOpenCloseTest extends UtilityMethodTestCase
     {
         return [
             'long-array' => [
-                '/* testLongArray */',
-                \T_ARRAY,
-                [
+                'testMarker'  => '/* testLongArray */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => [
                     'opener' => 1,
                     'closer' => 14,
                 ],
             ],
             'long-array-nested' => [
-                '/* testNestedLongArray */',
-                \T_ARRAY,
-                [
+                'testMarker'  => '/* testNestedLongArray */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => [
                     'opener' => 2,
                     'closer' => 6,
                 ],
             ],
             'short-array' => [
-                '/* testShortArray */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testShortArray */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     'opener' => 0,
                     'closer' => 9,
                 ],
             ],
             'short-array-nested' => [
-                '/* testNestedShortArray */',
-                \T_OPEN_SHORT_ARRAY,
-                [
+                'testMarker'  => '/* testNestedShortArray */',
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
+                'expected'    => [
                     'opener' => 0,
                     'closer' => 2,
                 ],
             ],
             'long-array-with-comments-and-annotations' => [
-                '/* testArrayWithCommentsAndAnnotations */',
-                \T_ARRAY,
-                [
+                'testMarker'  => '/* testArrayWithCommentsAndAnnotations */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => [
                     'opener' => 4,
                     'closer' => 26,
                 ],
             ],
             'parse-error' => [
-                '/* testParseError */',
-                \T_ARRAY,
-                false,
+                'testMarker'  => '/* testParseError */',
+                'targetToken' => \T_ARRAY,
+                'expected'    => false,
             ],
         ];
     }

@@ -58,27 +58,27 @@ trait AssertAttributeSame
      * Retrieve the value of an object's attribute.
      * This also works for attributes that are declared protected or private.
      *
-     * @param object|string $object        The object or class on which to check the property value.
-     * @param string        $attributeName The name of the property to check.
+     * @param object|string $objectUnderTest The object or class on which to check the property value.
+     * @param string        $attributeName   The name of the property to check.
      *
      * @return mixed Property value.
      *
      * @throws \Exception
      */
-    public static function getObjectAttributeValue($object, $attributeName)
+    public static function getObjectAttributeValue($objectUnderTest, $attributeName)
     {
-        $reflector = new ReflectionObject($object);
+        $reflector = new ReflectionObject($objectUnderTest);
 
         do {
             try {
                 $attribute = $reflector->getProperty($attributeName);
 
                 if (!$attribute || $attribute->isPublic()) {
-                    return $object->$attributeName;
+                    return $objectUnderTest->$attributeName;
                 }
 
                 $attribute->setAccessible(true);
-                $value = $attribute->getValue($object);
+                $value = $attribute->getValue($objectUnderTest);
                 $attribute->setAccessible(false);
 
                 return $value;

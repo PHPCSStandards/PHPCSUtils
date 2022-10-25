@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
+final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
 {
 
     /**
@@ -57,12 +57,16 @@ class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
     {
         return [
             'phpcs-annotation-and-comments' => [
-                '/* testDeclarationWithComments */',
-                '\Package\SubDir\SomeClass',
+                'testMarker' => '/* testDeclarationWithComments */',
+                'expected'   => '\Package\SubDir\SomeClass',
+            ],
+            'namespace-operator' => [
+                'testMarker' => '/* testExtendedClassUsingNamespaceOperator */',
+                'expected'   => 'namespace\Bar',
             ],
             'parse-error-stray-comma' => [
-                '/* testExtendedClassStrayComma */',
-                'testClass',
+                'testMarker' => '/* testExtendedClassStrayComma */',
+                'expected'   => 'testClass',
             ],
         ];
     }

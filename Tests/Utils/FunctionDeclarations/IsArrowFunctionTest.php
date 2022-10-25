@@ -10,8 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -27,7 +26,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-class IsArrowFunctionTest extends UtilityMethodTestCase
+final class IsArrowFunctionTest extends PolyfilledTestCase
 {
 
     /**
@@ -37,6 +36,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $result = FunctionDeclarations::isArrowFunction(self::$phpcsFile, 10000);
         $this->assertFalse($result, 'Failed isArrowFunction() test');
 
@@ -51,6 +56,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testUnsupportedToken()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $stackPtr = $this->getTargetToken('/* testConstantDeclaration */', \T_CONST);
 
         $result = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -67,6 +78,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function testTStringNotFn()
     {
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
         $stackPtr = $this->getTargetToken('/* testNotTheRightContent */', \T_STRING);
 
         $result = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
@@ -85,12 +102,25 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      * @param array  $expected      The expected return value for the respective functions.
      * @param array  $targetContent The content for the target token to look for in case there could
      *                              be confusion.
+     * @param bool   $skipOnPHP8    Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                              name tokenization is used (as the target token won't exist).
+     *                              Defaults to `false`.
      *
      * @return void
      */
-    public function testIsArrowFunction($testMarker, $expected, $targetContent = null)
+    public function testIsArrowFunction($testMarker, $expected, $targetContent = null, $skipOnPHP8 = false)
     {
-        $targets  = Collections::arrowFunctionTokensBC();
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::isArrowFunction() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
+        $targets  = [\T_FN, \T_STRING];
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
         $result   = FunctionDeclarations::isArrowFunction(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected['is'], $result);
@@ -105,16 +135,29 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      * @param array  $expected      The expected return value for the respective functions.
      * @param string $targetContent The content for the target token to look for in case there could
      *                              be confusion.
+     * @param bool   $skipOnPHP8    Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                              name tokenization is used (as the target token won't exist).
+     *                              Defaults to `false`.
      *
      * @return void
      */
-    public function testGetArrowFunctionOpenClose($testMarker, $expected, $targetContent = 'fn')
+    public function testGetArrowFunctionOpenClose($testMarker, $expected, $targetContent = 'fn', $skipOnPHP8 = false)
     {
-        $targets  = Collections::arrowFunctionTokensBC();
+        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
+            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
+        }
+
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'FunctionDeclarations::getArrowFunctionOpenClose() function is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the `T_FN` token instead.'
+        );
+
+        $targets  = [\T_FN, \T_STRING];
         $stackPtr = $this->getTargetToken($testMarker, $targets, $targetContent);
 
         // Change from offsets to absolute token positions.
-        if ($expected['get'] != false) {
+        if ($expected['get'] !== false) {
             foreach ($expected['get'] as $key => $value) {
                 $expected['get'][$key] += $stackPtr;
             }
@@ -134,10 +177,12 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
      */
     public function dataArrowFunction()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'arrow-function-standard' => [
-                '/* testStandard */',
-                [
+                'testMarker' => '/* testStandard */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -148,8 +193,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-mixed-case' => [
-                '/* testMixedCase */',
-                [
+                'testMarker'    => '/* testMixedCase */',
+                'expected'      => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -158,11 +203,11 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                         'scope_closer'       => 12,
                     ],
                 ],
-                'Fn',
+                'targetContent' => 'Fn',
             ],
             'arrow-function-with-whitespace' => [
-                '/* testWhitespace */',
-                [
+                'testMarker' => '/* testWhitespace */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 2,
@@ -173,8 +218,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-comment' => [
-                '/* testComment */',
-                [
+                'testMarker' => '/* testComment */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 4,
@@ -185,15 +230,15 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'non-arrow-function-global-function-declaration' => [
-                '/* testFunctionName */',
-                [
+                'testMarker' => '/* testFunctionName */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
             'arrow-function-nested-outer' => [
-                '/* testNestedOuter */',
-                [
+                'testMarker' => '/* testNestedOuter */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -204,8 +249,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-nested-inner' => [
-                '/* testNestedInner */',
-                [
+                'testMarker' => '/* testNestedInner */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -216,8 +261,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-function-call' => [
-                '/* testFunctionCall */',
-                [
+                'testMarker' => '/* testFunctionCall */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -228,8 +273,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-chained-function-call' => [
-                '/* testChainedFunctionCall */',
-                [
+                'testMarker'    => '/* testChainedFunctionCall */',
+                'expected'      => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -238,11 +283,11 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                         'scope_closer'       => 12,
                     ],
                 ],
-                'fn',
+                'targetContent' => 'fn',
             ],
             'arrow-function-as-function-argument' => [
-                '/* testFunctionArgument */',
-                [
+                'testMarker' => '/* testFunctionArgument */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -253,8 +298,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-nested-closure' => [
-                '/* testClosure */',
-                [
+                'testMarker' => '/* testClosure */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -265,8 +310,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-return-type-nullable-int' => [
-                '/* testReturnTypeNullableInt */',
-                [
+                'testMarker' => '/* testReturnTypeNullableInt */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -277,8 +322,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-reference' => [
-                '/* testReference */',
-                [
+                'testMarker' => '/* testReference */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 2,
@@ -289,8 +334,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-grouped-within-parenthesis' => [
-                '/* testGrouped */',
-                [
+                'testMarker' => '/* testGrouped */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -301,8 +346,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-as-array-value' => [
-                '/* testArrayValue */',
-                [
+                'testMarker' => '/* testArrayValue */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -313,8 +358,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-yield-in-value' => [
-                '/* testYield */',
-                [
+                'testMarker' => '/* testYield */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -325,32 +370,56 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-return-type-nullable-namespaced-class' => [
-                '/* testReturnTypeNamespacedClass */',
-                [
+                'testMarker' => '/* testReturnTypeNamespacedClass */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
                         'parenthesis_closer' => 3,
-                        'scope_opener'       => 15,
-                        'scope_closer'       => 18,
+                        'scope_opener'       => ($php8Names === true) ? 10 : 15,
+                        'scope_closer'       => ($php8Names === true) ? 13 : 18,
+                    ],
+                ],
+            ],
+            'arrow-function-with-return-type-nullable-partially-qualified-class' => [
+                'testMarker' => '/* testReturnTypePartiallyQualifiedClass */',
+                'expected'   => [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 3,
+                        'scope_opener'       => ($php8Names === true) ? 10 : 12,
+                        'scope_closer'       => ($php8Names === true) ? 13 : 15,
                     ],
                 ],
             ],
             'arrow-function-with-fqn-class' => [
-                '/* testReturnTypeNullableFQNClass */',
-                [
+                'testMarker' => '/* testReturnTypeNullableFQNClass */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
-                        'parenthesis_closer' => 7,
-                        'scope_opener'       => 15,
-                        'scope_closer'       => 18,
+                        'parenthesis_closer' => ($php8Names === true) ? 6 : 7,
+                        'scope_opener'       => ($php8Names === true) ? 13 : 15,
+                        'scope_closer'       => ($php8Names === true) ? 16 : 18,
+                    ],
+                ],
+            ],
+            'arrow-function-with-namespace-operator-in-types' => [
+                'testMarker' => '/* testNamespaceOperatorInTypes */',
+                'expected'   => [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => ($php8Names === true) ? 5 : 7,
+                        'scope_opener'       => ($php8Names === true) ? 12 : 16,
+                        'scope_closer'       => ($php8Names === true) ? 15 : 19,
                     ],
                 ],
             ],
             'arrow-function-with-return-type-nullable-self' => [
-                '/* testReturnTypeSelf */',
-                [
+                'testMarker' => '/* testReturnTypeSelf */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -361,8 +430,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-return-type-parent' => [
-                '/* testReturnTypeParent */',
-                [
+                'testMarker' => '/* testReturnTypeParent */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -373,8 +442,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-return-type-callable' => [
-                '/* testReturnTypeCallable */',
-                [
+                'testMarker' => '/* testReturnTypeCallable */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -385,8 +454,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-return-type-array' => [
-                '/* testReturnTypeArray */',
-                [
+                'testMarker' => '/* testReturnTypeArray */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -396,9 +465,46 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'arrow-function-with-return-type-static' => [
+                'testMarker' => '/* testReturnTypeStatic */',
+                'expected'   => [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 5,
+                        'scope_opener'       => 11,
+                        'scope_closer'       => 14,
+                    ],
+                ],
+            ],
+
+            'arrow-function-with-union-param-type' => [
+                'testMarker' => '/* testUnionParamType */',
+                'expected'   => [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 7,
+                        'scope_opener'       => 13,
+                        'scope_closer'       => 21,
+                    ],
+                ],
+            ],
+            'arrow-function-with-union-return-type' => [
+                'testMarker' => '/* testUnionReturnType */',
+                'expected'   => [
+                    'is'  => true,
+                    'get' => [
+                        'parenthesis_opener' => 1,
+                        'parenthesis_closer' => 3,
+                        'scope_opener'       => 11,
+                        'scope_closer'       => 18,
+                    ],
+                ],
+            ],
             'arrow-function-with-return-type-array-bug-2773' => [
-                '/* testReturnTypeArrayBug2773 */',
-                [
+                'testMarker' => '/* testReturnTypeArrayBug2773 */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -409,8 +515,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-array-param-and-return-type' => [
-                '/* testMoreArrayTypeDeclarations */',
-                [
+                'testMarker' => '/* testMoreArrayTypeDeclarations */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 2,
@@ -421,8 +527,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-ternary-content' => [
-                '/* testTernary */',
-                [
+                'testMarker' => '/* testTernary */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -433,8 +539,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-ternary-content-after-then' => [
-                '/* testTernaryThen */',
-                [
+                'testMarker' => '/* testTernaryThen */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -445,8 +551,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-with-ternary-content-after-else' => [
-                '/* testTernaryElse */',
-                [
+                'testMarker' => '/* testTernaryElse */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -457,8 +563,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-as-function-call-argument' => [
-                '/* testArrowFunctionAsArgument */',
-                [
+                'testMarker' => '/* testArrowFunctionAsArgument */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -469,8 +575,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-as-function-call-argument-with-array-return' => [
-                '/* testArrowFunctionWithArrayAsArgument */',
-                [
+                'testMarker' => '/* testArrowFunctionWithArrayAsArgument */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -481,8 +587,8 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
                 ],
             ],
             'arrow-function-nested-in-method' => [
-                '/* testNestedInMethod */',
-                [
+                'testMarker' => '/* testNestedInMethod */',
+                'expected'   => [
                     'is'  => true,
                     'get' => [
                         'parenthesis_opener' => 1,
@@ -497,99 +603,109 @@ class IsArrowFunctionTest extends UtilityMethodTestCase
              * Use of the "fn" keyword when not an arrow function.
              */
             'non-arrow-function-const-declaration' => [
-                '/* testConstantDeclaration */',
-                [
+                'testMarker'    => '/* testConstantDeclaration */',
+                'expected'      => [
                     'is'  => false,
                     'get' => false,
                 ],
-                'FN',
+                'targetContent' => 'FN',
             ],
             'non-arrow-function-const-declaration-lowercase' => [
-                '/* testConstantDeclarationLower */',
-                [
+                'testMarker' => '/* testConstantDeclarationLower */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
             'non-arrow-function-static-method-declaration' => [
-                '/* testStaticMethodName */',
-                [
+                'testMarker' => '/* testStaticMethodName */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
             'non-arrow-function-assignment-to-property' => [
-                '/* testPropertyAssignment */',
-                [
+                'testMarker' => '/* testPropertyAssignment */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
             'non-arrow-function-anon-class-method-declaration' => [
-                '/* testAnonClassMethodName */',
-                [
+                'testMarker'    => '/* testAnonClassMethodName */',
+                'expected'      => [
                     'is'  => false,
                     'get' => false,
                 ],
-                'fN',
+                'targetContent' => 'fN',
             ],
             'non-arrow-function-call-to-static-method' => [
-                '/* testNonArrowStaticMethodCall */',
-                [
+                'testMarker' => '/* testNonArrowStaticMethodCall */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
             'non-arrow-function-class-constant-access' => [
-                '/* testNonArrowConstantAccess */',
-                [
+                'testMarker'    => '/* testNonArrowConstantAccess */',
+                'expected'      => [
                     'is'  => false,
                     'get' => false,
                 ],
-                'FN',
+                'targetContent' => 'FN',
             ],
             'non-arrow-function-class-constant-access-with-deref' => [
-                '/* testNonArrowConstantAccessDeref */',
-                [
+                'testMarker'    => '/* testNonArrowConstantAccessDeref */',
+                'expected'      => [
                     'is'  => false,
                     'get' => false,
                 ],
-                'Fn',
+                'targetContent' => 'Fn',
             ],
             'non-arrow-function-call-to-object-method' => [
-                '/* testNonArrowObjectMethodCall */',
-                [
+                'testMarker' => '/* testNonArrowObjectMethodCall */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
             'non-arrow-function-call-to-object-method-uppercase' => [
-                '/* testNonArrowObjectMethodCallUpper */',
-                [
+                'testMarker'    => '/* testNonArrowObjectMethodCallUpper */',
+                'expected'      => [
                     'is'  => false,
                     'get' => false,
                 ],
-                'FN',
+                'targetContent' => 'FN',
             ],
             'non-arrow-function-call-to-namespaced-function' => [
-                '/* testNonArrowNamespacedFunctionCall */',
-                [
+                'testMarker'    => '/* testNonArrowNamespacedFunctionCall */',
+                'expected'      => [
                     'is'  => false,
                     'get' => false,
                 ],
-                'Fn',
+                'targetContent' => 'Fn',
+                'skipOnPHP8'    => true,
             ],
             'non-arrow-function-call-to-namespaced-function-using-namespace-operator' => [
-                '/* testNonArrowNamespaceOperatorFunctionCall */',
-                [
+                'testMarker'    => '/* testNonArrowNamespaceOperatorFunctionCall */',
+                'expected'      => [
+                    'is'  => false,
+                    'get' => false,
+                ],
+                'targetContent' => 'fn',
+                'skipOnPHP8'    => true,
+            ],
+            'non-arrow-function-declaration-with-union-types' => [
+                'testMarker' => '/* testNonArrowFunctionNameWithUnionTypes */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],
             ],
 
             'live-coding' => [
-                '/* testLiveCoding */',
-                [
+                'testMarker' => '/* testLiveCoding */',
+                'expected'   => [
                     'is'  => false,
                     'get' => false,
                 ],

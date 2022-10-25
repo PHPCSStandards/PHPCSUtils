@@ -10,20 +10,20 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Test class.
  *
  * @covers \PHPCSUtils\Tokens\Collections::propertyTypeTokensBC
+ * @covers \PHPCSUtils\Tokens\Collections::triggerDeprecation
  *
  * @group collections
  *
  * @since 1.0.0
  */
-class PropertyTypeTokensBCTest extends TestCase
+final class PropertyTypeTokensBCTest extends TestCase
 {
 
     /**
@@ -33,13 +33,12 @@ class PropertyTypeTokensBCTest extends TestCase
      */
     public function testPropertyTypeTokensBC()
     {
-        $version  = Helper::getVersion();
-        $expected = Collections::$propertyTypeTokens;
+        $this->expectDeprecation();
+        $this->expectDeprecationMessage(
+            'Collections::propertyTypeTokensBC() method is deprecated since PHPCSUtils 1.0.0-alpha4.'
+            . ' Use the PHPCSUtils\Tokens\Collections::propertyTypeTokens() method instead.'
+        );
 
-        if (\version_compare($version, '3.99.99', '<=') === true) {
-            $expected[\T_ARRAY_HINT] = \T_ARRAY_HINT;
-        }
-
-        $this->assertSame($expected, Collections::propertyTypeTokensBC());
+        $this->assertSame(Collections::propertyTypeTokens(), Collections::propertyTypeTokensBC());
     }
 }

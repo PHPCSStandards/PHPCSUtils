@@ -13,7 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\Parentheses;
 
@@ -21,8 +21,9 @@ use PHPCSUtils\Utils\Parentheses;
  * Utility functions for examining use statements.
  *
  * @since 1.0.0
+ * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
-class UseStatements
+final class UseStatements
 {
 
     /**
@@ -58,6 +59,13 @@ class UseStatements
             return '';
         }
 
+        // More efficient & simpler check for closure use in PHPCS 4.x.
+        if (isset($tokens[$stackPtr]['parenthesis_owner'])
+            && $tokens[$stackPtr]['parenthesis_owner'] === $stackPtr
+        ) {
+            return 'closure';
+        }
+
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
         if ($prev !== false && $tokens[$prev]['code'] === \T_CLOSE_PARENTHESIS
             && Parentheses::isOwnerIn($phpcsFile, $prev, \T_CLOSURE) === true
@@ -71,8 +79,8 @@ class UseStatements
             return 'import';
         }
 
-        $traitScopes = BCTokens::ooScopeTokens();
-        // Only classes and traits can import traits.
+        $traitScopes = Tokens::$ooScopeTokens;
+        // Only classes, traits and enums can import traits.
         unset($traitScopes[\T_INTERFACE]);
 
         if (isset($traitScopes[$tokens[$lastCondition]['code']]) === true) {
@@ -145,6 +153,7 @@ class UseStatements
      * Handles single import, multi-import and group-import use statements.
      *
      * @since 1.0.0
+     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position in the stack of the `T_USE` token.
@@ -204,7 +213,11 @@ class UseStatements
             return $statements;
         }
 
-        $endOfStatement++;
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
+        ++$endOfStatement;
 
         $start     = true;
         $useGroup  = false;
@@ -221,25 +234,6 @@ class UseStatements
             }
 
             $tokenCode = $tokens[$i]['code'];
-
-            /*
-             * BC: Work round a tokenizer bug related to a parse error.
-             *
-             * If `function` or `const` is used as the alias, the semi-colon after it would
-             * be tokenized as T_STRING.
-             * For `function` this was fixed in PHPCS 2.8.0. For `const` the issue still exists
-             * in PHPCS 3.5.2.
-             *
-             * Along the same lines, the `}` T_CLOSE_USE_GROUP would also be tokenized as T_STRING.
-             */
-            if ($tokenCode === \T_STRING) {
-                if ($tokens[$i]['content'] === ';') {
-                    $tokenCode = \T_SEMICOLON;
-                } elseif ($tokens[$i]['content'] === '}') {
-                    $tokenCode = \T_CLOSE_USE_GROUP;
-                }
-            }
-
             switch ($tokenCode) {
                 case \T_STRING:
                     // Only when either at the start of the statement or at the start of a new sub within a group.
@@ -267,6 +261,27 @@ class UseStatements
                     }
 
                     $alias = $tokens[$i]['content'];
+                    break;
+
+                case \T_NAME_QUALIFIED:
+                case \T_NAME_FULLY_QUALIFIED: // This would be a parse error, but handle it anyway.
+                    /*
+                     * PHPCS 4.x.
+                     *
+                     * These tokens can only be encountered when either at the start of the statement
+                     * or at the start of a new sub within a group.
+                     */
+                    if ($start === true && $fixedType === false) {
+                        $type = 'name';
+                    }
+
+                    $start = false;
+
+                    if ($hasAlias === false) {
+                        $name .= $tokens[$i]['content'];
+                    }
+
+                    $alias = \substr($tokens[$i]['content'], (\strrpos($tokens[$i]['content'], '\\') + 1));
                     break;
 
                 case \T_AS:
@@ -309,42 +324,14 @@ class UseStatements
                     $name .= $tokens[$i]['content'];
                     break;
 
-                case \T_FUNCTION:
-                case \T_CONST:
-                    /*
-                     * BC: Work around tokenizer bug in PHPCS < 3.4.1.
-                     *
-                     * `function`/`const` in `use function`/`use const` tokenized as T_FUNCTION/T_CONST
-                     * instead of T_STRING when there is a comment between the keywords.
-                     *
-                     * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/2431
-                     */
-                    if ($start === true && $fixedType === false) {
-                        $type  = \strtolower($tokens[$i]['content']);
-                        $start = false;
-                        if ($useGroup === false) {
-                            $fixedType = true;
-                        }
-
-                        break;
-                    }
-
-                    $start = false;
-
-                    if ($hasAlias === false) {
-                        $name .= $tokens[$i]['content'];
-                    }
-
-                    $alias = $tokens[$i]['content'];
-                    break;
-
                 /*
                  * Fall back in case reserved keyword is (illegally) used in name.
                  * Parse error, but not our concern.
                  */
                 default:
                     if ($hasAlias === false) {
-                        $name .= $tokens[$i]['content'];
+                        // Defensive coding, just in case. Should no longer be possible since PHPCS 3.7.0.
+                        $name .= $tokens[$i]['content']; // @codeCoverageIgnore
                     }
 
                     $alias = $tokens[$i]['content'];
@@ -352,6 +339,7 @@ class UseStatements
             }
         }
 
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $statements);
         return $statements;
     }
 
@@ -367,6 +355,7 @@ class UseStatements
      *
      * @see \PHPCSUtils\AbstractSniffs\AbstractFileContextSniff
      * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
+     * @see \PHPCSUtils\Utils\UseStatements::mergeImportUseStatements()
      *
      * @since 1.0.0-alpha3
      *
@@ -383,28 +372,60 @@ class UseStatements
      *               the previously collected `use` statement information.
      *               See {@see UseStatements::splitImportUseStatement()} for more details about the array format.
      */
-    public static function splitAndMergeImportUseStatement(File $phpcsFile, $stackPtr, $previousUseStatements)
+    public static function splitAndMergeImportUseStatement(File $phpcsFile, $stackPtr, array $previousUseStatements)
     {
         try {
-            $useStatements = self::splitImportUseStatement($phpcsFile, $stackPtr);
-
-            if (isset($previousUseStatements['name']) === false) {
-                $previousUseStatements['name'] = $useStatements['name'];
-            } else {
-                $previousUseStatements['name'] += $useStatements['name'];
-            }
-            if (isset($previousUseStatements['function']) === false) {
-                $previousUseStatements['function'] = $useStatements['function'];
-            } else {
-                $previousUseStatements['function'] += $useStatements['function'];
-            }
-            if (isset($previousUseStatements['const']) === false) {
-                $previousUseStatements['const'] = $useStatements['const'];
-            } else {
-                $previousUseStatements['const'] += $useStatements['const'];
-            }
+            $useStatements         = self::splitImportUseStatement($phpcsFile, $stackPtr);
+            $previousUseStatements = self::mergeImportUseStatements($previousUseStatements, $useStatements);
         } catch (RuntimeException $e) {
             // Not an import use statement.
+        }
+
+        return $previousUseStatements;
+    }
+
+    /**
+     * Merge two import use statement arrays.
+     *
+     * Beware: this method should only be used to combine the import use statements found in *one* file.
+     * Do NOT combine the statements of multiple files as the result will be inaccurate and unreliable.
+     *
+     * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
+     *
+     * @since 1.0.0-alpha4
+     *
+     * @param array $previousUseStatements The import `use` statements collected so far.
+     *                                     This should be either the output of a
+     *                                     previous call to this method or the output of
+     *                                     an earlier call to the
+     *                                     {@see UseStatements::splitImportUseStatement()}
+     *                                     method.
+     * @param array $currentUseStatement   The parsed import `use` statements to merge with
+     *                                     the previously collected use statements.
+     *                                     This should be the output of a call to the
+     *                                     {@see UseStatements::splitImportUseStatement()}
+     *                                     method.
+     *
+     * @return array A multi-level array containing information about the current `use` statement combined with
+     *               the previously collected `use` statement information.
+     *               See {@see UseStatements::splitImportUseStatement()} for more details about the array format.
+     */
+    public static function mergeImportUseStatements(array $previousUseStatements, array $currentUseStatement)
+    {
+        if (isset($previousUseStatements['name']) === false) {
+            $previousUseStatements['name'] = $currentUseStatement['name'];
+        } else {
+            $previousUseStatements['name'] += $currentUseStatement['name'];
+        }
+        if (isset($previousUseStatements['function']) === false) {
+            $previousUseStatements['function'] = $currentUseStatement['function'];
+        } else {
+            $previousUseStatements['function'] += $currentUseStatement['function'];
+        }
+        if (isset($previousUseStatements['const']) === false) {
+            $previousUseStatements['const'] = $currentUseStatement['const'];
+        } else {
+            $previousUseStatements['const'] += $currentUseStatement['const'];
         }
 
         return $previousUseStatements;

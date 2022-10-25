@@ -28,7 +28,7 @@ $class = new class extends SomeClass {
 function functionName() {}
 
 /* testFunctionReturnByRef */
-function & functionNameByRef();
+function & functionNameByRef() {}
 
 /* testClass */
 abstract class ClassName {
@@ -68,6 +68,22 @@ class /* comment */
 
 /* testFunctionFn */
 function fn() {}
+
+/* testPureEnum */
+enum Foo
+{
+    case SOME_CASE;
+}
+
+/* testBackedEnumSpaceBetweenNameAndColon */
+enum Hoo : string
+{
+    case ONE = 'one';
+    case TWO = 'two';
+}
+
+/* testBackedEnumNoSpaceBetweenNameAndColon */
+enum Suit: int implements Colorful, CardGame {}
 
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.

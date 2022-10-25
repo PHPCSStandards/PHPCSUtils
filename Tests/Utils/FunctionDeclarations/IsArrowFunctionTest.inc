@@ -61,8 +61,14 @@ $a = fn($x) => yield 'k' => $x;
 /* testReturnTypeNamespacedClass */
 $fn = fn($x) : ?\My\NS\ClassName => $x;
 
+/* testReturnTypePartiallyQualifiedClass */
+$fn = fn($x) : ?NS\ClassName => $x;
+
 /* testReturnTypeNullableFQNClass */
 $a = fn(?\DateTime $x) : ?\DateTime => $x;
+
+/* testNamespaceOperatorInTypes */
+$fn = fn(namespace\Foo $a) : ?namespace\Foo => $a;
 
 /* testReturnTypeSelf */
 $fn = fn(self $a) : ?self => $a;
@@ -75,6 +81,15 @@ $fn = fn(callable $a) : callable => $a;
 
 /* testReturnTypeArray */
 $fn = fn(array $a) : array => $a;
+
+/* testReturnTypeStatic */
+$fn = fn(array $a) : static => $a;
+
+/* testUnionParamType */
+$arrowWithUnionParam = fn(int|float $param) : SomeClass => new SomeClass($param);
+
+/* testUnionReturnType */
+$arrowWithUnionReturn = fn($param) : int|float => $param | 10;
 
 /* testReturnTypeArrayBug2773 */
 $fn = fn(): array => [a($a, $b)];
@@ -143,6 +158,9 @@ $a = MyNS\Sub\Fn($param);
 
 /* testNonArrowNamespaceOperatorFunctionCall */
 $a = namespace\fn($param);
+
+/* testNonArrowFunctionNameWithUnionTypes */
+function &fn(int|float $param) : string|null {}
 
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.

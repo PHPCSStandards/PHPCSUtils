@@ -10,19 +10,21 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\BackCompat\Helper;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\BackCompat\BCTokens::parenthesisOpeners
+ * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
  *
  * @group tokens
  *
  * @since 1.0.0
  */
-class ParenthesisOpenersTest extends TestCase
+final class ParenthesisOpenersTest extends TestCase
 {
 
     /**
@@ -32,6 +34,7 @@ class ParenthesisOpenersTest extends TestCase
      */
     public function testParenthesisOpeners()
     {
+        $version  = Helper::getVersion();
         $expected = [
             \T_ARRAY      => \T_ARRAY,
             \T_LIST       => \T_LIST,
@@ -46,7 +49,12 @@ class ParenthesisOpenersTest extends TestCase
             \T_ELSEIF     => \T_ELSEIF,
             \T_CATCH      => \T_CATCH,
             \T_DECLARE    => \T_DECLARE,
+            \T_MATCH      => \T_MATCH,
         ];
+
+        if (\version_compare($version, '3.99.99', '>=') === true) {
+            $expected[\T_USE] = \T_USE;
+        }
 
         \asort($expected);
 
@@ -54,5 +62,19 @@ class ParenthesisOpenersTest extends TestCase
         \asort($result);
 
         $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test whether the method in BCTokens is still in sync with the latest version of PHPCS.
+     *
+     * This group is not run by default and has to be specifically requested to be run.
+     *
+     * @group compareWithPHPCS
+     *
+     * @return void
+     */
+    public function testPHPCSParenthesisOpeners()
+    {
+        $this->assertSame(Tokens::$parenthesisOpeners, BCTokens::parenthesisOpeners());
     }
 }

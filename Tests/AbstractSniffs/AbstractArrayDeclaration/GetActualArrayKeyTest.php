@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-class GetActualArrayKeyTest extends UtilityMethodTestCase
+final class GetActualArrayKeyTest extends UtilityMethodTestCase
 {
 
     /**
@@ -75,35 +75,69 @@ class GetActualArrayKeyTest extends UtilityMethodTestCase
     {
         return [
             'unsupported-key-types' => [
-                '/* testAllVoid */',
-                null,
-                0,
+                'testMarker'   => '/* testAllVoid */',
+                'expected'     => null,
+                'expectedFrom' => 0,
             ],
             'keys-all-empty-string' => [
-                '/* testAllEmptyString */',
-                '',
-                0,
+                'testMarker'   => '/* testAllEmptyString */',
+                'expected'     => '',
+                'expectedFrom' => 0,
             ],
             'keys-all-integer-zero' => [
-                '/* testAllZero */',
-                0,
-                0,
+                'testMarker'   => '/* testAllZero */',
+                'expected'     => 0,
+                'expectedFrom' => 0,
             ],
             'keys-all-integer-one' => [
-                '/* testAllOne */',
-                1,
-                1,
+                'testMarker'   => '/* testAllOne */',
+                'expected'     => 1,
+                'expectedFrom' => 1,
             ],
             'keys-all-integer-eleven' => [
-                '/* testAllEleven */',
-                11,
-                0,
+                'testMarker'   => '/* testAllEleven */',
+                'expected'     => 11,
+                'expectedFrom' => 0,
             ],
             'keys-all-string-abc' => [
-                '/* testAllStringAbc */',
-                'abc',
-                0,
+                'testMarker'   => '/* testAllStringAbc */',
+                'expected'     => 'abc',
+                'expectedFrom' => 0,
             ],
         ];
+    }
+
+    /**
+     * Test retrieving the actual array key from a heredoc when the key could contain interpolation, but doesn't,
+     * as the interpolation is escaped.
+     *
+     * @return void
+     */
+    public function testGetActualArrayKeyFromHeredocWithEscapedVarInKey()
+    {
+        $testObj         = new ArrayDeclarationSniffTestDouble();
+        $testObj->tokens = self::$phpcsFile->getTokens();
+
+        $stackPtr   = $this->getTargetToken('/* testHeredocWithEscapedVarInKey */', [\T_ARRAY, \T_OPEN_SHORT_ARRAY]);
+        $arrayItems = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        $expected = [
+            1 => 'a{$b}c',
+            2 => 'a$bc',
+            3 => '$\{abc}',
+        ];
+
+        $this->assertCount(\count($expected), $arrayItems);
+
+        foreach ($arrayItems as $itemNr => $arrayItem) {
+            $arrowPtr = Arrays::getDoubleArrowPtr(self::$phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            $result   = $testObj->getActualArrayKey(self::$phpcsFile, $arrayItem['start'], ($arrowPtr - 1));
+            $this->assertSame(
+                $expected[$itemNr],
+                $result,
+                'Failed: actual key ' . $result . ' is not the same as the expected key ' . $expected[$itemNr]
+                    . ' for item number ' . $itemNr
+            );
+        }
     }
 }
