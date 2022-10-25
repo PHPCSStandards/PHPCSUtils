@@ -142,59 +142,13 @@
     content: 'P'
 }
 
+.phpdocumentor-table-of-contents .phpdocumentor-table-of-contents__entry.-enum:before {
+    content: 'E'
+}
+
 .phpdocumentor-table-of-contents dd {
     font-style: italic;
     margin-left: 2rem;
-}
-.phpdocumentor-content {
-    position: relative;
-}
-
-.phpdocumentor-search-results {
-    backdrop-filter: blur(5px);
-    background: var(--popover-background-color);
-    min-height: 100%;
-    left: calc(var(--spacing-lg) * -1);
-    position: absolute;
-    right: calc(var(--spacing-lg) * -1);
-    top: 0;
-    padding: 0 var(--spacing-lg);
-    opacity: 1;
-    pointer-events: all;
-
-    transition: opacity .3s, background .3s;
-}
-
-.phpdocumentor-search-results--hidden {
-    background: transparent;
-    backdrop-filter: blur(0);
-    opacity: 0;
-    pointer-events: none;
-}
-
-.phpdocumentor-search-results__entries {
-    list-style: none;
-    padding: 0;
-}
-
-.phpdocumentor-search-results__entry {
-    border-bottom: 1px solid var(--table-separator-color);
-    padding: var(--spacing-sm) var(--spacing-md);
-    text-align: left;
-}
-
-.phpdocumentor-search-results__entry a {
-    display: block;
-}
-
-.phpdocumentor-search-results__entry small {
-    margin-top: var(--spacing-xs);
-    margin-bottom: var(--spacing-md);
-    color: var(--primary-color-darker);
-    display: block;
-}
-.phpdocumentor-search-results__entry h3 {
-    margin: 0;
 }
 .phpdocumentor-element-found-in {
     position: absolute;
@@ -202,6 +156,25 @@
     right: 0;
     font-size: var(--text-sm);
     color: gray;
+}
+
+.phpdocumentor-element-found-in .phpdocumentor-element-found-in__source {
+    flex: 0 1 auto;
+    display: inline-flex;
+}
+
+.phpdocumentor-element-found-in .phpdocumentor-element-found-in__source:after {
+    width: 1.25rem;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    background: transparent url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="gray"><path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8l3.147-3.146zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8l-3.147-3.146z" stroke="gray" stroke-width="1.4"/></svg>') no-repeat center center;
+    content: '';
+    left: 0;
+    border-radius: 50%;
+    font-weight: 600;
+    text-align: center;
+    font-size: .75rem;
+    margin-top: .2rem;
 }
 .phpdocumentor-class-graph {
     width: 100%; height: 600px; border:1px solid black; overflow: hidden

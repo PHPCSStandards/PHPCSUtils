@@ -2,71 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>PHPCSUtils</title>
+            <title>PHPCSUtils</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../images/favicon.ico"/>
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/base.css">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/template.css">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
                 <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
-        <script src="../js/search.js"></script>
-        <script defer src="../js/searchIndex.js"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
 <body id="top">
     <header class="phpdocumentor-header phpdocumentor-section">
-    <h1 class="phpdocumentor-title"><a href="../">PHPCSUtils</a></h1>
-    <nav class="phpdocumentor-topnav">
-    </nav>
-</header>
-
-    <main class="phpdocumentor">
-        <div class="phpdocumentor-section">
-            <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">PHPCSUtils</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-    <h2 class="phpdocumentor-sidebar__category-header">Search</h2>
-    <label class="phpdocumentor-label">
+    <label>
         <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
         <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
     </label>
 </section>
 
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
 
-    
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpcsutils.html"><abbr title="\PHPCSUtils">PHPCSUtils</abbr></a></h4>
-                <ul class="phpdocumentor-list">
-                                            <li><a href="../namespaces/phpcsutils-abstractsniffs.html"><abbr title="\PHPCSUtils\AbstractSniffs">AbstractSniffs</abbr></a></li>
-                                            <li><a href="../namespaces/phpcsutils-backcompat.html"><abbr title="\PHPCSUtils\BackCompat">BackCompat</abbr></a></li>
-                                            <li><a href="../namespaces/phpcsutils-fixers.html"><abbr title="\PHPCSUtils\Fixers">Fixers</abbr></a></li>
-                                            <li><a href="../namespaces/phpcsutils-testutils.html"><abbr title="\PHPCSUtils\TestUtils">TestUtils</abbr></a></li>
-                                            <li><a href="../namespaces/phpcsutils-tokens.html"><abbr title="\PHPCSUtils\Tokens">Tokens</abbr></a></li>
-                                            <li><a href="../namespaces/phpcsutils-utils.html"><abbr title="\PHPCSUtils\Utils">Utils</abbr></a></li>
-                                    </ul>
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/phpcsutils.html" class="">PHPCSUtils</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/phpcsutils-abstractsniffs.html" class="">AbstractSniffs</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/phpcsutils-backcompat.html" class="">BackCompat</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/phpcsutils-fixers.html" class="">Fixers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/phpcsutils-testutils.html" class="">TestUtils</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/phpcsutils-tokens.html" class="">Tokens</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/phpcsutils-utils.html" class="">Utils</a>
+                
+            </li>
+            </ul>
+
                         </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/PHPCSUtils.html" class="">PHPCSUtils</a>
+</h4>
 
-    
+                        </section>
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
-                <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h3>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h3>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
-        <h3 class="phpdocumentor-sidebar__root-package"><a href="../indices/files.html">Files</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
     </section>
 </aside>
 
             <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
-            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils.html">PHPCSUtils</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="../namespaces/phpcsutils-utils.html">Utils</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpcsutils.html">PHPCSUtils</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpcsutils-utils.html">Utils</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
@@ -74,15 +118,22 @@
     UseStatements
 
     
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/PHPCSUtils.html">PHPCSUtils</a></li>
+                            </ul>
+        </div>
     
     
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">25</span>
-</aside>
+
+    </aside>
 
             <p class="phpdocumentor-summary">Utility functions for examining use statements.</p>
 
@@ -98,8 +149,9 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                         </dl>
 
 
@@ -113,46 +165,46 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                    <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_getType">getType()</a>
+                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_getType">getType()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Determine what a T_USE token is used for.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_isClosureUse">isClosureUse()</a>
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_isClosureUse">isClosureUse()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Determine whether a T_USE token represents a closure use statement.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_isImportUse">isImportUse()</a>
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_isImportUse">isImportUse()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Determine whether a T_USE token represents a class/function/constant import use statement.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_isTraitUse">isTraitUse()</a>
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_isTraitUse">isTraitUse()</a>
     <span>
-                        &nbsp;: bool    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>Determine whether a T_USE token represents a trait use statement.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement">splitAndMergeImportUseStatement()</a>
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement">splitAndMergeImportUseStatement()</a>
     <span>
-                        &nbsp;: array    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Split an import use statement into individual imports and merge it with an array of previously
 seen import use statements.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement">splitImportUseStatement()</a>
+    <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement">splitImportUseStatement()</a>
     <span>
-                        &nbsp;: array    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Split an import use statement into individual imports.</dd>
 
@@ -167,7 +219,7 @@ seen import use statements.</dd>
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PHPCSUtils-Utils-UseStatements.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -177,19 +229,20 @@ seen import use statements.</dd>
 >
     <h4 class="phpdocumentor-element__name" id="method_getType">
         getType()
-        <a href="#method_getType" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_getType" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">45</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Determine what a T_USE token is used for.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -199,7 +252,8 @@ seen import use statements.</dd>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -207,7 +261,8 @@ seen import use statements.</dd>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p></section>
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p>
+</section>
 
             </dd>
             </dl>
@@ -223,17 +278,20 @@ seen import use statements.</dd>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_USE</code> token.</p></section>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_USE</code> token.</p>
+</section>
 
-                </dd>
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -243,7 +301,8 @@ seen import use statements.</dd>
 An empty string will be returned if the token is used in an
 invalid context or if it couldn't be reliably determined what
 the <code class="prettyprint">T_USE</code> token is used for. An empty string being returned will
-normally mean the code being examined contains a parse error.</p></section>
+normally mean the code being examined contains a parse error.</p>
+</section>
 
     
 </article>
@@ -255,19 +314,20 @@ normally mean the code being examined contains a parse error.</p></section>
 >
     <h4 class="phpdocumentor-element__name" id="method_isClosureUse">
         isClosureUse()
-        <a href="#method_isClosureUse" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_isClosureUse" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">99</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Determine whether a T_USE token represents a closure use statement.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isClosureUse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isClosureUse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -277,7 +337,8 @@ normally mean the code being examined contains a parse error.</p></section>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -285,7 +346,8 @@ normally mean the code being examined contains a parse error.</p></section>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p></section>
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p>
+</section>
 
             </dd>
             </dl>
@@ -301,24 +363,28 @@ normally mean the code being examined contains a parse error.</p></section>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_USE</code> token.</p></section>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_USE</code> token.</p>
+</section>
 
-                </dd>
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the token passed is a closure use statement.
-<code class="prettyprint">FALSE</code> if it's not.</p></section>
+<code class="prettyprint">FALSE</code> if it's not.</p>
+</section>
 
     
 </article>
@@ -330,19 +396,20 @@ normally mean the code being examined contains a parse error.</p></section>
 >
     <h4 class="phpdocumentor-element__name" id="method_isImportUse">
         isImportUse()
-        <a href="#method_isImportUse" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_isImportUse" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">118</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Determine whether a T_USE token represents a class/function/constant import use statement.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isImportUse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isImportUse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -352,7 +419,8 @@ normally mean the code being examined contains a parse error.</p></section>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -360,7 +428,8 @@ normally mean the code being examined contains a parse error.</p></section>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p></section>
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p>
+</section>
 
             </dd>
             </dl>
@@ -376,24 +445,28 @@ normally mean the code being examined contains a parse error.</p></section>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_USE</code> token.</p></section>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_USE</code> token.</p>
+</section>
 
-                </dd>
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the token passed is an import use statement.
-<code class="prettyprint">FALSE</code> if it's not.</p></section>
+<code class="prettyprint">FALSE</code> if it's not.</p>
+</section>
 
     
 </article>
@@ -405,19 +478,20 @@ normally mean the code being examined contains a parse error.</p></section>
 >
     <h4 class="phpdocumentor-element__name" id="method_isTraitUse">
         isTraitUse()
-        <a href="#method_isTraitUse" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_isTraitUse" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">137</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Determine whether a T_USE token represents a trait use statement.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isTraitUse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isTraitUse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -427,7 +501,8 @@ normally mean the code being examined contains a parse error.</p></section>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The file being scanned.</p></section>
+                    <section class="phpdocumentor-description"><p>The file being scanned.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -435,7 +510,8 @@ normally mean the code being examined contains a parse error.</p></section>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p></section>
+                    <section class="phpdocumentor-description"><p>The position of the <code class="prettyprint">T_USE</code> token.</p>
+</section>
 
             </dd>
             </dl>
@@ -451,24 +527,28 @@ normally mean the code being examined contains a parse error.</p></section>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_USE</code> token.</p></section>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_USE</code> token.</p>
+</section>
 
-                </dd>
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"><p><code class="prettyprint">TRUE</code> if the token passed is a trait use statement.
-<code class="prettyprint">FALSE</code> if it's not.</p></section>
+<code class="prettyprint">FALSE</code> if it's not.</p>
+</section>
 
     
 </article>
@@ -480,25 +560,27 @@ normally mean the code being examined contains a parse error.</p></section>
 >
     <h4 class="phpdocumentor-element__name" id="method_splitAndMergeImportUseStatement">
         splitAndMergeImportUseStatement()
-        <a href="#method_splitAndMergeImportUseStatement" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitAndMergeImportUseStatement" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">386</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Split an import use statement into individual imports and merge it with an array of previously
 seen import use statements.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">splitAndMergeImportUseStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&nbsp;</span><span class="phpdocumentor-signature__argument__name">$previousUseStatements</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">splitAndMergeImportUseStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$previousUseStatements</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
         <section class="phpdocumentor-description"><p>Beware: this method should only be used to combine the import use statements found in <em>one</em> file.
 Do NOT combine the statements of multiple files as the result will be inaccurate and unreliable.</p>
-<p>In most cases when tempted to use this method, the \PHPCSUtils\AbstractSniffs\AbstractFileContextSniff
-(upcoming) should be used instead.</p></section>
+<p>In most cases when tempted to use this method, the <abbr title="\PHPCSUtils\AbstractSniffs\AbstractFileContextSniff">AbstractFileContextSniff</abbr>
+(upcoming) should be used instead.</p>
+</section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -507,7 +589,8 @@ Do NOT combine the statements of multiple files as the result will be inaccurate
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -515,20 +598,22 @@ Do NOT combine the statements of multiple files as the result will be inaccurate
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_USE</code> token.</p></section>
+                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_USE</code> token.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$previousUseStatements</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The import <code class="prettyprint">use</code> statements collected so far.
 This should be either the output of a
 previous call to this method or the output of
 an earlier call to the
-{@see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()}
-method.</p></section>
+<a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a>
+method.</p>
+</section>
 
             </dd>
             </dl>
@@ -544,30 +629,34 @@ method.</p></section>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PHPCSUtils\AbstractSniffs\AbstractFileContextSniff">AbstractFileContextSniff</abbr></span>
-                                                            
-                </dd>
+                                        
+                                             
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="../classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a></span>
-                                                            
-                </dd>
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a></span>
+                                        
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0-alpha3</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"><p>A multi-level array containing information about the current <code class="prettyprint">use</code> statement combined with
 the previously collected <code class="prettyprint">use</code> statement information.
-See {@see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()} for more details about the array format.</p></section>
+See <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement"><abbr title="\PHPCSUtils\Utils\UseStatements::splitImportUseStatement()">UseStatements::splitImportUseStatement()</abbr></a> for more details about the array format.</p>
+</section>
 
     
 </article>
@@ -579,21 +668,23 @@ See {@see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()} for more d
 >
     <h4 class="phpdocumentor-element__name" id="method_splitImportUseStatement">
         splitImportUseStatement()
-        <a href="#method_splitImportUseStatement" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#method_splitImportUseStatement" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="../files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/UseStatements.php"><a href="files/phpcsutils-utils-usestatements.html"><abbr title="PHPCSUtils/Utils/UseStatements.php">UseStatements.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">183</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Split an import use statement into individual imports.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">splitImportUseStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">splitImportUseStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phpcsFile</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stackPtr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"><p>Handles single import, multi-import and group-import use statements.</p></section>
+        <section class="phpdocumentor-description"><p>Handles single import, multi-import and group-import use statements.</p>
+</section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -602,7 +693,8 @@ See {@see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()} for more d
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PHP_CodeSniffer\Files\File">File</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The file where this token was found.</p></section>
+                    <section class="phpdocumentor-description"><p>The file where this token was found.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -610,7 +702,8 @@ See {@see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()} for more d
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_USE</code> token.</p></section>
+                    <section class="phpdocumentor-description"><p>The position in the stack of the <code class="prettyprint">T_USE</code> token.</p>
+</section>
 
             </dd>
             </dl>
@@ -626,30 +719,35 @@ See {@see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()} for more d
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">1.0.0</span>
-                                                                                                    
-                </dd>
+                                                                                
+                                             
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                    <section class="phpdocumentor-description"><p>If the specified position is not a
-<code class="prettyprint">T_USE</code> token.</p></section>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the specified position is not a
+<code class="prettyprint">T_USE</code> token.</p>
+</section>
 
-                </dd>
+                                    </dd>
                             <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\PHP_CodeSniffer\Exceptions\RuntimeException">RuntimeException</abbr></span>
-                                                                                    <section class="phpdocumentor-description"><p>If the <code class="prettyprint">T_USE</code> token is not for an import
-use statement.</p></section>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the <code class="prettyprint">T_USE</code> token is not for an import
+use statement.</p>
+</section>
 
-                </dd>
+                                    </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"><p>A multi-level array containing information about the use statement.
 The first level is <code class="prettyprint">'name'</code>, <code class="prettyprint">'function'</code> and <code class="prettyprint">'const'</code>. These keys will always exist.
@@ -661,7 +759,8 @@ in this use statement for a particular category.</p>
 <pre class="prettyprint"><code class="language-php">use function Vendor\Package\{
     LevelA\Name as Alias,
     LevelB\Another_Name,
-};</code></pre>
+};
+</code></pre>
 <p>the return value would look like this:</p>
 <pre class="prettyprint"><code class="language-php">array(
   'name'     =&gt; array(),
@@ -670,27 +769,100 @@ in this use statement for a particular category.</p>
     'Another_Name' =&gt; 'Vendor\Package\LevelB\Another_Name',
   ),
   'const'    =&gt; array(),
-)</code></pre></section>
+)
+</code></pre>
+</section>
 
     
 </article>
             </section>
 
-    </article>
-                <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+        
+    <script type="text/javascript">
+        function loadExternalCodeSnippets(line) {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
 
-    <h2>Search results</h2>
-    <ul class="phpdocumentor-search-results__entries">
-    </ul>
-</div>
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                pre.setAttribute('data-line', line)
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        var modals = document.querySelectorAll("[data-modal]");
+
+        modals.forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                //event.preventDefault();
+                const modal = document.getElementById(trigger.dataset.modal);
+                modal.classList.add("phpdocumentor-modal__open");
+                loadExternalCodeSnippets(trigger.dataset.line)
+                const exits = modal.querySelectorAll("[data-exit-button]");
+                exits.forEach(function (exit) {
+                    exit.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        modal.classList.remove("phpdocumentor-modal__open");
+                    });
+                });
+            });
+        });
+    </script>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-        <a href="#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PHPCSUtils-Utils-UseStatements.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
     <script>
         cssVars({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
