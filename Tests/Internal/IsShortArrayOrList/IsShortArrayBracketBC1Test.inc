@@ -41,3 +41,9 @@ __method__[0]/* testTokenizerIssuePHPCS28xC */[1]/* testTokenizerIssuePHPCS28xD 
 
 /* testTokenizerIssue3172PHPCSlt360A */
 $var = "PHP{$rocks}"[1]/* testTokenizerIssue3172PHPCSlt360B */[0];
+
+if ( true )
+    /* testTokenizerIssue3632PHPCSlt372 */
+    [ $a ] = [ 'hi' ];
+
+return $a ?? '';

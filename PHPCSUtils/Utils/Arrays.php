@@ -12,11 +12,9 @@ namespace PHPCSUtils\Utils;
 
 use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
+use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Tokens\Collections;
-use PHPCSUtils\Utils\Lists;
 
 /**
  * Utility functions for use when examining arrays.
@@ -66,157 +64,7 @@ final class Arrays
      */
     public static function isShortArray(File $phpcsFile, $stackPtr)
     {
-        $tokens = $phpcsFile->getTokens();
-
-        // Is this one of the tokens this function handles ?
-        if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::shortArrayTokensBC()[$tokens[$stackPtr]['code']]) === false
-        ) {
-            return false;
-        }
-
-        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
-            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
-        }
-
-        // All known tokenizer bugs are in PHPCS versions before 3.6.0.
-        $phpcsVersion = Helper::getVersion();
-
-        /*
-         * Deal with square brackets which may be incorrectly tokenized short arrays.
-         */
-        if (isset(Collections::shortArrayTokens()[$tokens[$stackPtr]['code']]) === false) {
-            if (\version_compare($phpcsVersion, '3.3.0', '>=')) {
-                // These will just be properly tokenized, plain square brackets. No need for further checks.
-                Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                return false;
-            }
-
-            $opener = $stackPtr;
-            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SQUARE_BRACKET) {
-                $opener = $tokens[$stackPtr]['bracket_opener'];
-            }
-
-            if (isset($tokens[$opener]['bracket_closer']) === false) {
-                Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                return false;
-            }
-
-            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-
-            if (\version_compare($phpcsVersion, '2.8.0', '>=')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 - 3.2.3 where a `[` would be
-                 * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
-                 * preceded by a PHP open tag at the very start of the file.
-                 *
-                 * If we have square brackets which are not that specific situation, they are just plain
-                 * square brackets.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971
-                 */
-                if ($prevNonEmpty !== 0
-                    || isset(Collections::phpOpenTags()[$tokens[$prevNonEmpty]['code']]) === false
-                ) {
-                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                    return false;
-                }
-            }
-
-            if (\version_compare($phpcsVersion, '2.8.0', '<')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 2.8.0 where a `[` would be
-                 * tokenized as T_OPEN_SQUARE_BRACKET instead of T_OPEN_SHORT_ARRAY if it was
-                 * preceded by a close curly of a control structure.
-                 *
-                 * If we have square brackets which are not that specific situation, they are just plain
-                 * square brackets.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
-                 */
-                if ($tokens[$prevNonEmpty]['code'] !== \T_CLOSE_CURLY_BRACKET
-                    || isset($tokens[$prevNonEmpty]['scope_condition']) === false
-                ) {
-                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                    return false;
-                }
-            }
-        } else {
-            /*
-             * Deal with short array brackets which may be incorrectly tokenized plain square brackets.
-             */
-            $opener = $stackPtr;
-            if ($tokens[$stackPtr]['code'] === \T_CLOSE_SHORT_ARRAY) {
-                $opener = $tokens[$stackPtr]['bracket_opener'];
-            }
-
-            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-
-            if (\version_compare($phpcsVersion, '3.6.0', '<')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 3.6.0 where dereferencing
-                 * of interpolated text string (PHP 8+) would be incorrectly tokenized as short array.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3172
-                 */
-                if ($tokens[$prevNonEmpty]['code'] === \T_DOUBLE_QUOTED_STRING) {
-                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                    return false;
-                }
-            }
-
-            if (\version_compare($phpcsVersion, '3.5.6', '<')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 3.5.6 where dereferencing
-                 * of magic constants (PHP 8+) would be incorrectly tokenized as short array.
-                 * I.e. the square brackets in `__FILE__[0]` would be tokenized as short array.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013
-                 */
-                if (isset(Tokens::$magicConstants[$tokens[$prevNonEmpty]['code']]) === true) {
-                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                    return false;
-                }
-            }
-
-            if (\version_compare($phpcsVersion, '2.9.0', '<')) {
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS < 2.9.0 where array dereferencing
-                 * of short array and string literals would be incorrectly tokenized as short array.
-                 * I.e. the square brackets in `'PHP'[0]` would be tokenized as short array.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1381
-                 */
-                if ($tokens[$prevNonEmpty]['code'] === \T_CLOSE_SHORT_ARRAY
-                    || $tokens[$prevNonEmpty]['code'] === \T_CONSTANT_ENCAPSED_STRING
-                ) {
-                    Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                    return false;
-                }
-
-                /*
-                 * BC: Work around a bug in the tokenizer of PHPCS 2.8.0 and 2.8.1 where array dereferencing
-                 * of a variable variable would be incorrectly tokenized as short array.
-                 *
-                 * @link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284
-                 */
-                if (\version_compare($phpcsVersion, '2.8.0', '>=')
-                    && $tokens[$prevNonEmpty]['code'] === \T_CLOSE_CURLY_BRACKET
-                ) {
-                    $openCurly     = $tokens[$prevNonEmpty]['bracket_opener'];
-                    $beforeCurlies = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($openCurly - 1), null, true);
-                    if ($tokens[$beforeCurlies]['code'] === \T_DOLLAR) {
-                        Cache::set($phpcsFile, __METHOD__, $stackPtr, false);
-                        return false;
-                    }
-                }
-            }
-        }
-
-        // In all other circumstances, make sure this isn't a short list instead of a short array.
-        $returnValue = (Lists::isShortList($phpcsFile, $stackPtr) === false);
-        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
-        return $returnValue;
+        return IsShortArrayOrListWithCache::isShortArray($phpcsFile, $stackPtr);
     }
 
     /**
