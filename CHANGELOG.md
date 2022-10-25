@@ -10,6 +10,388 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.0.0-alpha4] - 2022-10-25
+
+Notes:
+* While still in alpha, some BC-breaks may be introduced. These are clearly indicated in the changelog with the :warning: symbol.
+* Until PHPCS 4.x has been released, PHPCSUtils does not formally support it, though an effort is made to keep up with the changes and anticipate potential compatibility issues.
+    For testing purposes only, the composer configuration allows for PHPCSUtils to be installed with PHPCS 4.x.
+
+### Breaking Changes
+
+Support for PHP_CodeSniffer < 3.7.1 has been dropped after consultation with the principle external standards which depend on PHPCSUtils. [#347]
+
+This was unfortunately necessary as the incessant additions of new syntaxes since PHP 7.4 made it impossible to continue to support PHPCS < 3.7.1, while still providing reliable results for modern PHP code.
+
+### Added
+
+Now support for PHPCS < 3.7.1 has been dropped, this edition adds support to all functionality in PHPCSUtils for new syntaxes and features from PHP 8.0 and 8.1 and preliminary support for PHP 8.2.
+
+This means that support for the following syntaxes/features has been added (or existing support verified/improved):
+* PHP 7.4
+    - Array unpacking in array expressions.
+* PHP 8.0
+    - The `mixed` type. [#163]
+    - Union types, including supporting the `false` and `null` types. [#168], [#225]
+    - Constructor property promotion. [#169], [#226]
+    - Nullsafe object operators. [#176], [#183]
+    - Namespaced names as single token (cross-version PHPCS 3.x vs 4.x). [#205], [#206], [#207], [#208], [#209], [#210], [#211], [#212], [#213], [#217], [#241]
+    - Dereferencing of interpolated text strings.
+    - Named arguments in function calls. [#235], [#243], [#383]
+    - Match expressions. [#247], [#335], [#356]
+    - Trailing commas in parameter lists and closure `use` lists.
+    - Attributes. [#357]
+* PHP 8.1
+    - Enumerations. [#285], [#358]
+    - Explicit octal notation. [#293]
+    - Array unpacking with string keys.
+    - `never` type.
+    - Named parameters after argument unpacking.
+    - First class callables. [#362]
+    - Readonly properties. [#363]
+    - `new` in initializers.
+    - Intersection types. [#365]
+* PHP 8.2
+    - Constants in traits. [#366]
+    - Readonly classes. [#367]
+    - `true` type. [#368]
+    - `null` and `false` as stand-alone types.
+
+Please report any bugs/oversights you encounter!
+
+#### PHPCS Backcompat
+
+* `BCTokens::magicConstants()` as introduced in PHPCS 3.5.6. [#172]
+    The same token array previously already existed in PHPCSUtils as `Collections::$magicConstants` (which has now been deprecated).
+
+#### TestUtils
+
+* New [`UtilityMethodTestCase::usesPhp8NameTokens()`][UtilityMethodTestCase::usesPhp8NameTokens] method as a helper for tests using token position calculations when testing against both PHPCS 3.x as well as 4.x. [#200], [#217], [#241]
+
+#### Tokens
+
+* New [`PHPCSUtils\Tokens\TokenHelper`][`TokenHelper`] class: Utility functions for working with tokens and token collections. [#304]
+    This class initially contains a `tokenExists()` method to work around potential interference from PHP-Parser also backfilling tokens.
+    :point_right: External standards using a function call to `defined()` to determine whether a token is available should replace those with a function call to the `TokenHelper::tokenExists()` method.
+* New [`Collections::arrayOpenTokensBC()`][`Collections`] method. [#233], [#311]
+* New [`Collections::functionCallTokens()`][`Collections`] method to retrieve the tokens which can represent function calls and function-call-like language constructs, like class instantiations. [#233]
+* New [`Collections::nameTokens()`][`Collections`] method to retrieve the tokens which can be used for "names", be it namespace, OO, function or constant names. [#204], [#217]
+* New [`Collections::namespacedNameTokens()`][`Collections`] method to retrieve the tokens which can be encountered in a fully, partially or unqualified name and in namespace relative names. [#202], [#217]
+* New [`Collections::parameterPassingTokens()`][`Collections`] method to retrieve the tokens which can be passed to the methods in the [`PassedParameters`] class. [#233]
+* New [`Collections::phpOpenTags()`][`Collections`] method. [#254]
+* New [`Collections::shortArrayListOpenTokensBC()`][`Collections`] method. [#381]
+
+#### Utils
+
+* New [`PHPCSUtils\Utils\Context`][`Context`] class: Utility functions to determine the context in which an arbitrary token is used. [#219]. [#390]
+    Initial set of available methods: `inEmpty()`, `inIsset()`, `inUnset()`, `inAttribute`, `inForeachCondition()` and `inForCondition()`.
+* New [`PHPCSUtils\Utils\MessageHelper`][`MessageHelper`] class: Utility functions for creating error/warning messages. [#249], [#391]
+    Initial set of available methods: `addMessage()`, `addFixableMessage()`, `stringToErrorcode()` and `showEscapeChars()`.
+* New [`PHPCSUtils\Utils\PassedParameters::getParameterFromStack()`][PassedParameters::getParameterFromStack] efficiency method to retrieve a potentially named function call parameter from a parameter information stack as previously retrieved via `PassedParameters::getParameters()`. [#235], [#237], [#383]
+* New [`PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString()`][TextStrings::getEndOfCompleteTextString] method. [#320]
+    This method allows to retrieve the stack pointer to the last token within a - potentially multi-line - text string.
+    This method compliments the `TextStrings::getCompleteTextString()` method which will retrieve the contents of the complete text string.
+* New [`PHPCSUtils\Utils\TextStrings::getEmbeds()`][TextStrings::getEmbeds] method to retrieve an array with all variables/expressions as embedded in a text string. [#321]
+* New [`PHPCSUtils\Utils\TextStrings::stripEmbeds()`][TextStrings::stripEmbeds] method to strip all embedded variables/expressions from a text string.  [#321]
+* New [`PHPCSUtils\Utils\TextStrings::getStripEmbeds()`][TextStrings::getStripEmbeds] method. [#321]
+    This method is `public` for those rare cases where both the embeds, as well as the text stripped off embeds, is needed.
+* New [`PHPCSUtils\Utils\UseStatements::mergeImportUseStatements()`][UseStatements::mergeImportUseStatements] method. [#196]
+
+#### Other
+
+* PHPCSUtils will now cache the results of (potentially) token walking intensive or processing intensive function calls during a run. [#332], [#377]
+    This should significantly improve performance when multiple sniffs call these functions for the same token during a PHPCS run.
+    The results of the following functions will now be cached:
+    - `Arrays::getDoubleArrowPtr()`
+    - `Arrays::isShortArray()`
+    - `FunctionDeclarations::getParameters()`
+    - `Lists::getAssignments()`
+    - `Lists::isShortList()`
+    - `Namespaces::findNamespacePtr()`
+    - `PassedParameters::getParameters()`
+    - `TextStrings::getEndOfCompleteTextString()`
+    - `TextStrings::getStripEmbeds()`
+    - `UseStatements::splitImportUseStatement()`
+
+### Changed
+
+#### PHPCS Backcompat
+
+* All token array methods in the [`BCTokens`] class are fully up-to-date with the upstream `PHP_CodeSniffer\Util\Tokens` properties as per PHPCS `master` at the time of this release. [#327], [#347], [#360]
+* All methods in the [`BCFile`] class are fully up-to-date with the upstream `PHP_CodeSniffer\Files\File` methods as per PHPCS `master` at the time of this release. [#347]
+* `BCFile::getMethodParameters()`: forward compatibility with PHPCS 4.x in which closure `use` will be a parenthesis owner. [#251]
+* If a non-existent token array is requested from the `BCTokens` class, a `PHPCSUtils\Exceptions\InvalidTokenArray` exception will be thrown. [#344]
+    The `PHPCSUtils\Exceptions\InvalidTokenArray` exception extends the PHPCS native `PHP_CodeSniffer\Exceptions\RuntimeException`.
+    Previously, an empty array would be returned.
+
+#### TestUtils
+
+* `UtilityMethodTestCase`: all properties contained in the test case class will now always be reset after the tests have run. [#325]
+* `UtilityMethodTestCase::getTargetToken()`: when the target token cannot be found, the method will now throw a (catchable) `PHPCSUtils\Exceptions\TestTargetNotFound` exception instead of failing the test. [#248], [#371]
+    If uncaught, this means that the test will be marked as _errored_ instead of _failed_.
+* `UtilityMethodTestCase::getTargetToken()`: this method is now `static`, which allows for it to be used in "set up before class" fixtures. [#382]. [#385]
+
+#### Tokens
+
+* `Collections::functionCallTokens()` and `Collections::parameterPassingTokens()`: now include the `T_PARENT` token. [#328]
+    This accounts for a change in PHPCS 3.7.0 for how `parent` in `new parent` is tokenized.
+* If a non-existent token array is requested from the `Collections` class, a `PHPCSUtils\Exceptions\InvalidTokenArray` exception will be thrown. [#349]
+    The `PHPCSUtils\Exceptions\InvalidTokenArray` exception extends the PHPCS native `PHP_CodeSniffer\Exceptions\RuntimeException`.
+
+#### Utils
+
+* `Arrays::isShortArray()`/`Lists::isShortList()`: the underlying logic has been completely refactored for improved accuracy and improved performance. [#392]
+* `FunctionDeclarations::getParameters()`: the return array of the method may contain two new keys - `property_visibility` and `visibility_token`. [#169]
+    These keys will only be included if constructor property promotion is detected.
+* `FunctionDeclarations::getParameters()`: forward compatibility with PHPCS 4.x in which closure `use` will be a parenthesis owner. [#251]
+* [`GetTokensAsString`]: previously the `tabReplaced()` method was an alias for the `normal()` method. This has now been reversed. [#297]
+* `Operators::isReference()`: forward compatibility with PHPCS 4.x in which closure `use` will be a parenthesis owner. [#195]
+* [`Parentheses`]: all methods will now recognize `isset()`, `unset()`, `empty()`, `exit()`, `die()` and `eval()` as parentheses owners. [#215]
+    Note: PHPCS natively does not recognize these constructs as parentheses owners, though this _may_ change in the future. See: [PHPCS#3118]
+* [`PassedParameters`]: all methods will now recognize anonymous class instantiations as constructs which can pass parameters. [#234]
+* `PassedParameters::getParameters()`: when a named parameter is encountered in a function call, the returned parameter information array for that parameter will now contain the following additional keys: `'name'`, `'name_token'` and the top-level index for the parameter will be set to the parameter `'name'` instead of its position. [#235], [#243], [#383]
+    The existing `'start'`, `'end'`, `'raw'` and `'clean'` keys will contain the same content as before: the information about the parameter value (excluding the name part).
+* `PassedParameters::getParameters()`: new, optional parameter `$limit` to allow for limiting the number of parameters/array items to be parsed. [#261]
+    This allows for higher efficiency when retrieving the parameters/array entries, especially for large arrays if only the first few entries need to be examined.
+    Use with care on function calls, as this can break support for named parameters!
+* `PassedParameters::getParameters()`: new, optional parameter `$isShortArray` to allow for skipping the "is short array" check for predetermined short arrays. [#269], [#270]
+     Use judiciously and with extreme care!
+* `PassedParameters::getParameter()`: new _semi-optional_ `$paramNames` parameter to allow for retrieving a parameter from a function call using named parameters. [#235]
+    :warning: This parameter is **_required_** when examining a function call and an exception will be thrown if it was not passed.
+    This new `$paramNames` parameter allows for passing either the parameter name as a _string_ or as an _array of strings_.
+    _While a parameter can only have one name, a lot of packages have been, and may still be, reviewing and renaming parameters to more descriptive names to support named parameters in PHP 8.0, so, to allow for supporting multiple versions of packages, different names can be used for the same parameter in a PHP 8.0+ function call and by allowing multiple names to be passed, the method supports this._
+* `PassedParameters::getParameter()`: efficiency improvement applicable to function calls not using named parameters and arrays. [#261], [#262]
+* `PassedParameters::hasParameters()`: now allows for the `T_PARENT` token for `new parent()` class instantiations. [#328]
+    This accounts for a change in PHPCS 3.7.0 regarding how `parent` in `new parent` is tokenized.
+* `PassedParameters::hasParameters()`: new, optional parameter `$isShortArray` to allow for skipping the "is short array" check for predetermined short arrays. [#269], [#270]
+     Use judiciously and with extreme care!
+* `UseStatements::getType()`: forward compatibility with PHPCS 4.x in which closure `use` will be a parenthesis owner. [#251]
+
+#### Other
+
+* The `master` branch has been renamed to `stable`. [#397]
+* :warning: All non-`abstract` classes in this package are now `final`. [#376]
+* The parameter names in various function declarations have been changed to not intersect with reserved keywords. [#256]
+    :warning: In the unlikely event an external standard using PHPCSUtils would be using function calls with named parameters, the parameter names will need to be updated to match.
+* Composer: The package will now identify itself as a static analysis tool. Thanks [@GaryJones]! [#341]
+* Readme/website homepage: the installation instructions have been updated to include information on installing this library and the included [Composer PHPCS plugin] in combination with Composer >= 2.2. [#291], [#292]
+* Various documentation improvements. [#216], [#309], [#394], [#395], [#396], [#398]
+* Various housekeeping and CI maintainance.
+    Amongst other things, CI is now run via GitHub Actions ([#239]), the PHPCSUtils native tests now use the [PHPUnit Polyfills] package ([#277]) and the tests are now run against PHP 5.4 - 8.2.
+
+### Deprecated
+
+:warning: Everything which has currently been deprecated, will be removed before the final `1.0.0` version of PHPCSUtils is tagged.
+
+#### Tokens
+
+[`Collections`] class: direct access to the properties in the class is now deprecated for forward-compatibility reasons.
+All properties have a replacement which should be used instead, in most cases this will be a method with the same name as the previously used property,
+
+| Deprecated                                                    | Replacement                                                                                          | PR             | Remarks                                  |
+|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------------|------------------------------------------|
+| `Collections::$alternativeControlStructureSyntaxTokens`       | `Collections::alternativeControlStructureSyntaxes()`                                                 | [#311]         | Mind the change name!                    |
+| `Collections::$alternativeControlStructureSyntaxCloserTokens` | `Collections::alternativeControlStructureSyntaxClosers()`                                            | [#311]         | Mind the change name!                    |
+| `Collections::$arrayTokens`                                   | `Collections::arrayTokens()`                                                                         | [#311]         |                                          |
+| `Collections::$arrayTokensBC`                                 | `Collections::arrayTokensBC()`                                                                       | [#311]         |                                          |
+| `Collections::$classModifierKeywords`                         | `Collections::classModifierKeywords()`                                                               | [#311]         |                                          |
+| `Collections::$closedScopes`                                  | `Collections::closedScopes()`                                                                        | [#311]         |                                          |
+| `Collections::$controlStructureTokens`                        | `Collections::controlStructureTokens()`                                                              | [#311]         |                                          |
+| `Collections::$incrementDecrementOperators`                   | `Collections::incrementDecrementOperators()`                                                         | [#311]         |                                          |
+| `Collections::$listTokens`                                    | `Collections::listTokens()`                                                                          | [#311]         |                                          |
+| `Collections::$listTokensBC`                                  | `Collections::listTokensBC()`                                                                        | [#311]         |                                          |
+| `Collections::$magicConstants`                                | `PHPCSUtils\BackCompat\BCTokens::magicConstants()` or `PHP_CodeSniffer\Util\Tokens::$magicConstants` | [#311]         |                                          |
+| `Collections::$namespaceDeclarationClosers`                   | `Collections::namespaceDeclarationClosers()`                                                         | [#311]         |                                          |
+| `Collections::$objectOperators`                               | `Collections::objectOperators()`                                                                     | [#176]         |                                          |
+| `Collections::$OOCanImplement`                                | `Collections::ooCanImplement()`                                                                      | [#311]         | Mind the case change in the `oo` prefix! |
+| `Collections::$OOCanExtend`                                   | `Collections::ooCanExtend()`                                                                         | [#311]         | Mind the case change in the `oo` prefix! |
+| `Collections::$OOConstantScopes`                              | `Collections::ooConstantScopes()`                                                                    | [#311]         | Mind the case change in the `oo` prefix! |
+| `Collections::$OOPropertyScopes`                              | `Collections::ooPropertyScopes()`                                                                    | [#311]         | Mind the case change in the `oo` prefix! |
+| `Collections::$OOHierarchyKeywords`                           | `Collections::ooHierarchyKeywords()`                                                                 | [#311]         | Mind the case change in the `oo` prefix! |
+| `Collections::$OONameTokens`                                  | `Collections::namespacedNameTokens()`                                                                | [#202]         | Mind the change name!                    |
+| `Collections::$parameterTypeTokens`                           | `Collections::parameterTypeTokens()`                                                                 | [#168]         |                                          |
+| `Collections::$propertyModifierKeywords`                      | `Collections::propertyModifierKeywords()`                                                            | [#311]         |                                          |
+| `Collections::$propertyTypeTokens`                            | `Collections::propertyTypeTokens()`                                                                  | [#168]         |                                          |
+| `Collections::$returnTypeTokens`                              | `Collections::returnTypeTokens()`                                                                    | [#168]         |                                          |
+| `Collections::$shortArrayTokens`                              | `Collections::shortArrayTokens()`                                                                    | [#311]         |                                          |
+| `Collections::$shortArrayTokensBC`                            | `Collections::shortArrayTokensBC()`                                                                  | [#311]         |                                          |
+| `Collections::$shortListTokens`                               | `Collections::shortListTokens()`                                                                     | [#311]         |                                          |
+| `Collections::$shortListTokensBC`                             | `Collections::shortListTokensBC()`                                                                   | [#311]         |                                          |
+| `Collections::$textStingStartTokens`                          | `Collections::textStringStartTokens()`                                                               | [#311], [#319] | Mind the fixed typo in the name!         |
+
+Additionally, the following methods in the `Collections` class have been deprecated:
+
+| Deprecated                                   | Replacement                                | PR     |
+|----------------------------------------------|--------------------------------------------|--------|
+| `Collections::arrowFunctionTokensBC()`       | Use the `T_FN` token instead.              | [#347] |
+| `Collections::functionDeclarationTokensBC()` | `Collections::functionDeclarationTokens()` | [#347] |
+| `Collections::parameterTypeTokensBC()`       | `Collections::parameterTypeTokens()`       | [#347] |
+| `Collections::propertyTypeTokensBC()`        | `Collections::propertyTypeTokens()`        | [#347] |
+| `Collections::returnTypeTokensBC()`          | `Collections::returnTypeTokens()`          | [#347] |
+
+#### Utils
+
+* `ControlStructures::getDeclareScopeOpenClose()`: this method is no longer needed, check the `scope_opener`/`scope_closer` on the `T_DECLARE` token instead. [#347]
+* `FunctionDeclarations::getArrowFunctionOpenClose()`: this method is no longer needed, check the `scope_opener`/`scope_closer` etc on the `T_FN` token instead. [#347]
+* `FunctionDeclarations::isArrowFunction()`: this method is no longer needed, use the `T_FN` token instead. [#347]
+
+### Removed
+
+* Support for PHPCS < 3.7.1. [#347]
+
+#### Utils
+
+* The following constants, which were only intended for internal use, have been removed: [#347]
+    - `PHPCSUtils\Utils\Numbers::REGEX_NUMLIT_STRING`
+    - `PHPCSUtils\Utils\Numbers::REGEX_HEX_NUMLIT_STRING`
+    - `PHPCSUtils\Utils\Numbers::UNSUPPORTED_PHPCS_VERSION`
+
+### Fixed
+
+#### Abstract Sniffs
+
+* `AbstractArrayDeclarationSniff::getActualArrayKey()`: will now handle escaped vars in heredoc array keys better. [#379]
+
+#### Fixers
+
+* [`SpacesFixer`]: in a specific new line vs trailing comment situation, the fixer would incorrectly add a stray new line. [#229]
+
+#### TestUtils
+
+* `UtilityMethodTestCase::getTargetToken()`: will now throw a `PHPCSUtils\Exceptions\TestMarkerNotFound` exception if the provided test marker comment is not found. [#273], [#372]
+    This prevents the method potentially misidentifying the target token.
+
+#### Tokens
+
+* `Collections::parameterTypeTokens()`, `Collections::propertyTypeTokens()` and `Collections::returnTypeTokens()`: include the `namespace` keyword for namespace relative identifier names. [#180]
+
+#### Utils
+
+* `Arrays::isShortArray()`/`Lists::isShortList()`: fixed a number of bugs which previously resulted in an incorrect short list/short array determination. [#392]
+* `FunctionDeclarations::getParameters()`: will now correctly recognize namespace relative names when used in a parameter type. [#180]
+* `FunctionDeclarations::getProperties()`: will now correctly recognize namespace relative names when used in the return type. [#180]
+* `ObjectDeclarations::findExtendedClassName()`: will now correctly recognize namespace relative names when used as the _extended_ parent class name. [#181]
+* `ObjectDeclarations::findExtendedInterfaceNames()`: will now correctly recognize namespace relative names when used in _extended_ interface names. [#181]
+* `ObjectDeclarations::findImplementedInterfaceNames()`: will now correctly recognize namespace relative names when used in _implemented_ interface names. [#181]
+* `ObjectDeclarations::getClassProperties()`: will now correctly handle classes declared with both the `final` as well as the `abstract` keyword. [#252]
+* `Operators::isReference()`: if one parameter in a function declaration was passed by reference, then all `T_BITWISE_AND` (not intersection type `&`'s) tokens would be regarded as references. [#188]
+* `Operators::isReference()`: the `&` would not be recognized as a reference for arrow function parameters passed by reference. [#192]
+* `Operators::isUnaryPlusMinus()`: a preceding `exit`, `break`, `continue` or arrow function `=>` is now recognized as an indicator that a plus/minus sign is unary. [#187], [#197]
+* `Variables::getMemberProperties()`: will now correctly recognize namespace relative names when used in a property type. [#180]
+
+[UtilityMethodTestCase::usesPhp8NameTokens]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html#method_usesPhp8NameTokens
+[PassedParameters::getParameterFromStack]:   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-PassedParameters.html#method_getParameterFromStack
+[TextStrings::getEndOfCompleteTextString]:   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-TextStrings.html#method_getEndOfCompleteTextString
+[TextStrings::getEmbeds]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-TextStrings.html#method_getEmbeds
+[TextStrings::getStripEmbeds]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-TextStrings.html#method_getStripEmbeds
+[TextStrings::stripEmbeds]: https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-TextStrings.html#method_stripEmbeds
+[UseStatements::mergeImportUseStatements]:   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html#method_mergeImportUseStatements
+
+[#163]: https://github.com/PHPCSStandards/PHPCSUtils/pull/163
+[#168]: https://github.com/PHPCSStandards/PHPCSUtils/pull/168
+[#169]: https://github.com/PHPCSStandards/PHPCSUtils/pull/169
+[#172]: https://github.com/PHPCSStandards/PHPCSUtils/pull/172
+[#176]: https://github.com/PHPCSStandards/PHPCSUtils/pull/176
+[#180]: https://github.com/PHPCSStandards/PHPCSUtils/pull/180
+[#181]: https://github.com/PHPCSStandards/PHPCSUtils/pull/181
+[#183]: https://github.com/PHPCSStandards/PHPCSUtils/pull/183
+[#187]: https://github.com/PHPCSStandards/PHPCSUtils/pull/187
+[#188]: https://github.com/PHPCSStandards/PHPCSUtils/pull/188
+[#192]: https://github.com/PHPCSStandards/PHPCSUtils/pull/192
+[#195]: https://github.com/PHPCSStandards/PHPCSUtils/pull/195
+[#196]: https://github.com/PHPCSStandards/PHPCSUtils/pull/196
+[#197]: https://github.com/PHPCSStandards/PHPCSUtils/pull/197
+[#200]: https://github.com/PHPCSStandards/PHPCSUtils/pull/200
+[#202]: https://github.com/PHPCSStandards/PHPCSUtils/pull/202
+[#204]: https://github.com/PHPCSStandards/PHPCSUtils/pull/204
+[#205]: https://github.com/PHPCSStandards/PHPCSUtils/pull/205
+[#206]: https://github.com/PHPCSStandards/PHPCSUtils/pull/206
+[#207]: https://github.com/PHPCSStandards/PHPCSUtils/pull/207
+[#208]: https://github.com/PHPCSStandards/PHPCSUtils/pull/208
+[#209]: https://github.com/PHPCSStandards/PHPCSUtils/pull/209
+[#210]: https://github.com/PHPCSStandards/PHPCSUtils/pull/210
+[#211]: https://github.com/PHPCSStandards/PHPCSUtils/pull/211
+[#212]: https://github.com/PHPCSStandards/PHPCSUtils/pull/212
+[#213]: https://github.com/PHPCSStandards/PHPCSUtils/pull/213
+[#215]: https://github.com/PHPCSStandards/PHPCSUtils/pull/215
+[#216]: https://github.com/PHPCSStandards/PHPCSUtils/pull/216
+[#217]: https://github.com/PHPCSStandards/PHPCSUtils/pull/217
+[#219]: https://github.com/PHPCSStandards/PHPCSUtils/pull/219
+[#225]: https://github.com/PHPCSStandards/PHPCSUtils/pull/225
+[#226]: https://github.com/PHPCSStandards/PHPCSUtils/pull/226
+[#229]: https://github.com/PHPCSStandards/PHPCSUtils/pull/229
+[#233]: https://github.com/PHPCSStandards/PHPCSUtils/pull/233
+[#234]: https://github.com/PHPCSStandards/PHPCSUtils/pull/234
+[#235]: https://github.com/PHPCSStandards/PHPCSUtils/pull/235
+[#237]: https://github.com/PHPCSStandards/PHPCSUtils/pull/237
+[#239]: https://github.com/PHPCSStandards/PHPCSUtils/pull/239
+[#241]: https://github.com/PHPCSStandards/PHPCSUtils/pull/241
+[#243]: https://github.com/PHPCSStandards/PHPCSUtils/pull/243
+[#247]: https://github.com/PHPCSStandards/PHPCSUtils/pull/247
+[#248]: https://github.com/PHPCSStandards/PHPCSUtils/pull/248
+[#249]: https://github.com/PHPCSStandards/PHPCSUtils/pull/249
+[#251]: https://github.com/PHPCSStandards/PHPCSUtils/pull/251
+[#252]: https://github.com/PHPCSStandards/PHPCSUtils/pull/252
+[#254]: https://github.com/PHPCSStandards/PHPCSUtils/pull/254
+[#256]: https://github.com/PHPCSStandards/PHPCSUtils/pull/256
+[#261]: https://github.com/PHPCSStandards/PHPCSUtils/pull/261
+[#262]: https://github.com/PHPCSStandards/PHPCSUtils/pull/262
+[#269]: https://github.com/PHPCSStandards/PHPCSUtils/pull/269
+[#270]: https://github.com/PHPCSStandards/PHPCSUtils/pull/270
+[#273]: https://github.com/PHPCSStandards/PHPCSUtils/pull/273
+[#277]: https://github.com/PHPCSStandards/PHPCSUtils/pull/277
+[#285]: https://github.com/PHPCSStandards/PHPCSUtils/pull/285
+[#291]: https://github.com/PHPCSStandards/PHPCSUtils/pull/291
+[#292]: https://github.com/PHPCSStandards/PHPCSUtils/pull/292
+[#293]: https://github.com/PHPCSStandards/PHPCSUtils/pull/293
+[#297]: https://github.com/PHPCSStandards/PHPCSUtils/pull/297
+[#304]: https://github.com/PHPCSStandards/PHPCSUtils/pull/304
+[#309]: https://github.com/PHPCSStandards/PHPCSUtils/pull/309
+[#311]: https://github.com/PHPCSStandards/PHPCSUtils/pull/311
+[#319]: https://github.com/PHPCSStandards/PHPCSUtils/pull/319
+[#320]: https://github.com/PHPCSStandards/PHPCSUtils/pull/320
+[#321]: https://github.com/PHPCSStandards/PHPCSUtils/pull/321
+[#325]: https://github.com/PHPCSStandards/PHPCSUtils/pull/325
+[#327]: https://github.com/PHPCSStandards/PHPCSUtils/pull/327
+[#328]: https://github.com/PHPCSStandards/PHPCSUtils/pull/328
+[#332]: https://github.com/PHPCSStandards/PHPCSUtils/pull/332
+[#335]: https://github.com/PHPCSStandards/PHPCSUtils/pull/335
+[#341]: https://github.com/PHPCSStandards/PHPCSUtils/pull/341
+[#344]: https://github.com/PHPCSStandards/PHPCSUtils/pull/344
+[#347]: https://github.com/PHPCSStandards/PHPCSUtils/pull/347
+[#349]: https://github.com/PHPCSStandards/PHPCSUtils/pull/349
+[#356]: https://github.com/PHPCSStandards/PHPCSUtils/pull/356
+[#357]: https://github.com/PHPCSStandards/PHPCSUtils/pull/357
+[#358]: https://github.com/PHPCSStandards/PHPCSUtils/pull/358
+[#360]: https://github.com/PHPCSStandards/PHPCSUtils/pull/360
+[#362]: https://github.com/PHPCSStandards/PHPCSUtils/pull/362
+[#363]: https://github.com/PHPCSStandards/PHPCSUtils/pull/363
+[#365]: https://github.com/PHPCSStandards/PHPCSUtils/pull/365
+[#366]: https://github.com/PHPCSStandards/PHPCSUtils/pull/366
+[#367]: https://github.com/PHPCSStandards/PHPCSUtils/pull/367
+[#368]: https://github.com/PHPCSStandards/PHPCSUtils/pull/368
+[#371]: https://github.com/PHPCSStandards/PHPCSUtils/pull/371
+[#372]: https://github.com/PHPCSStandards/PHPCSUtils/pull/372
+[#376]: https://github.com/PHPCSStandards/PHPCSUtils/pull/376
+[#377]: https://github.com/PHPCSStandards/PHPCSUtils/pull/377
+[#379]: https://github.com/PHPCSStandards/PHPCSUtils/pull/379
+[#381]: https://github.com/PHPCSStandards/PHPCSUtils/pull/381
+[#382]: https://github.com/PHPCSStandards/PHPCSUtils/pull/382
+[#383]: https://github.com/PHPCSStandards/PHPCSUtils/pull/383
+[#385]: https://github.com/PHPCSStandards/PHPCSUtils/pull/385
+[#390]: https://github.com/PHPCSStandards/PHPCSUtils/pull/390
+[#391]: https://github.com/PHPCSStandards/PHPCSUtils/pull/391
+[#392]: https://github.com/PHPCSStandards/PHPCSUtils/pull/392
+[#394]: https://github.com/PHPCSStandards/PHPCSUtils/pull/394
+[#395]: https://github.com/PHPCSStandards/PHPCSUtils/pull/395
+[#396]: https://github.com/PHPCSStandards/PHPCSUtils/pull/396
+[#397]: https://github.com/PHPCSStandards/PHPCSUtils/pull/397
+[#398]: https://github.com/PHPCSStandards/PHPCSUtils/pull/398
+
+[PHPCS#3118]: https://github.com/squizlabs/PHP_CodeSniffer/issues/3118
+[PHPUnit Polyfills]: https://github.com/Yoast/PHPUnit-Polyfills
+
+
 ## [1.0.0-alpha3] - 2020-06-29
 
 Notes:
@@ -29,7 +411,7 @@ Notes:
 
 #### PHPCS BackCompat
 
-* `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8). [#134], [PHPCS#2952]
+* `BCFile::getMethodProperties()`: support for "static" as a return type (PHP 8.0). [#134], [PHPCS#2952]
 
 #### TestUtils
 
@@ -53,11 +435,11 @@ Notes:
     Use this method when the implementing standard needs to support PHPCS < 3.3.0.
 * New [`Collections::returnTypeTokensBC()`][`Collections`] method to retrieve the tokens which need to be recognized for return types cross-version. [#109]
     Use this method when the implementing standard needs to support PHPCS < 3.5.4.
-* `Collections::$returnTypeTokens`: support for "static" as a return type (PHP 8). [#134]
+* `Collections::$returnTypeTokens`: support for "static" as a return type (PHP 8.0). [#134]
 
 #### Utils
 
-* `FunctionDeclarations::getProperties()`: support for "static" as a return type (PHP 8). [#134]
+* `FunctionDeclarations::getProperties()`: support for "static" as a return type (PHP 8.0). [#134]
 
 ### Changed
 
@@ -310,6 +692,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.0-alpha4]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...1.0.0-alpha4
 [1.0.0-alpha3]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha2...1.0.0-alpha3
 [1.0.0-alpha2]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha1...1.0.0-alpha2
 
@@ -322,12 +705,15 @@ This initial alpha release contains the following utility classes:
 [`SpacesFixer`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Fixers-SpacesFixer.html
 [`UtilityMethodTestCase`]:         https://phpcsutils.com/phpdoc/classes/PHPCSUtils-TestUtils-UtilityMethodTestCase.html
 [`Collections`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Tokens-Collections.html
+[`TokenHelper`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Tokens-TokenHelper.html
 [`Arrays`]:                        https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Arrays.html
 [`Conditions`]:                    https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Conditions.html
+[`Context`]:                       https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Context.html
 [`ControlStructures`]:             https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-ControlStructures.html
 [`FunctionDeclarations`]:          https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html
 [`GetTokensAsString`]:             https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-GetTokensAsString.html
 [`Lists`]:                         https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Lists.html
+[`MessageHelper`]:                 https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-MessageHelper.html
 [`Namespaces`]:                    https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Namespaces.html
 [`NamingConventions`]:             https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-NamingConventions.html
 [`Numbers`]:                       https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Numbers.html
