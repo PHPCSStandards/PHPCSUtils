@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
 use PHPCSUtils\Tests\BackCompat\BCFile\GetClassPropertiesTest as BCFile_GetClassPropertiesTest;
+use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
  * Tests for the \PHPCSUtils\Utils\ObjectDeclarations::getClassProperties() method.
@@ -57,19 +58,31 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
     }
 
     /**
-     * Data provider.
+     * Test retrieving the properties for a class declaration.
      *
-     * @see testGetClassProperties() For the array format.
+     * @dataProvider dataGetClassProperties
      *
-     * @return array
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     * @param array  $expected   Expected function output.
+     *
+     * @return void
      */
-    public function dataGetClassProperties()
+    public function testGetClassProperties($testMarker, $expected)
     {
-        $data = parent::dataGetClassProperties();
-        foreach ($data as $name => $dataset) {
-            $data[$name][1]['is_readonly'] = false;
+        $class = $this->getTargetToken($testMarker, \T_CLASS);
+
+        // Translate offsets to absolute token positions.
+        if ($expected['abstract_token'] !== false) {
+            $expected['abstract_token'] += $class;
+        }
+        if ($expected['final_token'] !== false) {
+            $expected['final_token'] += $class;
+        }
+        if ($expected['readonly_token'] !== false) {
+            $expected['readonly_token'] += $class;
         }
 
-        return $data;
+        $result = ObjectDeclarations::getClassProperties(self::$phpcsFile, $class);
+        $this->assertSame($expected, $result);
     }
 }
