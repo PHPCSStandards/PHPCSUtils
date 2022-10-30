@@ -101,61 +101,6 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
                     'readonly_token' => false,
                 ],
             ],
-            'readonly' => [
-                '/* testReadonlyClass */',
-                [
-                    'is_abstract'    => false,
-                    'abstract_token' => false,
-                    'is_final'       => false,
-                    'final_token'    => false,
-                    'is_readonly'    => true,
-                    'readonly_token' => -2,
-                ],
-            ],
-            'final-readonly' => [
-                '/* testFinalReadonlyClass */',
-                [
-                    'is_abstract'    => false,
-                    'abstract_token' => false,
-                    'is_final'       => true,
-                    'final_token'    => -4,
-                    'is_readonly'    => true,
-                    'readonly_token' => -2,
-                ],
-            ],
-            'readonly-final' => [
-                '/* testReadonlyFinalClass */',
-                [
-                    'is_abstract'    => false,
-                    'abstract_token' => false,
-                    'is_final'       => true,
-                    'final_token'    => -2,
-                    'is_readonly'    => true,
-                    'readonly_token' => -6,
-                ],
-            ],
-            'abstract-readonly' => [
-                '/* testAbstractReadonlyClass */',
-                [
-                    'is_abstract'    => true,
-                    'abstract_token' => -4,
-                    'is_final'       => false,
-                    'final_token'    => false,
-                    'is_readonly'    => true,
-                    'readonly_token' => -2,
-                ],
-            ],
-            'readonly-abstract' => [
-                '/* testReadonlyAbstractClass */',
-                [
-                    'is_abstract'    => true,
-                    'abstract_token' => -2,
-                    'is_final'       => false,
-                    'final_token'    => false,
-                    'is_readonly'    => true,
-                    'readonly_token' => -4,
-                ],
-            ],
         ];
     }
 }

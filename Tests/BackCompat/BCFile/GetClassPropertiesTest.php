@@ -92,12 +92,7 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
     public function testGetClassProperties($testMarker, $expected)
     {
         // Remove keys which will only exist in the PHPCSUtils version of this method.
-        unset(
-            $expected['abstract_token'],
-            $expected['final_token'],
-            $expected['is_readonly'],
-            $expected['readonly_token']
-        );
+        unset($expected['abstract_token'], $expected['final_token'], $expected['readonly_token']);
 
         $class  = $this->getTargetToken($testMarker, \T_CLASS);
         $result = BCFile::getClassProperties(self::$phpcsFile, $class);
@@ -145,6 +140,61 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                     'final_token'    => -2,
                     'is_readonly'    => false,
                     'readonly_token' => false,
+                ],
+            ],
+            'readonly' => [
+                '/* testReadonlyClass */',
+                [
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => true,
+                    'readonly_token' => -2,
+                ],
+            ],
+            'final-readonly' => [
+                '/* testFinalReadonlyClass */',
+                [
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -4,
+                    'is_readonly'    => true,
+                    'readonly_token' => -2,
+                ],
+            ],
+            'readonly-final' => [
+                '/* testReadonlyFinalClass */',
+                [
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -2,
+                    'is_readonly'    => true,
+                    'readonly_token' => -6,
+                ],
+            ],
+            'abstract-readonly' => [
+                '/* testAbstractReadonlyClass */',
+                [
+                    'is_abstract'    => true,
+                    'abstract_token' => -4,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => true,
+                    'readonly_token' => -2,
+                ],
+            ],
+            'readonly-abstract' => [
+                '/* testReadonlyAbstractClass */',
+                [
+                    'is_abstract'    => true,
+                    'abstract_token' => -2,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => true,
+                    'readonly_token' => -4,
                 ],
             ],
             'comments-and-new-lines' => [
