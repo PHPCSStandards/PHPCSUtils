@@ -86,6 +86,21 @@ final class HasBodyTest extends UtilityMethodTestCase
                 'hasBody'         => false,
                 'hasNonEmptyBody' => false,
             ],
+            'if-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testIfWithoutBodyDueToCloseTag */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
+            'elseif-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testElseIfWithoutBodyDueToCloseTag */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
+            'else-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testElseWithoutBodyDueToCloseTag */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
             'if-empty-body' => [
                 'testMarker'      => '/* testIfEmptyBody */',
                 'hasBody'         => true,
@@ -131,6 +146,11 @@ final class HasBodyTest extends UtilityMethodTestCase
                 'hasBody'         => false,
                 'hasNonEmptyBody' => false,
             ],
+            'for-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testForWithoutBodyDueToCloseTag */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
             'for-empty-body' => [
                 'testMarker'      => '/* testForEmptyBody */',
                 'hasBody'         => true,
@@ -146,6 +166,11 @@ final class HasBodyTest extends UtilityMethodTestCase
                 'hasBody'         => false,
                 'hasNonEmptyBody' => false,
             ],
+            'foreach-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testForEachWithoutBodyDueToCloseTag */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
             'foreach-empty-body' => [
                 'testMarker'      => '/* testForEachEmptyBody */',
                 'hasBody'         => true,
@@ -158,6 +183,11 @@ final class HasBodyTest extends UtilityMethodTestCase
             ],
             'while-without-body' => [
                 'testMarker'      => '/* testWhileWithoutBody */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
+            'while-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testWhileWithoutBodyDueToCloseTag */',
                 'hasBody'         => false,
                 'hasNonEmptyBody' => false,
             ],
@@ -186,6 +216,11 @@ final class HasBodyTest extends UtilityMethodTestCase
                 'hasBody'         => false,
                 'hasNonEmptyBody' => false,
             ],
+            'switch-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testSwitchWithoutBodyDueToCloseTag */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
             'switch-empty-body' => [
                 'testMarker'      => '/* testSwitchEmptyBody */',
                 'hasBody'         => true,
@@ -198,6 +233,11 @@ final class HasBodyTest extends UtilityMethodTestCase
             ],
             'declare-without-body' => [
                 'testMarker'      => '/* testDeclareWithoutBody */',
+                'hasBody'         => false,
+                'hasNonEmptyBody' => false,
+            ],
+            'declare-without-body-due-to-php-close-tag' => [
+                'testMarker'      => '/* testDeclareWithoutBodyDueToCloseTag */',
                 'hasBody'         => false,
                 'hasNonEmptyBody' => false,
             ],

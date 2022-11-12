@@ -112,7 +112,10 @@ final class ControlStructures
             null,
             true
         );
-        if ($nextNonEmpty === false || $tokens[$nextNonEmpty]['code'] === \T_SEMICOLON) {
+        if ($nextNonEmpty === false
+            || $tokens[$nextNonEmpty]['code'] === \T_SEMICOLON
+            || $tokens[$nextNonEmpty]['code'] === \T_CLOSE_TAG
+        ) {
             // Parse error or single line statement.
             return false;
         }
