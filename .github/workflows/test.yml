@@ -52,8 +52,8 @@ jobs:
         if: ${{ matrix.php < 8.2 }}
         uses: "ramsey/composer-install@v2"
         with:
-          # Bust the cache at least once a month - output format: YYYY-MM-DD.
-          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
@@ -61,7 +61,7 @@ jobs:
         uses: "ramsey/composer-install@v2"
         with:
           composer-options: --ignore-platform-reqs
-          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Lint against parse errors
         run: composer lint -- --checkstyle | cs2pr
@@ -180,8 +180,8 @@ jobs:
         if: ${{ matrix.php < 8.2 }}
         uses: "ramsey/composer-install@v2"
         with:
-          # Bust the cache at least once a month - output format: YYYY-MM-DD.
-          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
@@ -189,7 +189,7 @@ jobs:
         uses: "ramsey/composer-install@v2"
         with:
           composer-options: --ignore-platform-reqs
-          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Run the unit tests without caching (non-risky)
         if: ${{ matrix.risky == false }}
@@ -284,8 +284,8 @@ jobs:
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
         with:
-          # Bust the cache at least once a month - output format: YYYY-MM-DD.
-          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Grab PHPUnit version
         id: phpunit_version
