@@ -39,30 +39,49 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
     /**
      * Test that false is returned when a non-(short) list token is passed.
      *
-     * @dataProvider dataNotListToken
+     * @dataProvider dataNotListOpenToken
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
+     * @param string           $testMarker  The comment which prefaces the target token in the test file.
+     * @param int|string|array $targetToken The token type(s) to look for.
      *
      * @return void
      */
-    public function testNotListToken($testMarker)
+    public function testNotListOpenToken($testMarker, $targetToken)
     {
-        $target = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
+        $target = $this->getTargetToken($testMarker, $targetToken);
         $this->assertFalse(Lists::getOpenClose(self::$phpcsFile, $target));
     }
 
     /**
      * Data provider.
      *
-     * @see testNotListToken() For the array format.
+     * @see testNotListOpenToken() For the array format.
      *
      * @return array
      */
-    public function dataNotListToken()
+    public function dataNotListOpenToken()
     {
         return [
-            'short-array'                 => ['/* testShortArray */'],
-            'array-access-square-bracket' => ['/* testArrayAccess */'],
+            'short-array' => [
+                'testMarker'  => '/* testShortArray */',
+                'targetToken' => Collections::shortArrayListOpenTokensBC(),
+            ],
+            'array-access-square-bracket' => [
+                'testMarker'  => '/* testArrayAccess */',
+                'targetToken' => Collections::shortArrayListOpenTokensBC(),
+            ],
+            'short-array-closer' => [
+                'testMarker'  => '/* testShortArray */',
+                'targetToken' => \T_CLOSE_SHORT_ARRAY,
+            ],
+            'short-list-closer' => [
+                'testMarker'  => '/* testNestedShortList */',
+                'targetToken' => \T_CLOSE_SHORT_ARRAY,
+            ],
+            'array-access-square-bracket-closer' => [
+                'testMarker'  => '/* testArrayAccess */',
+                'targetToken' => \T_CLOSE_SQUARE_BRACKET,
+            ],
         ];
     }
 

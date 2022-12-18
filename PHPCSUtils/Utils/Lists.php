@@ -104,7 +104,7 @@ final class Lists
 
         // Is this one of the tokens this function handles ?
         if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::listTokensBC()[$tokens[$stackPtr]['code']]) === false
+            || isset(Collections::listOpenTokensBC()[$tokens[$stackPtr]['code']]) === false
         ) {
             return false;
         }
