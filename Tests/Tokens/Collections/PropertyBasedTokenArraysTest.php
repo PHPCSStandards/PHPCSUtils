@@ -69,6 +69,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
             'controlStructureTokens',
             'functionDeclarationTokens',
             'incrementDecrementOperators',
+            'listOpenTokensBC',
             'listTokens',
             'listTokensBC',
             'namespaceDeclarationClosers',

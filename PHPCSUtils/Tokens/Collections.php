@@ -38,6 +38,7 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  * @method static array functionDeclarationTokens()   Tokens which represent a keyword which starts
  *                                                    a function declaration.
  * @method static array incrementDecrementOperators() Increment/decrement operator tokens.
+ * @method static array listOpenTokensBC()            Tokens which can open a list (PHPCS cross-version compatible).
  * @method static array listTokens()                  Tokens which are used to create lists.
  * @method static array listTokensBC()                Tokens which are used to create lists
  *                                                    (PHPCS cross-version compatible)
@@ -217,7 +218,7 @@ final class Collections
      * - PHP 7.1 added class constants visibility support.
      * - PHP 8.1 added support for final class constants.
      *
-     * @since 1.0.0-alpha4 Use the {@see Collections::constantModifierKeywords()} method for access.
+     * @since 1.0.0-rc1 Use the {@see Collections::constantModifierKeywords()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -276,6 +277,28 @@ final class Collections
     public static $incrementDecrementOperators = [
         \T_DEC => \T_DEC,
         \T_INC => \T_INC,
+    ];
+
+    /**
+     * Tokens which can open a list construct (PHPCS cross-version compatible).
+     *
+     * Includes `T_OPEN_SQUARE_BRACKET` to allow for handling intermittent tokenizer issues related
+     * to the retokenization to `T_OPEN_SHORT_ARRAY`.
+     * Should only be used selectively.
+     *
+     * @see \PHPCSUtils\Tokens\Collections::listTokensBC()      Related method to retrieve tokens used
+     *                                                          for lists (PHPCS cross-version).
+     * @see \PHPCSUtils\Tokens\Collections::shortListTokensBC() Related method to retrieve only tokens used
+     *                                                          for short lists (PHPCS cross-version).
+     *
+     * @since 1.0.0-rc1 Use the {@see Collections::listOpenTokensBC()} method for access.
+     *
+     * @return array <int|string> => <int|string>
+     */
+    private static $listOpenTokensBC = [
+        \T_LIST                => \T_LIST,
+        \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
+        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
     ];
 
     /**
