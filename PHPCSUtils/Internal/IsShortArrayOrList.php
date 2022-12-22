@@ -464,7 +464,7 @@ final class IsShortArrayOrList
         $skip   = Tokens::$emptyTokens;
         $skip[] = \T_BITWISE_AND;
 
-        $skipNames = Collections::namespacedNameTokens() + Collections::$OOHierarchyKeywords;
+        $skipNames = Collections::namespacedNameTokens() + Collections::ooHierarchyKeywords();
 
         foreach ($items as $item) {
             /*
