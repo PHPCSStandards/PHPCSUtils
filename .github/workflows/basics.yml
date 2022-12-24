@@ -71,9 +71,7 @@ jobs:
 
       # Check the code-style consistency of the XML file.
       - name: Check XML code style
-        run: |
-          diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
-          diff -B ./PHPCS23Utils/ruleset.xml <(xmllint --format "./PHPCS23Utils/ruleset.xml")
+        run: diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
 
       # Check the code-style consistency of the PHP files.
       - name: Check PHP code style
