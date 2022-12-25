@@ -1017,6 +1017,33 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'nullable_type'   => true,
                 ],
             ],
+
+            'php8.0-union-type-with-whitespace-and-comment' => [
+                '/* testUnionTypeWithWhitespaceAndComment */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => false,
+                    'type'            => 'int|string',
+                    'type_token'      => -8, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.1-intersection-type-with-whitespace-and-comment' => [
+                '/* testIntersectionTypeWithWhitespaceAndComment */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => false,
+                    'type'            => '\Foo&Bar',
+                    'type_token'      => ($php8Names === true) ? -8 : -9, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
         ];
     }
 

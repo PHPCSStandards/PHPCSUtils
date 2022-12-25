@@ -315,3 +315,11 @@ $anon = class() {
     // Intentional fatal error - nullability is not allowed with intersection type, but that's not the concern of the method.
     public ?Foo&Bar $nullableIntersectionType;
 };
+
+class WhitespaceAndCommentsInTypes {
+    /* testUnionTypeWithWhitespaceAndComment */
+    public int | /*comment*/ string $hasWhitespaceAndComment;
+
+    /* testIntersectionTypeWithWhitespaceAndComment */
+    public \Foo /*comment*/ & Bar $hasWhitespaceAndComment;
+}
