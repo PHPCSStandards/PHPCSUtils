@@ -46,7 +46,7 @@ This means that support for the following syntaxes/features has been added (or e
     - Explicit octal notation. [#293]
     - Array unpacking with string keys.
     - `never` type.
-    - Named parameters after argument unpacking.
+    - Named parameters after argument unpacking. [#383]
     - First class callables. [#362]
     - Readonly properties. [#363]
     - `new` in initializers.
@@ -190,8 +190,8 @@ All properties have a replacement which should be used instead, in most cases th
 
 | Deprecated                                                    | Replacement                                                                                          | PR             | Remarks                                  |
 |---------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------------|------------------------------------------|
-| `Collections::$alternativeControlStructureSyntaxTokens`       | `Collections::alternativeControlStructureSyntaxes()`                                                 | [#311]         | Mind the change name!                    |
-| `Collections::$alternativeControlStructureSyntaxCloserTokens` | `Collections::alternativeControlStructureSyntaxClosers()`                                            | [#311]         | Mind the change name!                    |
+| `Collections::$alternativeControlStructureSyntaxTokens`       | `Collections::alternativeControlStructureSyntaxes()`                                                 | [#311]         | Mind the change in the name!             |
+| `Collections::$alternativeControlStructureSyntaxCloserTokens` | `Collections::alternativeControlStructureSyntaxClosers()`                                            | [#311]         | Mind the change in the name!             |
 | `Collections::$arrayTokens`                                   | `Collections::arrayTokens()`                                                                         | [#311]         |                                          |
 | `Collections::$arrayTokensBC`                                 | `Collections::arrayTokensBC()`                                                                       | [#311]         |                                          |
 | `Collections::$classModifierKeywords`                         | `Collections::classModifierKeywords()`                                                               | [#311]         |                                          |
@@ -234,6 +234,10 @@ Additionally, the following methods in the `Collections` class have been depreca
 * `ControlStructures::getDeclareScopeOpenClose()`: this method is no longer needed, check the `scope_opener`/`scope_closer` on the `T_DECLARE` token instead. [#347]
 * `FunctionDeclarations::getArrowFunctionOpenClose()`: this method is no longer needed, check the `scope_opener`/`scope_closer` etc on the `T_FN` token instead. [#347]
 * `FunctionDeclarations::isArrowFunction()`: this method is no longer needed, use the `T_FN` token instead. [#347]
+
+#### Other
+
+* The `PHPCS23Utils` standard, which is no longer needed now support for PHPCS < 3.7.1 has been dropped. [#347]
 
 ### Removed
 
