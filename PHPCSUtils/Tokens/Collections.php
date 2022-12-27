@@ -25,6 +25,7 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  * @since 1.0.0-alpha4 Direct property access is deprecated for forward-compatibility reasons.
  *                     Use the methods of the same name as the property instead.
+ * @since 1.0.0-rc1    Direct property access has been removed.
  *
  * @method static array alternativeControlStructureSyntaxes()      Tokens for control structures which can use the
  *                                                                 alternative control structure syntax.
