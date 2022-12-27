@@ -311,225 +311,35 @@ Search.appendIndex(
             "summary": "Handle\u0020calls\u0020to\u0020\u0028undeclared\u0029\u0020methods\u0020for\u0020token\u0020arrays\u0020which\u0020don\u0027t\u0020need\u0020special\u0020handling.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method___callStatic"
         },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AalternativeControlStructureSyntaxes\u0028\u0029",
-            "name": "alternativeControlStructureSyntaxes",
-            "summary": "Tokens\u0020for\u0020control\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020alternative\u0020control\u0020structure\u0020syntax.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_alternativeControlStructureSyntaxes"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AalternativeControlStructureSyntaxClosers\u0028\u0029",
-            "name": "alternativeControlStructureSyntaxClosers",
-            "summary": "Tokens\u0020representing\u0020alternative\u0020control\u0020structure\u0020syntax\u0020closer\u0020keywords.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_alternativeControlStructureSyntaxClosers"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AarrowFunctionTokensBC\u0028\u0029",
-            "name": "arrowFunctionTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020can\u0020represent\u0020the\u0020arrow\u0020function\u0020keyword.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_arrowFunctionTokensBC"
-        },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AfunctionCallTokens\u0028\u0029",
             "name": "functionCallTokens",
             "summary": "Tokens\u0020which\u0020can\u0020represent\u0020function\u0020calls\u0020and\u0020function\u002Dcall\u002Dlike\u0020language\u0020constructs.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_functionCallTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AfunctionDeclarationTokensBC\u0028\u0029",
-            "name": "functionDeclarationTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020represent\u0020a\u0020keyword\u0020which\u0020starts\u0020a\u0020function\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_functionDeclarationTokensBC"
         },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AnamespacedNameTokens\u0028\u0029",
             "name": "namespacedNameTokens",
             "summary": "Tokens\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020fully,\u0020partially\u0020or\u0020unqualified\u0020name.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_namespacedNameTokens"
         },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooCanExtend\u0028\u0029",
-            "name": "ooCanExtend",
-            "summary": "OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022extends\u0022\u0020keyword.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooCanExtend"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooCanImplement\u0028\u0029",
-            "name": "ooCanImplement",
-            "summary": "OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022implements\u0022\u0020keyword.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooCanImplement"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooConstantScopes\u0028\u0029",
-            "name": "ooConstantScopes",
-            "summary": "OO\u0020scopes\u0020in\u0020which\u0020constants\u0020can\u0020be\u0020declared.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooConstantScopes"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooHierarchyKeywords\u0028\u0029",
-            "name": "ooHierarchyKeywords",
-            "summary": "Tokens\u0020types\u0020used\u0020for\u0020\u0022forwarding\u0022\u0020calls\u0020within\u0020OO\u0020structures.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooHierarchyKeywords"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AooPropertyScopes\u0028\u0029",
-            "name": "ooPropertyScopes",
-            "summary": "OO\u0020scopes\u0020in\u0020which\u0020properties\u0020can\u0020be\u0020declared.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_ooPropertyScopes"
-        },                {
             "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AparameterPassingTokens\u0028\u0029",
             "name": "parameterPassingTokens",
             "summary": "Tokens\u0020which\u0020can\u0020be\u0020passed\u0020to\u0020the\u0020methods\u0020in\u0020the\u0020PassedParameter\u0020class.",
             "url": "classes/PHPCSUtils-Tokens-Collections.html#method_parameterPassingTokens"
         },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024parameterTypeTokens",
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AparameterTypeTokens\u0028\u0029",
             "name": "parameterTypeTokens",
-            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_parameterTypeTokens"
+            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_parameterTypeTokens"
         },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AparameterTypeTokensBC\u0028\u0029",
-            "name": "parameterTypeTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020parameter\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_parameterTypeTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024propertyTypeTokens",
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003ApropertyTypeTokens\u0028\u0029",
             "name": "propertyTypeTokens",
-            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_propertyTypeTokens"
+            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_propertyTypeTokens"
         },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003ApropertyTypeTokensBC\u0028\u0029",
-            "name": "propertyTypeTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020property\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_propertyTypeTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024returnTypeTokens",
+            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AreturnTypeTokens\u0028\u0029",
             "name": "returnTypeTokens",
-            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_returnTypeTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AreturnTypeTokensBC\u0028\u0029",
-            "name": "returnTypeTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration\u0020\u0028cross\u002Dversion\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_returnTypeTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003AtextStringStartTokens\u0028\u0029",
-            "name": "textStringStartTokens",
-            "summary": "Tokens\u0020which\u0020can\u0020start\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_textStringStartTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024alternativeControlStructureSyntaxTokens",
-            "name": "alternativeControlStructureSyntaxTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020for\u0020control\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020alternative\u0020control\u0020structure\u0020syntax.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024alternativeControlStructureSyntaxCloserTokens",
-            "name": "alternativeControlStructureSyntaxCloserTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020representing\u0020alternative\u0020control\u0020structure\u0020syntax\u0020closer\u0020keywords.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_alternativeControlStructureSyntaxCloserTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024arrayTokens",
-            "name": "arrayTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020arrays.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024arrayTokensBC",
-            "name": "arrayTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020arrays\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_arrayTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024classModifierKeywords",
-            "name": "classModifierKeywords",
-            "summary": "DEPRECATED\u003A\u0020Modifier\u0020keywords\u0020which\u0020can\u0020be\u0020used\u0020for\u0020a\u0020class\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_classModifierKeywords"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024closedScopes",
-            "name": "closedScopes",
-            "summary": "DEPRECATED\u003A\u0020List\u0020of\u0020tokens\u0020which\u0020represent\u0020\u0022closed\u0022\u0020scopes.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_closedScopes"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024controlStructureTokens",
-            "name": "controlStructureTokens",
-            "summary": "DEPRECATED\u003A\u0020Control\u0020structure\u0020tokens.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_controlStructureTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024incrementDecrementOperators",
-            "name": "incrementDecrementOperators",
-            "summary": "DEPRECATED\u003A\u0020Increment\/decrement\u0020operator\u0020tokens.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_incrementDecrementOperators"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024listTokens",
-            "name": "listTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020lists.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_listTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024listTokensBC",
-            "name": "listTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020to\u0020create\u0020lists\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_listTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024magicConstants",
-            "name": "magicConstants",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020for\u0020the\u0020PHP\u0020magic\u0020constants.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_magicConstants"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024namespaceDeclarationClosers",
-            "name": "namespaceDeclarationClosers",
-            "summary": "DEPRECATED\u003A\u0020List\u0020of\u0020tokens\u0020which\u0020can\u0020end\u0020a\u0020namespace\u0020declaration\u0020statement.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_namespaceDeclarationClosers"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024objectOperators",
-            "name": "objectOperators",
-            "summary": "DEPRECATED\u003A\u0020Object\u0020operator\u0020tokens.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_objectOperators"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOCanExtend",
-            "name": "OOCanExtend",
-            "summary": "DEPRECATED\u003A\u0020OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022extends\u0022\u0020keyword.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOCanExtend"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOCanImplement",
-            "name": "OOCanImplement",
-            "summary": "DEPRECATED\u003A\u0020OO\u0020structures\u0020which\u0020can\u0020use\u0020the\u0020\u0022implements\u0022\u0020keyword.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOCanImplement"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOConstantScopes",
-            "name": "OOConstantScopes",
-            "summary": "DEPRECATED\u003A\u0020OO\u0020scopes\u0020in\u0020which\u0020constants\u0020can\u0020be\u0020declared.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOConstantScopes"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOHierarchyKeywords",
-            "name": "OOHierarchyKeywords",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020types\u0020used\u0020for\u0020\u0022forwarding\u0022\u0020calls\u0020within\u0020OO\u0020structures.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOHierarchyKeywords"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OONameTokens",
-            "name": "OONameTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020the\u0020fully\/partially\u0020qualified\u0020name\u0020of\u0020an\u0020OO\u0020structure.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OONameTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024OOPropertyScopes",
-            "name": "OOPropertyScopes",
-            "summary": "DEPRECATED\u003A\u0020OO\u0020scopes\u0020in\u0020which\u0020properties\u0020can\u0020be\u0020declared.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_OOPropertyScopes"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024propertyModifierKeywords",
-            "name": "propertyModifierKeywords",
-            "summary": "DEPRECATED\u003A\u0020Modifier\u0020keywords\u0020which\u0020can\u0020be\u0020used\u0020for\u0020a\u0020property\u0020declaration.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_propertyModifierKeywords"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortArrayTokens",
-            "name": "shortArrayTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020arrays.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortArrayTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortArrayTokensBC",
-            "name": "shortArrayTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020arrays\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortArrayTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortListTokens",
-            "name": "shortListTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020lists.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortListTokens"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024shortListTokensBC",
-            "name": "shortListTokensBC",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020are\u0020used\u0020for\u0020short\u0020lists\u0020\u0028PHPCS\u0020cross\u002Dversion\u0020compatible\u0029.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_shortListTokensBC"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Tokens\\Collections\u003A\u003A\u0024textStingStartTokens",
-            "name": "textStingStartTokens",
-            "summary": "DEPRECATED\u003A\u0020Tokens\u0020which\u0020can\u0020start\u0020a\u0020\u002D\u0020potentially\u0020multi\u002Dline\u0020\u002D\u0020text\u0020string.",
-            "url": "classes/PHPCSUtils-Tokens-Collections.html#property_textStingStartTokens"
+            "summary": "Token\u0020types\u0020which\u0020can\u0020be\u0020encountered\u0020in\u0020a\u0020return\u0020type\u0020declaration.",
+            "url": "classes/PHPCSUtils-Tokens-Collections.html#method_returnTypeTokens"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\Arrays",
             "name": "Arrays",
@@ -591,11 +401,6 @@ Search.appendIndex(
             "summary": "Check\u0020whether\u0020an\u0020IF\u0020or\u0020ELSE\u0020token\u0020is\u0020part\u0020of\u0020an\u0020\u0022else\u0020if\u0022.",
             "url": "classes/PHPCSUtils-Utils-ControlStructures.html#method_isElseIf"
         },                {
-            "fqsen": "\\PHPCSUtils\\Utils\\ControlStructures\u003A\u003AgetDeclareScopeOpenClose\u0028\u0029",
-            "name": "getDeclareScopeOpenClose",
-            "summary": "Get\u0020the\u0020scope\u0020opener\u0020and\u0020closer\u0020for\u0020a\u0020DECLARE\u0020statement.",
-            "url": "classes/PHPCSUtils-Utils-ControlStructures.html#method_getDeclareScopeOpenClose"
-        },                {
             "fqsen": "\\PHPCSUtils\\Utils\\ControlStructures\u003A\u003AgetCaughtExceptions\u0028\u0029",
             "name": "getCaughtExceptions",
             "summary": "Retrieve\u0020the\u0020exception\u0028s\u0029\u0020being\u0020caught\u0020in\u0020a\u0020CATCH\u0020condition.",
@@ -620,16 +425,6 @@ Search.appendIndex(
             "name": "getParameters",
             "summary": "Retrieves\u0020the\u0020method\u0020parameters\u0020for\u0020the\u0020specified\u0020function\u0020token.",
             "url": "classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getParameters"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Utils\\FunctionDeclarations\u003A\u003AisArrowFunction\u0028\u0029",
-            "name": "isArrowFunction",
-            "summary": "Check\u0020if\u0020an\u0020arbitrary\u0020token\u0020is\u0020the\u0020\u0022fn\u0022\u0020keyword\u0020for\u0020a\u0020PHP\u00207.4\u0020arrow\u0020function.",
-            "url": "classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction"
-        },                {
-            "fqsen": "\\PHPCSUtils\\Utils\\FunctionDeclarations\u003A\u003AgetArrowFunctionOpenClose\u0028\u0029",
-            "name": "getArrowFunctionOpenClose",
-            "summary": "Retrieve\u0020the\u0020parenthesis\u0020opener,\u0020parenthesis\u0020closer,\u0020the\u0020scope\u0020opener\u0020and\u0020the\u0020scope\u0020closer\nfor\u0020an\u0020arrow\u0020function.",
-            "url": "classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose"
         },                {
             "fqsen": "\\PHPCSUtils\\Utils\\FunctionDeclarations\u003A\u003AisMagicFunction\u0028\u0029",
             "name": "isMagicFunction",
@@ -1185,11 +980,6 @@ Search.appendIndex(
             "name": "PHPCSUTILS_AUTOLOAD",
             "summary": "",
             "url": "namespaces/default.html#constant_PHPCSUTILS_AUTOLOAD"
-        },                {
-            "fqsen": "\\PHPCSUTILS_PHPCS_ALIASES_SET",
-            "name": "PHPCSUTILS_PHPCS_ALIASES_SET",
-            "summary": "",
-            "url": "namespaces/default.html#constant_PHPCSUTILS_PHPCS_ALIASES_SET"
         },                {
             "fqsen": "\\PHPCSUTILS_PHPUNIT_ALIASES_SET",
             "name": "PHPCSUTILS_PHPUNIT_ALIASES_SET",
