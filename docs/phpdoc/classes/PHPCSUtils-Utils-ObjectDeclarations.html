@@ -247,7 +247,7 @@ Also see <a href="classes/PHPCSUtils-BackCompat-BCFile.html"><abbr title="\PHPCS
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">247</span>
 
     </aside>
 
@@ -367,7 +367,7 @@ is no extended class name.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">288</span>
+    <span class="phpdocumentor-element-found-in__line">301</span>
 
     </aside>
 
@@ -448,7 +448,7 @@ error or if there are no extended interface names.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">270</span>
+    <span class="phpdocumentor-element-found-in__line">283</span>
 
     </aside>
 
@@ -564,7 +564,7 @@ error or if there are no implemented interface names.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="PHPCSUtils/Utils/ObjectDeclarations.php"><a href="files/phpcsutils-utils-objectdeclarations.html"><abbr title="PHPCSUtils/Utils/ObjectDeclarations.php">ObjectDeclarations.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 
@@ -584,6 +584,7 @@ error or if there are no implemented interface names.</p>
 </li>
 <li>Defensive coding against incorrect calls to this method.</li>
 <li>Support for PHP 8.2 readonly classes.</li>
+<li>Additional <code class="prettyprint">'abstract_token'</code>, <code class="prettyprint">'final_token'</code>, and <code class="prettyprint">'readonly_token'</code> indexes in the return array.</li>
 </ul>
 </section>
 
@@ -673,9 +674,15 @@ token to acquire the properties for.</p>
             <section class="phpdocumentor-description"><p>Array with implementation properties of a class.
 The format of the return value is:</p>
 <pre class="prettyprint"><code class="language-php">array(
-  'is_abstract' =&gt; false, // TRUE if the abstract keyword was found.
-  'is_final'    =&gt; false, // TRUE if the final keyword was found.
-  'is_readonly' =&gt; false, // TRUE if the readonly keyword was found.
+  'is_abstract'    =&gt; bool,      // TRUE if the abstract keyword was found.
+  'abstract_token' =&gt; int|false, // The stack pointer to the `abstract` keyword or
+                                 // FALSE if the abstract keyword was not found.
+  'is_final'       =&gt; bool,      // TRUE if the final keyword was found.
+  'final_token'    =&gt; int|false, // The stack pointer to the `final` keyword or
+                                 // FALSE if the abstract keyword was not found.
+  'is_readonly'    =&gt; bool,      // TRUE if the readonly keyword was found.
+  'readonly_token' =&gt; int|false, // The stack pointer to the `readonly` keyword or
+                                 // FALSE if the abstract keyword was not found.
 );
 </code></pre>
 </section>

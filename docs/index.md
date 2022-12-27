@@ -1,6 +1,6 @@
 ---
 title:       PHPCSUtils
-description: "PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer."
+description: "PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer"
 anchor:      home
 permalink:   /
 seo:
