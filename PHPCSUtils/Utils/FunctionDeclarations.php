@@ -169,19 +169,19 @@ final class FunctionDeclarations
      *               The format of the return value is:
      *               ```php
      *               array(
-     *                 'scope'                 => 'public', // Public, private, or protected
-     *                 'scope_specified'       => true,     // TRUE if the scope keyword was found.
-     *                 'return_type'           => '',       // The return type of the method.
-     *                 'return_type_token'     => integer,  // The stack pointer to the start of the return type
-     *                                                      // or FALSE if there is no return type.
-     *                 'return_type_end_token' => integer,  // The stack pointer to the end of the return type
-     *                                                      // or FALSE if there is no return type.
-     *                 'nullable_return_type'  => false,    // TRUE if the return type is preceded
-     *                                                      // by the nullability operator.
-     *                 'is_abstract'           => false,    // TRUE if the abstract keyword was found.
-     *                 'is_final'              => false,    // TRUE if the final keyword was found.
-     *                 'is_static'             => false,    // TRUE if the static keyword was found.
-     *                 'has_body'              => false,    // TRUE if the method has a body
+     *                 'scope'                 => string,    // Public, private, or protected
+     *                 'scope_specified'       => bool,      // TRUE if the scope keyword was found.
+     *                 'return_type'           => string,    // The return type of the method.
+     *                 'return_type_token'     => int|false, // The stack pointer to the start of the return type
+     *                                                       // or FALSE if there is no return type.
+     *                 'return_type_end_token' => int|false, // The stack pointer to the end of the return type
+     *                                                       // or FALSE if there is no return type.
+     *                 'nullable_return_type'  => bool,      // TRUE if the return type is preceded
+     *                                                       // by the nullability operator.
+     *                 'is_abstract'           => bool,      // TRUE if the abstract keyword was found.
+     *                 'is_final'              => bool,      // TRUE if the final keyword was found.
+     *                 'is_static'             => bool,      // TRUE if the static keyword was found.
+     *                 'has_body'              => bool,      // TRUE if the method has a body
      *               );
      *               ```
      *
@@ -320,41 +320,41 @@ final class FunctionDeclarations
      *
      * ```php
      * 0 => array(
-     *   'name'                => '$var',  // The variable name.
-     *   'token'               => integer, // The stack pointer to the variable name.
-     *   'content'             => string,  // The full content of the variable definition.
-     *   'has_attributes'      => boolean, // Does the parameter have one or more attributes attached ?
-     *   'pass_by_reference'   => boolean, // Is the variable passed by reference?
-     *   'reference_token'     => integer, // The stack pointer to the reference operator
-     *                                     // or FALSE if the param is not passed by reference.
-     *   'variable_length'     => boolean, // Is the param of variable length through use of `...` ?
-     *   'variadic_token'      => integer, // The stack pointer to the ... operator
-     *                                     // or FALSE if the param is not variable length.
-     *   'type_hint'           => string,  // The type hint for the variable.
-     *   'type_hint_token'     => integer, // The stack pointer to the start of the type hint
-     *                                     // or FALSE if there is no type hint.
-     *   'type_hint_end_token' => integer, // The stack pointer to the end of the type hint
-     *                                     // or FALSE if there is no type hint.
-     *   'nullable_type'       => boolean, // TRUE if the var type is preceded by the nullability
-     *                                     // operator.
-     *   'comma_token'         => integer, // The stack pointer to the comma after the param
-     *                                     // or FALSE if this is the last param.
+     *   'name'                => string, // The variable name.
+     *   'token'               => int,    // The stack pointer to the variable name.
+     *   'content'             => string, // The full content of the variable definition.
+     *   'has_attributes'      => bool,   // Does the parameter have one or more attributes attached ?
+     *   'pass_by_reference'   => bool,   // Is the variable passed by reference?
+     *   'reference_token'     => int,    // The stack pointer to the reference operator
+     *                                    // or FALSE if the param is not passed by reference.
+     *   'variable_length'     => bool,   // Is the param of variable length through use of `...` ?
+     *   'variadic_token'      => int,    // The stack pointer to the ... operator
+     *                                    // or FALSE if the param is not variable length.
+     *   'type_hint'           => string, // The type hint for the variable.
+     *   'type_hint_token'     => int,    // The stack pointer to the start of the type hint
+     *                                    // or FALSE if there is no type hint.
+     *   'type_hint_end_token' => int,    // The stack pointer to the end of the type hint
+     *                                    // or FALSE if there is no type hint.
+     *   'nullable_type'       => bool,   // TRUE if the var type is preceded by the nullability
+     *                                    // operator.
+     *   'comma_token'         => int,    // The stack pointer to the comma after the param
+     *                                    // or FALSE if this is the last param.
      * )
      * ```
      *
      * Parameters with default values have the following additional array indexes:
      * ```php
-     *   'default'             => string,  // The full content of the default value.
-     *   'default_token'       => integer, // The stack pointer to the start of the default value.
-     *   'default_equal_token' => integer, // The stack pointer to the equals sign.
+     *   'default'             => string, // The full content of the default value.
+     *   'default_token'       => int,    // The stack pointer to the start of the default value.
+     *   'default_equal_token' => int,    // The stack pointer to the equals sign.
      * ```
      *
      * Parameters declared using PHP 8 constructor property promotion, have these additional array indexes:
      * ```php
-     *   'property_visibility' => string,  // The property visibility as declared.
-     *   'visibility_token'    => integer, // The stack pointer to the visibility modifier token.
-     *   'property_readonly'   => bool,    // TRUE if the readonly keyword was found.
-     *   'readonly_token'      => integer, // The stack pointer to the readonly modifier token.
+     *   'property_visibility' => string, // The property visibility as declared.
+     *   'visibility_token'    => int,    // The stack pointer to the visibility modifier token.
+     *   'property_readonly'   => bool,   // TRUE if the readonly keyword was found.
+     *   'readonly_token'      => int,    // The stack pointer to the readonly modifier token.
      * ```
      *
      * Main differences with the PHPCS version:
@@ -619,108 +619,6 @@ final class FunctionDeclarations
 
         Cache::set($phpcsFile, __METHOD__, $stackPtr, $vars);
         return $vars;
-    }
-
-    /**
-     * Check if an arbitrary token is the "fn" keyword for a PHP 7.4 arrow function.
-     *
-     * Helper function for cross-version compatibility with both PHP as well as PHPCS.
-     * As of PHPCS 3.5.6, this function is no longer be needed.
-     *
-     * @see \PHPCSUtils\Utils\FunctionDeclarations::getArrowFunctionOpenClose() Related function.
-     *
-     * @since      1.0.0
-     * @deprecated 1.0.0-alpha4 Use the T_FN token constant instead.
-     *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The token to check. Typically a T_FN or
-     *                                               T_STRING token as those are the only two
-     *                                               tokens which can be the arrow function keyword.
-     *
-     * @return bool `TRUE` if the token is the "fn" keyword for an arrow function. `FALSE` when it's not
-     *              or in case of live coding/parse error.
-     */
-    public static function isArrowFunction(File $phpcsFile, $stackPtr)
-    {
-        \trigger_error(
-            \sprintf(
-                'The %s() function is deprecated since PHPCSUtils 1.0.0-alpha4. Use the `T_FN` token instead.',
-                __METHOD__
-            ),
-            \E_USER_DEPRECATED
-        );
-
-        $tokens = $phpcsFile->getTokens();
-        if (isset($tokens[$stackPtr]) === false) {
-            return false;
-        }
-
-        if ($tokens[$stackPtr]['code'] === \T_FN
-            && isset($tokens[$stackPtr]['scope_closer']) === true
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Retrieve the parenthesis opener, parenthesis closer, the scope opener and the scope closer
-     * for an arrow function.
-     *
-     * Helper function for cross-version compatibility with both PHP as well as PHPCS.
-     * As of PHPCS 3.5.6, this function is no longer be needed.
-     *
-     * @see \PHPCSUtils\Utils\FunctionDeclarations::isArrowFunction() Related function.
-     *
-     * @since      1.0.0
-     * @deprecated 1.0.0-alpha4 Use the T_FN token constant instead.
-     *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
-     * @param int                         $stackPtr  The token to retrieve the openers/closers for.
-     *                                               Typically a `T_FN` or `T_STRING` token as those are the
-     *                                               only two tokens which can be the arrow function keyword.
-     *
-     * @return array|false An array with the token pointers or `FALSE` if this is not an arrow function.
-     *                     The format of the return value is:
-     *                     ```php
-     *                     array(
-     *                       'parenthesis_opener' => integer, // Stack pointer to the parenthesis opener.
-     *                       'parenthesis_closer' => integer, // Stack pointer to the parenthesis closer.
-     *                       'scope_opener'       => integer, // Stack pointer to the scope opener (arrow).
-     *                       'scope_closer'       => integer, // Stack pointer to the scope closer.
-     *                     )
-     *                     ```
-     */
-    public static function getArrowFunctionOpenClose(File $phpcsFile, $stackPtr)
-    {
-        \trigger_error(
-            \sprintf(
-                'The %s() function is deprecated since PHPCSUtils 1.0.0-alpha4. Use the `T_FN` token instead.',
-                __METHOD__
-            ),
-            \E_USER_DEPRECATED
-        );
-
-        $tokens = $phpcsFile->getTokens();
-
-        if (isset($tokens[$stackPtr]) === false
-            || $tokens[$stackPtr]['code'] !== \T_FN
-        ) {
-            return false;
-        }
-
-        if (isset($tokens[$stackPtr]['scope_closer']) === true) {
-            // The keys will either all be set or none will be set, so no additional checks needed.
-            return [
-                'parenthesis_opener' => $tokens[$stackPtr]['parenthesis_opener'],
-                'parenthesis_closer' => $tokens[$stackPtr]['parenthesis_closer'],
-                'scope_opener'       => $tokens[$stackPtr]['scope_opener'],
-                'scope_closer'       => $tokens[$stackPtr]['scope_closer'],
-            ];
-        }
-
-        return [];
     }
 
     /**

@@ -10,6 +10,25 @@ echo 123;
 /* testIfWithoutBody */
 if ($a); // Surprisingly enough not a parse error.
 
+/* testIfWithoutBodyDueToCloseTag */
+if ($a) ?>
+    This will always be printed as the if is closed by the PHP close tag.
+<?php
+
+if (true)
+    do_something();
+/* testElseIfWithoutBodyDueToCloseTag */
+else if(false) ?>
+    This will always be printed as the elseif is closed by the PHP close tag.
+<?php
+
+if (true)
+    do_something();
+/* testElseWithoutBodyDueToCloseTag */
+else ?>
+    This will always be printed as the else is closed by the PHP close tag.
+<?php
+
 /* testIfEmptyBody */
 if ( true ) {
     // Comment.
@@ -46,6 +65,11 @@ else if (false) {
 /* testForWithoutBody */
 for ($i = 1, $j = 0; $i <= 10; $j += $i, print $i, $i++);
 
+/* testForWithoutBodyDueToCloseTag */
+for ($i = 1, $j = 0; $i <= 10; $j += $i, print $i, $i++) ?>
+    This will always be printed as the for is closed by the PHP close tag.
+<?php
+
 /* testForEmptyBody */
 for ($i = 1; $i <= 10; $i++) {}
 
@@ -56,6 +80,11 @@ for ($i = 1; $i <= 10; $i++) {
 
 /* testForEachWithoutBody */
 foreach($a as $b => $c); // Surprisingly enough not a parse error.
+
+/* testForEachWithoutBodyDueToCloseTag */
+foreach($a as $b => $c) ?>
+    This will always be printed as the foreach is closed by the PHP close tag.
+<?php
 
 /* testForEachEmptyBody */
 foreach ($a as $k => $v) {
@@ -69,6 +98,11 @@ foreach ($a as $k => $v) {
 
 /* testWhileWithoutBody */
 while (++$i <= 10) /*comment*/ ;
+
+/* testWhileWithoutBodyDueToCloseTag */
+while (++$i <= 10) ?>
+    This will always be printed as the while is closed by the PHP close tag.
+<?php
 
 /* testWhileEmptyBody */
 while (++$i <= 10) {}
@@ -91,6 +125,11 @@ do {
 // Intentional parse error.
 switch ($foo);
 
+/* testSwitchWithoutBodyDueToCloseTag */
+// Intentional parse error.
+switch ($foo) ?>
+<?php
+
 /* testSwitchEmptyBody */
 switch ($foo) {
     // Kind of useless, but not a parse error.
@@ -105,6 +144,10 @@ switch ($foo) {
 
 /* testDeclareWithoutBody */
 declare(ticks=1);
+
+/* testDeclareWithoutBodyDueToCloseTag */
+declare(ticks=1) ?>
+<?php
 
 /* testDeclareEmptyBody */
 declare(ticks=1) {

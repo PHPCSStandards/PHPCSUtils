@@ -97,9 +97,7 @@ if (\defined('__PHPUNIT_PHAR__')) {
 }
 
 /*
- * Alias the PHPCS 2.x classes to their PHPCS 3.x equivalent if necessary.
- *
- * Also alias the non-namespaced PHPUnit 4.x/5.x test case class to the
+ * Alias the non-namespaced PHPUnit 4.x/5.x test case class to the
  * namespaced PHPUnit 6+ version.
  */
 require_once \dirname(__DIR__) . '/phpcsutils-autoload.php';

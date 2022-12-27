@@ -52,7 +52,19 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testGetClassProperties($testMarker, $expected)
     {
-        $class  = $this->getTargetToken($testMarker, \T_CLASS);
+        $class = $this->getTargetToken($testMarker, \T_CLASS);
+
+        // Translate offsets to absolute token positions.
+        if ($expected['abstract_token'] !== false) {
+            $expected['abstract_token'] += $class;
+        }
+        if ($expected['final_token'] !== false) {
+            $expected['final_token'] += $class;
+        }
+        if ($expected['readonly_token'] !== false) {
+            $expected['readonly_token'] += $class;
+        }
+
         $result = ObjectDeclarations::getClassProperties(self::$phpcsFile, $class);
         $this->assertSame($expected, $result);
     }
@@ -70,57 +82,78 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
             'phpcs-annotation' => [
                 'testMarker' => '/* testPHPCSAnnotations */',
                 'expected'   => [
-                    'is_abstract' => false,
-                    'is_final'    => true,
-                    'is_readonly' => false,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -5,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'unorthodox-docblock-placement' => [
                 'testMarker' => '/* testWithDocblockWithWeirdlyPlacedModifier */',
                 'expected'   => [
-                    'is_abstract' => false,
-                    'is_final'    => true,
-                    'is_readonly' => false,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -31,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'readonly' => [
                 '/* testReadonlyClass */',
                 [
-                    'is_abstract' => false,
-                    'is_final'    => false,
-                    'is_readonly' => true,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => true,
+                    'readonly_token' => -2,
                 ],
             ],
             'final-readonly' => [
                 '/* testFinalReadonlyClass */',
                 [
-                    'is_abstract' => false,
-                    'is_final'    => true,
-                    'is_readonly' => true,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -4,
+                    'is_readonly'    => true,
+                    'readonly_token' => -2,
                 ],
             ],
             'readonly-final' => [
                 '/* testReadonlyFinalClass */',
                 [
-                    'is_abstract' => false,
-                    'is_final'    => true,
-                    'is_readonly' => true,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -2,
+                    'is_readonly'    => true,
+                    'readonly_token' => -6,
                 ],
             ],
             'abstract-readonly' => [
                 '/* testAbstractReadonlyClass */',
                 [
-                    'is_abstract' => true,
-                    'is_final'    => false,
-                    'is_readonly' => true,
+                    'is_abstract'    => true,
+                    'abstract_token' => -4,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => true,
+                    'readonly_token' => -2,
                 ],
             ],
             'readonly-abstract' => [
                 '/* testReadonlyAbstractClass */',
                 [
-                    'is_abstract' => true,
-                    'is_final'    => false,
-                    'is_readonly' => true,
+                    'is_abstract'    => true,
+                    'abstract_token' => -2,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => true,
+                    'readonly_token' => -4,
                 ],
             ],
         ];

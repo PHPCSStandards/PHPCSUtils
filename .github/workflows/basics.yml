@@ -31,7 +31,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: 'latest'
           coverage: none
           tools: cs2pr
 
@@ -51,6 +51,9 @@ jobs:
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
+        with:
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Install xmllint
         run: |
@@ -68,9 +71,7 @@ jobs:
 
       # Check the code-style consistency of the XML file.
       - name: Check XML code style
-        run: |
-          diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
-          diff -B ./PHPCS23Utils/ruleset.xml <(xmllint --format "./PHPCS23Utils/ruleset.xml")
+        run: diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
 
       # Check the code-style consistency of the PHP files.
       - name: Check PHP code style

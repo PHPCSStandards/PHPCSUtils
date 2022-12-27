@@ -139,6 +139,7 @@ final class ObjectDeclarations
      *   - Handling of unorthodox docblock placement.
      * - Defensive coding against incorrect calls to this method.
      * - Support for PHP 8.2 readonly classes.
+     * - Additional `'abstract_token'`, `'final_token'`, and `'readonly_token'` indexes in the return array.
      *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getClassProperties() Cross-version compatible version of the original.
@@ -154,9 +155,15 @@ final class ObjectDeclarations
      *               The format of the return value is:
      *               ```php
      *               array(
-     *                 'is_abstract' => false, // TRUE if the abstract keyword was found.
-     *                 'is_final'    => false, // TRUE if the final keyword was found.
-     *                 'is_readonly' => false, // TRUE if the readonly keyword was found.
+     *                 'is_abstract'    => bool,      // TRUE if the abstract keyword was found.
+     *                 'abstract_token' => int|false, // The stack pointer to the `abstract` keyword or
+     *                                                // FALSE if the abstract keyword was not found.
+     *                 'is_final'       => bool,      // TRUE if the final keyword was found.
+     *                 'final_token'    => int|false, // The stack pointer to the `final` keyword or
+     *                                                // FALSE if the abstract keyword was not found.
+     *                 'is_readonly'    => bool,      // TRUE if the readonly keyword was found.
+     *                 'readonly_token' => int|false, // The stack pointer to the `readonly` keyword or
+     *                                                // FALSE if the abstract keyword was not found.
      *               );
      *               ```
      *
@@ -173,9 +180,12 @@ final class ObjectDeclarations
 
         $valid      = Collections::classModifierKeywords() + Tokens::$emptyTokens;
         $properties = [
-            'is_abstract' => false,
-            'is_final'    => false,
-            'is_readonly' => false,
+            'is_abstract'    => false,
+            'abstract_token' => false,
+            'is_final'       => false,
+            'final_token'    => false,
+            'is_readonly'    => false,
+            'readonly_token' => false,
         ];
 
         for ($i = ($stackPtr - 1); $i > 0; $i--) {
@@ -185,15 +195,18 @@ final class ObjectDeclarations
 
             switch ($tokens[$i]['code']) {
                 case \T_ABSTRACT:
-                    $properties['is_abstract'] = true;
+                    $properties['is_abstract']    = true;
+                    $properties['abstract_token'] = $i;
                     break;
 
                 case \T_FINAL:
-                    $properties['is_final'] = true;
+                    $properties['is_final']    = true;
+                    $properties['final_token'] = $i;
                     break;
 
                 case \T_READONLY:
-                    $properties['is_readonly'] = true;
+                    $properties['is_readonly']    = true;
+                    $properties['readonly_token'] = $i;
                     break;
             }
         }

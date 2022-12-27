@@ -10,6 +10,58 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.0.0-rc1] - 2022-12-27
+
+### Added
+
+#### Tokens
+
+* New [`Collections::constantModifierKeywords()`][`Collections`] method. [#400]
+* New [`Collections::listOpenTokensBC()`][`Collections`] method. [#405]
+
+### Changed
+
+#### Utils
+
+* `ObjectDeclarations::getClassProperties()`: the array return value will now include `'abstract_token'`, `'final_token'`, and `'readonly_token'` indexes identifying the stack pointers to these keyword, where applicable. If the keyword is not used, the value will be set to `false`. [#401]
+
+#### Other
+
+* Various housekeeping and CI maintainance.
+
+### Removed
+
+Everything which was previously deprecated in the [1.0.0-alpha4 release], has now been removed. [#410]
+
+This includes:
+* The `PHPCS23Utils` standard.
+* [`Collections`] class: direct access to the properties in the class.
+* [`Collections`] class: the `Collections::arrowFunctionTokensBC()`, `Collections::functionDeclarationTokensBC()`, `Collections::parameterTypeTokensBC()`, `Collections::propertyTypeTokensBC()` and `Collections::returnTypeTokensBC()` methods.
+* The `ControlStructures::getDeclareScopeOpenClose()` method.
+* The `FunctionDeclarations::getArrowFunctionOpenClose()` method.
+* The `FunctionDeclarations::isArrowFunction()` method.
+
+See the changelog for the [1.0.0-alpha4 release] for details about replacements for the removed functionality.
+
+### Fixed
+
+#### Utils
+
+* `Arrays::getOpenClose()`: small efficiency fix. [#406]
+* `ControlStructures::hasBody()`: correctly identify that a control structure does not have a body - `'has_body' = false` -, when the control structure is ended by a PHP close tag. [#403]
+* `Lists::getOpenClose()`: small efficiency fix. [#407]
+
+[1.0.0-alpha4 release]: https://github.com/PHPCSStandards/PHPCSUtils/releases/tag/1.0.0-alpha4
+
+[#400]: https://github.com/PHPCSStandards/PHPCSUtils/pull/400
+[#401]: https://github.com/PHPCSStandards/PHPCSUtils/pull/401
+[#403]: https://github.com/PHPCSStandards/PHPCSUtils/pull/403
+[#405]: https://github.com/PHPCSStandards/PHPCSUtils/pull/405
+[#406]: https://github.com/PHPCSStandards/PHPCSUtils/pull/406
+[#407]: https://github.com/PHPCSStandards/PHPCSUtils/pull/407
+[#410]: https://github.com/PHPCSStandards/PHPCSUtils/pull/410
+
+
 ## [1.0.0-alpha4] - 2022-10-25
 
 Notes:
@@ -46,7 +98,7 @@ This means that support for the following syntaxes/features has been added (or e
     - Explicit octal notation. [#293]
     - Array unpacking with string keys.
     - `never` type.
-    - Named parameters after argument unpacking.
+    - Named parameters after argument unpacking. [#383]
     - First class callables. [#362]
     - Readonly properties. [#363]
     - `new` in initializers.
@@ -190,8 +242,8 @@ All properties have a replacement which should be used instead, in most cases th
 
 | Deprecated                                                    | Replacement                                                                                          | PR             | Remarks                                  |
 |---------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------------|------------------------------------------|
-| `Collections::$alternativeControlStructureSyntaxTokens`       | `Collections::alternativeControlStructureSyntaxes()`                                                 | [#311]         | Mind the change name!                    |
-| `Collections::$alternativeControlStructureSyntaxCloserTokens` | `Collections::alternativeControlStructureSyntaxClosers()`                                            | [#311]         | Mind the change name!                    |
+| `Collections::$alternativeControlStructureSyntaxTokens`       | `Collections::alternativeControlStructureSyntaxes()`                                                 | [#311]         | Mind the change in the name!             |
+| `Collections::$alternativeControlStructureSyntaxCloserTokens` | `Collections::alternativeControlStructureSyntaxClosers()`                                            | [#311]         | Mind the change in the name!             |
 | `Collections::$arrayTokens`                                   | `Collections::arrayTokens()`                                                                         | [#311]         |                                          |
 | `Collections::$arrayTokensBC`                                 | `Collections::arrayTokensBC()`                                                                       | [#311]         |                                          |
 | `Collections::$classModifierKeywords`                         | `Collections::classModifierKeywords()`                                                               | [#311]         |                                          |
@@ -234,6 +286,10 @@ Additionally, the following methods in the `Collections` class have been depreca
 * `ControlStructures::getDeclareScopeOpenClose()`: this method is no longer needed, check the `scope_opener`/`scope_closer` on the `T_DECLARE` token instead. [#347]
 * `FunctionDeclarations::getArrowFunctionOpenClose()`: this method is no longer needed, check the `scope_opener`/`scope_closer` etc on the `T_FN` token instead. [#347]
 * `FunctionDeclarations::isArrowFunction()`: this method is no longer needed, use the `T_FN` token instead. [#347]
+
+#### Other
+
+* The `PHPCS23Utils` standard, which is no longer needed now support for PHPCS < 3.7.1 has been dropped. [#347]
 
 ### Removed
 
@@ -692,6 +748,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.0-rc1]:    https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha4...1.0.0-rc1
 [1.0.0-alpha4]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...1.0.0-alpha4
 [1.0.0-alpha3]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha2...1.0.0-alpha3
 [1.0.0-alpha2]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha1...1.0.0-alpha2

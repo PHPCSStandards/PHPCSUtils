@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
+use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -90,10 +91,16 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      */
     public function testGetClassProperties($testMarker, $expected)
     {
-        $testClass = static::TEST_CLASS;
+        // Remove keys which will only exist in the PHPCSUtils version of this method.
+        unset(
+            $expected['abstract_token'],
+            $expected['final_token'],
+            $expected['is_readonly'],
+            $expected['readonly_token']
+        );
 
         $class  = $this->getTargetToken($testMarker, \T_CLASS);
-        $result = $testClass::getClassProperties(self::$phpcsFile, $class);
+        $result = BCFile::getClassProperties(self::$phpcsFile, $class);
         $this->assertSame($expected, $result);
     }
 
@@ -110,43 +117,67 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
             'no-properties' => [
                 '/* testClassWithoutProperties */',
                 [
-                    'is_abstract' => false,
-                    'is_final'    => false,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'abstract' => [
                 '/* testAbstractClass */',
                 [
-                    'is_abstract' => true,
-                    'is_final'    => false,
+                    'is_abstract'    => true,
+                    'abstract_token' => -2,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'final' => [
                 '/* testFinalClass */',
                 [
-                    'is_abstract' => false,
-                    'is_final'    => true,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => true,
+                    'final_token'    => -2,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'comments-and-new-lines' => [
                 '/* testWithCommentsAndNewLines */',
                 [
-                    'is_abstract' => true,
-                    'is_final'    => false,
+                    'is_abstract'    => true,
+                    'abstract_token' => -6,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'no-properties-with-docblock' => [
                 '/* testWithDocblockWithoutProperties */',
                 [
-                    'is_abstract' => false,
-                    'is_final'    => false,
+                    'is_abstract'    => false,
+                    'abstract_token' => false,
+                    'is_final'       => false,
+                    'final_token'    => false,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
             'abstract-final-parse-error' => [
                 '/* testParseErrorAbstractFinal */',
                 [
-                    'is_abstract' => true,
-                    'is_final'    => true,
+                    'is_abstract'    => true,
+                    'abstract_token' => -5,
+                    'is_final'       => true,
+                    'final_token'    => -11,
+                    'is_readonly'    => false,
+                    'readonly_token' => false,
                 ],
             ],
         ];
