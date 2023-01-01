@@ -53,7 +53,11 @@ p code {
 }
 
 /* Packagist install code sample left column. */
-.install pre.highlight {
+header div.install {
+    width: 90%;
+}
+
+header .install pre.highlight {
     padding: 6px 10px;
     text-align: center;
     font-size: 89%;
