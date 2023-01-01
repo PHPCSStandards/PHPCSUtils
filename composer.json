@@ -41,7 +41,8 @@
     },
     "autoload-dev" : {
         "psr-4": {
-            "PHPCSUtils\\Tests\\": "Tests/"
+            "PHPCSUtils\\Tests\\": "Tests/",
+            "PHPCSUtils\\GHPages\\": ".github/GHPages"
         }
     },
     "extra": {
@@ -51,6 +52,9 @@
         }
     },
     "scripts" : {
+        "lint-lt72": [
+            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . --show-deprecated -e php --exclude vendor --exclude .git --exclude .github/GHPages"
+        ],
         "lint": [
             "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
         ],

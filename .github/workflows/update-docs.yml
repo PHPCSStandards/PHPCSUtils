@@ -1,0 +1,149 @@
+name: Build website
+
+on:
+  # Trigger the workflow whenever a new release is published.
+  # Using release->published rather than push->tag, as the GH API used within the GH Pages
+  # generation doesn't have access to the last tag, but does have access to the last release info.
+  release:
+    published:
+  # And on PRs which update either this workflow or one of the associated files (for a dry-run).
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - '.phpdoc.xml.dist'
+      - '.github/workflows/update-docs.yml'
+      - '.github/GHPages/**'
+      - 'docs/**'
+  # Also allow manually triggering the workflow. This will update the website (not do a dry-run)!
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEFAULT_BRANCH: 'stable'
+
+jobs:
+  build:
+    name: "Build the website"
+    # Don't run on forks.
+    if: github.repository == 'PHPCSStandards/PHPCSUtils'
+
+    runs-on: ubuntu-latest
+    steps:
+      # By default use the `stable` branch as the published docs should always
+      # reflect the latest release.
+      # For testing changes to the workflow or the scripts, use the PR branch
+      # to have access to the latest version of the workflow/scripts/files.
+      - name: Determine branch to use
+        id: base_branch
+        env:
+          REF: ${{ github.ref }}
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "BRANCH=$REF" >> $GITHUB_OUTPUT
+          else
+            echo 'BRANCH=${{ env.DEFAULT_BRANCH }}' >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.base_branch.outputs.BRANCH }}
+          # fetch-depth is needed to allow for retrieving the last tag for a non-tag workflow run.
+          fetch-depth: 0
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # Use a version known to be safe for last phpDocumentor release.
+          php-version: '8.0'
+          ini-file: 'development'
+          coverage: none
+          # Install the latest phpDocumentor release as a PHAR.
+          tools: phpdoc
+        env:
+          fail-fast: true
+
+      - name: "Ensure the phpdoc directory is empty (remove if it exists)"
+        run: rm -vrf ./docs/phpdoc/*
+
+      - name: Get the last tag reachable from current branch
+        id: get_last_tag
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        # yamllint disable rule:line-length
+        run: |
+          if [[ "${{ github.event_name }}" == 'release' && "${{ github.ref_type }}" == 'published' && "$REF_NAME" == "${{ env.DEFAULT_BRANCH }}" ]]; then
+            echo "LAST_TAG=$REF_NAME" >> $GITHUB_OUTPUT
+          else # = Pushed tag.
+            echo "LAST_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+          fi
+        # yamllint enable rule:line-length
+
+      - name: "DEBUG: show retrieved last tag"
+        run: "echo Last release: ${{ steps.get_last_tag.outputs.LAST_TAG }}"
+
+      - name: Update the phpDoc configuration
+        run: php .github/GHPages/update-docgen-config.php
+        env:
+          TAG: ${{ steps.get_last_tag.outputs.LAST_TAG }}
+
+      - name: Generate the phpDoc documentation
+        run: phpDocumentor -n
+
+      - name: Make sure the phpdoc directory contains an empty .nojekyll file
+        run: touch ./docs/phpdoc/.nojekyll
+
+      - name: Transform the markdown docs for use in GH Pages
+        run: php .github/GHPages/update-website.php
+
+      # Retention is normally 90 days, but this artifact is only for reviewing
+      # and debugging the generated files for the website.
+      - name: Upload the generated files
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-files
+          path: ./docs/
+          if-no-files-found: error
+          retention-days: 5
+
+      - name: Setup GH Pages
+        uses: actions/configure-pages@v2
+
+      - name: Build the GH Pages site with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./docs/_site
+
+      - name: Upload GH Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./docs/_site
+
+      - name: Check GitHub Pages status
+        uses: crazy-max/ghaction-github-status@v3
+        with:
+          pages_threshold: major_outage
+
+  deploy:
+    needs: build
+    # Don't run on forks, don't run on normal pushes or PRs (dry-runs).
+    if: always() && github.repository == 'PHPCSStandards/PHPCSUtils' && github.event_name != 'pull_request' && needs.build.result == 'success'
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    name: "Deploy the website"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
