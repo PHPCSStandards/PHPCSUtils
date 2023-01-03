@@ -92,7 +92,7 @@ Run the following from the root of your external PHPCS standard's project:
 
 ```bash
 composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-composer require phpcsstandards/phpcsutils:^1.0
+composer require phpcsstandards/phpcsutils:"^1.0"
 ```
 
 No further action needed. You can start using all the utility functions, abstract sniff classes and other features of PHPCSUtils straight away.
