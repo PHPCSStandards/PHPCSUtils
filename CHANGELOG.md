@@ -9,6 +9,20 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.1] - 2023-01-05
+
+### Changed
+
+#### Other
+
+* Composer: The version requirements for the [Composer PHPCS plugin] have been widened to allow for version 1.0.0. [#428]
+    Please ensure you run `composer update phpcsstandards/phpcsutils --with-dependencies` to benefit from this.
+* Removed the references to pre-1.0.0 QA releases from the docs. [#425]
+* Various small housekeeping and maintainance updates. Thanks [@szepeviktor] for contributing.
+
+[#425]: https://github.com/PHPCSStandards/PHPCSUtils/pull/425
+[#428]: https://github.com/PHPCSStandards/PHPCSUtils/pull/428
+
 
 ## [1.0.0] - 2023-01-04
 
@@ -765,6 +779,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0...1.0.1
 [1.0.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-rc1...1.0.0
 [1.0.0-rc1]:    https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha4...1.0.0-rc1
 [1.0.0-alpha4]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...1.0.0-alpha4
@@ -802,4 +817,5 @@ This initial alpha release contains the following utility classes:
 [`UseStatements`]:                 https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-UseStatements.html
 [`Variables`]:                     https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Variables.html
 
-[@GaryJones]: https://github.com/GaryJones
+[@GaryJones]:   https://github.com/GaryJones
+[@szepeviktor]: https://github.com/szepeviktor
