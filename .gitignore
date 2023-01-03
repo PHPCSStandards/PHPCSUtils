@@ -8,3 +8,5 @@ vendor/
 /phpdoc.xml
 /phpunit.xml
 /.phpunit.result.cache
+/docs/phpdoc/
+!/docs/phpdoc/.nojekyll

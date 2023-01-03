@@ -32,6 +32,7 @@
 
         {% if site.github.latest_release.tag_name %}
         <p>Latest release: <strong>{{ site.github.latest_release.tag_name }}</strong></p>
+        <p>View <a href="{{ "/changelog.html" | absolute_url }}">Changelog</a></p>
         {% endif %}
 
         {% if site.show_downloads %}
@@ -54,7 +55,7 @@
       </section>
       <footer>
         {% if site.github.is_project_page %}
-        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+        <p><small>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></small></p>
         {% endif %}
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>

@@ -10,6 +10,23 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.0.0] - 2023-01-04
+
+For the full list of features, please see the changelogs of the alpha/rc releases:
+* [1.0.0-rc1](https://github.com/PHPCSStandards/PHPCSUtils/releases/tag/1.0.0-rc1)
+* [1.0.0-alpha4](https://github.com/PHPCSStandards/PHPCSUtils/releases/tag/1.0.0-alpha4)
+* [1.0.0-alpha3](https://github.com/PHPCSStandards/PHPCSUtils/releases/tag/1.0.0-alpha3)
+* [1.0.0-alpha2](https://github.com/PHPCSStandards/PHPCSUtils/releases/tag/1.0.0-alpha2)
+* [1.0.0-alpha1](https://github.com/PHPCSStandards/PHPCSUtils/releases/tag/1.0.0-alpha1)
+
+### Changed
+
+#### Other
+
+* Minor documentation improvements.
+* Maintainability improvements.
+
+
 ## [1.0.0-rc1] - 2022-12-27
 
 ### Added
@@ -748,6 +765,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-rc1...1.0.0
 [1.0.0-rc1]:    https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha4...1.0.0-rc1
 [1.0.0-alpha4]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha3...1.0.0-alpha4
 [1.0.0-alpha3]: https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha2...1.0.0-alpha3
