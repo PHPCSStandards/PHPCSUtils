@@ -32,6 +32,7 @@
 
         {% if site.github.latest_release.tag_name %}
         <p>Latest release: <strong>{{ site.github.latest_release.tag_name }}</strong></p>
+        <p>View <a href="{{ "/changelog.html" | absolute_url }}">Changelog</a></p>
         {% endif %}
 
         {% if site.show_downloads %}

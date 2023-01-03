@@ -73,7 +73,7 @@ jobs:
 
       - name: Lint against parse errors
         if: matrix.phpcs_version == 'dev-master'
-        run: composer lint
+        run: composer lint-lt72
 
       - name: Run the unit tests without caching
         run: vendor/bin/phpunit --no-coverage

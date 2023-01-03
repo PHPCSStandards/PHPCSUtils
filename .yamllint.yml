@@ -17,6 +17,6 @@ rules:
   document-start:
     present: false
   line-length:
-    max: 140
+    max: 145
   truthy:
     allowed-values: ["true", "false", "on", "off"]

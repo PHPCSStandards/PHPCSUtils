@@ -63,7 +63,12 @@ jobs:
           composer-options: --ignore-platform-reqs
           custom-cache-suffix: $(date -u "+%Y-%m")
 
-      - name: Lint against parse errors
+      - name: "Lint against parse errors (PHP < 7.2)"
+        if: ${{ matrix.php < 7.2 }}
+        run: composer lint-lt72 -- --checkstyle | cs2pr
+
+      - name: "Lint against parse errors (PHP 7.2+)"
+        if: ${{ matrix.php >= 7.2 }}
         run: composer lint -- --checkstyle | cs2pr
 
 
