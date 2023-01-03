@@ -5,7 +5,8 @@ on:
   # Using release->published rather than push->tag, as the GH API used within the GH Pages
   # generation doesn't have access to the last tag, but does have access to the last release info.
   release:
-    published:
+    types:
+      - published
   # And on PRs which update either this workflow or one of the associated files (for a dry-run).
   pull_request:
     paths:
