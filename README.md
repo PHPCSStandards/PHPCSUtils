@@ -2,7 +2,7 @@
 
 <div aria-hidden="true">
 
-[![Latest Stable Version](https://poser.pugx.org/phpcsstandards/phpcsutils/v/stable)][phpcsutils-packagist]
+[![Latest Stable Version](https://img.shields.io/packagist/v/PHPCSStandards/PHPCSUtils?color=2f9ed4&label=stable)][phpcsutils-packagist]
 [![Release Date of the Latest Version](https://img.shields.io/github/release-date/PHPCSStandards/PHPCSUtils.svg?maxAge=1800)][phpcsutils-releases]
 :construction:
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-dev--develop-e68718.svg?maxAge=2419200)](https://packagist.org/packages/phpcsstandards/phpcsutils#dev-develop)
