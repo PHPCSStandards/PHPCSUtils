@@ -8,7 +8,7 @@
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
  */
 
-namespace PHPCSUtils\Tests\Variables;
+namespace PHPCSUtils\Tests\Utils\Variables;
 
 use PHPCSUtils\Utils\Variables;
 use PHPUnit\Framework\TestCase;
