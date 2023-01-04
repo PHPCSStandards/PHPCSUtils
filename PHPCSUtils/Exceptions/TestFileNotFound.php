@@ -16,7 +16,7 @@ use BadMethodCallException;
  * Exception thrown when the UtilityMethodTestCase::getTargetToken() method is run without a
  * tokenized test case file being available.
  *
- * @since 1.0.0-alpha4
+ * @since 1.0.0
  */
 final class TestFileNotFound extends BadMethodCallException
 {
@@ -24,7 +24,7 @@ final class TestFileNotFound extends BadMethodCallException
     /**
      * Create a new "test file not found" exception with a standardized text.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string          $message  The Exception message to throw.
      * @param int             $code     The Exception code.

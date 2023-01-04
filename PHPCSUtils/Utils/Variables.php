@@ -20,10 +20,9 @@ use PHPCSUtils\Utils\TextStrings;
 /**
  * Utility functions for use when examining variables.
  *
- * @since 1.0.0        The `Variables::getMemberProperties()` method is based on and inspired by
- *                     the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
- *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0 The `Variables::getMemberProperties()` method is based on and inspired by
+ *              the method of the same name in the PHPCS native `PHP_CodeSniffer\Files\File` class.
+ *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
  */
 final class Variables
 {
@@ -88,11 +87,6 @@ final class Variables
      * @see \PHPCSUtils\BackCompat\BCFile::getMemberProperties() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 union types.
-     * @since 1.0.0-alpha4 No longer gets confused by PHP 8.0 property attributes.
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 readonly properties.
-     * @since 1.0.0-alpha4 Added support for PHP 8.1 intersection types.
-     * @since 1.0.0-alpha4 Added support for PHP 8.2 true type.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token

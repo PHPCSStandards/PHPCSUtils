@@ -100,7 +100,6 @@ use ReflectionClass;
  *   for the PHPCSUtils utility functions themselves.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 abstract class UtilityMethodTestCase extends TestCase
 {
@@ -108,7 +107,7 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * The PHPCS version the tests are being run on.
      *
-     * @since 1.0.0-alpha3
+     * @since 1.0.0
      *
      * @var string
      */
@@ -260,7 +259,7 @@ abstract class UtilityMethodTestCase extends TestCase
      * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUp()}
      * method.
      *
-     * @since 1.0.0-alpha3
+     * @since 1.0.0
      *
      * @before
      *
@@ -329,9 +328,6 @@ abstract class UtilityMethodTestCase extends TestCase
      * distinguish between comments used *in* a test and test delimiters.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Will throw an exception whether the delimiter comment or the target
-     *                     token is not found.
-     * @since 1.0.0-alpha4 This method is now `static`, which allows for it to be used in "set up before class".
      *
      * @param string           $commentString The complete delimiter comment to look for as a string.
      *                                        This string should include the comment opener and closer.

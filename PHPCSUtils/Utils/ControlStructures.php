@@ -19,7 +19,6 @@ use PHPCSUtils\Tokens\Collections;
  * Utility functions for use when examining control structures.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class ControlStructures
 {
@@ -37,7 +36,6 @@ final class ControlStructures
      * regarded as empty.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 match control structures.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile  The file being scanned.
      * @param int                         $stackPtr   The position of the token we are checking.
@@ -196,8 +194,7 @@ final class ControlStructures
     /**
      * Retrieve the exception(s) being caught in a CATCH condition.
      *
-     * @since 1.0.0-alpha3
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.

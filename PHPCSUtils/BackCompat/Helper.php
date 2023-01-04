@@ -19,9 +19,8 @@ use PHP_CodeSniffer\Files\File;
  *
  * PHP_CodeSniffer cross-version compatibility helper.
  *
- * @since 1.0.0        The initial methods in this class have been ported over from
- *                     the external PHPCompatibility & WPCS standards.
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0 The initial methods in this class have been ported over from
+ *              the external PHPCompatibility & WPCS standards.
  */
 final class Helper
 {
@@ -143,7 +142,7 @@ final class Helper
      * Get the applicable (file) encoding as passed to PHP_CodeSniffer from the
      * command-line or the ruleset.
      *
-     * @since 1.0.0-alpha3
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *

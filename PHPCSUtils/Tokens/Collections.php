@@ -22,10 +22,6 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  * @see \PHPCSUtils\BackCompat\BCTokens Backward compatible version of the PHPCS native token groups.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
- * @since 1.0.0-alpha4 Direct property access is deprecated for forward-compatibility reasons.
- *                     Use the methods of the same name as the property instead.
- * @since 1.0.0-rc1    Direct property access has been removed.
  *
  * @method static array alternativeControlStructureSyntaxes()      Tokens for control structures which can use the
  *                                                                 alternative control structure syntax.
@@ -82,9 +78,7 @@ final class Collections
     /**
      * Tokens for control structures which can use the alternative control structure syntax.
      *
-     * @since 1.0.0-alpha2
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::alternativeControlStructureSyntaxes()} method for access.
+     * @since 1.0.0 Use the {@see Collections::alternativeControlStructureSyntaxes()} method for access.
      *
      * @var array <int> => <int>
      */
@@ -102,9 +96,7 @@ final class Collections
     /**
      * Tokens representing alternative control structure syntax closer keywords.
      *
-     * @since 1.0.0-alpha2
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::alternativeControlStructureSyntaxClosers()} method for access.
+     * @since 1.0.0 Use the {@see Collections::alternativeControlStructureSyntaxClosers()} method for access.
      *
      * @var array <int> => <int>
      */
@@ -129,7 +121,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::shortArrayTokensBC() Related method to retrieve only tokens used
      *                                                           for short arrays (PHPCS cross-version).
      *
-     * @since 1.0.0-alpha4 Use the {@see Collections::arrayOpenTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::arrayOpenTokensBC()} method for access.
      *
      * @return array <int|string> => <int|string>
      */
@@ -149,9 +141,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::shortArrayTokens()  Related method to retrieve only tokens used
      *                                                          for short arrays.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::arrayTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::arrayTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -173,9 +163,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::shortArrayTokensBC() Related method to retrieve only tokens used
      *                                                           for short arrays (PHPCS cross-version compatible).
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::arrayTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::arrayTokensBC()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -190,10 +178,7 @@ final class Collections
     /**
      * Modifier keywords which can be used for a class declaration.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the T_READONLY token for PHP 8.2 readonly classes.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::classModifierKeywords()} method for access.
+     * @since 1.0.0 Use the {@see Collections::classModifierKeywords()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -212,10 +197,7 @@ final class Collections
      * This list doesn't contain the `T_NAMESPACE` token on purpose as variables declared
      * within a namespace scope are still global and not limited to that namespace.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::closedScopes()} method for access.
+     * @since 1.0.0 Use the {@see Collections::closedScopes()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -235,7 +217,7 @@ final class Collections
      * - PHP 7.1 added class constants visibility support.
      * - PHP 8.1 added support for final class constants.
      *
-     * @since 1.0.0-rc1 Use the {@see Collections::constantModifierKeywords()} method for access.
+     * @since 1.0.0 Use the {@see Collections::constantModifierKeywords()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -249,10 +231,7 @@ final class Collections
     /**
      * Control structure tokens.
      *
-     * @since 1.0.0-alpha2
-     * @since 1.0.0-alpha4 Added the T_MATCH token for PHP 8.0 match expressions.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::controlStructureTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::controlStructureTokens()} method for access.
      *
      * @var array <int> => <int>
      */
@@ -272,7 +251,7 @@ final class Collections
     /**
      * Tokens which represent a keyword which starts a function declaration.
      *
-     * @since 1.0.0-alpha4 Use the {@see Collections::functionDeclarationTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::functionDeclarationTokens()} method for access.
      *
      * @return array <int|string> => <int|string>
      */
@@ -285,9 +264,7 @@ final class Collections
     /**
      * Increment/decrement operator tokens.
      *
-     * @since 1.0.0-alpha3
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::incrementDecrementOperators()} method for access.
+     * @since 1.0.0 Use the {@see Collections::incrementDecrementOperators()} method for access.
      *
      * @var array <int> => <int>
      */
@@ -308,7 +285,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::shortListTokensBC() Related method to retrieve only tokens used
      *                                                          for short lists (PHPCS cross-version).
      *
-     * @since 1.0.0-rc1 Use the {@see Collections::listOpenTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::listOpenTokensBC()} method for access.
      *
      * @return array <int|string> => <int|string>
      */
@@ -326,9 +303,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::shortListTokens() Related method to retrieve only tokens used
      *                                                        for short lists.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::listTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::listTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -348,9 +323,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::shortListTokensBC() Related method to retrieve only tokens used
      *                                                          for short lists (cross-version).
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::listTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::listTokensBC()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -365,9 +338,7 @@ final class Collections
     /**
      * List of tokens which can end a namespace declaration statement.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::namespaceDeclarationClosers()} method for access.
+     * @since 1.0.0 Use the {@see Collections::namespaceDeclarationClosers()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -388,7 +359,7 @@ final class Collections
      *
      * @link https://wiki.php.net/rfc/namespaced_names_as_token PHP RFC on namespaced names as single token
      *
-     * @since 1.0.0-alpha4 Use the {@see Collections::nameTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::nameTokens()} method for access.
      *
      * @return array <int|string> => <int|string>
      */
@@ -402,10 +373,7 @@ final class Collections
     /**
      * Object operator tokens.
      *
-     * @since 1.0.0-alpha3
-     * @since 1.0.0-alpha4 Added the PHP 8.0 T_NULLSAFE_OBJECT_OPERATOR token.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::objectOperators()} method for access.
+     * @since 1.0.0 Use the {@see Collections::objectOperators()} method for access.
      *
      * @var array <int> => <int>
      */
@@ -418,9 +386,7 @@ final class Collections
     /**
      * OO structures which can use the "extends" keyword.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::ooCanExtend()} method for access.
+     * @since 1.0.0 Use the {@see Collections::ooCanExtend()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -433,10 +399,7 @@ final class Collections
     /**
      * OO structures which can use the "implements" keyword.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::ooCanImplement()} method for access.
+     * @since 1.0.0 Use the {@see Collections::ooCanImplement()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -451,11 +414,7 @@ final class Collections
      *
      * Note: traits can only declare constants since PHP 8.2.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the PHP 8.1 T_ENUM token.
-     * @since 1.0.0-alpha4 Added the T_TRAIT token for PHP 8.2 constants in traits.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::ooConstantScopes()} method for access.
+     * @since 1.0.0 Use the {@see Collections::ooConstantScopes()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -472,9 +431,7 @@ final class Collections
      *
      * @link https://www.php.net/language.oop5.paamayim-nekudotayim PHP Manual on OO forwarding calls
      *
-     * @since 1.0.0-alpha3
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::ooHierarchyKeywords()} method for access.
+     * @since 1.0.0 Use the {@see Collections::ooHierarchyKeywords()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -489,9 +446,7 @@ final class Collections
      *
      * Note: interfaces can not declare properties.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::ooPropertyScopes()} method for access.
+     * @since 1.0.0 Use the {@see Collections::ooPropertyScopes()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -504,12 +459,7 @@ final class Collections
     /**
      * Token types which can be encountered in a parameter type declaration.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
-     * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
-     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::parameterTypeTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::parameterTypeTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -527,7 +477,7 @@ final class Collections
     /**
      * Tokens which open PHP.
      *
-     * @since 1.0.0-alpha4 Use the {@see Collections::phpOpenTags()} method for access.
+     * @since 1.0.0 Use the {@see Collections::phpOpenTags()} method for access.
      *
      * @return array <int|string> => <int|string>
      */
@@ -539,10 +489,7 @@ final class Collections
     /**
      * Modifier keywords which can be used for a property declaration.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the T_READONLY token for PHP 8.1 readonly properties.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::propertyModifierKeywords()} method for access.
+     * @since 1.0.0 Use the {@see Collections::propertyModifierKeywords()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -558,12 +505,7 @@ final class Collections
     /**
      * Token types which can be encountered in a property type declaration.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
-     * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
-     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::propertyTypeTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::propertyTypeTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -581,12 +523,7 @@ final class Collections
     /**
      * Token types which can be encountered in a return type declaration.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
-     * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
-     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::returnTypeTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::returnTypeTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -606,7 +543,7 @@ final class Collections
      * to the retokenization to `T_OPEN_SHORT_ARRAY`.
      * Should only be used selectively.
      *
-     * @since 1.0.0-alpha4 Use the {@see Collections::shortArrayListOpenTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::shortArrayListOpenTokensBC()} method for access.
      *
      * @return array <int|string> => <int|string>
      */
@@ -620,9 +557,7 @@ final class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::arrayTokens() Related method to retrieve all tokens used for arrays.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::shortArrayTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::shortArrayTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -641,9 +576,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::arrayTokensBC() Related method to retrieve all tokens used for arrays
      *                                                      (cross-version).
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::shortArrayTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::shortArrayTokensBC()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -659,9 +592,7 @@ final class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::listTokens() Related method to retrieve all tokens used for lists.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::shortListTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::shortListTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -680,9 +611,7 @@ final class Collections
      * @see \PHPCSUtils\Tokens\Collections::listTokensBC() Related method to retrieve all tokens used for lists
      *                                                     (cross-version).
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::shortListTokensBC()} method for access.
+     * @since 1.0.0 Use the {@see Collections::shortListTokensBC()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -696,9 +625,7 @@ final class Collections
     /**
      * Tokens which can start a - potentially multi-line - text string.
      *
-     * @since 1.0.0-alpha1
-     * @since 1.0.0-rc1    This property is now private.
-     *                     Use the {@see Collections::textStringStartTokens()} method for access.
+     * @since 1.0.0 Use the {@see Collections::textStringStartTokens()} method for access.
      *
      * @var array <int|string> => <int|string>
      */
@@ -712,7 +639,7 @@ final class Collections
     /**
      * Handle calls to (undeclared) methods for token arrays which don't need special handling.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $name The name of the method which has been called.
      * @param array  $args Any arguments passed to the method.
@@ -735,7 +662,7 @@ final class Collections
     /**
      * Throw a deprecation notice with a standardized deprecation message.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $method      The name of the method which is deprecated.
      * @param string $version     The version since which the method is deprecated.
@@ -763,7 +690,7 @@ final class Collections
      *
      * @see \PHPCSUtils\Tokens\Collections::parameterPassingTokens() Related method.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */
@@ -788,7 +715,7 @@ final class Collections
      * echo namespace\Sub\ClassName::method();
      * ```
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */
@@ -809,7 +736,7 @@ final class Collections
      *
      * @see \PHPCSUtils\Utils\PassedParameters
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */
@@ -831,11 +758,7 @@ final class Collections
     /**
      * Token types which can be encountered in a parameter type declaration.
      *
-     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$parameterTypeTokens} property.
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
-     * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
-     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */
@@ -850,11 +773,7 @@ final class Collections
     /**
      * Token types which can be encountered in a property type declaration.
      *
-     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$propertyTypeTokens} property.
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
-     * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
-     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */
@@ -869,11 +788,7 @@ final class Collections
     /**
      * Token types which can be encountered in a return type declaration.
      *
-     * @since 1.0.0-alpha4 This method replaces the {@see Collections::$returnTypeTokens} property.
-     * @since 1.0.0-alpha4 Added the T_TYPE_UNION, T_FALSE, T_NULL tokens for PHP 8.0 union type support.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokens.
-     * @since 1.0.0-alpha4 Added the T_TYPE_INTERSECTION token for PHP 8.1 intersection type support.
-     * @since 1.0.0-alpha4 Added the T_TRUE token for PHP 8.2 true type support.
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */

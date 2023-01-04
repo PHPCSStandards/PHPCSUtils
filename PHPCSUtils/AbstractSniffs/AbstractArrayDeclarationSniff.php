@@ -24,7 +24,6 @@ use PHPCSUtils\Utils\TextStrings;
  * Abstract sniff to easily examine all parts of an array declaration.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 abstract class AbstractArrayDeclarationSniff implements Sniff
 {
