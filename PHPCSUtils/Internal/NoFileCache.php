@@ -53,6 +53,8 @@ final class NoFileCache
      *
      * Don't forget to always turn the cache back on in a `tear_down()` method!
      *
+     * @since 1.0.0
+     *
      * @var bool
      */
     public static $enabled = true;
@@ -60,12 +62,16 @@ final class NoFileCache
     /**
      * Results cache.
      *
+     * @since 1.0.0
+     *
      * @var array<string, array<int|string, mixed>> Format: $cache[$key][$id] = mixed $value;
      */
     private static $cache = [];
 
     /**
      * Check whether a result has been cached for a certain utility function.
+     *
+     * @since 1.0.0
      *
      * @param string     $key The key to identify a particular set of results.
      *                        It is recommended to pass `__METHOD__` to this parameter.
@@ -82,6 +88,8 @@ final class NoFileCache
 
     /**
      * Retrieve a previously cached result for a certain utility function.
+     *
+     * @since 1.0.0
      *
      * @param string     $key The key to identify a particular set of results.
      *                        It is recommended to pass `__METHOD__` to this parameter.
@@ -103,6 +111,8 @@ final class NoFileCache
     /**
      * Retrieve all previously cached results for a certain utility function.
      *
+     * @since 1.0.0
+     *
      * @param string $key The key to identify a particular set of results.
      *                    It is recommended to pass `__METHOD__` to this parameter.
      *
@@ -119,6 +129,8 @@ final class NoFileCache
 
     /**
      * Cache the result for a certain utility function.
+     *
+     * @since 1.0.0
      *
      * @param string     $key   The key to identify a particular set of results.
      *                          It is recommended to pass `__METHOD__` to this parameter.
@@ -140,6 +152,8 @@ final class NoFileCache
 
     /**
      * Clear the cache.
+     *
+     * @since 1.0.0
      *
      * @return void
      */

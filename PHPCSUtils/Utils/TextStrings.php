@@ -31,6 +31,8 @@ final class TextStrings
      *
      * Prevents matching escaped variables/expressions.
      *
+     * @since 1.0.0
+     *
      * @var string
      */
     const START_OF_EMBED = '`(?<!\\\\)(\\\\{2})*(\{\$|\$\{|\$(?=[a-zA-Z_\x7f-\xff]))`';
@@ -39,6 +41,8 @@ final class TextStrings
      * Regex to match a "type 1" - directly embedded - variable without the dollar sign.
      *
      * Allows for array access and property access in as far as supported (single level).
+     *
+     * @since 1.0.0
      *
      * @var string
      */
