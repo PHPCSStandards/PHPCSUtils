@@ -49,7 +49,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @internal
  *
- * @since 1.0.0-alpha4
+ * @since 1.0.0
  */
 final class IsShortArrayOrList
 {
@@ -57,7 +57,7 @@ final class IsShortArrayOrList
     /**
      * Type annotation for short arrays.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var string
      */
@@ -66,7 +66,7 @@ final class IsShortArrayOrList
     /**
      * Type annotation for short lists.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var string
      */
@@ -75,7 +75,7 @@ final class IsShortArrayOrList
     /**
      * Type annotation for square brackets.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var string
      */
@@ -84,7 +84,7 @@ final class IsShortArrayOrList
     /**
      * Limit for the amount of items to retrieve from inside a nested array/list.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -93,7 +93,7 @@ final class IsShortArrayOrList
     /**
      * Limit for recursing over inner nested arrays/lists.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -102,7 +102,7 @@ final class IsShortArrayOrList
     /**
      * The PHPCS file in which the current stackPtr was found.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var \PHP_CodeSniffer\Files\File
      */
@@ -111,7 +111,7 @@ final class IsShortArrayOrList
     /**
      * The token stack from the current file.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var array
      */
@@ -120,7 +120,7 @@ final class IsShortArrayOrList
     /**
      * Stack pointer to the open bracket.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -129,7 +129,7 @@ final class IsShortArrayOrList
     /**
      * Stack pointer to the close bracket.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -138,7 +138,7 @@ final class IsShortArrayOrList
     /**
      * Stack pointer to the first non-empty token before the open bracket.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -147,7 +147,7 @@ final class IsShortArrayOrList
     /**
      * Stack pointer to the first non-empty token after the close bracket.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int|false Will be `false` if the close bracket is the last token in the file.
      */
@@ -156,7 +156,7 @@ final class IsShortArrayOrList
     /**
      * Current PHPCS version being used.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var string
      */
@@ -165,7 +165,7 @@ final class IsShortArrayOrList
     /**
      * Tokens which can open a short array or short list (PHPCS cross-version compatible).
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return array <int|string> => <int|string>
      */
@@ -174,7 +174,7 @@ final class IsShortArrayOrList
     /**
      * Constructor.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array opener token.
@@ -216,7 +216,7 @@ final class IsShortArrayOrList
     /**
      * Determine whether the bracket is a short array, short list or real square bracket.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return string Either 'short array', 'short list' or 'square brackets'.
      */
@@ -325,7 +325,7 @@ final class IsShortArrayOrList
     /**
      * Check if the brackets are in actual fact real square brackets.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return bool TRUE if these are real square brackets; FALSE otherwise.
      */
@@ -353,7 +353,7 @@ final class IsShortArrayOrList
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013 PHPCS#3013} (PHPCS < 3.5.6)
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3172 PHPCS#3172} (PHPCS < 3.6.0)
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return bool TRUE if this is actually a short array bracket which needs to be examined,
      *              FALSE if it is an (incorrectly tokenized) square bracket.
@@ -391,7 +391,7 @@ final class IsShortArrayOrList
     /**
      * Check is this set of brackets is used within a foreach expression.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return string|false The determined type or FALSE if undetermined.
      */
@@ -437,7 +437,7 @@ final class IsShortArrayOrList
      *
      * This won't walk the complete contents as that could be a huge performance drain. Just the first x items.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param int $opener     The position of the short array open bracket token.
      * @param int $recursions Optional. Keep track of how often we've recursed into this methd.
@@ -559,7 +559,7 @@ final class IsShortArrayOrList
      *
      * This should really be the last resort, if all else fails to determine the type of the brackets.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return string|false The determined type or FALSE if undetermined.
      */

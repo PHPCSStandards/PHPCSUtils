@@ -29,11 +29,6 @@ use PHP_CodeSniffer\Files\File;
  *       PHP Manual on the introduction of the integer octal literal prefix.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
- * @since 1.0.0-alpha4 Removed the following class constants:
- *                     - `Numbers::REGEX_NUMLIT_STRING`
- *                     - `Numbers::REGEX_HEX_NUMLIT_STRING`
- *                     - `Numbers::UNSUPPORTED_PHPCS_VERSION`
  */
 final class Numbers
 {

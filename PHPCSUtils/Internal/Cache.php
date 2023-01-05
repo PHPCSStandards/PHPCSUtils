@@ -57,6 +57,8 @@ final class Cache
      *
      * Don't forget to always turn the cache back on in a `tear_down()` method!
      *
+     * @since 1.0.0
+     *
      * @var bool
      */
     public static $enabled = true;
@@ -64,12 +66,16 @@ final class Cache
     /**
      * Results cache.
      *
+     * @since 1.0.0
+     *
      * @var array<int, array<string, array>> Format: $cache[$loop][$fileName][$key][$id] = mixed $value;
      */
     private static $cache = [];
 
     /**
      * Check whether a result has been cached for a certain utility function.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param string                      $key       The key to identify a particular set of results.
@@ -97,6 +103,8 @@ final class Cache
 
     /**
      * Retrieve a previously cached result for a certain utility function.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param string                      $key       The key to identify a particular set of results.
@@ -130,6 +138,8 @@ final class Cache
     /**
      * Retrieve all previously cached results for a certain utility function and a certain file.
      *
+     * @since 1.0.0
+     *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param string                      $key       The key to identify a particular set of results.
      *                                               It is recommended to pass __METHOD__ to this parameter.
@@ -156,6 +166,8 @@ final class Cache
 
     /**
      * Cache the result for a certain utility function.
+     *
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param string                      $key       The key to identify a particular set of results.
@@ -193,6 +205,8 @@ final class Cache
 
     /**
      * Clear the cache.
+     *
+     * @since 1.0.0
      *
      * @return void
      */

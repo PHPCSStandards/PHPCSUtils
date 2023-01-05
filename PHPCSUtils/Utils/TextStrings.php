@@ -22,7 +22,6 @@ use PHPCSUtils\Utils\GetTokensAsString;
  * Utility functions for working with text string tokens.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class TextStrings
 {
@@ -32,6 +31,8 @@ final class TextStrings
      *
      * Prevents matching escaped variables/expressions.
      *
+     * @since 1.0.0
+     *
      * @var string
      */
     const START_OF_EMBED = '`(?<!\\\\)(\\\\{2})*(\{\$|\$\{|\$(?=[a-zA-Z_\x7f-\xff]))`';
@@ -40,6 +41,8 @@ final class TextStrings
      * Regex to match a "type 1" - directly embedded - variable without the dollar sign.
      *
      * Allows for array access and property access in as far as supported (single level).
+     *
+     * @since 1.0.0
      *
      * @var string
      */
@@ -106,7 +109,7 @@ final class TextStrings
      * @see \PHPCSUtils\Utils\TextStrings::getCompleteTextString() Retrieve the contents of a complete - potentially
      *                                                             multi-line - text string.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  Pointer to the first text string token
@@ -195,7 +198,7 @@ final class TextStrings
      * Note: this function gets the complete variables/expressions _as they are embedded_,
      * i.e. including potential curly brace wrappers, array access, method calls etc.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
      *
@@ -210,7 +213,7 @@ final class TextStrings
     /**
      * Strip embedded variables/expressions from an arbitrary string.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
      *
@@ -238,7 +241,7 @@ final class TextStrings
      * @link https://wiki.php.net/rfc/deprecate_dollar_brace_string_interpolation    PHP RFC on deprecating select
      *                                                                               string interpolation syntaxes
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $text The contents of a T_DOUBLE_QUOTED_STRING or T_HEREDOC token.
      *

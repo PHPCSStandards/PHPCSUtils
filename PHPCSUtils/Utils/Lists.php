@@ -22,7 +22,6 @@ use PHPCSUtils\Utils\GetTokensAsString;
  * Utility functions to retrieve information when working with lists.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class Lists
 {
@@ -186,8 +185,6 @@ final class Lists
      * ```
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha3 The returned value has been simplified with sensible defaults and always
-     *                     available keys.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token

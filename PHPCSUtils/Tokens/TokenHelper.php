@@ -42,7 +42,7 @@ final class TokenHelper
      * @link https://github.com/sebastianbergmann/php-code-coverage/issues/798       PHP-Code-Coverage#798
      * @link https://github.com/nikic/PHP-Parser/blob/master/lib/PhpParser/Lexer.php PHP-Parser Lexer code
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $name The token name.
      *

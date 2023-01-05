@@ -21,12 +21,11 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @link https://www.php.net/language.operators PHP manual on operators.
  *
- * @since 1.0.0        The `isReference()` method is based on and inspired by
- *                     the method of the same name in the PHPCS native `File` class.
- *                     Also see {@see \PHPCSUtils\BackCompat\BCFile}.
- *                     The `isUnaryPlusMinus()` method is, in part, inspired by the
- *                     `Squiz.WhiteSpace.OperatorSpacing` sniff.
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
+ * @since 1.0.0 The `isReference()` method is based on and inspired by
+ *              the method of the same name in the PHPCS native `File` class.
+ *              Also see {@see \PHPCSUtils\BackCompat\BCFile}.
+ *              The `isUnaryPlusMinus()` method is, in part, inspired by the
+ *              `Squiz.WhiteSpace.OperatorSpacing` sniff.
  */
 final class Operators
 {
@@ -70,8 +69,6 @@ final class Operators
      * @see \PHPCSUtils\BackCompat\BCFile::isReference() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 Added support for PHP 7.4 arrow functions.
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the `T_BITWISE_AND` token.

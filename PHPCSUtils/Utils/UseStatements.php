@@ -21,7 +21,6 @@ use PHPCSUtils\Utils\Parentheses;
  * Utility functions for examining use statements.
  *
  * @since 1.0.0
- * @since 1.0.0-alpha4 Dropped support for PHPCS < 3.7.1.
  */
 final class UseStatements
 {
@@ -153,7 +152,6 @@ final class UseStatements
      * Handles single import, multi-import and group-import use statements.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha4 Added support for PHP 8.0 identifier name tokenization.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file where this token was found.
      * @param int                         $stackPtr  The position in the stack of the `T_USE` token.
@@ -357,7 +355,7 @@ final class UseStatements
      * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
      * @see \PHPCSUtils\Utils\UseStatements::mergeImportUseStatements()
      *
-     * @since 1.0.0-alpha3
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile             The file where this token was found.
      * @param int                         $stackPtr              The position in the stack of the `T_USE` token.
@@ -392,7 +390,7 @@ final class UseStatements
      *
      * @see \PHPCSUtils\Utils\UseStatements::splitImportUseStatement()
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param array $previousUseStatements The import `use` statements collected so far.
      *                                     This should be either the output of a

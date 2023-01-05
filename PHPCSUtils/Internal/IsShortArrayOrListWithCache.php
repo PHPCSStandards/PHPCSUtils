@@ -30,7 +30,7 @@ use PHPCSUtils\Tokens\Collections;
  *
  * @internal
  *
- * @since 1.0.0-alpha4
+ * @since 1.0.0
  */
 final class IsShortArrayOrListWithCache
 {
@@ -38,7 +38,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Key used for caching the return value of the short array/short list determination.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var string
      */
@@ -47,7 +47,7 @@ final class IsShortArrayOrListWithCache
     /**
      * The PHPCS file in which the current stackPtr was found.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var \PHP_CodeSniffer\Files\File
      */
@@ -56,7 +56,7 @@ final class IsShortArrayOrListWithCache
     /**
      * The token stack from the current file.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var array
      */
@@ -65,7 +65,7 @@ final class IsShortArrayOrListWithCache
     /**
      * The current stack pointer.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -74,7 +74,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Stack pointer to the open bracket.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @var int
      */
@@ -88,7 +88,7 @@ final class IsShortArrayOrListWithCache
      * PHPCS cross-version compatible as the short array tokenizing has been plagued by
      * a number of bugs over time.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array bracket token.
@@ -110,7 +110,7 @@ final class IsShortArrayOrListWithCache
      * PHPCS cross-version compatible as the short array tokenizing has been plagued by
      * a number of bugs over time, which affects the short list determination.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array bracket token.
@@ -131,7 +131,7 @@ final class IsShortArrayOrListWithCache
      * PHPCS cross-version compatible as the short array tokenizing has been plagued by
      * a number of bugs over time, which affects the short list determination.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array bracket token.
@@ -148,7 +148,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Constructor.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the short array bracket token.
@@ -166,7 +166,7 @@ final class IsShortArrayOrListWithCache
      * Determine whether a T_[OPEN|CLOSE}_[SHORT_ARRAY|SQUARE_BRACKET] token is a short array
      * or short list construct using previously cached results whenever possible.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return string|false The type of construct this bracket was determined to be.
      *                      Either 'short array', 'short list' or 'square brackets'.
@@ -208,7 +208,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Verify the passed token could potentially be a short array or short list token.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return bool
      */
@@ -221,7 +221,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Get the stack pointer to the short array/list opener.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return int
      */
@@ -238,7 +238,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Retrieve the bracket "type" of a token from the cache.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @return string|false The previously determined type (which could be an empty string)
      *                      or FALSE if no cache entry was found for this token.
@@ -255,7 +255,7 @@ final class IsShortArrayOrListWithCache
     /**
      * Update the cache with information about a particular bracket token.
      *
-     * @since 1.0.0-alpha4
+     * @since 1.0.0
      *
      * @param string $type The type this bracket has been determined to be.
      *                     Either 'short array', 'short list' or 'square brackets'.

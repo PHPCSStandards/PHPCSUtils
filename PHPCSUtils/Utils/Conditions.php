@@ -38,10 +38,6 @@ final class Conditions
      * @see \PHPCSUtils\BackCompat\BCFile::getCondition() Cross-version compatible version of the original.
      *
      * @since 1.0.0
-     * @since 1.0.0-alpha2 The `$reverse` parameter has been renamed to `$first` and the meaning of the
-     *                     boolean reversed (`true` = first, `false` = last, was: `true` = last, `false` = first)
-     *                     to be in line with PHPCS itself which added the `$first` parameter in v 3.5.4
-     *                     to allow for the same/similar functionality as `$reverse` already offered.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the token we are checking.
