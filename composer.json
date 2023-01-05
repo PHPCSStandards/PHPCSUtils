@@ -42,7 +42,7 @@
     "autoload-dev" : {
         "psr-4": {
             "PHPCSUtils\\Tests\\": "Tests/",
-            "PHPCSUtils\\GHPages\\": ".github/GHPages"
+            "PHPCSUtils\\GHPages\\": ".github/GHPages/"
         }
     },
     "extra": {
