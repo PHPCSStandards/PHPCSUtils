@@ -32,7 +32,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const DEVMASTER = '3.7.1';
+    const DEVMASTER = '3.7.2';
 
     /**
      * Test the method.
