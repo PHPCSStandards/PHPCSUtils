@@ -750,7 +750,7 @@ final class Collections
         $tokens[\T_UNSET] = \T_UNSET;
 
         // Array tokens.
-        $tokens += self::$arrayOpenTokensBC;
+        $tokens += self::arrayOpenTokensBC();
 
         return $tokens;
     }
