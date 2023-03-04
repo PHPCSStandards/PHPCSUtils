@@ -120,7 +120,7 @@ jobs:
           retention-days: 5
 
       - name: Setup GH Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v3
 
       - name: Build the GH Pages site with Jekyll
         uses: actions/jekyll-build-pages@v1
