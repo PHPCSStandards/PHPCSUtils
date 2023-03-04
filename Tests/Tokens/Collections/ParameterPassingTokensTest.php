@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -46,8 +47,11 @@ final class ParameterPassingTokensTest extends TestCase
             \T_UNSET                => \T_UNSET,
             \T_ARRAY                => \T_ARRAY,
             \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
-            \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
         ];
+
+        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
+            $expected[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
+        }
 
         $this->assertSame($expected, Collections::parameterPassingTokens());
     }
