@@ -57,7 +57,7 @@ jobs:
           ref: ${{ steps.branches.outputs.BASE }}
 
       - name: Update the version constant in the test file
-        uses: jacobtomlinson/gha-find-replace@v2
+        uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "const DEVMASTER = '[^']+';"
           replace: "const DEVMASTER = '${{ steps.version.outputs.TAG }}';"
