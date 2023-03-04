@@ -123,7 +123,7 @@ final class Collections
      *
      * @since 1.0.0 Use the {@see Collections::arrayOpenTokensBC()} method for access.
      *
-     * @return array <int|string> => <int|string>
+     * @var array <int|string> => <int|string>
      */
     private static $arrayOpenTokensBC = [
         \T_ARRAY               => \T_ARRAY,
@@ -253,7 +253,7 @@ final class Collections
      *
      * @since 1.0.0 Use the {@see Collections::functionDeclarationTokens()} method for access.
      *
-     * @return array <int|string> => <int|string>
+     * @var array <int|string> => <int|string>
      */
     private static $functionDeclarationTokens = [
         \T_FUNCTION => \T_FUNCTION,
@@ -287,7 +287,7 @@ final class Collections
      *
      * @since 1.0.0 Use the {@see Collections::listOpenTokensBC()} method for access.
      *
-     * @return array <int|string> => <int|string>
+     * @var array <int|string> => <int|string>
      */
     private static $listOpenTokensBC = [
         \T_LIST                => \T_LIST,
@@ -361,7 +361,7 @@ final class Collections
      *
      * @since 1.0.0 Use the {@see Collections::nameTokens()} method for access.
      *
-     * @return array <int|string> => <int|string>
+     * @var array <int|string> => <int|string>
      */
     private static $nameTokens = [
         \T_STRING               => \T_STRING,
@@ -479,7 +479,7 @@ final class Collections
      *
      * @since 1.0.0 Use the {@see Collections::phpOpenTags()} method for access.
      *
-     * @return array <int|string> => <int|string>
+     * @var array <int|string> => <int|string>
      */
     private static $phpOpenTags = [
         \T_OPEN_TAG           => \T_OPEN_TAG,
@@ -545,7 +545,7 @@ final class Collections
      *
      * @since 1.0.0 Use the {@see Collections::shortArrayListOpenTokensBC()} method for access.
      *
-     * @return array <int|string> => <int|string>
+     * @var array <int|string> => <int|string>
      */
     private static $shortArrayListOpenTokensBC = [
         \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
