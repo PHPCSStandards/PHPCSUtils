@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 
 /**
