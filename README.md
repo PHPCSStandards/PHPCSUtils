@@ -284,7 +284,7 @@ If you are unsure whether the changes you are proposing would be welcome, please
 
 ## License
 
-This code is released under the [GNU Lesser General Public License (LGPLv3)](https://www.gnu.org/copyleft/lesser.html).
+This code is released under the [GNU Lesser General Public License (LGPLv3)](LICENSE).
 
 
 [PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
