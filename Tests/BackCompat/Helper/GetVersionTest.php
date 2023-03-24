@@ -50,6 +50,10 @@ final class GetVersionTest extends TestCase
             return;
         }
 
+        if ($expected === 'lowest') {
+            $expected = '3.7.1';
+        }
+
         $result = Helper::getVersion();
 
         if ($expected === 'dev-master') {
