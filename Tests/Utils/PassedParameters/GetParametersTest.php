@@ -620,6 +620,28 @@ final class GetParametersTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+
+            'function-call-with-missing-param-midway' => [
+                'testMarker' => '/* testMissingParam */',
+                'targetType' => \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 3,
+                        'raw'   => '$value',
+                    ],
+                    2 => [
+                        'start' => 5,
+                        'end'   => 6,
+                        'raw'   => '/* todo */',
+                    ],
+                    3 => [
+                        'start' => 8,
+                        'end'   => 9,
+                        'raw'   => '$anotherValue',
+                    ],
+                ],
+            ],
         ];
     }
 
