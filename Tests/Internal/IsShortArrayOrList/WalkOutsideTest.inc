@@ -99,6 +99,10 @@ $var = $closure($arg, [$arg], $arg);
 /* testOuterShortArrayStopAtParensFnCall */
 $var = $fn($arg, [$arg], $arg);
 
+/* testInnerShortListStopAtParensLongList */
+// Invalid list as mixing short list syntax with list() is not allowed, but it is short list syntax.
+list($a, [$b, $c], $d) = $array;
+
 
 /* ===== Tests verifying that the loop stops as quickly as possible for INNER brackets. ===== */
 

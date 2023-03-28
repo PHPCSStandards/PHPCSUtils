@@ -613,6 +613,12 @@ final class IsShortArrayOrList
                 if ($i === $this->tokens[$i]['parenthesis_opener']
                     && $this->tokens[$i]['parenthesis_closer'] > $this->closer
                 ) {
+                    $beforeParensOpen = $this->phpcsFile->findPrevious(Tokens::$emptyTokens, ($i - 1), null, true);
+                    if ($this->tokens[$beforeParensOpen]['code'] === \T_LIST) {
+                        // Parse error, mixing long and short list, but that's not our concern.
+                        return self::SHORT_LIST;
+                    }
+
                     // Found parentheses wrapping this set of brackets before finding a outer set of brackets.
                     // This will be a short array.
                     return self::SHORT_ARRAY;
