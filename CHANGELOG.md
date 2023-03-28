@@ -9,6 +9,32 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.2] - 2023-03-28
+
+### Changed
+
+#### Tokens
+
+* The `Collections::arrayOpenTokensBC()`, `Collections::arrayTokensBC()`, `Collections::listOpenTokensBC()`, `Collections::listTokensBC()`, `Collections::shortArrayListOpenTokensBC()`, `Collections::shortArrayTokensBC()` and `Collections::shortListTokensBC()` token arrays will no longer contain the `T_OPEN_SQUARE_BRACKET` and/or the `T_CLOSE_SQUARE_BRACKET` token constants if PHP_CodeSniffer 3.7.2 or higher is used. [#444]
+    An upstream bugfix makes it unnecessary to check those tokens for being a short array or short list.
+    Sniff which use these token arrays is combination with using the `Arrays`/`Lists` classes, should experience a performance boost on PHPCS 3.7.2+ due to this change.
+
+#### Other
+
+* Minor documentation improvements.
+* Various small housekeeping and maintenance updates.
+
+### Fixed
+
+#### Utils
+
+* The `Lists::isShortList()` method will now correctly recognize a short list nested in a long list as a short list. [#446]
+    Note: this is a parse error in PHP, but the method should still handle this correctly.
+
+[#444]: https://github.com/PHPCSStandards/PHPCSUtils/pull/444
+[#446]: https://github.com/PHPCSStandards/PHPCSUtils/pull/446
+
+
 ## [1.0.1] - 2023-01-05
 
 ### Changed
@@ -18,7 +44,7 @@ _Nothing yet._
 * Composer: The version requirements for the [Composer PHPCS plugin] have been widened to allow for version 1.0.0. [#428]
     Please ensure you run `composer update phpcsstandards/phpcsutils --with-dependencies` to benefit from this.
 * Removed the references to pre-1.0.0 QA releases from the docs. [#425]
-* Various small housekeeping and maintainance updates. Thanks [@szepeviktor] for contributing.
+* Various small housekeeping and maintenance updates. Thanks [@szepeviktor] for contributing.
 
 [#425]: https://github.com/PHPCSStandards/PHPCSUtils/pull/425
 [#428]: https://github.com/PHPCSStandards/PHPCSUtils/pull/428
@@ -58,7 +84,7 @@ For the full list of features, please see the changelogs of the alpha/rc release
 
 #### Other
 
-* Various housekeeping and CI maintainance.
+* Various housekeeping and CI maintenance.
 
 ### Removed
 
@@ -259,7 +285,7 @@ Please report any bugs/oversights you encounter!
 * Composer: The package will now identify itself as a static analysis tool. Thanks [@GaryJones]! [#341]
 * Readme/website homepage: the installation instructions have been updated to include information on installing this library and the included [Composer PHPCS plugin] in combination with Composer >= 2.2. [#291], [#292]
 * Various documentation improvements. [#216], [#309], [#394], [#395], [#396], [#398]
-* Various housekeeping and CI maintainance.
+* Various housekeeping and CI maintenance.
     Amongst other things, CI is now run via GitHub Actions ([#239]), the PHPCSUtils native tests now use the [PHPUnit Polyfills] package ([#277]) and the tests are now run against PHP 5.4 - 8.2.
 
 ### Deprecated
@@ -779,6 +805,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.1...1.0.2
 [1.0.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0...1.0.1
 [1.0.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-rc1...1.0.0
 [1.0.0-rc1]:    https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-alpha4...1.0.0-rc1
