@@ -11,8 +11,8 @@
 namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
 use PHPCSUtils\Internal\IsShortArrayOrList;
+use PHPCSUtils\Internal\StableCollections;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\Internal\IsShortArrayOrList class.
@@ -36,7 +36,7 @@ final class SolveTest extends UtilityMethodTestCase
      */
     public function testSolve($testMarker, $expected)
     {
-        $stackPtr = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
+        $stackPtr = $this->getTargetToken($testMarker, StableCollections::$shortArrayListOpenTokensBC);
         $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
         $type     = $solver->solve();
 

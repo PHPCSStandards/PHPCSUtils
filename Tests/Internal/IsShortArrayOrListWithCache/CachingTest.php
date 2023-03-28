@@ -13,8 +13,8 @@ namespace PHPCSUtils\Tests\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Internal\IsShortArrayOrList;
 use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
+use PHPCSUtils\Internal\StableCollections;
 use PHPCSUtils\Tests\Internal\IsShortArrayOrListWithCache\IsShortArrayOrListWithCacheTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for the \PHPCSUtils\Utils\IsShortArrayOrListWithCache class.
@@ -41,7 +41,7 @@ final class CachingTest extends IsShortArrayOrListWithCacheTestCase
      */
     public function testResultIsCached($testMarker, $expected)
     {
-        $opener = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
+        $opener = $this->getTargetToken($testMarker, StableCollections::$shortArrayListOpenTokensBC);
         $closer = $this->getTargetToken($testMarker, [\T_CLOSE_SHORT_ARRAY, \T_CLOSE_SQUARE_BRACKET]);
 
         // Verify the caching works.
