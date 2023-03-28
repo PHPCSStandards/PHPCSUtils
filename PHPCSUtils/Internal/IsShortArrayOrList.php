@@ -472,7 +472,7 @@ final class IsShortArrayOrList
              * If we encounter a completely empty item, this must be a short list as arrays cannot contain
              * empty items.
              */
-            if ($item['raw'] === '') {
+            if ($item['clean'] === '') {
                 return self::SHORT_LIST;
             }
 
