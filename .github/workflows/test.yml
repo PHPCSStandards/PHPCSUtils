@@ -60,7 +60,7 @@ jobs:
         if: ${{ matrix.php >= 8.3 }}
         uses: "ramsey/composer-install@v2"
         with:
-          composer-options: --ignore-platform-reqs
+          composer-options: --ignore-platform-req=php+
           custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: "Lint against parse errors (PHP < 7.2)"
@@ -92,13 +92,13 @@ jobs:
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
         php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
-        phpcs_version: ['3.7.1', 'dev-master']
+        phpcs_version: ['lowest', 'dev-master']
         risky: [false]
         experimental: [false]
 
         include:
           - php: '5.6'
-            phpcs_version: '3.7.1'
+            phpcs_version: 'lowest'
             risky: false
             experimental: false
             extensions: ':iconv' # Run with iconv disabled.
@@ -126,7 +126,7 @@ jobs:
             experimental: true
 
           - php: '5.4'
-            phpcs_version: '3.7.1'
+            phpcs_version: 'lowest'
             risky: true
             experimental: true
 
@@ -136,7 +136,7 @@ jobs:
             experimental: true
 
           - php: '8.2'
-            phpcs_version: '3.7.1'
+            phpcs_version: 'lowest'
             risky: true
             experimental: true
 
@@ -172,8 +172,9 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      - name: 'Composer: set PHPCS version for tests'
-        run: composer require --no-update squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}"
+      - name: "Composer: set PHPCS version for tests (master)"
+        if: ${{ matrix.phpcs_version != 'lowest' }}
+        run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
       - name: 'Composer: remove PHPCSDevCS'
@@ -193,8 +194,12 @@ jobs:
         if: ${{ matrix.php >= 8.3 }}
         uses: "ramsey/composer-install@v2"
         with:
-          composer-options: --ignore-platform-reqs
+          composer-options: --ignore-platform-req=php+
           custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: "Composer: set PHPCS version for tests (lowest)"
+        if: ${{ matrix.phpcs_version == 'lowest' }}
+        run: composer update squizlabs/php_codesniffer --prefer-lowest --no-scripts --no-interaction
 
       - name: Run the unit tests without caching (non-risky)
         if: ${{ matrix.risky == false }}
@@ -246,12 +251,12 @@ jobs:
           - php: '8.2'
             phpcs_version: 'dev-master'
           - php: '8.2'
-            phpcs_version: '3.7.1'
+            phpcs_version: 'lowest'
             extensions: ':iconv' # Run one build with iconv disabled.
           - php: '5.4'
             phpcs_version: 'dev-master'
           - php: '5.4'
-            phpcs_version: '3.7.1'
+            phpcs_version: 'lowest'
 
     name: "Coverage: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
@@ -281,16 +286,19 @@ jobs:
       - name: "DEBUG: Show version details"
         run: php -v
 
-      - name: 'Composer: adjust dependencies'
-        run: |
-          # Set a specific PHPCS version.
-          composer require --no-update squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-scripts
+      - name: "Composer: set PHPCS version for tests (master)"
+        if: ${{ matrix.phpcs_version != 'lowest' }}
+        run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v2"
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: "Composer: set PHPCS version for tests (lowest)"
+        if: ${{ matrix.phpcs_version == 'lowest' }}
+        run: composer update squizlabs/php_codesniffer --prefer-lowest --no-scripts --no-interaction
 
       - name: Grab PHPUnit version
         id: phpunit_version
@@ -331,9 +339,10 @@ jobs:
           php-version: 7.4
           coverage: none
 
+      # Global install is used to prevent a conflict with the local composer.lock in PHP 8.0+.
       - name: Install Coveralls
         if: ${{ success() }}
-        run: composer require php-coveralls/php-coveralls:"^2.4.2"
+        run: composer global require php-coveralls/php-coveralls:"^2.5.3" --no-interaction
 
       - name: Upload coverage results to Coveralls
         if: ${{ success() }}
@@ -341,7 +350,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
           COVERALLS_FLAG_NAME: php-${{ matrix.php }}-phpcs-${{ matrix.phpcs_version }}
-        run: vendor/bin/php-coveralls -v -x build/logs/clover.xml
+        run: php-coveralls -v -x build/logs/clover.xml
 
   coveralls-finish:
     needs: coverage
@@ -351,7 +360,7 @@ jobs:
 
     steps:
       - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true

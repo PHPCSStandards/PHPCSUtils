@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -53,9 +54,8 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
         $target    = $this->getTargetToken($testMarker, [$targetType]);
         $hasParams = PassedParameters::hasParameters(self::$phpcsFile, $target);
 
-        if ($expectException === false) {
-            $this->assertIsBool($hasParams);
-        }
+        // Will only be asserted when no exception is expected/caught.
+        $this->assertIsBool($hasParams);
     }
 
     /**
@@ -73,6 +73,17 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      */
     public function testGetParametersSkipShortArrayCheck($testMarker, $targetType, $ignore, $expected)
     {
+        /*
+         * Expect an exception on PHPCS versions when square brackets will never be a short array.
+         * Note: this also means that the "$expected" value will not be tested as the exception
+         * will be received before the code reaches that point.
+         */
+        if ($targetType === \T_OPEN_SQUARE_BRACKET && \version_compare(Helper::getVersion(), '3.7.1', '>')) {
+            $this->expectPhpcsException(
+                'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+            );
+        }
+
         $stackPtr = $this->getTargetToken($testMarker, [$targetType]);
         $result   = PassedParameters::getParameters(self::$phpcsFile, $stackPtr, 0, true);
 
@@ -162,12 +173,24 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                     ],
                 ],
             ],
+            /*
+             * This test will result in an (expected) Exception when run on PHPCS versions which
+             * correctly tokenize short arrays.
+             * The `T_OPEN_SQUARE_BRACKET` will (correctly) not be supported by the PassedParameters
+             * class for those PHPCS versions.
+             */
             'array-assign' => [
                 'testMarker' => '/* testArrayAssign */',
                 'targetType' => \T_OPEN_SQUARE_BRACKET,
                 'ignore'     => true,
                 'expected'   => [],
             ],
+            /*
+             * This test will result in an (expected) Exception when run on PHPCS versions which
+             * correctly tokenize short arrays.
+             * The `T_OPEN_SQUARE_BRACKET` will (correctly) not be supported by the PassedParameters
+             * class for those PHPCS versions.
+             */
             'array-access' => [
                 'testMarker' => '/* testArrayAccess */',
                 'targetType' => \T_OPEN_SQUARE_BRACKET,

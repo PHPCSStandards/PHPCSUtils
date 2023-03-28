@@ -11,7 +11,6 @@
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 
 /**
@@ -64,11 +63,11 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
         return [
             'short-list' => [
                 'testMarker'  => '/* testShortList */',
-                'targetToken' => Collections::shortArrayListOpenTokensBC(),
+                'targetToken' => \T_OPEN_SHORT_ARRAY,
             ],
             'array-access-square-bracket' => [
                 'testMarker'  => '/* testArrayAccess */',
-                'targetToken' => Collections::shortArrayListOpenTokensBC(),
+                'targetToken' => \T_OPEN_SQUARE_BRACKET,
             ],
             'short-array-closer' => [
                 'testMarker'  => '/* testNestedShortArray */',

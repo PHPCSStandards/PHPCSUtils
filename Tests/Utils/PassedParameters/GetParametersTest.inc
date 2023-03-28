@@ -143,3 +143,6 @@ $result = function_call(
     #[AnotherAttribute([1, 2, 3])]
     function() { /* do something */}
 );
+
+/* testMissingParam */
+$result = function_call( $value, /* todo */, $anotherValue); // Parse error, but that's not our concern.

@@ -11,8 +11,8 @@
 namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
 use PHPCSUtils\Internal\IsShortArrayOrList;
+use PHPCSUtils\Internal\StableCollections;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use PHPCSUtils\Tokens\Collections;
 
 /**
  * Tests for specific PHPCS tokenizer issues which can affect the "is short list vs short array"
@@ -38,7 +38,7 @@ final class IsShortArrayBracketBC5Test extends UtilityMethodTestCase
      */
     public function testIsShortArrayBracket($testMarker, $expected)
     {
-        $stackPtr = $this->getTargetToken($testMarker, Collections::shortArrayListOpenTokensBC());
+        $stackPtr = $this->getTargetToken($testMarker, StableCollections::$shortArrayListOpenTokensBC);
         $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 

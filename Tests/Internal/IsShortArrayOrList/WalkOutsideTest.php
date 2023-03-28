@@ -97,6 +97,10 @@ final class WalkOutsideTest extends UtilityMethodTestCase
                 'testMarker' => '/* testOuterShortArrayStopAtParensFnCall */',
                 'expected'   => IsShortArrayOrList::SHORT_ARRAY,
             ],
+            'inner-short-list-stop-test-parens-open-4' => [
+                'testMarker' => '/* testInnerShortListStopAtParensLongList */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
 
             'inner-short-array-stop-test-curly-open' => [
                 'testMarker' => '/* testShortArrayInShortArrayStopAtCurly */',

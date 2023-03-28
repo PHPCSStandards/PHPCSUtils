@@ -32,7 +32,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const DEVMASTER = '3.7.1';
+    const DEVMASTER = '3.7.2';
 
     /**
      * Test the method.
@@ -48,6 +48,10 @@ final class GetVersionTest extends TestCase
                 . ' or when this variable has been set in the PHPUnit configuration file.');
 
             return;
+        }
+
+        if ($expected === 'lowest') {
+            $expected = '3.7.1';
         }
 
         $result = Helper::getVersion();

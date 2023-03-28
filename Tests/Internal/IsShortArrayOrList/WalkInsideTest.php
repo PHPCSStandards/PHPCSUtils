@@ -225,6 +225,10 @@ final class WalkInsideTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedShortListEmptyEntryInMiddle */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
+            'nested-short-list-empty-entry-in-middle-with-comment' => [
+                'testMarker' => '/* testNestedShortListEmptyEntryInMiddleWithComment */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
             'nested-short-list-empty-entry-at-end' => [
                 'testMarker' => '/* testNestedShortListEmptyEntryAtEnd */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,

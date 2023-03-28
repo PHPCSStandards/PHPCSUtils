@@ -182,6 +182,9 @@ $match = match($foo) {
     default => 20,
 };
 
+/* testShortArrayNestedInLongArray */
+$val = array($a, [$b, $c], $d);
+
 
 /* ===== Tests involving various illegal syntaxes/parse errors. ===== */
 
@@ -195,6 +198,10 @@ $match = match($foo) {
 /* testShortListNestedLongList */
 // Invalid list as mixing short list syntax with list() is not allowed, but it is short list syntax.
 [list($a, $b), list($c, $d)] = [[1, 2], [3, 4]];
+
+/* testLongListNestedShortList */
+// Invalid list as mixing short list syntax with list() is not allowed, but it is short list syntax.
+list($a, [$b, $c], $d) = $array;
 
 /* testNestedAnonClassWithTraitUseAs */
 // Parse error, but not our concern, it is short array syntax.
