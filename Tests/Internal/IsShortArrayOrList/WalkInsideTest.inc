@@ -139,6 +139,8 @@ $array = [
     [, $a, $b],
     /* testNestedShortListEmptyEntryInMiddle */
     [$a,, $b],
+    /* testNestedShortListEmptyEntryInMiddleWithComment */
+    [$a, /*empty*/, $b],
     /* testNestedShortListEmptyEntryAtEnd */
     [$a, $b, , ],
 
