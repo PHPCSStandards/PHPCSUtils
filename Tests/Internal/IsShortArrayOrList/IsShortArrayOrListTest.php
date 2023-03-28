@@ -338,6 +338,10 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedShortListReturnedFromMatchExpression */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
+            'short-array-nested-in-long-array' => [
+                'testMarker' => '/* testShortArrayNestedInLongArray */',
+                'expected'   => IsShortArrayOrList::SHORT_ARRAY,
+            ],
 
             // Invalid syntaxes.
             'short-list-nested-empty' => [
@@ -350,6 +354,10 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
             ],
             'short-list-nested-long-list' => [
                 'testMarker' => '/* testShortListNestedLongList */',
+                'expected'   => IsShortArrayOrList::SHORT_LIST,
+            ],
+            'long-list-with-nested-short-list' => [
+                'testMarker' => '/* testLongListNestedShortList */',
                 'expected'   => IsShortArrayOrList::SHORT_LIST,
             ],
             'parse-error-anon-class-trait-use-as' => [
