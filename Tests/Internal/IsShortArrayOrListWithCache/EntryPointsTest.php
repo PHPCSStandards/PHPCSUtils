@@ -12,8 +12,8 @@ namespace PHPCSUtils\Tests\Internal\IsShortArrayOrListWithCache;
 
 use PHPCSUtils\Internal\IsShortArrayOrList;
 use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
+use PHPCSUtils\Internal\StableCollections;
 use PHPCSUtils\Tests\Internal\IsShortArrayOrListWithCache\IsShortArrayOrListWithCacheTestCase;
-use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Lists;
 
@@ -138,8 +138,6 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      */
     public function dataEntryPoints()
     {
-        $defaultTargets = Collections::shortArrayListOpenTokensBC();
-
         return [
             'not a square bracket' => [
                 'testMarker' => '/* testLongArray */',
@@ -147,15 +145,15 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
             ],
             'short array' => [
                 'testMarker' => '/* testShortArray */',
-                'targetType' => $defaultTargets,
+                'targetType' => StableCollections::$shortArrayListOpenTokensBC,
             ],
             'short list' => [
                 'testMarker' => '/* testShortList */',
-                'targetType' => $defaultTargets,
+                'targetType' => StableCollections::$shortArrayListOpenTokensBC,
             ],
             'square bracket' => [
                 'testMarker' => '/* testSquareBrackets */',
-                'targetType' => $defaultTargets,
+                'targetType' => StableCollections::$shortArrayListOpenTokensBC,
             ],
         ];
     }

@@ -16,6 +16,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
+use PHPCSUtils\Internal\StableCollections;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Context;
@@ -187,7 +188,7 @@ final class IsShortArrayOrList
     public function __construct(File $phpcsFile, $stackPtr)
     {
         $tokens       = $phpcsFile->getTokens();
-        $openBrackets = Collections::shortArrayListOpenTokensBC();
+        $openBrackets = StableCollections::$shortArrayListOpenTokensBC;
 
         if (isset($tokens[$stackPtr]) === false
             || isset($openBrackets[$tokens[$stackPtr]['code']]) === false
