@@ -85,6 +85,9 @@ enum Hoo : string
 /* testBackedEnumNoSpaceBetweenNameAndColon */
 enum Suit: int implements Colorful, CardGame {}
 
+/* testFunctionReturnByRefWithReservedKeywordEach */
+function &each() {}
+
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 function // Comment.

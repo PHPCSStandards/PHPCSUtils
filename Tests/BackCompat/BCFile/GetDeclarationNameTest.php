@@ -192,6 +192,10 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testBackedEnumNoSpaceBetweenNameAndColon */',
                 'Suit',
             ],
+            'function-return-by-reference-with-reserved-keyword-each' => [
+                '/* testFunctionReturnByRefWithReservedKeywordEach */',
+                'each',
+            ],
         ];
     }
 }
