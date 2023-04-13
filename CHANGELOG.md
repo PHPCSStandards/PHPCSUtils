@@ -9,6 +9,23 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.3] - 2023-04-13
+
+### Changed
+
+#### Other
+
+* Various small housekeeping and maintenance updates.
+
+### Fixed
+
+#### Utils
+
+* The `PassedParameters` class now allows for function calls to global functions called `self()`, `parent()` or `static()`. [#452]
+
+[#452]: https://github.com/PHPCSStandards/PHPCSUtils/pull/452
+
+
 ## [1.0.2] - 2023-03-28
 
 ### Changed
@@ -805,6 +822,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.2...1.0.3
 [1.0.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.1...1.0.2
 [1.0.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0...1.0.1
 [1.0.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0-rc1...1.0.0
