@@ -196,6 +196,18 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
                 '/* testFunctionReturnByRefWithReservedKeywordEach */',
                 'each',
             ],
+            'function-return-by-reference-with-reserved-keyword-parent' => [
+                '/* testFunctionReturnByRefWithReservedKeywordParent */',
+                'parent',
+            ],
+            'function-return-by-reference-with-reserved-keyword-self' => [
+                '/* testFunctionReturnByRefWithReservedKeywordSelf */',
+                'self',
+            ],
+            'function-return-by-reference-with-reserved-keyword-static' => [
+                '/* testFunctionReturnByRefWithReservedKeywordStatic */',
+                'static',
+            ],
         ];
     }
 }
