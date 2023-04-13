@@ -74,6 +74,15 @@ class HierarchyKeywordsAsMethodNames {
         /* testHasParamsFunctionCall8 */
         $a = $this->parent(true);
     }
+
+    public function callGlobalFunctionsUsingKeywords() {
+        /* testHasParamsFunctionCall9 */
+        $a = self(true);
+        /* testHasParamsFunctionCall10 */
+        $a = static(true);
+        /* testHasParamsFunctionCall11 */
+        $a = parent(true);
+    }
 }
 
 /* testNoParamsFunctionCallFullyQualified */
