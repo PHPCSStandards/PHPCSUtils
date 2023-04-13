@@ -124,11 +124,11 @@ final class HasParametersTest extends UtilityMethodTestCase
      *
      * @dataProvider dataHasParameters
      *
-     * @param string     $testMarker    The comment which prefaces the target token in the test file.
-     * @param int|string $targetType    The type of token to look for.
-     * @param bool       $expected      Whether or not the function/array has parameters/values.
-     * @param string     $targetContent Optional. The content of the target token to find.
-     *                                  Defaults to null (ignore content).
+     * @param string           $testMarker    The comment which prefaces the target token in the test file.
+     * @param int|string|array $targetType    The type(s) of token to look for.
+     * @param bool             $expected      Whether or not the function/array has parameters/values.
+     * @param string           $targetContent Optional. The content of the target token to find.
+     *                                        Defaults to null (ignore content).
      *
      * @return void
      */
@@ -228,6 +228,25 @@ final class HasParametersTest extends UtilityMethodTestCase
             'has-params-function-call-8-parent-as-method-name' => [
                 'testMarker'    => '/* testHasParamsFunctionCall8 */',
                 'targetType'    => \T_STRING,
+                'expected'      => true,
+                'targetContent' => 'parent',
+            ],
+            'has-params-function-call-9-self-as-global-function-name' => [
+                'testMarker'    => '/* testHasParamsFunctionCall9 */',
+                'targetType'    => [\T_STRING, \T_SELF],
+                'expected'      => true,
+                'targetContent' => 'self',
+            ],
+            // Parse error in PHP, but not our concern.
+            'has-params-function-call-10-static-as-global-function-name' => [
+                'testMarker'    => '/* testHasParamsFunctionCall10 */',
+                'targetType'    => [\T_STRING, \T_STATIC],
+                'expected'      => true,
+                'targetContent' => 'static',
+            ],
+            'has-params-function-call-11-parent-as-global-function-name' => [
+                'testMarker'    => '/* testHasParamsFunctionCall11 */',
+                'targetType'    => [\T_STRING, \T_PARENT],
                 'expected'      => true,
                 'targetContent' => 'parent',
             ],
