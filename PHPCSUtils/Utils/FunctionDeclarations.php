@@ -148,6 +148,7 @@ final class FunctionDeclarations
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
      * - Support for PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
+     * - Support for constructor property promotion with the PHP 8.1 readonly keyword without explicit visibility.
      * - Support for the PHP 8.2 `true` type.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
@@ -345,11 +346,12 @@ final class FunctionDeclarations
      *
      * Parameters declared using PHP 8 constructor property promotion, have these additional array indexes:
      * ```php
-     *   'property_visibility' => string, // The property visibility as declared.
-     *   'visibility_token'    => int,    // The stack pointer to the visibility modifier token.
-     *   'property_readonly'   => bool,   // TRUE if the readonly keyword was found.
-     *   'readonly_token'      => int,    // The stack pointer to the readonly modifier token.
-     *                                    // This index will only be set if the property is readonly.
+     *   'property_visibility' => string,    // The property visibility as declared.
+     *   'visibility_token'    => int|false, // The stack pointer to the visibility modifier token.
+     *                                       // or FALSE if the visibility is not explicitly declared.
+     *   'property_readonly'   => bool,      // TRUE if the readonly keyword was found.
+     *   'readonly_token'      => int,       // The stack pointer to the readonly modifier token.
+     *                                       // This index will only be set if the property is readonly.
      * ```
      *
      * Main differences with the PHPCS version:
@@ -533,15 +535,20 @@ final class FunctionDeclarations
                     $vars[$paramCount]['type_hint_end_token'] = $typeHintEndToken;
                     $vars[$paramCount]['nullable_type']       = $nullableType;
 
-                    if ($visibilityToken !== null) {
-                        $vars[$paramCount]['property_visibility'] = $tokens[$visibilityToken]['content'];
-                        $vars[$paramCount]['visibility_token']    = $visibilityToken;
+                    if ($visibilityToken !== null || $readonlyToken !== null) {
+                        $vars[$paramCount]['property_visibility'] = 'public';
+                        $vars[$paramCount]['visibility_token']    = false;
                         $vars[$paramCount]['property_readonly']   = false;
-                    }
 
-                    if ($readonlyToken !== null) {
-                        $vars[$paramCount]['property_readonly'] = true;
-                        $vars[$paramCount]['readonly_token']    = $readonlyToken;
+                        if ($visibilityToken !== null) {
+                            $vars[$paramCount]['property_visibility'] = $tokens[$visibilityToken]['content'];
+                            $vars[$paramCount]['visibility_token']    = $visibilityToken;
+                        }
+
+                        if ($readonlyToken !== null) {
+                            $vars[$paramCount]['property_readonly'] = true;
+                            $vars[$paramCount]['readonly_token']    = $readonlyToken;
+                        }
                     }
 
                     if ($tokens[$i]['code'] === \T_COMMA) {
