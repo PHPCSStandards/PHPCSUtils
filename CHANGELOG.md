@@ -9,6 +9,23 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.4] - 2023-04-15
+
+### Changed
+
+#### Other
+
+* Minor documentation improvements.
+
+### Fixed
+
+#### Utils
+
+* The `FunctionDeclarations::getParameters()` method will now correctly handle constructor promoted properties with `readonly`, but without explicit visibility set. [#456]
+
+[#456]: https://github.com/PHPCSStandards/PHPCSUtils/pull/456
+
+
 ## [1.0.3] - 2023-04-13
 
 ### Changed
@@ -822,6 +839,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.4]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.3...1.0.4
 [1.0.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.2...1.0.3
 [1.0.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.1...1.0.2
 [1.0.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.0...1.0.1
