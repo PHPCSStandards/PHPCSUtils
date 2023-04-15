@@ -314,25 +314,25 @@ final class FunctionDeclarations
      *
      * ```php
      * 0 => array(
-     *   'name'                => string, // The variable name.
-     *   'token'               => int,    // The stack pointer to the variable name.
-     *   'content'             => string, // The full content of the variable definition.
-     *   'has_attributes'      => bool,   // Does the parameter have one or more attributes attached ?
-     *   'pass_by_reference'   => bool,   // Is the variable passed by reference?
-     *   'reference_token'     => int,    // The stack pointer to the reference operator
-     *                                    // or FALSE if the param is not passed by reference.
-     *   'variable_length'     => bool,   // Is the param of variable length through use of `...` ?
-     *   'variadic_token'      => int,    // The stack pointer to the ... operator
-     *                                    // or FALSE if the param is not variable length.
-     *   'type_hint'           => string, // The type hint for the variable.
-     *   'type_hint_token'     => int,    // The stack pointer to the start of the type hint
-     *                                    // or FALSE if there is no type hint.
-     *   'type_hint_end_token' => int,    // The stack pointer to the end of the type hint
-     *                                    // or FALSE if there is no type hint.
-     *   'nullable_type'       => bool,   // TRUE if the var type is preceded by the nullability
-     *                                    // operator.
-     *   'comma_token'         => int,    // The stack pointer to the comma after the param
-     *                                    // or FALSE if this is the last param.
+     *   'name'                => string,    // The variable name.
+     *   'token'               => int,       // The stack pointer to the variable name.
+     *   'content'             => string,    // The full content of the variable definition.
+     *   'has_attributes'      => bool,      // Does the parameter have one or more attributes attached ?
+     *   'pass_by_reference'   => bool,      // Is the variable passed by reference?
+     *   'reference_token'     => int|false, // The stack pointer to the reference operator
+     *                                       // or FALSE if the param is not passed by reference.
+     *   'variable_length'     => bool,      // Is the param of variable length through use of `...` ?
+     *   'variadic_token'      => int|false, // The stack pointer to the ... operator
+     *                                       // or FALSE if the param is not variable length.
+     *   'type_hint'           => string,    // The type hint for the variable.
+     *   'type_hint_token'     => int|false, // The stack pointer to the start of the type hint
+     *                                       // or FALSE if there is no type hint.
+     *   'type_hint_end_token' => int|false, // The stack pointer to the end of the type hint
+     *                                       // or FALSE if there is no type hint.
+     *   'nullable_type'       => bool,      // TRUE if the var type is preceded by the nullability
+     *                                       // operator.
+     *   'comma_token'         => int|false, // The stack pointer to the comma after the param
+     *                                       // or FALSE if this is the last param.
      * )
      * ```
      *
@@ -349,6 +349,7 @@ final class FunctionDeclarations
      *   'visibility_token'    => int,    // The stack pointer to the visibility modifier token.
      *   'property_readonly'   => bool,   // TRUE if the readonly keyword was found.
      *   'readonly_token'      => int,    // The stack pointer to the readonly modifier token.
+     *                                    // This index will only be set if the property is readonly.
      * ```
      *
      * Main differences with the PHPCS version:
