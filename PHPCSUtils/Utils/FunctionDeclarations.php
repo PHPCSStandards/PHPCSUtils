@@ -148,7 +148,6 @@ final class FunctionDeclarations
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
      * - Support for PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
-     * - Support for constructor property promotion with the PHP 8.1 readonly keyword without explicit visibility.
      * - Support for the PHP 8.2 `true` type.
      * - The results of this function call are cached during a PHPCS run for faster response times.
      *
