@@ -81,6 +81,22 @@ list(
         list("x" => $x2, "y" => $y2)
 ) = $points;
 
+/* testKeyedLongListWithCommasInKey */
+list(
+    $map->getKey($type, $urls) => $x,
+    array( $tab, $tabs ) => &$y['key'][$tab],
+    get($year, $day) => $z[$year],
+    #[MyAttribute]
+    function($a, $b) { return 'key'; } => $a
+) = $array;
+
+/* testKeyedShortListWithCommasInKeyAndTrailingComma */
+[
+    $map->getKey($type, $urls) => $x,
+    [$tab, $tabs] => &$y['key'][$tab],
+    get($year, $day) => $z[$year],
+] = $array;
+
 /* testLongListMixedKeyedUnkeyed */
 // Parse error, but not our concern.
 list($unkeyed, "key" => $keyed) = $array;
