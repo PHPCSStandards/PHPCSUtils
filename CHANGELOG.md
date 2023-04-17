@@ -9,6 +9,17 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.5] - 2023-04-17
+
+### Fixed
+
+#### Utils
+
+* The `Lists::getAssignments()` method could previously get confused over exotic list keys. Fixed now. [#459]
+
+[#459]: https://github.com/PHPCSStandards/PHPCSUtils/pull/459
+
+
 ## [1.0.4] - 2023-04-15
 
 ### Changed
@@ -839,6 +850,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.5]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.4...1.0.5
 [1.0.4]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.3...1.0.4
 [1.0.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.2...1.0.3
 [1.0.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.1...1.0.2
