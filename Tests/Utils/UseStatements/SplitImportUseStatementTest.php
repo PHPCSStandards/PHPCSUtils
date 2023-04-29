@@ -333,4 +333,36 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
         $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
         $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled and a parse error is encountered.
+     *
+     * @return void
+     */
+    public function testResultIsCachedForParseError()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\UseStatements::splitImportUseStatement';
+        $cases      = $this->dataSplitImportUseStatement();
+        $testMarker = $cases['parse-error']['testMarker'];
+        $expected   = $cases['parse-error']['expected'];
+
+        $stackPtr = $this->getTargetToken($testMarker, \T_USE);
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = UseStatements::splitImportUseStatement(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = UseStatements::splitImportUseStatement(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
+    }
 }
