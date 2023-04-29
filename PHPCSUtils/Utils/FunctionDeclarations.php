@@ -193,6 +193,10 @@ final class FunctionDeclarations
             throw new RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or an arrow function');
         }
 
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
         if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
             $valid = Tokens::$methodPrefixes;
         } else {
@@ -292,7 +296,7 @@ final class FunctionDeclarations
             $returnType = '?' . $returnType;
         }
 
-        return [
+        $returnValue = [
             'scope'                 => $scope,
             'scope_specified'       => $scopeSpecified,
             'return_type'           => $returnType,
@@ -304,6 +308,9 @@ final class FunctionDeclarations
             'is_static'             => $isStatic,
             'has_body'              => $hasBody,
         ];
+
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
+        return $returnValue;
     }
 
     /**
