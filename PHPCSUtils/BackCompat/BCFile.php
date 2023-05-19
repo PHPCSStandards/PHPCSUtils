@@ -527,6 +527,7 @@ final class BCFile
      * array(
      *   'is_abstract' => boolean, // TRUE if the abstract keyword was found.
      *   'is_final'    => boolean, // TRUE if the final keyword was found.
+     *   'is_readonly' => false, // TRUE if the readonly keyword was found.
      * );
      * ```
      *
@@ -534,12 +535,13 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 1.3.0.
-     * - The upstream method has received no significant updates since PHPCS 3.7.1.
+     * - PHPCS 3.8.0: Added support for PHP 8.2 `readonly` classes.
      *
      * @see \PHP_CodeSniffer\Files\File::getClassProperties()          Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getClassProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.0.6 Sync with PHPCS 3.8.0, support for readonly classes. PHPCS#3686.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_CLASS`
@@ -552,7 +554,50 @@ final class BCFile
      */
     public static function getClassProperties(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getClassProperties($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        if ($tokens[$stackPtr]['code'] !== T_CLASS) {
+            throw new RuntimeException('$stackPtr must be of type T_CLASS');
+        }
+
+        $valid = [
+            T_FINAL       => T_FINAL,
+            T_ABSTRACT    => T_ABSTRACT,
+            T_READONLY    => T_READONLY,
+            T_WHITESPACE  => T_WHITESPACE,
+            T_COMMENT     => T_COMMENT,
+            T_DOC_COMMENT => T_DOC_COMMENT,
+        ];
+
+        $isAbstract = false;
+        $isFinal    = false;
+        $isReadonly = false;
+
+        for ($i = ($stackPtr - 1); $i > 0; $i--) {
+            if (isset($valid[$tokens[$i]['code']]) === false) {
+                break;
+            }
+
+            switch ($tokens[$i]['code']) {
+                case T_ABSTRACT:
+                    $isAbstract = true;
+                    break;
+
+                case T_FINAL:
+                    $isFinal = true;
+                    break;
+
+                case T_READONLY:
+                    $isReadonly = true;
+                    break;
+            }
+        }
+
+        return [
+            'is_abstract' => $isAbstract,
+            'is_final'    => $isFinal,
+            'is_readonly' => $isReadonly,
+        ];
     }
 
     /**
