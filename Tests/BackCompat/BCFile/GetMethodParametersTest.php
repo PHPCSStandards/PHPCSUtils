@@ -2013,6 +2013,57 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP8 constructor with property promotion using PHP 8.1 readonly
+     * keyword without explicit visibility.
+     *
+     * @return void
+     */
+    public function testPHP81ConstructorPropertyPromotionWithOnlyReadOnly()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 10, // Offset from the T_FUNCTION token.
+            'name'                => '$promotedProp',
+            'content'             => 'readonly Foo&Bar $promotedProp',
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'Foo&Bar',
+            'type_hint_token'     => 6, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 8, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'property_visibility' => 'public',
+            'visibility_token'    => false,
+            'property_readonly'   => true,
+            'readonly_token'      => 4, // Offset from the T_FUNCTION token.
+            'comma_token'         => 11,
+        ];
+        $expected[1] = [
+            'token'               => 18, // Offset from the T_FUNCTION token.
+            'name'                => '$promotedToo',
+            'content'             => 'readonly ?bool $promotedToo',
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?bool',
+            'type_hint_token'     => 16, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 16, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'property_visibility' => 'public',
+            'visibility_token'    => false,
+            'property_readonly'   => true,
+            'readonly_token'      => 13, // Offset from the T_FUNCTION token.
+            'comma_token'         => 19,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify behaviour when a non-constructor function uses PHP 8 property promotion syntax.
      *
      * @return void
@@ -2717,7 +2768,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             if (isset($param['default_equal_token'])) {
                 $expected[$key]['default_equal_token'] += $target;
             }
-            if (isset($param['visibility_token'])) {
+            if (isset($param['visibility_token']) && $param['visibility_token'] !== false) {
                 $expected[$key]['visibility_token'] += $target;
             }
             if (isset($param['readonly_token'])) {

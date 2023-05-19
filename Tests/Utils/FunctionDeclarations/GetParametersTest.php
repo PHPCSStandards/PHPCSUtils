@@ -140,7 +140,7 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
             if (isset($param['default_equal_token'])) {
                 $expected[$key]['default_equal_token'] += $target;
             }
-            if (isset($param['visibility_token'])) {
+            if (isset($param['visibility_token']) && $param['visibility_token'] !== false) {
                 $expected[$key]['visibility_token'] += $target;
             }
             if (isset($param['readonly_token'])) {
