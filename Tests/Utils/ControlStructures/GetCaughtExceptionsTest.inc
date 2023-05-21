@@ -30,6 +30,12 @@ try {
 /* testPHP8NonCapturingCatch */
 } catch (RuntimeException | AnotherException) {
 
+/* testMissingExceptionName */
+} catch ($e) {
+
+/* testMultiMissingExceptionNames */
+} catch ( | $e) {
+
 /* testLiveCoding */
 // Intentional parse error.
 } catch (
