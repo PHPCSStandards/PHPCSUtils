@@ -214,6 +214,14 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'catch-without-named-exception' => [
+                'testMarker'    => '/* testMissingExceptionName */',
+                'expected'      => [],
+            ],
+            'multi-catch-without-named-exceptions' => [
+                'testMarker'    => '/* testMultiMissingExceptionNames */',
+                'expected'      => [],
+            ],
         ];
     }
 }
