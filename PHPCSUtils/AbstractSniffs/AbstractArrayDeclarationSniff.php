@@ -23,6 +23,8 @@ use PHPCSUtils\Utils\TextStrings;
 /**
  * Abstract sniff to easily examine all parts of an array declaration.
  *
+ * Just testing...
+ *
  * @since 1.0.0
  */
 abstract class AbstractArrayDeclarationSniff implements Sniff
