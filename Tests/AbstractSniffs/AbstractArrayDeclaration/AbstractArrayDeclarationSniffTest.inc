@@ -30,3 +30,7 @@ $array = [1, 'a' => 2, ];
 
 /* testShortList */
 [$a, $b] = $array;
+
+/* testLiveCoding */
+// This must be the last test in the file!!
+$array = array(

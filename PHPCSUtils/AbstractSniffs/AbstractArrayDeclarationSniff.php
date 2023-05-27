@@ -184,9 +184,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
             return;
         }
 
+        $openClose = Arrays::getOpenClose($phpcsFile, $stackPtr, true);
+        if ($openClose === false) {
+            // Parse error or live coding.
+            return;
+        }
+
         $this->stackPtr    = $stackPtr;
         $this->tokens      = $phpcsFile->getTokens();
-        $openClose         = Arrays::getOpenClose($phpcsFile, $stackPtr, true);
         $this->arrayOpener = $openClose['opener'];
         $this->arrayCloser = $openClose['closer'];
         $this->itemCount   = \count($this->arrayItems);
