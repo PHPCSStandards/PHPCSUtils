@@ -204,7 +204,8 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         $this->processArray($phpcsFile);
 
         // Reset select properties between calls to this sniff to lower memory usage.
-        unset($this->tokens, $this->arrayItems);
+        $this->tokens     = [];
+        $this->arrayItems = [];
     }
 
     /**
