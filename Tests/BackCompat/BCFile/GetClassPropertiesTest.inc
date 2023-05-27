@@ -18,6 +18,23 @@ abstract class AbstractClass {}
 /* testFinalClass */
 final class FinalClass {}
 
+/* testReadonlyClass */
+readonly class ReadOnlyClass {}
+
+/* testFinalReadonlyClass */
+final readonly class FinalReadOnlyClass extends Foo {}
+
+/* testReadonlyFinalClass */
+readonly /*comment*/ final class ReadOnlyFinalClass {}
+
+/* testAbstractReadonlyClass */
+abstract readonly class AbstractReadOnlyClass {}
+
+/* testReadonlyAbstractClass */
+readonly
+abstract
+class ReadOnlyAbstractClass {}
+
 /* testWithCommentsAndNewLines */
 abstract
     /* comment */

@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Variables;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\Variables;
 
@@ -108,8 +109,8 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
     {
         return [
             'php8.2-pseudo-type-true' => [
-                '/* testPHP82PseudoTypeTrue */',
-                [
+                'identifier' => '/* testPHP82PseudoTypeTrue */',
+                'expected'   => [
                     'scope'           => 'public',
                     'scope_specified' => true,
                     'is_static'       => false,
@@ -121,8 +122,8 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                 ],
             ],
             'php8.2-pseudo-type-true-nullable' => [
-                '/* testPHP82NullablePseudoTypeTrue */',
-                [
+                'identifier' => '/* testPHP82NullablePseudoTypeTrue */',
+                'expected'   => [
                     'scope'           => 'protected',
                     'scope_specified' => true,
                     'is_static'       => true,
@@ -134,8 +135,8 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                 ],
             ],
             'php8.2-pseudo-type-true-in-union' => [
-                '/* testPHP82PseudoTypeTrueInUnion */',
-                [
+                'identifier' => '/* testPHP82PseudoTypeTrueInUnion */',
+                'expected'   => [
                     'scope'           => 'private',
                     'scope_specified' => true,
                     'is_static'       => false,
@@ -147,8 +148,8 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                 ],
             ],
             'php8.2-pseudo-type-invalid-true-false-union' => [
-                '/* testPHP82PseudoTypeFalseAndTrue */',
-                [
+                'identifier' => '/* testPHP82PseudoTypeFalseAndTrue */',
+                'expected'   => [
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => false,
@@ -160,5 +161,44 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\Variables::getMemberProperties';
+        $cases      = $this->dataGetMemberProperties();
+        $identifier = $cases['php8.2-pseudo-type-true-in-union']['identifier'];
+        $expected   = $cases['php8.2-pseudo-type-true-in-union']['expected'];
+
+        $variable = $this->getTargetToken($identifier, \T_VARIABLE);
+
+        if (isset($expected['type_token']) && $expected['type_token'] !== false) {
+            $expected['type_token'] += $variable;
+        }
+        if (isset($expected['type_end_token']) && $expected['type_end_token'] !== false) {
+            $expected['type_end_token'] += $variable;
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Variables::getMemberProperties(self::$phpcsFile, $variable);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $variable);
+        $resultSecondRun = Variables::getMemberProperties(self::$phpcsFile, $variable);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

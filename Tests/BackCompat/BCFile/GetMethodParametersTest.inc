@@ -212,6 +212,11 @@ class ConstructorPropertyPromotionWithReadOnlyNoTypeDeclaration {
     public function __construct(public readonly $promotedProp, ReadOnly private &$promotedToo) {}
 }
 
+class ConstructorPropertyPromotionWithOnlyReadOnly {
+    /* testPHP81ConstructorPropertyPromotionWithOnlyReadOnly */
+    public function __construct(readonly Foo&Bar $promotedProp, readonly ?bool $promotedToo,) {}
+}
+
 /* testPHP8ConstructorPropertyPromotionGlobalFunction */
 // Intentional fatal error. Property promotion not allowed in non-constructor, but that's not the concern of this method.
 function globalFunction(private $x) {}

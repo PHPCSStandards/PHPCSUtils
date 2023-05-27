@@ -10,7 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -158,5 +160,48 @@ final class GetPropertiesDiffTest extends UtilityMethodTestCase
         }
 
         $this->assertSame($expected, $found);
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        // The test case used is specifically selected to be one which will always reach the cache check.
+        $methodName = 'PHPCSUtils\\Utils\\FunctionDeclarations::getProperties';
+        $testMarker = '/* testMessyPhpcsAnnotationsStaticClosure */';
+        $expected   = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '',
+            'return_type_token'     => false,
+            'return_type_end_token' => false,
+            'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => true,
+            'has_body'              => true,
+        ];
+
+        $stackPtr = $this->getTargetToken($testMarker, Collections::functionDeclarationTokens());
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = FunctionDeclarations::getProperties(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = FunctionDeclarations::getProperties(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

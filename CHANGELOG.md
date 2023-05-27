@@ -9,6 +9,45 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+
+## [1.0.6] - 2023-05-27
+
+### Changed
+
+#### PHPCS BackCompat
+
+* `BCFile::getClassProperties()`: sync with PHPCS 3.8.0 - support for PHP 8.2 `readonly` classes. [#470]
+* `BCFile::getMethodParameters()`: sync with PHPCS 3.8.0 - support for constructor property promotion with `readonly` properties without explicit visibility. [#472]
+
+#### Utils
+
+* The results of the following methods will now (also) be cached for improved performance when multiple sniffs call these functions for the same token during a PHPCS run. [#464], [#466]
+    - `FunctionDeclarations::getProperties()`
+    - `Variables::getMemberProperties()`
+* Additionally, the results of the `UseStatements::splitImportUseStatement()` method will be cached more often and the cache checked earlier. [#467]
+* The return value of the `ControlStructures::getCaughtExceptions()` method will no longer contain "empty" entries for catch statements without a named exception. It will return an empty array instead. [#474]
+
+#### Other
+
+* Various small housekeeping and maintenance updates.
+
+### Fixed
+
+### Abstract Sniffs
+
+* `AbstractArrayDeclarationSniff`: fixed a potential "Trying to access array offset on value of type bool" PHP notice. [#476]
+* `AbstractArrayDeclarationSniff`: the abstract will no longer trigger potentially available magic `__get()`/`__set()` etc methods. [#477]
+
+[#464]: https://github.com/PHPCSStandards/PHPCSUtils/pull/464
+[#466]: https://github.com/PHPCSStandards/PHPCSUtils/pull/466
+[#467]: https://github.com/PHPCSStandards/PHPCSUtils/pull/467
+[#470]: https://github.com/PHPCSStandards/PHPCSUtils/pull/470
+[#472]: https://github.com/PHPCSStandards/PHPCSUtils/pull/472
+[#474]: https://github.com/PHPCSStandards/PHPCSUtils/pull/474
+[#476]: https://github.com/PHPCSStandards/PHPCSUtils/pull/476
+[#477]: https://github.com/PHPCSStandards/PHPCSUtils/pull/477
+
+
 ## [1.0.5] - 2023-04-17
 
 ### Fixed
@@ -850,6 +889,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.6]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.5...1.0.6
 [1.0.5]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.4...1.0.5
 [1.0.4]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.3...1.0.4
 [1.0.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.2...1.0.3
