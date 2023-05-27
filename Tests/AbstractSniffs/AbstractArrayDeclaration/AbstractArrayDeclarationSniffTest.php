@@ -611,4 +611,38 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
 
         $mockObj->process(self::$phpcsFile, $target);
     }
+
+    /**
+     * Test that the abstract sniff correctly bows out when presented with an unfinished array.
+     *
+     * @return void
+     */
+    public function testBowOutOnUnfinishedArray()
+    {
+        $target = $this->getTargetToken('/* testLiveCoding */', Collections::arrayOpenTokensBC());
+
+        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
+            ->setMethods($this->methodsToMock)
+            ->getMockForAbstractClass();
+
+        $mockObj->expects($this->never())
+            ->method('processOpenClose');
+
+        $mockObj->expects($this->never())
+            ->method('processKey');
+
+        $mockObj->expects($this->never())
+            ->method('processNoKey');
+
+        $mockObj->expects($this->never())
+            ->method('processArrow');
+
+        $mockObj->expects($this->never())
+            ->method('processValue');
+
+        $mockObj->expects($this->never())
+            ->method('processComma');
+
+        $mockObj->process(self::$phpcsFile, $target);
+    }
 }
