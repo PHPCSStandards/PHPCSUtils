@@ -124,6 +124,21 @@ final class GetClearTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test that a cache key which has not been set is identified correctly as such, even without a fixer available.
+     *
+     * @covers ::isCached
+     *
+     * @return void
+     */
+    public function testIsCachedWillReturnFalseForUnavailableKeyWithNoFixer()
+    {
+        $fixer = self::$phpcsFile->fixer;
+        self::$phpcsFile->fixer = null;
+        $this->assertFalse(Cache::isCached(self::$phpcsFile, 'Utility3', 'numeric string'));
+        self::$phpcsFile->fixer = $fixer;
+    }
+
+    /**
      * Test that a cache id which has not been set is identified correctly as such.
      *
      * @covers ::isCached
@@ -190,6 +205,21 @@ final class GetClearTest extends UtilityMethodTestCase
     public function testGetWillReturnNullForUnavailableId()
     {
         $this->assertNull(Cache::get(self::$phpcsFile, 'Utility1', 'this ID does not exist'));
+    }
+
+    /**
+     * Test that retrieving a cache key which has not been set, yields null, even without a fixer avaialble.
+     *
+     * @covers ::get
+     *
+     * @return void
+     */
+    public function testGetWillReturnNullForUnavailableKeyWithNoFixer()
+    {
+        $fixer = self::$phpcsFile->fixer;
+        self::$phpcsFile->fixer = null;
+        $this->assertNull(Cache::get(self::$phpcsFile, 'Utility3', 'numeric string'));
+        self::$phpcsFile->fixer = $fixer;
     }
 
     /**

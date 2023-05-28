@@ -95,7 +95,7 @@ final class Cache
         }
 
         $fileName = $phpcsFile->getFilename();
-        $loop     = $phpcsFile->fixer->enabled === true ? $phpcsFile->fixer->loops : 0;
+        $loop     = (isset($phpcsFile->fixer) && $phpcsFile->fixer->enabled === true) ? $phpcsFile->fixer->loops : 0;
 
         return isset(self::$cache[$loop][$fileName][$key])
             && \array_key_exists($id, self::$cache[$loop][$fileName][$key]);
@@ -124,7 +124,7 @@ final class Cache
         }
 
         $fileName = $phpcsFile->getFilename();
-        $loop     = $phpcsFile->fixer->enabled === true ? $phpcsFile->fixer->loops : 0;
+        $loop     = (isset($phpcsFile->fixer) && $phpcsFile->fixer->enabled === true) ? $phpcsFile->fixer->loops : 0;
 
         if (isset(self::$cache[$loop][$fileName][$key])
             && \array_key_exists($id, self::$cache[$loop][$fileName][$key])
