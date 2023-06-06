@@ -52,7 +52,7 @@ final class SpacesFixerTwoSpaceTest extends SpacesFixerTestCase
      *
      * @var array
      */
-    protected $compliantCases = ['two-spaces'];
+    protected static $compliantCases = ['two-spaces'];
 
     /**
      * Full path to the fixed version of the test case file associated with this test class.

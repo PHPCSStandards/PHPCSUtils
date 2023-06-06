@@ -50,7 +50,7 @@ final class SpacesFixerNewlineTest extends SpacesFixerTestCase
      *
      * @var array
      */
-    protected $compliantCases = [
+    protected static $compliantCases = [
         'newline-and-trailing-spaces',
         'multiple-newlines-and-spaces',
         'comment-and-new line',
