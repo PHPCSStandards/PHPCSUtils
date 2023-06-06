@@ -58,7 +58,7 @@ final class InUnsetTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInUnset()
+    public static function dataInUnset()
     {
         return [
             'method-called-unset' => [

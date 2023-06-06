@@ -57,7 +57,7 @@ final class InForeachConditionTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotInForeach()
+    public static function dataNotInForeach()
     {
         return [
             'no-parenthesis'                       => ['/* testNoParentheses */'],
@@ -102,7 +102,7 @@ final class InForeachConditionTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInForeachCondition()
+    public static function dataInForeachCondition()
     {
         return [
             'before' => [

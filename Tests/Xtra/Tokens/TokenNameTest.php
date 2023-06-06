@@ -50,7 +50,7 @@ final class TokenNameTest extends TestCase
      *
      * @return array
      */
-    public function dataTokenName()
+    public static function dataTokenName()
     {
         return [
             'PHP native token: T_ECHO' => [

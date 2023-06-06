@@ -111,7 +111,7 @@ final class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNamespaceType()
+    public static function dataNamespaceType()
     {
         return [
             'namespace-declaration' => [

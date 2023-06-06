@@ -73,7 +73,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameterNonFunctionCallNoParamName()
+    public static function dataGetParameterNonFunctionCallNoParamName()
     {
         return [
             'isset' => [
@@ -175,7 +175,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameterFunctionCallWithParamName()
+    public static function dataGetParameterFunctionCallWithParamName()
     {
         return [
             'all-named-non-standard-order' => [
@@ -284,7 +284,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameterFromStack()
+    public static function dataGetParameterFromStack()
     {
         return [
             'all-params-all-positional' => [
@@ -450,7 +450,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameterFromStackNamedAfterVariadic()
+    public static function dataGetParameterFromStackNamedAfterVariadic()
     {
         return [
             'first param, positional' => [

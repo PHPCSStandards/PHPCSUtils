@@ -100,7 +100,7 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataImplementedInterface()
+    public static function dataImplementedInterface()
     {
         return [
             [

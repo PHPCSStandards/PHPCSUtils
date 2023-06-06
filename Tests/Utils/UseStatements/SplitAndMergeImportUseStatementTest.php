@@ -52,7 +52,7 @@ final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSplitAndMergeImportUseStatement()
+    public static function dataSplitAndMergeImportUseStatement()
     {
         $data = [
             'name-plain' => [

@@ -75,7 +75,7 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNonImportUseTokenPassed()
+    public static function dataNonImportUseTokenPassed()
     {
         return [
             'closure-use' => ['/* testClosureUse */'],
@@ -107,7 +107,7 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSplitImportUseStatement()
+    public static function dataSplitImportUseStatement()
     {
         return [
             'plain' => [

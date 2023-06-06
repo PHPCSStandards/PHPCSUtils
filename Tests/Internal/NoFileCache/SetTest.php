@@ -109,7 +109,7 @@ final class SetTest extends TestCase
      *
      * @return array
      */
-    public function dataEveryTypeOfInput()
+    public static function dataEveryTypeOfInput()
     {
         return TypeProviderHelper::getAll();
     }
@@ -151,7 +151,7 @@ final class SetTest extends TestCase
      *
      * @return array
      */
-    public function dataSetAcceptsIntAndStringIdKeys()
+    public static function dataSetAcceptsIntAndStringIdKeys()
     {
         return [
             'ID: int zero' => [

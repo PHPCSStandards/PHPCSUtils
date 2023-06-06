@@ -68,7 +68,7 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @return array
      */
-    public function dataNotBracket()
+    public static function dataNotBracket()
     {
         return [
             'long-array' => [
@@ -109,7 +109,7 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @return array
      */
-    public function dataValidBracket()
+    public static function dataValidBracket()
     {
         return [
             'open square bracket' => [

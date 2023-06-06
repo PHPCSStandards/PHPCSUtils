@@ -63,7 +63,7 @@ final class IsMagicMethodNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsMagicMethodName()
+    public static function dataIsMagicMethodName()
     {
         return [
             // Normal case.
@@ -144,7 +144,7 @@ final class IsMagicMethodNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsNotMagicMethodName()
+    public static function dataIsNotMagicMethodName()
     {
         return [
             'no_underscore'         => ['construct'],

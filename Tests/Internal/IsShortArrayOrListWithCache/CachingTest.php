@@ -69,7 +69,7 @@ final class CachingTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @return array
      */
-    public function dataResultIsCached()
+    public static function dataResultIsCached()
     {
         return [
             'short array' => [

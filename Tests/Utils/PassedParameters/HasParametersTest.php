@@ -83,7 +83,7 @@ final class HasParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotACallToConstructor()
+    public static function dataNotACallToConstructor()
     {
         return [
             'parent' => [
@@ -146,7 +146,7 @@ final class HasParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataHasParameters()
+    public static function dataHasParameters()
     {
         $php8Names = parent::usesPhp8NameTokens();
 

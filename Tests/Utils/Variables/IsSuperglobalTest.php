@@ -64,7 +64,7 @@ final class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsSuperglobal()
+    public static function dataIsSuperglobal()
     {
         return [
             'not-a-variable' => [
@@ -157,7 +157,7 @@ final class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsSuperglobalName()
+    public static function dataIsSuperglobalName()
     {
         return [
             '$_SERVER'  => ['$_SERVER'],
@@ -193,7 +193,7 @@ final class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsSuperglobalNameFalse()
+    public static function dataIsSuperglobalNameFalse()
     {
         return [
             'non-reserved-var'                    => ['$not_a_superglobal'],

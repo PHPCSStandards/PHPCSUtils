@@ -67,7 +67,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      *
      * @return array
      */
-    public function dataGetTargetToken()
+    public static function dataGetTargetToken()
     {
         return [
             'single-token-type' => [

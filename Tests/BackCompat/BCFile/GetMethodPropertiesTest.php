@@ -60,7 +60,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotAFunctionException()
+    public static function dataNotAFunctionException()
     {
         return [
             'return' => [

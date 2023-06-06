@@ -61,7 +61,7 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotAClassException()
+    public static function dataNotAClassException()
     {
         return [
             'interface'  => [
@@ -106,7 +106,7 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetClassProperties()
+    public static function dataGetClassProperties()
     {
         return [
             'no-properties' => [

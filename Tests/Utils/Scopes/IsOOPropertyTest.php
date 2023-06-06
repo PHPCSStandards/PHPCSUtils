@@ -78,7 +78,7 @@ final class IsOOPropertyTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsOOProperty()
+    public static function dataIsOOProperty()
     {
         return [
             'global-var' => [

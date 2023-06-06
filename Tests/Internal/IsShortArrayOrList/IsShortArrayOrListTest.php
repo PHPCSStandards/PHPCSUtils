@@ -54,7 +54,7 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsShortArrayOrList()
+    public static function dataIsShortArrayOrList()
     {
         return [
             'short-array-comparison-no-assignment' => [

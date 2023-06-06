@@ -64,7 +64,7 @@ final class ConstructorTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotOpenBracket()
+    public static function dataNotOpenBracket()
     {
         return [
             'long-array' => [
@@ -115,7 +115,7 @@ final class ConstructorTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSupportedBrackets()
+    public static function dataSupportedBrackets()
     {
         return [
             'short-array-open-bracket' => [

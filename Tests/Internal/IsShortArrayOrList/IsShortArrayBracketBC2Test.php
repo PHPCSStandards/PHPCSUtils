@@ -52,7 +52,7 @@ final class IsShortArrayBracketBC2Test extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsShortArrayBracket()
+    public static function dataIsShortArrayBracket()
     {
         return [
             // Make sure the utility method does not throw false positives for a short array at the start of a file.

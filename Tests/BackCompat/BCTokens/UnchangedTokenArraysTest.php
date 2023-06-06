@@ -469,7 +469,7 @@ final class UnchangedTokenArraysTest extends TestCase
      *
      * @return array
      */
-    public function dataUnchangedTokenArrays()
+    public static function dataUnchangedTokenArrays()
     {
         $phpunitProp = [
             'backupGlobals'                     => true,
@@ -484,7 +484,7 @@ final class UnchangedTokenArraysTest extends TestCase
         ];
 
         $data        = [];
-        $tokenArrays = \get_object_vars($this);
+        $tokenArrays = \get_class_vars(__CLASS__);
         foreach ($tokenArrays as $name => $expected) {
             if (isset($phpunitProp[$name])) {
                 continue;

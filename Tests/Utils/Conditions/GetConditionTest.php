@@ -150,7 +150,7 @@ final class GetConditionTest extends BCFile_GetConditionTest
      *
      * @return array
      */
-    public function dataGetFirstCondition()
+    public static function dataGetFirstCondition()
     {
         $data = [];
         foreach (self::$testTargets as $marker) {
@@ -195,7 +195,7 @@ final class GetConditionTest extends BCFile_GetConditionTest
      *
      * @return array
      */
-    public function dataGetLastCondition()
+    public static function dataGetLastCondition()
     {
         return [
             'testSeriouslyNestedMethod' => [

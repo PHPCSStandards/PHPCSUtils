@@ -64,7 +64,7 @@ final class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsPHPDoubleUnderscoreMethodName()
+    public static function dataIsPHPDoubleUnderscoreMethodName()
     {
         return [
             // Normal case.
@@ -135,7 +135,7 @@ final class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsNotPHPDoubleUnderscoreMethodName()
+    public static function dataIsNotPHPDoubleUnderscoreMethodName()
     {
         return [
             'no_underscore'           => ['getLastResponseHeaders'],

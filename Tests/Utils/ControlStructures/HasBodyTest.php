@@ -78,7 +78,7 @@ final class HasBodyTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataHasBody()
+    public static function dataHasBody()
     {
         return [
             'if-without-body' => [

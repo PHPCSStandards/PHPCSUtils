@@ -80,7 +80,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetMemberProperties()
+    public static function dataGetMemberProperties()
     {
         $php8Names = parent::usesPhp8NameTokens();
 
@@ -1073,7 +1073,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotClassProperty()
+    public static function dataNotClassProperty()
     {
         return [
             ['/* testMethodParam */'],

@@ -93,7 +93,7 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetCaughtExceptions()
+    public static function dataGetCaughtExceptions()
     {
         $php8Names = parent::usesPhp8NameTokens();
 

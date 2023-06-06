@@ -115,7 +115,7 @@ final class SetTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataEveryTypeOfInput()
+    public static function dataEveryTypeOfInput()
     {
         return TypeProviderHelper::getAll();
     }
@@ -157,7 +157,7 @@ final class SetTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSetAcceptsIntAndStringIdKeys()
+    public static function dataSetAcceptsIntAndStringIdKeys()
     {
         return [
             'ID: int zero' => [

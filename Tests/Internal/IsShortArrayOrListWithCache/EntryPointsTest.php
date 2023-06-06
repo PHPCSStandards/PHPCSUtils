@@ -136,7 +136,7 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @return array
      */
-    public function dataEntryPoints()
+    public static function dataEntryPoints()
     {
         return [
             'not a square bracket' => [

@@ -70,7 +70,7 @@ final class GetCompleteNumberTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetCompleteNumber()
+    public static function dataGetCompleteNumber()
     {
         /*
          * Disabling the hexnumeric string detection for the rest of the file.

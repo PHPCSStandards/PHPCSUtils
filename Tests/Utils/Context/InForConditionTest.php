@@ -57,7 +57,7 @@ final class InForConditionTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotInFor()
+    public static function dataNotInFor()
     {
         return [
             'no-parenthesis'                   => ['/* testNoParentheses */'],
@@ -103,7 +103,7 @@ final class InForConditionTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInForCondition()
+    public static function dataInForCondition()
     {
         return [
             'expr1' => [

@@ -74,7 +74,7 @@ final class IsShortTernaryTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsShortTernary()
+    public static function dataIsShortTernary()
     {
         return [
             'long-ternary' => [

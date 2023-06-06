@@ -58,7 +58,7 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotListOpenToken()
+    public static function dataNotListOpenToken()
     {
         return [
             'short-array' => [
@@ -118,7 +118,7 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetOpenClose()
+    public static function dataGetOpenClose()
     {
         return [
             'long-list' => [

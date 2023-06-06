@@ -63,7 +63,7 @@ final class GetNameDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetNameNull()
+    public static function dataGetNameNull()
     {
         return [
             'live-coding' => [
@@ -102,7 +102,7 @@ final class GetNameDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetName()
+    public static function dataGetName()
     {
         return [
             'trait-name-starts-with-number' => [

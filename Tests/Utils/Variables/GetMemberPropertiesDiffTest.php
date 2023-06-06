@@ -65,7 +65,7 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotClassPropertyException()
+    public static function dataNotClassPropertyException()
     {
         return [
             'interface property' => ['/* testInterfaceProperty */'],
@@ -105,7 +105,7 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetMemberProperties()
+    public static function dataGetMemberProperties()
     {
         return [
             'php8.2-pseudo-type-true' => [

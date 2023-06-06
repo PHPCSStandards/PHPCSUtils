@@ -63,7 +63,7 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
      *
      * @return array
      */
-    public function dataGetMemberProperties()
+    public static function dataGetMemberProperties()
     {
         $data = parent::dataGetMemberProperties();
 
