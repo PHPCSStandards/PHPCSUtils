@@ -95,7 +95,7 @@ final class SetTest extends UtilityMethodTestCase
      */
     public function testSetAcceptsEveryTypeOfInput($input)
     {
-        $id = $this->getName();
+        $id = \base_convert(\rand((int) 10e16, (int) 10e20), 10, 36);
         Cache::set(self::$phpcsFile, __METHOD__, $id, $input);
 
         $this->assertTrue(
