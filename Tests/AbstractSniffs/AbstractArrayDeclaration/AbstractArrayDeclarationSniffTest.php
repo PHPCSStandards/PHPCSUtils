@@ -51,9 +51,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortList */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->never())
             ->method('processOpenClose');
@@ -86,9 +84,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testEmptyArray */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -124,9 +120,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             Collections::arrayOpenTokensBC()
         );
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
@@ -187,9 +181,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             Collections::arrayOpenTokensBC()
         );
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
@@ -265,9 +257,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             Collections::arrayOpenTokensBC()
         );
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
@@ -346,9 +336,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testEmptyArrayItem */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -377,9 +365,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
@@ -412,9 +398,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -447,9 +431,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -482,9 +464,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -517,9 +497,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -552,9 +530,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -587,9 +563,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testLiveCoding */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->never())
             ->method('processOpenClose');
@@ -610,5 +584,31 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             ->method('processComma');
 
         $mockObj->process(self::$phpcsFile, $target);
+    }
+
+    /**
+     * Helper method to retrieve a mock object for the abstract class.
+     *
+     * The `setMethods()` method was silently deprecated in PHPUnit 9 and removed in PHPUnit 10.
+     *
+     * Note: direct access to the `getMockBuilder()` method is soft deprecated as of PHPUnit 10,
+     * and expected to be hard deprecated in PHPUnit 11 and removed in PHPUnit 12.
+     * Dealing with that is something for a later iteration of the test suite.
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    private function getMockedClassUnderTest()
+    {
+        $mockedObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff');
+
+        if (\method_exists($mockedObj, 'onlyMethods')) {
+            // PHPUnit 8+.
+            return $mockedObj->onlyMethods($this->methodsToMock)
+                ->getMockForAbstractClass();
+        }
+
+        // PHPUnit < 8.
+        return $mockedObj->setMethods($this->methodsToMock)
+            ->getMockForAbstractClass();
     }
 }
