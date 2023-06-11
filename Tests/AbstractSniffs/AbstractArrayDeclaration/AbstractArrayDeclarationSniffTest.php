@@ -132,8 +132,8 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             ->method('processOpenClose')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target),
-                $this->equalTo($target + 5)
+                $this->identicalTo($target),
+                $this->identicalTo($target + 5)
             );
 
         $mockObj->expects($this->exactly(2))
@@ -164,8 +164,8 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             ->method('processComma')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target + 2),
-                $this->equalTo(1)
+                $this->identicalTo($target + 2),
+                $this->identicalTo(1)
             );
 
         $mockObj->process(self::$phpcsFile, $target);
@@ -199,8 +199,8 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             ->method('processOpenClose')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target + 1),
-                $this->equalTo($target + 35)
+                $this->identicalTo($target + 1),
+                $this->identicalTo($target + 35)
             );
 
         $mockObj->expects($this->exactly(3))
@@ -296,8 +296,8 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             ->method('processOpenClose')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target),
-                $this->equalTo($target + 22)
+                $this->identicalTo($target),
+                $this->identicalTo($target + 22)
             );
 
         $mockObj->expects($this->exactly(2))
@@ -319,8 +319,10 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
 
         $mockObj->expects($this->once())
             ->method('processNoKey')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 9), $this->equalTo(2)]
+            ->with(
+                $this->identicalTo(self::$phpcsFile),
+                $this->identicalTo($target + 9),
+                $this->identicalTo(2)
             );
 
         $mockObj->expects($this->exactly(2))
