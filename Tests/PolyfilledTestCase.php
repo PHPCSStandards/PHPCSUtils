@@ -14,6 +14,7 @@
 namespace PHPCSUtils\Tests;
 
 use PHPCSUtils\Tests\AssertAttributeSame;
+use PHPCSUtils\Tests\ExpectWithConsecutiveArgs;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use Yoast\PHPUnitPolyfills\Autoload;
 use Yoast\PHPUnitPolyfills\Polyfills\AssertClosedResource;
@@ -52,8 +53,9 @@ if (\version_compare(Autoload::VERSION, '2.0.0', '>=')) {
      */
     abstract class PolyfilledTestCase extends UtilityMethodTestCase
     {
-        // PHPCSUtils native helper.
+        // PHPCSUtils native helpers.
         use AssertAttributeSame;
+        use ExpectWithConsecutiveArgs;
 
         // PHPUnit Polyfills.
         use AssertClosedResource;
@@ -90,6 +92,7 @@ if (\version_compare(Autoload::VERSION, '2.0.0', '>=')) {
     {
         // PHPCSUtils native helper.
         use AssertAttributeSame;
+        use ExpectWithConsecutiveArgs;
 
         // PHPUnit Polyfills.
         use AssertClosedResource;
