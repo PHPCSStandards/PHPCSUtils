@@ -64,7 +64,7 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotListToken()
+    public static function dataNotListToken()
     {
         return [
             'not-a-list' => [
@@ -128,7 +128,7 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetAssignments()
+    public static function dataGetAssignments()
     {
         return [
             'long-list-empty' => [

@@ -620,7 +620,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataWalkParentheses()
+    public static function dataWalkParentheses()
     {
         $data = [
             'testIfWithArray-$a' => [
@@ -973,7 +973,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataHasOwner()
+    public static function dataHasOwner()
     {
         return [
             'testIfWithArray-$a' => [
@@ -1217,7 +1217,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataFirstOwnerIn()
+    public static function dataFirstOwnerIn()
     {
         return [
             'testElseIfWithClosure-$a-elseif' => [
@@ -1308,7 +1308,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataLastOwnerIn()
+    public static function dataLastOwnerIn()
     {
         return [
             'testElseIfWithClosure-$a-closure' => [

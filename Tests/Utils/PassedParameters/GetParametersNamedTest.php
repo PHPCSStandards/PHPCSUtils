@@ -77,7 +77,7 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameters()
+    public static function dataGetParameters()
     {
         $php8Names = parent::usesPhp8NameTokens();
 

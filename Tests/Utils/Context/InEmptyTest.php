@@ -58,7 +58,7 @@ final class InEmptyTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInEmpty()
+    public static function dataInEmpty()
     {
         return [
             'method-called-empty' => [

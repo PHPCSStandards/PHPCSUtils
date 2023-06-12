@@ -234,7 +234,7 @@ final class GetClearTest extends TestCase
      *
      * @return array
      */
-    public function dataEveryTypeOfInput()
+    public static function dataEveryTypeOfInput()
     {
         $allTypes = TypeProviderHelper::getAll();
         $data     = [];

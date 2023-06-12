@@ -85,7 +85,7 @@ class IsReferenceTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsReference()
+    public static function dataIsReference()
     {
         return [
             'issue-1971-list-first-in-file' => [

@@ -60,7 +60,7 @@ final class GetParameterCountTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameterCount()
+    public static function dataGetParameterCount()
     {
         $php8Names = parent::usesPhp8NameTokens();
 

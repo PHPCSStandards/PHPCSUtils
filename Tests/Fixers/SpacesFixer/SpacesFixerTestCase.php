@@ -71,7 +71,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @var array
      */
-    protected $compliantCases = [];
+    protected static $compliantCases = [];
 
     /**
      * Full path to the fixed version of the test case file associated with this test class.
@@ -156,12 +156,12 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataCheckAndFixNoError()
+    public static function dataCheckAndFixNoError()
     {
         $data     = [];
-        $baseData = $this->getAllData();
+        $baseData = self::getAllData();
 
-        foreach ($this->compliantCases as $caseName) {
+        foreach (static::$compliantCases as $caseName) {
             if (isset($baseData[$caseName])) {
                 $data[$caseName] = $baseData[$caseName];
             }
@@ -244,11 +244,11 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataCheckAndFix()
+    public static function dataCheckAndFix()
     {
-        $data = $this->getAllData();
+        $data = self::getAllData();
 
-        foreach ($this->compliantCases as $caseName) {
+        foreach (static::$compliantCases as $caseName) {
             unset($data[$caseName]);
         }
 
@@ -303,7 +303,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @return array
      */
-    protected function getAllData()
+    protected static function getAllData()
     {
         return [
             'no-space' => [

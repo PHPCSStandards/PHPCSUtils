@@ -201,16 +201,34 @@ jobs:
         if: ${{ matrix.phpcs_version == 'lowest' }}
         run: composer update squizlabs/php_codesniffer --prefer-lowest --no-scripts --no-interaction
 
+      - name: Grab PHPUnit version
+        id: phpunit_version
+        # yamllint disable-line rule:line-length
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+
+      - name: Determine PHPUnit config file to use
+        id: phpunit_config
+        run: |
+          if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
+            echo 'FILE=phpunit10.xml.dist' >> $GITHUB_OUTPUT
+            echo 'EXTRA_ARGS=' >> $GITHUB_OUTPUT
+          else
+            echo 'FILE=phpunit.xml.dist' >> $GITHUB_OUTPUT
+            echo 'EXTRA_ARGS= --repeat 2' >> $GITHUB_OUTPUT
+          fi
+
       - name: Run the unit tests without caching (non-risky)
         if: ${{ matrix.risky == false }}
-        run: vendor/bin/phpunit --no-coverage
+        run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
       - name: Run the unit tests with caching (non-risky)
         if: ${{ matrix.risky == false }}
-        run: vendor/bin/phpunit --testsuite PHPCSUtils --no-coverage --repeat 2
+        run: >
+          vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }}
+          --testsuite PHPCSUtils --no-coverage ${{ steps.phpunit_config.outputs.EXTRA_ARGS }}
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: true
@@ -220,7 +238,7 @@ jobs:
       - name: Run the unit tests (risky, comparewithPHPCS)
         if: ${{ matrix.risky && matrix.phpcs_version == 'dev-master' }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
-        run: vendor/bin/phpunit --no-coverage --group compareWithPHPCS --exclude-group nothing
+        run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group compareWithPHPCS --exclude-group nothing
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
 
@@ -228,7 +246,7 @@ jobs:
       - name: Run the unit tests (risky, xtra)
         if: ${{ matrix.risky }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
-        run: vendor/bin/phpunit --no-coverage --group xtra --exclude-group nothing
+        run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group xtra --exclude-group nothing
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
 
@@ -312,20 +330,21 @@ jobs:
       # As of PHPUnit 9.3.4, a cache warming option is available.
       # Using that option prevents issues with PHP-Parser backfilling PHP tokens when PHPCS does not (yet),
       # which would otherwise cause tests to fail on tokens being available when they shouldn't be.
+      # As coverage is only run on high/low PHP, the high PHP version will use PHPUnit 10, so just check for that.
       - name: "Warm the PHPUnit cache (PHPUnit 9.3+)"
-        if: ${{ steps.phpunit_version.outputs.VERSION >= '9.3' }}
-        run: vendor/bin/phpunit --coverage-cache ./build/phpunit-cache --warm-coverage-cache
+        if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
+        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-cache ./build/phpunit-cache --warm-coverage-cache
 
-      - name: "Run the unit tests without caching with code coverage (PHPUnit < 9.3)"
-        if: ${{ steps.phpunit_version.outputs.VERSION < '9.3' }}
+      - name: "Run the unit tests without caching with code coverage (PHPUnit < 10)"
+        if: ${{ ! startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
         run: vendor/bin/phpunit
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
-      - name: "Run the unit tests without caching with code coverage (PHPUnit 9.3+)"
-        if: ${{ steps.phpunit_version.outputs.VERSION >= '9.3' }}
-        run: vendor/bin/phpunit --coverage-cache ./build/phpunit-cache
+      - name: "Run the unit tests without caching with code coverage (PHPUnit 10+)"
+        if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
+        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-cache ./build/phpunit-cache
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false

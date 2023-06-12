@@ -53,7 +53,7 @@ final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataFindExtendedClassName()
+    public static function dataFindExtendedClassName()
     {
         return [
             'phpcs-annotation-and-comments' => [

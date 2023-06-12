@@ -52,7 +52,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
      *
      * @return array
      */
-    public function dataPropertyBasedTokenArrays()
+    public static function dataPropertyBasedTokenArrays()
     {
         $names = [
             'alternativeControlStructureSyntaxes',

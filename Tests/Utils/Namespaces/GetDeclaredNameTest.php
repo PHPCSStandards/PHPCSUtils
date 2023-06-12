@@ -96,7 +96,7 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetDeclaredName()
+    public static function dataGetDeclaredName()
     {
         return [
             'global-namespace-curlies' => [

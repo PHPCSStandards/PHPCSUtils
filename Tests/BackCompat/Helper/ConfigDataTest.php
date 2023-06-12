@@ -12,8 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\Helper;
 
 use PHP_CodeSniffer\Config;
 use PHPCSUtils\BackCompat\Helper;
-use PHPUnit\Framework\TestCase;
-use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Test class.
@@ -27,7 +26,6 @@ use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
  */
 final class ConfigDataTest extends TestCase
 {
-    use ExpectException;
 
     /**
      * Test the getConfigData() and setConfigData() method when used in a cross-version compatible manner.

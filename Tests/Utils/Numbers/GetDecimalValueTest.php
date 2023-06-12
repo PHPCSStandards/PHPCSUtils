@@ -47,7 +47,7 @@ final class GetDecimalValueTest extends TestCase
      *
      * @return array
      */
-    public function dataGetDecimalValue()
+    public static function dataGetDecimalValue()
     {
         return [
             // Decimal integers.
@@ -110,7 +110,7 @@ final class GetDecimalValueTest extends TestCase
      *
      * @return array
      */
-    public function dataGetDecimalValueInvalid()
+    public static function dataGetDecimalValueInvalid()
     {
         return [
             'not-a-string-bool'                             => [true],

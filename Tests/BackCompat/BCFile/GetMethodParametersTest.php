@@ -63,7 +63,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataUnexpectedTokenException()
+    public static function dataUnexpectedTokenException()
     {
         return [
             'interface' => [
@@ -105,7 +105,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInvalidUse()
+    public static function dataInvalidUse()
     {
         return [
             'ImportUse'      => ['/* testImportUse */'],
@@ -141,7 +141,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNoParams()
+    public static function dataNoParams()
     {
         return [
             'FunctionNoParams'   => ['/* testFunctionNoParams */'],

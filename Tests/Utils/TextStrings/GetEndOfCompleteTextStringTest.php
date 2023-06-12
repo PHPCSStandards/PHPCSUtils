@@ -55,7 +55,7 @@ final class GetEndOfCompleteTextStringTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetEndOfDoubleQuotedString()
+    public static function dataGetEndOfDoubleQuotedString()
     {
         return [
             'Simple embedded variable 1' => [

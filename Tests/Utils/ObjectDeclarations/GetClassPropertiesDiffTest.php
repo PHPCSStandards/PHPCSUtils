@@ -76,7 +76,7 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetClassProperties()
+    public static function dataGetClassProperties()
     {
         return [
             'phpcs-annotation' => [

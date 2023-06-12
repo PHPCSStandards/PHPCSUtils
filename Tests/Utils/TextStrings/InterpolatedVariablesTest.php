@@ -33,7 +33,7 @@ final class InterpolatedVariablesTest extends TestCase
      *
      * @var array<string>
      */
-    private $embeds = [
+    private static $embeds = [
         // Simple.
         '$foo',
         '{$foo}',
@@ -125,7 +125,7 @@ final class InterpolatedVariablesTest extends TestCase
      *
      * @var array<string, string>
      */
-    private $phrases = [
+    private static $phrases = [
         'single line'                                => "%s this is nonsense %s\tbut that's not the point %s",
         'single line, embed followed by non-space 1' => '%s- dash %s+ plus %s',
         'single line, embed followed by non-space 2' => '%s. dash %s= plus %s',
@@ -197,10 +197,10 @@ final class InterpolatedVariablesTest extends TestCase
      *
      * @return array
      */
-    public function dataEmbedsInPhrases()
+    public static function dataEmbedsInPhrases()
     {
         $data = [];
-        foreach ($this->embeds as $embed) {
+        foreach (self::$embeds as $embed) {
             $data[$embed . '| Plain embed (heredoc)'] = [
                 'input'    => $embed,
                 'expected' => [
@@ -217,64 +217,64 @@ final class InterpolatedVariablesTest extends TestCase
             ];
 
             // Plain, no double quotes (heredoc).
-            $phraseKey      = \array_rand($this->phrases);
+            $phraseKey      = \array_rand(self::$phrases);
             $dataKey        = $embed . '| Embed at start of plain phrase in: ' . $phraseKey;
             $data[$dataKey] =  [
-                'input'    => \sprintf($this->phrases[$phraseKey], $embed, '', ''),
+                'input'    => \sprintf(self::$phrases[$phraseKey], $embed, '', ''),
                 'expected' => [
                     'get'      => [$embed],
-                    'stripped' => \sprintf($this->phrases[$phraseKey], '', '', ''),
+                    'stripped' => \sprintf(self::$phrases[$phraseKey], '', '', ''),
                 ],
             ];
 
-            $phraseKey      = \array_rand($this->phrases);
+            $phraseKey      = \array_rand(self::$phrases);
             $dataKey        = $embed . '| Embed in middle of plain phrase in: ' . $phraseKey;
             $data[$dataKey] =  [
-                'input'    => \sprintf($this->phrases[$phraseKey], '', $embed, ''),
+                'input'    => \sprintf(self::$phrases[$phraseKey], '', $embed, ''),
                 'expected' => [
                     'get'      => [$embed],
-                    'stripped' => \sprintf($this->phrases[$phraseKey], '', '', ''),
+                    'stripped' => \sprintf(self::$phrases[$phraseKey], '', '', ''),
                 ],
             ];
 
-            $phraseKey      = \array_rand($this->phrases);
+            $phraseKey      = \array_rand(self::$phrases);
             $dataKey        = $embed . '| Embed at end of plain phrase in: ' . $phraseKey;
             $data[$dataKey] =  [
-                'input'    => \sprintf($this->phrases[$phraseKey], '', '', $embed),
+                'input'    => \sprintf(self::$phrases[$phraseKey], '', '', $embed),
                 'expected' => [
                     'get'      => [$embed],
-                    'stripped' => \sprintf($this->phrases[$phraseKey], '', '', ''),
+                    'stripped' => \sprintf(self::$phrases[$phraseKey], '', '', ''),
                 ],
             ];
 
             // Phrase in double quotes.
-            $phraseKey      = \array_rand($this->phrases);
+            $phraseKey      = \array_rand(self::$phrases);
             $dataKey        = $embed . '| Embed at start of quoted phrase in: ' . $phraseKey;
             $data[$dataKey] =  [
-                'input'    => '"' . \sprintf($this->phrases[$phraseKey], $embed, '', '') . '"',
+                'input'    => '"' . \sprintf(self::$phrases[$phraseKey], $embed, '', '') . '"',
                 'expected' => [
                     'get'      => [$embed],
-                    'stripped' => '"' . \sprintf($this->phrases[$phraseKey], '', '', '') . '"',
+                    'stripped' => '"' . \sprintf(self::$phrases[$phraseKey], '', '', '') . '"',
                 ],
             ];
 
-            $phraseKey      = \array_rand($this->phrases);
+            $phraseKey      = \array_rand(self::$phrases);
             $dataKey        = $embed . '| Embed in middle of quoted phrase in: ' . $phraseKey;
             $data[$dataKey] =  [
-                'input'    => '"' . \sprintf($this->phrases[$phraseKey], '', $embed, '') . '"',
+                'input'    => '"' . \sprintf(self::$phrases[$phraseKey], '', $embed, '') . '"',
                 'expected' => [
                     'get'      => [$embed],
-                    'stripped' => '"' . \sprintf($this->phrases[$phraseKey], '', '', '') . '"',
+                    'stripped' => '"' . \sprintf(self::$phrases[$phraseKey], '', '', '') . '"',
                 ],
             ];
 
-            $phraseKey      = \array_rand($this->phrases);
+            $phraseKey      = \array_rand(self::$phrases);
             $dataKey        = $embed . '| Embed at end of quoted phrase in: ' . $phraseKey;
             $data[$dataKey] =  [
-                'input'    => '"' . \sprintf($this->phrases[$phraseKey], '', '', $embed) . '"',
+                'input'    => '"' . \sprintf(self::$phrases[$phraseKey], '', '', $embed) . '"',
                 'expected' => [
                     'get'      => [$embed],
-                    'stripped' => '"' . \sprintf($this->phrases[$phraseKey], '', '', '') . '"',
+                    'stripped' => '"' . \sprintf(self::$phrases[$phraseKey], '', '', '') . '"',
                 ],
             ];
         }
@@ -290,7 +290,7 @@ final class InterpolatedVariablesTest extends TestCase
      *
      * @return array
      */
-    public function dataEscaping()
+    public static function dataEscaping()
     {
         $embedAtEnd   = '"Foo: %s%s"';
         $embedAtStart = '%s%s Foo'; // Not, no double quotes!
@@ -361,7 +361,7 @@ final class InterpolatedVariablesTest extends TestCase
      *
      * @return array
      */
-    public function dataSpecificCases()
+    public static function dataSpecificCases()
     {
         return [
             // No embeds.

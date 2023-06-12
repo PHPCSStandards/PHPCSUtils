@@ -47,7 +47,7 @@ final class IsValidIdentifierNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsValidIdentifierName()
+    public static function dataIsValidIdentifierName()
     {
         return [
             // Valid names.

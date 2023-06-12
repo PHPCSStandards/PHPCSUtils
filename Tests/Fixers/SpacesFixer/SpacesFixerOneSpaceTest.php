@@ -50,7 +50,7 @@ final class SpacesFixerOneSpaceTest extends SpacesFixerTestCase
      *
      * @var array
      */
-    protected $compliantCases = [
+    protected static $compliantCases = [
         'one-space',
         'comment-and-space',
     ];

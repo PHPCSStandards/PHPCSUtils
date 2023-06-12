@@ -156,7 +156,7 @@ final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataCheckAndFixNoError()
+    public static function dataCheckAndFixNoError()
     {
         return [
             'correct-newline-before' => [

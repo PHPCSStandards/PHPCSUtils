@@ -80,14 +80,32 @@ jobs:
         if: matrix.phpcs_version == 'dev-master'
         run: composer lint-lt72
 
+      - name: Grab PHPUnit version
+        id: phpunit_version
+        # yamllint disable-line rule:line-length
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+
+      - name: Determine PHPUnit config file to use
+        id: phpunit_config
+        run: |
+          if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
+            echo 'FILE=phpunit10.xml.dist' >> $GITHUB_OUTPUT
+            echo 'EXTRA_ARGS=' >> $GITHUB_OUTPUT
+          else
+            echo 'FILE=phpunit.xml.dist' >> $GITHUB_OUTPUT
+            echo 'EXTRA_ARGS= --repeat 2' >> $GITHUB_OUTPUT
+          fi
+
       - name: Run the unit tests without caching
-        run: vendor/bin/phpunit --no-coverage
+        run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
       - name: Run the unit tests with caching
-        run: vendor/bin/phpunit --testsuite PHPCSUtils --no-coverage --repeat 2
+        run: >
+          vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }}
+          --testsuite PHPCSUtils --no-coverage ${{ steps.phpunit_config.outputs.EXTRA_ARGS }}
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: true

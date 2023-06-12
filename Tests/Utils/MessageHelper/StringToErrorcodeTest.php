@@ -47,7 +47,7 @@ final class StringToErrorcodeTest extends TestCase
      *
      * @return array
      */
-    public function dataStringToErrorCode()
+    public static function dataStringToErrorCode()
     {
         return [
             'no-special-chars' => [
@@ -99,7 +99,7 @@ final class StringToErrorcodeTest extends TestCase
      *
      * @return array
      */
-    public function dataStringToErrorCodeWithCaseChange()
+    public static function dataStringToErrorCodeWithCaseChange()
     {
         return [
             'no-special-chars' => [

@@ -49,7 +49,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataWalkInsideUndetermined()
+    public static function dataWalkInsideUndetermined()
     {
         return [
             'nested-short-array-empty' => [
@@ -134,7 +134,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataWalkInsideResolved()
+    public static function dataWalkInsideResolved()
     {
         return [
             'nested-short-array-no-vars-or-nested-null' => [
@@ -276,7 +276,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataRecursionLimit()
+    public static function dataRecursionLimit()
     {
         return [
             'nested-short-array-with-nested-short-array-recursion-4' => [

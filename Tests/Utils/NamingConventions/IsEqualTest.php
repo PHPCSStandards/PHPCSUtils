@@ -48,7 +48,7 @@ final class IsEqualTest extends TestCase
      *
      * @return array
      */
-    public function dataIsEqual()
+    public static function dataIsEqual()
     {
         return [
             'a-z-0-9-only-same-case' => [

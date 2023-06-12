@@ -47,7 +47,7 @@ final class StripQuotesTest extends TestCase
      *
      * @return array
      */
-    public function dataStripQuotes()
+    public static function dataStripQuotes()
     {
         return [
             'simple-string-double-quotes' => [

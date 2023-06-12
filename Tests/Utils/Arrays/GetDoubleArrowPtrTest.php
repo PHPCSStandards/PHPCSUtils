@@ -138,7 +138,7 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetDoubleArrowPtr()
+    public static function dataGetDoubleArrowPtr()
     {
         return [
             'test-no-arrow' => [

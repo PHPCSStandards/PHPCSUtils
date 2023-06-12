@@ -71,7 +71,7 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetActualArrayKey()
+    public static function dataGetActualArrayKey()
     {
         return [
             'unsupported-key-types' => [

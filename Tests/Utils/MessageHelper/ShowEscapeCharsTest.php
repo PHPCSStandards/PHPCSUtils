@@ -47,7 +47,7 @@ final class ShowEscapeCharsTest extends TestCase
      *
      * @return array
      */
-    public function dataShowEscapeChars()
+    public static function dataShowEscapeChars()
     {
         return [
             'no-escape-chars' => [

@@ -78,7 +78,7 @@ final class IsOOMethodTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsOOMethod()
+    public static function dataIsOOMethod()
     {
         return [
             'global-function' => [

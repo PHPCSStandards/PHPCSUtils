@@ -241,7 +241,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetTokensAsString()
+    public static function dataGetTokensAsString()
     {
         return [
             'namespace' => [

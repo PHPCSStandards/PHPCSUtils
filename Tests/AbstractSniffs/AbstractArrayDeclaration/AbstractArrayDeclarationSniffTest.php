@@ -51,9 +51,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortList */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->never())
             ->method('processOpenClose');
@@ -86,9 +84,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testEmptyArray */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -124,48 +120,42 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             Collections::arrayOpenTokensBC()
         );
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target),
-                $this->equalTo($target + 5)
+                $this->identicalTo($target),
+                $this->identicalTo($target + 5)
             );
 
-        $mockObj->expects($this->exactly(2))
-            ->method('processNoKey')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 1), $this->equalTo(1)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 3), $this->equalTo(2)]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(2),
+            'processNoKey',
+            [
+                [self::$phpcsFile, $target + 1, 1],
+                [self::$phpcsFile, $target + 3, 2],
+            ]
+        );
 
-        $mockObj->expects($this->exactly(2))
-            ->method('processValue')
-            ->withConsecutive(
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 1),
-                    $this->equalTo($target + 1),
-                    $this->equalTo(1),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 3),
-                    $this->equalTo($target + 4),
-                    $this->equalTo(2),
-                ]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(2),
+            'processValue',
+            [
+                [self::$phpcsFile, $target + 1, $target + 1, 1],
+                [self::$phpcsFile, $target + 3, $target + 4, 2],
+            ]
+        );
 
         $mockObj->expects($this->once())
             ->method('processComma')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target + 2),
-                $this->equalTo(1)
+                $this->identicalTo($target + 2),
+                $this->identicalTo(1)
             );
 
         $mockObj->process(self::$phpcsFile, $target);
@@ -191,79 +181,58 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             Collections::arrayOpenTokensBC()
         );
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target + 1),
-                $this->equalTo($target + 35)
+                $this->identicalTo($target + 1),
+                $this->identicalTo($target + 35)
             );
 
-        $mockObj->expects($this->exactly(3))
-            ->method('processKey')
-            ->withConsecutive(
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 2),
-                    $this->equalTo($target + 5),
-                    $this->equalTo(1),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 10),
-                    $this->equalTo($target + 13),
-                    $this->equalTo(2),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 18),
-                    $this->equalTo($target + 21),
-                    $this->equalTo(3),
-                ]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(3),
+            'processKey',
+            [
+                [self::$phpcsFile, $target + 2, $target + 5, 1],
+                [self::$phpcsFile, $target + 10, $target + 13, 2],
+                [self::$phpcsFile, $target + 18, $target + 21, 3],
+            ]
+        );
 
-        $mockObj->expects($this->exactly(3))
-            ->method('processArrow')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 6), $this->equalTo(1)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 14), $this->equalTo(2)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 22), $this->equalTo(3)]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(3),
+            'processArrow',
+            [
+                [self::$phpcsFile, $target + 6, 1],
+                [self::$phpcsFile, $target + 14, 2],
+                [self::$phpcsFile, $target + 22, 3],
+            ]
+        );
 
-        $mockObj->expects($this->exactly(3))
-            ->method('processValue')
-            ->withConsecutive(
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 7),
-                    $this->equalTo($target + 8),
-                    $this->equalTo(1),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 15),
-                    $this->equalTo($target + 16),
-                    $this->equalTo(2),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 23),
-                    $this->equalTo($target + 24),
-                    $this->equalTo(3),
-                ]
-            )
-            ->will($this->onConsecutiveCalls(null, null, true)); // Testing short-circuiting the loop.
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(3),
+            'processValue',
+            [
+                [self::$phpcsFile, $target + 7, $target + 8, 1],
+                [self::$phpcsFile, $target + 15, $target + 16, 2],
+                [self::$phpcsFile, $target + 23, $target + 24, 3],
+            ]
+        )->will($this->onConsecutiveCalls(null, null, true)); // Testing short-circuiting the loop.
 
-        $mockObj->expects($this->exactly(2))
-            ->method('processComma')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 9), $this->equalTo(1)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 17), $this->equalTo(2)]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(2),
+            'processComma',
+            [
+                [self::$phpcsFile, $target + 9, 1],
+                [self::$phpcsFile, $target + 17, 2],
+            ]
+        );
 
         $mockObj->process(self::$phpcsFile, $target);
 
@@ -288,78 +257,65 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             Collections::arrayOpenTokensBC()
         );
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
             ->with(
                 $this->identicalTo(self::$phpcsFile),
-                $this->equalTo($target),
-                $this->equalTo($target + 22)
+                $this->identicalTo($target),
+                $this->identicalTo($target + 22)
             );
 
-        $mockObj->expects($this->exactly(2))
-            ->method('processKey')
-            ->withConsecutive(
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 1),
-                    $this->equalTo($target + 4),
-                    $this->equalTo(1),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 13),
-                    $this->equalTo($target + 16),
-                    $this->equalTo(3),
-                ]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(2),
+            'processKey',
+            [
+                [self::$phpcsFile, $target + 1, $target + 4, 1],
+                [self::$phpcsFile, $target + 13, $target + 16, 3],
+            ]
+        );
 
         $mockObj->expects($this->once())
             ->method('processNoKey')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 9), $this->equalTo(2)]
+            ->with(
+                $this->identicalTo(self::$phpcsFile),
+                $this->identicalTo($target + 9),
+                $this->identicalTo(2)
             );
 
-        $mockObj->expects($this->exactly(2))
-            ->method('processArrow')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 5), $this->equalTo(1)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 17), $this->equalTo(3)]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(2),
+            'processArrow',
+            [
+                [self::$phpcsFile, $target + 5, 1],
+                [self::$phpcsFile, $target + 17, 3],
+            ]
+        );
 
-        $mockObj->expects($this->exactly(3))
-            ->method('processValue')
-            ->withConsecutive(
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 6),
-                    $this->equalTo($target + 7),
-                    $this->equalTo(1),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 9),
-                    $this->equalTo($target + 11),
-                    $this->equalTo(2),
-                ],
-                [
-                    $this->identicalTo(self::$phpcsFile),
-                    $this->equalTo($target + 18),
-                    $this->equalTo($target + 19),
-                    $this->equalTo(3),
-                ]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(3),
+            'processValue',
+            [
+                [self::$phpcsFile, $target + 6, $target + 7, 1],
+                [self::$phpcsFile, $target + 9, $target + 11, 2],
+                [self::$phpcsFile, $target + 18, $target + 19, 3],
+            ]
+        );
 
-        $mockObj->expects($this->exactly(3))
-            ->method('processComma')
-            ->withConsecutive(
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 8), $this->equalTo(1)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 12), $this->equalTo(2)],
-                [$this->identicalTo(self::$phpcsFile), $this->equalTo($target + 20), $this->equalTo(3)]
-            );
+        $this->setExpectationWithConsecutiveArgs(
+            $mockObj,
+            $this->exactly(3),
+            'processComma',
+            [
+                [self::$phpcsFile, $target + 8, 1],
+                [self::$phpcsFile, $target + 12, 2],
+                [self::$phpcsFile, $target + 20, 3],
+            ]
+        );
 
         $mockObj->process(self::$phpcsFile, $target);
 
@@ -380,9 +336,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testEmptyArrayItem */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -411,9 +365,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose')
@@ -446,9 +398,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -481,9 +431,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -516,9 +464,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -551,9 +497,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -586,9 +530,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testShortCircuit */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->once())
             ->method('processOpenClose');
@@ -621,9 +563,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     {
         $target = $this->getTargetToken('/* testLiveCoding */', Collections::arrayOpenTokensBC());
 
-        $mockObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff')
-            ->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+        $mockObj = $this->getMockedClassUnderTest();
 
         $mockObj->expects($this->never())
             ->method('processOpenClose');
@@ -644,5 +584,31 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             ->method('processComma');
 
         $mockObj->process(self::$phpcsFile, $target);
+    }
+
+    /**
+     * Helper method to retrieve a mock object for the abstract class.
+     *
+     * The `setMethods()` method was silently deprecated in PHPUnit 9 and removed in PHPUnit 10.
+     *
+     * Note: direct access to the `getMockBuilder()` method is soft deprecated as of PHPUnit 10,
+     * and expected to be hard deprecated in PHPUnit 11 and removed in PHPUnit 12.
+     * Dealing with that is something for a later iteration of the test suite.
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    private function getMockedClassUnderTest()
+    {
+        $mockedObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff');
+
+        if (\method_exists($mockedObj, 'onlyMethods')) {
+            // PHPUnit 8+.
+            return $mockedObj->onlyMethods($this->methodsToMock)
+                ->getMockForAbstractClass();
+        }
+
+        // PHPUnit < 8.
+        return $mockedObj->setMethods($this->methodsToMock)
+            ->getMockForAbstractClass();
     }
 }

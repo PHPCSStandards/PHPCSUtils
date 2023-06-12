@@ -95,7 +95,7 @@ final class SetTest extends UtilityMethodTestCase
      */
     public function testSetAcceptsEveryTypeOfInput($input)
     {
-        $id = $this->getName();
+        $id = \base_convert(\rand((int) 10e16, (int) 10e20), 10, 36);
         Cache::set(self::$phpcsFile, __METHOD__, $id, $input);
 
         $this->assertTrue(
@@ -115,7 +115,7 @@ final class SetTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataEveryTypeOfInput()
+    public static function dataEveryTypeOfInput()
     {
         return TypeProviderHelper::getAll();
     }
@@ -157,7 +157,7 @@ final class SetTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSetAcceptsIntAndStringIdKeys()
+    public static function dataSetAcceptsIntAndStringIdKeys()
     {
         return [
             'ID: int zero' => [

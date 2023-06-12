@@ -118,7 +118,7 @@ final class UseTypeTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataUseType()
+    public static function dataUseType()
     {
         return [
             'import-1' => [

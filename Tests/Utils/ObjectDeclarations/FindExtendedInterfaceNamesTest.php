@@ -73,7 +73,7 @@ final class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataFindExtendedInterfaceNames()
+    public static function dataFindExtendedInterfaceNames()
     {
         return [
             'not-extended' => [

@@ -46,7 +46,7 @@ final class IsPHPReservedVarNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsPHPReservedVarName()
+    public static function dataIsPHPReservedVarName()
     {
         return [
             // With dollar sign.
@@ -118,7 +118,7 @@ final class IsPHPReservedVarNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsPHPReservedVarNameFalse()
+    public static function dataIsPHPReservedVarNameFalse()
     {
         return [
             // Different case.

@@ -113,7 +113,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @return array
      */
-    public function dataTestCases()
+    public static function dataTestCases()
     {
         return [
             'no-params' => [

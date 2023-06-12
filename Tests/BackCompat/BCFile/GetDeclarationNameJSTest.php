@@ -69,7 +69,7 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetDeclarationNameNull()
+    public static function dataGetDeclarationNameNull()
     {
         return [
             'closure' => [
@@ -108,7 +108,7 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetDeclarationName()
+    public static function dataGetDeclarationName()
     {
         return [
             'function' => [
