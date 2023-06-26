@@ -16,6 +16,7 @@ phpcs.xml.dist          export-ignore
 phpdoc.dist.xml         export-ignore
 phpdoc.xml.dist         export-ignore
 phpunit.xml.dist        export-ignore
+phpunit10.xml.dist      export-ignore
 /.github/               export-ignore
 /docs/                  export-ignore
 /Tests/                 export-ignore
