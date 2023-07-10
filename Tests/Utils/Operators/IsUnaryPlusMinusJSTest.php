@@ -38,7 +38,7 @@ final class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTestCase
      *
      * @return array
      */
-    public function dataIsUnaryPlusMinus()
+    public static function dataIsUnaryPlusMinus()
     {
         return [
             'non-unary-plus' => [

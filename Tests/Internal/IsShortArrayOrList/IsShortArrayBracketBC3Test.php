@@ -52,7 +52,7 @@ final class IsShortArrayBracketBC3Test extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsShortArrayBracket()
+    public static function dataIsShortArrayBracket()
     {
         return [
             'issue-1971-short-array-first-in-file' => [

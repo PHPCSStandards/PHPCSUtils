@@ -53,7 +53,7 @@ final class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataFindImplementedInterfaceNames()
+    public static function dataFindImplementedInterfaceNames()
     {
         return [
             'phpcs-annotation-and-comments' => [

@@ -182,7 +182,7 @@ final class TrailingCommentHandlingTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataCheckAndFix()
+    public static function dataCheckAndFix()
     {
         return [
             'trailing-comment-not-fixable' => [

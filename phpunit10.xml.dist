@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/10.1/phpunit.xsd"
+        backupGlobals="true"
+        bootstrap="./Tests/bootstrap.php"
+        beStrictAboutTestsThatDoNotTestAnything="true"
+        colors="true"
+        displayDetailsOnTestsThatTriggerErrors="true"
+        displayDetailsOnTestsThatTriggerWarnings="true"
+        displayDetailsOnTestsThatTriggerNotices="true"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
+        displayDetailsOnIncompleteTests="true"
+        displayDetailsOnSkippedTests="true"
+        failOnWarning="true"
+        failOnNotice="true"
+        failOnDeprecation="true"
+        requireCoverageMetadata="true"
+    >
+    <testsuites>
+        <testsuite name="RunFirst">
+            <!--
+            Run caching tests separately as they will clear the caches.
+            -->
+            <file>./Tests/Internal/Cache/GetClearTest.php</file>
+            <file>./Tests/Internal/Cache/SetTest.php</file>
+            <file>./Tests/Internal/NoFileCache/GetClearTest.php</file>
+            <file>./Tests/Internal/NoFileCache/SetTest.php</file>
+
+            <!--
+            A number of tests need process isolation to allow for recording code coverage on
+            the setting of function local static variables.
+            However, using process isolation runs into trouble with PHPUnit 4.x/PHPCS 2.6.0.
+            Executing these specific tests in a separate testsuite, which is run
+            before the full test suite, will allow for the code coverage for these methods
+            to be recorded properly, while still allowing the tests to run on all supported
+            PHP/PHPUnit/PHPCS combinations.
+            -->
+            <file>./Tests/Utils/Namespaces/NamespaceTypeTest.php</file>
+        </testsuite>
+        <testsuite name="PHPCSUtils">
+            <directory suffix="Test.php">./Tests/</directory>
+
+            <exclude>Tests/Internal/Cache/GetClearTest.php</exclude>
+            <exclude>Tests/Internal/Cache/SetTest.php</exclude>
+            <exclude>Tests/Internal/NoFileCache/GetClearTest.php</exclude>
+            <exclude>Tests/Internal/NoFileCache/SetTest.php</exclude>
+
+            <exclude>Tests/Utils/Namespaces/NamespaceTypeTest.php</exclude>
+        </testsuite>
+    </testsuites>
+
+    <groups>
+        <exclude>
+            <group>compareWithPHPCS</group>
+            <!-- Extra tests are basically testing PHPCS itself, not PHPCSUtils. -->
+            <group>xtra</group>
+        </exclude>
+    </groups>
+
+    <source>
+        <include>
+            <!-- Not recording coverage for PHPCS23Utils as there is nothing directly testable. -->
+            <directory suffix=".php">./PHPCSUtils/</directory>
+        </include>
+    </source>
+
+    <coverage includeUncoveredFiles="true" ignoreDeprecatedCodeUnits="true">
+        <report>
+            <clover outputFile="build/logs/clover.xml"/>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
+
+</phpunit>

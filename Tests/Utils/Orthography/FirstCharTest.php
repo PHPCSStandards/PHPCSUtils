@@ -65,7 +65,7 @@ final class FirstCharTest extends TestCase
      *
      * @return array
      */
-    public function dataFirstChar()
+    public static function dataFirstChar()
     {
         $data = [
             // Quotes should be stripped before passing the string.

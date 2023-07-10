@@ -58,7 +58,7 @@ final class InIssetTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInIsset()
+    public static function dataInIsset()
     {
         return [
             'method-called-isset' => [

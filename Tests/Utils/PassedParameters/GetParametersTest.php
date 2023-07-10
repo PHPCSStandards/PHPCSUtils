@@ -88,7 +88,7 @@ final class GetParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameters()
+    public static function dataGetParameters()
     {
         return [
             'function-call' => [
@@ -725,7 +725,7 @@ final class GetParametersTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParameter()
+    public static function dataGetParameter()
     {
         return [
             'function-call-param-4' => [

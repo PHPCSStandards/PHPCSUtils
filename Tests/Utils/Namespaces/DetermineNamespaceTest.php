@@ -86,7 +86,7 @@ final class DetermineNamespaceTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataDetermineNamespace()
+    public static function dataDetermineNamespace()
     {
         return [
             'no-namespace' => [

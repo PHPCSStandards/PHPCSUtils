@@ -73,7 +73,7 @@ final class GetParametersWithLimitTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParametersWithIneffectiveLimit()
+    public static function dataGetParametersWithIneffectiveLimit()
     {
         return [
             'invalid-limit-wrong-type-null'       => [null],
@@ -133,7 +133,7 @@ final class GetParametersWithLimitTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetParametersWithLimit()
+    public static function dataGetParametersWithLimit()
     {
         return [
             'function-call' => [

@@ -138,7 +138,7 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetDoubleArrowPtr()
+    public static function dataGetDoubleArrowPtr()
     {
         return [
             'test-no-arrow' => [
@@ -232,6 +232,16 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
             'test-double-arrow-key-match-expression' => [
                 'testMarker' => '/* testArrowKeyMatchExpr */',
                 'expected'   => 38,
+            ],
+
+            // Safeguard that PHP 7.2 keyed lists in values are handled correctly.
+            'test-no-arrow-value-keyed-long-list' => [
+                'testMarker' => '/* testNoArrowKeyedLongListInValue */',
+                'expected'   => false,
+            ],
+            'test-no-arrow-value-keyed-short-list' => [
+                'testMarker' => '/* testNoArrowKeyedShortListInValue */',
+                'expected'   => false,
             ],
 
             // Safeguard that double arrows in PHP 8.0 attributes are disregarded.

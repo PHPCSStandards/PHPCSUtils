@@ -78,7 +78,7 @@ final class IsOOConstantTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsOOConstant()
+    public static function dataIsOOConstant()
     {
         return [
             'global-const' => [

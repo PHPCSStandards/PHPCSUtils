@@ -54,7 +54,7 @@ final class IsLastCharPunctuationTest extends TestCase
      *
      * @return array
      */
-    public function dataIsLastCharPunctuation()
+    public static function dataIsLastCharPunctuation()
     {
         return [
             // Quotes should be stripped before passing the string.

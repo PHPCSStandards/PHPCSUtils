@@ -63,7 +63,7 @@ final class IsSquareBracketTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSquareBrackets()
+    public static function dataSquareBrackets()
     {
         return [
             'array-assignment-no-key' => [

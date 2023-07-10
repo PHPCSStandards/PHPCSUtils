@@ -89,7 +89,7 @@ final class SetTest extends TestCase
      */
     public function testSetAcceptsEveryTypeOfInput($input)
     {
-        $id = $this->getName();
+        $id = \base_convert(\rand((int) 10e16, (int) 10e20), 10, 36);
         NoFileCache::set(__METHOD__, $id, $input);
 
         $this->assertTrue(
@@ -109,7 +109,7 @@ final class SetTest extends TestCase
      *
      * @return array
      */
-    public function dataEveryTypeOfInput()
+    public static function dataEveryTypeOfInput()
     {
         return TypeProviderHelper::getAll();
     }
@@ -151,7 +151,7 @@ final class SetTest extends TestCase
      *
      * @return array
      */
-    public function dataSetAcceptsIntAndStringIdKeys()
+    public static function dataSetAcceptsIntAndStringIdKeys()
     {
         return [
             'ID: int zero' => [

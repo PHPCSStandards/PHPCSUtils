@@ -46,7 +46,7 @@ final class IsMagicFunctionNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsMagicFunctionName()
+    public static function dataIsMagicFunctionName()
     {
         return [
             'lowercase' => ['__autoload'],
@@ -76,7 +76,7 @@ final class IsMagicFunctionNameTest extends TestCase
      *
      * @return array
      */
-    public function dataIsNotMagicFunctionName()
+    public static function dataIsNotMagicFunctionName()
     {
         return [
             'no_underscore'           => ['noDoubleUnderscore'],

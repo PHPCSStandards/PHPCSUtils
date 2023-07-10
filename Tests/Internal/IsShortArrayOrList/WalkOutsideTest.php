@@ -52,7 +52,7 @@ final class WalkOutsideTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataWalkOutside()
+    public static function dataWalkOutside()
     {
         return [
             'nested-short-array-start-of-file' => [
@@ -188,7 +188,7 @@ final class WalkOutsideTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataReuseCacheFromAdjacent()
+    public static function dataReuseCacheFromAdjacent()
     {
         return [
             'nested-short-array' => [

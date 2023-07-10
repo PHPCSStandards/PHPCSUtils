@@ -61,7 +61,7 @@ final class ProcessTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @return array
      */
-    public function dataSupportedBrackets()
+    public static function dataSupportedBrackets()
     {
         return [
             'short array open bracket' => [

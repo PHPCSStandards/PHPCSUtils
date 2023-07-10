@@ -116,7 +116,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetTokensAsString()
+    public static function dataGetTokensAsString()
     {
         $php8Names = parent::usesPhp8NameTokens();
 
@@ -289,7 +289,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetOrigContent()
+    public static function dataGetOrigContent()
     {
         return [
             'use-with-comments' => [

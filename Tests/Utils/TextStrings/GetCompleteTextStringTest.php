@@ -107,7 +107,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataExceptions()
+    public static function dataExceptions()
     {
         return [
             'getCompleteTextString'      => ['getCompleteTextString'],
@@ -144,7 +144,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetCompleteTextString()
+    public static function dataGetCompleteTextString()
     {
         return [
             'single-line-constant-encapsed-string' => [

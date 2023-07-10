@@ -70,7 +70,7 @@ final class IsElseIfTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsElseIf()
+    public static function dataIsElseIf()
     {
         return [
             'if' => [

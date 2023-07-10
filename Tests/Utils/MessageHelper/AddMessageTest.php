@@ -86,7 +86,7 @@ final class AddMessageTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataAddMessage()
+    public static function dataAddMessage()
     {
         return [
             'add-error' => [
@@ -152,7 +152,7 @@ final class AddMessageTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataAddFixableMessage()
+    public static function dataAddFixableMessage()
     {
         return [
             'add-fixable-error' => [

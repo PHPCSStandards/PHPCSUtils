@@ -58,7 +58,7 @@ final class InAttributeTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataNotInAttribute()
+    public static function dataNotInAttribute()
     {
         return [
             'code nowhere near an attribute [1]' => [
@@ -122,7 +122,7 @@ final class InAttributeTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataInAttribute()
+    public static function dataInAttribute()
     {
         return [
             'single line attribute - attribute name' => [

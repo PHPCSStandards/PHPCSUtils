@@ -62,7 +62,7 @@ final class TokenExistsTest extends TestCase
      *
      * @return array
      */
-    public function dataTokenExists()
+    public static function dataTokenExists()
     {
         return [
             'Token which doesn\'t exist either way' => [

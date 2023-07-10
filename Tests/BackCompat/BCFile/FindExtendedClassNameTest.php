@@ -102,7 +102,7 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataExtendedClass()
+    public static function dataExtendedClass()
     {
         return [
             [

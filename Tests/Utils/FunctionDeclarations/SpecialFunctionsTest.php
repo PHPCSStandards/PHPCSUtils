@@ -162,7 +162,7 @@ final class SpecialFunctionsTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataItsAKindOfMagic()
+    public static function dataItsAKindOfMagic()
     {
         return [
             'MagicMethodInClass' => [

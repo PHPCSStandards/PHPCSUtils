@@ -10,6 +10,23 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.0.7] - 2023-07-10
+
+### Changed
+
+#### Other
+
+* Various housekeeping and maintenance updates, including making the test suite compatible with PHPUnit 10.
+
+### Fixed
+
+#### Utils
+
+* The `Arrays::getDoubleArrowPtr()` method could previously get confused over a double arrow in a keyed lists used as an array value. [#485]
+
+[#485]: https://github.com/PHPCSStandards/PHPCSUtils/pull/485
+
+
 ## [1.0.6] - 2023-05-27
 
 ### Changed
@@ -889,6 +906,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.7]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.6...1.0.7
 [1.0.6]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.5...1.0.6
 [1.0.5]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.4...1.0.5
 [1.0.4]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.3...1.0.4

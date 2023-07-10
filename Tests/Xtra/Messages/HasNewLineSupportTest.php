@@ -77,9 +77,6 @@ EOD;
         // Make sure space on empty line is included (often removed by file editor).
         $expected = \str_replace("|\n", "| \n", $expected);
 
-        $this->expectOutputString($expected);
-        $this->setOutputCallback([$this, 'normalizeOutput']);
-
         /*
          * Create the error.
          */
@@ -102,12 +99,17 @@ EOD;
         $reportClass         = new Full();
         $reportData          = $reporter->prepareFileReport(self::$phpcsFile);
 
+        \ob_start();
         $reportClass->generateFileReport(
             $reportData,
             self::$phpcsFile,
             self::$phpcsFile->config->showSources,
             $config->reportWidth
         );
+        $output = \ob_get_contents();
+        \ob_end_clean();
+
+        $this->assertSame($expected, $this->normalizeOutput($output));
     }
 
     /**

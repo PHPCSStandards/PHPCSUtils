@@ -50,7 +50,7 @@ final class SolveTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataSolve()
+    public static function dataSolve()
     {
         return [
             'real square brackets' => [

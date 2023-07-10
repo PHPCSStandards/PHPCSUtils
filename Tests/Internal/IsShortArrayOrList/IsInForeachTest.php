@@ -69,7 +69,7 @@ final class IsInForeachTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsInForeachResolved()
+    public static function dataIsInForeachResolved()
     {
         return [
             'resolved: short array in foreach' => [
@@ -114,7 +114,7 @@ final class IsInForeachTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsInForeachNestedResolvedViaOuter()
+    public static function dataIsInForeachNestedResolvedViaOuter()
     {
         return [
             'resolved-on-outer: short array in foreach nested at start' => [
@@ -159,7 +159,7 @@ final class IsInForeachTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataIsInForeachUndetermined()
+    public static function dataIsInForeachUndetermined()
     {
         return [
             'undetermined: short array in function call in foreach' => [
