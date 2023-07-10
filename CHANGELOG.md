@@ -22,7 +22,7 @@ _Nothing yet._
 
 #### Utils
 
-* The `Arrays::getDoubleArrowPtr()` method could previously get confused over a double arrow in a keyed lists used as an array value. [#485]
+* The `Arrays::getDoubleArrowPtr()` method could previously get confused over a double arrow in a keyed list used as an array value. [#485]
 
 [#485]: https://github.com/PHPCSStandards/PHPCSUtils/pull/485
 

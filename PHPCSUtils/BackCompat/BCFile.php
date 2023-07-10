@@ -48,7 +48,8 @@ use PHPCSUtils\Tokens\Collections;
  *
  * Additionally, this class works round the following tokenizer issues for
  * any affected utility functions:
- * - None at this time.
+ * - `readonly` classes.
+ * - Constructor property promotion with `readonly` without visibility.
  *
  * Most functions in this class will have a related twin-function in the relevant
  * class in the `PHPCSUtils\Utils` namespace.
