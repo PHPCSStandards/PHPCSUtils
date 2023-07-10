@@ -104,6 +104,12 @@ $array = [
         FOO     => BAR,
         default => [0 => 10],
     } => 'value',
+    
+    /* testNoArrowKeyedLongListInValue */
+    list( 'key1' => $a, 'key2' => $b ) = $array,
+
+    /* testNoArrowKeyedShortListInValue */
+    [ 'key1' => $a, 'key2' => $b ] = $array,
 
     /* testNoArrowValueClosureWithAttribute */
     #[MyAttribute([0 => 'value'])] function() { /* do something */ }(),
