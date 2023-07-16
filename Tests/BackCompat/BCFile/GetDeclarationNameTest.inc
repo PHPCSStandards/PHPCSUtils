@@ -88,6 +88,15 @@ enum Suit: int implements Colorful, CardGame {}
 /* testFunctionReturnByRefWithReservedKeywordEach */
 function &each() {}
 
+/* testFunctionReturnByRefWithReservedKeywordParent */
+function &parent() {}
+
+/* testFunctionReturnByRefWithReservedKeywordSelf */
+function &self() {}
+
+/* testFunctionReturnByRefWithReservedKeywordStatic */
+function &static() {}
+
 /* testLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 function // Comment.
