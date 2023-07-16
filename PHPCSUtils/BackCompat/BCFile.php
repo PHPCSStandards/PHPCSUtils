@@ -48,7 +48,9 @@ use PHPCSUtils\Tokens\Collections;
  *
  * Additionally, this class works round the following tokenizer issues for
  * any affected utility functions:
- * - None at this time.
+ * - `readonly` classes.
+ * - Constructor property promotion with `readonly` without visibility.
+ * - OO methods called `self`, `parent` or `static`.
  *
  * Most functions in this class will have a related twin-function in the relevant
  * class in the `PHPCSUtils\Utils` namespace.
@@ -74,7 +76,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - The upstream method has received no significant updates since PHPCS 3.7.1.
+     * - PHPCS 3.8.0: OO methods called `self`, `parent` or `static` are now correctly recognized.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
@@ -96,7 +98,44 @@ final class BCFile
      */
     public static function getDeclarationName(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getDeclarationName($stackPtr);
+        $tokens    = $phpcsFile->getTokens();
+        $tokenCode = $tokens[$stackPtr]['code'];
+
+        if ($tokenCode === T_ANON_CLASS || $tokenCode === T_CLOSURE) {
+            return null;
+        }
+
+        if ($tokenCode !== T_FUNCTION
+            && $tokenCode !== T_CLASS
+            && $tokenCode !== T_INTERFACE
+            && $tokenCode !== T_TRAIT
+            && $tokenCode !== T_ENUM
+        ) {
+            throw new RuntimeException('Token type "' . $tokens[$stackPtr]['type'] . '" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
+        }
+
+        if ($tokenCode === T_FUNCTION
+            && strtolower($tokens[$stackPtr]['content']) !== 'function'
+        ) {
+            // This is a function declared without the "function" keyword.
+            // So this token is the function name.
+            return $tokens[$stackPtr]['content'];
+        }
+
+        $content = null;
+        for ($i = ($stackPtr + 1); $i < $phpcsFile->numTokens; $i++) {
+            if ($tokens[$i]['code'] === T_STRING
+                // BC: PHPCS < 3.8.0.
+                || $tokens[$i]['code'] === T_SELF
+                || $tokens[$i]['code'] === T_PARENT
+                || $tokens[$i]['code'] === T_STATIC
+            ) {
+                $content = $tokens[$i]['content'];
+                break;
+            }
+        }
+
+        return $content;
     }
 
     /**
