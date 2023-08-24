@@ -92,7 +92,7 @@ final class GetParametersWithLimitTest extends UtilityMethodTestCase
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType The type of token to look for.
-     * @param array      $limit      The number of parameters to limit this call to.
+     * @param int        $limit      The number of parameters to limit this call to.
      *                               Should match the expected count.
      * @param array      $expected   Optional. The expected return value. Only tested when not empty.
      *

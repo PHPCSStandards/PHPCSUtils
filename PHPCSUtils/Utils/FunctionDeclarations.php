@@ -43,7 +43,7 @@ final class FunctionDeclarations
      *
      * @since 1.0.0
      *
-     * @var array <string> => <string>
+     * @var array<string, string>
      */
     public static $magicFunctions = [
         '__autoload' => 'autoload',
@@ -59,7 +59,7 @@ final class FunctionDeclarations
      *
      * @since 1.0.0
      *
-     * @var array <string> => <string>
+     * @var array<string, string>
      */
     public static $magicMethods = [
         '__construct'   => 'construct',
@@ -94,7 +94,7 @@ final class FunctionDeclarations
      *
      * @since 1.0.0
      *
-     * @var array <string> => <string>
+     * @var array<string, string>
      */
     public static $methodsDoubleUnderscore = [
         '__dorequest'              => 'SOAPClient',
@@ -160,7 +160,7 @@ final class FunctionDeclarations
      * @param int                         $stackPtr  The position in the stack of the function token to
      *                                               acquire the properties for.
      *
-     * @return array Array with information about a function declaration.
+     * @return array<string, mixed> Array with information about a function declaration.
      *               The format of the return value is:
      *               ```php
      *               array(
@@ -379,7 +379,7 @@ final class FunctionDeclarations
      * @param int                         $stackPtr  The position in the stack of the function token
      *                                               to acquire the parameters for.
      *
-     * @return array
+     * @return array<int, array<string, mixed>>
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified $stackPtr is not of
      *                                                      type `T_FUNCTION`, `T_CLOSURE` or `T_USE`,

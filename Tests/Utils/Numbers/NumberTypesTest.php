@@ -36,7 +36,7 @@ final class NumberTypesTest extends TestCase
      * @covers       ::isDecimalInt
      *
      * @param string $input    The input string.
-     * @param string $expected The expected output for the various functions.
+     * @param array  $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -52,7 +52,7 @@ final class NumberTypesTest extends TestCase
      * @covers       ::isHexidecimalInt
      *
      * @param string $input    The input string.
-     * @param string $expected The expected output for the various functions.
+     * @param array  $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -68,7 +68,7 @@ final class NumberTypesTest extends TestCase
      * @covers       ::isBinaryInt
      *
      * @param string $input    The input string.
-     * @param string $expected The expected output for the various functions.
+     * @param array  $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -84,7 +84,7 @@ final class NumberTypesTest extends TestCase
      * @covers       ::isOctalInt
      *
      * @param string $input    The input string.
-     * @param string $expected The expected output for the various functions.
+     * @param array  $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -100,7 +100,7 @@ final class NumberTypesTest extends TestCase
      * @covers       ::isFloat
      *
      * @param string $input    The input string.
-     * @param string $expected The expected output for the various functions.
+     * @param array  $expected The expected output for the various functions.
      *
      * @return void
      */

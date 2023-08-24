@@ -53,7 +53,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that represent equality comparisons.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $equalityTokens = [
         \T_IS_EQUAL            => \T_IS_EQUAL,
@@ -120,7 +120,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that perform boolean operations.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $booleanOperators = [
         \T_BOOLEAN_AND => \T_BOOLEAN_AND,
@@ -133,7 +133,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that represent casting.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $castTokens = [
         \T_INT_CAST    => \T_INT_CAST,
@@ -183,7 +183,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that represent scope modifiers.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $scopeModifiers = [
         \T_PRIVATE   => \T_PRIVATE,
@@ -194,7 +194,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that can prefix a method name
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $methodPrefixes = [
         \T_PRIVATE   => \T_PRIVATE,
@@ -208,7 +208,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that open code blocks.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $blockOpeners = [
         \T_OPEN_CURLY_BRACKET  => \T_OPEN_CURLY_BRACKET,
@@ -276,7 +276,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that represent strings.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $stringTokens = [
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
@@ -299,7 +299,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that represent brackets and parenthesis.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $bracketTokens = [
         \T_OPEN_CURLY_BRACKET   => \T_OPEN_CURLY_BRACKET,
@@ -313,7 +313,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that include files.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $includeTokens = [
         \T_REQUIRE_ONCE => \T_REQUIRE_ONCE,
@@ -325,7 +325,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens that make up a heredoc string.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      */
     private $heredocTokens = [
         \T_START_HEREDOC => \T_START_HEREDOC,
@@ -352,7 +352,7 @@ final class UnchangedTokenArraysTest extends TestCase
     /**
      * Tokens representing PHP magic constants.
      *
-     * @var array <int|string> => <int|string>
+     * @var array<int|string, int|string>
      *
      * @link https://www.php.net/language.constants.predefined PHP Manual on magic constants
      */

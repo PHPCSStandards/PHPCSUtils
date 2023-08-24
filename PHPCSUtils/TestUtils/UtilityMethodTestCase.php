@@ -154,7 +154,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @since 1.0.0
      *
-     * @var \PHP_CodeSniffer\Files\File
+     * @var \PHP_CodeSniffer\Files\File|null
      */
     protected static $phpcsFile;
 
@@ -168,7 +168,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @since 1.0.0
      *
-     * @var array
+     * @var string[]
      */
     protected static $selectedSniff = ['Dummy.Dummy.Dummy'];
 
@@ -329,10 +329,10 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @since 1.0.0
      *
-     * @param string           $commentString The complete delimiter comment to look for as a string.
-     *                                        This string should include the comment opener and closer.
-     * @param int|string|array $tokenType     The type of token(s) to look for.
-     * @param string           $tokenContent  Optional. The token content for the target token.
+     * @param string                       $commentString The complete delimiter comment to look for as a string.
+     *                                                    This string should include the comment opener and closer.
+     * @param int|string|array<int|string> $tokenType     The type of token(s) to look for.
+     * @param string                       $tokenContent  Optional. The token content for the target token.
      *
      * @return int
      *

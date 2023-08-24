@@ -415,7 +415,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterFromStackNamedAfterVariadic
      *
-     * @param string      $offset   The positional offfset to pass.
+     * @param int         $offset   The positional offfset to pass.
      * @param array       $names    The parameter names to pass.
      * @param array|false $expected The expected result array for the parameter.
      *

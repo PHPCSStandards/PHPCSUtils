@@ -44,7 +44,7 @@ class GetConditionTest extends UtilityMethodTestCase
      * - The startPoint token is left out as it is tested separately.
      * - The key is the type of token to look for after the test marker.
      *
-     * @var array <int|string> => <string>
+     * @var array<int|string, string>
      */
     protected static $testTargets = [
         \T_VARIABLE                 => '/* testSeriouslyNestedMethod */',
@@ -92,7 +92,7 @@ class GetConditionTest extends UtilityMethodTestCase
      * This array isn't auto-generated based on the array in Tokens as for these
      * tests we want to have access to the token constant names, not just their values.
      *
-     * @var array <string> => <bool>
+     * @var array<string, bool>
      */
     protected $conditionDefaults = [
         'T_CLASS'      => false,
@@ -124,21 +124,21 @@ class GetConditionTest extends UtilityMethodTestCase
     /**
      * Cache for the test token stack pointers.
      *
-     * @var array <string> => <int>
+     * @var array<string, int>
      */
     protected static $testTokens = [];
 
     /**
      * Cache for the marker token stack pointers.
      *
-     * @var array <string> => <int>
+     * @var array<string, int>
      */
     protected static $markerTokens = [];
 
     /**
      * OO scope tokens array.
      *
-     * @var <int|string> => <int>
+     * @var array<int|string, int>
      */
     protected $ooScopeTokens = [];
 

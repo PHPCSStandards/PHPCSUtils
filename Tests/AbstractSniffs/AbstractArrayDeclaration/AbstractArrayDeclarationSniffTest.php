@@ -31,7 +31,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      * Needed for PHPUnit cross-version support as PHPUnit 4.x does not have a
      * `setMethodsExcept()` method yet.
      *
-     * @var array
+     * @var string[]
      */
     public $methodsToMock = [
         'processOpenClose',
