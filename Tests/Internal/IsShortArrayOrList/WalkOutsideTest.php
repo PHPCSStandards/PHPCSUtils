@@ -39,7 +39,7 @@ final class WalkOutsideTest extends UtilityMethodTestCase
     public function testWalkOutside($testMarker, $expected)
     {
         $stackPtr = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY]);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
+        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
         $this->assertSame($expected, $type);
