@@ -103,6 +103,7 @@ if (\version_compare(Autoload::VERSION, '2.0.0', '>=')) {
         use AssertIsType;
         use AssertNumericType;
         use AssertObjectEquals;
+        use AssertObjectProperty;
         use AssertStringContains;
         use EqualToSpecializations;
         use ExpectException;
