@@ -10,3 +10,4 @@ vendor/
 /.phpunit.result.cache
 /docs/phpdoc/
 !/docs/phpdoc/.nojekyll
+phpstan.neon
