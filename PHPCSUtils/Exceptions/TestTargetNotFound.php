@@ -34,7 +34,7 @@ final class TestTargetNotFound extends OutOfBoundsException
     public static function create($marker, $content, $file)
     {
         $contentPhrase = '';
-        if ($content !== null) {
+        if (\is_string($content)) {
             $contentPhrase = ' with token content: ' . $content;
         }
 
