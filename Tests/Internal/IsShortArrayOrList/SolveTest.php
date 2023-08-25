@@ -37,7 +37,7 @@ final class SolveTest extends UtilityMethodTestCase
     public function testSolve($testMarker, $expected)
     {
         $stackPtr = $this->getTargetToken($testMarker, StableCollections::$shortArrayListOpenTokensBC);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
+        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
         $this->assertSame($expected, $type);

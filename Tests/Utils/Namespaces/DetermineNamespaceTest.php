@@ -260,7 +260,7 @@ final class DetermineNamespaceTest extends UtilityMethodTestCase
         $result   = Namespaces::findNamespacePtr(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result, 'Failed test with findNamespacePtr');
 
-        $result = Namespaces::determineNamespace(self::$phpcsFile, $stackPtr, false);
+        $result = Namespaces::determineNamespace(self::$phpcsFile, $stackPtr);
         $this->assertSame('', $result, 'Failed test with determineNamespace');
     }
 }

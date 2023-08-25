@@ -36,7 +36,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
     public function testWalkInsideUndetermined($testMarker, $expected)
     {
         $stackPtr = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY]);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
+        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
         $this->assertSame($expected, $type);
@@ -121,7 +121,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
     public function testWalkInsideResolved($testMarker, $expected)
     {
         $stackPtr = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY]);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
+        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
         $this->assertSame($expected, $type);
@@ -244,7 +244,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
     public function testSampleTooSmall()
     {
         $stackPtr = $this->getTargetToken('/* testNestedShortArraySampleTooSmall */', \T_OPEN_SHORT_ARRAY);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
+        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
         $this->assertSame(IsShortArrayOrList::SHORT_ARRAY, $type);
@@ -263,7 +263,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
     public function testRecursionLimit($testMarker, $expected)
     {
         $stackPtr = $this->getTargetToken($testMarker, [\T_OPEN_SHORT_ARRAY]);
-        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr, []);
+        $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 
         $this->assertSame($expected, $type);
