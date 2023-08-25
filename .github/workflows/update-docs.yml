@@ -68,7 +68,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           # Use a version known to be safe for last phpDocumentor release.
-          php-version: '8.0'
+          php-version: '8.1'
           ini-file: 'development'
           coverage: none
           # Install the latest phpDocumentor release as a PHAR.
