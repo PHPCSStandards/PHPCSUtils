@@ -120,12 +120,12 @@ seo:
      */
     private function setPaths(): void
     {
-        $realRoot = \realpath(self::PROJECT_ROOT) . '/';
+        $realRoot = \realpath(self::PROJECT_ROOT);
         if ($realRoot === false) {
             throw new RuntimeException(\sprintf('Failed to find the %s directory.', $realRoot));
         }
 
-        $this->realRoot = $realRoot;
+        $this->realRoot = $realRoot . '/';
 
         // Check if the target directory exists and if not, create it.
         $targetDir = $this->realRoot . self::TARGET_DIR;
