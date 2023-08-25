@@ -124,10 +124,11 @@ final class GetParametersDiffTest extends UtilityMethodTestCase
     /**
      * Test helper to translate token offsets to absolute positions in an "expected" array.
      *
-     * @param string $targetPtr The token pointer to the target token from which the offset is calculated.
-     * @param array  $expected  The expected function output containing offsets.
+     * @param int                              $targetPtr The token pointer to the target token from which
+     *                                                    the offset is calculated.
+     * @param array<int, array<string, mixed>> $expected  The expected function output containing offsets.
      *
-     * @return array
+     * @return array<int, array<string, mixed>>
      */
     private function updateExpectedTokenPositions($targetPtr, $expected)
     {

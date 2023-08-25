@@ -50,6 +50,19 @@
 
     <!--
     #############################################################################
+    SNIFF SPECIFIC CONFIGURATION
+    #############################################################################
+    -->
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="125" />
+        </properties>
+    </rule>
+
+
+    <!--
+    #############################################################################
     SELECTIVE EXCLUSIONS
     Exclude specific files for specific sniffs and/or exclude sub-groups in sniffs.
     #############################################################################

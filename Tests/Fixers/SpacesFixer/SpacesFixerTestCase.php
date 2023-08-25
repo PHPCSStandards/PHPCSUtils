@@ -26,7 +26,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * Important: this MUST be set in the concrete test class!
      *
-     * @var int|string
+     * @var int|string|null Note: `null` is not an acceptable value for the overloaded constant!
      */
     const SPACES = null;
 
@@ -69,7 +69,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * Important: this MUST be set in the concrete test class!
      *
-     * @var array
+     * @var string[]
      */
     protected static $compliantCases = [];
 
@@ -85,7 +85,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var array
+     * @var string[]
      */
     protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 
@@ -301,7 +301,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
     /**
      * Helper function holding the base data for the data providers.
      *
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     protected static function getAllData()
     {

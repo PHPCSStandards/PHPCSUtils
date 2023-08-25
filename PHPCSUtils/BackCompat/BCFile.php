@@ -201,7 +201,7 @@ final class BCFile
      * @param int                         $stackPtr  The position in the stack of the function token
      *                                               to acquire the parameters for.
      *
-     * @return array
+     * @return array<int, array<string, mixed>>
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified `$stackPtr` is not of
      *                                                      type `T_FUNCTION`, `T_CLOSURE`, `T_USE`,
@@ -509,7 +509,7 @@ final class BCFile
      * @param int                         $stackPtr  The position in the stack of the function token to
      *                                               acquire the properties for.
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      `T_FUNCTION`, `T_CLOSURE`, or `T_FN` token.
@@ -554,7 +554,7 @@ final class BCFile
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token to
      *                                               acquire the properties for.
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      `T_VARIABLE` token, or if the position is not
@@ -573,7 +573,7 @@ final class BCFile
      * array(
      *   'is_abstract' => boolean, // TRUE if the abstract keyword was found.
      *   'is_final'    => boolean, // TRUE if the final keyword was found.
-     *   'is_readonly' => false, // TRUE if the readonly keyword was found.
+     *   'is_readonly' => boolean, // TRUE if the readonly keyword was found.
      * );
      * ```
      *
@@ -593,7 +593,7 @@ final class BCFile
      * @param int                         $stackPtr  The position in the stack of the `T_CLASS`
      *                                               token to acquire the properties for.
      *
-     * @return array
+     * @return array<string, bool>
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
      *                                                      `T_CLASS` token.
@@ -714,9 +714,9 @@ final class BCFile
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $start     The position to start searching from in the token stack.
-     * @param int|string|array            $ignore    Token types that should not be considered stop points.
+     * @param \PHP_CodeSniffer\Files\File  $phpcsFile The file being scanned.
+     * @param int                          $start     The position to start searching from in the token stack.
+     * @param int|string|array<int|string> $ignore    Token types that should not be considered stop points.
      *
      * @return int
      */
@@ -738,9 +738,9 @@ final class BCFile
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $start     The position to start searching from in the token stack.
-     * @param int|string|array            $ignore    Token types that should not be considered stop points.
+     * @param \PHP_CodeSniffer\Files\File  $phpcsFile The file being scanned.
+     * @param int                          $start     The position to start searching from in the token stack.
+     * @param int|string|array<int|string> $ignore    Token types that should not be considered stop points.
      *
      * @return int
      */
@@ -763,9 +763,9 @@ final class BCFile
      *
      * @since 1.0.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
-     * @param int                         $stackPtr  The position of the token we are checking.
-     * @param int|string|array            $types     The type(s) of tokens to search for.
+     * @param \PHP_CodeSniffer\Files\File  $phpcsFile The file being scanned.
+     * @param int                          $stackPtr  The position of the token we are checking.
+     * @param int|string|array<int|string> $types     The type(s) of tokens to search for.
      *
      * @return bool
      */
@@ -847,8 +847,8 @@ final class BCFile
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class or enum token.
      *
-     * @return array|false Array with names of the implemented interfaces or `FALSE` on
-     *                     error or if there are no implemented interface names.
+     * @return string[]|false Array with names of the implemented interfaces or `FALSE` on
+     *                        error or if there are no implemented interface names.
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {

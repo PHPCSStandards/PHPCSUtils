@@ -30,7 +30,7 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
     /**
      * Cache for the parsed parameters array.
      *
-     * @var array <string> => <int>
+     * @var array<string, array<string, int|string>>
      */
     private static $parameters = [];
 
@@ -106,8 +106,8 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetDoubleArrowPtr
      *
-     * @param string $testMarker The comment which is part of the target array item in the test file.
-     * @param array  $expected   The expected function call result.
+     * @param string   $testMarker The comment which is part of the target array item in the test file.
+     * @param int|bool $expected   The expected function call result.
      *
      * @return void
      */

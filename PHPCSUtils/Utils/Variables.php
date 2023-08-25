@@ -41,7 +41,7 @@ final class Variables
      *
      * @since 1.0.0
      *
-     * @var array <string> => <bool>
+     * @var array<string, bool>
      */
     public static $phpReservedVars = [
         '_SERVER'              => true,
@@ -94,7 +94,7 @@ final class Variables
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token
      *                                               to acquire the properties for.
      *
-     * @return array Array with information about the class member variable.
+     * @return array<string, mixed> Array with information about the class member variable.
      *               The format of the return value is:
      *               ```php
      *               array(

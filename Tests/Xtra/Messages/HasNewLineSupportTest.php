@@ -41,7 +41,7 @@ final class HasNewLineSupportTest extends PolyfilledTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var array
+     * @var string[]
      */
     protected static $selectedSniff = ['PHPCSUtils.Xtra.HasNewLineSupportTest'];
 

@@ -79,7 +79,7 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      * @dataProvider dataGetMemberProperties
      *
      * @param string $identifier Comment which precedes the test case.
-     * @param bool   $expected   Expected function output.
+     * @param array  $expected   Expected function output.
      *
      * @return void
      */

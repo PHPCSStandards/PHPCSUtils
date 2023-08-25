@@ -29,7 +29,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
     /**
      * List of all the test markers with their target token info in the test case file.
      *
-     * @var array
+     * @var array<string, array<string, string|int>>
      */
     public static $testTargets = [
         'testIfWithArray-$a' => [
@@ -194,7 +194,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
     /**
      * Cache for the test token stack pointers.
      *
-     * @var array <string> => <int>
+     * @var array<string, int>
      */
     private static $testTokens = [];
 
@@ -210,7 +210,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      * This array isn't auto-generated based on the array in Tokens as for these
      * tests we want to have access to the token constant names, not just their values.
      *
-     * @var array <string> => <bool>
+     * @var array<string, bool>
      */
     private $ownerDefaults = [
         'T_ARRAY'      => false,
