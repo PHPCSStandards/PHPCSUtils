@@ -122,7 +122,7 @@ seo:
     {
         $realRoot = \realpath(self::PROJECT_ROOT);
         if ($realRoot === false) {
-            throw new RuntimeException(\sprintf('Failed to find the %s directory.', $realRoot));
+            throw new RuntimeException(\sprintf('Failed to find the %s directory.', self::PROJECT_ROOT));
         }
 
         $this->realRoot = $realRoot . '/';
