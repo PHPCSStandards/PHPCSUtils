@@ -52,7 +52,7 @@ jobs:
           echo "PR_BRANCH=feature/getversiontest-update-phpcs-version" >> $GITHUB_OUTPUT
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.branches.outputs.BASE }}
 

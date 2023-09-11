@@ -58,7 +58,7 @@ jobs:
           fi
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.base_branch.outputs.BRANCH }}
           # fetch-depth is needed to allow for retrieving the last tag for a non-tag workflow run.
