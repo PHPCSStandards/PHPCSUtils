@@ -355,6 +355,7 @@ jobs:
         with:
           github-token: ${{ secrets.COVERALLS_TOKEN }}
           format: clover
+          file: build/logs/clover.xml
           flag-name: php-${{ matrix.php }}-phpcs-${{ matrix.phpcs_version }}
           parallel: true
 
