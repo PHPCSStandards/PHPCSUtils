@@ -55,6 +55,7 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  *                                                                 declaration.
  * @method static array shortArrayTokens()                         Tokens which are used for short arrays.
  * @method static array shortListTokens()                          Tokens which are used for short lists.
+ * @method static array ternaryOperators()                         Tokens which represent ternary operators.
  * @method static array textStringStartTokens()                    Tokens which can start a - potentially multi-line -
  *                                                                 text string.
  */
@@ -518,6 +519,18 @@ final class Collections
     private static $shortListTokens = [
         \T_OPEN_SHORT_ARRAY  => \T_OPEN_SHORT_ARRAY,
         \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
+    ];
+
+    /**
+     * Tokens which represent ternary operators.
+     *
+     * @since 1.1.0 Use the {@see Collections::ternaryOperators()} method for access.
+     *
+     * @var array<int|string, int|string>
+     */
+    private static $ternaryOperators = [
+        \T_INLINE_THEN => \T_INLINE_THEN,
+        \T_INLINE_ELSE => \T_INLINE_ELSE,
     ];
 
     /**
