@@ -27,7 +27,7 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
     /**
      * Return values in use for square brackets.
      *
-     * @var string[]
+     * @var array<string>
      */
     private $validValues = [
         IsShortArrayOrList::SHORT_ARRAY,

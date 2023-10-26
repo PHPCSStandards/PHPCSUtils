@@ -172,7 +172,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @since 1.0.0
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['Dummy.Dummy.Dummy'];
 

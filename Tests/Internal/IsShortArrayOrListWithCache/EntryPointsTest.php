@@ -29,7 +29,7 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
     /**
      * Return values in use for the IsShortArrayOrListWithCache::solve() method.
      *
-     * @var string[]
+     * @var array<string>
      */
     private $validValues = [
         IsShortArrayOrList::SHORT_ARRAY,

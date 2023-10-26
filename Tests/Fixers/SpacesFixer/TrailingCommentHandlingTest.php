@@ -65,7 +65,7 @@ final class TrailingCommentHandlingTest extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 

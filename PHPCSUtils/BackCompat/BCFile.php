@@ -848,8 +848,8 @@ final class BCFile
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class or enum token.
      *
-     * @return string[]|false Array with names of the implemented interfaces or `FALSE` on
-     *                        error or if there are no implemented interface names.
+     * @return array<string>|false Array with names of the implemented interfaces or `FALSE` on
+     *                             error or if there are no implemented interface names.
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
