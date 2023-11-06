@@ -17,7 +17,7 @@
  * @author    Phil Davis <phil@jankaritech.com>
  *
  * @copyright 2017-2019 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * @license   https://github.com/PHPCSStandards/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;

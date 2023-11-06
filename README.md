@@ -128,7 +128,7 @@ To use a non-Composer based installation for your sniff development environment,
 
 Your installation instructions for a non-Composer based installation will probably look similar to this:
 
-> * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/squizlabs/PHP_CodeSniffer#installation).
+> * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/PHPCSStandards/PHP_CodeSniffer#installation).
 > * Register the path to PHPCS in your system `$PATH` environment variable to make the `phpcs` command available from anywhere in your file system.
 > * Download the \[latest _YourStandardName_ release\] and unzip/untar it into an arbitrary directory.
 >     You can also choose to clone the repository using git.
@@ -288,7 +288,7 @@ If you are unsure whether the changes you are proposing would be welcome, please
 This code is released under the [GNU Lesser General Public License (LGPLv3)](LICENSE).
 
 
-[PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
+[PHP_CodeSniffer]:       https://github.com/PHPCSStandards/PHP_CodeSniffer
 [Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
 [phpcsutils-repo]:       https://github.com/PHPCSStandards/PHPCSUtils
 [phpcsutils-web]:        https://phpcsutils.com/

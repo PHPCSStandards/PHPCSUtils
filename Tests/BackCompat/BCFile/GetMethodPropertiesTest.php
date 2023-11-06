@@ -15,7 +15,7 @@
  * @author    Juliette Reinders Folmer <jrf@phpcodesniffer.info>
  *
  * @copyright 2018-2019 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * @license   https://github.com/PHPCSStandards/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
