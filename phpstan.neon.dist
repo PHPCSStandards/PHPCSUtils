@@ -1,5 +1,5 @@
 parameters:
-    #phpVersion: 50400 # Needs to be 70100 or higher... sigh...
+    # phpVersion: 50400 # Needs to be 70100 or higher... sigh...
     level: 6
     paths:
         - phpcsutils-autoload.php
@@ -14,6 +14,8 @@ parameters:
     treatPhpDocTypesAsCertain: false
 
     ignoreErrors:
+        # yamllint disable rule:line-length
+
         # Level 0
         # Ignoring this as availability depends on which PHPUnit Polyfills version is loaded/installed. This is 100% okay.
         -
@@ -72,10 +74,10 @@ parameters:
         -
             message: '`^Parameter #[0-9]+ \$\S+ of static method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
             paths:
-              - Tests/BackCompat/BCFile/GetTokensAsStringTest.php
-              - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
-              - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php
-              - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
+                - Tests/BackCompat/BCFile/GetTokensAsStringTest.php
+                - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
+                - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php
+                - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
 
         # Ignoring as this is fine.
         -
@@ -93,3 +95,5 @@ parameters:
         -
             message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::\S+\(\) has parameter \$\S* with no value type specified in iterable type array\.$`'
             path: Tests/*
+
+            # yamllint enable rule:line-length
