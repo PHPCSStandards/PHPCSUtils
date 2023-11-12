@@ -164,11 +164,11 @@ For things to continue working when you add PHPCSUtils to your standard, you nee
 To support non-Composer based installs for running your sniff unit tests, you will need to adjust the PHPUnit `bootstrap.php` file to allow for passing an environment variable pointing to your PHPCSUtils installation.
 
 <details>
-  <summary><b>Example bootstrap code using a <code>PHPCSUTILS_DIR</code> environment variable</b></summary>
+  <summary><b>Example bootstrap code using a <code>PHPCSUtils_DIR</code> environment variable</b></summary>
 
 ```php
 // Get the PHPCS dir from an environment variable.
-$phpcsUtilDir = getenv('PHPCSUTILS_DIR');
+$phpcsUtilDir = getenv('PHPCSUtils_DIR');
 
 // This may be a Composer install.
 if ($phpcsUtilDir === false && file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -191,7 +191,7 @@ if ($phpcsUtilDir === false && file_exists(__DIR__ . '/vendor/autoload.php')) {
     echo 'Uh oh... can\'t find PHPCSUtils.
 
 If you use Composer, please run `composer install`.
-Otherwise, make sure you set a `PHPCSUTILS_DIR` environment variable in your phpunit.xml file
+Otherwise, make sure you set a `PHPCSUtils_DIR` environment variable in your phpunit.xml file
 pointing to the PHPCS directory.
 ';
 
@@ -208,7 +208,7 @@ Once that's done, you will need to make a small tweak to your own dev environmen
 
     ```xml
     <php>
-        <env name="PHPCSUTILS_DIR" value="/path/to/PHPCSUtils"/>
+        <env name="PHPCSUtils_DIR" value="/path/to/PHPCSUtils"/>
     </php>
     ```
 

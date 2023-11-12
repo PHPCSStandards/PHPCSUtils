@@ -13,6 +13,9 @@ globs:
   - "**/*.md"
   - ".github/**/*.md"
 
+# Show found files on stdout (only valid at root)
+showFound: true
+
 # Define glob expressions to ignore.
 ignores:
   - "docs/index.md" # This file is kept in sync with the README, so will inherit all changes.
