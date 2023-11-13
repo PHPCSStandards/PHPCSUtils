@@ -596,13 +596,7 @@ final class Collections
      */
     public static function arrayOpenTokensBC()
     {
-        $tokens = self::$arrayOpenTokensBC;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$arrayOpenTokensBC;
     }
 
     /**
@@ -623,14 +617,7 @@ final class Collections
      */
     public static function arrayTokensBC()
     {
-        $tokens = self::$arrayTokens;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET]  = \T_OPEN_SQUARE_BRACKET;
-            $tokens[\T_CLOSE_SQUARE_BRACKET] = \T_CLOSE_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$arrayTokens;
     }
 
     /**
@@ -673,13 +660,7 @@ final class Collections
      */
     public static function listOpenTokensBC()
     {
-        $tokens = self::$listOpenTokensBC;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$listOpenTokensBC;
     }
 
     /**
@@ -698,14 +679,7 @@ final class Collections
      */
     public static function listTokensBC()
     {
-        $tokens = self::$listTokens;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET]  = \T_OPEN_SQUARE_BRACKET;
-            $tokens[\T_CLOSE_SQUARE_BRACKET] = \T_CLOSE_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$listTokens;
     }
 
     /**
@@ -815,13 +789,7 @@ final class Collections
      */
     public static function shortArrayListOpenTokensBC()
     {
-        $tokens = self::$shortArrayListOpenTokensBC;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$shortArrayListOpenTokensBC;
     }
 
     /**
@@ -840,14 +808,7 @@ final class Collections
      */
     public static function shortArrayTokensBC()
     {
-        $tokens = self::$shortArrayTokens;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET]  = \T_OPEN_SQUARE_BRACKET;
-            $tokens[\T_CLOSE_SQUARE_BRACKET] = \T_CLOSE_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$shortArrayTokens;
     }
 
     /**
@@ -866,13 +827,6 @@ final class Collections
      */
     public static function shortListTokensBC()
     {
-        $tokens = self::$shortListTokens;
-
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $tokens[\T_OPEN_SQUARE_BRACKET]  = \T_OPEN_SQUARE_BRACKET;
-            $tokens[\T_CLOSE_SQUARE_BRACKET] = \T_CLOSE_SQUARE_BRACKET;
-        }
-
-        return $tokens;
+        return self::$shortListTokens;
     }
 }
