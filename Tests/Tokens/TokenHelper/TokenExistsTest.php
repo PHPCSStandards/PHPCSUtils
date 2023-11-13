@@ -58,7 +58,7 @@ final class TokenExistsTest extends TestCase
      * {@internal This dataprovider does not currently contain any tests for
      *            PHP native tokens which may not exist (depending on the PHPCS version).
      *            These tests are not relevant at this time with the current minimum
-     *            PHPCS version of 3.7.1, but this may change again in the future.}
+     *            PHPCS version, but this may change again in the future.}
      *
      * @return array
      */

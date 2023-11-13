@@ -74,7 +74,7 @@ final class BCTokens
 
     /**
      * Handle calls to (undeclared) methods for token arrays which haven't received any
-     * changes since PHPCS 3.7.1.
+     * changes since PHPCS 3.8.0.
      *
      * @since 1.0.0
      *
