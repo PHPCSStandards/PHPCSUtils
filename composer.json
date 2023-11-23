@@ -19,7 +19,8 @@
     "support" : {
         "issues" : "https://github.com/PHPCSStandards/PHPCSUtils/issues",
         "source" : "https://github.com/PHPCSStandards/PHPCSUtils",
-        "docs"   : "https://phpcsutils.com/"
+        "docs"   : "https://phpcsutils.com/",
+        "security": "https://github.com/PHPCSStandards/PHPCSUtils/security/policy"
     },
     "require" : {
         "php" : ">=5.4",
