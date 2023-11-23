@@ -30,11 +30,11 @@ jobs:
 
     strategy:
       matrix:
-        php: ['5.4', '7.0', '7.4', '8.0', '8.1', '8.2', '8.3']
+        php: ['5.4', '7.0', '7.4', '8.0', '8.3', '8.4']
 
     name: "Lint: PHP ${{ matrix.php }}"
 
-    continue-on-error: ${{ matrix.php == '8.3' }}
+    continue-on-error: ${{ matrix.php == '8.4' }}
 
     steps:
       - name: Checkout code
@@ -49,7 +49,7 @@ jobs:
           tools: cs2pr
 
       - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.3 }}
+        if: ${{ matrix.php < 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
@@ -57,7 +57,7 @@ jobs:
 
       # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.3 }}
+        if: ${{ matrix.php >= 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           composer-options: --ignore-platform-req=php+
@@ -91,7 +91,7 @@ jobs:
         # IMPORTANT: test runs shouldn't fail because of PHPCS being incompatible with a PHP version.
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
-        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
         phpcs_version: ['lowest', 'dev-master']
         risky: [false]
         experimental: [false]
@@ -109,7 +109,7 @@ jobs:
             extensions: ':iconv' # Run with iconv disabled.
 
           # Experimental builds. These are allowed to fail.
-          - php: '8.3'
+          - php: '8.4'
             phpcs_version: 'dev-master'
             risky: false
             experimental: true
@@ -135,12 +135,12 @@ jobs:
             risky: true
             experimental: true
 
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'lowest'
             risky: true
             experimental: true
 
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'dev-master'
             risky: true
             experimental: true
@@ -183,7 +183,7 @@ jobs:
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.3 }}
+        if: ${{ matrix.php < 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
@@ -191,7 +191,7 @@ jobs:
 
       # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.3 }}
+        if: ${{ matrix.php >= 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           composer-options: --ignore-platform-req=php+
@@ -266,9 +266,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'dev-master'
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'lowest'
             extensions: ':iconv' # Run one build with iconv disabled.
           - php: '5.4'

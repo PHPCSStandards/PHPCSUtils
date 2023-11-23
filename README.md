@@ -11,7 +11,7 @@
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/phpcsstandards/phpcsutils.svg?maxAge=3600)][phpcsutils-packagist]
 [![CS Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml/badge.svg?branch=develop)](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/basics.yml)
 [![Test Build Status](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/test.yml/badge.svg?branch=develop)][phpcsutils-tests-gha]
-[![Tested on PHP 5.4 to 8.2](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1%20|%208.2-brightgreen.svg?maxAge=2419200)][phpcsutils-tests-gha]
+[![Tested on PHP 5.4 to 8.3](https://img.shields.io/badge/tested%20on-PHP%205.4%20|%205.5%20|%205.6%20|%207.0%20|%207.1%20|%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1%20|%208.2%20|%208.3-brightgreen.svg?maxAge=2419200)][phpcsutils-tests-gha]
 [![Coverage Status](https://coveralls.io/repos/github/PHPCSStandards/PHPCSUtils/badge.svg?branch=develop)](https://coveralls.io/github/PHPCSStandards/PHPCSUtils?branch=develop)
 
 [![Docs website](https://github.com/PHPCSStandards/PHPCSUtils/actions/workflows/update-docs.yml/badge.svg)][phpcsutils-web]
