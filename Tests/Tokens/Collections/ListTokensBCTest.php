@@ -39,11 +39,6 @@ final class ListTokensBCTest extends TestCase
             \T_CLOSE_SHORT_ARRAY => \T_CLOSE_SHORT_ARRAY,
         ];
 
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $expected[\T_OPEN_SQUARE_BRACKET]  = \T_OPEN_SQUARE_BRACKET;
-            $expected[\T_CLOSE_SQUARE_BRACKET] = \T_CLOSE_SQUARE_BRACKET;
-        }
-
         $this->assertSame($expected, Collections::listTokensBC());
     }
 }

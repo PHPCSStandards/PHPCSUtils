@@ -46,7 +46,7 @@ Whether you need to split an `array` into the individual items, are trying to de
 
 Includes improved versions of the PHPCS native utility functions and plenty of new utility functions.
 
-These functions are compatible with PHPCS 3.7.1 up to PHPCS `master`.
+These functions are compatible with PHPCS 3.8.0 up to PHPCS `master`.
 
 ### A collection of static properties and methods for often-used token groups
 
@@ -66,7 +66,7 @@ Supports PHPUnit 4.x up to 9.x.
 
 Normally to use the latest version of PHP_CodeSniffer native utility functions, you would have to raise the minimum requirements of your external PHPCS standard.
 
-Now you won't have to anymore. This package allows you to use the latest version of those utility functions in all PHP_CodeSniffer versions from PHPCS 3.7.1 and up.
+Now you won't have to anymore. This package allows you to use the latest version of those utility functions in all PHP_CodeSniffer versions from PHPCS 3.8.0 and up.
 
 ### Fully documented
 
@@ -78,7 +78,7 @@ To see detailed information about all the available abstract sniffs, utility fun
 ## Minimum Requirements
 
 * PHP 5.4 or higher.
-* [PHP_CodeSniffer] 3.7.1+.
+* [PHP_CodeSniffer] 3.8.0+.
 * Recommended PHP extensions for optimal functionality:
     - PCRE with Unicode support (normally enabled by default)
 
@@ -128,7 +128,7 @@ To use a non-Composer based installation for your sniff development environment,
 
 Your installation instructions for a non-Composer based installation will probably look similar to this:
 
-> * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/squizlabs/PHP_CodeSniffer#installation).
+> * Install [PHP_CodeSniffer] via [your preferred method](https://github.com/PHPCSStandards/PHP_CodeSniffer#installation).
 > * Register the path to PHPCS in your system `$PATH` environment variable to make the `phpcs` command available from anywhere in your file system.
 > * Download the \[latest _YourStandardName_ release\] and unzip/untar it into an arbitrary directory.
 >     You can also choose to clone the repository using git.
@@ -288,7 +288,7 @@ If you are unsure whether the changes you are proposing would be welcome, please
 This code is released under the [GNU Lesser General Public License (LGPLv3)](LICENSE).
 
 
-[PHP_CodeSniffer]:       https://github.com/squizlabs/PHP_CodeSniffer
+[PHP_CodeSniffer]:       https://github.com/PHPCSStandards/PHP_CodeSniffer
 [Composer PHPCS plugin]: https://github.com/PHPCSStandards/composer-installer
 [phpcsutils-repo]:       https://github.com/PHPCSStandards/PHPCSUtils
 [phpcsutils-web]:        https://phpcsutils.com/
