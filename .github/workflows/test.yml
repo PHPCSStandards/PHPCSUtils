@@ -30,15 +30,15 @@ jobs:
 
     strategy:
       matrix:
-        php: ['5.4', '7.0', '7.4', '8.0', '8.1', '8.2', '8.3']
+        php: ['5.4', '7.0', '7.4', '8.0', '8.3', '8.4']
 
     name: "Lint: PHP ${{ matrix.php }}"
 
-    continue-on-error: ${{ matrix.php == '8.3' }}
+    continue-on-error: ${{ matrix.php == '8.4' }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -49,7 +49,7 @@ jobs:
           tools: cs2pr
 
       - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.3 }}
+        if: ${{ matrix.php < 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
@@ -57,7 +57,7 @@ jobs:
 
       # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.3 }}
+        if: ${{ matrix.php >= 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           composer-options: --ignore-platform-req=php+
@@ -91,7 +91,7 @@ jobs:
         # IMPORTANT: test runs shouldn't fail because of PHPCS being incompatible with a PHP version.
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
-        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
         phpcs_version: ['lowest', 'dev-master']
         risky: [false]
         experimental: [false]
@@ -109,7 +109,7 @@ jobs:
             extensions: ':iconv' # Run with iconv disabled.
 
           # Experimental builds. These are allowed to fail.
-          - php: '8.3'
+          - php: '8.4'
             phpcs_version: 'dev-master'
             risky: false
             experimental: true
@@ -135,12 +135,12 @@ jobs:
             risky: true
             experimental: true
 
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'lowest'
             risky: true
             experimental: true
 
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'dev-master'
             risky: true
             experimental: true
@@ -151,7 +151,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -183,7 +183,7 @@ jobs:
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.3 }}
+        if: ${{ matrix.php < 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
@@ -191,7 +191,7 @@ jobs:
 
       # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
       - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.3 }}
+        if: ${{ matrix.php >= 8.4 }}
         uses: "ramsey/composer-install@v2"
         with:
           composer-options: --ignore-platform-req=php+
@@ -266,9 +266,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'dev-master'
-          - php: '8.2'
+          - php: '8.3'
             phpcs_version: 'lowest'
             extensions: ':iconv' # Run one build with iconv disabled.
           - php: '5.4'
@@ -280,7 +280,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -349,37 +349,14 @@ jobs:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
-      # PHP Coveralls v2 (which supports GH Actions) has a PHP 5.5 minimum, so switch the PHP version.
-      - name: Switch to PHP latest
-        if: ${{ success() && matrix.php == '5.4' }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 'latest'
-          coverage: none
-
-      # Global install is used to prevent a conflict with the local composer.lock.
-      - name: Install Coveralls
+      - name: Upload coverage results to Coveralls
         if: ${{ success() }}
-        run: composer global require php-coveralls/php-coveralls:"^2.6.0" --no-interaction
-
-      - name: Upload coverage results to Coveralls (normal)
-        if: ${{ success() && github.actor != 'dependabot[bot]' }}
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-          COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: php-${{ matrix.php }}-phpcs-${{ matrix.phpcs_version }}
-        run: php-coveralls -v -x build/logs/clover.xml
-
-      # Dependabot does not have access to secrets, other than the GH token.
-      # Ref: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions
-      # Ref: https://github.com/lemurheavy/coveralls-public/issues/1721
-      - name: Upload coverage results to Coveralls (Dependabot)
-        if: ${{ success() && github.actor == 'dependabot[bot]' }}
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: php-${{ matrix.php }}-phpcs-${{ matrix.phpcs_version }}
-        run: php-coveralls -v -x build/logs/clover.xml
+        uses: coverallsapp/github-action@v2
+        with:
+          format: clover
+          file: build/logs/clover.xml
+          flag-name: php-${{ matrix.php }}-phpcs-${{ matrix.phpcs_version }}
+          parallel: true
 
   coveralls-finish:
     needs: coverage
@@ -388,19 +365,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Coveralls Finished (normal)
-        if: ${{ github.actor != 'dependabot[bot]' }}
+      - name: Coveralls Finished
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_TOKEN }}
-          parallel-finished: true
-
-      # Dependabot does not have access to secrets, other than the GH token.
-      # Ref: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions
-      # Ref: https://github.com/lemurheavy/coveralls-public/issues/1721
-      - name: Coveralls Finished (Dependabot)
-        if: ${{ github.actor == 'dependabot[bot]' }}
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true

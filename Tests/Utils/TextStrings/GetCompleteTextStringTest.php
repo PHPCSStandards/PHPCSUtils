@@ -31,7 +31,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
     /**
      * Token types to target for these tests.
      *
-     * @var array
+     * @var array<string|int>
      */
     private $targets = [
         \T_START_HEREDOC,

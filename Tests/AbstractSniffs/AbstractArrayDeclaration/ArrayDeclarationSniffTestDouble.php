@@ -24,7 +24,7 @@ final class ArrayDeclarationSniffTestDouble extends AbstractArrayDeclarationSnif
     /**
      * The token stack for the current file being examined.
      *
-     * @var array
+     * @var array<int, array<string, mixed>>
      */
     public $tokens;
 

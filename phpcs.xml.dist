@@ -5,7 +5,7 @@
     <!--
     #############################################################################
     COMMAND LINE ARGUMENTS
-    https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-Ruleset
+    https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Annotated-Ruleset
     #############################################################################
     -->
 
@@ -46,6 +46,19 @@
 
     <!-- Set minimum PHP version supported to PHP 5.4. -->
     <config name="testVersion" value="5.4-"/>
+
+
+    <!--
+    #############################################################################
+    SNIFF SPECIFIC CONFIGURATION
+    #############################################################################
+    -->
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="125" />
+        </properties>
+    </rule>
 
 
     <!--

@@ -32,7 +32,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const DEVMASTER = '3.7.2';
+    const DEVMASTER = '3.8.0';
 
     /**
      * Test the method.
@@ -46,12 +46,10 @@ final class GetVersionTest extends TestCase
             $this->markTestSkipped('The test for the Helper::getVersion() method will only run'
                 . ' if the PHPCS_VERSION environment variable is set, such as during a CI build'
                 . ' or when this variable has been set in the PHPUnit configuration file.');
-
-            return;
         }
 
         if ($expected === 'lowest') {
-            $expected = '3.7.1';
+            $expected = '3.8.0';
         }
 
         $result = Helper::getVersion();

@@ -38,10 +38,6 @@ final class ArrayOpenTokensBCTest extends TestCase
             \T_OPEN_SHORT_ARRAY => \T_OPEN_SHORT_ARRAY,
         ];
 
-        if (\version_compare(Helper::getVersion(), '3.7.1', '<=')) {
-            $expected[\T_OPEN_SQUARE_BRACKET] = \T_OPEN_SQUARE_BRACKET;
-        }
-
         $this->assertSame($expected, Collections::arrayOpenTokensBC());
     }
 }

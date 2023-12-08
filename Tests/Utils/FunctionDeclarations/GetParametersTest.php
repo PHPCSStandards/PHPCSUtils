@@ -10,7 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMethodParametersTest as BCFile_GetMethodParametersTest;
+use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -113,41 +115,108 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     protected function getMethodParametersTestHelper($marker, $expected, $targetType = [\T_FUNCTION, \T_CLOSURE, \T_FN])
     {
-        $target = $this->getTargetToken($marker, $targetType);
-        $found  = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
+        $target   = $this->getTargetToken($marker, $targetType);
+        $found    = FunctionDeclarations::getParameters(self::$phpcsFile, $target);
+        $expected = $this->updateExpectedTokenPositions($target, $expected);
 
+        $this->assertSame($expected, $found);
+    }
+
+    /**
+     * Test helper to translate token offsets to absolute positions in an "expected" array.
+     *
+     * @param int                              $targetPtr The token pointer to the target token from which
+     *                                                    the offset is calculated.
+     * @param array<int, array<string, mixed>> $expected  The expected function output containing offsets.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function updateExpectedTokenPositions($targetPtr, $expected)
+    {
         foreach ($expected as $key => $param) {
-            $expected[$key]['token'] += $target;
+            $expected[$key]['token'] += $targetPtr;
 
             if ($param['reference_token'] !== false) {
-                $expected[$key]['reference_token'] += $target;
+                $expected[$key]['reference_token'] += $targetPtr;
             }
             if ($param['variadic_token'] !== false) {
-                $expected[$key]['variadic_token'] += $target;
+                $expected[$key]['variadic_token'] += $targetPtr;
             }
             if ($param['type_hint_token'] !== false) {
-                $expected[$key]['type_hint_token'] += $target;
+                $expected[$key]['type_hint_token'] += $targetPtr;
             }
             if ($param['type_hint_end_token'] !== false) {
-                $expected[$key]['type_hint_end_token'] += $target;
+                $expected[$key]['type_hint_end_token'] += $targetPtr;
             }
             if ($param['comma_token'] !== false) {
-                $expected[$key]['comma_token'] += $target;
+                $expected[$key]['comma_token'] += $targetPtr;
             }
             if (isset($param['default_token'])) {
-                $expected[$key]['default_token'] += $target;
+                $expected[$key]['default_token'] += $targetPtr;
             }
             if (isset($param['default_equal_token'])) {
-                $expected[$key]['default_equal_token'] += $target;
+                $expected[$key]['default_equal_token'] += $targetPtr;
             }
             if (isset($param['visibility_token']) && $param['visibility_token'] !== false) {
-                $expected[$key]['visibility_token'] += $target;
+                $expected[$key]['visibility_token'] += $targetPtr;
             }
             if (isset($param['readonly_token'])) {
-                $expected[$key]['readonly_token'] += $target;
+                $expected[$key]['readonly_token'] += $targetPtr;
             }
         }
 
-        $this->assertSame($expected, $found);
+        return $expected;
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        // The test case used is specifically selected to be one which will always reach the cache check.
+        $methodName = 'PHPCSUtils\\Utils\\FunctionDeclarations::getParameters';
+        $testMarker = '/* testPHP82PseudoTypeTrue */';
+        $expected   = [
+            0 => [
+                'token'               => 7, // Offset from the T_FUNCTION token.
+                'name'                => '$var',
+                'content'             => '?true $var = true',
+                'default'             => 'true',
+                'default_token'       => 11, // Offset from the T_FUNCTION token.
+                'default_equal_token' => 9,  // Offset from the T_FUNCTION token.
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => '?true',
+                'type_hint_token'     => 5, // Offset from the T_FUNCTION token.
+                'type_hint_end_token' => 5, // Offset from the T_FUNCTION token.
+                'nullable_type'       => true,
+                'comma_token'         => false,
+            ],
+        ];
+
+        $stackPtr = $this->getTargetToken($testMarker, Collections::functionDeclarationTokens());
+        $expected = $this->updateExpectedTokenPositions($stackPtr, $expected);
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = FunctionDeclarations::getParameters(self::$phpcsFile, $stackPtr);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $stackPtr);
+        $resultSecondRun = FunctionDeclarations::getParameters(self::$phpcsFile, $stackPtr);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

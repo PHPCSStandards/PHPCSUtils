@@ -30,7 +30,7 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
     /**
      * Cache for the parsed parameters array.
      *
-     * @var array <string> => <int>
+     * @var array<string, array<string, int|string>>
      */
     private static $parameters = [];
 
@@ -106,8 +106,8 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetDoubleArrowPtr
      *
-     * @param string $testMarker The comment which is part of the target array item in the test file.
-     * @param array  $expected   The expected function call result.
+     * @param string   $testMarker The comment which is part of the target array item in the test file.
+     * @param int|bool $expected   The expected function call result.
      *
      * @return void
      */
@@ -210,7 +210,8 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
                 'expected'   => 8,
             ],
             // Test specifically for PHPCS 3.5.3 and 3.5.4 in which all "fn" tokens were tokenized as T_FN.
-            // While PHPCS < 3.7.1 is no longer supported, the test remains to safeguard against tokenizer regressions.
+            // While these PHPCS versions are no longer supported, the test remains to safeguard against
+            // tokenizer regressions.
             'test-arrow-access-to-property-named-fn-as-key-phpcs-3.5.3-3.5.4' => [
                 'testMarker' => '/* testKeyPropertyAccessFnPHPCS353-354 */',
                 'expected'   => 12,

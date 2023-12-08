@@ -17,7 +17,7 @@
  * @author    Phil Davis <phil@jankaritech.com>
  *
  * @copyright 2017-2019 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * @license   https://github.com/PHPCSStandards/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
@@ -52,7 +52,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
      * @dataProvider dataGetMemberProperties
      *
      * @param string $identifier Comment which precedes the test case.
-     * @param bool   $expected   Expected function output.
+     * @param array  $expected   Expected function output.
      *
      * @return void
      */
@@ -721,7 +721,7 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'is_static'       => false,
                     'is_readonly'     => false,
                     // Missing static, but that's OK as not an allowed syntax.
-                    'type'            => 'callable||void',
+                    'type'            => 'callable|void',
                     'type_token'      => -6, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => false,
@@ -1040,6 +1040,58 @@ class GetMemberPropertiesTest extends UtilityMethodTestCase
                     'is_readonly'     => false,
                     'type'            => '\Foo&Bar',
                     'type_token'      => ($php8Names === true) ? -8 : -9, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.2-pseudo-type-true' => [
+                '/* testPHP82PseudoTypeTrue */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => false,
+                    'type'            => 'true',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.2-pseudo-type-true-nullable' => [
+                '/* testPHP82NullablePseudoTypeTrue */',
+                [
+                    'scope'           => 'protected',
+                    'scope_specified' => true,
+                    'is_static'       => true,
+                    'is_readonly'     => false,
+                    'type'            => '?true',
+                    'type_token'      => -2, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => true,
+                ],
+            ],
+            'php8.2-pseudo-type-true-in-union' => [
+                '/* testPHP82PseudoTypeTrueInUnion */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'is_readonly'     => false,
+                    'type'            => 'int|string|true',
+                    'type_token'      => -6, // Offset from the T_VARIABLE token.
+                    'type_end_token'  => -2, // Offset from the T_VARIABLE token.
+                    'nullable_type'   => false,
+                ],
+            ],
+            'php8.2-pseudo-type-invalid-true-false-union' => [
+                '/* testPHP82PseudoTypeFalseAndTrue */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => false,
+                    'is_static'       => false,
+                    'is_readonly'     => true,
+                    'type'            => 'true|FALSE',
+                    'type_token'      => -4, // Offset from the T_VARIABLE token.
                     'type_end_token'  => -2, // Offset from the T_VARIABLE token.
                     'nullable_type'   => false,
                 ],

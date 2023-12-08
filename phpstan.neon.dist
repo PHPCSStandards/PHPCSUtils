@@ -1,0 +1,99 @@
+parameters:
+    # phpVersion: 50400 # Needs to be 70100 or higher... sigh...
+    level: 6
+    paths:
+        - phpcsutils-autoload.php
+        - .github/GHPages
+        - PHPCSUtils
+        - Tests
+    excludePaths:
+        # This file needs to be excluded as the availability of the traits depends on which PHPUnit Polyfills version is loaded/installed.
+        - Tests/PolyfilledTestCase.php
+    bootstrapFiles:
+        - Tests/bootstrap.php
+    treatPhpDocTypesAsCertain: false
+
+    ignoreErrors:
+        # yamllint disable rule:line-length
+
+        # Level 0
+        # Ignoring this as availability depends on which PHPUnit Polyfills version is loaded/installed. This is 100% okay.
+        -
+            message: '`^Call to an undefined method \S+UtilityMethodTestCase::setExpectedException\(\)\.$`'
+            path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
+            count: 1
+
+        # Level 1
+        # These are on purpose for testing the magic method. This is 100% okay.
+        -
+            message: '`^Call to an undefined static method PHPCSUtils\\BackCompat\\BCTokens::notATokenArray\(\)\.$`'
+            path: Tests/BackCompat/BCTokens/UnchangedTokenArraysTest.php
+            count: 1
+        -
+            message: '`^Call to an undefined static method PHPCSUtils\\Tokens\\Collections::notATokenArray\(\)\.$`'
+            path: Tests/Tokens/Collections/PropertyBasedTokenArraysTest.php
+            count: 1
+
+        # Level 2
+        # Ignoring as this refers to a non-mocked method on the original class. This is 100% okay.
+        -
+            message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject::process\(\)\.$`'
+            path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
+        # Ignoring as availability depends on which PHPUnit version is loaded/installed. This is 100% okay.
+        -
+            message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockBuilder<[^>]+>::setMethods\(\)\.$`'
+            path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
+            count: 1
+
+        # Level 3
+        # Ignoring as `null` is the initial value for config settings in PHPCS which this test is resetting to.
+        # The PHPCS docs just don't reflect that. This is 100% okay.
+        -
+            message: '`^Property PHP_CodeSniffer\\Config::\$\S+ \([^\)]+\) does not accept null\.$`'
+            path: Tests/BackCompat/Helper/GetCommandLineDataTest.php
+
+        # Level 4
+        # This is by design.
+        -
+            message: '`^Static method PHPCSUtils\\Tokens\\Collections::triggerDeprecation\(\) is unused\.$`'
+            path: PHPCSUtils/Tokens/Collections.php
+            count: 1
+
+        # This depends on the PHP version on which PHPStan is being run, so not valid.
+        -
+            message: "`^Comparison operation \"\\>\\=\" between '[0-9\\. -]+' and 10 is always true\\.$`"
+            path: Tests/Utils/Orthography/FirstCharTest.php
+            count: 1
+        -
+            message: '`^Else branch is unreachable because previous condition is always true\.$`'
+            path: Tests/Utils/Orthography/FirstCharTest.php
+            count: 1
+
+        # Level 5
+        # This is by design to test handling of incorrect input.
+        -
+            message: '`^Parameter #[0-9]+ \$\S+ of static method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
+            paths:
+                - Tests/BackCompat/BCFile/GetTokensAsStringTest.php
+                - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
+                - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php
+                - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
+
+        # Ignoring as this is fine.
+        -
+            message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
+            path: Tests/TestUtils/UtilityMethodTestCase/SkipJSCSSTestsOnPHPCS4Test.php
+            count: 1
+
+        # Level 6
+        # Test data providers.
+        -
+            message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::data\S+\(\) return type has no value type specified in iterable type array\.$`'
+            path: Tests/*
+
+        # Test methods.
+        -
+            message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::\S+\(\) has parameter \$\S* with no value type specified in iterable type array\.$`'
+            path: Tests/*
+
+            # yamllint enable rule:line-length

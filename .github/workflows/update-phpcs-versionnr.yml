@@ -29,7 +29,7 @@ jobs:
         uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/squizlabs/PHP_CodeSniffer/releases/latest
+          route: GET /repos/PHPCSStandards/PHP_CodeSniffer/releases/latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -52,7 +52,7 @@ jobs:
           echo "PR_BRANCH=feature/getversiontest-update-phpcs-version" >> $GITHUB_OUTPUT
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ steps.branches.outputs.BASE }}
 
