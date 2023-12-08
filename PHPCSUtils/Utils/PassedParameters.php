@@ -170,7 +170,7 @@ final class PassedParameters
      *                                                  Efficiency tweak for when this has already been established,
      *                                                  Use with EXTREME care.
      *
-     * @return array<int, array<string, int|string>>
+     * @return array<int|string, array<string, int|string>>
      *               A multi-dimentional array with information on each parameter/array item.
      *               The information gathered about each parameter/array item is in the following format:
      *               ```php
