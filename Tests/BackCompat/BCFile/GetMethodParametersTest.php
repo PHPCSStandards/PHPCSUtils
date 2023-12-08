@@ -2437,6 +2437,66 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP 8.2 stand-alone `true` type.
+     *
+     * @return void
+     */
+    public function testPHP82PseudoTypeTrue()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 7, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => '?true $var = true',
+            'default'             => 'true',
+            'default_token'       => 11, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 9,  // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '?true',
+            'type_hint_token'     => 5, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 5, // Offset from the T_FUNCTION token.
+            'nullable_type'       => true,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Verify recognition of PHP 8.2 type declaration with (illegal) type false combined with type true.
+     *
+     * @return void
+     */
+    public function testPHP82PseudoTypeFalseAndTrue()
+    {
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 8, // Offset from the T_FUNCTION token.
+            'name'                => '$var',
+            'content'             => 'true|false $var = true',
+            'default'             => 'true',
+            'default_token'       => 12, // Offset from the T_FUNCTION token.
+            'default_equal_token' => 10, // Offset from the T_FUNCTION token.
+            'has_attributes'      => false,
+            'pass_by_reference'   => false,
+            'reference_token'     => false,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => 'true|false',
+            'type_hint_token'     => 4, // Offset from the T_FUNCTION token.
+            'type_hint_end_token' => 6, // Offset from the T_FUNCTION token.
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify behaviour when the default value uses the "new" keyword, as is allowed per PHP 8.1.
      *
      * @return void

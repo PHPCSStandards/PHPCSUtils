@@ -362,6 +362,7 @@ final class BCFile
                 case T_TYPE_UNION:
                 case T_TYPE_INTERSECTION:
                 case T_FALSE:
+                case T_TRUE:
                 case T_NULL:
                     // Part of a type hint or default value.
                     if ($defaultStart === null) {

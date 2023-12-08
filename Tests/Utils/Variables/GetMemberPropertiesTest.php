@@ -10,7 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\Variables;
 
+use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMemberPropertiesTest as BCFile_GetMemberPropertiesTest;
+use PHPCSUtils\Utils\Variables;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Variables::getMemberProperties method.
@@ -78,5 +80,44 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
         }
 
         return $data;
+    }
+
+    /**
+     * Verify that the build-in caching is used when caching is enabled.
+     *
+     * @return void
+     */
+    public function testResultIsCached()
+    {
+        $methodName = 'PHPCSUtils\\Utils\\Variables::getMemberProperties';
+        $cases      = self::dataGetMemberProperties();
+        $identifier = $cases['php8.2-pseudo-type-true-in-union'][0];
+        $expected   = $cases['php8.2-pseudo-type-true-in-union'][1];
+
+        $variable = $this->getTargetToken($identifier, \T_VARIABLE);
+
+        if (isset($expected['type_token']) && $expected['type_token'] !== false) {
+            $expected['type_token'] += $variable;
+        }
+        if (isset($expected['type_end_token']) && $expected['type_end_token'] !== false) {
+            $expected['type_end_token'] += $variable;
+        }
+
+        // Verify the caching works.
+        $origStatus     = Cache::$enabled;
+        Cache::$enabled = true;
+
+        $resultFirstRun  = Variables::getMemberProperties(self::$phpcsFile, $variable);
+        $isCached        = Cache::isCached(self::$phpcsFile, $methodName, $variable);
+        $resultSecondRun = Variables::getMemberProperties(self::$phpcsFile, $variable);
+
+        if ($origStatus === false) {
+            Cache::clear();
+        }
+        Cache::$enabled = $origStatus;
+
+        $this->assertSame($expected, $resultFirstRun, 'First result did not match expectation');
+        $this->assertTrue($isCached, 'Cache::isCached() could not find the cached value');
+        $this->assertSame($resultFirstRun, $resultSecondRun, 'Second result did not match first');
     }
 }

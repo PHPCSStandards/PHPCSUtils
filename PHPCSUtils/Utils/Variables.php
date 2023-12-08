@@ -82,7 +82,6 @@ final class Variables
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
      * - Support PHP 8.0 identifier name tokens in property types, cross-version PHP & PHPCS.
-     * - Support for the PHP 8.2 `true` type.
      * - The results of this function call are cached during a PHPCS run for faster response times.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties()   Original source.
@@ -182,12 +181,6 @@ final class Variables
         $typeEndToken       = false;
         $nullableType       = false;
         $propertyTypeTokens = Collections::propertyTypeTokens();
-
-        /*
-         * BC PHPCS < 3.x.x: The union type separator is not (yet) retokenized correctly
-         * for union types containing the `true` type.
-         */
-        $propertyTypeTokens[\T_BITWISE_OR] = \T_BITWISE_OR;
 
         if ($i < $stackPtr) {
             // We've found a type.
