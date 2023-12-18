@@ -112,7 +112,7 @@ jobs:
       # Retention is normally 90 days, but this artifact is only for reviewing
       # and debugging the generated files for the website.
       - name: Upload the generated files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: generated-files
           path: ./docs/
