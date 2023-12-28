@@ -232,9 +232,6 @@ final class AddMessageTest extends UtilityMethodTestCase
 
         $violation = $messages[0];
 
-        // PHPCS 2.x places `unknownSniff.` before the actual error code for utility tests with a dummy error code.
-        $violation['source'] = \str_replace('unknownSniff.', '', $violation['source']);
-
         /*
          * Test the violation details.
          */
