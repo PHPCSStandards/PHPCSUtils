@@ -56,7 +56,7 @@ final class InIssetTest extends UtilityMethodTestCase
      *
      * @see testInIsset()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataInIsset()
     {

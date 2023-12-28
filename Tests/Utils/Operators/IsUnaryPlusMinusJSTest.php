@@ -36,7 +36,7 @@ final class IsUnaryPlusMinusJSTest extends IsUnaryPlusMinusTestCase
      *
      * @see IsUnaryPlusMinusTest::testIsUnaryPlusMinus() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsUnaryPlusMinus()
     {

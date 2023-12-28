@@ -31,7 +31,7 @@ final class IsValidIdentifierNameTest extends TestCase
      * @dataProvider dataIsValidIdentifierName
      *
      * @param string $input    The input string.
-     * @param array  $expected The expected function output.
+     * @param bool   $expected The expected function output.
      *
      * @return void
      */
@@ -45,7 +45,7 @@ final class IsValidIdentifierNameTest extends TestCase
      *
      * @see testIsValidIdentifierName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsValidIdentifierName()
     {

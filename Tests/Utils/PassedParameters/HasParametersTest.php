@@ -81,7 +81,7 @@ final class HasParametersTest extends UtilityMethodTestCase
      *
      * @see testNotACallToConstructor() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataNotACallToConstructor()
     {
@@ -124,11 +124,11 @@ final class HasParametersTest extends UtilityMethodTestCase
      *
      * @dataProvider dataHasParameters
      *
-     * @param string           $testMarker    The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType    The type(s) of token to look for.
-     * @param bool             $expected      Whether or not the function/array has parameters/values.
-     * @param string           $targetContent Optional. The content of the target token to find.
-     *                                        Defaults to null (ignore content).
+     * @param string                       $testMarker    The comment which prefaces the target token in the test file.
+     * @param int|string|array<int|string> $targetType    The type(s) of token to look for.
+     * @param bool                         $expected      Whether or not the function/array has parameters/values.
+     * @param string|null                  $targetContent Optional. The content of the target token to find.
+     *                                                    Defaults to null (ignore content).
      *
      * @return void
      */
@@ -144,7 +144,7 @@ final class HasParametersTest extends UtilityMethodTestCase
      *
      * @see testHasParameters() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int|string>|null>>
      */
     public static function dataHasParameters()
     {

@@ -56,7 +56,7 @@ final class InUnsetTest extends UtilityMethodTestCase
      *
      * @see testInUnset()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataInUnset()
     {

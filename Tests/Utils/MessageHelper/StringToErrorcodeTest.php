@@ -45,7 +45,7 @@ final class StringToErrorcodeTest extends TestCase
      *
      * @see testStringToErrorCode() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataStringToErrorCode()
     {
@@ -97,7 +97,7 @@ final class StringToErrorcodeTest extends TestCase
      *
      * @see testStringToErrorCode() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataStringToErrorCodeWithCaseChange()
     {

@@ -41,7 +41,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      * @dataProvider dataNotAFunctionException
      *
      * @param string                       $commentString   The comment which preceeds the test.
-     * @param string|int|array<int|string> $targetTokenType The token type to search for after $commentString.
+     * @param int|string|array<int|string> $targetTokenType The token type to search for after $commentString.
      *
      * @return void
      */
@@ -1203,7 +1203,7 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @param string                         $commentString The comment which preceeds the test.
      * @param array<string, string|int|bool> $expected      The expected function output.
-     * @param string|int|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
+     * @param int|string|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
      *                                                      Defaults to the function/closure tokens.
      *
      * @return void

@@ -452,8 +452,8 @@ final class UnchangedTokenArraysTest extends TestCase
      *
      * @dataProvider dataUnchangedTokenArrays
      *
-     * @param string $name     The token array name.
-     * @param array  $expected The token array content.
+     * @param string                        $name     The token array name.
+     * @param array<int|string, int|string> $expected The token array content.
      *
      * @return void
      */
@@ -467,7 +467,7 @@ final class UnchangedTokenArraysTest extends TestCase
      *
      * @see testUnchangedTokenArrays() For the array format.
      *
-     * @return array
+     * @return array<string, array<int|string, int|string>>
      */
     public static function dataUnchangedTokenArrays()
     {

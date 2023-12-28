@@ -154,7 +154,7 @@ final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
      *
      * @see testCheckAndFixNoError() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataCheckAndFixNoError()
     {

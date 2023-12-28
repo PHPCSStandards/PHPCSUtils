@@ -372,7 +372,7 @@ abstract class UtilityMethodTestCase extends TestCase
      * @param string                       $commentString The complete delimiter comment to look for as a string.
      *                                                    This string should include the comment opener and closer.
      * @param int|string|array<int|string> $tokenType     The type of token(s) to look for.
-     * @param string                       $tokenContent  Optional. The token content for the target token.
+     * @param string|null                  $tokenContent  Optional. The token content for the target token.
      *
      * @return int
      *

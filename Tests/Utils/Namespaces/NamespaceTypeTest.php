@@ -58,11 +58,11 @@ final class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNamespaceType
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected output for the functions.
-     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
-     *                           name tokenization is used (as the target token won't exist).
-     *                           Defaults to `false`.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected output for the functions.
+     * @param bool                $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                                        name tokenization is used (as the target token won't exist).
+     *                                        Defaults to `false`.
      *
      * @return void
      */
@@ -83,11 +83,11 @@ final class NamespaceTypeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNamespaceType
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected output for the functions.
-     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
-     *                           name tokenization is used (as the target token won't exist).
-     *                           Defaults to `false`.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected output for the functions.
+     * @param bool                $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
+     *                                        name tokenization is used (as the target token won't exist).
+     *                                        Defaults to `false`.
      *
      * @return void
      */
@@ -109,7 +109,7 @@ final class NamespaceTypeTest extends UtilityMethodTestCase
      * @see testIsDeclaration() For the array format.
      * @see testIsOperator()    For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>|true>>
      */
     public static function dataNamespaceType()
     {

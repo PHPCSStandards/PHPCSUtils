@@ -68,7 +68,7 @@ final class IsElseIfTest extends UtilityMethodTestCase
      *
      * @see testIsElseIf() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsElseIf()
     {

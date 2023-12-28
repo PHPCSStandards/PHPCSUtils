@@ -136,7 +136,7 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      *
      * @see testGetDoubleArrowPtr()
      *
-     * @return array
+     * @return array<string, array<string, int|string|false>>
      */
     public static function dataGetDoubleArrowPtr()
     {

@@ -44,7 +44,7 @@ final class IsPHPReservedVarNameTest extends TestCase
      *
      * @see testIsPHPReservedVarName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsPHPReservedVarName()
     {
@@ -116,7 +116,7 @@ final class IsPHPReservedVarNameTest extends TestCase
      *
      * @see testIsPHPReservedVarNameFalse() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsPHPReservedVarNameFalse()
     {

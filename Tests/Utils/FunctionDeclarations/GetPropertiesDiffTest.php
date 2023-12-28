@@ -92,8 +92,8 @@ final class GetPropertiesDiffTest extends UtilityMethodTestCase
      * Test helper.
      *
      * @param string                         $commentString The comment which preceeds the test.
-     * @param array<string, string|int|bool> $expected      The expected function output.
-     * @param string|int|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
+     * @param array<string, int|string|bool> $expected      The expected function output.
+     * @param int|string|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
      *                                                      Defaults to the function/closure tokens.
      *
      * @return void

@@ -51,7 +51,7 @@ final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
      *
      * @see testFindExtendedClassName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|false>>
      */
     public static function dataFindExtendedClassName()
     {

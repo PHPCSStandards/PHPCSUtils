@@ -69,7 +69,7 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
      *
      * @see testGetActualArrayKey() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|null>>
      */
     public static function dataGetActualArrayKey()
     {

@@ -62,8 +62,8 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
      *
      * @dataProvider dataGetClassProperties
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected function output.
+     * @param string                  $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool|int> $expected   Expected function output.
      *
      * @return void
      */

@@ -105,7 +105,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataExceptions()
     {
@@ -142,7 +142,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      *
      * @see testGetCompleteTextString() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataGetCompleteTextString()
     {

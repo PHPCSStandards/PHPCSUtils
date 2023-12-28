@@ -73,7 +73,7 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      *
      * @see testSplitImportUseStatement() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataNonImportUseTokenPassed()
     {
@@ -88,8 +88,8 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      *
      * @dataProvider dataSplitImportUseStatement
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return value of the function.
+     * @param string                               $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, array<string, string>> $expected   The expected return value of the function.
      *
      * @return void
      */
@@ -105,7 +105,7 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      *
      * @see testSplitImportUseStatement() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, array<string, string>>>>
      */
     public static function dataSplitImportUseStatement()
     {

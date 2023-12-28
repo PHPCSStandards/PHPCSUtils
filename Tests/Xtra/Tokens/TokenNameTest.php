@@ -48,7 +48,7 @@ final class TokenNameTest extends TestCase
      *
      * @see testTokenName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataTokenName()
     {
