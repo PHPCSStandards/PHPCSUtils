@@ -79,6 +79,7 @@ parameters:
                 - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
                 - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php
                 - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
+                - Tests/Utils/NamingConventions/IsValidIdentifierNameTest.php
 
         # Ignoring as this is fine.
         -
