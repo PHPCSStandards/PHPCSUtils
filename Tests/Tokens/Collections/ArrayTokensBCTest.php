@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 

@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tokens;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Exceptions\InvalidTokenArray;
 
 /**
