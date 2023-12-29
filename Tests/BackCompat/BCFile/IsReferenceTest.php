@@ -60,7 +60,7 @@ class IsReferenceTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test correctly identifying that whether a "bitwise and" token is a reference or not.
+     * Test correctly identifying whether a "bitwise and" token is a reference or not.
      *
      * @dataProvider dataIsReference
      *
@@ -83,7 +83,7 @@ class IsReferenceTest extends UtilityMethodTestCase
      *
      * @see testIsReference()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsReference()
     {
@@ -97,272 +97,272 @@ class IsReferenceTest extends UtilityMethodTestCase
                 'expected'   => true,
             ],
             'bitwise and: param in function call' => [
-                '/* testBitwiseAndA */',
-                false,
+                'testMarker' => '/* testBitwiseAndA */',
+                'expected'   => false,
             ],
             'bitwise and: in unkeyed short array, first value' => [
-                '/* testBitwiseAndB */',
-                false,
+                'testMarker' => '/* testBitwiseAndB */',
+                'expected'   => false,
             ],
             'bitwise and: in unkeyed short array, last value' => [
-                '/* testBitwiseAndC */',
-                false,
+                'testMarker' => '/* testBitwiseAndC */',
+                'expected'   => false,
             ],
             'bitwise and: in unkeyed long array, last value' => [
-                '/* testBitwiseAndD */',
-                false,
+                'testMarker' => '/* testBitwiseAndD */',
+                'expected'   => false,
             ],
             'bitwise and: in keyed short array, last value' => [
-                '/* testBitwiseAndE */',
-                false,
+                'testMarker' => '/* testBitwiseAndE */',
+                'expected'   => false,
             ],
             'bitwise and: in keyed long array, last value' => [
-                '/* testBitwiseAndF */',
-                false,
+                'testMarker' => '/* testBitwiseAndF */',
+                'expected'   => false,
             ],
             'bitwise and: in assignment' => [
-                '/* testBitwiseAndG */',
-                false,
+                'testMarker' => '/* testBitwiseAndG */',
+                'expected'   => false,
             ],
             'bitwise and: in param default value in function declaration' => [
-                '/* testBitwiseAndH */',
-                false,
+                'testMarker' => '/* testBitwiseAndH */',
+                'expected'   => false,
             ],
             'bitwise and: in param default value in closure declaration' => [
-                '/* testBitwiseAndI */',
-                false,
+                'testMarker' => '/* testBitwiseAndI */',
+                'expected'   => false,
             ],
             'reference: function declared to return by reference' => [
-                '/* testFunctionReturnByReference */',
-                true,
+                'testMarker' => '/* testFunctionReturnByReference */',
+                'expected'   => true,
             ],
             'reference: only param in function declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceA */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceA */',
+                'expected'   => true,
             ],
             'reference: last param in function declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceB */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceB */',
+                'expected'   => true,
             ],
             'reference: only param in closure declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceC */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceC */',
+                'expected'   => true,
             ],
             'reference: last param in closure declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceD */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceD */',
+                'expected'   => true,
             ],
             'reference: typed param in function declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceE */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceE */',
+                'expected'   => true,
             ],
             'reference: typed param in closure declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceF */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceF */',
+                'expected'   => true,
             ],
             'reference: variadic param in function declaration, pass by reference' => [
-                '/* testFunctionPassByReferenceG */',
-                true,
+                'testMarker' => '/* testFunctionPassByReferenceG */',
+                'expected'   => true,
             ],
             'reference: foreach value' => [
-                '/* testForeachValueByReference */',
-                true,
+                'testMarker' => '/* testForeachValueByReference */',
+                'expected'   => true,
             ],
             'reference: foreach key' => [
-                '/* testForeachKeyByReference */',
-                true,
+                'testMarker' => '/* testForeachKeyByReference */',
+                'expected'   => true,
             ],
             'reference: keyed short array, first value, value by reference' => [
-                '/* testArrayValueByReferenceA */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceA */',
+                'expected'   => true,
             ],
             'reference: keyed short array, last value, value by reference' => [
-                '/* testArrayValueByReferenceB */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceB */',
+                'expected'   => true,
             ],
             'reference: unkeyed short array, only value, value by reference' => [
-                '/* testArrayValueByReferenceC */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceC */',
+                'expected'   => true,
             ],
             'reference: unkeyed short array, last value, value by reference' => [
-                '/* testArrayValueByReferenceD */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceD */',
+                'expected'   => true,
             ],
             'reference: keyed long array, first value, value by reference' => [
-                '/* testArrayValueByReferenceE */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceE */',
+                'expected'   => true,
             ],
             'reference: keyed long array, last value, value by reference' => [
-                '/* testArrayValueByReferenceF */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceF */',
+                'expected'   => true,
             ],
             'reference: unkeyed long array, only value, value by reference' => [
-                '/* testArrayValueByReferenceG */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceG */',
+                'expected'   => true,
             ],
             'reference: unkeyed long array, last value, value by reference' => [
-                '/* testArrayValueByReferenceH */',
-                true,
+                'testMarker' => '/* testArrayValueByReferenceH */',
+                'expected'   => true,
             ],
             'reference: variable, assign by reference' => [
-                '/* testAssignByReferenceA */',
-                true,
+                'testMarker' => '/* testAssignByReferenceA */',
+                'expected'   => true,
             ],
             'reference: variable, assign by reference, spacing variation' => [
-                '/* testAssignByReferenceB */',
-                true,
+                'testMarker' => '/* testAssignByReferenceB */',
+                'expected'   => true,
             ],
             'reference: variable, assign by reference, concat assign' => [
-                '/* testAssignByReferenceC */',
-                true,
+                'testMarker' => '/* testAssignByReferenceC */',
+                'expected'   => true,
             ],
             'reference: property, assign by reference' => [
-                '/* testAssignByReferenceD */',
-                true,
+                'testMarker' => '/* testAssignByReferenceD */',
+                'expected'   => true,
             ],
             'reference: function return value, assign by reference' => [
-                '/* testAssignByReferenceE */',
-                true,
+                'testMarker' => '/* testAssignByReferenceE */',
+                'expected'   => true,
             ],
             'reference: function return value, assign by reference, null coalesce assign' => [
-                '/* testAssignByReferenceF */',
-                true,
+                'testMarker' => '/* testAssignByReferenceF */',
+                'expected'   => true,
             ],
             'reference: unkeyed short list, first var, assign by reference' => [
-                '/* testShortListAssignByReferenceNoKeyA */',
-                true,
+                'testMarker' => '/* testShortListAssignByReferenceNoKeyA */',
+                'expected'   => true,
             ],
             'reference: unkeyed short list, second var, assign by reference' => [
-                '/* testShortListAssignByReferenceNoKeyB */',
-                true,
+                'testMarker' => '/* testShortListAssignByReferenceNoKeyB */',
+                'expected'   => true,
             ],
             'reference: unkeyed short list, nested var, assign by reference' => [
-                '/* testNestedShortListAssignByReferenceNoKey */',
-                true,
+                'testMarker' => '/* testNestedShortListAssignByReferenceNoKey */',
+                'expected'   => true,
             ],
             'reference: unkeyed long list, second var, assign by reference' => [
-                '/* testLongListAssignByReferenceNoKeyA */',
-                true,
+                'testMarker' => '/* testLongListAssignByReferenceNoKeyA */',
+                'expected'   => true,
             ],
             'reference: unkeyed long list, first nested var, assign by reference' => [
-                '/* testLongListAssignByReferenceNoKeyB */',
-                true,
+                'testMarker' => '/* testLongListAssignByReferenceNoKeyB */',
+                'expected'   => true,
             ],
             'reference: unkeyed long list, last nested var, assign by reference' => [
-                '/* testLongListAssignByReferenceNoKeyC */',
-                true,
+                'testMarker' => '/* testLongListAssignByReferenceNoKeyC */',
+                'expected'   => true,
             ],
             'reference: keyed short list, first nested var, assign by reference' => [
-                '/* testNestedShortListAssignByReferenceWithKeyA */',
-                true,
+                'testMarker' => '/* testNestedShortListAssignByReferenceWithKeyA */',
+                'expected'   => true,
             ],
             'reference: keyed short list, last nested var, assign by reference' => [
-                '/* testNestedShortListAssignByReferenceWithKeyB */',
-                true,
+                'testMarker' => '/* testNestedShortListAssignByReferenceWithKeyB */',
+                'expected'   => true,
             ],
             'reference: keyed long list, only var, assign by reference' => [
-                '/* testLongListAssignByReferenceWithKeyA */',
-                true,
+                'testMarker' => '/* testLongListAssignByReferenceWithKeyA */',
+                'expected'   => true,
             ],
             'reference: first param in function call, pass by reference' => [
-                '/* testPassByReferenceA */',
-                true,
+                'testMarker' => '/* testPassByReferenceA */',
+                'expected'   => true,
             ],
             'reference: last param in function call, pass by reference' => [
-                '/* testPassByReferenceB */',
-                true,
+                'testMarker' => '/* testPassByReferenceB */',
+                'expected'   => true,
             ],
             'reference: property in function call, pass by reference' => [
-                '/* testPassByReferenceC */',
-                true,
+                'testMarker' => '/* testPassByReferenceC */',
+                'expected'   => true,
             ],
             'reference: hierarchical self property in function call, pass by reference' => [
-                '/* testPassByReferenceD */',
-                true,
+                'testMarker' => '/* testPassByReferenceD */',
+                'expected'   => true,
             ],
             'reference: hierarchical parent property in function call, pass by reference' => [
-                '/* testPassByReferenceE */',
-                true,
+                'testMarker' => '/* testPassByReferenceE */',
+                'expected'   => true,
             ],
             'reference: hierarchical static property in function call, pass by reference' => [
-                '/* testPassByReferenceF */',
-                true,
+                'testMarker' => '/* testPassByReferenceF */',
+                'expected'   => true,
             ],
             'reference: static property in function call, pass by reference' => [
-                '/* testPassByReferenceG */',
-                true,
+                'testMarker' => '/* testPassByReferenceG */',
+                'expected'   => true,
             ],
             'reference: static property in function call, first with FQN, pass by reference' => [
-                '/* testPassByReferenceH */',
-                true,
+                'testMarker' => '/* testPassByReferenceH */',
+                'expected'   => true,
             ],
             'reference: static property in function call, last with FQN, pass by reference' => [
-                '/* testPassByReferenceI */',
-                true,
+                'testMarker' => '/* testPassByReferenceI */',
+                'expected'   => true,
             ],
             'reference: static property in function call, last with namespace relative name, pass by reference' => [
-                '/* testPassByReferenceJ */',
-                true,
+                'testMarker' => '/* testPassByReferenceJ */',
+                'expected'   => true,
             ],
             'reference: static property in function call, last with PQN, pass by reference' => [
-                '/* testPassByReferencePartiallyQualifiedName */',
-                true,
+                'testMarker' => '/* testPassByReferencePartiallyQualifiedName */',
+                'expected'   => true,
             ],
             'reference: new by reference' => [
-                '/* testNewByReferenceA */',
-                true,
+                'testMarker' => '/* testNewByReferenceA */',
+                'expected'   => true,
             ],
             'reference: new by reference as function call param' => [
-                '/* testNewByReferenceB */',
-                true,
+                'testMarker' => '/* testNewByReferenceB */',
+                'expected'   => true,
             ],
             'reference: closure use by reference' => [
-                '/* testUseByReference */',
-                true,
+                'testMarker' => '/* testUseByReference */',
+                'expected'   => true,
             ],
             'reference: closure use by reference, first param, with comment' => [
-                '/* testUseByReferenceWithCommentFirstParam */',
-                true,
+                'testMarker' => '/* testUseByReferenceWithCommentFirstParam */',
+                'expected'   => true,
             ],
             'reference: closure use by reference, last param, with comment' => [
-                '/* testUseByReferenceWithCommentSecondParam */',
-                true,
+                'testMarker' => '/* testUseByReferenceWithCommentSecondParam */',
+                'expected'   => true,
             ],
             'reference: arrow fn declared to return by reference' => [
-                '/* testArrowFunctionReturnByReference */',
-                true,
+                'testMarker' => '/* testArrowFunctionReturnByReference */',
+                'expected'   => true,
             ],
             'bitwise and: first param default value in closure declaration' => [
-                '/* testBitwiseAndExactParameterA */',
-                false,
+                'testMarker' => '/* testBitwiseAndExactParameterA */',
+                'expected'   => false,
             ],
             'reference: param in closure declaration, pass by reference' => [
-                '/* testPassByReferenceExactParameterB */',
-                true,
+                'testMarker' => '/* testPassByReferenceExactParameterB */',
+                'expected'   => true,
             ],
             'reference: variadic param in closure declaration, pass by reference' => [
-                '/* testPassByReferenceExactParameterC */',
-                true,
+                'testMarker' => '/* testPassByReferenceExactParameterC */',
+                'expected'   => true,
             ],
             'bitwise and: last param default value in closure declaration' => [
-                '/* testBitwiseAndExactParameterD */',
-                false,
+                'testMarker' => '/* testBitwiseAndExactParameterD */',
+                'expected'   => false,
             ],
             'reference: typed param in arrow fn declaration, pass by reference' => [
-                '/* testArrowFunctionPassByReferenceA */',
-                true,
+                'testMarker' => '/* testArrowFunctionPassByReferenceA */',
+                'expected'   => true,
             ],
             'reference: variadic param in arrow fn declaration, pass by reference' => [
-                '/* testArrowFunctionPassByReferenceB */',
-                true,
+                'testMarker' => '/* testArrowFunctionPassByReferenceB */',
+                'expected'   => true,
             ],
             'reference: closure declared to return by reference' => [
-                '/* testClosureReturnByReference */',
-                true,
+                'testMarker' => '/* testClosureReturnByReference */',
+                'expected'   => true,
             ],
             'bitwise and: param default value in arrow fn declaration' => [
-                '/* testBitwiseAndArrowFunctionInDefault */',
-                false,
+                'testMarker' => '/* testBitwiseAndArrowFunctionInDefault */',
+                'expected'   => false,
             ],
             'issue-1284-short-list-directly-after-close-curly-control-structure' => [
                 'testMarker' => '/* testTokenizerIssue1284PHPCSlt280A */',
