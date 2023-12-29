@@ -104,18 +104,18 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
     {
         return [
             [
-                '/* testImplementedClass */',
+                '/* testClassImplementsSingle */',
                 ['testFIINInterface'],
             ],
             [
-                '/* testMultiImplementedClass */',
+                '/* testClassImplementsMultiple */',
                 [
                     'testFIINInterface',
                     'testFIINInterface2',
                 ],
             ],
             [
-                '/* testNamespacedClass */',
+                '/* testImplementsFullyQualified */',
                 ['\PHP_CodeSniffer\Tests\Core\File\testFIINInterface'],
             ],
             [
@@ -123,11 +123,11 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 false,
             ],
             [
-                '/* testInterface */',
+                '/* testPlainInterface */',
                 false,
             ],
             [
-                '/* testNamespaceRelativeQualifiedClass */',
+                '/* testImplementsPartiallyQualified */',
                 ['Core\File\RelativeInterface'],
             ],
             [
@@ -149,18 +149,18 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 false,
             ],
             [
-                '/* testEnumImplements */',
+                '/* testEnumImplementsSingle */',
                 ['Colorful'],
             ],
             [
-                '/* testBackedEnumImplements */',
+                '/* testBackedEnumImplementsMulti */',
                 [
                     'Colorful',
                     '\Deck',
                 ],
             ],
             [
-                '/* testAnonClassImplements */',
+                '/* testAnonClassImplementsSingle */',
                 ['testFIINInterface'],
             ],
             [
