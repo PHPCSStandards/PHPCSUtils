@@ -106,11 +106,11 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
     {
         return [
             [
-                '/* testExtendedClass */',
+                '/* testExtendsUnqualifiedClass */',
                 'testFECNClass',
             ],
             [
-                '/* testNamespacedClass */',
+                '/* testExtendsFullyQualifiedClass */',
                 '\PHP_CodeSniffer\Tests\Core\File\testFECNClass',
             ],
             [
@@ -118,15 +118,15 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 false,
             ],
             [
-                '/* testInterface */',
+                '/* testNonExtendedInterface */',
                 false,
             ],
             [
-                '/* testInterfaceThatExtendsInterface */',
+                '/* testInterfaceExtendsUnqualifiedInterface */',
                 'testFECNInterface',
             ],
             [
-                '/* testInterfaceThatExtendsFQCNInterface */',
+                '/* testInterfaceExtendsFullyQualifiedInterface */',
                 '\PHP_CodeSniffer\Tests\Core\File\testFECNInterface',
             ],
             [
@@ -138,7 +138,7 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'testFECNAnonClass',
             ],
             [
-                '/* testNamespaceRelativeQualifiedClass */',
+                '/* testExtendsPartiallyQualifiedClass */',
                 'Core\File\RelativeClass',
             ],
             [
