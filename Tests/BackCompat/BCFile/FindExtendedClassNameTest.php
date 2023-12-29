@@ -105,6 +105,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
     public static function dataExtendedClass()
     {
         return [
+            'class does not extend' => [
+                'identifier' => '/* testNonExtendedClass */',
+                'expected'   => false,
+            ],
             'class extends unqualified class' => [
                 'identifier' => '/* testExtendsUnqualifiedClass */',
                 'expected'   => 'testFECNClass',
@@ -113,9 +117,9 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'identifier' => '/* testExtendsFullyQualifiedClass */',
                 'expected'   => '\PHP_CodeSniffer\Tests\Core\File\testFECNClass',
             ],
-            'class does not extend' => [
-                'identifier' => '/* testNonExtendedClass */',
-                'expected'   => false,
+            'class extends partially qualified class' => [
+                'identifier' => '/* testExtendsPartiallyQualifiedClass */',
+                'expected'   => 'Core\File\RelativeClass',
             ],
             'interface does not extend' => [
                 'identifier' => '/* testNonExtendedInterface */',
@@ -129,6 +133,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'identifier' => '/* testInterfaceExtendsFullyQualifiedInterface */',
                 'expected'   => '\PHP_CodeSniffer\Tests\Core\File\testFECNInterface',
             ],
+            'anon class extends unqualified class' => [
+                'identifier' => '/* testExtendedAnonClass */',
+                'expected'   => 'testFECNExtendedAnonClass',
+            ],
             'class does not extend but contains anon class which extends' => [
                 'identifier' => '/* testNestedExtendedClass */',
                 'expected'   => false,
@@ -137,10 +145,6 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'identifier' => '/* testNestedExtendedAnonClass */',
                 'expected'   => 'testFECNAnonClass',
             ],
-            'class extends partially qualified class' => [
-                'identifier' => '/* testExtendsPartiallyQualifiedClass */',
-                'expected'   => 'Core\File\RelativeClass',
-            ],
             'class extends and implements' => [
                 'identifier' => '/* testClassThatExtendsAndImplements */',
                 'expected'   => 'testFECNClass',
@@ -148,10 +152,6 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
             'class implements and extends' => [
                 'identifier' => '/* testClassThatImplementsAndExtends */',
                 'expected'   => 'testFECNClass',
-            ],
-            'anon class extends unqualified class' => [
-                'identifier' => '/* testExtendedAnonClass */',
-                'expected'   => 'testFECNExtendedAnonClass',
             ],
             'interface extends multiple interfaces (not supported)' => [
                 'identifier' => '/* testInterfaceMultiExtends */',
