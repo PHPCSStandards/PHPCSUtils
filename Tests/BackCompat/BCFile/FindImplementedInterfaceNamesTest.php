@@ -103,6 +103,14 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
     public static function dataImplementedInterface()
     {
         return [
+            'interface declaration, no implements' => [
+                'identifier' => '/* testPlainInterface */',
+                'expected'   => false,
+            ],
+            'class does not implement' => [
+                'identifier' => '/* testNonImplementedClass */',
+                'expected'   => false,
+            ],
             'class implements single interface, unqualified' => [
                 'identifier' => '/* testClassImplementsSingle */',
                 'expected'   => ['testFIINInterface'],
@@ -117,14 +125,6 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
             'class implements single interface, fully qualified' => [
                 'identifier' => '/* testImplementsFullyQualified */',
                 'expected'   => ['\PHP_CodeSniffer\Tests\Core\File\testFIINInterface'],
-            ],
-            'class does not implement' => [
-                'identifier' => '/* testNonImplementedClass */',
-                'expected'   => false,
-            ],
-            'interface declaration, no implements' => [
-                'identifier' => '/* testPlainInterface */',
-                'expected'   => false,
             ],
             'class implements single interface, partially qualified' => [
                 'identifier' => '/* testImplementsPartiallyQualified */',

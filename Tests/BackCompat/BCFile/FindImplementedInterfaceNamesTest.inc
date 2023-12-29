@@ -3,10 +3,11 @@
 /* testNotAClass */
 function notAClass() {}
 
-interface testFIINInterface2 {}
-
 /* testPlainInterface */
 interface testFIINInterface {}
+
+/* testNonImplementedClass */
+class testFIINNonImplementedClass {}
 
 /* testClassImplementsSingle */
 class testFIINImplementedClass implements testFIINInterface {}
@@ -16,9 +17,6 @@ class testFIINMultiImplementedClass implements testFIINInterface, testFIINInterf
 
 /* testImplementsFullyQualified */
 class testFIINNamespacedClass implements \PHP_CodeSniffer\Tests\Core\File\testFIINInterface {}
-
-/* testNonImplementedClass */
-class testFIINNonImplementedClass {}
 
 /* testImplementsPartiallyQualified */
 class testFIINQualifiedClass implements Core\File\RelativeInterface {}
