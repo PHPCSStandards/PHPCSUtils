@@ -60,34 +60,34 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
      *
      * @see testGetDeclarationNameNull() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataGetDeclarationNameNull()
     {
         return [
             'closure' => [
-                '/* testClosure */',
-                \T_CLOSURE,
+                'testMarker' => '/* testClosure */',
+                'targetType' => \T_CLOSURE,
             ],
             'anon-class-with-parentheses' => [
-                '/* testAnonClassWithParens */',
-                \T_ANON_CLASS,
+                'testMarker' => '/* testAnonClassWithParens */',
+                'targetType' => \T_ANON_CLASS,
             ],
             'anon-class-with-parentheses-2' => [
-                '/* testAnonClassWithParens2 */',
-                \T_ANON_CLASS,
+                'testMarker' => '/* testAnonClassWithParens2 */',
+                'targetType' => \T_ANON_CLASS,
             ],
             'anon-class-without-parentheses' => [
-                '/* testAnonClassWithoutParens */',
-                \T_ANON_CLASS,
+                'testMarker' => '/* testAnonClassWithoutParens */',
+                'targetType' => \T_ANON_CLASS,
             ],
             'anon-class-extends-without-parentheses' => [
-                '/* testAnonClassExtendsWithoutParens */',
-                \T_ANON_CLASS,
+                'testMarker' => '/* testAnonClassExtendsWithoutParens */',
+                'targetType' => \T_ANON_CLASS,
             ],
             'live-coding' => [
-                '/* testLiveCoding */',
-                \T_FUNCTION,
+                'testMarker' => '/* testLiveCoding */',
+                'targetType' => \T_FUNCTION,
             ],
         ];
     }
@@ -97,9 +97,9 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetDeclarationName
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param string     $expected   Expected function output.
-     * @param int|string $targetType Token type of the token to get as stackPtr.
+     * @param string          $testMarker The comment which prefaces the target token in the test file.
+     * @param string          $expected   Expected function output.
+     * @param int|string|null $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
@@ -119,94 +119,94 @@ class GetDeclarationNameTest extends UtilityMethodTestCase
      *
      * @see testGetDeclarationName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataGetDeclarationName()
     {
         return [
             'function' => [
-                '/* testFunction */',
-                'functionName',
+                'testMarker' => '/* testFunction */',
+                'expected'   => 'functionName',
             ],
             'function-return-by-reference' => [
-                '/* testFunctionReturnByRef */',
-                'functionNameByRef',
+                'testMarker' => '/* testFunctionReturnByRef */',
+                'expected'   => 'functionNameByRef',
             ],
             'class' => [
-                '/* testClass */',
-                'ClassName',
+                'testMarker' => '/* testClass */',
+                'expected'   => 'ClassName',
             ],
             'method' => [
-                '/* testMethod */',
-                'methodName',
+                'testMarker' => '/* testMethod */',
+                'expected'   => 'methodName',
             ],
             'abstract-method' => [
-                '/* testAbstractMethod */',
-                'abstractMethodName',
+                'testMarker' => '/* testAbstractMethod */',
+                'expected'   => 'abstractMethodName',
             ],
             'method-return-by-reference' => [
-                '/* testMethodReturnByRef */',
-                'MethodNameByRef',
+                'testMarker' => '/* testMethodReturnByRef */',
+                'expected'   => 'MethodNameByRef',
             ],
             'extended-class' => [
-                '/* testExtendedClass */',
-                'ExtendedClass',
+                'testMarker' => '/* testExtendedClass */',
+                'expected'   => 'ExtendedClass',
             ],
             'interface' => [
-                '/* testInterface */',
-                'InterfaceName',
+                'testMarker' => '/* testInterface */',
+                'expected'   => 'InterfaceName',
             ],
             'trait' => [
-                '/* testTrait */',
-                'TraitName',
+                'testMarker' => '/* testTrait */',
+                'expected'   => 'TraitName',
             ],
             'function-name-ends-with-number' => [
-                '/* testFunctionEndingWithNumber */',
-                'ValidNameEndingWithNumber5',
+                'testMarker' => '/* testFunctionEndingWithNumber */',
+                'expected'   => 'ValidNameEndingWithNumber5',
             ],
             'class-with-numbers-in-name' => [
-                '/* testClassWithNumber */',
-                'ClassWith1Number',
+                'testMarker' => '/* testClassWithNumber */',
+                'expected'   => 'ClassWith1Number',
             ],
             'interface-with-numbers-in-name' => [
-                '/* testInterfaceWithNumbers */',
-                'InterfaceWith12345Numbers',
+                'testMarker' => '/* testInterfaceWithNumbers */',
+                'expected'   => 'InterfaceWith12345Numbers',
             ],
             'class-with-comments-and-new-lines' => [
-                '/* testClassWithCommentsAndNewLines */',
-                'ClassWithCommentsAndNewLines',
+                'testMarker' => '/* testClassWithCommentsAndNewLines */',
+                'expected'   => 'ClassWithCommentsAndNewLines',
             ],
             'function-named-fn' => [
-                '/* testFunctionFn */',
-                'fn',
+                'testMarker' => '/* testFunctionFn */',
+                'expected'   => 'fn',
             ],
             'enum-pure' => [
-                '/* testPureEnum */',
-                'Foo',
+                'testMarker' => '/* testPureEnum */',
+                'expected'   => 'Foo',
             ],
             'enum-backed-space-between-name-and-colon' => [
-                '/* testBackedEnumSpaceBetweenNameAndColon */',
-                'Hoo',
+                'testMarker' => '/* testBackedEnumSpaceBetweenNameAndColon */',
+                'expected'   => 'Hoo',
             ],
             'enum-backed-no-space-between-name-and-colon' => [
-                '/* testBackedEnumNoSpaceBetweenNameAndColon */',
-                'Suit',
+                'testMarker' => '/* testBackedEnumNoSpaceBetweenNameAndColon */',
+                'expected'   => 'Suit',
             ],
             'function-return-by-reference-with-reserved-keyword-each' => [
-                '/* testFunctionReturnByRefWithReservedKeywordEach */',
-                'each',
+                'testMarker' => '/* testFunctionReturnByRefWithReservedKeywordEach */',
+                'expected'   => 'each',
             ],
             'function-return-by-reference-with-reserved-keyword-parent' => [
-                '/* testFunctionReturnByRefWithReservedKeywordParent */',
-                'parent',
+                'testMarker' => '/* testFunctionReturnByRefWithReservedKeywordParent */',
+                'expected'   => 'parent',
             ],
             'function-return-by-reference-with-reserved-keyword-self' => [
-                '/* testFunctionReturnByRefWithReservedKeywordSelf */',
-                'self',
+                'testMarker' => '/* testFunctionReturnByRefWithReservedKeywordSelf */',
+                'expected'   => 'self',
             ],
             'function-return-by-reference-with-reserved-keyword-static' => [
-                '/* testFunctionReturnByRefWithReservedKeywordStatic */',
-                'static',
+                'testMarker' => '/* testFunctionReturnByRefWithReservedKeywordStatic */',
+                'expected'   => 'static',
             ],
         ];
     }
