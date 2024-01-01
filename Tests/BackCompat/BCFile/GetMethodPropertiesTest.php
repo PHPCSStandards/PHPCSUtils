@@ -40,8 +40,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNotAFunctionException
      *
-     * @param string $commentString   The comment which preceeds the test.
-     * @param array  $targetTokenType The token type to search for after $commentString.
+     * @param string                       $commentString   The comment which preceeds the test.
+     * @param string|int|array<int|string> $targetTokenType The token type to search for after $commentString.
      *
      * @return void
      */
@@ -58,22 +58,22 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @see testNotAFunctionException() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int|array<int|string>>>
      */
     public static function dataNotAFunctionException()
     {
         return [
             'return' => [
-                '/* testNotAFunction */',
-                T_RETURN,
+                'commentString'   => '/* testNotAFunction */',
+                'targetTokenType' => T_RETURN,
             ],
             'function-call-fn-phpcs-3.5.3-3.5.4' => [
-                '/* testFunctionCallFnPHPCS353-354 */',
-                [T_FN, T_STRING],
+                'commentString'   => '/* testFunctionCallFnPHPCS353-354 */',
+                'targetTokenType' => [T_FN, T_STRING],
             ],
             'fn-live-coding' => [
-                '/* testArrowFunctionLiveCoding */',
-                [T_FN, T_STRING],
+                'commentString'   => '/* testArrowFunctionLiveCoding */',
+                'targetTokenType' => [T_FN, T_STRING],
             ],
         ];
     }
@@ -1161,10 +1161,10 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     /**
      * Test helper.
      *
-     * @param string $commentString The comment which preceeds the test.
-     * @param array  $expected      The expected function output.
-     * @param array  $targetType    Optional. The token type to search for after $commentString.
-     *                              Defaults to the function/closure tokens.
+     * @param string                         $commentString The comment which preceeds the test.
+     * @param array<string, string|int|bool> $expected      The expected function output.
+     * @param string|int|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
+     *                                                      Defaults to the function/closure tokens.
      *
      * @return void
      */
