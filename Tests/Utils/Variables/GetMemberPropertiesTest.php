@@ -92,10 +92,10 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
 
         $variable = $this->getTargetToken($identifier, \T_VARIABLE);
 
-        if (isset($expected['type_token']) && $expected['type_token'] !== false) {
+        if (isset($expected['type_token']) && \is_int($expected['type_token']) === true) {
             $expected['type_token'] += $variable;
         }
-        if (isset($expected['type_end_token']) && $expected['type_end_token'] !== false) {
+        if (isset($expected['type_end_token']) && \is_int($expected['type_end_token']) === true) {
             $expected['type_end_token'] += $variable;
         }
 
