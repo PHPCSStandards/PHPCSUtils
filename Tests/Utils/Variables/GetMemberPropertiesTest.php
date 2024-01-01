@@ -63,21 +63,17 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
      *
      * @see testGetMemberProperties()
      *
-     * @return array
+     * @return array<string, array<string|array<string, string|int|bool>>>
      */
     public static function dataGetMemberProperties()
     {
         $data = parent::dataGetMemberProperties();
 
         /*
-         * Remove the data set related to the invalid interface/enum properties.
+         * Remove the data sets related to the invalid interface/enum properties.
          * These will now throw an exception instead.
          */
-        foreach ($data as $key => $value) {
-            if ($value[0] === '/* testInterfaceProperty */' || $value[0] === '/* testEnumProperty */') {
-                unset($data[$key]);
-            }
-        }
+        unset($data['invalid-property-in-interface'], $data['invalid-property-in-enum']);
 
         return $data;
     }
@@ -91,8 +87,8 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
     {
         $methodName = 'PHPCSUtils\\Utils\\Variables::getMemberProperties';
         $cases      = self::dataGetMemberProperties();
-        $identifier = $cases['php8.2-pseudo-type-true-in-union'][0];
-        $expected   = $cases['php8.2-pseudo-type-true-in-union'][1];
+        $identifier = $cases['php8.2-pseudo-type-true-in-union']['identifier'];
+        $expected   = $cases['php8.2-pseudo-type-true-in-union']['expected'];
 
         $variable = $this->getTargetToken($identifier, \T_VARIABLE);
 
