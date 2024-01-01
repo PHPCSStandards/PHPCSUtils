@@ -83,10 +83,11 @@ final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 
-        if ($expected['return_type_token'] !== false) {
+        // Convert offsets to absolute positions in the token stream.
+        if (\is_int($expected['return_type_token']) === true) {
             $expected['return_type_token'] += $function;
         }
-        if ($expected['return_type_end_token'] !== false) {
+        if (\is_int($expected['return_type_end_token']) === true) {
             $expected['return_type_end_token'] += $function;
         }
 
