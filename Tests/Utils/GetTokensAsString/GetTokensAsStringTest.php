@@ -114,9 +114,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetTokensAsString()
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param array            $expected       The expected function's return values.
+     * @param string                $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
+     * @param array<string, string> $expected       The expected function's return values.
      *
      * @return void
      */
@@ -134,9 +134,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetTokensAsString()
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param array            $expected       The expected function's return values.
+     * @param string                $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
+     * @param array<string, string> $expected       The expected function's return values.
      *
      * @return void
      */
@@ -154,9 +154,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetTokensAsString()
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param array            $expected       The expected function's return values.
+     * @param string                $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
+     * @param array<string, string> $expected       The expected function's return values.
      *
      * @return void
      */
@@ -174,9 +174,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetTokensAsString()
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param array            $expected       The expected function's return values.
+     * @param string                $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
+     * @param array<string, string> $expected       The expected function's return values.
      *
      * @return void
      */
@@ -194,9 +194,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetTokensAsString()
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param array            $expected       The expected function's return values.
+     * @param string                $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
+     * @param array<string, string> $expected       The expected function's return values.
      *
      * @return void
      */
@@ -214,9 +214,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetTokensAsString()
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param array            $expected       The expected function's return values.
+     * @param string                $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
+     * @param array<string, string> $expected       The expected function's return values.
      *
      * @return void
      */
@@ -239,15 +239,15 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      * @see testCompact()           For the array format.
      * @see testCompactNoComments() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int|array<string, string>>>
      */
     public static function dataGetTokensAsString()
     {
         return [
             'namespace' => [
-                'marker'   => '/* testNamespace */',
-                'type'     => \T_NAMESPACE,
-                'expected' => [
+                'testMarker'     => '/* testNamespace */',
+                'startTokenType' => \T_NAMESPACE,
+                'expected'       => [
                     'tab_replaced' => 'namespace Foo\Bar\Baz;',
                     'orig'         => 'namespace Foo\Bar\Baz;',
                     'no_comments'  => 'namespace Foo\Bar\Baz;',
@@ -257,9 +257,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
                 ],
             ],
             'use-with-comments' => [
-                'marker'   => '/* testUseWithComments */',
-                'type'     => \T_STRING,
-                'expected' => [
+                'testMarker'     => '/* testUseWithComments */',
+                'startTokenType' => \T_STRING,
+                'expected'       => [
                     'tab_replaced' => 'Foo /*comment*/ \ Bar
     // phpcs:ignore Stnd.Cat.Sniff --    For reasons.
     \ Bah;',
@@ -275,9 +275,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
                 ],
             ],
             'calculation' => [
-                'marker'   => '/* testCalculation */',
-                'type'     => \T_LNUMBER,
-                'expected' => [
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'expected'       => [
                     'tab_replaced' => '1 + 2 +
         // Comment.
         3 + 4
@@ -296,9 +296,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
                 ],
             ],
             'echo-with-tabs' => [
-                'marker'   => '/* testEchoWithTabs */',
-                'type'     => \T_ECHO,
-                'expected' => [
+                'testMarker'     => '/* testEchoWithTabs */',
+                'startTokenType' => \T_ECHO,
+                'expected'       => [
                     'tab_replaced' => 'echo \'foo\',
     \'bar\'   ,
         \'baz\';',
@@ -314,9 +314,9 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
                 ],
             ],
             'end-of-file' => [
-                'marker'   => '/* testEndOfFile */',
-                'type'     => \T_ECHO,
-                'expected' => [
+                'testMarker'     => '/* testEndOfFile */',
+                'startTokenType' => \T_ECHO,
+                'expected'       => [
                     'tab_replaced' => 'echo   $foo;',
                     'orig'         => 'echo   $foo;',
                     'no_comments'  => 'echo   $foo;',
