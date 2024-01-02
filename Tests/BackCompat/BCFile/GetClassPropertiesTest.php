@@ -40,8 +40,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNotAClassException
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $tokenType  The type of token to look for after the marker.
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $tokenType  The type of token to look for after the marker.
      *
      * @return void
      */
@@ -59,22 +59,22 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      *
      * @see testNotAClassException() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int>>
      */
     public static function dataNotAClassException()
     {
         return [
             'interface'  => [
-                '/* testNotAClass */',
-                \T_INTERFACE,
+                'testMarker' => '/* testNotAClass */',
+                'tokenType'  => \T_INTERFACE,
             ],
             'anon-class' => [
-                '/* testAnonClass */',
-                \T_ANON_CLASS,
+                'testMarker' => '/* testAnonClass */',
+                'tokenType'  => \T_ANON_CLASS,
             ],
             'enum' => [
-                '/* testEnum */',
-                \T_ENUM,
+                'testMarker' => '/* testEnum */',
+                'tokenType'  => \T_ENUM,
             ],
         ];
     }
@@ -84,8 +84,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetClassProperties
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected function output.
+     * @param string                  $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool|int> $expected   Expected function output.
      *
      * @return void
      */
@@ -104,14 +104,14 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
      *
      * @see testGetClassProperties() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool|int>>>
      */
     public static function dataGetClassProperties()
     {
         return [
             'no-properties' => [
-                '/* testClassWithoutProperties */',
-                [
+                'testMarker' => '/* testClassWithoutProperties */',
+                'expected'   => [
                     'is_abstract'    => false,
                     'abstract_token' => false,
                     'is_final'       => false,
@@ -121,8 +121,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'abstract' => [
-                '/* testAbstractClass */',
-                [
+                'testMarker' => '/* testAbstractClass */',
+                'expected'   => [
                     'is_abstract'    => true,
                     'abstract_token' => -2,
                     'is_final'       => false,
@@ -132,8 +132,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'final' => [
-                '/* testFinalClass */',
-                [
+                'testMarker' => '/* testFinalClass */',
+                'expected'   => [
                     'is_abstract'    => false,
                     'abstract_token' => false,
                     'is_final'       => true,
@@ -143,8 +143,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'readonly' => [
-                '/* testReadonlyClass */',
-                [
+                'testMarker' => '/* testReadonlyClass */',
+                'expected'   => [
                     'is_abstract'    => false,
                     'abstract_token' => false,
                     'is_final'       => false,
@@ -154,8 +154,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'final-readonly' => [
-                '/* testFinalReadonlyClass */',
-                [
+                'testMarker' => '/* testFinalReadonlyClass */',
+                'expected'   => [
                     'is_abstract'    => false,
                     'abstract_token' => false,
                     'is_final'       => true,
@@ -165,8 +165,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'readonly-final' => [
-                '/* testReadonlyFinalClass */',
-                [
+                'testMarker' => '/* testReadonlyFinalClass */',
+                'expected'   => [
                     'is_abstract'    => false,
                     'abstract_token' => false,
                     'is_final'       => true,
@@ -176,8 +176,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'abstract-readonly' => [
-                '/* testAbstractReadonlyClass */',
-                [
+                'testMarker' => '/* testAbstractReadonlyClass */',
+                'expected'   => [
                     'is_abstract'    => true,
                     'abstract_token' => -4,
                     'is_final'       => false,
@@ -187,8 +187,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'readonly-abstract' => [
-                '/* testReadonlyAbstractClass */',
-                [
+                'testMarker' => '/* testReadonlyAbstractClass */',
+                'expected'   => [
                     'is_abstract'    => true,
                     'abstract_token' => -2,
                     'is_final'       => false,
@@ -198,8 +198,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'comments-and-new-lines' => [
-                '/* testWithCommentsAndNewLines */',
-                [
+                'testMarker' => '/* testWithCommentsAndNewLines */',
+                'expected'   => [
                     'is_abstract'    => true,
                     'abstract_token' => -6,
                     'is_final'       => false,
@@ -209,8 +209,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'no-properties-with-docblock' => [
-                '/* testWithDocblockWithoutProperties */',
-                [
+                'testMarker' => '/* testWithDocblockWithoutProperties */',
+                'expected'   => [
                     'is_abstract'    => false,
                     'abstract_token' => false,
                     'is_final'       => false,
@@ -220,8 +220,8 @@ class GetClassPropertiesTest extends UtilityMethodTestCase
                 ],
             ],
             'abstract-final-parse-error' => [
-                '/* testParseErrorAbstractFinal */',
-                [
+                'testMarker' => '/* testParseErrorAbstractFinal */',
+                'expected'   => [
                     'is_abstract'    => true,
                     'abstract_token' => -5,
                     'is_final'       => true,
