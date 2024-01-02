@@ -34,8 +34,8 @@ final class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
      *
      * @dataProvider dataFindImplementedInterfaceNames
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param bool   $expected   Expected function output.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string>|false $expected   Expected function output.
      *
      * @return void
      */
@@ -51,7 +51,7 @@ final class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
      *
      * @see testFindImplementedInterfaceNames() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string>|false>>
      */
     public static function dataFindImplementedInterfaceNames()
     {

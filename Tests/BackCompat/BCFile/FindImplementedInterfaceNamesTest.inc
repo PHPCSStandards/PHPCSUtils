@@ -3,24 +3,22 @@
 /* testNotAClass */
 function notAClass() {}
 
-interface testFIINInterface2 {}
-
-/* testInterface */
+/* testPlainInterface */
 interface testFIINInterface {}
-
-/* testImplementedClass */
-class testFIINImplementedClass implements testFIINInterface {}
-
-/* testMultiImplementedClass */
-class testFIINMultiImplementedClass implements testFIINInterface, testFIINInterface2 {}
-
-/* testNamespacedClass */
-class testFIINNamespacedClass implements \PHP_CodeSniffer\Tests\Core\File\testFIINInterface {}
 
 /* testNonImplementedClass */
 class testFIINNonImplementedClass {}
 
-/* testNamespaceRelativeQualifiedClass */
+/* testClassImplementsSingle */
+class testFIINImplementedClass implements testFIINInterface {}
+
+/* testClassImplementsMultiple */
+class testFIINMultiImplementedClass implements testFIINInterface, testFIINInterface2 {}
+
+/* testImplementsFullyQualified */
+class testFIINNamespacedClass implements \PHP_CodeSniffer\Tests\Core\File\testFIINInterface {}
+
+/* testImplementsPartiallyQualified */
 class testFIINQualifiedClass implements Core\File\RelativeInterface {}
 
 /* testClassThatExtendsAndImplements */
@@ -32,13 +30,13 @@ class testFECNClassThatImplementsAndExtends implements \InterfaceA, InterfaceB e
 /* testBackedEnumWithoutImplements */
 enum Suit:string {}
 
-/* testEnumImplements */
+/* testEnumImplementsSingle */
 enum Suit implements Colorful {}
 
-/* testBackedEnumImplements */
+/* testBackedEnumImplementsMulti */
 enum Suit: string implements Colorful, \Deck {}
 
-/* testAnonClassImplements */
+/* testAnonClassImplementsSingle */
 $anon = class() implements testFIINInterface {}
 
 /* testMissingImplementsName */
