@@ -61,7 +61,7 @@ final class GetNameDiffTest extends UtilityMethodTestCase
      *
      * @see testGetNameNull() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataGetNameNull()
     {
@@ -78,9 +78,9 @@ final class GetNameDiffTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetName
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param string     $expected   Expected function output.
-     * @param int|string $targetType Token type of the token to get as stackPtr.
+     * @param string          $testMarker The comment which prefaces the target token in the test file.
+     * @param string          $expected   Expected function output.
+     * @param int|string|null $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
@@ -100,7 +100,7 @@ final class GetNameDiffTest extends UtilityMethodTestCase
      *
      * @see testGetName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataGetName()
     {
