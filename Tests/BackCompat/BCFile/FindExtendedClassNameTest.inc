@@ -3,25 +3,29 @@
 /* testNotAClass */
 function notAClass() {}
 
-class testFECNClass {}
-
-/* testExtendedClass */
-class testFECNExtendedClass extends testFECNClass {}
-
-/* testNamespacedClass */
-class testFECNNamespacedClass extends \PHP_CodeSniffer\Tests\Core\File\testFECNClass {}
-
 /* testNonExtendedClass */
 class testFECNNonExtendedClass {}
 
-/* testInterface */
+/* testExtendsUnqualifiedClass */
+class testFECNExtendedClass extends testFECNClass {}
+
+/* testExtendsFullyQualifiedClass */
+class testFECNNamespacedClass extends \PHP_CodeSniffer\Tests\Core\File\testFECNClass {}
+
+/* testExtendsPartiallyQualifiedClass */
+class testFECNQualifiedClass extends Core\File\RelativeClass {}
+
+/* testNonExtendedInterface */
 interface testFECNInterface {}
 
-/* testInterfaceThatExtendsInterface */
+/* testInterfaceExtendsUnqualifiedInterface */
 interface testInterfaceThatExtendsInterface extends testFECNInterface{}
 
-/* testInterfaceThatExtendsFQCNInterface */
+/* testInterfaceExtendsFullyQualifiedInterface */
 interface testInterfaceThatExtendsFQCNInterface extends \PHP_CodeSniffer\Tests\Core\File\testFECNInterface{}
+
+/* testExtendedAnonClass */
+$anon = new class( $a, $b ) extends testFECNExtendedAnonClass {};
 
 /* testNestedExtendedClass */
 class testFECNNestedExtendedClass {
@@ -31,17 +35,11 @@ class testFECNNestedExtendedClass {
     }
 }
 
-/* testNamespaceRelativeQualifiedClass */
-class testFECNQualifiedClass extends Core\File\RelativeClass {}
-
 /* testClassThatExtendsAndImplements */
 class testFECNClassThatExtendsAndImplements extends testFECNClass implements InterfaceA, InterfaceB {}
 
 /* testClassThatImplementsAndExtends */
 class testFECNClassThatImplementsAndExtends implements InterfaceA, InterfaceB extends testFECNClass {}
-
-/* testExtendedAnonClass */
-$anon = new class( $a, $b ) extends testFECNExtendedAnonClass {};
 
 /* testInterfaceMultiExtends */
 interface Multi extends \Package\FooInterface, \BarInterface {};
