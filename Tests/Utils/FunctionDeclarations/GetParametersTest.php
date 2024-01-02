@@ -54,8 +54,8 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @dataProvider dataUnexpectedTokenException
      *
-     * @param string $commentString   The comment which preceeds the test.
-     * @param array  $targetTokenType The token type to search for after $commentString.
+     * @param string                       $commentString   The comment which preceeds the test.
+     * @param int|string|array<int|string> $targetTokenType The token type to search for after $commentString.
      *
      * @return void
      */
@@ -89,9 +89,9 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      *
      * @dataProvider dataNoParams
      *
-     * @param string $commentString   The comment which preceeds the test.
-     * @param array  $targetTokenType Optional. The token type to search for after $commentString.
-     *                                Defaults to the function/closure/arrow tokens.
+     * @param string                       $commentString   The comment which preceeds the test.
+     * @param int|string|array<int|string> $targetTokenType Optional. The token type to search for after $commentString.
+     *                                                      Defaults to the function/closure/arrow tokens.
      *
      * @return void
      */
@@ -106,10 +106,10 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
     /**
      * Test helper.
      *
-     * @param string $marker     The comment which preceeds the test.
-     * @param array  $expected   The expected function output.
-     * @param array  $targetType Optional. The token type to search for after $marker.
-     *                           Defaults to the function/closure/arrow tokens.
+     * @param string                                     $marker     The comment which preceeds the test.
+     * @param array<int, array<string, int|string|bool>> $expected   The expected function output.
+     * @param int|string|array<int|string>               $targetType Optional. The token type to search for after $marker.
+     *                                                               Defaults to the function/closure/arrow tokens.
      *
      * @return void
      */
@@ -125,30 +125,30 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
     /**
      * Test helper to translate token offsets to absolute positions in an "expected" array.
      *
-     * @param int                              $targetPtr The token pointer to the target token from which
-     *                                                    the offset is calculated.
-     * @param array<int, array<string, mixed>> $expected  The expected function output containing offsets.
+     * @param int                                        $targetPtr The token pointer to the target token from which
+     *                                                              the offset is calculated.
+     * @param array<int, array<string, int|string|bool>> $expected  The expected function output containing offsets.
      *
-     * @return array<int, array<string, mixed>>
+     * @return array<int, array<string, int|string|bool>>
      */
     private function updateExpectedTokenPositions($targetPtr, $expected)
     {
         foreach ($expected as $key => $param) {
             $expected[$key]['token'] += $targetPtr;
 
-            if ($param['reference_token'] !== false) {
+            if (\is_int($param['reference_token']) === true) {
                 $expected[$key]['reference_token'] += $targetPtr;
             }
-            if ($param['variadic_token'] !== false) {
+            if (\is_int($param['variadic_token']) === true) {
                 $expected[$key]['variadic_token'] += $targetPtr;
             }
-            if ($param['type_hint_token'] !== false) {
+            if (\is_int($param['type_hint_token']) === true) {
                 $expected[$key]['type_hint_token'] += $targetPtr;
             }
-            if ($param['type_hint_end_token'] !== false) {
+            if (\is_int($param['type_hint_end_token']) === true) {
                 $expected[$key]['type_hint_end_token'] += $targetPtr;
             }
-            if ($param['comma_token'] !== false) {
+            if (\is_int($param['comma_token']) === true) {
                 $expected[$key]['comma_token'] += $targetPtr;
             }
             if (isset($param['default_token'])) {
@@ -157,7 +157,7 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
             if (isset($param['default_equal_token'])) {
                 $expected[$key]['default_equal_token'] += $targetPtr;
             }
-            if (isset($param['visibility_token']) && $param['visibility_token'] !== false) {
+            if (isset($param['visibility_token']) && \is_int($param['visibility_token']) === true) {
                 $expected[$key]['visibility_token'] += $targetPtr;
             }
             if (isset($param['readonly_token'])) {
@@ -178,22 +178,24 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
         // The test case used is specifically selected to be one which will always reach the cache check.
         $methodName = 'PHPCSUtils\\Utils\\FunctionDeclarations::getParameters';
         $testMarker = '/* testPHP82PseudoTypeTrue */';
-        $expected   = [
+
+        // Offsets are relative to the T_FUNCTION token.
+        $expected = [
             0 => [
-                'token'               => 7, // Offset from the T_FUNCTION token.
+                'token'               => 7,
                 'name'                => '$var',
                 'content'             => '?true $var = true',
                 'default'             => 'true',
-                'default_token'       => 11, // Offset from the T_FUNCTION token.
-                'default_equal_token' => 9,  // Offset from the T_FUNCTION token.
+                'default_token'       => 11,
+                'default_equal_token' => 9,
                 'has_attributes'      => false,
                 'pass_by_reference'   => false,
                 'reference_token'     => false,
                 'variable_length'     => false,
                 'variadic_token'      => false,
                 'type_hint'           => '?true',
-                'type_hint_token'     => 5, // Offset from the T_FUNCTION token.
-                'type_hint_end_token' => 5, // Offset from the T_FUNCTION token.
+                'type_hint_token'     => 5,
+                'type_hint_end_token' => 5,
                 'nullable_type'       => true,
                 'comma_token'         => false,
             ],
