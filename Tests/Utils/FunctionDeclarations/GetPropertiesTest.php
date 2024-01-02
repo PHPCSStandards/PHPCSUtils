@@ -52,8 +52,8 @@ final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      *
      * @dataProvider dataNotAFunctionException
      *
-     * @param string $commentString   The comment which preceeds the test.
-     * @param array  $targetTokenType The token type to search for after $commentString.
+     * @param string                       $commentString   The comment which preceeds the test.
+     * @param string|int|array<int|string> $targetTokenType The token type to search for after $commentString.
      *
      * @return void
      */
@@ -68,10 +68,10 @@ final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
     /**
      * Test helper.
      *
-     * @param string $commentString The comment which preceeds the test.
-     * @param array  $expected      The expected function output.
-     * @param array  $targetType    Optional. The token type to search for after $commentString.
-     *                              Defaults to the function/closure tokens.
+     * @param string                         $commentString The comment which preceeds the test.
+     * @param array<string, string|int|bool> $expected      The expected function output.
+     * @param string|int|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
+     *                                                      Defaults to the function/closure tokens.
      *
      * @return void
      */
@@ -83,10 +83,11 @@ final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = FunctionDeclarations::getProperties(self::$phpcsFile, $function);
 
-        if ($expected['return_type_token'] !== false) {
+        // Convert offsets to absolute positions in the token stream.
+        if (\is_int($expected['return_type_token']) === true) {
             $expected['return_type_token'] += $function;
         }
-        if ($expected['return_type_end_token'] !== false) {
+        if (\is_int($expected['return_type_end_token']) === true) {
             $expected['return_type_end_token'] += $function;
         }
 

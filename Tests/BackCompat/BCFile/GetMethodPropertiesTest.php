@@ -40,8 +40,8 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNotAFunctionException
      *
-     * @param string $commentString   The comment which preceeds the test.
-     * @param array  $targetTokenType The token type to search for after $commentString.
+     * @param string                       $commentString   The comment which preceeds the test.
+     * @param string|int|array<int|string> $targetTokenType The token type to search for after $commentString.
      *
      * @return void
      */
@@ -58,22 +58,22 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      *
      * @see testNotAFunctionException() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int|array<int|string>>>
      */
     public static function dataNotAFunctionException()
     {
         return [
             'return' => [
-                '/* testNotAFunction */',
-                T_RETURN,
+                'commentString'   => '/* testNotAFunction */',
+                'targetTokenType' => T_RETURN,
             ],
             'function-call-fn-phpcs-3.5.3-3.5.4' => [
-                '/* testFunctionCallFnPHPCS353-354 */',
-                [T_FN, T_STRING],
+                'commentString'   => '/* testFunctionCallFnPHPCS353-354 */',
+                'targetTokenType' => [T_FN, T_STRING],
             ],
             'fn-live-coding' => [
-                '/* testArrowFunctionLiveCoding */',
-                [T_FN, T_STRING],
+                'commentString'   => '/* testArrowFunctionLiveCoding */',
+                'targetTokenType' => [T_FN, T_STRING],
             ],
         ];
     }
@@ -108,12 +108,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testReturnFunction()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'array',
-            'return_type_token'     => 11, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 11, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 11,
+            'return_type_end_token' => 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -131,12 +132,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testNestedClosure()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'int',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -223,12 +225,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testProtectedReturnMethod()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'protected',
             'scope_specified'       => true,
             'return_type'           => 'int',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -246,12 +249,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPublicReturnMethod()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => true,
             'return_type'           => 'array',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -269,12 +273,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testNullableReturnMethod()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => true,
             'return_type'           => '?array',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -292,12 +297,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testMessyNullableReturnMethod()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => true,
             'return_type'           => '?array',
-            'return_type_token'     => 18, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 18, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 18,
+            'return_type_end_token' => 18,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -317,12 +323,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '\MyNamespace\MyClass',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 7 : 10, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => ($php8Names === true) ? 7 : 10,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -342,12 +349,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '\MyNamespace\MyClass\Foo',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 20 : 23, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => ($php8Names === true) ? 20 : 23,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -365,12 +373,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testReturnUnqualifiedName()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'private',
             'scope_specified'       => true,
             'return_type'           => '?MyClass',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -390,12 +399,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'Sub\Level\MyClass',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 7 : 11, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => ($php8Names === true) ? 7 : 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -436,12 +446,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testAbstractReturnMethod()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'protected',
             'scope_specified'       => true,
             'return_type'           => 'bool',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => true,
             'is_final'              => false,
@@ -482,12 +493,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testArrowFunction()
     {
+        // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'int',
-            'return_type_token'     => 9, // Offset from the T_FN token.
-            'return_type_end_token' => 9, // Offset from the T_FN token.
+            'return_type_token'     => 9,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -505,12 +517,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testReturnTypeStatic()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'private',
             'scope_specified'       => true,
             'return_type'           => 'static',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -528,12 +541,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8MixedTypeHint()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'mixed',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -551,12 +565,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8MixedTypeHintNullable()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?mixed',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -576,12 +591,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?namespace\Name',
-            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 9 : 11, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 9,
+            'return_type_end_token' => ($php8Names === true) ? 9 : 11,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -599,12 +615,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8UnionTypesSimple()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'int|float',
-            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 11, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 9,
+            'return_type_end_token' => 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -624,12 +641,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA|\Package\MyClassB',
-            'return_type_token'     => 6, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 8 : 11, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 6,
+            'return_type_end_token' => ($php8Names === true) ? 8 : 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -647,12 +665,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8UnionTypesAllBaseTypes()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'array|bool|callable|int|float|null|Object|string',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 22, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 22,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -672,12 +691,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8UnionTypesAllPseudoTypes()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'false|MIXED|self|parent|static|iterable|Resource|void',
-            'return_type_token'     => 9, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 23, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 9,
+            'return_type_end_token' => 23,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -695,12 +715,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8UnionTypesNullable()
     {
+        // Offsets are relative to the T_CLOSURE token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?int|float',
-            'return_type_token'     => 12, // Offset from the T_CLOSURE token.
-            'return_type_end_token' => 14, // Offset from the T_CLOSURE token.
+            'return_type_token'     => 12,
+            'return_type_end_token' => 14,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -718,12 +739,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8PseudoTypeNull()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'null',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -741,12 +763,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8PseudoTypeFalse()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'false',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -764,12 +787,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8PseudoTypeFalseAndBool()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'bool|false',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -787,12 +811,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8ObjectAndClass()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'object|ClassName',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -810,12 +835,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8PseudoTypeIterableAndArray()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => true,
             'return_type'           => 'iterable|array|Traversable',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 11, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -833,12 +859,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8DuplicateTypeInUnionWhitespaceAndComment()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'int|string|INT',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 17, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 17,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -856,12 +883,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP81NeverType()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'never',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 7, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -879,12 +907,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP81NullableNeverType()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?never',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -902,12 +931,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP8IntersectionTypes()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'Foo&Bar',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -927,12 +957,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA&\Package\MyClassB&\Package\MyClassC',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => ($php8Names === true) ? 11 : 17, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => ($php8Names === true) ? 11 : 17,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -952,12 +983,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     {
         $php8Names = parent::usesPhp8NameTokens();
 
+        // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA&\Package\MyClassB',
-            'return_type_token'     => 6, // Offset from the T_FN token.
-            'return_type_end_token' => ($php8Names === true) ? 8 : 11, // Offset from the T_FN token.
+            'return_type_token'     => 6,
+            'return_type_end_token' => ($php8Names === true) ? 8 : 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -975,12 +1007,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP81IllegalIntersectionTypes()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'string&int',
-            'return_type_token'     => 6, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 6,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -998,12 +1031,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPHP81NullableIntersectionTypes()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?Foo&Bar',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1015,18 +1049,19 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
-     * Verify recognition of PHP8.1 intersection type declaration with (illegal) nullability.
+     * Verify recognition of PHP 8.2 stand-alone `true` type.
      *
      * @return void
      */
     public function testPHP82PseudoTypeTrue()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?true',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1038,18 +1073,19 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     }
 
     /**
-     * Verify recognition of PHP8.1 intersection type declaration with (illegal) nullability.
+     * Verify recognition of PHP 8.2 type declaration with (illegal) type false combined with type true.
      *
      * @return void
      */
     public function testPHP82PseudoTypeFalseAndTrue()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'true|false',
-            'return_type_token'     => 7, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 9, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1069,12 +1105,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testPhpcsIssue1264()
     {
+        // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'array',
-            'return_type_token'     => 8, // Offset from the T_FUNCTION token.
-            'return_type_end_token' => 8, // Offset from the T_FUNCTION token.
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1095,12 +1132,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionArrayReturnValue()
     {
+        // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'array',
-            'return_type_token'     => 5, // Offset from the T_FN token.
-            'return_type_end_token' => 5, // Offset from the T_FN token.
+            'return_type_token'     => 5,
+            'return_type_end_token' => 5,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1118,12 +1156,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testArrowFunctionReturnByRef()
     {
+        // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?string',
-            'return_type_token'     => 12, // Offset from the T_FN token.
-            'return_type_end_token' => 12, // Offset from the T_FN token.
+            'return_type_token'     => 12,
+            'return_type_end_token' => 12,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1142,12 +1181,13 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
      */
     public function testFunctionDeclarationNestedInTernaryPHPCS2975()
     {
+        // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => true,
             'return_type'           => 'c',
-            'return_type_token'     => 7, // Offset from the T_FN token.
-            'return_type_end_token' => 7, // Offset from the T_FN token.
+            'return_type_token'     => 7,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1161,10 +1201,10 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
     /**
      * Test helper.
      *
-     * @param string $commentString The comment which preceeds the test.
-     * @param array  $expected      The expected function output.
-     * @param array  $targetType    Optional. The token type to search for after $commentString.
-     *                              Defaults to the function/closure tokens.
+     * @param string                         $commentString The comment which preceeds the test.
+     * @param array<string, string|int|bool> $expected      The expected function output.
+     * @param string|int|array<int|string>   $targetType    Optional. The token type to search for after $commentString.
+     *                                                      Defaults to the function/closure tokens.
      *
      * @return void
      */
@@ -1176,10 +1216,11 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
         $function = $this->getTargetToken($commentString, $targetType);
         $found    = BCFile::getMethodProperties(self::$phpcsFile, $function);
 
-        if ($expected['return_type_token'] !== false) {
+        // Convert offsets to absolute positions in the token stream.
+        if (\is_int($expected['return_type_token']) === true) {
             $expected['return_type_token'] += $function;
         }
-        if ($expected['return_type_end_token'] !== false) {
+        if (\is_int($expected['return_type_end_token']) === true) {
             $expected['return_type_end_token'] += $function;
         }
 
