@@ -1,9 +1,5 @@
 <?php
 
-/*
- * PHPCS native tests.
- */
-
 /* testSimpleAssignment */
 $a = false;
 
@@ -125,11 +121,6 @@ return 0;
 ?>
 <h1>Test</h1>
 <?= '<h2>', foo(), '</h2>';
-
-?><?php
-/*
- * PHPCSUtils native extra tests.
- */
 
 $value = [
     /* testPrecededByArrowFunctionInArray - Expected */

@@ -485,9 +485,9 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
      *
      * @dataProvider dataFindStartInsideSwitchCaseDefaultStatements
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param array|string|int $targets        The token to search for after the test marker.
-     * @param string|int       $expectedTarget Token code of the expected start of statement stack pointer.
+     * @param string     $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string $targets        The token to search for after the test marker.
+     * @param string|int $expectedTarget Token code of the expected start of statement stack pointer.
      *
      * @return void
      */
@@ -504,7 +504,7 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataFindStartInsideSwitchCaseDefaultStatements()
     {
