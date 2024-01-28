@@ -190,6 +190,22 @@ final class Collections
     ];
 
     /**
+     * Token types which can be encountered in an OO constant type declaration.
+     *
+     * @since 1.1.0 Use the {@see Collections::constantTypeTokens()} method for access.
+     *
+     * @var array<int|string, int|string>
+     */
+    private static $constantTypeTokens = [
+        \T_CALLABLE          => \T_CALLABLE, // Not allowed in PHP, but in this list to allow for (flagging) code errors.
+        \T_FALSE             => \T_FALSE,
+        \T_TRUE              => \T_TRUE,
+        \T_NULL              => \T_NULL,
+        \T_TYPE_UNION        => \T_TYPE_UNION,
+        \T_TYPE_INTERSECTION => \T_TYPE_INTERSECTION,
+    ];
+
+    /**
      * Control structure tokens.
      *
      * @since 1.0.0 Use the {@see Collections::controlStructureTokens()} method for access.
@@ -636,6 +652,23 @@ final class Collections
     public static function arrayTokensBC()
     {
         return self::$arrayTokens;
+    }
+
+    /**
+     * Token types which can be encountered in OO constant type declaration.
+     *
+     * @since 1.1.0
+     *
+     * @return array<int|string, int|string>
+     */
+    public static function constantTypeTokens()
+    {
+        $tokens = self::$constantTypeTokens;
+        // Self and static are only allowed in enums, but that's not the concern of this method.
+        $tokens += self::$ooHierarchyKeywords;
+        $tokens += self::namespacedNameTokens();
+
+        return $tokens;
     }
 
     /**
