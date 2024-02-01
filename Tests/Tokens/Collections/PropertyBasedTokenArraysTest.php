@@ -50,7 +50,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
      *
      * @see testPropertyBasedTokenArrays() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataPropertyBasedTokenArrays()
     {

@@ -55,7 +55,7 @@ final class InForeachConditionTest extends UtilityMethodTestCase
      *
      * @see testNotInForeach()
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataNotInForeach()
     {
@@ -75,12 +75,12 @@ final class InForeachConditionTest extends UtilityMethodTestCase
      *
      * @dataProvider dataInForeachCondition
      *
-     * @param string           $testMarker    The comment which prefaces the target token in the test file.
-     * @param string           $expected      The expected function return value.
-     * @param int|string|array $targetType    Optional. The token type of the target token.
-     *                                        Defaults to T_VARIABLE.
-     * @param string           $targetContent Optional. The token content of the target token.
-     *                                        Defaults to `$target` for `T_VARIABLE`.
+     * @param string     $testMarker    The comment which prefaces the target token in the test file.
+     * @param string     $expected      The expected function return value.
+     * @param int|string $targetType    Optional. The token type of the target token.
+     *                                  Defaults to T_VARIABLE.
+     * @param string     $targetContent Optional. The token content of the target token.
+     *                                  Defaults to `$target` for `T_VARIABLE`.
      *
      * @return void
      */
@@ -100,7 +100,7 @@ final class InForeachConditionTest extends UtilityMethodTestCase
      *
      * @see testInForeachCondition()
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataInForeachCondition()
     {

@@ -71,7 +71,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @see testGetParameterNonFunctionCallNoParamName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataGetParameterNonFunctionCallNoParamName()
     {
@@ -148,8 +148,8 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterFunctionCallWithParamName
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected function output.
+     * @param string                    $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|int> $expected   The expected function output.
      *
      * @return void
      */
@@ -173,7 +173,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @see testGetParameterFunctionCallWithParamName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|int>>>
      */
     public static function dataGetParameterFunctionCallWithParamName()
     {

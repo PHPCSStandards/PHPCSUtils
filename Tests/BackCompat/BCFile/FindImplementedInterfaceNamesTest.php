@@ -98,7 +98,7 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
      *
      * @see testFindImplementedInterfaceNames()
      *
-     * @return array<string, array<string, string|array<string>>>
+     * @return array<string, array<string, string|array<string>|false>>
      */
     public static function dataImplementedInterface()
     {

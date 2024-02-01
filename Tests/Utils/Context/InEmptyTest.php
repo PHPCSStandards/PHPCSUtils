@@ -56,7 +56,7 @@ final class InEmptyTest extends UtilityMethodTestCase
      *
      * @see testInEmpty()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataInEmpty()
     {

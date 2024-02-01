@@ -43,8 +43,8 @@ final class GetCompleteNumberTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetCompleteNumber
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected function return value.
+     * @param string                    $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, int|string> $expected   Expected function return value.
      *
      * @return void
      */
@@ -68,7 +68,7 @@ final class GetCompleteNumberTest extends UtilityMethodTestCase
      *
      * @see testGetCompleteNumber() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, int|string>>>
      */
     public static function dataGetCompleteNumber()
     {

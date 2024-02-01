@@ -45,7 +45,7 @@ final class ShowEscapeCharsTest extends TestCase
      *
      * @see testShowEscapeChars() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataShowEscapeChars()
     {

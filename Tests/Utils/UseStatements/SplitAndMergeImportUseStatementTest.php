@@ -32,9 +32,9 @@ final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
      *
      * @dataProvider dataSplitAndMergeImportUseStatement
      *
-     * @param string $testMarker  The comment which prefaces the target token in the test file.
-     * @param array  $expected    The expected return value of the function.
-     * @param array  $previousUse Previous use statement parameter to pass to the method.
+     * @param string                               $testMarker  The comment which prefaces the target token in the test file.
+     * @param array<string, array<string, string>> $expected    The expected return value of the function.
+     * @param array<string, array<string, string>> $previousUse Previous use statement parameter to pass to the method.
      *
      * @return void
      */
@@ -50,7 +50,7 @@ final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
      *
      * @see testSplitAndMergeImportUseStatement() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, array<string, string>>>>
      */
     public static function dataSplitAndMergeImportUseStatement()
     {

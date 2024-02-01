@@ -45,7 +45,7 @@ final class StripQuotesTest extends TestCase
      *
      * @see testStripQuotes() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataStripQuotes()
     {

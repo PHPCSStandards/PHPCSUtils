@@ -148,7 +148,7 @@ final class GetConditionTest extends BCFile_GetConditionTest
      *
      * @see testGetFirstCondition() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataGetFirstCondition()
     {
@@ -165,9 +165,9 @@ final class GetConditionTest extends BCFile_GetConditionTest
      *
      * @dataProvider dataGetLastCondition
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The marker for the pointers to the expected condition
-     *                           results for the pre-set tests.
+     * @param string                $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string> $expected   The marker for the pointers to the expected condition
+     *                                          results for the pre-set tests.
      *
      * @return void
      */
@@ -193,7 +193,7 @@ final class GetConditionTest extends BCFile_GetConditionTest
      *
      * @see testGetLastCondition() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string>>>
      */
     public static function dataGetLastCondition()
     {

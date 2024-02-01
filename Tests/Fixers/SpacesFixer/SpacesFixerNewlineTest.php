@@ -48,7 +48,7 @@ final class SpacesFixerNewlineTest extends SpacesFixerTestCase
     /**
      * The names of the test case(s) in compliance.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $compliantCases = [
         'newline-and-trailing-spaces',

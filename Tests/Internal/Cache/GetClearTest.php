@@ -280,7 +280,7 @@ final class GetClearTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public static function dataEveryTypeOfInput()
     {

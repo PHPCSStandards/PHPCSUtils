@@ -65,7 +65,7 @@ final class TrailingCommentHandlingTest extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 
@@ -74,9 +74,9 @@ final class TrailingCommentHandlingTest extends UtilityMethodTestCase
      *
      * @dataProvider dataCheckAndFix
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected error details.
-     * @param string $type       The message type to test: 'error' or 'warning'.
+     * @param string                     $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|bool> $expected   Expected error details.
+     * @param string                     $type       The message type to test: 'error' or 'warning'.
      *
      * @return void
      */
@@ -180,7 +180,7 @@ final class TrailingCommentHandlingTest extends UtilityMethodTestCase
      *
      * @see testCheckAndFix() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|bool>>>
      */
     public static function dataCheckAndFix()
     {

@@ -113,7 +113,7 @@ final class SetTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public static function dataEveryTypeOfInput()
     {
@@ -155,7 +155,7 @@ final class SetTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataSetAcceptsIntAndStringIdKeys()
     {

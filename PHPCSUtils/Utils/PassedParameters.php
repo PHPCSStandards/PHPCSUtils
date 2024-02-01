@@ -367,7 +367,7 @@ final class PassedParameters
      * @param int                         $stackPtr    The position of function call name,
      *                                                 language construct or array open token.
      * @param int                         $paramOffset The 1-based index position of the parameter to retrieve.
-     * @param string|string[]             $paramNames  Optional. Either the name of the target parameter
+     * @param string|array<string>        $paramNames  Optional. Either the name of the target parameter
      *                                                 to retrieve as a string or an array of names for the
      *                                                 same target parameter.
      *                                                 Only relevant for function calls.
@@ -457,7 +457,7 @@ final class PassedParameters
      *                                                                  {@see PassedParameters::getParameters()}.
      * @param int                                          $paramOffset The 1-based index position of the parameter
      *                                                                  to retrieve.
-     * @param string|string[]                              $paramNames  Either the name of the target parameter to retrieve
+     * @param string|array<string>                         $paramNames  Either the name of the target parameter to retrieve
      *                                                                  as a string or an array of names for the same target
      *                                                                  parameter.
      *                                                                  An array of names is supported to allow for functions

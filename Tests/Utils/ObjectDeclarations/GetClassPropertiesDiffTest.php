@@ -45,8 +45,8 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetClassProperties
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected function output.
+     * @param string                  $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool|int> $expected   Expected function output.
      *
      * @return void
      */
@@ -74,7 +74,7 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @see testGetClassProperties() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool|int>>>
      */
     public static function dataGetClassProperties()
     {

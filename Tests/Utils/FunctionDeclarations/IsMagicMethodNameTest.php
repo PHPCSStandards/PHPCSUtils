@@ -61,7 +61,7 @@ final class IsMagicMethodNameTest extends TestCase
      * @see testIsMagicMethodName()   For the array format.
      * @see testIsSpecialMethodName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsMagicMethodName()
     {
@@ -142,7 +142,7 @@ final class IsMagicMethodNameTest extends TestCase
      * @see testIsNotMagicMethodName()   For the array format.
      * @see testIsNotSpecialMethodName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsNotMagicMethodName()
     {

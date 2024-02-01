@@ -50,7 +50,7 @@ final class IsShortArrayBracketBC5Test extends UtilityMethodTestCase
      *
      * @see testIsShortArrayBracket() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataIsShortArrayBracket()
     {

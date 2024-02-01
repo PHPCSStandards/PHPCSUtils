@@ -76,7 +76,7 @@ final class IsOOPropertyTest extends UtilityMethodTestCase
      *
      * @see testIsOOProperty() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsOOProperty()
     {

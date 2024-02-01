@@ -67,8 +67,8 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetCaughtExceptions
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return value.
+     * @param string                           $testMarker The comment which prefaces the target token in the test file.
+     * @param array<array<string, string|int>> $expected   The expected return value.
      *
      * @return void
      */
@@ -91,7 +91,7 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
      *
      * @see testGetCaughtExceptions() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<array<string, string|int>>>>
      */
     public static function dataGetCaughtExceptions()
     {

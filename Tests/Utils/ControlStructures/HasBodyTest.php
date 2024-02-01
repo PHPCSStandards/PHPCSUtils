@@ -76,7 +76,7 @@ final class HasBodyTest extends UtilityMethodTestCase
      *
      * @see testHasBody() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataHasBody()
     {

@@ -161,7 +161,7 @@ final class BCFile
      *                                           // or FALSE if there is no type hint.
      *   'type_hint_end_token' => integer|false, // The stack pointer to the end of the type hint
      *                                           // or FALSE if there is no type hint.
-     *   'nullable_type'       => boolean,       // TRUE if the var type is preceded by the nullability
+     *   'nullable_type'       => boolean,       // TRUE if the param type is preceded by the nullability
      *                                           // operator.
      *   'comma_token'         => integer|false, // The stack pointer to the comma after the param
      *                                           // or FALSE if this is the last param.
@@ -178,9 +178,9 @@ final class BCFile
      * Parameters declared using PHP 8 constructor property promotion, have these additional array indexes:
      * ```php
      *   'property_visibility' => string,        // The property visibility as declared.
-     *   'visibility_token'    => integer,|false // The stack pointer to the visibility modifier token.
+     *   'visibility_token'    => integer|false, // The stack pointer to the visibility modifier token.
      *                                           // or FALSE if the visibility is not explicitly declared.
-     *   'property_readonly'   => bool,          // TRUE if the readonly keyword was found.
+     *   'property_readonly'   => boolean,       // TRUE if the readonly keyword was found.
      *   'readonly_token'      => integer,       // The stack pointer to the readonly modifier token.
      *                                           // This index will only be set if the property is readonly.
      * ```
@@ -848,8 +848,8 @@ final class BCFile
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The stack position of the class or enum token.
      *
-     * @return string[]|false Array with names of the implemented interfaces or `FALSE` on
-     *                        error or if there are no implemented interface names.
+     * @return array<string>|false Array with names of the implemented interfaces or `FALSE` on
+     *                             error or if there are no implemented interface names.
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {

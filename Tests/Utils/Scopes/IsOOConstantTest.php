@@ -76,7 +76,7 @@ final class IsOOConstantTest extends UtilityMethodTestCase
      *
      * @see testIsOOConstant() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsOOConstant()
     {

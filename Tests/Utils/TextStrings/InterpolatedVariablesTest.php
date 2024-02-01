@@ -31,7 +31,7 @@ final class InterpolatedVariablesTest extends TestCase
     /**
      * Collection of various variables and other embeds which are valid in double quoted strings.
      *
-     * @var string[]
+     * @var array<string>
      */
     private static $embeds = [
         // Simple.

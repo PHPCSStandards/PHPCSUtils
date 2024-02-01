@@ -48,7 +48,7 @@ final class SpacesFixerNoSpaceTest extends SpacesFixerTestCase
     /**
      * The names of the test case(s) in compliance.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $compliantCases = ['no-space'];
 

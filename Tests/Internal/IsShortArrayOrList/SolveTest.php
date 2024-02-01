@@ -48,7 +48,7 @@ final class SolveTest extends UtilityMethodTestCase
      *
      * @see testSolve() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataSolve()
     {

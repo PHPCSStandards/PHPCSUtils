@@ -86,8 +86,8 @@ final class SpecialFunctionsTest extends UtilityMethodTestCase
      * @dataProvider dataItsAKindOfMagic
      * @covers       ::isMagicFunction
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -104,8 +104,8 @@ final class SpecialFunctionsTest extends UtilityMethodTestCase
      * @dataProvider dataItsAKindOfMagic
      * @covers       ::isMagicMethod
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -122,8 +122,8 @@ final class SpecialFunctionsTest extends UtilityMethodTestCase
      * @dataProvider dataItsAKindOfMagic
      * @covers       ::isPHPDoubleUnderscoreMethod
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -140,8 +140,8 @@ final class SpecialFunctionsTest extends UtilityMethodTestCase
      * @dataProvider dataItsAKindOfMagic
      * @covers       ::isSpecialMethod
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -160,7 +160,7 @@ final class SpecialFunctionsTest extends UtilityMethodTestCase
      * @see testIsPHPDoubleUnderscoreMethod() For the array format.
      * @see testIsSpecialMethod()             For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>>>
      */
     public static function dataItsAKindOfMagic()
     {

@@ -52,7 +52,7 @@ final class IsLastCharPunctuationTest extends TestCase
      *
      * @see testIsLastCharPunctuation() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsLastCharPunctuation()
     {

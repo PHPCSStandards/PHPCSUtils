@@ -44,11 +44,11 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetDeclaredName
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected output for the function.
-     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
-     *                           name tokenization is used (as the target token won't exist).
-     *                           Defaults to `false`.
+     * @param string                      $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|false> $expected   The expected output for the function.
+     * @param bool                        $skipOnPHP8 Optional. Whether the test should be skipped when the
+     *                                                PHP 8 identifier name tokenization is used (as the target token
+     *                                                won't exist). Defaults to `false`.
      *
      * @return void
      */
@@ -69,11 +69,11 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetDeclaredName
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected output for the function.
-     * @param bool   $skipOnPHP8 Optional. Whether the test should be skipped when the PHP 8 identifier
-     *                           name tokenization is used (as the target token won't exist).
-     *                           Defaults to `false`.
+     * @param string                      $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|false> $expected   The expected output for the function.
+     * @param bool                        $skipOnPHP8 Optional. Whether the test should be skipped when the
+     *                                                PHP 8 identifier name tokenization is used (as the target token
+     *                                                won't exist). Defaults to `false`.
      *
      * @return void
      */
@@ -94,7 +94,7 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @see testGetDeclaredName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|false>|bool>>
      */
     public static function dataGetDeclaredName()
     {
