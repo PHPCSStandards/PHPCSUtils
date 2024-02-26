@@ -47,7 +47,7 @@ final class GetVersionTest extends TestCase
         }
 
         if ($expected === 'lowest') {
-            $expected = '3.8.0';
+            $expected = '3.9.0';
         }
 
         $result = Helper::getVersion();
