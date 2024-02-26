@@ -401,7 +401,7 @@ final class GetClearTest extends UtilityMethodTestCase
     /**
      * Test that previously cached data is no longer available when the cache has been cleared.
      *
-     * @dataProvider dataEveryTypeOfInput
+     * @dataProvider dataClearCache
      *
      * @covers ::clear
      *
@@ -415,5 +415,23 @@ final class GetClearTest extends UtilityMethodTestCase
 
         $this->assertFalse(Cache::isCached(self::$phpcsFile, 'Utility1', $id));
         $this->assertFalse(Cache::isCached(self::$phpcsFile, 'Utility2', $id));
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testClearCache() For the array format.
+     *
+     * @return array
+     */
+    public static function dataClearCache()
+    {
+        $data = self::dataEveryTypeOfInput();
+
+        foreach ($data as $name => $dataset) {
+            unset($data[$name]['expected']);
+        }
+
+        return $data;
     }
 }
