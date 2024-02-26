@@ -665,16 +665,18 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     private function getMockedClassUnderTest()
     {
-        $mockedObj = $this->getMockBuilder('\PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff');
+        $mockedObj = $this->getMockBuilder(
+            '\PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration\ArrayDeclarationSniffMock'
+        );
 
         if (\method_exists($mockedObj, 'onlyMethods')) {
             // PHPUnit 8+.
             return $mockedObj->onlyMethods($this->methodsToMock)
-                ->getMockForAbstractClass();
+                ->getMock();
         }
 
         // PHPUnit < 8.
         return $mockedObj->setMethods($this->methodsToMock)
-            ->getMockForAbstractClass();
+            ->getMock();
     }
 }
