@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::setUpTestFile
  *
- * @group testutils
- *
  * @since 1.0.0
  */
 final class MissingCaseFileTest extends PolyfilledTestCase

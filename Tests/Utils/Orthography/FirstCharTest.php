@@ -20,8 +20,6 @@ use PHPUnit\Framework\TestCase;
  * @covers \PHPCSUtils\Utils\Orthography::isFirstCharCapitalized
  * @covers \PHPCSUtils\Utils\Orthography::isFirstCharLowercase
  *
- * @group orthography
- *
  * @since 1.0.0
  */
 final class FirstCharTest extends TestCase

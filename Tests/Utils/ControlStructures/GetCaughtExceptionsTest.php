@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @covers \PHPCSUtils\Utils\ControlStructures::getCaughtExceptions
  *
- * @group controlstructures
- *
  * @since 1.0.0
  */
 final class GetCaughtExceptionsTest extends UtilityMethodTestCase

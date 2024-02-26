@@ -21,8 +21,6 @@ use PHPUnit\Framework\TestCase;
  * @covers \PHPCSUtils\Utils\TextStrings::stripEmbeds
  * @covers \PHPCSUtils\Utils\TextStrings::getStripEmbeds
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class InterpolatedVariablesTest extends TestCase

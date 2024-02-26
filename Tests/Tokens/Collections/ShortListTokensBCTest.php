@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::shortListTokensBC
  *
- * @group collections
- *
  * @since 1.0.2
  */
 final class ShortListTokensBCTest extends TestCase

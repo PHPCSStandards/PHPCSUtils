@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\Orthography::isLastCharPunctuation
  *
- * @group orthography
- *
  * @since 1.0.0
  */
 final class IsLastCharPunctuationTest extends TestCase

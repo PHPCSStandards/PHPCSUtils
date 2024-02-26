@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\Numbers::getDecimalValue
  *
- * @group numbers
- *
  * @since 1.0.0
  */
 final class GetDecimalValueTest extends TestCase

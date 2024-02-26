@@ -21,8 +21,6 @@ use PHPCSUtils\Utils\PassedParameters;
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameter
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameterFromStack
  *
- * @group passedparameters
- *
  * @since 1.0.0
  */
 final class GetParameterFromStackTest extends UtilityMethodTestCase

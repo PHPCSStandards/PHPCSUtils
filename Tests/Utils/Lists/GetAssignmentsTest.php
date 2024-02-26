@@ -20,8 +20,6 @@ use PHPCSUtils\Utils\Lists;
  *
  * @covers \PHPCSUtils\Utils\Lists::getAssignments
  *
- * @group lists
- *
  * @since 1.0.0
  */
 final class GetAssignmentsTest extends UtilityMethodTestCase

@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Lists;
  *
  * @covers \PHPCSUtils\Utils\Lists::getOpenClose
  *
- * @group lists
- *
  * @since 1.0.0
  */
 final class GetOpenCloseTest extends UtilityMethodTestCase

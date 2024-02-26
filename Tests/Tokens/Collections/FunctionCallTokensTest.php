@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::functionCallTokens
  *
- * @group collections
- *
  * @since 1.0.0
  */
 final class FunctionCallTokensTest extends TestCase

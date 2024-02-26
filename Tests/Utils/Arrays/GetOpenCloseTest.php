@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Arrays;
  *
  * @covers \PHPCSUtils\Utils\Arrays::getOpenClose
  *
- * @group arrays
- *
  * @since 1.0.0
  */
 final class GetOpenCloseTest extends UtilityMethodTestCase

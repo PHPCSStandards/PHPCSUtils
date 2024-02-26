@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\TextStrings::stripQuotes
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class StripQuotesTest extends TestCase

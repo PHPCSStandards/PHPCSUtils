@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\BackCompat\Helper::getVersion
  *
- * @group helper
- *
  * @since 1.0.0
  */
 final class GetVersionTest extends TestCase

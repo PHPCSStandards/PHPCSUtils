@@ -18,8 +18,6 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
  *
- * @group fixers
- *
  * @since 1.0.0
  */
 final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase

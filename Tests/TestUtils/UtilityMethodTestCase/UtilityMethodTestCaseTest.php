@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase
  *
- * @group testutils
- *
  * @since 1.0.0
  */
 final class UtilityMethodTestCaseTest extends PolyfilledTestCase

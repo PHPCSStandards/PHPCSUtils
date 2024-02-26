@@ -18,8 +18,6 @@ use PHPCSUtils\Tokens\Collections;
  *
  * @covers \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff
  *
- * @group abstracts
- *
  * @since 1.0.0
  */
 final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase

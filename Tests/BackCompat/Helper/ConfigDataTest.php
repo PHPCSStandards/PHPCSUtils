@@ -20,8 +20,6 @@ use Yoast\PHPUnitPolyfills\TestCases\TestCase;
  * @covers \PHPCSUtils\BackCompat\Helper::setConfigData
  * @covers \PHPCSUtils\BackCompat\Helper::getConfigData
  *
- * @group helper
- *
  * @since 1.0.0
  */
 final class ConfigDataTest extends TestCase
