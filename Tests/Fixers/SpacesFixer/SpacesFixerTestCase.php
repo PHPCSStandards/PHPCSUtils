@@ -164,6 +164,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
         foreach (static::$compliantCases as $caseName) {
             if (isset($baseData[$caseName])) {
                 $data[$caseName] = $baseData[$caseName];
+                unset($data[$caseName]['type']);
             }
         }
 

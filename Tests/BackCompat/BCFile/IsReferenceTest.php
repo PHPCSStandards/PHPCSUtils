@@ -64,16 +64,16 @@ class IsReferenceTest extends UtilityMethodTestCase
      *
      * @dataProvider dataIsReference
      *
-     * @param string $identifier Comment which precedes the test case.
+     * @param string $testMarker Comment which precedes the test case.
      * @param bool   $expected   Expected function output.
      *
      * @return void
      */
-    public function testIsReference($identifier, $expected)
+    public function testIsReference($testMarker, $expected)
     {
         $testClass = static::TEST_CLASS;
 
-        $bitwiseAnd = $this->getTargetToken($identifier, T_BITWISE_AND);
+        $bitwiseAnd = $this->getTargetToken($testMarker, T_BITWISE_AND);
         $result     = $testClass::isReference(self::$phpcsFile, $bitwiseAnd);
         $this->assertSame($expected, $result);
     }
