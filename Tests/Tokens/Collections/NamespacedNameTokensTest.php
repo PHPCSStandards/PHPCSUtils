@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::namespacedNameTokens
  *
- * @group collections
- *
  * @since 1.0.0
  */
 final class NamespacedNameTokensTest extends TestCase

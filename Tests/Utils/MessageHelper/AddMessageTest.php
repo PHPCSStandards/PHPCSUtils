@@ -22,8 +22,6 @@ use PHPCSUtils\Utils\MessageHelper;
  *
  * @coversDefaultClass \PHPCSUtils\Utils\MessageHelper
  *
- * @group messagehelper
- *
  * @since 1.0.0
  */
 final class AddMessageTest extends UtilityMethodTestCase

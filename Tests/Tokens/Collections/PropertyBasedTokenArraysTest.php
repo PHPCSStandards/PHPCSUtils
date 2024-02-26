@@ -19,8 +19,6 @@ use Yoast\PHPUnitPolyfills\TestCases\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::__callStatic
  *
- * @group collections
- *
  * @since 1.0.0
  */
 final class PropertyBasedTokenArraysTest extends TestCase

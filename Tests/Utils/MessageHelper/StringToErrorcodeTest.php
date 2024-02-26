@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\MessageHelper::stringToErrorcode
  *
- * @group messagehelper
- *
  * @since 1.0.0
  */
 final class StringToErrorcodeTest extends TestCase

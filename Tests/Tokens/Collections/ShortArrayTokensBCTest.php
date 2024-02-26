@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::shortArrayTokensBC
  *
- * @group collections
- *
  * @since 1.0.2
  */
 final class ShortArrayTokensBCTest extends TestCase

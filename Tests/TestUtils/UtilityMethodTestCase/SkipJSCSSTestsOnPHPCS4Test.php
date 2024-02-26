@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::skipJSCSSTestsOnPHPCS4
  *
- * @group testutils
- *
  * @since 1.0.0
  */
 final class SkipJSCSSTestsOnPHPCS4Test extends PolyfilledTestCase

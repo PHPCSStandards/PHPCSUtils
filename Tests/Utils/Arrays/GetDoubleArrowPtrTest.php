@@ -20,8 +20,6 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @covers \PHPCSUtils\Utils\Arrays::getDoubleArrowPtr
  *
- * @group arrays
- *
  * @since 1.0.0
  */
 final class GetDoubleArrowPtrTest extends UtilityMethodTestCase

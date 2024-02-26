@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::getTargetToken
  *
- * @group testutils
- *
  * @since 1.0.0
  */
 final class GetTargetTokenTest extends PolyfilledTestCase

@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::listOpenTokensBC
  *
- * @group collections
- *
  * @since 1.0.2
  */
 final class ListOpenTokensBCTest extends TestCase

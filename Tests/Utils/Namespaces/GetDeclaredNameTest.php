@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @covers \PHPCSUtils\Utils\Namespaces::getDeclaredName
  *
- * @group namespaces
- *
  * @since 1.0.0
  */
 final class GetDeclaredNameTest extends UtilityMethodTestCase

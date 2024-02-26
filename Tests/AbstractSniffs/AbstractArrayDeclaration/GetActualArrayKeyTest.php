@@ -20,8 +20,6 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @covers \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff::getActualArrayKey
  *
- * @group abstracts
- *
  * @since 1.0.0
  */
 final class GetActualArrayKeyTest extends UtilityMethodTestCase

@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inForeachCondition
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InForeachConditionTest extends UtilityMethodTestCase

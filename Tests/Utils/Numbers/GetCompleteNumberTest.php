@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Numbers;
  *
  * @covers \PHPCSUtils\Utils\Numbers::getCompleteNumber
  *
- * @group numbers
- *
  * @since 1.0.0
  */
 final class GetCompleteNumberTest extends UtilityMethodTestCase

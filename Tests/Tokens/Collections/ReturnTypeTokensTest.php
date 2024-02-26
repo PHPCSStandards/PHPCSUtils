@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::returnTypeTokens
  *
- * @group collections
- *
  * @since 1.0.0
  */
 final class ReturnTypeTokensTest extends TestCase

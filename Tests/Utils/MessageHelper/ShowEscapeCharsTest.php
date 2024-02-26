@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\MessageHelper::showEscapeChars
  *
- * @group messagehelper
- *
  * @since 1.0.0
  */
 final class ShowEscapeCharsTest extends TestCase

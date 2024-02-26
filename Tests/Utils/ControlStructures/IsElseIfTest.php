@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @covers \PHPCSUtils\Utils\ControlStructures::isElseIf
  *
- * @group controlstructures
- *
  * @since 1.0.0
  */
 final class IsElseIfTest extends UtilityMethodTestCase

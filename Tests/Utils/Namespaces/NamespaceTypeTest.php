@@ -22,8 +22,6 @@ use PHPCSUtils\Utils\Namespaces;
  * @covers \PHPCSUtils\Utils\Namespaces::isOperator
  * @covers \PHPCSUtils\Utils\Namespaces::getType
  *
- * @group namespaces
- *
  * @since 1.0.0
  */
 final class NamespaceTypeTest extends UtilityMethodTestCase

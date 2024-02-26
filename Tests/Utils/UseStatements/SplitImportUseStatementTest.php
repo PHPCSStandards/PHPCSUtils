@@ -19,8 +19,6 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @covers \PHPCSUtils\Utils\UseStatements::splitImportUseStatement
  *
- * @group usestatements
- *
  * @since 1.0.0
  */
 final class SplitImportUseStatementTest extends UtilityMethodTestCase

@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerTestCase;
  *
  * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
  *
- * @group fixers
- *
  * @since 1.0.0
  */
 final class SpacesFixerTwoSpaceTest extends SpacesFixerTestCase

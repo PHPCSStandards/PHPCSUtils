@@ -21,8 +21,6 @@ use PHPCSUtils\Utils\Namespaces;
  * @covers \PHPCSUtils\Utils\Namespaces::findNamespacePtr
  * @covers \PHPCSUtils\Utils\Namespaces::determineNamespace
  *
- * @group namespaces
- *
  * @since 1.0.0
  */
 final class DetermineNamespaceTest extends UtilityMethodTestCase

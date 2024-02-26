@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\NamingConventions::isEqual
  *
- * @group namingconventions
- *
  * @since 1.0.0
  */
 final class IsEqualTest extends TestCase

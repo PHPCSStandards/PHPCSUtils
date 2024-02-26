@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Scopes;
  *
  * @coversDefaultClass \PHPCSUtils\Utils\Scopes
  *
- * @group scopes
- *
  * @since 1.0.0
  */
 final class IsOOPropertyTest extends UtilityMethodTestCase

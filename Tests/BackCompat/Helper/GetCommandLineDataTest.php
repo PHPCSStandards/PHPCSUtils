@@ -18,8 +18,6 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @coversDefaultClass \PHPCSUtils\BackCompat\Helper
  *
- * @group helper
- *
  * @since 1.0.0
  */
 final class GetCommandLineDataTest extends UtilityMethodTestCase

@@ -19,8 +19,6 @@ use PHPCSUtils\Utils\Parentheses;
  *
  * @covers \PHPCSUtils\Utils\Parentheses
  *
- * @group parentheses
- *
  * @since 1.0.0
  */
 final class ParenthesesTest extends UtilityMethodTestCase

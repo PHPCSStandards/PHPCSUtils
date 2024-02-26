@@ -22,8 +22,6 @@ use PHPCSUtils\Utils\TextStrings;
  *
  * @covers \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class GetEndOfCompleteTextStringTest extends UtilityMethodTestCase

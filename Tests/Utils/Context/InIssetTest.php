@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inIsset
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InIssetTest extends UtilityMethodTestCase

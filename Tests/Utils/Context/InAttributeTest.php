@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inAttribute
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InAttributeTest extends UtilityMethodTestCase

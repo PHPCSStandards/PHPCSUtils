@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Tokens\Collections::parameterTypeTokens
  *
- * @group collections
- *
  * @since 1.0.0
  */
 final class ParameterTypeTokensTest extends TestCase
