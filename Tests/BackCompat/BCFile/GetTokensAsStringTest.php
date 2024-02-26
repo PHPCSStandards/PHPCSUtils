@@ -93,7 +93,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string     $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string $startTokenType The type of token(s) to look for for the start of the string.
@@ -266,7 +266,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string with the original, non tab-replaced content.
      *
-     * @dataProvider dataGetOrigContent()
+     * @dataProvider dataGetOrigContent
      *
      * @param string     $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string $startTokenType The type of token(s) to look for for the start of the string.

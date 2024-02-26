@@ -112,7 +112,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string                $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
@@ -132,7 +132,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string with the original content.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string                $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
@@ -152,7 +152,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string without comments.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string                $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
@@ -172,7 +172,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string without comments or whitespace.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string                $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
@@ -192,7 +192,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string with compacted whitespace.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string                $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
@@ -212,7 +212,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string without comments and with compacted whitespace.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
      * @param string                $testMarker     The comment which prefaces the target token in the test file.
      * @param int|string            $startTokenType The type of token(s) to look for for the start of the string.
