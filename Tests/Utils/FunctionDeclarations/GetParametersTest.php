@@ -104,6 +104,95 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
     }
 
     /**
+     * Verify Disjunctive Normal Form parameter types work as expected.
+     *
+     * @return void
+     */
+    public function testDisjunctiveNormalForm()
+    {
+        // Offsets are relative to the T_FUNCTION token.
+        $expected = [
+            [
+                'token'               => 14,
+                'name'                => '$one',
+                'content'             => 'A|(B&C) $one',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'A|(B&C)',
+                'type_hint_token'     => 6,
+                'type_hint_end_token' => 12,
+                'nullable_type'       => false,
+                'comma_token'         => 15,
+            ],
+            [
+                'token'               => 26,
+                'name'                => '$two',
+                'content'             => '(A&B)|C $two',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => '(A&B)|C',
+                'type_hint_token'     => 18,
+                'type_hint_end_token' => 24,
+                'nullable_type'       => false,
+                'comma_token'         => 27,
+            ],
+            [
+                'token'               => 50,
+                'name'                => '$three',
+                'content'             => 'A|(B&C)|(D&E&F)|G|null $three',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'A|(B&C)|(D&E&F)|G|null',
+                'type_hint_token'     => 30,
+                'type_hint_end_token' => 48,
+                'nullable_type'       => false,
+                'comma_token'         => 51,
+            ],
+            [
+                'token'               => 58,
+                'name'                => '$four',
+                'content'             => 'A&B $four',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'A&B',
+                'type_hint_token'     => 54,
+                'type_hint_end_token' => 56,
+                'nullable_type'       => false,
+                'comma_token'         => 59,
+            ],
+            [
+                'token'               => 68,
+                'name'                => '$five',
+                'content'             => '(A&B) $five',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => '(A&B)',
+                'type_hint_token'     => 62,
+                'type_hint_end_token' => 66,
+                'nullable_type'       => false,
+                'comma_token'         => false,
+            ],
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test helper.
      *
      * @param string                                     $marker     The comment which preceeds the test.

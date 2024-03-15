@@ -319,6 +319,15 @@ function() use(
 /* testInvalidUse */
 function() use {}; // Intentional parse error.
 
+/* testDisjunctiveNormalForm */
+function disjunctiveNormalForm(
+    A|(B&C) $one,
+    (A&B)|C $two,
+    A|(B&C)|(D&E&F)|G|null $three,
+    A&B $four,
+    (A&B) $five
+) {}
+
 /* testArrowFunctionLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 $fn = fn

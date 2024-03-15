@@ -447,6 +447,12 @@ final class FunctionDeclarations
                  * still be a valid assumption.
                  */
                 || $tokens[$i]['code'] === \T_STATIC
+                /*
+                 * Disjunctive Normal Form uses a single pipe operator.
+                 * This is not always tokenized as a union type.
+                 * That bug is likely to be solved as part of https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/387
+                 */
+                || $tokens[$i]['code'] === \T_BITWISE_OR
             ) {
                 if ($typeHintToken === false) {
                     $typeHintToken = $i;
@@ -493,6 +499,19 @@ final class FunctionDeclarations
 
                 case \T_READONLY:
                     $readonlyToken = $i;
+                    break;
+
+                case \T_OPEN_PARENTHESIS:
+                    // Disjunctive Normal Form
+                    if ($typeHintToken === false) {
+                        $typeHintToken = $i;
+                    }
+
+                    $dnfCloser = $tokens[$i]['parenthesis_closer'];
+                    for ($j = $i; $j <= $dnfCloser; $j++) {
+                        $typeHint .= $tokens[$j]['content'];
+                    }
+                    $typeHintEndToken = $i = $dnfCloser;
                     break;
 
                 case \T_CLOSE_PARENTHESIS:
