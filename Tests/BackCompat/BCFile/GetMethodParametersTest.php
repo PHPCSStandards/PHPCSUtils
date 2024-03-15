@@ -1413,7 +1413,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint'           => 'float|null',
             'type_hint_token'     => 4,
             'type_hint_end_token' => 6,
-            'nullable_type'       => false,
+            'nullable_type'       => true,
             'comma_token'         => 10,
         ];
         $expected[1] = [
@@ -1517,7 +1517,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint'           => 'array|bool|callable|int|float|null|object|string',
             'type_hint_token'     => 4,
             'type_hint_end_token' => 18,
-            'nullable_type'       => false,
+            'nullable_type'       => true,
             'comma_token'         => false,
         ];
 
@@ -1606,7 +1606,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint'           => 'null',
             'type_hint_token'     => 4,
             'type_hint_end_token' => 4,
-            'nullable_type'       => false,
+            'nullable_type'       => true,
             'comma_token'         => false,
         ];
 
@@ -1825,7 +1825,7 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             'type_hint'           => '',
             'type_hint_token'     => false,
             'type_hint_end_token' => false,
-            'nullable_type'       => false,
+            'nullable_type'       => true,
             'property_visibility' => 'private',
             'visibility_token'    => 26,
             'property_readonly'   => false,

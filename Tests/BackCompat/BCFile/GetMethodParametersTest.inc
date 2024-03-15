@@ -319,6 +319,15 @@ function() use(
 /* testInvalidUse */
 function() use {}; // Intentional parse error.
 
+/* testUnionWithNull */
+function unionWithNull(
+    A|null $one,
+    B|C|null $two,
+    null|D $three,
+    E|null|F $four,
+    A|B $five = null
+) {}
+
 /* testArrowFunctionLiveCoding */
 // Intentional parse error. This has to be the last test in the file.
 $fn = fn

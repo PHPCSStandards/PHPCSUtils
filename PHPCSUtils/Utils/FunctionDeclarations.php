@@ -452,6 +452,10 @@ final class FunctionDeclarations
                     $typeHintToken = $i;
                 }
 
+                if ($tokens[$i]['code'] === \T_NULL) {
+                    $nullableType = true;
+                }
+
                 $typeHint        .= $tokens[$i]['content'];
                 $typeHintEndToken = $i;
                 continue;
@@ -600,6 +604,12 @@ final class FunctionDeclarations
                     }
 
                     $i = ($j - 1);
+
+                    $defaultValue = GetTokensAsString::noEmpties($phpcsFile, $equalToken + 1, $i);
+                    if (strtolower($defaultValue) === 'null') {
+                        $nullableType = true;
+                    }
+
                     break;
             }
         }

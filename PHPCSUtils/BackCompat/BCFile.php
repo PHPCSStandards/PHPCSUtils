@@ -242,6 +242,10 @@ final class BCFile
                 }
             }
 
+            if ($tokens[$i]['code'] === \T_NULL) {
+                $nullableType = true;
+            }
+
             switch ($tokens[$i]['code']) {
                 case T_ATTRIBUTE:
                     $hasAttributes = true;

@@ -104,6 +104,98 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
     }
 
     /**
+     * Verify union parameter types including null work as expected.
+     *
+     * @return void
+     */
+    public function testUnionWithNull()
+    {
+        // Offsets are relative to the T_FUNCTION token.
+        $expected = [
+            [
+                'token'               => 10,
+                'name'                => '$one',
+                'content'             => 'A|null $one',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'A|null',
+                'type_hint_token'     => 6,
+                'type_hint_end_token' => 8,
+                'nullable_type'       => true,
+                'comma_token'         => 11,
+            ],
+            [
+                'token'               => 20,
+                'name'                => '$two',
+                'content'             => 'B|C|null $two',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'B|C|null',
+                'type_hint_token'     => 14,
+                'type_hint_end_token' => 18,
+                'nullable_type'       => true,
+                'comma_token'         => 21,
+            ],
+            [
+                'token'               => 28,
+                'name'                => '$three',
+                'content'             => 'null|D $three',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'null|D',
+                'type_hint_token'     => 24,
+                'type_hint_end_token' => 26,
+                'nullable_type'       => true,
+                'comma_token'         => 29,
+            ],
+            [
+                'token'               => 38,
+                'name'                => '$four',
+                'content'             => 'E|null|F $four',
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'E|null|F',
+                'type_hint_token'     => 32,
+                'type_hint_end_token' => 36,
+                'nullable_type'       => true,
+                'comma_token'         => 39,
+            ],
+            [
+                'token'               => 46,
+                'name'                => '$five',
+                'content'             => 'A|B $five = null',
+                'default'             => 'null',
+                'default_token'       => 50,
+                'default_equal_token' => 48,
+                'has_attributes'      => false,
+                'pass_by_reference'   => false,
+                'reference_token'     => false,
+                'variable_length'     => false,
+                'variadic_token'      => false,
+                'type_hint'           => 'A|B',
+                'type_hint_token'     => 42,
+                'type_hint_end_token' => 44,
+                'nullable_type'       => true,
+                'comma_token'         => false,
+            ],
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test helper.
      *
      * @param string                                     $marker     The comment which preceeds the test.
