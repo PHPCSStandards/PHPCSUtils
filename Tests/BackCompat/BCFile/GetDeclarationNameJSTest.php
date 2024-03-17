@@ -67,14 +67,14 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      *
      * @see GetDeclarationNameTest::testGetDeclarationNameNull()
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataGetDeclarationNameNull()
     {
         return [
             'closure' => [
-                '/* testClosure */',
-                \T_CLOSURE,
+                'testMarker' => '/* testClosure */',
+                'targetType' => \T_CLOSURE,
             ],
         ];
     }
@@ -84,9 +84,9 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetDeclarationName
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param string     $expected   Expected function output.
-     * @param int|string $targetType Token type of the token to get as stackPtr.
+     * @param string                 $testMarker The comment which prefaces the target token in the test file.
+     * @param string                 $expected   Expected function output.
+     * @param array<int|string>|null $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
@@ -106,23 +106,23 @@ class GetDeclarationNameJSTest extends UtilityMethodTestCase
      *
      * @see GetDeclarationNameTest::testGetDeclarationName()
      *
-     * @return array
+     * @return array<string, array<string, string|array<int|string>>>
      */
     public static function dataGetDeclarationName()
     {
         return [
             'function' => [
-                '/* testFunction */',
-                'functionName',
+                'testMarker' => '/* testFunction */',
+                'expected'   => 'functionName',
             ],
             'class' => [
-                '/* testClass */',
-                'ClassName',
-                [\T_CLASS, \T_STRING],
+                'testMarker' => '/* testClass */',
+                'expected'   => 'ClassName',
+                'targetType' => [\T_CLASS, \T_STRING],
             ],
             'function-unicode-name' => [
-                '/* testFunctionUnicode */',
-                'π',
+                'testMarker' => '/* testFunctionUnicode */',
+                'expected'   => 'π',
             ],
         ];
     }

@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\NamingConventions::isEqual
  *
- * @group namingconventions
- *
  * @since 1.0.0
  */
 final class IsEqualTest extends TestCase
@@ -32,7 +30,7 @@ final class IsEqualTest extends TestCase
      *
      * @param string $inputA   The first name.
      * @param string $inputB   The second name.
-     * @param array  $expected The expected function output.
+     * @param bool   $expected The expected function output.
      *
      * @return void
      */
@@ -46,7 +44,7 @@ final class IsEqualTest extends TestCase
      *
      * @see testIsEqual() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsEqual()
     {

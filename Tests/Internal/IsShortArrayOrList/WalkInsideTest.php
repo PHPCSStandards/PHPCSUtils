@@ -47,7 +47,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
      *
      * @see testWalkInsideUndetermined() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataWalkInsideUndetermined()
     {
@@ -132,7 +132,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
      *
      * @see testWalkInsideResolved() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataWalkInsideResolved()
     {
@@ -274,7 +274,7 @@ final class WalkInsideTest extends UtilityMethodTestCase
      *
      * @see testRecursionLimit() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataRecursionLimit()
     {

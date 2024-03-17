@@ -60,7 +60,7 @@ final class TokenExistsTest extends TestCase
      *            These tests are not relevant at this time with the current minimum
      *            PHPCS version, but this may change again in the future.}
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataTokenExists()
     {

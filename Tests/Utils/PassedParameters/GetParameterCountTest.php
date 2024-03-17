@@ -21,8 +21,6 @@ use PHPCSUtils\Utils\PassedParameters;
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameters
  * @covers \PHPCSUtils\Utils\PassedParameters::hasParameters
  *
- * @group passedparameters
- *
  * @since 1.0.0
  */
 final class GetParameterCountTest extends UtilityMethodTestCase
@@ -33,10 +31,10 @@ final class GetParameterCountTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterCount
      *
-     * @param string $testMarker    The comment which prefaces the target token in the test file.
-     * @param int    $expected      The expected parameter count.
-     * @param string $targetContent Optional. The content of the target token to find.
-     *                              Defaults to null (ignore content).
+     * @param string      $testMarker    The comment which prefaces the target token in the test file.
+     * @param int         $expected      The expected parameter count.
+     * @param string|null $targetContent Optional. The content of the target token to find.
+     *                                   Defaults to null (ignore content).
      *
      * @return void
      */
@@ -58,7 +56,7 @@ final class GetParameterCountTest extends UtilityMethodTestCase
      *
      * @see testGetParameterCount() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int|null>>
      */
     public static function dataGetParameterCount()
     {

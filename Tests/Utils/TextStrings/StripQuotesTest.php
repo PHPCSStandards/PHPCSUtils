@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\TextStrings::stripQuotes
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class StripQuotesTest extends TestCase
@@ -45,7 +43,7 @@ final class StripQuotesTest extends TestCase
      *
      * @see testStripQuotes() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataStripQuotes()
     {

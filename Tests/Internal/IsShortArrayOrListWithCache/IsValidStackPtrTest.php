@@ -27,7 +27,7 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
     /**
      * Return values in use for square brackets.
      *
-     * @var string[]
+     * @var array<string>
      */
     private $validValues = [
         IsShortArrayOrList::SHORT_ARRAY,
@@ -50,8 +50,8 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @dataProvider dataNotBracket
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -66,7 +66,7 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @see testNotBracket() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataNotBracket()
     {
@@ -89,8 +89,8 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @dataProvider dataValidBracket
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -107,7 +107,7 @@ final class IsValidStackPtrTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @see testNotBracket() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int>>
      */
     public static function dataValidBracket()
     {

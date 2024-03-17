@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\MessageHelper::stringToErrorcode
  *
- * @group messagehelper
- *
  * @since 1.0.0
  */
 final class StringToErrorcodeTest extends TestCase
@@ -45,7 +43,7 @@ final class StringToErrorcodeTest extends TestCase
      *
      * @see testStringToErrorCode() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataStringToErrorCode()
     {
@@ -97,7 +95,7 @@ final class StringToErrorcodeTest extends TestCase
      *
      * @see testStringToErrorCode() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataStringToErrorCodeWithCaseChange()
     {

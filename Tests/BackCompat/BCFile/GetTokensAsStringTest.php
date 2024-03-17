@@ -93,12 +93,12 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string.
      *
-     * @dataProvider dataGetTokensAsString()
+     * @dataProvider dataGetTokensAsString
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param int              $length         Token length to get.
-     * @param string           $expected       The expected function return value.
+     * @param string     $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string $startTokenType The type of token(s) to look for for the start of the string.
+     * @param int        $length         Token length to get.
+     * @param string     $expected       The expected function return value.
      *
      * @return void
      */
@@ -114,7 +114,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @see testGetTokensAsString() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int>>
      */
     public static function dataGetTokensAsString()
     {
@@ -122,143 +122,143 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
 
         return [
             'length-0' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                0,
-                '',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 0,
+                'expected'       => '',
             ],
             'length-1' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                1,
-                '1',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 1,
+                'expected'       => '1',
             ],
             'length-2' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                2,
-                '1 ',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 2,
+                'expected'       => '1 ',
             ],
             'length-3' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                3,
-                '1 +',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 3,
+                'expected'       => '1 +',
             ],
             'length-4' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                4,
-                '1 + ',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 4,
+                'expected'       => '1 + ',
             ],
             'length-5' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                5,
-                '1 + 2',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 5,
+                'expected'       => '1 + 2',
             ],
             'length-6' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                6,
-                '1 + 2 ',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 6,
+                'expected'       => '1 + 2 ',
             ],
             'length-7' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                7,
-                '1 + 2 +',
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 7,
+                'expected'       => '1 + 2 +',
             ],
             'length-8' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                8,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 8,
+                'expected'       => '1 + 2 +
 ',
             ],
             'length-9' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                9,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 9,
+                'expected'       => '1 + 2 +
         ',
             ],
             'length-10' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                10,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 10,
+                'expected'       => '1 + 2 +
         // Comment.
 ',
             ],
             'length-11' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                11,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 11,
+                'expected'       => '1 + 2 +
         // Comment.
         ',
             ],
             'length-12' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                12,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 12,
+                'expected'       => '1 + 2 +
         // Comment.
         3',
             ],
             'length-13' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                13,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 13,
+                'expected'       => '1 + 2 +
         // Comment.
         3 ',
             ],
             'length-14' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                14,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 14,
+                'expected'       => '1 + 2 +
         // Comment.
         3 +',
             ],
             'length-34' => [
-                '/* testCalculation */',
-                \T_LNUMBER,
-                34,
-                '1 + 2 +
+                'testMarker'     => '/* testCalculation */',
+                'startTokenType' => \T_LNUMBER,
+                'length'         => 34,
+                'expected'       => '1 + 2 +
         // Comment.
         3 + 4
         + 5 + 6 + 7 > 20;',
             ],
             'namespace' => [
-                '/* testNamespace */',
-                \T_NAMESPACE,
-                ($php8Names === true) ? 4 : 8,
-                'namespace Foo\Bar\Baz;',
+                'testMarker'     => '/* testNamespace */',
+                'startTokenType' => \T_NAMESPACE,
+                'length'         => ($php8Names === true) ? 4 : 8,
+                'expected'       => 'namespace Foo\Bar\Baz;',
             ],
             'use-with-comments' => [
-                '/* testUseWithComments */',
-                \T_USE,
-                17,
-                'use Foo /*comment*/ \ Bar
+                'testMarker'     => '/* testUseWithComments */',
+                'startTokenType' => \T_USE,
+                'length'         => 17,
+                'expected'       => 'use Foo /*comment*/ \ Bar
     // phpcs:ignore Stnd.Cat.Sniff --    For reasons.
     \ Bah;',
             ],
             'echo-with-tabs' => [
-                '/* testEchoWithTabs */',
-                \T_ECHO,
-                13,
-                'echo \'foo\',
+                'testMarker'     => '/* testEchoWithTabs */',
+                'startTokenType' => \T_ECHO,
+                'length'         => 13,
+                'expected'       => 'echo \'foo\',
     \'bar\'   ,
         \'baz\';',
             ],
             'end-of-file' => [
-                '/* testEndOfFile */',
-                \T_ECHO,
-                4,
-                'echo   $foo;',
+                'testMarker'     => '/* testEndOfFile */',
+                'startTokenType' => \T_ECHO,
+                'length'         => 4,
+                'expected'       => 'echo   $foo;',
             ],
         ];
     }
@@ -266,12 +266,12 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
     /**
      * Test getting a token set as a string with the original, non tab-replaced content.
      *
-     * @dataProvider dataGetOrigContent()
+     * @dataProvider dataGetOrigContent
      *
-     * @param string           $testMarker     The comment which prefaces the target token in the test file.
-     * @param int|string|array $startTokenType The type of token(s) to look for for the start of the string.
-     * @param int              $length         Token length to get.
-     * @param string           $expected       The expected function return value.
+     * @param string     $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string $startTokenType The type of token(s) to look for for the start of the string.
+     * @param int        $length         Token length to get.
+     * @param string     $expected       The expected function return value.
      *
      * @return void
      */
@@ -287,32 +287,32 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      *
      * @see testGetOrigContent() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|int>>
      */
     public static function dataGetOrigContent()
     {
         return [
             'use-with-comments' => [
-                '/* testUseWithComments */',
-                \T_USE,
-                17,
-                'use Foo /*comment*/ \ Bar
+                'testMarker'     => '/* testUseWithComments */',
+                'startTokenType' => \T_USE,
+                'length'         => 17,
+                'expected'       => 'use Foo /*comment*/ \ Bar
 	// phpcs:ignore Stnd.Cat.Sniff --	 For reasons.
 	\ Bah;',
             ],
             'echo-with-tabs' => [
-                '/* testEchoWithTabs */',
-                \T_ECHO,
-                13,
-                'echo \'foo\',
+                'testMarker'     => '/* testEchoWithTabs */',
+                'startTokenType' => \T_ECHO,
+                'length'         => 13,
+                'expected'       => 'echo \'foo\',
 	\'bar\'	,
 		\'baz\';',
             ],
             'end-of-file' => [
-                '/* testEndOfFile */',
-                \T_ECHO,
-                4,
-                'echo   $foo;',
+                'testMarker'     => '/* testEndOfFile */',
+                'startTokenType' => \T_ECHO,
+                'length'         => 4,
+                'expected'       => 'echo   $foo;',
             ],
         ];
     }

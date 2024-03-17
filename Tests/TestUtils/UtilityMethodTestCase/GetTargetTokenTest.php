@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::getTargetToken
  *
- * @group testutils
- *
  * @since 1.0.0
  */
 final class GetTargetTokenTest extends PolyfilledTestCase
@@ -42,10 +40,10 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      *
      * @dataProvider dataGetTargetToken
      *
-     * @param int|false        $expected      Expected function output.
-     * @param string           $commentString The delimiter comment to look for.
-     * @param int|string|array $tokenType     The type of token(s) to look for.
-     * @param string           $tokenContent  Optional. The token content for the target token.
+     * @param int                          $expected      Expected function output.
+     * @param string                       $commentString The delimiter comment to look for.
+     * @param int|string|array<int|string> $tokenType     The type of token(s) to look for.
+     * @param string                       $tokenContent  Optional. The token content for the target token.
      *
      * @return void
      */
@@ -65,7 +63,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      *
      * @see testGetTargetToken() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<int|string>>>
      */
     public static function dataGetTargetToken()
     {

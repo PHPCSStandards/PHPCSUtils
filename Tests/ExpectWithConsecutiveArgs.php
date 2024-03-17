@@ -25,10 +25,11 @@ trait ExpectWithConsecutiveArgs
     /**
      * PHPUnit cross-version helper method to test the arguments passed to a method in a mocked object.
      *
-     * @param object $mockObject   The object mock.
-     * @param object $countMatcher Matcher for number of time the method is expected to be called.
-     * @param string $methodName   The name of the method on which to set the expectations.
-     * @param array  $expectedArgs Multi-dimentional array of arguments expected to be passed in consecutive calls.
+     * @param object              $mockObject   The object mock.
+     * @param object              $countMatcher Matcher for number of time the method is expected to be called.
+     * @param string              $methodName   The name of the method on which to set the expectations.
+     * @param array<array<mixed>> $expectedArgs Multi-dimentional array of arguments expected to be passed in
+     *                                          consecutive calls.
      *
      * @return object Expectation object.
      */

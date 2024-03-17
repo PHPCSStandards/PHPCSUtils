@@ -18,8 +18,6 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
  *
- * @group fixers
- *
  * @since 1.0.8
  */
 final class SpacesFixerAtEOFTest extends UtilityMethodTestCase
@@ -58,7 +56,7 @@ final class SpacesFixerAtEOFTest extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 

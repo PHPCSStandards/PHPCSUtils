@@ -21,8 +21,6 @@ use PHPCSUtils\Utils\TextStrings;
  * @covers \PHPCSUtils\Utils\TextStrings::getCompleteTextString
  * @covers \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class GetCompleteTextStringTest extends UtilityMethodTestCase
@@ -105,7 +103,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataExceptions()
     {
@@ -142,7 +140,7 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      *
      * @see testGetCompleteTextString() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataGetCompleteTextString()
     {

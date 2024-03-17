@@ -232,7 +232,7 @@ final class GetClearTest extends TestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public static function dataEveryTypeOfInput()
     {
@@ -265,7 +265,7 @@ final class GetClearTest extends TestCase
     /**
      * Test that previously cached data is no longer available when the cache has been cleared.
      *
-     * @dataProvider dataEveryTypeOfInput
+     * @dataProvider dataClearCache
      *
      * @covers ::clear
      *
@@ -279,5 +279,23 @@ final class GetClearTest extends TestCase
 
         $this->assertFalse(NoFileCache::isCached('Utility1', $id));
         $this->assertFalse(NoFileCache::isCached('Utility2', $id));
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testClearCache() For the array format.
+     *
+     * @return array
+     */
+    public static function dataClearCache()
+    {
+        $data = self::dataEveryTypeOfInput();
+
+        foreach ($data as $name => $dataset) {
+            unset($data[$name]['expected']);
+        }
+
+        return $data;
     }
 }

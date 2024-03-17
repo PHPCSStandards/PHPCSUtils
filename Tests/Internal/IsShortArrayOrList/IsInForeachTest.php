@@ -67,7 +67,7 @@ final class IsInForeachTest extends UtilityMethodTestCase
      *
      * @see testIsInForeach() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataIsInForeachResolved()
     {
@@ -112,7 +112,7 @@ final class IsInForeachTest extends UtilityMethodTestCase
      *
      * @see testIsInForeach() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataIsInForeachNestedResolvedViaOuter()
     {
@@ -157,7 +157,7 @@ final class IsInForeachTest extends UtilityMethodTestCase
      *
      * @see testIsInForeach() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataIsInForeachUndetermined()
     {

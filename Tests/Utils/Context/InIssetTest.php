@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inIsset
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InIssetTest extends UtilityMethodTestCase
@@ -56,7 +54,7 @@ final class InIssetTest extends UtilityMethodTestCase
      *
      * @see testInIsset()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataInIsset()
     {

@@ -22,8 +22,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @coversDefaultClass \PHPCSUtils\Utils\Numbers
  *
- * @group numbers
- *
  * @since 1.0.0
  */
 final class NumberTypesTest extends TestCase

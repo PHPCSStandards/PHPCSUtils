@@ -62,7 +62,7 @@ final class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @see testIsSuperglobal() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool>>
      */
     public static function dataIsSuperglobal()
     {
@@ -155,7 +155,7 @@ final class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @see testIsSuperglobalName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsSuperglobalName()
     {
@@ -191,7 +191,7 @@ final class IsSuperglobalTest extends UtilityMethodTestCase
      *
      * @see testIsSuperglobalNameFalse() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsSuperglobalNameFalse()
     {

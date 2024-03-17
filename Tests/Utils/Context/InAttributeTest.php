@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inAttribute
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InAttributeTest extends UtilityMethodTestCase
@@ -40,8 +38,8 @@ final class InAttributeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNotInAttribute
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -56,7 +54,7 @@ final class InAttributeTest extends UtilityMethodTestCase
      *
      * @see testInAttribute()
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataNotInAttribute()
     {
@@ -104,8 +102,8 @@ final class InAttributeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataInAttribute
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -120,7 +118,7 @@ final class InAttributeTest extends UtilityMethodTestCase
      *
      * @see testInAttribute()
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataInAttribute()
     {

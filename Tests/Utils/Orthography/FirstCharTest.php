@@ -20,8 +20,6 @@ use PHPUnit\Framework\TestCase;
  * @covers \PHPCSUtils\Utils\Orthography::isFirstCharCapitalized
  * @covers \PHPCSUtils\Utils\Orthography::isFirstCharLowercase
  *
- * @group orthography
- *
  * @since 1.0.0
  */
 final class FirstCharTest extends TestCase
@@ -32,8 +30,8 @@ final class FirstCharTest extends TestCase
      *
      * @dataProvider dataFirstChar
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected function output for the respective functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected function output for the respective functions.
      *
      * @return void
      */
@@ -47,8 +45,8 @@ final class FirstCharTest extends TestCase
      *
      * @dataProvider dataFirstChar
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected function output for the respective functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected function output for the respective functions.
      *
      * @return void
      */
@@ -63,7 +61,7 @@ final class FirstCharTest extends TestCase
      * @see testIsFirstCharCapitalized() For the array format.
      * @see testIsFirstCharLowercase()   For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>>>
      */
     public static function dataFirstChar()
     {

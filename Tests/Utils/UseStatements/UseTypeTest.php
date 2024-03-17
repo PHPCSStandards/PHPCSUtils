@@ -24,8 +24,6 @@ use PHPCSUtils\Utils\UseStatements;
  * @covers \PHPCSUtils\Utils\UseStatements::isClosureUse
  * @covers \PHPCSUtils\Utils\UseStatements::getType
  *
- * @group usestatements
- *
  * @since 1.0.0
  */
 final class UseTypeTest extends UtilityMethodTestCase
@@ -60,8 +58,8 @@ final class UseTypeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataUseType
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -78,8 +76,8 @@ final class UseTypeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataUseType
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -96,8 +94,8 @@ final class UseTypeTest extends UtilityMethodTestCase
      *
      * @dataProvider dataUseType
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected return values for the various functions.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expected   The expected return values for the various functions.
      *
      * @return void
      */
@@ -116,7 +114,7 @@ final class UseTypeTest extends UtilityMethodTestCase
      * @see testIsImportUse()  For the array format.
      * @see testIsTraitUse()   For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>>>
      */
     public static function dataUseType()
     {

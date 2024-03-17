@@ -61,7 +61,7 @@ final class IsSquareBracketTest extends UtilityMethodTestCase
      *
      * @see testSquareBrackets() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataSquareBrackets()
     {

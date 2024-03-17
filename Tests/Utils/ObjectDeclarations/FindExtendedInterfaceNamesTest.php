@@ -54,8 +54,8 @@ final class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataFindExtendedInterfaceNames
      *
-     * @param string      $testMarker The comment which prefaces the target token in the test file.
-     * @param array|false $expected   Expected function output.
+     * @param string              $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string>|false $expected   Expected function output.
      *
      * @return void
      */
@@ -71,7 +71,7 @@ final class FindExtendedInterfaceNamesTest extends UtilityMethodTestCase
      *
      * @see testFindExtendedInterfaceNames() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string>|false>>
      */
     public static function dataFindExtendedInterfaceNames()
     {

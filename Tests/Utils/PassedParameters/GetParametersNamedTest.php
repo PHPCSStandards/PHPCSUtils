@@ -23,8 +23,6 @@ use PHPCSUtils\Utils\PassedParameters;
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameterFromStack
  * @covers \PHPCSUtils\Utils\PassedParameters::hasParameters
  *
- * @group passedparameters
- *
  * @since 1.0.0
  */
 final class GetParametersNamedTest extends UtilityMethodTestCase

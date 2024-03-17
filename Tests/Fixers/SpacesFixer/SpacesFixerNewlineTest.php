@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerTestCase;
  *
  * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
  *
- * @group fixers
- *
  * @since 1.0.0
  */
 final class SpacesFixerNewlineTest extends SpacesFixerTestCase
@@ -48,7 +46,7 @@ final class SpacesFixerNewlineTest extends SpacesFixerTestCase
     /**
      * The names of the test case(s) in compliance.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $compliantCases = [
         'newline-and-trailing-spaces',

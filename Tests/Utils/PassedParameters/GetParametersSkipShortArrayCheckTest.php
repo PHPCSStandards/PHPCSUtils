@@ -22,8 +22,6 @@ use PHPCSUtils\Utils\PassedParameters;
  * @covers \PHPCSUtils\Utils\PassedParameters::hasParameters
  * @covers \PHPCSUtils\Utils\PassedParameters::getParameters
  *
- * @group passedparameters
- *
  * @since 1.0.0
  */
 final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
@@ -35,7 +33,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * Also verify that for valid constructs, the method still behaves like normal.
      *
-     * @dataProvider dataTestCases
+     * @dataProvider dataHasParametersDontSkipShortArrayCheck
      *
      * @param string     $testMarker      The comment which prefaces the target token in the test file.
      * @param int|string $targetType      The type of token to look for.
@@ -59,19 +57,36 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
     }
 
     /**
+     * Data provider.
+     *
+     * @see testHasParametersDontSkipShortArrayCheck() For the array format.
+     *
+     * @return array
+     */
+    public static function dataHasParametersDontSkipShortArrayCheck()
+    {
+        $data = self::dataTestCases();
+
+        foreach ($data as $name => $dataset) {
+            unset($data[$name]['expected']);
+        }
+
+        return $data;
+    }
+
+    /**
      * Test retrieving the parameter details for valid and invalid constructs when the
      * `$isShortArray` parameter is set to TRUE.
      *
-     * @dataProvider dataTestCases
+     * @dataProvider dataGetParametersSkipShortArrayCheck
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType The type of token to look for.
-     * @param bool       $ignore     Not used in this test.
      * @param array      $expected   The expected return value.
      *
      * @return void
      */
-    public function testGetParametersSkipShortArrayCheck($testMarker, $targetType, $ignore, $expected)
+    public function testGetParametersSkipShortArrayCheck($testMarker, $targetType, $expected)
     {
         /*
          * Expect an exception on PHPCS versions when square brackets will never be a short array.
@@ -108,6 +123,24 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
     /**
      * Data provider.
      *
+     * @see testGetParametersSkipShortArrayCheck() For the array format.
+     *
+     * @return array
+     */
+    public static function dataGetParametersSkipShortArrayCheck()
+    {
+        $data = self::dataTestCases();
+
+        foreach ($data as $name => $dataset) {
+            unset($data[$name]['expectException']);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Data provider.
+     *
      * @see testGetParametersSkipShortArrayCheck()     For the array format.
      * @see testHasParametersDontSkipShortArrayCheck() For the array format.
      *
@@ -117,16 +150,16 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
     {
         return [
             'no-params' => [
-                'testMarker' => '/* testNoParams */',
-                'targetType' => \T_OPEN_SHORT_ARRAY,
-                'ignore'     => false,
-                'expected'   => [],
+                'testMarker'      => '/* testNoParams */',
+                'targetType'      => \T_OPEN_SHORT_ARRAY,
+                'expectException' => false,
+                'expected'        => [],
             ],
             'long-array' => [
-                'testMarker' => '/* testLongArray */',
-                'targetType' => \T_ARRAY,
-                'ignore'     => false,
-                'expected'   => [
+                'testMarker'      => '/* testLongArray */',
+                'targetType'      => \T_ARRAY,
+                'expectException' => false,
+                'expected'        => [
                     1 => [
                         'start' => 2,
                         'end'   => 3,
@@ -140,10 +173,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-array' => [
-                'testMarker' => '/* testShortArray */',
-                'targetType' => \T_OPEN_SHORT_ARRAY,
-                'ignore'     => false,
-                'expected'   => [
+                'testMarker'      => '/* testShortArray */',
+                'targetType'      => \T_OPEN_SHORT_ARRAY,
+                'expectException' => false,
+                'expected'        => [
                     1 => [
                         'start' => 1,
                         'end'   => 6,
@@ -157,10 +190,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list' => [
-                'testMarker' => '/* testShortList */',
-                'targetType' => \T_OPEN_SHORT_ARRAY,
-                'ignore'     => true,
-                'expected'   => [
+                'testMarker'      => '/* testShortList */',
+                'targetType'      => \T_OPEN_SHORT_ARRAY,
+                'expectException' => true,
+                'expected'        => [
                     1 => [
                         'start' => 1,
                         'end'   => 6,
@@ -180,10 +213,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
              * class for those PHPCS versions.
              */
             'array-assign' => [
-                'testMarker' => '/* testArrayAssign */',
-                'targetType' => \T_OPEN_SQUARE_BRACKET,
-                'ignore'     => true,
-                'expected'   => [],
+                'testMarker'      => '/* testArrayAssign */',
+                'targetType'      => \T_OPEN_SQUARE_BRACKET,
+                'expectException' => true,
+                'expected'        => [],
             ],
             /*
              * This test will result in an (expected) Exception when run on PHPCS versions which
@@ -192,10 +225,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
              * class for those PHPCS versions.
              */
             'array-access' => [
-                'testMarker' => '/* testArrayAccess */',
-                'targetType' => \T_OPEN_SQUARE_BRACKET,
-                'ignore'     => true,
-                'expected'   => [
+                'testMarker'      => '/* testArrayAccess */',
+                'targetType'      => \T_OPEN_SQUARE_BRACKET,
+                'expectException' => true,
+                'expected'        => [
                     1 => [
                         'start' => 1,
                         'end'   => 4,
@@ -204,10 +237,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list-with-empties-before' => [
-                'testMarker' => '/* testShortListWithEmptyItemsBefore */',
-                'targetType' => \T_OPEN_SHORT_ARRAY,
-                'ignore'     => true,
-                'expected'   => [
+                'testMarker'      => '/* testShortListWithEmptyItemsBefore */',
+                'targetType'      => \T_OPEN_SHORT_ARRAY,
+                'expectException' => true,
+                'expected'        => [
                     1 => [
                         'start' => 1,
                         'end'   => 0,
@@ -226,10 +259,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list-with-empties-after' => [
-                'testMarker' => '/* testShortListWithEmptyItemsAfter */',
-                'targetType' => \T_OPEN_SHORT_ARRAY,
-                'ignore'     => true,
-                'expected'   => [
+                'testMarker'      => '/* testShortListWithEmptyItemsAfter */',
+                'targetType'      => \T_OPEN_SHORT_ARRAY,
+                'expectException' => true,
+                'expected'        => [
                     1 => [
                         'start' => 1,
                         'end'   => 1,
@@ -243,10 +276,10 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
                 ],
             ],
             'short-list-with-all-empties' => [
-                'testMarker' => '/* testShortListWithAllEmptyItems */',
-                'targetType' => \T_OPEN_SHORT_ARRAY,
-                'ignore'     => true,
-                'expected'   => [
+                'testMarker'      => '/* testShortListWithAllEmptyItems */',
+                'targetType'      => \T_OPEN_SHORT_ARRAY,
+                'expectException' => true,
+                'expected'        => [
                     1 => [
                         'start' => 1,
                         'end'   => 0,

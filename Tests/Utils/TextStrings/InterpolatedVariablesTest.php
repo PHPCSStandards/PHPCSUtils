@@ -21,8 +21,6 @@ use PHPUnit\Framework\TestCase;
  * @covers \PHPCSUtils\Utils\TextStrings::stripEmbeds
  * @covers \PHPCSUtils\Utils\TextStrings::getStripEmbeds
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class InterpolatedVariablesTest extends TestCase
@@ -31,7 +29,7 @@ final class InterpolatedVariablesTest extends TestCase
     /**
      * Collection of various variables and other embeds which are valid in double quoted strings.
      *
-     * @var string[]
+     * @var array<string>
      */
     private static $embeds = [
         // Simple.

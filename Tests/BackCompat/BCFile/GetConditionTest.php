@@ -56,7 +56,7 @@ class GetConditionTest extends UtilityMethodTestCase
     /**
      * List of all the condition markers in the test case file.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected $conditionMarkers = [
         '/* condition 0: namespace */',
@@ -212,9 +212,9 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetCondition
      *
-     * @param string $testMarker      The comment which prefaces the target token in the test file.
-     * @param array  $expectedResults Array with the condition token type to search for as key
-     *                                and the marker for the expected stack pointer result as a value.
+     * @param string                $testMarker      The comment which prefaces the target token in the test file.
+     * @param array<string, string> $expectedResults Array with the condition token type to search for as key
+     *                                               and the marker for the expected stack pointer result as a value.
      *
      * @return void
      */
@@ -227,7 +227,7 @@ class GetConditionTest extends UtilityMethodTestCase
         $expectedResults += $this->conditionDefaults;
 
         foreach ($expectedResults as $conditionType => $expected) {
-            if ($expected !== false) {
+            if (\is_string($expected)) {
                 $expected = self::$markerTokens[$expected];
             }
 
@@ -249,14 +249,14 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @see testGetCondition() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string>>>
      */
     public static function dataGetCondition()
     {
         return [
             'testSeriouslyNestedMethod' => [
-                '/* testSeriouslyNestedMethod */',
-                [
+                'testMarker'      => '/* testSeriouslyNestedMethod */',
+                'expectedResults' => [
                     'T_CLASS'     => '/* condition 5: nested class */',
                     'T_NAMESPACE' => '/* condition 0: namespace */',
                     'T_FUNCTION'  => '/* condition 2: function */',
@@ -265,8 +265,8 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
             'testDeepestNested' => [
-                '/* testDeepestNested */',
-                [
+                'testMarker'      => '/* testDeepestNested */',
+                'expectedResults' => [
                     'T_CLASS'      => '/* condition 5: nested class */',
                     'T_ANON_CLASS' => '/* condition 11-1: nested anonymous class */',
                     'T_NAMESPACE'  => '/* condition 0: namespace */',
@@ -280,8 +280,8 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
             'testInException' => [
-                '/* testInException */',
-                [
+                'testMarker'      => '/* testInException */',
+                'expectedResults' => [
                     'T_CLASS'     => '/* condition 5: nested class */',
                     'T_NAMESPACE' => '/* condition 0: namespace */',
                     'T_FUNCTION'  => '/* condition 2: function */',
@@ -295,8 +295,8 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
             'testInDefault' => [
-                '/* testInDefault */',
-                [
+                'testMarker'      => '/* testInDefault */',
+                'expectedResults' => [
                     'T_CLASS'     => '/* condition 5: nested class */',
                     'T_NAMESPACE' => '/* condition 0: namespace */',
                     'T_FUNCTION'  => '/* condition 2: function */',
@@ -314,9 +314,9 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetConditionReversed
      *
-     * @param string $testMarker      The comment which prefaces the target token in the test file.
-     * @param array  $expectedResults Array with the condition token type to search for as key
-     *                                and the marker for the expected stack pointer result as a value.
+     * @param string                $testMarker      The comment which prefaces the target token in the test file.
+     * @param array<string, string> $expectedResults Array with the condition token type to search for as key
+     *                                               and the marker for the expected stack pointer result as a value.
      *
      * @return void
      */
@@ -329,7 +329,7 @@ class GetConditionTest extends UtilityMethodTestCase
         $expectedResults += $this->conditionDefaults;
 
         foreach ($expectedResults as $conditionType => $expected) {
-            if ($expected !== false) {
+            if (\is_string($expected)) {
                 $expected = self::$markerTokens[$expected];
             }
 
@@ -351,23 +351,23 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @see testGetConditionReversed() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string>>>
      */
     public static function dataGetConditionReversed()
     {
         $data = self::dataGetCondition();
 
         // Set up the data for the reversed results.
-        $data['testSeriouslyNestedMethod'][1]['T_IF'] = '/* condition 4: if */';
+        $data['testSeriouslyNestedMethod']['expectedResults']['T_IF'] = '/* condition 4: if */';
 
-        $data['testDeepestNested'][1]['T_FUNCTION'] = '/* condition 12: nested anonymous class method */';
-        $data['testDeepestNested'][1]['T_IF']       = '/* condition 10-1: if */';
+        $data['testDeepestNested']['expectedResults']['T_FUNCTION'] = '/* condition 12: nested anonymous class method */';
+        $data['testDeepestNested']['expectedResults']['T_IF']       = '/* condition 10-1: if */';
 
-        $data['testInException'][1]['T_FUNCTION'] = '/* condition 6: class method */';
-        $data['testInException'][1]['T_IF']       = '/* condition 4: if */';
+        $data['testInException']['expectedResults']['T_FUNCTION'] = '/* condition 6: class method */';
+        $data['testInException']['expectedResults']['T_IF']       = '/* condition 4: if */';
 
-        $data['testInDefault'][1]['T_FUNCTION'] = '/* condition 6: class method */';
-        $data['testInDefault'][1]['T_IF']       = '/* condition 4: if */';
+        $data['testInDefault']['expectedResults']['T_FUNCTION'] = '/* condition 6: class method */';
+        $data['testInDefault']['expectedResults']['T_IF']       = '/* condition 4: if */';
 
         return $data;
     }
@@ -377,9 +377,9 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @dataProvider dataHasCondition
      *
-     * @param string $testMarker      The comment which prefaces the target token in the test file.
-     * @param array  $expectedResults Array with the condition token type to search for as key
-     *                                and the expected result as a value.
+     * @param string              $testMarker      The comment which prefaces the target token in the test file.
+     * @param array<string, bool> $expectedResults Array with the condition token type to search for as key
+     *                                             and the expected result as a value.
      *
      * @return void
      */
@@ -410,14 +410,14 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @see testHasCondition() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>>>
      */
     public static function dataHasCondition()
     {
         return [
             'testSeriouslyNestedMethod' => [
-                '/* testSeriouslyNestedMethod */',
-                [
+                'testMarker'      => '/* testSeriouslyNestedMethod */',
+                'expectedResults' => [
                     'T_CLASS'     => true,
                     'T_NAMESPACE' => true,
                     'T_FUNCTION'  => true,
@@ -426,8 +426,8 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
             'testDeepestNested' => [
-                '/* testDeepestNested */',
-                [
+                'testMarker'      => '/* testDeepestNested */',
+                'expectedResults' => [
                     'T_CLASS'      => true,
                     'T_ANON_CLASS' => true,
                     'T_NAMESPACE'  => true,
@@ -441,8 +441,8 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
             'testInException' => [
-                '/* testInException */',
-                [
+                'testMarker'      => '/* testInException */',
+                'expectedResults' => [
                     'T_CLASS'     => true,
                     'T_NAMESPACE' => true,
                     'T_FUNCTION'  => true,
@@ -456,8 +456,8 @@ class GetConditionTest extends UtilityMethodTestCase
                 ],
             ],
             'testInDefault' => [
-                '/* testInDefault */',
-                [
+                'testMarker'      => '/* testInDefault */',
+                'expectedResults' => [
                     'T_CLASS'     => true,
                     'T_NAMESPACE' => true,
                     'T_FUNCTION'  => true,

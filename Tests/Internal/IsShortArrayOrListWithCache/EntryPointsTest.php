@@ -29,7 +29,7 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
     /**
      * Return values in use for the IsShortArrayOrListWithCache::solve() method.
      *
-     * @var string[]
+     * @var array<string|bool>
      */
     private $validValues = [
         IsShortArrayOrList::SHORT_ARRAY,
@@ -45,8 +45,8 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @covers \PHPCSUtils\Utils\Arrays::isShortArray
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string                                   $testMarker The comment which prefaces the target token in the file.
+     * @param int|string|array<int|string, int|string> $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -63,8 +63,8 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @covers \PHPCSUtils\Utils\Lists::isShortList
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string                                   $testMarker The comment which prefaces the target token in the file.
+     * @param int|string|array<int|string, int|string> $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -82,8 +82,8 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @covers \PHPCSUtils\Internal\IsShortArrayOrListWithCache::isShortArray
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string                                   $testMarker The comment which prefaces the target token in the file.
+     * @param int|string|array<int|string, int|string> $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -101,8 +101,8 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @covers \PHPCSUtils\Internal\IsShortArrayOrListWithCache::isShortList
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string                                   $testMarker The comment which prefaces the target token in the file.
+     * @param int|string|array<int|string, int|string> $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -120,8 +120,8 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
      *
      * @covers \PHPCSUtils\Internal\IsShortArrayOrListWithCache::getType
      *
-     * @param string           $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetType The token type(s) to look for.
+     * @param string                                   $testMarker The comment which prefaces the target token in the file.
+     * @param int|string|array<int|string, int|string> $targetType The token type(s) to look for.
      *
      * @return void
      */
@@ -134,7 +134,7 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
     /**
      * Data provider.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<int|string, int|string>>>
      */
     public static function dataEntryPoints()
     {

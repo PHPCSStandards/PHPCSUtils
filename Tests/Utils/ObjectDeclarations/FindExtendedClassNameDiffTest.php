@@ -34,8 +34,8 @@ final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
      *
      * @dataProvider dataFindExtendedClassName
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param bool   $expected   Expected function output.
+     * @param string       $testMarker The comment which prefaces the target token in the test file.
+     * @param string|false $expected   Expected function output.
      *
      * @return void
      */
@@ -51,7 +51,7 @@ final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
      *
      * @see testFindExtendedClassName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|false>>
      */
     public static function dataFindExtendedClassName()
     {

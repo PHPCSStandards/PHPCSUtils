@@ -22,8 +22,6 @@ use PHPCSUtils\Utils\MessageHelper;
  *
  * @coversDefaultClass \PHPCSUtils\Utils\MessageHelper
  *
- * @group messagehelper
- *
  * @since 1.0.0
  */
 final class AddMessageTest extends UtilityMethodTestCase
@@ -41,7 +39,7 @@ final class AddMessageTest extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['PHPCSUtils.MessageHelper.AddMessageTest'];
 
@@ -231,9 +229,6 @@ final class AddMessageTest extends UtilityMethodTestCase
         $this->assertCount(1, $messages, 'Expected 1 violation, found: ' . \count($messages));
 
         $violation = $messages[0];
-
-        // PHPCS 2.x places `unknownSniff.` before the actual error code for utility tests with a dummy error code.
-        $violation['source'] = \str_replace('unknownSniff.', '', $violation['source']);
 
         /*
          * Test the violation details.

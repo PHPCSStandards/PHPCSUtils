@@ -22,8 +22,6 @@ use PHPCSUtils\Utils\TextStrings;
  *
  * @covers \PHPCSUtils\Utils\TextStrings::getEndOfCompleteTextString
  *
- * @group textstrings
- *
  * @since 1.0.0
  */
 final class GetEndOfCompleteTextStringTest extends UtilityMethodTestCase
@@ -53,7 +51,7 @@ final class GetEndOfCompleteTextStringTest extends UtilityMethodTestCase
      *
      * @see testGetEndOfDoubleQuotedString() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataGetEndOfDoubleQuotedString()
     {

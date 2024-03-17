@@ -19,8 +19,6 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @covers \PHPCSUtils\Utils\ControlStructures::hasBody
  *
- * @group controlstructures
- *
  * @since 1.0.0
  */
 final class HasBodyTest extends UtilityMethodTestCase
@@ -76,7 +74,7 @@ final class HasBodyTest extends UtilityMethodTestCase
      *
      * @see testHasBody() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataHasBody()
     {

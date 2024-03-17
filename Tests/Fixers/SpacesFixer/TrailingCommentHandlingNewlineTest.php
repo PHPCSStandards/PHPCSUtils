@@ -18,8 +18,6 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
  *
- * @group fixers
- *
  * @since 1.0.0
  */
 final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
@@ -65,7 +63,7 @@ final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 
@@ -154,7 +152,7 @@ final class TrailingCommentHandlingNewlineTest extends UtilityMethodTestCase
      *
      * @see testCheckAndFixNoError() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataCheckAndFixNoError()
     {

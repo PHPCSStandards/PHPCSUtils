@@ -213,6 +213,7 @@ $anon = class() {
 
     /* testPHP8UnionTypesIllegalTypes */
     // Intentional fatal error - types which are not allowed for properties, but that's not the concern of the method.
+    // Note: static is also not allowed as a type, but using static for a property type is not supported by the tokenizer.
     public callable|static|void $unionTypesIllegalTypes;
 
     /* testPHP8UnionTypesNullable */

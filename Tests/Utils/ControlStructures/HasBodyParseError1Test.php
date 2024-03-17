@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @covers \PHPCSUtils\Utils\ControlStructures::hasBody
  *
- * @group controlstructures
- *
  * @since 1.0.0
  */
 final class HasBodyParseError1Test extends UtilityMethodTestCase

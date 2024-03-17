@@ -62,7 +62,7 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @see testNotClassPropertyException()
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataNotClassPropertyException()
     {

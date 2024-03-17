@@ -62,8 +62,8 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
      *
      * @dataProvider dataGetClassProperties
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected function output.
+     * @param string                  $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool|int> $expected   Expected function output.
      *
      * @return void
      */
@@ -72,13 +72,13 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
         $class = $this->getTargetToken($testMarker, \T_CLASS);
 
         // Translate offsets to absolute token positions.
-        if ($expected['abstract_token'] !== false) {
+        if (\is_int($expected['abstract_token']) === true) {
             $expected['abstract_token'] += $class;
         }
-        if ($expected['final_token'] !== false) {
+        if (\is_int($expected['final_token']) === true) {
             $expected['final_token'] += $class;
         }
-        if ($expected['readonly_token'] !== false) {
+        if (\is_int($expected['readonly_token']) === true) {
             $expected['readonly_token'] += $class;
         }
 

@@ -17,8 +17,6 @@ use PHPCSUtils\Tests\Fixers\SpacesFixer\SpacesFixerTestCase;
  *
  * @covers \PHPCSUtils\Fixers\SpacesFixer::checkAndFix
  *
- * @group fixers
- *
  * @since 1.0.0
  */
 final class SpacesFixerTwoSpaceTest extends SpacesFixerTestCase
@@ -50,7 +48,7 @@ final class SpacesFixerTwoSpaceTest extends SpacesFixerTestCase
     /**
      * The names of the test case(s) in compliance.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $compliantCases = ['two-spaces'];
 

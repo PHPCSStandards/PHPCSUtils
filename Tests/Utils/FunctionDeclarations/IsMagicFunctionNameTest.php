@@ -44,7 +44,7 @@ final class IsMagicFunctionNameTest extends TestCase
      *
      * @see testIsMagicFunctionName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsMagicFunctionName()
     {
@@ -74,7 +74,7 @@ final class IsMagicFunctionNameTest extends TestCase
      *
      * @see testIsNotMagicFunctionName() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsNotMagicFunctionName()
     {

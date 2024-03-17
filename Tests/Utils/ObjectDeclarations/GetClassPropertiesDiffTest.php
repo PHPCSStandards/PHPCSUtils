@@ -45,8 +45,8 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetClassProperties
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected function output.
+     * @param string                  $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, bool|int> $expected   Expected function output.
      *
      * @return void
      */
@@ -55,13 +55,13 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
         $class = $this->getTargetToken($testMarker, \T_CLASS);
 
         // Translate offsets to absolute token positions.
-        if ($expected['abstract_token'] !== false) {
+        if (\is_int($expected['abstract_token']) === true) {
             $expected['abstract_token'] += $class;
         }
-        if ($expected['final_token'] !== false) {
+        if (\is_int($expected['final_token']) === true) {
             $expected['final_token'] += $class;
         }
-        if ($expected['readonly_token'] !== false) {
+        if (\is_int($expected['readonly_token']) === true) {
             $expected['readonly_token'] += $class;
         }
 
@@ -74,7 +74,7 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      *
      * @see testGetClassProperties() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool|int>>>
      */
     public static function dataGetClassProperties()
     {

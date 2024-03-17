@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tokens\Collections;
 use PHPUnit\Framework\TestCase;
 
@@ -18,8 +17,6 @@ use PHPUnit\Framework\TestCase;
  * Test class.
  *
  * @covers \PHPCSUtils\Tokens\Collections::arrayTokensBC
- *
- * @group collections
  *
  * @since 1.0.2
  */

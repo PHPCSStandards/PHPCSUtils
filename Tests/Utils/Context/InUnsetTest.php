@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inUnset
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InUnsetTest extends UtilityMethodTestCase
@@ -56,7 +54,7 @@ final class InUnsetTest extends UtilityMethodTestCase
      *
      * @see testInUnset()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataInUnset()
     {

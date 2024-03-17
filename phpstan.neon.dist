@@ -74,6 +74,7 @@ parameters:
         -
             message: '`^Parameter #[0-9]+ \$\S+ of static method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
             paths:
+                - Tests/BackCompat/Helper/GetCommandLineDataTest.php
                 - Tests/BackCompat/BCFile/GetTokensAsStringTest.php
                 - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
                 - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php

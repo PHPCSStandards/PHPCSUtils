@@ -20,8 +20,6 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @covers \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff::getActualArrayKey
  *
- * @group abstracts
- *
  * @since 1.0.0
  */
 final class GetActualArrayKeyTest extends UtilityMethodTestCase
@@ -57,8 +55,8 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
                 $this->assertSame(
                     $expected,
                     $result,
-                    'Failed: actual key ' . $result . ' is not the same as the expected key ' . $expected
-                        . ' for item number ' . $itemNr
+                    'Failed: actual key ' . \var_export($result, true) . ' is not the same as the expected key '
+                        . \var_export($expected, true) . ' for item number ' . $itemNr
                 );
             }
         }
@@ -69,7 +67,7 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
      *
      * @see testGetActualArrayKey() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|null>>
      */
     public static function dataGetActualArrayKey()
     {
@@ -135,8 +133,8 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
             $this->assertSame(
                 $expected[$itemNr],
                 $result,
-                'Failed: actual key ' . $result . ' is not the same as the expected key ' . $expected[$itemNr]
-                    . ' for item number ' . $itemNr
+                'Failed: actual key ' . \var_export($result, true) . ' is not the same as the expected key '
+                    . \var_export($expected[$itemNr], true) . ' for item number ' . $itemNr
             );
         }
     }

@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Arrays;
  *
  * @covers \PHPCSUtils\Utils\Arrays::getOpenClose
  *
- * @group arrays
- *
  * @since 1.0.0
  */
 final class GetOpenCloseTest extends UtilityMethodTestCase
@@ -40,8 +38,8 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNotArrayOpenToken
      *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetToken The token type(s) to look for.
+     * @param string     $testMarker  The comment which prefaces the target token in the test file.
+     * @param int|string $targetToken The token type(s) to look for.
      *
      * @return void
      */
@@ -56,7 +54,7 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      *
      * @see testNotArrayOpenToken() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataNotArrayOpenToken()
     {
@@ -89,9 +87,9 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetOpenClose
      *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetToken The token type(s) to look for.
-     * @param array|false      $expected    The expected function return value.
+     * @param string                   $testMarker  The comment which prefaces the target token in the test file.
+     * @param int|string               $targetToken The token type(s) to look for.
+     * @param array<string, int>|false $expected    The expected function return value.
      *
      * @return void
      */
@@ -116,7 +114,7 @@ final class GetOpenCloseTest extends UtilityMethodTestCase
      *
      * @see testGetOpenClose() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<string, int>|false>>
      */
     public static function dataGetOpenClose()
     {

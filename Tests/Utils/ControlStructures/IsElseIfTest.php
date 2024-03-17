@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @covers \PHPCSUtils\Utils\ControlStructures::isElseIf
  *
- * @group controlstructures
- *
  * @since 1.0.0
  */
 final class IsElseIfTest extends UtilityMethodTestCase
@@ -68,7 +66,7 @@ final class IsElseIfTest extends UtilityMethodTestCase
      *
      * @see testIsElseIf() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsElseIf()
     {

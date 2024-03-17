@@ -52,7 +52,7 @@ final class IsShortArrayOrListTest extends UtilityMethodTestCase
      *
      * @see testIsShortArrayOrList() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataIsShortArrayOrList()
     {

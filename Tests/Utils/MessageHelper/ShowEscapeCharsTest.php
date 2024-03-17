@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\MessageHelper::showEscapeChars
  *
- * @group messagehelper
- *
  * @since 1.0.0
  */
 final class ShowEscapeCharsTest extends TestCase
@@ -45,7 +43,7 @@ final class ShowEscapeCharsTest extends TestCase
      *
      * @see testShowEscapeChars() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataShowEscapeChars()
     {

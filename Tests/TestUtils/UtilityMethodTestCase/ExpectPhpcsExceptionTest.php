@@ -19,8 +19,6 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::expectPhpcsException
  *
- * @group testutils
- *
  * @since 1.0.0
  */
 final class ExpectPhpcsExceptionTest extends UtilityMethodTestCase

@@ -86,9 +86,9 @@ final class GetNameJSTest extends BCFile_GetDeclarationNameJSTest
      *
      * @dataProvider dataGetDeclarationName
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param string     $expected   Expected function output.
-     * @param int|string $targetType Token type of the token to get as stackPtr.
+     * @param string                 $testMarker The comment which prefaces the target token in the test file.
+     * @param string                 $expected   Expected function output.
+     * @param array<int|string>|null $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */

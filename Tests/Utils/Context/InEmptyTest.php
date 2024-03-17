@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Context;
  *
  * @covers \PHPCSUtils\Utils\Context::inEmpty
  *
- * @group context
- *
  * @since 1.0.0
  */
 final class InEmptyTest extends UtilityMethodTestCase
@@ -56,7 +54,7 @@ final class InEmptyTest extends UtilityMethodTestCase
      *
      * @see testInEmpty()
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataInEmpty()
     {

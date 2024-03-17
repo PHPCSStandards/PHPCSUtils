@@ -18,8 +18,6 @@ use PHPCSUtils\Utils\Scopes;
  *
  * @coversDefaultClass \PHPCSUtils\Utils\Scopes
  *
- * @group scopes
- *
  * @since 1.0.0
  */
 final class IsOOMethodTest extends UtilityMethodTestCase
@@ -76,7 +74,7 @@ final class IsOOMethodTest extends UtilityMethodTestCase
      *
      * @see testIsOOMethod() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     public static function dataIsOOMethod()
     {

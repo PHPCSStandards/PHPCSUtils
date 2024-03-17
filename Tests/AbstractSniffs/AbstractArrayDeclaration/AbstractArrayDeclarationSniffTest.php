@@ -18,8 +18,6 @@ use PHPCSUtils\Tokens\Collections;
  *
  * @covers \PHPCSUtils\AbstractSniffs\AbstractArrayDeclarationSniff
  *
- * @group abstracts
- *
  * @since 1.0.0
  */
 final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
@@ -31,7 +29,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      * Needed for PHPUnit cross-version support as PHPUnit 4.x does not have a
      * `setMethodsExcept()` method yet.
      *
-     * @var string[]
+     * @var array<string>
      */
     public $methodsToMock = [
         'processOpenClose',

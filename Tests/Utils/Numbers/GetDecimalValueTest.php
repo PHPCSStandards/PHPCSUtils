@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\Utils\Numbers::getDecimalValue
  *
- * @group numbers
- *
  * @since 1.0.0
  */
 final class GetDecimalValueTest extends TestCase
@@ -45,7 +43,7 @@ final class GetDecimalValueTest extends TestCase
      *
      * @see testGetDecimalValue() For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataGetDecimalValue()
     {
@@ -94,7 +92,7 @@ final class GetDecimalValueTest extends TestCase
      *
      * @dataProvider dataGetDecimalValueInvalid
      *
-     * @param string $input The input string.
+     * @param mixed $input The input value.
      *
      * @return void
      */
@@ -108,7 +106,7 @@ final class GetDecimalValueTest extends TestCase
      *
      * @see testGetDecimalValueInvalid() For the array format.
      *
-     * @return array
+     * @return array<string, array<mixed>>
      */
     public static function dataGetDecimalValueInvalid()
     {

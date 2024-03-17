@@ -71,7 +71,7 @@ abstract class IsUnaryPlusMinusTestCase extends UtilityMethodTestCase
      *
      * @see testIsUnaryPlusMinus() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|bool>>
      */
     abstract public static function dataIsUnaryPlusMinus();
 }

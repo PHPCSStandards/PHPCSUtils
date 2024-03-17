@@ -69,7 +69,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * Important: this MUST be set in the concrete test class!
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $compliantCases = [];
 
@@ -85,7 +85,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
     /**
      * Set the name of a sniff to pass to PHPCS to limit the run (and force it to record errors).
      *
-     * @var string[]
+     * @var array<string>
      */
     protected static $selectedSniff = ['PHPCSUtils.SpacesFixer.Test'];
 
@@ -109,8 +109,8 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @dataProvider dataCheckAndFixNoError
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected error details (for the metric input).
+     * @param string                     $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|bool> $expected   Expected error details (for the metric input).
      *
      * @return void
      */
@@ -154,7 +154,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @see testCheckAndFixNoError() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|bool>>>
      */
     public static function dataCheckAndFixNoError()
     {
@@ -164,6 +164,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
         foreach (static::$compliantCases as $caseName) {
             if (isset($baseData[$caseName])) {
                 $data[$caseName] = $baseData[$caseName];
+                unset($data[$caseName]['type']);
             }
         }
 
@@ -177,9 +178,9 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @dataProvider dataCheckAndFix
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   Expected error details.
-     * @param string $type       The message type to test: 'error' or 'warning'.
+     * @param string                     $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|bool> $expected   Expected error details.
+     * @param string                     $type       The message type to test: 'error' or 'warning'.
      *
      * @return void
      */
@@ -242,7 +243,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
      *
      * @see testCheckAndFix() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|bool>>>
      */
     public static function dataCheckAndFix()
     {
@@ -301,7 +302,7 @@ abstract class SpacesFixerTestCase extends UtilityMethodTestCase
     /**
      * Helper function holding the base data for the data providers.
      *
-     * @return array<string, array<string, mixed>>
+     * @return array<string, array<string, string|array<string, string|bool>>>
      */
     protected static function getAllData()
     {

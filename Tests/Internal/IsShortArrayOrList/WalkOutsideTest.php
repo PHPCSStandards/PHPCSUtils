@@ -50,7 +50,7 @@ final class WalkOutsideTest extends UtilityMethodTestCase
      *
      * @see testWalkOutside() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataWalkOutside()
     {
@@ -186,7 +186,7 @@ final class WalkOutsideTest extends UtilityMethodTestCase
      *
      * @see testReuseCacheFromAdjacent() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     public static function dataReuseCacheFromAdjacent()
     {

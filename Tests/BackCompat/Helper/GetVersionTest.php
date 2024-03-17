@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \PHPCSUtils\BackCompat\Helper::getVersion
  *
- * @group helper
- *
  * @since 1.0.0
  */
 final class GetVersionTest extends TestCase
@@ -32,7 +30,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const DEVMASTER = '3.8.0';
+    const DEVMASTER = '3.9.0';
 
     /**
      * Test the method.
@@ -49,7 +47,7 @@ final class GetVersionTest extends TestCase
         }
 
         if ($expected === 'lowest') {
-            $expected = '3.8.0';
+            $expected = '3.9.0';
         }
 
         $result = Helper::getVersion();

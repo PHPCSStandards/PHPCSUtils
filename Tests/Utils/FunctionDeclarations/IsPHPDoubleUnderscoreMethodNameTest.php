@@ -62,7 +62,7 @@ final class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      * @see testIsPHPDoubleUnderscoreMethodName() For the array format.
      * @see testIsSpecialMethodName()             For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsPHPDoubleUnderscoreMethodName()
     {
@@ -133,7 +133,7 @@ final class IsPHPDoubleUnderscoreMethodNameTest extends TestCase
      * @see testIsNotPHPDoubleUnderscoreMethodName() For the array format.
      * @see testIsNotSpecialMethodName()             For the array format.
      *
-     * @return array
+     * @return array<string, array<string>>
      */
     public static function dataIsNotPHPDoubleUnderscoreMethodName()
     {

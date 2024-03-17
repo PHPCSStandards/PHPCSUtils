@@ -21,8 +21,6 @@ use PHPCSUtils\Utils\Namespaces;
  * @covers \PHPCSUtils\Utils\Namespaces::findNamespacePtr
  * @covers \PHPCSUtils\Utils\Namespaces::determineNamespace
  *
- * @group namespaces
- *
  * @since 1.0.0
  */
 final class DetermineNamespaceTest extends UtilityMethodTestCase
@@ -43,8 +41,8 @@ final class DetermineNamespaceTest extends UtilityMethodTestCase
      *
      * @dataProvider dataDetermineNamespace
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected output for the functions.
+     * @param string                      $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|false> $expected   The expected output for the functions.
      *
      * @return void
      */
@@ -66,8 +64,8 @@ final class DetermineNamespaceTest extends UtilityMethodTestCase
      *
      * @dataProvider dataDetermineNamespace
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param array  $expected   The expected output for the functions.
+     * @param string                      $testMarker The comment which prefaces the target token in the test file.
+     * @param array<string, string|false> $expected   The expected output for the functions.
      *
      * @return void
      */
@@ -84,7 +82,7 @@ final class DetermineNamespaceTest extends UtilityMethodTestCase
      *
      * @see testDetermineNamespace() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|false>>>
      */
     public static function dataDetermineNamespace()
     {

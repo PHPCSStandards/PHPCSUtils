@@ -81,8 +81,8 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      *
      * @dataProvider dataExtendedClass
      *
-     * @param string $identifier Comment which precedes the test case.
-     * @param bool   $expected   Expected function output.
+     * @param string       $identifier Comment which precedes the test case.
+     * @param string|false $expected   Expected function output.
      *
      * @return void
      */
@@ -100,70 +100,70 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      *
      * @see testFindExtendedClassName()
      *
-     * @return array
+     * @return array<string, array<string, string|false>>
      */
     public static function dataExtendedClass()
     {
         return [
-            [
-                '/* testExtendedClass */',
-                'testFECNClass',
+            'class does not extend' => [
+                'identifier' => '/* testNonExtendedClass */',
+                'expected'   => false,
             ],
-            [
-                '/* testNamespacedClass */',
-                '\PHP_CodeSniffer\Tests\Core\File\testFECNClass',
+            'class extends unqualified class' => [
+                'identifier' => '/* testExtendsUnqualifiedClass */',
+                'expected'   => 'testFECNClass',
             ],
-            [
-                '/* testNonExtendedClass */',
-                false,
+            'class extends fully qualified class' => [
+                'identifier' => '/* testExtendsFullyQualifiedClass */',
+                'expected'   => '\PHP_CodeSniffer\Tests\Core\File\testFECNClass',
             ],
-            [
-                '/* testInterface */',
-                false,
+            'class extends partially qualified class' => [
+                'identifier' => '/* testExtendsPartiallyQualifiedClass */',
+                'expected'   => 'Core\File\RelativeClass',
             ],
-            [
-                '/* testInterfaceThatExtendsInterface */',
-                'testFECNInterface',
+            'interface does not extend' => [
+                'identifier' => '/* testNonExtendedInterface */',
+                'expected'   => false,
             ],
-            [
-                '/* testInterfaceThatExtendsFQCNInterface */',
-                '\PHP_CodeSniffer\Tests\Core\File\testFECNInterface',
+            'interface extends unqualified interface' => [
+                'identifier' => '/* testInterfaceExtendsUnqualifiedInterface */',
+                'expected'   => 'testFECNInterface',
             ],
-            [
-                '/* testNestedExtendedClass */',
-                false,
+            'interface extends fully qualified interface' => [
+                'identifier' => '/* testInterfaceExtendsFullyQualifiedInterface */',
+                'expected'   => '\PHP_CodeSniffer\Tests\Core\File\testFECNInterface',
             ],
-            [
-                '/* testNestedExtendedAnonClass */',
-                'testFECNAnonClass',
+            'anon class extends unqualified class' => [
+                'identifier' => '/* testExtendedAnonClass */',
+                'expected'   => 'testFECNExtendedAnonClass',
             ],
-            [
-                '/* testNamespaceRelativeQualifiedClass */',
-                'Core\File\RelativeClass',
+            'class does not extend but contains anon class which extends' => [
+                'identifier' => '/* testNestedExtendedClass */',
+                'expected'   => false,
             ],
-            [
-                '/* testClassThatExtendsAndImplements */',
-                'testFECNClass',
+            'anon class extends, nested in non-extended class' => [
+                'identifier' => '/* testNestedExtendedAnonClass */',
+                'expected'   => 'testFECNAnonClass',
             ],
-            [
-                '/* testClassThatImplementsAndExtends */',
-                'testFECNClass',
+            'class extends and implements' => [
+                'identifier' => '/* testClassThatExtendsAndImplements */',
+                'expected'   => 'testFECNClass',
             ],
-            [
-                '/* testExtendedAnonClass */',
-                'testFECNExtendedAnonClass',
+            'class implements and extends' => [
+                'identifier' => '/* testClassThatImplementsAndExtends */',
+                'expected'   => 'testFECNClass',
             ],
-            [
-                '/* testInterfaceMultiExtends */',
-                '\Package\FooInterface',
+            'interface extends multiple interfaces (not supported)' => [
+                'identifier' => '/* testInterfaceMultiExtends */',
+                'expected'   => '\Package\FooInterface',
             ],
-            [
-                '/* testMissingExtendsName */',
-                false,
+            'parse error - extends keyword, but no class name' => [
+                'identifier' => '/* testMissingExtendsName */',
+                'expected'   => false,
             ],
-            [
-                '/* testParseError */',
-                false,
+            'parse error - live coding - no curly braces' => [
+                'identifier' => '/* testParseError */',
+                'expected'   => false,
             ],
         ];
     }
