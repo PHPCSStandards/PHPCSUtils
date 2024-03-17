@@ -27,11 +27,11 @@ google_analytics:
 # SEO info.
 tagline: "PHPCSUtils: A suite of utility functions for use with PHP_CodeSniffer."
 twitter:
-  username: jrf_nl
+  username: PHP_CodeSniffer
   card: summary
   hashtags: PHPCSUtils
 author:
-  twitter: jrf_nl
+  twitter: PHP_CodeSniffer
 
 # Needed so the select HTML tags do not get removed *sigh*
 commonmark:
