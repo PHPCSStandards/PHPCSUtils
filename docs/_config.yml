@@ -15,6 +15,7 @@ plugins:
 
 phpcsutils:
   packagist: phpcsstandards/phpcsutils
+  open_collective: php_codesniffer
 
 # Theme info.
 title: PHPCSUtils
