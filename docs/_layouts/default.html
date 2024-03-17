@@ -51,6 +51,16 @@
 
         <p><a href="https://twitter.com/share" class="twitter-share-button" data-related="{{ site.twitter.username }}" data-count="none" data-hashtags="{{ site.twitter.hashtags }}">Tweet about it</a></p>
 
+        <div class="mastodon-share-button" data-target="{{ site.url }}" data-name="{{ site.tagline }} by {{ site.mastodon.username }}" data-buttonstyle="btn btn-secondary" data-text="Toot"></div>
+
+        <div id="modal" style="display: none;">
+            <label for="msb-address" name="instanceAddress">Instance address</label>
+            <input id="msb-address" type="text" />
+            <label for="msb-memorize-instance">Memorize instance</label>
+            <input type="checkbox" id="msb-memorize-instance" />
+            <button id="msb-share">share</button>
+        </div>
+
       </header>
       <section>
 
@@ -80,5 +90,21 @@
     <script type="text/javascript">
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     </script>
+
+    <script>
+        const msbConfig = {
+            openModal: function () {
+                document.getElementById('modal').style.display = 'block';
+            },
+            closeModal: function () {
+                document.getElementById('modal').style.display = 'none';
+            },
+            addressFieldSelector: '#msb-address',
+            buttonModalSelector: '#msb-share',
+            memorizeFieldId: 'msb-memorize-instance',
+            buttonIconHtml: '<i class="fa fa-mastodon" aria-hidden="true"></i>'
+        };
+    </script>
+    <script src="{{ "/assets/js/mastodon.js?v=" | append: site.github.build_revision | relative_url }}"></script>
   </body>
 </html>

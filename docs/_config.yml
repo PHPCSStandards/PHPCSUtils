@@ -30,6 +30,8 @@ twitter:
   username: PHP_CodeSniffer
   card: summary
   hashtags: PHPCSUtils
+mastodon:
+  username: "@phpcs@phpc.social"
 author:
   twitter: PHP_CodeSniffer
 
