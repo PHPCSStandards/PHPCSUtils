@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\TestUtils;
 
-use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Files\DummyFile;
 use PHP_CodeSniffer\Files\File;
@@ -19,6 +18,7 @@ use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Exceptions\TestFileNotFound;
 use PHPCSUtils\Exceptions\TestMarkerNotFound;
 use PHPCSUtils\Exceptions\TestTargetNotFound;
+use PHPCSUtils\TestUtils\ConfigDouble;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionProperty;
@@ -212,31 +212,10 @@ abstract class UtilityMethodTestCase extends TestCase
 
         $contents = \file_get_contents($caseFile);
 
-        /*
-         * Set the static properties in the Config class to specific values for performance
-         * and to clear out values from other tests.
-         */
-        self::setStaticConfigProperty('executablePaths', []);
-
-        // Set to values which prevent the test-runner user's `CodeSniffer.conf` file
-        // from being read and influencing the tests. Also prevent an `exec()` call to stty.
-        self::setStaticConfigProperty('configData', ['report_width' => 80]);
-        self::setStaticConfigProperty('configDataFile', '');
-
-        $config = new Config();
+        $config = new ConfigDouble();
 
         /*
-         * Set to a usable value to circumvent Config trying to find a phpcs.xml config file.
-         *
-         * We just need to provide a standard so PHPCS will tokenize the file.
-         * The standard itself doesn't actually matter for testing utility methods,
-         * so use the smallest one to get the fastest results.
-         */
-        $config->standards = ['PSR1'];
-
-        /*
-         * Limiting the run to just one sniff will make it, yet again, slightly faster.
-         * Picked the simplest/fastest sniff available which is registered in PSR1.
+         * Limiting the run to just one (dummy) sniff will make it, yet again, slightly faster.
          */
         $config->sniffs = static::$selectedSniff;
 
@@ -315,17 +294,15 @@ abstract class UtilityMethodTestCase extends TestCase
         self::$tabWidth      = 4;
         self::$phpcsFile     = null;
         self::$selectedSniff = ['Dummy.Dummy.Dummy'];
-
-        // Reset the static properties in the Config class to their defaults to prevent tests influencing each other.
-        self::setStaticConfigProperty('executablePaths', []);
-        self::setStaticConfigProperty('configData', null);
-        self::setStaticConfigProperty('configDataFile', null);
     }
 
     /**
      * Helper function to set the value of a private static property on the PHPCS Config class.
      *
-     * @since 1.0.9
+     * @since      1.0.9
+     * @deprecated 1.1.0 Use the `PHPCSUtils\TestUtils\ConfigDouble::setStaticConfigProperty()` method instead.
+     *
+     * @codeCoverageIgnore
      *
      * @param string $name  The name of the property to set.
      * @param mixed  $value The value to set the property to.
