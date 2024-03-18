@@ -49,15 +49,15 @@
             <img src="https://opencollective.com/{{ site.phpcsutils.open_collective }}/contribute/button@2x.png?color=blue" width=300 />
         </a></p>
 
-        <p><a href="https://twitter.com/share" class="twitter-share-button" data-related="{{ site.twitter.username }}" data-count="none" data-hashtags="{{ site.twitter.hashtags }}">Tweet about it</a></p>
+        <div><a href="https://twitter.com/share" class="twitter-share-button" data-related="{{ site.twitter.username }}" data-count="none" data-hashtags="{{ site.twitter.hashtags }}">Tweet about it</a></div>
 
         <div class="mastodon-share-button" data-target="{{ site.url }}" data-name="{{ site.tagline }} by {{ site.mastodon.username }}" data-buttonstyle="btn btn-secondary" data-text="Toot"></div>
 
         <div id="modal" style="display: none;">
             <label for="msb-address" name="instanceAddress">Instance address</label>
-            <input id="msb-address" type="text" />
+            <input id="msb-address" type="text" /><br/>
             <label for="msb-memorize-instance">Memorize instance</label>
-            <input type="checkbox" id="msb-memorize-instance" />
+            <input type="checkbox" id="msb-memorize-instance" /><br/>
             <button id="msb-share">share</button>
         </div>
 
