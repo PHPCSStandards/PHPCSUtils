@@ -9,6 +9,27 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.11] - 2024-04-24
+
+### Changed
+
+#### Other
+
+* Various housekeeping and documentation improvements. Includes a contribution from [@fredden].
+
+### Fixed
+
+#### PHPCS BackCompat
+
+* `BCFile::getMethodProperties()`: small performance improvement & more defensive coding, in line with same fix in PHPCS 3.9.2. [#573]
+
+#### Utils
+
+* `FunctionDeclarations::getProperties()`: small performance improvement & more defensive coding, in line with same fix in PHPCS 3.9.2. [#573]
+
+[#573]: https://github.com/PHPCSStandards/PHPCSUtils/pull/573
+
+
 ## [1.0.10] - 2024-03-18
 
 ### Changed
@@ -984,6 +1005,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.11]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.10...1.0.11
 [1.0.10]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.9...1.0.10
 [1.0.9]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.8...1.0.9
 [1.0.8]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.7...1.0.8
