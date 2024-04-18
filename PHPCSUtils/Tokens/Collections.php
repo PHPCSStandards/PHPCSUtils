@@ -197,12 +197,14 @@ final class Collections
      * @var array<int|string, int|string>
      */
     private static $constantTypeTokens = [
-        \T_CALLABLE          => \T_CALLABLE, // Not allowed in PHP, but in this list to allow for (flagging) code errors.
-        \T_FALSE             => \T_FALSE,
-        \T_TRUE              => \T_TRUE,
-        \T_NULL              => \T_NULL,
-        \T_TYPE_UNION        => \T_TYPE_UNION,
-        \T_TYPE_INTERSECTION => \T_TYPE_INTERSECTION,
+        \T_CALLABLE               => \T_CALLABLE, // Not allowed in PHP, but in this list to allow for flagging code errors.
+        \T_FALSE                  => \T_FALSE,
+        \T_TRUE                   => \T_TRUE,
+        \T_NULL                   => \T_NULL,
+        \T_TYPE_UNION             => \T_TYPE_UNION,
+        \T_TYPE_INTERSECTION      => \T_TYPE_INTERSECTION,
+        \T_TYPE_OPEN_PARENTHESIS  => \T_TYPE_OPEN_PARENTHESIS,
+        \T_TYPE_CLOSE_PARENTHESIS => \T_TYPE_CLOSE_PARENTHESIS,
     ];
 
     /**
