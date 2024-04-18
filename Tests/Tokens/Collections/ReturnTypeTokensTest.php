@@ -31,21 +31,23 @@ final class ReturnTypeTokensTest extends TestCase
     public function testReturnTypeTokens()
     {
         $expected = [
-            \T_CALLABLE             => \T_CALLABLE,
-            \T_FALSE                => \T_FALSE,
-            \T_TRUE                 => \T_TRUE,
-            \T_NULL                 => \T_NULL,
-            \T_TYPE_UNION           => \T_TYPE_UNION,
-            \T_TYPE_INTERSECTION    => \T_TYPE_INTERSECTION,
-            \T_PARENT               => \T_PARENT,
-            \T_SELF                 => \T_SELF,
-            \T_STATIC               => \T_STATIC,
-            \T_NS_SEPARATOR         => \T_NS_SEPARATOR,
-            \T_NAMESPACE            => \T_NAMESPACE,
-            \T_STRING               => \T_STRING,
-            \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
-            \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
-            \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
+            \T_CALLABLE               => \T_CALLABLE,
+            \T_FALSE                  => \T_FALSE,
+            \T_TRUE                   => \T_TRUE,
+            \T_NULL                   => \T_NULL,
+            \T_TYPE_UNION             => \T_TYPE_UNION,
+            \T_TYPE_INTERSECTION      => \T_TYPE_INTERSECTION,
+            \T_TYPE_OPEN_PARENTHESIS  => \T_TYPE_OPEN_PARENTHESIS,
+            \T_TYPE_CLOSE_PARENTHESIS => \T_TYPE_CLOSE_PARENTHESIS,
+            \T_PARENT                 => \T_PARENT,
+            \T_SELF                   => \T_SELF,
+            \T_STATIC                 => \T_STATIC,
+            \T_NS_SEPARATOR           => \T_NS_SEPARATOR,
+            \T_NAMESPACE              => \T_NAMESPACE,
+            \T_STRING                 => \T_STRING,
+            \T_NAME_QUALIFIED         => \T_NAME_QUALIFIED,
+            \T_NAME_FULLY_QUALIFIED   => \T_NAME_FULLY_QUALIFIED,
+            \T_NAME_RELATIVE          => \T_NAME_RELATIVE,
         ];
 
         $this->assertSame($expected, Collections::returnTypeTokens());
