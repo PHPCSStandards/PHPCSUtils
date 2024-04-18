@@ -733,6 +733,53 @@ final class GetPropertiesTest extends PolyfilledTestCase
                     'equal_token'     => ($php8Names === true) ? 8 : 13,
                 ],
             ],
+
+            // DNF types.
+            'protected, DNF typed: float|(Partially\Qualified&Traversable)' => [
+                'identifier' => '/* testPHP82DNFType */',
+                'expected'   => [
+                    'scope'           => 'protected',
+                    'scope_token'     => -2,
+                    'is_final'        => false,
+                    'final_token'     => false,
+                    'type'            => 'float|(Partially\Qualified&Traversable)',
+                    'type_token'      => 2,
+                    'type_end_token'  => ($php8Names === true) ? 8 : 10,
+                    'nullable_type'   => false,
+                    'name_token'      => ($php8Names === true) ? 10 : 12,
+                    'equal_token'     => ($php8Names === true) ? 12 : 14,
+                ],
+            ],
+            'public final, DNF typed: (Unqualified&namespace\Relative)|bool, with whitespace and comments in type' => [
+                'identifier' => '/* testPHP82DNFTypeWithWhiteSpaceAndComment */',
+                'expected'   => [
+                    'scope'           => 'public',
+                    'scope_token'     => -4,
+                    'is_final'        => true,
+                    'final_token'     => -2,
+                    'type'            => '(Unqualified&namespace\Relative)|bool',
+                    'type_token'      => 2,
+                    'type_end_token'  => ($php8Names === true) ? 16 : 18,
+                    'nullable_type'   => false,
+                    'name_token'      => ($php8Names === true) ? 18 : 20,
+                    'equal_token'     => ($php8Names === true) ? 20 : 22,
+                ],
+            ],
+            'no modifiers, DNF typed: ?(A&\Pck\B)|bool, with whitespace and comments in type' => [
+                'identifier' => '/* testPHP82DNFTypeIllegalNullable */',
+                'expected'   => [
+                    'scope'           => 'public',
+                    'scope_token'     => false,
+                    'is_final'        => false,
+                    'final_token'     => false,
+                    'type'            => '?(A&\Pck\B)|bool',
+                    'type_token'      => 3,
+                    'type_end_token'  => ($php8Names === true) ? 9 : 12,
+                    'nullable_type'   => true,
+                    'name_token'      => ($php8Names === true) ? 11 : 14,
+                    'equal_token'     => ($php8Names === true) ? 13 : 16,
+                ],
+            ],
         ];
     }
 

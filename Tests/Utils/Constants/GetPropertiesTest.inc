@@ -180,3 +180,14 @@ $a = ( $foo == $bar ? new stdClass() :
         protected const \Fully\Qualified&Partially\Qualified UNION_FQN_PARTIAL = new Partial\Qualified;
     }
 );
+
+interface DNFTypes {
+    /* testPHP82DNFType */
+    protected const float|(Partially\Qualified&Traversable) DNF_PROTECTED = 1.5;
+
+    /* testPHP82DNFTypeWithWhiteSpaceAndComment */
+    public final const ( Unqualified & namespace\Relative ) /*comment*/ | bool DNF_PUBLIC_FINAL = true;
+
+    /* testPHP82DNFTypeIllegalNullable */
+    const ?(A&\Pck\B)|bool DNF_ILLEGAL_NULLABLE = null;
+}
