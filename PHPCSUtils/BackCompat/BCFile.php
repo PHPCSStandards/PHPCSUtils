@@ -228,7 +228,9 @@ final class BCFile
             // it's likely to be an array which might have arguments in it. This
             // could cause problems in our parsing below, so lets just skip to the
             // end of it.
-            if (isset($tokens[$i]['parenthesis_opener']) === true) {
+            if ($tokens[$i]['code'] !== T_TYPE_OPEN_PARENTHESIS
+                && isset($tokens[$i]['parenthesis_opener']) === true
+            ) {
                 // Don't do this if it's the close parenthesis for the method.
                 if ($i !== $tokens[$i]['parenthesis_closer']) {
                     $i = ($tokens[$i]['parenthesis_closer'] + 1);
@@ -324,6 +326,8 @@ final class BCFile
                 case T_NS_SEPARATOR:
                 case T_TYPE_UNION:
                 case T_TYPE_INTERSECTION:
+                case T_TYPE_OPEN_PARENTHESIS:
+                case T_TYPE_CLOSE_PARENTHESIS:
                 case T_FALSE:
                 case T_TRUE:
                 case T_NULL:
