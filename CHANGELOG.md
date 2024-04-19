@@ -477,7 +477,7 @@ Please report any bugs/oversights you encounter!
 All properties have a replacement which should be used instead, in most cases this will be a method with the same name as the previously used property,
 
 | Deprecated                                                    | Replacement                                                                                          | PR             | Remarks                                  |
-|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------|----------------|------------------------------------------|
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- | ---------------------------------------- |
 | `Collections::$alternativeControlStructureSyntaxTokens`       | `Collections::alternativeControlStructureSyntaxes()`                                                 | [#311]         | Mind the change in the name!             |
 | `Collections::$alternativeControlStructureSyntaxCloserTokens` | `Collections::alternativeControlStructureSyntaxClosers()`                                            | [#311]         | Mind the change in the name!             |
 | `Collections::$arrayTokens`                                   | `Collections::arrayTokens()`                                                                         | [#311]         |                                          |
@@ -510,7 +510,7 @@ All properties have a replacement which should be used instead, in most cases th
 Additionally, the following methods in the `Collections` class have been deprecated:
 
 | Deprecated                                   | Replacement                                | PR     |
-|----------------------------------------------|--------------------------------------------|--------|
+| -------------------------------------------- | ------------------------------------------ | ------ |
 | `Collections::arrowFunctionTokensBC()`       | Use the `T_FN` token instead.              | [#347] |
 | `Collections::functionDeclarationTokensBC()` | `Collections::functionDeclarationTokens()` | [#347] |
 | `Collections::parameterTypeTokensBC()`       | `Collections::parameterTypeTokens()`       | [#347] |
