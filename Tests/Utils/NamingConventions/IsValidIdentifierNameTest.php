@@ -24,6 +24,16 @@ final class IsValidIdentifierNameTest extends TestCase
 {
 
     /**
+     * Test that non-string input is rejected as invalid for a PHP identifier name.
+     *
+     * @return void
+     */
+    public function testIsValidIdentifierNameReturnsFalseOnInvalidType()
+    {
+        $this->assertFalse(NamingConventions::isValidIdentifierName(12345));
+    }
+
+    /**
      * Test correctly detecting whether an arbitrary string can be a valid PHP identifier name.
      *
      * @dataProvider dataIsValidIdentifierName
@@ -95,10 +105,6 @@ final class IsValidIdentifierNameTest extends TestCase
             ],
 
             // Invalid names.
-            'not-a-string' => [
-                'input'    => 12345,
-                'expected' => false,
-            ],
             'empty-string' => [
                 'input'    => '',
                 'expected' => false,
