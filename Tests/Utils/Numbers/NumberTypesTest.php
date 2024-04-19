@@ -131,8 +131,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isDecimalInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -147,8 +147,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isHexidecimalInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -163,8 +163,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isBinaryInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -179,8 +179,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isOctalInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -195,8 +195,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isFloat
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -214,7 +214,7 @@ final class NumberTypesTest extends TestCase
      * @see testIsOctalInt()       For the array format.
      * @see testIsDecimalFloat()   For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>>>
      */
     public static function dataNumbers()
     {

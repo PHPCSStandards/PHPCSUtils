@@ -422,7 +422,7 @@ final class GetClearTest extends UtilityMethodTestCase
      *
      * @see testClearCache() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataClearCache()
     {
