@@ -176,6 +176,10 @@ jobs:
         if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
+      - name: "Composer: use lock file when necessary"
+        if: ${{ matrix.phpcs_version == 'lowest' }}
+        run: composer config --unset lock
+
       # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
       - name: 'Composer: remove PHPCSDevCS'
         run: composer remove --dev --no-update phpcsstandards/phpcsdevcs
@@ -307,6 +311,10 @@ jobs:
       - name: "Composer: set PHPCS version for tests (master)"
         if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
+
+      - name: "Composer: use lock file when necessary"
+        if: ${{ matrix.phpcs_version == 'lowest' }}
+        run: composer config --unset lock
 
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v3"
