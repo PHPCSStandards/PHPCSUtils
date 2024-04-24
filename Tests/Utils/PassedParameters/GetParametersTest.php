@@ -49,9 +49,10 @@ final class GetParametersTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameters
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $targetType The type of token to look for.
-     * @param array      $expected   The expected parameter array.
+     * @param string                                       $testMarker The comment which prefaces the target token in
+     *                                                                 the test file.
+     * @param int|string                                   $targetType The type of token to look for.
+     * @param array<int|string, array<string, int|string>> $expected   The expected parameter array.
      *
      * @return void
      */
@@ -84,7 +85,7 @@ final class GetParametersTest extends UtilityMethodTestCase
      *
      * @see testGetParameters() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<int|string, array<string, int|string>>>>
      */
     public static function dataGetParameters()
     {
@@ -728,10 +729,10 @@ final class GetParametersTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameter
      *
-     * @param string     $testMarker    The comment which prefaces the target token in the test file.
-     * @param int|string $targetType    The type of token to look for.
-     * @param int        $paramPosition The position of the parameter we want to retrieve the details for.
-     * @param array      $expected      The expected array for the specific parameter.
+     * @param string                    $testMarker    The comment which prefaces the target token in the test file.
+     * @param int|string                $targetType    The type of token to look for.
+     * @param int                       $paramPosition The position of the parameter we want to retrieve the details for.
+     * @param array<string, int|string> $expected      The expected array for the specific parameter.
      *
      * @return void
      */
@@ -760,7 +761,7 @@ final class GetParametersTest extends UtilityMethodTestCase
      *
      * @see testGetParameter() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<string, int|string>>>
      */
     public static function dataGetParameter()
     {

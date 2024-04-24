@@ -33,10 +33,11 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameters
      *
-     * @param string     $testMarker    The comment which prefaces the target token in the test file.
-     * @param int|string $targetType    The type of token to look for.
-     * @param array      $expected      The expected parameter array.
-     * @param mixed      $targetContent Optional. The token content to look for.
+     * @param string                                       $testMarker    The comment which prefaces the target token
+     *                                                                    in the test file.
+     * @param int|string                                   $targetType    The type of token to look for.
+     * @param array<int|string, array<string, int|string>> $expected      The expected parameter array.
+     * @param string|null                                  $targetContent Optional. The token content to look for.
      *
      * @return void
      */
@@ -73,7 +74,7 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
      *
      * @see testGetParameters() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<int|string, array<string, int|string>>|null>>
      */
     public static function dataGetParameters()
     {

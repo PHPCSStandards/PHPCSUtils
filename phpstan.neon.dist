@@ -87,15 +87,4 @@ parameters:
             path: Tests/TestUtils/UtilityMethodTestCase/SkipJSCSSTestsOnPHPCS4Test.php
             count: 1
 
-        # Level 6
-        # Test data providers.
-        -
-            message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::data\S+\(\) return type has no value type specified in iterable type array\.$`'
-            path: Tests/*
-
-        # Test methods.
-        -
-            message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::\S+\(\) has parameter \$\S* with no value type specified in iterable type array\.$`'
-            path: Tests/*
-
             # yamllint enable rule:line-length

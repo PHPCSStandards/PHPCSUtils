@@ -202,10 +202,11 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterFromStack
      *
-     * @param string      $testMarker       The comment which prefaces the target token in the test file.
-     * @param array       $expectedName     The expected result array for the $name parameter.
-     * @param array|false $expectedExpires  The expected result array for the $expires_or_options parameter.
-     * @param array|false $expectedHttpOnly The expected result array for the $httponly parameter.
+     * @param string                          $testMarker       The comment which prefaces the target token in the test file.
+     * @param array<string, int|string>|false $expectedName     The expected result array for the $name parameter.
+     * @param array<string, int|string>|false $expectedExpires  The expected result array for the $expires_or_options
+     *                                                          parameter.
+     * @param array<string, int|string>|false $expectedHttpOnly The expected result array for the $httponly parameter.
      *
      * @return void
      */
@@ -280,7 +281,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @see testGetParameterFromStack() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, int|string>|false>>
      */
     public static function dataGetParameterFromStack()
     {
@@ -413,9 +414,9 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetParameterFromStackNamedAfterVariadic
      *
-     * @param int         $offset   The positional offfset to pass.
-     * @param array       $names    The parameter names to pass.
-     * @param array|false $expected The expected result array for the parameter.
+     * @param int                             $offset   The positional offfset to pass.
+     * @param array<string>                   $names    The parameter names to pass.
+     * @param array<string, int|string>|false $expected The expected result array for the parameter.
      *
      * @return void
      */
@@ -446,7 +447,7 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      *
      * @see testGetParameterFromStackNamedAfterVariadic() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|array<string>|array<string, int|string>|false>>
      */
     public static function dataGetParameterFromStackNamedAfterVariadic()
     {

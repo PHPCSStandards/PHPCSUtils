@@ -60,7 +60,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @see testHasParametersDontSkipShortArrayCheck() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int, array<string, int|string>>>>
      */
     public static function dataHasParametersDontSkipShortArrayCheck()
     {
@@ -79,9 +79,9 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @dataProvider dataGetParametersSkipShortArrayCheck
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $targetType The type of token to look for.
-     * @param array      $expected   The expected return value.
+     * @param string                                $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string                            $targetType The type of token to look for.
+     * @param array<int, array<string, int|string>> $expected   The expected return value.
      *
      * @return void
      */
@@ -124,7 +124,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @see testGetParametersSkipShortArrayCheck() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int, array<string, int|string>>>>
      */
     public static function dataGetParametersSkipShortArrayCheck()
     {
@@ -143,7 +143,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      * @see testGetParametersSkipShortArrayCheck()     For the array format.
      * @see testHasParametersDontSkipShortArrayCheck() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int, array<string, int|string>>>>
      */
     public static function dataTestCases()
     {
