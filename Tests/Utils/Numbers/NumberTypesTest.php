@@ -28,13 +28,111 @@ final class NumberTypesTest extends TestCase
 {
 
     /**
+     * Test correctly rejecting non-string input.
+     *
+     * @dataProvider dataNotAString
+     * @covers       ::isDecimalInt
+     *
+     * @param mixed $input The input data.
+     *
+     * @return void
+     */
+    public function testIsDecimalIntInvalidInput($input)
+    {
+        $this->assertFalse(Numbers::isDecimalInt($input));
+    }
+
+    /**
+     * Test correctly rejecting non-string input.
+     *
+     * @dataProvider dataNotAString
+     * @covers       ::isHexidecimalInt
+     *
+     * @param mixed $input The input data.
+     *
+     * @return void
+     */
+    public function testIsHexidecimalIntInvalidInput($input)
+    {
+        $this->assertFalse(Numbers::isHexidecimalInt($input));
+    }
+
+    /**
+     * Test correctly rejecting non-string input.
+     *
+     * @dataProvider dataNotAString
+     * @covers       ::isBinaryInt
+     *
+     * @param mixed $input The input data.
+     *
+     * @return void
+     */
+    public function testIsBinaryIntInvalidInput($input)
+    {
+        $this->assertFalse(Numbers::isBinaryInt($input));
+    }
+
+    /**
+     * Test correctly rejecting non-string input.
+     *
+     * @dataProvider dataNotAString
+     * @covers       ::isOctalInt
+     *
+     * @param mixed $input The input data.
+     *
+     * @return void
+     */
+    public function testIsOctalIntInvalidInput($input)
+    {
+        $this->assertFalse(Numbers::isOctalInt($input));
+    }
+
+    /**
+     * Test correctly rejecting non-string input.
+     *
+     * @dataProvider dataNotAString
+     * @covers       ::isFloat
+     *
+     * @param mixed $input The input data.
+     *
+     * @return void
+     */
+    public function testIsFloatInvalidInput($input)
+    {
+        $this->assertFalse(Numbers::isFloat($input));
+    }
+
+    /**
+     * Data Provider.
+     *
+     * @see testIsDecimalInt()     For the array format.
+     * @see testIsHexidecimalInt() For the array format.
+     * @see testIsBinaryInt()      For the array format.
+     * @see testIsOctalInt()       For the array format.
+     * @see testIsDecimalFloat()   For the array format.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    public static function dataNotAString()
+    {
+        return [
+            'not-a-string-bool' => [
+                'input' => true,
+            ],
+            'not-a-string-int' => [
+                'input' => 10,
+            ],
+        ];
+    }
+
+    /**
      * Test correctly recognizing an arbitrary string representing a decimal integer.
      *
      * @dataProvider dataNumbers
      * @covers       ::isDecimalInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -49,8 +147,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isHexidecimalInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -65,8 +163,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isBinaryInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -81,8 +179,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isOctalInt
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -97,8 +195,8 @@ final class NumberTypesTest extends TestCase
      * @dataProvider dataNumbers
      * @covers       ::isFloat
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected output for the various functions.
+     * @param string              $input    The input string.
+     * @param array<string, bool> $expected The expected output for the various functions.
      *
      * @return void
      */
@@ -116,33 +214,11 @@ final class NumberTypesTest extends TestCase
      * @see testIsOctalInt()       For the array format.
      * @see testIsDecimalFloat()   For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, bool>>>
      */
     public static function dataNumbers()
     {
         return [
-            // Not strings.
-            'not-a-string-bool' => [
-                'input'    => true,
-                'expected' => [
-                    'decimal' => false,
-                    'hex'     => false,
-                    'binary'  => false,
-                    'octal'   => false,
-                    'float'   => false,
-                ],
-            ],
-            'not-a-string-int' => [
-                'input'    => 10,
-                'expected' => [
-                    'decimal' => false,
-                    'hex'     => false,
-                    'binary'  => false,
-                    'octal'   => false,
-                    'float'   => false,
-                ],
-            ],
-
             // Not numeric strings.
             'empty-string' => [
                 'input'    => '',

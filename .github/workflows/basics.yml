@@ -55,10 +55,15 @@ jobs:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
 
+      # Updating the lists can fail intermittently, typically after Microsoft has released a new package.
+      # This should not be blocking for this job, so ignore any errors from this step.
+      # Ref: https://github.com/dotnet/core/issues/4167
+      - name: Update the available packages list
+        continue-on-error: true
+        run: sudo apt-get update
+
       - name: Install xmllint
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y libxml2-utils
+        run: sudo apt-get install --no-install-recommends -y libxml2-utils
 
       # Show XML violations inline in the file diff.
       # @link https://github.com/marketplace/actions/xmllint-problem-matcher
@@ -118,24 +123,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # This action also handles the caching of the dependencies.
-      # https://github.com/actions/setup-node
-      - name: Set up node and enable caching of dependencies
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
-
-      # @link https://github.com/DavidAnson/markdownlint-cli2
-      # @link https://github.com/DavidAnson/markdownlint
-      - name: Install Markdownlint CLI2
-        run: npm install -g markdownlint-cli2
-
       # @link https://github.com/marketplace/actions/problem-matcher-for-markdownlint-cli
       - name: Enable showing issue in PRs
         uses: xt0rted/markdownlint-problem-matcher@v3
 
+      # @link https://github.com/marketplace/actions/markdownlint-cli2-action
       - name: Check markdown with CLI2
-        run: markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v16
 
   remark:
     name: 'QA Markdown'

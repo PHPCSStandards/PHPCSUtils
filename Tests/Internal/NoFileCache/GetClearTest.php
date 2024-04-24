@@ -286,7 +286,7 @@ final class GetClearTest extends TestCase
      *
      * @see testClearCache() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataClearCache()
     {
