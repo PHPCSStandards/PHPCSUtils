@@ -462,7 +462,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - PHPCS 3.9.1: skip over closure use statements. PHPCS #421.
+     * - PHPCS 3.9.2: skip over closure use statements. PHPCS #421.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()      Original source.
      * @see \PHPCSUtils\Utils\FunctionDeclarations::getProperties() PHPCSUtils native improved version.
