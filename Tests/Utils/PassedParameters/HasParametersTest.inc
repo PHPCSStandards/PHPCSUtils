@@ -172,6 +172,14 @@ $anon = new class() {};
 /* testHasParamsAnonClass */
 $anon = new class( $param1, $param2 ) {};
 
+/* testHasParamsPHP80ClassInstantiationInAttribute */
+#[MyAttribute(1, self::Foo, 'string')]
+function foo() {}
+
+/* testHasParamsPHP80ClassInstantiationInMultiAttribute */
+#[AttributeOne, \AttributeTwo(1, self::Foo)]
+function bar() {}
+
 /* testPHP81FirstClassCallableNotFunctionCallGlobalFunction */
 $fn = strlen(...);
 

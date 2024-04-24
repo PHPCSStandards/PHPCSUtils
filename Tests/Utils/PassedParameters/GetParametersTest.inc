@@ -132,9 +132,16 @@ $arr4 = array(...$arr1, ...arrGen(), ...new ArrayIterator(['a', 'b', 'c']));
 // Also includes code sample for PHP 8.1 unpacking with string keys.
 $fruits = ['banana', ...$parts, 'watermelon', ...["a" => 2],];
 
-/* testPHP80FunctionCallInAttribute */
+/* testPHP80ClassInstantiationInAttribute1 */
 #[AttributeAttachedToClosure([1, 2, 3])]
 $closure = function() {};
+
+/* testPHP80ClassInstantiationInAttribute2 */
+#[MyAttribute(1, self::Foo, 'string')]
+function foo() {}
+
+#[AttributeOne, /* testPHP80ClassInstantiationInMultiAttribute */ \AttributeTwo(1, self::Foo)]
+function bar() {}
 
 /* testPHP80SkippingOverAttributes */
 $result = function_call(

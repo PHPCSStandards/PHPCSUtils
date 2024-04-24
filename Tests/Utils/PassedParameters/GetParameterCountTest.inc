@@ -219,6 +219,14 @@ $anon = new class( $param1, $param2 ) {
     public function __construct($param1, $param2) {}
 };
 
+/* testPHP80ClassInstantiationInAttribute */
+#[MyAttribute(1, self::Foo, 'string')]
+function foo() {}
+
+/* testPHP80ClassInstantiationInMultiAttribute */
+#[AttributeOne, \AttributeTwo(1, self::Foo)]
+function bar() {}
+
 /* testArrayWithEmptyItem */
 // Intentional parse error.
 $bar = [0 => $a,, 2 => $b];

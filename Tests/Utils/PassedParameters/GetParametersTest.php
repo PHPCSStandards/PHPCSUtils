@@ -88,6 +88,8 @@ final class GetParametersTest extends UtilityMethodTestCase
      */
     public static function dataGetParameters()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'function-call' => [
                 'testMarker' => '/* testFunctionCall */',
@@ -586,15 +588,52 @@ final class GetParametersTest extends UtilityMethodTestCase
                 ],
             ],
 
-            // PHP 8.0: function calls in attributes.
-            'function-call-within-an-attribute' => [
-                'testMarker' => '/* testPHP80FunctionCallInAttribute */',
+            // PHP 8.0: class instantiation in attributes.
+            'class-instantiation-within-an-attribute-1' => [
+                'testMarker' => '/* testPHP80ClassInstantiationInAttribute1 */',
                 'targetType' => \T_STRING,
                 'expected'   => [
                     1 => [
                         'start' => 2,
                         'end'   => 10,
                         'raw'   => '[1, 2, 3]',
+                    ],
+                ],
+            ],
+            'class-instantiation-within-an-attribute-2' => [
+                'testMarker' => '/* testPHP80ClassInstantiationInAttribute2 */',
+                'targetType' => \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 2,
+                        'raw'   => '1',
+                    ],
+                    2 => [
+                        'start' => 4,
+                        'end'   => 7,
+                        'raw'   => 'self::Foo',
+                    ],
+                    3 => [
+                        'start' => 9,
+                        'end'   => 10,
+                        'raw'   => "'string'",
+                    ],
+                ],
+            ],
+            'class-instantiation-within-a-multi-attribute' => [
+                'testMarker' => '/* testPHP80ClassInstantiationInMultiAttribute */',
+                'targetType' => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 2,
+                        'raw'   => '1',
+                    ],
+                    2 => [
+                        'start' => 4,
+                        'end'   => 7,
+                        'raw'   => 'self::Foo',
                     ],
                 ],
             ],
