@@ -387,6 +387,25 @@ final class HasParametersTest extends UtilityMethodTestCase
                 'expected'   => true,
             ],
 
+            // Class instantiations in attribute.
+            'has-params-class-instantiation-in-attribute' => [
+                'testMarker' => '/* testHasParamsPHP80ClassInstantiationInAttribute */',
+                'targetType' => \T_STRING,
+                'expected'   => true,
+            ],
+            'no-params-class-instantiation-in-multi-attribute' => [
+                'testMarker'    => '/* testHasParamsPHP80ClassInstantiationInMultiAttribute */',
+                'targetType'    => \T_STRING,
+                'expected'      => false,
+                'targetContent' => 'AttributeOne',
+            ],
+            'has-params-class-instantiation-in-multi-attribute' => [
+                'testMarker'    => '/* testHasParamsPHP80ClassInstantiationInMultiAttribute */',
+                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'expected'      => true,
+                'targetContent' => ($php8Names === true) ? '\AttributeTwo' : 'AttributeTwo',
+            ],
+
             // PHP 8.1 first class callables are callbacks, not function calls.
             'no-params-php81-first-class-callable-global-function' => [
                 'testMarker' => '/* testPHP81FirstClassCallableNotFunctionCallGlobalFunction */',
