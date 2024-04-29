@@ -18,35 +18,35 @@ use ReflectionObject;
  * PHPUnit cross-version compatibility helper.
  *
  * Backfills the PHPUnit native `assertAttributeSame()` method in PHPUnit 9.x and above in which
- * the method was removed. Use `assertAttributeValueSame()` instead of `assertAttributeSame()`
+ * the method was removed. Use `assertPropertySame()` instead of `assertAttributeSame()`
  * for cross-version compatibility.
  *
  * @since 1.0.0
  */
-trait AssertAttributeSame
+trait AssertPropertySame
 {
 
     /**
      * PHPUnit cross-version helper method to test the value of class properties.
      *
-     * @param mixed  $expected      Expected property value.
-     * @param string $attributeName The name of the property to check.
-     * @param object $actualObject  The object on which to check the property value.
-     * @param string $message       Optional. Custom error message.
+     * @param mixed  $expected     Expected property value.
+     * @param string $propertyName The name of the property to check.
+     * @param object $actualObject The object on which to check the property value.
+     * @param string $message      Optional. Custom error message.
      *
      * @return void
      */
-    public function assertAttributeValueSame($expected, $attributeName, $actualObject, $message = '')
+    public function assertPropertySame($expected, $propertyName, $actualObject, $message = '')
     {
         // Will throw a warning on PHPUnit 8, but will still work.
         if (\method_exists($this, 'assertAttributeSame')) {
-            $this->assertAttributeSame($expected, $attributeName, $actualObject, $message);
+            $this->assertAttributeSame($expected, $propertyName, $actualObject, $message);
             return;
         }
 
         // PHPUnit 9.0+.
         try {
-            $actual = $this->getObjectAttributeValue($actualObject, $attributeName);
+            $actual = $this->getObjectPropertyValue($actualObject, $propertyName);
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -55,31 +55,32 @@ trait AssertAttributeSame
     }
 
     /**
-     * Retrieve the value of an object's attribute.
-     * This also works for attributes that are declared protected or private.
+     * Retrieve the value of an object property.
+     *
+     * This also works for properties that are declared protected or private.
      *
      * @param object|string $objectUnderTest The object or class on which to check the property value.
-     * @param string        $attributeName   The name of the property to check.
+     * @param string        $propertyName    The name of the property to check.
      *
      * @return mixed Property value.
      *
      * @throws \Exception
      */
-    public static function getObjectAttributeValue($objectUnderTest, $attributeName)
+    public static function getObjectPropertyValue($objectUnderTest, $propertyName)
     {
         $reflector = new ReflectionObject($objectUnderTest);
 
         do {
             try {
-                $attribute = $reflector->getProperty($attributeName);
+                $property = $reflector->getProperty($propertyName);
 
-                if (!$attribute || $attribute->isPublic()) {
-                    return $objectUnderTest->$attributeName;
+                if (!$property || $property->isPublic()) {
+                    return $objectUnderTest->$propertyName;
                 }
 
-                $attribute->setAccessible(true);
-                $value = $attribute->getValue($objectUnderTest);
-                $attribute->setAccessible(false);
+                $property->setAccessible(true);
+                $value = $property->getValue($objectUnderTest);
+                $property->setAccessible(false);
 
                 return $value;
             } catch (ReflectionException $e) {
@@ -88,8 +89,8 @@ trait AssertAttributeSame
 
         throw new Exception(
             \sprintf(
-                'Attribute "%s" not found in object.',
-                $attributeName
+                'Property "%s" not found in object.',
+                $propertyName
             )
         );
     }
