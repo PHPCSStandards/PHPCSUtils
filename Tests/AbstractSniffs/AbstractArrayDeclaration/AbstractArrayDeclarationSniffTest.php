@@ -159,11 +159,11 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
         $mockObj->process(self::$phpcsFile, $target);
 
         // Verify that the properties have been correctly set.
-        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeValueSame($target, 'arrayOpener', $mockObj);
-        $this->assertAttributeValueSame(($target + 5), 'arrayCloser', $mockObj);
-        $this->assertAttributeValueSame(2, 'itemCount', $mockObj);
-        $this->assertAttributeValueSame(true, 'singleLine', $mockObj);
+        $this->assertPropertySame($target, 'stackPtr', $mockObj);
+        $this->assertPropertySame($target, 'arrayOpener', $mockObj);
+        $this->assertPropertySame(($target + 5), 'arrayCloser', $mockObj);
+        $this->assertPropertySame(2, 'itemCount', $mockObj);
+        $this->assertPropertySame(true, 'singleLine', $mockObj);
     }
 
     /**
@@ -235,11 +235,11 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
         $mockObj->process(self::$phpcsFile, $target);
 
         // Verify that the properties have been correctly set.
-        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeValueSame(($target + 1), 'arrayOpener', $mockObj);
-        $this->assertAttributeValueSame(($target + 35), 'arrayCloser', $mockObj);
-        $this->assertAttributeValueSame(4, 'itemCount', $mockObj);
-        $this->assertAttributeValueSame(false, 'singleLine', $mockObj);
+        $this->assertPropertySame($target, 'stackPtr', $mockObj);
+        $this->assertPropertySame(($target + 1), 'arrayOpener', $mockObj);
+        $this->assertPropertySame(($target + 35), 'arrayCloser', $mockObj);
+        $this->assertPropertySame(4, 'itemCount', $mockObj);
+        $this->assertPropertySame(false, 'singleLine', $mockObj);
     }
 
     /**
@@ -318,11 +318,11 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
         $mockObj->process(self::$phpcsFile, $target);
 
         // Verify that the properties have been correctly set.
-        $this->assertAttributeValueSame($target, 'stackPtr', $mockObj);
-        $this->assertAttributeValueSame($target, 'arrayOpener', $mockObj);
-        $this->assertAttributeValueSame(($target + 22), 'arrayCloser', $mockObj);
-        $this->assertAttributeValueSame(3, 'itemCount', $mockObj);
-        $this->assertAttributeValueSame(false, 'singleLine', $mockObj);
+        $this->assertPropertySame($target, 'stackPtr', $mockObj);
+        $this->assertPropertySame($target, 'arrayOpener', $mockObj);
+        $this->assertPropertySame(($target + 22), 'arrayCloser', $mockObj);
+        $this->assertPropertySame(3, 'itemCount', $mockObj);
+        $this->assertPropertySame(false, 'singleLine', $mockObj);
     }
 
     /**
