@@ -78,7 +78,7 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetNameAfterKeyword()
+    public static function dataGetNameAfterKeyword()
     {
         return [
             'hierarchy-keyword-not-first-and-only-1' => [
@@ -87,6 +87,10 @@ class GetNameAfterKeywordTest extends UtilityMethodTestCase
             ],
             'hierarchy-keyword-not-first-and-only-2' => [
                 '/* testHierarchyKeywordNotFirstAndOnlyStatic */',
+                \T_INSTANCEOF,
+            ],
+            'hierarchy-keyword-not-first-and-only-3' => [
+                '/* testHierarchyKeywordNotFirstAndOnlyStaticUPPER */',
                 \T_INSTANCEOF,
             ],
             'non-anon-class-reserved-keyword' => [

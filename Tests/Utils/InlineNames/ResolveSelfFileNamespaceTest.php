@@ -56,7 +56,7 @@ class ResolveSelfFileNamespaceTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataResolveSelf()
+    public static function dataResolveSelf()
     {
         return [
             'namespaced-class' => [

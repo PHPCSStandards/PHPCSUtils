@@ -73,7 +73,7 @@ class ResolveSelfTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataResolveSelf()
+    public static function dataResolveSelf()
     {
         return [
             'self-outside-class-context' => [

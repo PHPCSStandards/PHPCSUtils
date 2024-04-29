@@ -35,18 +35,16 @@ class InlineNames
      * This includes translating alias names to the real class name.
      *
      * This method should be passed a single construct name retrieved via any of the below listed methods:
+     * - {@see \PHPCSUtils\Utils\Constants::getProperties()} (single OO type retrieved from `type` index)
      * - {@see \PHPCSUtils\Utils\ControlStructures::getCaughtExceptions()} (`type` index)
-     * - {@see \PHPCSUtils\Utils\FunctionDeclarations::getProperties()} (`return_type` index without
-     *       nullability operator and split on union type operator)
-     * - {@see \PHPCSUtils\Utils\FunctionDeclarations::getParameters()} (`type_hint` index without
-     *       nullability operator and split on union type operator)
+     * - {@see \PHPCSUtils\Utils\FunctionDeclarations::getProperties()} (single OO type retrieved from `return_type` index)
+     * - {@see \PHPCSUtils\Utils\FunctionDeclarations::getParameters()} (single OO type retrieved from `type_hint` index)
      * - {@see \PHPCSUtils\Utils\InlineNames::getNameFromNew()}
      * - {@see \PHPCSUtils\Utils\InlineNames::getNameFromDoubleColon()}
      * - {@see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName()}
      * - {@see \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames()}
      * - {@see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedInterfaceNames()}
-     * - {@see \PHPCSUtils\Utils\Variables::getMemberProperties()} (`type` index without nullability
-     *       operator and split on union type operator)
+     * - {@see \PHPCSUtils\Utils\Variables::getMemberProperties()} (single OO type retrieved from `type` index)
      *
      * @since 1.0.0
      *
@@ -235,9 +233,6 @@ class InlineNames
      * Note: User beware! This is imprecise as when `self` is used, it may invoke methods/properties
      * from a (grand-)parent if these have not been overloaded.
      *
-     * To support PHPCS < 2.8.0, passing a T_STRING token with as content `self` will also be accepted.
-     * {@link https://github.com/squizlabs/php_codesniffer/issues/1245 See upstream bug PHPCS #1245}
-     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer_File $phpcsFile        The file being scanned.
@@ -259,8 +254,7 @@ class InlineNames
         $tokens = $phpcsFile->getTokens();
 
         if (isset($tokens[$stackPtr]) === false
-            || ($tokens[$stackPtr]['code'] !== \T_SELF && $tokens[$stackPtr]['code'] !== \T_STRING)
-            || ($tokens[$stackPtr]['code'] === \T_STRING && $tokens[$stackPtr]['content'] !== 'self')
+            || $tokens[$stackPtr]['code'] !== \T_SELF
         ) {
             throw new RuntimeException('$stackPtr must be of type T_SELF');
         }
@@ -460,9 +454,10 @@ class InlineNames
                 continue;
             }
 
-            if (isset(Collections::$OOHierarchyKeywords[$tokens[$i]['code']]) === true
-                // Work around tokenizer peculiarity where `static` after instanceof is not tokenized as T_STATIC.
-                || ($tokens[$i]['code'] === \T_STRING && $tokens[$i]['content'] === 'static')
+            if (isset(Collections::ooHierarchyKeywords()[$tokens[$i]['code']]) === true
+                // Work around tokenizer peculiarity where `static` after instanceof is not tokenized as T_STATIC in PHPCS 3.x.
+                // This will be fixed in PHPCS 4.0.
+                || ($tokens[$i]['code'] === \T_STRING && strtolower($tokens[$i]['content'] === 'static'))
             ) {
                 if ($name === '') {
                     $name           .= $tokens[$i]['content'];
@@ -534,7 +529,7 @@ class InlineNames
                  * Look at the content instead of the code to work around a tokenizer issue
                  * in PHPCS < 3.4.3.
                  */
-                if ($tokens[$next]['content'] === 'class') {
+                if (strtolower($tokens[$next]['content']) === 'class') {
                     $lastTokenCode   = $tokens[$next]['code'];
                     $tokenMustBeLast = true;
                     $i               = $next;
@@ -580,7 +575,7 @@ class InlineNames
 
         // No need to check for false, at the very least there will be a PHP open tag before it.
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
-        if (isset(Collections::$OOHierarchyKeywords[$tokens[$prev]['code']]) === true) {
+        if (isset(Collections::ooHierarchyKeywords()[$tokens[$prev]['code']]) === true) {
             return $tokens[$prev]['content'];
         }
 
@@ -596,26 +591,13 @@ class InlineNames
                 continue;
             }
 
-            if (isset(Collections::$OONameTokens[$tokens[$i]['code']]) === false
+            if (isset(Collections::namespacedNameTokens()[$tokens[$i]['code']]) === false
                 || $tokens[$i]['code'] === $lastCode
             ) {
                 /*
                  * Either a token which can't exist within a name or two of the same tokens next to each other,
                  * which can't happen, so the previous token was the beginning.
                  */
-                break;
-            }
-
-            /*
-             * Work around missing tokenizer backfill for `yield` on PHP 5.4 with PHPCS < 3.1.0
-             * and `yield from` on PHP < 7.0 with PHPCS 3.1.0.
-             * Refs:
-             * - https://github.com/squizlabs/PHP_CodeSniffer/issues/1513
-             * - https://github.com/squizlabs/PHP_CodeSniffer/pull/1524
-             */
-            if ($tokens[$i]['code'] === \T_STRING
-                && ($tokens[$i]['content'] === 'yield' || $tokens[$i]['content'] === 'from')
-            ) {
                 break;
             }
 

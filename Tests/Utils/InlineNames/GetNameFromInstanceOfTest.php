@@ -74,7 +74,7 @@ class GetNameFromInstanceOfTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetNameFromInstanceOf()
+    public static function dataGetNameFromInstanceOf()
     {
         return [
             'unqualified-name' => [

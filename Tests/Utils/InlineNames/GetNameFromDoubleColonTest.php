@@ -73,7 +73,7 @@ class GetNameFromDoubleColonTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetNameFromDoubleColon()
+    public static function dataGetNameFromDoubleColon()
     {
         return [
             'fqn' => [
@@ -90,6 +90,10 @@ class GetNameFromDoubleColonTest extends UtilityMethodTestCase
             ],
             'unqualified' => [
                 '/* testUnqualified */',
+                'Name',
+            ],
+            'unqualified-upper' => [
+                '/* testUnqualifiedUpper */',
                 'Name',
             ],
             'qualified' => [

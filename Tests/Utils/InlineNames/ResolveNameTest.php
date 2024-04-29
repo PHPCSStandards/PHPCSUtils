@@ -96,7 +96,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataInvalidName()
+    public static function dataInvalidName()
     {
         return [
             'not-a-string'               => [10], // I.e. stack pointer passed.
@@ -129,7 +129,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataInvalidType()
+    public static function dataInvalidType()
     {
         return [
             'not-a-string'   => [null],
@@ -161,7 +161,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataInvalidUseStatements()
+    public static function dataInvalidUseStatements()
     {
         return [
             'not-an-array'     => [''],
@@ -209,7 +209,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataResolveNameClass()
+    public static function dataResolveNameClass()
     {
         return [
             'self' => [
@@ -338,7 +338,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataResolveNameClassGlobalNamespace()
+    public static function dataResolveNameClassGlobalNamespace()
     {
         return [
             'unqualified-imported' => [
@@ -387,7 +387,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataResolveNameFunction()
+    public static function dataResolveNameFunction()
     {
         return [
             'unqualified-imported' => [
@@ -484,7 +484,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataResolveNameFunctionGlobalNamespace()
+    public static function dataResolveNameFunctionGlobalNamespace()
     {
         return [
             'unqualified-imported' => [
@@ -529,7 +529,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataResolveNameConstant()
+    public static function dataResolveNameConstant()
     {
         return [
             'unqualified-imported' => [
@@ -626,7 +626,7 @@ class ResolveNameTest extends TestCase
      *
      * @return array
      */
-    public function dataResolveNameConstantGlobalNamespace()
+    public static function dataResolveNameConstantGlobalNamespace()
     {
         return [
             'unqualified-imported' => [

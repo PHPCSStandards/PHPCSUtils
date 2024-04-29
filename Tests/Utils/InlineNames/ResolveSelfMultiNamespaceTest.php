@@ -50,7 +50,7 @@ class ResolveSelfMultiNamespaceTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataResolveSelf()
+    public static function dataResolveSelf()
     {
         return [
             'scoped-named-namespace-interface' => [

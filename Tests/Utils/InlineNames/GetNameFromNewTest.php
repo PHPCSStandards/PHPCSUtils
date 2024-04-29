@@ -74,7 +74,7 @@ class GetNameFromNewTest extends UtilityMethodTestCase
      *
      * @return array
      */
-    public function dataGetNameFromNew()
+    public static function dataGetNameFromNew()
     {
         return [
             'anon-class-no-parens' => [

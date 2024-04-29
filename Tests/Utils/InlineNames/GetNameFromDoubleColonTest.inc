@@ -15,6 +15,9 @@ $a = Partially\ /* comment */ Qualified \ Name ::$static_property;
 /* testUnqualified */
 $a =Name::class;
 
+/* testUnqualifiedUpper */
+$a = Name::class;
+
 /* testQualified */
 $a = \Name ::static_function();
 

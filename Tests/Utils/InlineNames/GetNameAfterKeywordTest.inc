@@ -6,6 +6,9 @@ $a = $b instanceof My\static;
 /* testHierarchyKeywordNotFirstAndOnlyStatic */
 $a = $b instanceof static::$property;
 
+/* testHierarchyKeywordNotFirstAndOnlyStaticUpper */
+$a = $b instanceof STATIC::$property;
+
 /* testNonAnonClassUsingReservedClassKeyword */
 $obj = new class\instance;
 
