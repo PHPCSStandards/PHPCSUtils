@@ -206,12 +206,6 @@ abstract class UtilityMethodTestCase extends TestCase
             $caseFile  = \substr($testFile, 0, -3) . static::$fileExtension;
         }
 
-        if (\is_readable($caseFile) === false) {
-            parent::fail("Test case file missing. Expected case file location: $caseFile");
-        }
-
-        $contents = \file_get_contents($caseFile);
-
         $config = new ConfigDouble();
 
         /*
@@ -227,22 +221,49 @@ abstract class UtilityMethodTestCase extends TestCase
 
         $ruleset = new Ruleset($config);
 
+        self::$phpcsFile = self::parseFile($caseFile, $ruleset, $config);
+    }
+
+    /**
+     * Create a File object.
+     *
+     * The file will only be parsed, not processed.
+     *
+     * This helper method can also be used to create a secondary file object using the same sniff objects
+     * as used for the original test case file.
+     * To do so, pass `self::$phpcsFile->ruleset` for the $ruleset and `self::$phpcsFile->config` for the $config.
+     *
+     * @param string                   $caseFile The absolute path to the file.
+     * @param \PHP_CodeSniffer\Ruleset $ruleset  The ruleset for the run.
+     * @param \PHP_CodeSniffer\Config  $config   The config data for the run.
+     *
+     * @return \PHP_CodeSniffer\Files\File
+     */
+    protected static function parseFile($caseFile, $ruleset, $config)
+    {
+        if (\is_readable($caseFile) === false) {
+            parent::fail("Test case file missing. Expected case file location: $caseFile");
+        }
+
         // Make sure the file gets parsed correctly based on the file type.
+        $contents = \file_get_contents($caseFile);
         $contents = 'phpcs_input_file: ' . $caseFile . \PHP_EOL . $contents;
 
-        self::$phpcsFile = new DummyFile($contents, $ruleset, $config);
+        $file = new DummyFile($contents, $ruleset, $config);
 
         // Only tokenize the file, do not process it.
         try {
-            self::$phpcsFile->parse();
+            $file->parse();
         } catch (TokenizerException $e) {
             // PHPCS 3.5.0 and higher. This is handled below.
         }
 
-        // Fail the test if the case file failed to tokenize.
-        if (self::$phpcsFile->numTokens === 0) {
+        // Fail the test if the file failed to tokenize.
+        if ($file->numTokens === 0) {
             parent::fail("Tokenizing of the test case file failed for case file: $caseFile");
         }
+
+        return $file;
     }
 
     /**
