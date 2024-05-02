@@ -23,6 +23,12 @@ parameters:
             path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
             count: 1
 
+        # This is by design to test and safeguard that the singleton pattern is enforced.
+        -
+            message: '`^Cannot instantiate class PHPCSUtils\\ContextTracking\\[A-Za-z]+ via private constructor PHPCSUtils\\ContextTracking\\[A-Za-z]+::__construct\(\)\.$`'
+            path: Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
+            count: 1
+
         # Level 1
         # These are on purpose for testing the magic method. This is 100% okay.
         -
@@ -59,11 +65,13 @@ parameters:
             path: PHPCSUtils/Tokens/Collections.php
             count: 1
 
-        # Ignoring this as availability depends on which PHPUnit Polyfills version is loaded/installed. This is 100% okay.
+        # Ignoring this as availability depends on which PHPUnit/PHPUnit Polyfills version is loaded/installed. This is 100% okay.
         -
-            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectError' will always evaluate to false\\.$`"
-            path: Tests/Utils/TypeString/FilterTypesTest.php
-            count: 2
+            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and '(expectError|assertAttributeSame)' will always evaluate to false\\.$`"
+            paths:
+                - Tests/AssertPropertySame.php
+                - Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
+                - Tests/Utils/TypeString/FilterTypesTest.php
 
         # This depends on the PHP version on which PHPStan is being run, so not valid.
         -
@@ -75,10 +83,20 @@ parameters:
             path: Tests/Utils/Orthography/FirstCharTest.php
             count: 1
 
+        # PHPStan does not handle untyped properties without a default value correctly. Ignore.
+        -
+            message: '`^Static property PHPCSUtils\\ContextTracking\\[A-Za-z]+::\$instance \(PHPCSUtils\\ContextTracking\\[A-Za-z]+\) in isset\(\) is not nullable\.$`'
+            path: PHPCSUtils/ContextTracking/NamespaceTracker.php
+            count: 1
+        -
+            message: '`^Strict comparison using === between true and false will always evaluate to false\.$`'
+            path: PHPCSUtils/ContextTracking/NamespaceTracker.php
+            count: 1
+
         # Level 5
         # This is by design to test handling of incorrect input.
         -
-            message: '`^Parameter #[0-9]+ \$\S+ of static method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
+            message: '`^Parameter #[0-9]+ \$\S+ of (static )?method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
             paths:
                 - Tests/*
         -
@@ -90,6 +108,7 @@ parameters:
         -
             message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
             paths:
+                - Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
                 - Tests/TestUtils/UtilityMethodTestCase/SkipJSCSSTestsOnPHPCS4Test.php
                 - Tests/Utils/TypeString/FilterTypesTest.php
 

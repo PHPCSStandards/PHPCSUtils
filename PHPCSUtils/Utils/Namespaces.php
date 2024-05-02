@@ -224,6 +224,10 @@ final class Namespaces
     /**
      * Find the stack pointer to the namespace declaration applicable for an arbitrary token.
      *
+     * Note: this is an "expensive" method as it will oftentimes require walking most of a file.
+     * If at all possible, consider using the much more efficient
+     * (@see \PHPCSUtils\ContextTracking\NamespaceTracker} instead.
+     *
      * Take note:
      * 1. When a namespace declaration token or a token which is part of the namespace
      *    name is passed to this method, the result will be `false` as technically, these tokens
@@ -373,6 +377,10 @@ final class Namespaces
 
     /**
      * Determine the namespace name an arbitrary token lives in.
+     *
+     * Note: this is an "expensive" method as it will oftentimes require walking most of a file.
+     * If at all possible, consider using the much more efficient
+     * (@see \PHPCSUtils\ContextTracking\NamespaceTracker} instead.
      *
      * Note: this method has no opinion on whether the token passed is actually _subject_
      * to namespacing.
