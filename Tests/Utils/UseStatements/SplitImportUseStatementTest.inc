@@ -14,6 +14,9 @@ use MyNamespace\MyClass;
 /* testUsePlainAliased */
 use MyNamespace \ YourClass as ClassAlias;
 
+/* testUsePlainLeadingBackslash */
+use \MyNamespace\TheirClass;
+
 /* testUseMultipleWithComments */
 use Vendor\Foo\ClassA as ClassABC,
    Vendor \ /*comment*/ Bar \ /*another comment */ InterfaceB,
@@ -38,13 +41,19 @@ use CONST MyNamespace\MY_CONST;
 use const MyNamespace\YOUR_CONST as CONST_ALIAS;
 
 /* testUseConstMultiple */
-use const foo\math\PI, foo\math\GOLDEN_RATIO as MATH_GOLDEN;
+use const foo\math\PI, \foo\math\GOLDEN_RATIO as MATH_GOLDEN;
 
 /* testGroupUse */
 use some\namespacing\{
     SomeClassA,
     deeper\level\SomeClassB,
     another\level\SomeClassC as C
+};
+
+/* testGroupUseLeadingBackslash */
+use \world\namespacing\{
+    SomeClassA,
+    deeper\level\SomeClassB
 };
 
 /* testGroupUseFunctionTrailingComma */
@@ -70,15 +79,15 @@ use Some\NS\ {
 };
 
 /* testUsePlainReservedKeyword */
-// Intentional parse error - use of reserved keyword in namespace.
+// Intentional parse error for PHP < 8.0 - use of reserved keyword in namespace.
 use Vendor\break\ClassName;
 
 /* testUseFunctionPlainReservedKeyword */
-// Intentional parse error - use of reserved keyword in namespace.
+// Intentional parse error for PHP < 8.0  - use of reserved keyword in namespace.
 use function Vendor\YourNamespace\switch\yourFunction;
 
 /* testUseConstPlainReservedKeyword */
-// Intentional parse error - use of reserved keyword in namespace.
+// Intentional parse error for PHP < 8.0  - use of reserved keyword in namespace.
 use const Vendor\YourNamespace\function\yourConst;
 
 /* testUsePlainAliasReservedKeyword */
@@ -88,7 +97,7 @@ use Vendor\YourNamespace\ClassName as class;
 /* testUsePlainAliasReservedKeywordFunction */
 // Intentional parse error - use of reserved keyword as alias.
 use Vendor\{
-	YourNamespace\ClassName as function
+    YourNamespace\ClassName as function
 };
 
 /* testUsePlainAliasReservedKeywordConst */
