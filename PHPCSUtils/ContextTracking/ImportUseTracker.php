@@ -558,10 +558,9 @@ When retrieving parse & merge the statements and store for later use.
                     continue;
                 }
 
+                $lastResolved = $usePtr;
+
                 if (UseStatements::isImportUse($phpcsFile, $usePtr) === false) {
-                    // Even though this is not an import use, this token does not need to be processed again
-                    // in future runs.
-                    $lastResolved = $usePtr;
                     continue;
                 }
 
@@ -577,7 +576,6 @@ When retrieving parse & merge the statements and store for later use.
                 }
 
                 $statements    = UseStatements::splitAndMergeImportUseStatement($phpcsFile, $usePtr, $statements);
-                $lastResolved  = $usePtr;
                 $effectiveFrom = ++$endOfStatement;
             }
         }
