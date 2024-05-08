@@ -257,6 +257,8 @@ final class TrackingTest extends UtilityMethodTestCase
      */
     public static function dataTrackSetsProperties()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'Start of file' => [
                 'marker'      => '/* testStartOfFile */',
@@ -268,6 +270,13 @@ final class TrackingTest extends UtilityMethodTestCase
                 'marker'      => '/* testDocblock */',
                 'target'      => \T_DOC_COMMENT_OPEN_TAG,
                 'lastSeenPtr' => 25,
+                'seenCount'   => 0,
+            ],
+            'PHPCS 4.0+: Docblock content skips to closer' => [
+                'marker'      => '/* testDocblock */',
+                'target'      => \T_DOC_COMMENT_STRING,
+                // Expected as per PHPCSStandards/PHP_CodeSniffer#484.
+                'lastSeenPtr' => ($php8Names === true) ? 25 : 22,
                 'seenCount'   => 0,
             ],
             'Attributes opener skips to closer' => [
