@@ -26,8 +26,9 @@ parameters:
         # This is by design to test and safeguard that the singleton pattern is enforced.
         -
             message: '`^Cannot instantiate class PHPCSUtils\\ContextTracking\\[A-Za-z]+ via private constructor PHPCSUtils\\ContextTracking\\[A-Za-z]+::__construct\(\)\.$`'
-            path: Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
-            count: 1
+            paths:
+                - Tests/ContextTracking/DeclaredFunctionsTracker/ExceptionsTest.php
+                - Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
 
         # Level 1
         # These are on purpose for testing the magic method. This is 100% okay.
@@ -70,6 +71,7 @@ parameters:
             message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and '(expectError|assertAttributeSame)' will always evaluate to false\\.$`"
             paths:
                 - Tests/AssertPropertySame.php
+                - Tests/ContextTracking/DeclaredFunctionsTracker/ExceptionsTest.php
                 - Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
                 - Tests/Utils/TypeString/FilterTypesTest.php
 
@@ -86,12 +88,14 @@ parameters:
         # PHPStan does not handle untyped properties without a default value correctly. Ignore.
         -
             message: '`^Static property PHPCSUtils\\ContextTracking\\[A-Za-z]+::\$instance \(PHPCSUtils\\ContextTracking\\[A-Za-z]+\) in isset\(\) is not nullable\.$`'
-            path: PHPCSUtils/ContextTracking/NamespaceTracker.php
-            count: 1
+            paths:
+                - PHPCSUtils/ContextTracking/DeclaredFunctionsTracker.php
+                - PHPCSUtils/ContextTracking/NamespaceTracker.php
         -
             message: '`^Strict comparison using === between true and false will always evaluate to false\.$`'
-            path: PHPCSUtils/ContextTracking/NamespaceTracker.php
-            count: 1
+            paths:
+                - PHPCSUtils/ContextTracking/DeclaredFunctionsTracker.php
+                - PHPCSUtils/ContextTracking/NamespaceTracker.php
 
         # Level 5
         # This is by design to test handling of incorrect input.
@@ -108,6 +112,7 @@ parameters:
         -
             message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
             paths:
+                - Tests/ContextTracking/DeclaredFunctionsTracker/ExceptionsTest.php
                 - Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
                 - Tests/TestUtils/UtilityMethodTestCase/SkipJSCSSTestsOnPHPCS4Test.php
                 - Tests/Utils/TypeString/FilterTypesTest.php

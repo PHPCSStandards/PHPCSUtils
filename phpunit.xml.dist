@@ -34,6 +34,7 @@
             PHP/PHPUnit/PHPCS combinations.
             -->
             <file>./Tests/Utils/Namespaces/NamespaceTypeTest.php</file>
+            <directory suffix="Test.php">./Tests/ContextTracking/NamespaceTracker/</directory>
         </testsuite>
         <testsuite name="PHPCSUtils">
             <directory suffix="Test.php">./Tests/</directory>
@@ -43,6 +44,7 @@
             <exclude>Tests/Internal/NoFileCache/GetClearTest.php</exclude>
             <exclude>Tests/Internal/NoFileCache/SetTest.php</exclude>
 
+            <exclude>Tests/ContextTracking/NamespaceTracker/</exclude>
             <exclude>Tests/Utils/Namespaces/NamespaceTypeTest.php</exclude>
         </testsuite>
     </testsuites>
