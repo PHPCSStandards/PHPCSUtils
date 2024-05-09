@@ -123,6 +123,10 @@ Also keep track of the end token of the last seen use statement to allow for add
      * @var array<int, array<string, int|array<string, array<string, string>>|null>>
      *            Key is the token pointer to the effective start of a namespace.
      *            Value is an array with two keys:
+// Change to lastResolved
+// Do not include in the return array ?
+// Maybe: has a useTokens array with the stack pointer to all resolved T_USE tokens included in the result (only import use)
+// Possibly, this array should be in the format `int T_USE ptr => int end of statement ptr`
      *            - 'lastPtr'       int|null                               Stack pointer to the T_USE token for the last
      *                                                                     use statement  for this namespace examined for
      *                                                                     inclusion in the statements array.
@@ -446,6 +450,7 @@ Also keep track of the end token of the last seen use statement to allow for add
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the token was found.
      * @param int                         $stackPtr  The token to get the applioable use statements for.
      *
+// TODO: update for changes
      * @return array<string, int|array<string, array<string, string>>|null> An array with the following keys:
      *             - 'lastPtr'       int|null                               Stack pointer to the T_USE token for the last
      *                                                                      use statement examined for inclusion in the
