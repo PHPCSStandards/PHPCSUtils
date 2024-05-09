@@ -355,10 +355,11 @@ Also keep track of the end token of the last seen use statement to allow for add
         $nsStart = $this->nsContext->getNamespaceInfo($phpcsFile, $stackPtr)['start'];
 
         // Register the use token to the namespace.
+/*
         if (isset($this->seenInFile[$nsStart]) === false) {
             $this->seenInFile[$nsStart] = [];
         }
-
+*/
         $this->seenInFile[$nsStart][] = $stackPtr;
 /*
 
@@ -532,6 +533,13 @@ When retrieving parse & merge the statements and store for later use.
 // Needs to take namespace into account !
 */
 
+
+// Change to lastPtr to lastResolved
+// Do not include in the return array ?
+// Maybe: has a useTokens array with the stack pointer to all resolved T_USE tokens included in the result (only import use)
+// Possibly, this array should be in the format `int T_USE ptr => int end of statement ptr`
+
+
         /*
          * We can now be sure the file has been tracked up to this point.
          * Find and resolve the applicable set of import use statements.
@@ -589,7 +597,7 @@ When retrieving parse & merge the statements and store for later use.
 While this is efficient for the most common case of "all use statements at the start of a file",
 this is not efficient for when the stackPtr is before the last import use statement.
 
-Need to have a good think about how to deal with that better.
+Need to have a good think about how to deal with that better. Then again, the resolving is cached in the Split* function anyway, so who cares ?
 */
 
 /*
