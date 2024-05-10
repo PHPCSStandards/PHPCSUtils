@@ -301,9 +301,9 @@ final class UseStatements
                 case \T_COMMA:
                     if ($name !== '') {
                         if ($useGroup === true) {
-                            $statements[$type][$alias] = $baseName . $name;
+                            $statements[$type][$alias] = \ltrim($baseName, '\\') . $name;
                         } else {
-                            $statements[$type][$alias] = $name;
+                            $statements[$type][$alias] = \ltrim($name, '\\');
                         }
                     }
 

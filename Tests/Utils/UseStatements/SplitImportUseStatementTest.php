@@ -124,6 +124,15 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
                     'const'    => [],
                 ],
             ],
+            'plain-with-leading-backslash' => [
+                'testMarker' => '/* testUsePlainLeadingBackslash */',
+                'expected'   => [
+                    'name'     => ['TheirClass' => 'MyNamespace\TheirClass'],
+                    'function' => [],
+                    'const'    => [],
+                ],
+            ],
+
             'multiple-with-comments' => [
                 'testMarker' => '/* testUseMultipleWithComments */',
                 'expected'   => [
@@ -198,6 +207,17 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
                         'SomeClassA' => 'some\namespacing\SomeClassA',
                         'SomeClassB' => 'some\namespacing\deeper\level\SomeClassB',
                         'C'          => 'some\namespacing\another\level\SomeClassC',
+                    ],
+                    'function' => [],
+                    'const'    => [],
+                ],
+            ],
+            'group-with-leading-backslash' => [
+                'testMarker' => '/* testGroupUseLeadingBackslash */',
+                'expected'   => [
+                    'name'     => [
+                        'SomeClassA' => 'world\namespacing\SomeClassA',
+                        'SomeClassB' => 'world\namespacing\deeper\level\SomeClassB',
                     ],
                     'function' => [],
                     'const'    => [],
