@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Utils;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
+
 /**
  * Utility functions for use when examining type strings.
  *
@@ -303,10 +305,16 @@ final class TypeString
      *                           Defaults to true.
      *
      * @return array<string> List containing all seen types in the order they were encountered.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If passed $typeString is not a string.
      */
     public static function toArray($typeString, $normalize = true)
     {
-        if (\is_string($typeString) === false || \trim($typeString) === '') {
+        if (\is_string($typeString) === false) {
+            throw new RuntimeException('The $typeString parameter must be passed a string');
+        }
+
+        if (\trim($typeString) === '') {
             return [];
         }
 
@@ -341,6 +349,8 @@ final class TypeString
      *                           Defaults to true.
      *
      * @return array<string, string> Associative array with the unique types as both the key as well as the value.
+     *
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If passed $typeString is not a string.
      */
     public static function toArrayUnique($typeString, $normalize = true)
     {

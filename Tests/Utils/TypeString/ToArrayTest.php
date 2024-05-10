@@ -12,7 +12,7 @@ namespace PHPCSUtils\Tests\Utils\TypeString;
 
 use PHPCSUtils\Tests\TypeProviderHelper;
 use PHPCSUtils\Utils\TypeString;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Tests for the \PHPCSUtils\Utils\TypeString::toArray() and
@@ -35,9 +35,12 @@ final class ToArrayTest extends TestCase
      *
      * @return void
      */
-    public function testToArrayReturnsEmptyArrayOnNonStringInput($input)
+    public function testToArrayThrowsExceptionOnNonStringInput($input)
     {
-        $this->assertSame([], TypeString::toArray($input));
+        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
+        $this->expectExceptionMessage('The $typeString parameter must be passed a string');
+
+        TypeString::toArray($input);
     }
 
     /**
@@ -49,9 +52,12 @@ final class ToArrayTest extends TestCase
      *
      * @return void
      */
-    public function testToArrayUniqueReturnsEmptyArrayOnNonStringInput($input)
+    public function testToArrayUniqueThrowsExceptionOnNonStringInput($input)
     {
-        $this->assertSame([], TypeString::toArrayUnique($input));
+        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
+        $this->expectExceptionMessage('The $typeString parameter must be passed a string');
+
+        TypeString::toArrayUnique($input);
     }
 
     /**
