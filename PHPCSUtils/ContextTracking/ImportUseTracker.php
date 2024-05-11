@@ -547,6 +547,7 @@ When retrieving parse & merge the statements and store for later use.
         $nsStart       = $this->nsContext->getNamespaceInfo($phpcsFile, $stackPtr)['start'];
         $skipUpTo      = null;
         $lastResolved  = null;
+        $pointers      = [];
         $effectiveFrom = null;
         $statements    = $this->useImportStatementsDefault;
 
@@ -588,9 +589,22 @@ When retrieving parse & merge the statements and store for later use.
                     break;
                 }
 
-                $statements    = UseStatements::splitAndMergeImportUseStatement($phpcsFile, $usePtr, $statements);
-                $effectiveFrom = ++$endOfStatement;
+                $pointers[$usePtr] = [
+                	'end'      => $endOfStatement,
+                	'resolved' => self::splitImportUseStatement($phpcsFile, $usePtr),
+                ];
+
+//                $statements    = UseStatements::splitAndMergeImportUseStatement($phpcsFile, $usePtr, $statements);
+//                $effectiveFrom = ++$endOfStatement;
             }
+
+// Store the final result somewhere and re-use if last ptr is the same ?
+
+            foreach ($pointers as $usePtr => $info) {
+				$statements = UseStatements::mergeImportUseStatements($statements, $info['resolved']);
+			}
+
+			$effectiveFrom = ($info['end'] + 1);
         }
 
 /*
