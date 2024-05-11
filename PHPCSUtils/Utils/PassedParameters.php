@@ -65,6 +65,9 @@ final class PassedParameters
      *   a short array opener.
      * - If passed a `T_ISSET` or `T_UNSET` stack pointer, it will detect whether those
      *   language constructs have "parameters".
+     * - If passed a `T_EXIT` stack pointer, it will treat it as a function call and detect whether
+     *   it has been passed parameters. When the `T_EXIT` is used as a constant, the return value
+     *   will be `false` (no parameters).
      *
      * @since 1.0.0
      *
@@ -94,7 +97,7 @@ final class PassedParameters
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
         }
 
-        $acceptedTokens = 'function call, array, isset or unset';
+        $acceptedTokens = 'function call, array, isset, unset or exit';
         if (isset(Collections::parameterPassingTokens()[$tokens[$stackPtr]['code']]) === false) {
             throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
@@ -131,7 +134,7 @@ final class PassedParameters
             return true;
         }
 
-        // Deal with function calls, long arrays, isset and unset.
+        // Deal with function calls, long arrays, isset, unset and exit/die.
         // Next non-empty token should be the open parenthesis.
         if ($tokens[$next]['code'] !== \T_OPEN_PARENTHESIS) {
             return false;
