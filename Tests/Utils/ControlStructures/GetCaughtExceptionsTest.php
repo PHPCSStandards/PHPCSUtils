@@ -48,19 +48,6 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test receiving an expected exception when a parse error is encountered.
-     *
-     * @return void
-     */
-    public function testParseError()
-    {
-        $this->expectPhpcsException('Parentheses opener/closer of the T_CATCH could not be determined');
-
-        $target = $this->getTargetToken('/* testLiveCoding */', \T_CATCH);
-        ControlStructures::getCaughtExceptions(self::$phpcsFile, $target);
-    }
-
-    /**
      * Test retrieving the exceptions caught in a `catch` condition.
      *
      * @dataProvider dataGetCaughtExceptions
@@ -218,6 +205,10 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
             ],
             'multi-catch-without-named-exceptions' => [
                 'testMarker'    => '/* testMultiMissingExceptionNames */',
+                'expected'      => [],
+            ],
+            'live coding / parse error' => [
+                'testMarker'    => '/* testLiveCoding */',
                 'expected'      => [],
             ],
         ];
