@@ -123,7 +123,7 @@ Also keep track of the end token of the last seen use statement to allow for add
      * @var array<int, array<string, int|array<string, array<string, string>>|null>>
      *            Key is the token pointer to the effective start of a namespace.
      *            Value is an array with two keys:
-// Change to lastResolved
+// Change to lastResolved + lastProcessed
 // Do not include in the return array ?
 // Maybe: has a useTokens array with the stack pointer to all resolved T_USE tokens included in the result (only import use)
 // Possibly, this array should be in the format `int T_USE ptr => int end of statement ptr`
@@ -547,8 +547,9 @@ When retrieving parse & merge the statements and store for later use.
         $nsStart       = $this->nsContext->getNamespaceInfo($phpcsFile, $stackPtr)['start'];
         $skipUpTo      = null;
         $lastResolved  = null;
-        $pointers      = [];
+        $lastProcessed = null;
         $effectiveFrom = null;
+//        $pointers      = [];
         $statements    = $this->useImportStatementsDefault;
 
         if (isset($this->seenInFileResolved[$nsStart])
@@ -561,7 +562,7 @@ When retrieving parse & merge the statements and store for later use.
         }
 
         if (isset($this->seenInFile[$nsStart]) && $this->seenInFile[$nsStart] !== []) {
-            foreach ($this->seenInFile[$nsStart] as $usePtr) {
+            foreach ($this->seenInFile[$nsStart] as $k => $usePtr) {
                 if ($usePtr >= $stackPtr) {
                     // No need to process use statements which aren't in effect for the stackPtr.
                     break;
@@ -572,15 +573,19 @@ When retrieving parse & merge the statements and store for later use.
                     continue;
                 }
 
-                $lastResolved = $usePtr;
+                $lastProcessed = $usePtr;
+//                $lastResolved  = $usePtr;
 
                 if (UseStatements::isImportUse($phpcsFile, $usePtr) === false) {
+					// Prevent checking this token again if the statements need to be resolved a second time.
+					unset($this->seenInFile[$nsStart][$k]);
                     continue;
                 }
 
                 $endOfStatement = $phpcsFile->findNext([\T_SEMICOLON, \T_CLOSE_TAG], ($usePtr + 1));
                 if ($endOfStatement === false) {
                     // Live coding/parse error.
+//                    $lastProcessed = $usePtr;
                     break;
                 }
 
