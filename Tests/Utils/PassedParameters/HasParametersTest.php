@@ -55,7 +55,7 @@ final class HasParametersTest extends UtilityMethodTestCase
     }
 
     /**
-     * Test receiving an expected exception when T_SELF is passed not preceeded by `new`.
+     * Test receiving an expected exception when a hierarchy keyword is passed not preceeded by `new`.
      *
      * @dataProvider dataNotACallToConstructor
      *

@@ -49,9 +49,9 @@ final class AddMessageTest extends UtilityMethodTestCase
      * @dataProvider dataAddMessage
      * @covers       ::addMessage
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param bool   $isError    Whether to test adding an error or a warning.
-     * @param array  $expected   Expected error details.
+     * @param string                     $testMarker The comment which prefaces the target token in the test file.
+     * @param bool                       $isError    Whether to test adding an error or a warning.
+     * @param array<string, bool|string> $expected   Expected error details.
      *
      * @return void
      */
@@ -82,7 +82,7 @@ final class AddMessageTest extends UtilityMethodTestCase
      *
      * @see testAddMessage() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, bool|string|array<string, bool|string>>>
      */
     public static function dataAddMessage()
     {
@@ -114,9 +114,9 @@ final class AddMessageTest extends UtilityMethodTestCase
      * @dataProvider dataAddFixableMessage
      * @covers       ::addFixableMessage
      *
-     * @param string $testMarker The comment which prefaces the target token in the test file.
-     * @param bool   $isError    Whether to test adding an error or a warning.
-     * @param array  $expected   Expected error details.
+     * @param string                     $testMarker The comment which prefaces the target token in the test file.
+     * @param bool                       $isError    Whether to test adding an error or a warning.
+     * @param array<string, bool|string> $expected   Expected error details.
      *
      * @return void
      */
@@ -148,7 +148,7 @@ final class AddMessageTest extends UtilityMethodTestCase
      *
      * @see testAddFixableMessage() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, bool|string|array<string, bool|string>>>
      */
     public static function dataAddFixableMessage()
     {
@@ -177,9 +177,9 @@ final class AddMessageTest extends UtilityMethodTestCase
     /**
      * Helper method to verify the expected message details.
      *
-     * @param int   $stackPtr The stack pointer on which the error/warning is expected.
-     * @param bool  $isError  Whether to test adding an error or a warning.
-     * @param array $expected Expected error details.
+     * @param int                            $stackPtr The stack pointer on which the error/warning is expected.
+     * @param bool                           $isError  Whether to test adding an error or a warning.
+     * @param array<string, bool|int|string> $expected Expected error details.
      *
      * @return void
      */

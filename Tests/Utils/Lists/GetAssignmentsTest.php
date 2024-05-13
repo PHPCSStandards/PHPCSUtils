@@ -42,8 +42,8 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
      *
      * @dataProvider dataNotListToken
      *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetToken The token type(s) to look for.
+     * @param string     $testMarker  The comment which prefaces the target token in the test file.
+     * @param int|string $targetToken The token type(s) to look for.
      *
      * @return void
      */
@@ -60,7 +60,7 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
      *
      * @see testNotListToken() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string>>
      */
     public static function dataNotListToken()
     {
@@ -81,9 +81,10 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
      *
      * @dataProvider dataGetAssignments
      *
-     * @param string           $testMarker  The comment which prefaces the target token in the test file.
-     * @param int|string|array $targetToken The token type(s) to look for.
-     * @param array|false      $expected    The expected function return value.
+     * @param string                                     $testMarker  The comment which prefaces the target token
+     *                                                                in the test file.
+     * @param int|string                                 $targetToken The token type(s) to look for.
+     * @param array<int, array<string, int|string|bool>> $expected    The expected function return value.
      *
      * @return void
      */
@@ -124,7 +125,7 @@ final class GetAssignmentsTest extends UtilityMethodTestCase
      *
      * @see testGetAssignments() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<int, array<string, int|string|bool>>>>
      */
     public static function dataGetAssignments()
     {

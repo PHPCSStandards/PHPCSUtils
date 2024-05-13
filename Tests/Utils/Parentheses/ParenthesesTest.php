@@ -425,8 +425,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataWalkParentheses
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Expected function output for the various functions.
+     * @param string                   $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, int|false> $expectedResults Expected function output for the various functions.
      *
      * @return void
      */
@@ -456,8 +456,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataWalkParentheses
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Expected function output for the various functions.
+     * @param string                   $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, int|false> $expectedResults Expected function output for the various functions.
      *
      * @return void
      */
@@ -487,8 +487,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataWalkParentheses
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Expected function output for the various functions.
+     * @param string                   $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, int|false> $expectedResults Expected function output for the various functions.
      *
      * @return void
      */
@@ -518,8 +518,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataWalkParentheses
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Expected function output for the various functions.
+     * @param string                   $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, int|false> $expectedResults Expected function output for the various functions.
      *
      * @return void
      */
@@ -549,8 +549,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataWalkParentheses
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Expected function output for the various functions.
+     * @param string                   $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, int|false> $expectedResults Expected function output for the various functions.
      *
      * @return void
      */
@@ -580,8 +580,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataWalkParentheses
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Expected function output for the various functions.
+     * @param string                   $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, int|false> $expectedResults Expected function output for the various functions.
      *
      * @return void
      */
@@ -616,7 +616,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      * @see testGetLastCloser()   For the array format.
      * @see testGetLastOwner()    For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, int|false>>>
      */
     public static function dataWalkParentheses()
     {
@@ -937,9 +937,9 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataHasOwner
      *
-     * @param string $testName        The name of this test as set in the cached $testTokens array.
-     * @param array  $expectedResults Array with the owner token type to search for as key
-     *                                and the expected result as a value.
+     * @param string              $testName        The name of this test as set in the cached $testTokens array.
+     * @param array<string, true> $expectedResults Array with the owner token type to search for as key
+     *                                             and the expected result as a value.
      *
      * @return void
      */
@@ -969,7 +969,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @see testHasOwner() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, true>>>
      */
     public static function dataHasOwner()
     {
@@ -1191,9 +1191,9 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataFirstOwnerIn
      *
-     * @param string    $testName    The name of this test as set in the cached $testTokens array.
-     * @param array     $validOwners Valid owners to test against.
-     * @param int|false $expected    Expected function output
+     * @param string            $testName    The name of this test as set in the cached $testTokens array.
+     * @param array<int|string> $validOwners Valid owners to test against.
+     * @param int|false         $expected    Expected function output
      *
      * @return void
      */
@@ -1213,7 +1213,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @see testFirstOwnerIn() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|array<int|string>|false>>
      */
     public static function dataFirstOwnerIn()
     {
@@ -1282,9 +1282,9 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @dataProvider dataLastOwnerIn
      *
-     * @param string    $testName    The name of this test as set in the cached $testTokens array.
-     * @param array     $validOwners Valid owners to test against.
-     * @param int|false $expected    Expected function output
+     * @param string            $testName    The name of this test as set in the cached $testTokens array.
+     * @param array<int|string> $validOwners Valid owners to test against.
+     * @param int|false         $expected    Expected function output
      *
      * @return void
      */
@@ -1304,7 +1304,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @see testLastOwnerIn() For the array format.
      *
-     * @return array
+     * @return array<string, array<int|string|array<int|string>|false>>
      */
     public static function dataLastOwnerIn()
     {
