@@ -192,10 +192,6 @@ final class UseStatements
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_USE) {
-            throw new RuntimeException('$stackPtr must be of type T_USE');
-        }
-
         if (self::isImportUse($phpcsFile, $stackPtr) === false) {
             throw new RuntimeException('$stackPtr must be an import use statement');
         }
