@@ -10,11 +10,11 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\RuntimeException;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;

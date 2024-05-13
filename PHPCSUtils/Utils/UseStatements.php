@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
@@ -379,7 +378,7 @@ final class UseStatements
         try {
             $useStatements         = self::splitImportUseStatement($phpcsFile, $stackPtr);
             $previousUseStatements = self::mergeImportUseStatements($previousUseStatements, $useStatements);
-        } catch (RuntimeException $e) {
+        } catch (ValueError $e) {
             // Not an import use statement.
         }
 
