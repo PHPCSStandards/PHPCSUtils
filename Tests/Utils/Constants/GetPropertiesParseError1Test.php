@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Constants;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Constants;
 
 /**
@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\Constants;
  *
  * @since 1.1.0
  */
-final class GetPropertiesParseError1Test extends UtilityMethodTestCase
+final class GetPropertiesParseError1Test extends PolyfilledTestCase
 {
 
     /**
@@ -32,7 +32,8 @@ final class GetPropertiesParseError1Test extends UtilityMethodTestCase
      */
     public function testParseError()
     {
-        $this->expectPhpcsException('$stackPtr is not an OO constant');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to an OO constant');
 
         $const = $this->getTargetToken('/* testParseErrorLiveCoding */', \T_CONST);
         Constants::getProperties(self::$phpcsFile, $const);

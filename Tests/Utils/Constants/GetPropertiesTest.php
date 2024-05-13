@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Constants;
 
 use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Constants;
 
 /**
@@ -23,8 +23,36 @@ use PHPCSUtils\Utils\Constants;
  *
  * @since 1.1.0
  */
-final class GetPropertiesTest extends UtilityMethodTestCase
+final class GetPropertiesTest extends PolyfilledTestCase
 {
+
+    /**
+     * Test receiving an exception when passing a non-integer token pointer.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        Constants::getProperties(self::$phpcsFile, false);
+    }
+
+    /**
+     * Test receiving an exception when passing a non-existent token pointer.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
+
+        Constants::getProperties(self::$phpcsFile, 100000);
+    }
 
     /**
      * Test receiving an expected exception when a non const token is passed.
@@ -33,7 +61,8 @@ final class GetPropertiesTest extends UtilityMethodTestCase
      */
     public function testNotAConstException()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_CONST');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_CONST;');
 
         $define = $this->getTargetToken('/* testNotAConstToken */', \T_STRING);
         Constants::getProperties(self::$phpcsFile, $define);
@@ -50,7 +79,8 @@ final class GetPropertiesTest extends UtilityMethodTestCase
      */
     public function testNotOOConstantException($identifier)
     {
-        $this->expectPhpcsException('$stackPtr is not an OO constant');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to an OO constant');
 
         $const = $this->getTargetToken($identifier, \T_CONST);
         Constants::getProperties(self::$phpcsFile, $const);

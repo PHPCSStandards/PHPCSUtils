@@ -10,9 +10,12 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Scopes;
@@ -60,19 +63,29 @@ final class Constants
      *         );
      *         ```
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a `T_CONST` token.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not an OO constant.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_CONST` token.
+     * @throws \PHPCSUtils\Exceptions\ValueError          If the specified position is not an OO constant.
      */
     public static function getProperties(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_CONST) {
-            throw new RuntimeException('$stackPtr must be of type T_CONST');
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
+
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_CONST) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_CONST', $tokens[$stackPtr]['type']);
         }
 
         if (Scopes::isOOConstant($phpcsFile, $stackPtr) === false) {
-            throw new RuntimeException('$stackPtr is not an OO constant');
+            throw ValueError::create(2, '$stackPtr', 'must be the pointer to an OO constant');
         }
 
         if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
@@ -82,7 +95,7 @@ final class Constants
         $assignmentPtr = $phpcsFile->findNext([\T_EQUAL, \T_SEMICOLON, \T_CLOSE_CURLY_BRACKET], ($stackPtr + 1));
         if ($assignmentPtr === false || $tokens[$assignmentPtr]['code'] !== \T_EQUAL) {
             // Probably a parse error. Don't cache the result.
-            throw new RuntimeException('$stackPtr is not an OO constant');
+            throw ValueError::create(2, '$stackPtr', 'must be the pointer to an OO constant');
         }
 
         $namePtr = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($assignmentPtr - 1), ($stackPtr + 1), true);
