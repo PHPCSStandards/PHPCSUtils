@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
 /**
@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\FunctionDeclarations;
  *
  * @since 1.0.0
  */
-final class GetParametersDiffTest extends UtilityMethodTestCase
+final class GetParametersDiffTest extends PolyfilledTestCase
 {
 
     /**
@@ -48,7 +48,10 @@ final class GetParametersDiffTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object'
+        );
 
         FunctionDeclarations::getParameters(self::$phpcsFile, 10000);
     }

@@ -10,9 +10,10 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 
@@ -57,9 +58,9 @@ final class ObjectDeclarations
      *                     or `NULL` if the passed token doesn't exist, the function or
      *                     class is anonymous or in case of a parse error/live coding.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      `T_FUNCTION`, `T_CLASS`, `T_ANON_CLASS`,
-     *                                                      `T_CLOSURE`, `T_TRAIT`, `T_ENUM` or `T_INTERFACE`.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_FUNCTION`, `T_CLASS`,
+     *                                                    `T_ANON_CLASS`, `T_CLOSURE`, `T_TRAIT`, `T_ENUM`
+     *                                                    or `T_INTERFACE` token.
      */
     public static function getName(File $phpcsFile, $stackPtr)
     {
@@ -79,10 +80,8 @@ final class ObjectDeclarations
             && $tokenCode !== \T_TRAIT
             && $tokenCode !== \T_ENUM
         ) {
-            throw new RuntimeException(
-                'Token type "' . $tokens[$stackPtr]['type']
-                . '" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM'
-            );
+            $acceptedTokens = 'T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM';
+            throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
         if ($tokenCode === \T_FUNCTION
@@ -163,15 +162,19 @@ final class ObjectDeclarations
      *               );
      *               ```
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_CLASS` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a T_CLASS token.
      */
     public static function getClassProperties(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_CLASS) {
-            throw new RuntimeException('$stackPtr must be of type T_CLASS');
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_CLASS) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_CLASS', $tokens[$stackPtr]['type']);
         }
 
         $valid      = Collections::classModifierKeywords() + Tokens::$emptyTokens;

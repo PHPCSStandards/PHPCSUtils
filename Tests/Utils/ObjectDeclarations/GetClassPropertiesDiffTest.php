@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
+final class GetClassPropertiesDiffTest extends PolyfilledTestCase
 {
 
     /**
@@ -35,7 +35,10 @@ final class GetClassPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_CLASS');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object'
+        );
 
         ObjectDeclarations::getClassProperties(self::$phpcsFile, 10000);
     }

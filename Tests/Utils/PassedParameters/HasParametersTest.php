@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -21,7 +21,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-final class HasParametersTest extends UtilityMethodTestCase
+final class HasParametersTest extends PolyfilledTestCase
 {
 
     /**
@@ -31,8 +31,9 @@ final class HasParametersTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException(
-            'The hasParameters() method expects a function call, array, isset or unset token to be passed'
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
 
         PassedParameters::hasParameters(self::$phpcsFile, 100000);
@@ -46,8 +47,9 @@ final class HasParametersTest extends UtilityMethodTestCase
      */
     public function testNotAnAcceptedTokenException()
     {
-        $this->expectPhpcsException(
-            'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
         );
 
         $interface = $this->getTargetToken('/* testNotAnAcceptedToken */', \T_INTERFACE);
@@ -66,8 +68,9 @@ final class HasParametersTest extends UtilityMethodTestCase
      */
     public function testNotACallToConstructor($testMarker, $targetType)
     {
-        $this->expectPhpcsException(
-            'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
         );
 
         $self = $this->getTargetToken($testMarker, $targetType);
@@ -106,8 +109,9 @@ final class HasParametersTest extends UtilityMethodTestCase
      */
     public function testNotAShortArray()
     {
-        $this->expectPhpcsException(
-            'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
         );
 
         $self = $this->getTargetToken(

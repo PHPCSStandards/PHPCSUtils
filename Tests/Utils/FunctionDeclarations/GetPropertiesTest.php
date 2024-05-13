@@ -59,7 +59,8 @@ final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      */
     public function testNotAFunctionException($commentString, $targetTokenType)
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or an arrow function');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLOSURE or T_FN');
 
         $next = $this->getTargetToken($commentString, $targetTokenType);
         FunctionDeclarations::getProperties(self::$phpcsFile, $next);

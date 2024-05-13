@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Variables;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Variables;
 
 /**
@@ -25,7 +25,7 @@ use PHPCSUtils\Utils\Variables;
  *
  * @since 1.0.0
  */
-final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
+final class GetMemberPropertiesDiffTest extends PolyfilledTestCase
 {
 
     /**
@@ -35,7 +35,10 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_VARIABLE');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
+        );
 
         Variables::getMemberProperties(self::$phpcsFile, 10000);
     }
@@ -51,7 +54,8 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testNotClassPropertyException($testMarker)
     {
-        $this->expectPhpcsException('$stackPtr is not a class member var');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to a class member var');
 
         $variable = $this->getTargetToken($testMarker, \T_VARIABLE);
         Variables::getMemberProperties(self::$phpcsFile, $variable);

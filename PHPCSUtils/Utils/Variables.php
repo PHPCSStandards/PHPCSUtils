@@ -10,9 +10,11 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Scopes;
@@ -111,21 +113,24 @@ final class Variables
      *               );
      *               ```
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_VARIABLE` token.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      class member variable.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_VARIABLE` token.
+     * @throws \PHPCSUtils\Exceptions\ValueError          If the specified position is not a class member variable.
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_VARIABLE) {
-            throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_VARIABLE) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_VARIABLE', $tokens[$stackPtr]['type']);
         }
 
         if (Scopes::isOOProperty($phpcsFile, $stackPtr) === false) {
-            throw new RuntimeException('$stackPtr is not a class member var');
+            throw ValueError::create(2, '$stackPtr', 'must be the pointer to a class member var');
         }
 
         if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {

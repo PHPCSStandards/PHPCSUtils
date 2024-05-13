@@ -61,7 +61,8 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     public function testUnexpectedTokenException($commentString, $targetTokenType)
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_FUNCTION, T_CLOSURE or T_USE or an arrow function');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLOSURE, T_FN or T_USE');
 
         $next = $this->getTargetToken($commentString, $targetTokenType);
         FunctionDeclarations::getParameters(self::$phpcsFile, $next);
@@ -78,7 +79,8 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     public function testInvalidUse($identifier)
     {
-        $this->expectPhpcsException('$stackPtr was not a valid closure T_USE');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to a closure use statement');
 
         $use = $this->getTargetToken($identifier, [\T_USE]);
         FunctionDeclarations::getParameters(self::$phpcsFile, $use);
