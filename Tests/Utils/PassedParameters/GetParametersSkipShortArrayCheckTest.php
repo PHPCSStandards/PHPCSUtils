@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -93,7 +92,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
          * Note: this also means that the "$expected" value will not be tested as the exception
          * will be received before the code reaches that point.
          */
-        if ($targetType === \T_OPEN_SQUARE_BRACKET && \version_compare(Helper::getVersion(), '3.7.1', '>')) {
+        if ($targetType === \T_OPEN_SQUARE_BRACKET) {
             $this->expectPhpcsException(
                 'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
             );
