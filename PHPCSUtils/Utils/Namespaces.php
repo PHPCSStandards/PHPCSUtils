@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
 use PHPCSUtils\Exceptions\RuntimeException;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
@@ -46,6 +47,7 @@ final class Namespaces
      *                reliably determined what the `T_NAMESPACE` token is used for,
      *                which, in most cases, will mean the code contains a parse/fatal error.
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_NAMESPACE` token.
      */
@@ -71,6 +73,10 @@ final class Namespaces
         }
 
         $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false) {
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
@@ -131,6 +137,7 @@ final class Namespaces
      * @return bool `TRUE` if the token passed is the keyword for a namespace declaration.
      *              `FALSE` if not.
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_NAMESPACE` token.
      */
@@ -152,6 +159,7 @@ final class Namespaces
      *
      * @return bool `TRUE` if the namespace token passed is used as an operator. `FALSE` if not.
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_NAMESPACE` token.
      */
