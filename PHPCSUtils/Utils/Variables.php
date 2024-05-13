@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
@@ -113,6 +114,7 @@ final class Variables
      *               );
      *               ```
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_VARIABLE` token.
      * @throws \PHPCSUtils\Exceptions\ValueError          If the specified position is not a class member variable.
@@ -120,6 +122,10 @@ final class Variables
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false) {
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);

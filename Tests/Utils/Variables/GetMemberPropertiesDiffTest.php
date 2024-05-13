@@ -29,6 +29,19 @@ final class GetMemberPropertiesDiffTest extends PolyfilledTestCase
 {
 
     /**
+     * Test passing a non-integer token pointer.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        Variables::getMemberProperties(self::$phpcsFile, false);
+    }
+
+    /**
      * Test passing a non-existent token pointer.
      *
      * @return void

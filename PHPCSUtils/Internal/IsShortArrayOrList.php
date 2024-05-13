@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
@@ -183,6 +184,7 @@ final class IsShortArrayOrList
      *
      * @return void
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not one of the accepted types.
      */
@@ -190,6 +192,10 @@ final class IsShortArrayOrList
     {
         $tokens       = $phpcsFile->getTokens();
         $openBrackets = StableCollections::$shortArrayListOpenTokensBC;
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false) {
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);

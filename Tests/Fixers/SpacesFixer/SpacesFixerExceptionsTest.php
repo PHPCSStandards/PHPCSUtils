@@ -24,6 +24,32 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
 {
 
     /**
+     * Test passing a non-integer token pointer for the stackPtr token (like an unchecked result of File::findPrevious()).
+     *
+     * @return void
+     */
+    public function testNonIntegerFirstToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        SpacesFixer::checkAndFix(self::$phpcsFile, false, 10, 0, 'Dummy');
+    }
+
+    /**
+     * Test passing a non-integer token pointer for the second token (like an unchecked result of File::findNext()).
+     *
+     * @return void
+     */
+    public function testNonIntegerSecondToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #3 ($secondPtr) must be of type integer, boolean given');
+
+        SpacesFixer::checkAndFix(self::$phpcsFile, 10, false, 0, 'Dummy');
+    }
+
+    /**
      * Test passing a non-existent token pointer for the stackPtr token.
      *
      * @return void

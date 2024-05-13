@@ -42,6 +42,19 @@ final class GetParametersDiffTest extends PolyfilledTestCase
     }
 
     /**
+     * Test passing a non-integer token pointer.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        FunctionDeclarations::getParameters(self::$phpcsFile, false);
+    }
+
+    /**
      * Test passing a non-existent token pointer.
      *
      * @return void

@@ -62,6 +62,32 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
      *
      * @return void
      */
+    public function testNonIntegerStartException()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($start) must be of type integer, boolean given');
+
+        Arrays::getDoubleArrowPtr(self::$phpcsFile, false, 10);
+    }
+
+    /**
+     * Test receiving an expected exception when an invalid end position is passed.
+     *
+     * @return void
+     */
+    public function testNonIntegerEndException()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #3 ($end) must be of type integer, boolean given');
+
+        Arrays::getDoubleArrowPtr(self::$phpcsFile, 0, false);
+    }
+
+    /**
+     * Test receiving an expected exception when an invalid start position is passed.
+     *
+     * @return void
+     */
     public function testInvalidStartPositionException()
     {
         $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');

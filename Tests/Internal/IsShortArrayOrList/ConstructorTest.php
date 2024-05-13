@@ -24,6 +24,19 @@ final class ConstructorTest extends PolyfilledTestCase
 {
 
     /**
+     * Test receiving an exception when passing a non-integer token pointer.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        new IsShortArrayOrList(self::$phpcsFile, false);
+    }
+
+    /**
      * Test receiving an exception when passing a non-existent token pointer.
      *
      * @return void

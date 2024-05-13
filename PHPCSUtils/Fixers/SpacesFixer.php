@@ -14,6 +14,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Exceptions\LogicException;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Utils\Numbers;
@@ -83,6 +84,7 @@ final class SpacesFixer
      *
      * @return void
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr or $secondPtr parameters are not integers.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the tokens passed do not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the tokens passed are whitespace tokens.
      * @throws \PHPCSUtils\Exceptions\ValueError          If `$expectedSpaces` parameter is not a valid value.
@@ -105,6 +107,14 @@ final class SpacesFixer
         /*
          * Validate the received function input.
          */
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
+
+        if (\is_int($secondPtr) === false) {
+            throw TypeError::create(3, '$secondPtr', 'integer', $secondPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false) {
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);

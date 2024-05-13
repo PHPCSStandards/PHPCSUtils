@@ -74,12 +74,11 @@ parameters:
         -
             message: '`^Parameter #[0-9]+ \$\S+ of static method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
             paths:
-                - Tests/BackCompat/Helper/GetCommandLineDataTest.php
-                - Tests/BackCompat/BCFile/GetTokensAsStringTest.php
-                - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
-                - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php
-                - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
-                - Tests/Utils/NamingConventions/IsValidIdentifierNameTest.php
+                - Tests/*
+        -
+            message: '`^Parameter #[0-9]+ \$\S+ of class PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+ [A-Za-z]+ expects [^,]+, \S+ given\.$`'
+            path: Tests/Internal/IsShortArrayOrList/ConstructorTest.php
+            count: 1
 
         # Ignoring as this is fine.
         -

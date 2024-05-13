@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
@@ -25,8 +25,21 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.0.0
  */
-final class GetNameDiffTest extends UtilityMethodTestCase
+final class GetNameDiffTest extends PolyfilledTestCase
 {
+
+    /**
+     * Test receiving an expected exception when a non-integer token is passed.
+     *
+     * @return void
+     */
+    public function testNonIntegerTokenPassed()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        ObjectDeclarations::getName(self::$phpcsFile, false);
+    }
 
     /**
      * Test passing a non-existent token pointer.

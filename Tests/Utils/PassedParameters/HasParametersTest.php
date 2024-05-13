@@ -25,6 +25,19 @@ final class HasParametersTest extends PolyfilledTestCase
 {
 
     /**
+     * Test receiving an expected exception when a non-integer token pointer is passed.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, array given');
+
+        PassedParameters::hasParameters(self::$phpcsFile, []);
+    }
+
+    /**
      * Test receiving an expected exception when an invalid token pointer is passed.
      *
      * @return void

@@ -24,6 +24,19 @@ final class GetCompleteNumberTest extends PolyfilledTestCase
 {
 
     /**
+     * Test receiving an exception when a non-integer stackPtr is passed to the method.
+     *
+     * @return void
+     */
+    public function testNonIntegerTokenException()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, double given');
+
+        Numbers::getCompleteNumber(self::$phpcsFile, 1.5);
+    }
+
+    /**
      * Test receiving an exception when a non-existent token is passed to the method.
      *
      * @return void

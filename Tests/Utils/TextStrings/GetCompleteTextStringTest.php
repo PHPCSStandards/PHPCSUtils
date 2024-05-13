@@ -39,6 +39,23 @@ final class GetCompleteTextStringTest extends PolyfilledTestCase
     ];
 
     /**
+     * Test passing a non-integer token pointer.
+     *
+     * @dataProvider dataExceptions
+     *
+     * @param string $method The name of the method to test the exception for.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken($method)
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        TextStrings::$method(self::$phpcsFile, false);
+    }
+
+    /**
      * Test passing a non-existent token pointer.
      *
      * @dataProvider dataExceptions
