@@ -12,7 +12,7 @@ namespace PHPCSUtils\Tests\Utils\ObjectDeclarations\AnalyzeOOStructure;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  *
  * @since 1.1.0
  */
-final class GetDeclaredMethodsTest extends UtilityMethodTestCase
+final class GetDeclaredMethodsTest extends PolyfilledTestCase
 {
 
     /**
@@ -47,13 +47,30 @@ final class GetDeclaredMethodsTest extends UtilityMethodTestCase
     }
 
     /**
+     * Test receiving an expected exception when a non-integer token is passed.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        ObjectDeclarations::getDeclaredMethods(self::$phpcsFile, false);
+    }
+
+    /**
      * Test receiving an expected exception when a non-existent token is passed.
      *
      * @return void
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
+
         ObjectDeclarations::getDeclaredMethods(self::$phpcsFile, 100000);
     }
 
@@ -64,7 +81,10 @@ final class GetDeclaredMethodsTest extends UtilityMethodTestCase
      */
     public function testNotTargetToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT or T_ENUM;'
+        );
 
         $stackPtr = $this->getTargetToken('/* testUnacceptableToken */', \T_FUNCTION);
         ObjectDeclarations::getDeclaredMethods(self::$phpcsFile, $stackPtr);

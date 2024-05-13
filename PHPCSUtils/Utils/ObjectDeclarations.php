@@ -386,8 +386,9 @@ final class ObjectDeclarations
      *                            If no constants are found or a parse error is encountered,
      *                            an empty array is returned.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token doesn't exist or
-     *                                                      is not an OO keyword token.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not an OO keyword token.
      */
     public static function getDeclaredConstants(File $phpcsFile, $stackPtr)
     {
@@ -407,14 +408,23 @@ final class ObjectDeclarations
      *                            If no cases are found or a parse error is encountered,
      *                            an empty array is returned.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token doesn't exist or
-     *                                                      is not a T_ENUM token.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a T_ENUM token.
      */
     public static function getDeclaredEnumCases(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_ENUM) {
-            throw new RuntimeException('$stackPtr must be of type T_ENUM');
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
+
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_ENUM) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_ENUM', $tokens[$stackPtr]['type']);
         }
 
         return self::analyzeOOStructure($phpcsFile, $stackPtr)['cases'];
@@ -436,8 +446,9 @@ final class ObjectDeclarations
      *                            If no properties are found or a parse error is encountered,
      *                            an empty array is returned.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token doesn't exist or
-     *                                                      is not an OO keyword token.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not an OO keyword token.
      */
     public static function getDeclaredProperties(File $phpcsFile, $stackPtr)
     {
@@ -457,8 +468,9 @@ final class ObjectDeclarations
      *                            If no methods are found or a parse error is encountered,
      *                            an empty array is returned.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token doesn't exist or
-     *                                                      is not an OO keyword token.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not an OO keyword token.
      */
     public static function getDeclaredMethods(File $phpcsFile, $stackPtr)
     {
@@ -481,19 +493,25 @@ final class ObjectDeclarations
      *                                           Each index holds an associative array with the name of the "thing"
      *                                           as the key and the stack pointer to the related token as the value.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token doesn't exist or
-     *                                                      is not an OO keyword token.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not an OO keyword token.
      */
     private static function analyzeOOStructure(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false
-            || isset(Tokens::$ooScopeTokens[$tokens[$stackPtr]['code']]) === false
-        ) {
-            throw new RuntimeException(
-                '$stackPtr must be of type T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT or T_ENUM'
-            );
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
+
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if (isset(Tokens::$ooScopeTokens[$tokens[$stackPtr]['code']]) === false) {
+            $acceptedTokens = 'T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT or T_ENUM';
+            throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
         // Set defaults.
