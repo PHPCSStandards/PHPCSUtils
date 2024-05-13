@@ -21,7 +21,7 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodProperties method.
@@ -32,7 +32,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class GetMethodPropertiesTest extends UtilityMethodTestCase
+class GetMethodPropertiesTest extends PolyfilledTestCase
 {
 
     /**

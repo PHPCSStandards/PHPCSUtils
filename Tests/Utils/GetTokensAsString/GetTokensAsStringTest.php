@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\GetTokensAsString;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\GetTokensAsString;
 
 /**
@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\GetTokensAsString;
  *
  * @since 1.0.0
  */
-final class GetTokensAsStringTest extends UtilityMethodTestCase
+final class GetTokensAsStringTest extends PolyfilledTestCase
 {
 
     /**
@@ -54,7 +54,10 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      */
     public function testNonExistentStart()
     {
-        $this->expectPhpcsException('The $start position for GetTokensAsString methods must exist in the token stack');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($start) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
 
         GetTokensAsString::normal(self::$phpcsFile, 100000, 100010);
     }
@@ -66,7 +69,10 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      */
     public function testNonIntegerStart()
     {
-        $this->expectPhpcsException('The $start position for GetTokensAsString methods must exist in the token stack');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($start) must be a stack pointer which exists in the $phpcsFile object, false given'
+        );
 
         GetTokensAsString::noEmpties(self::$phpcsFile, false, 10);
     }

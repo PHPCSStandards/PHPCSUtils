@@ -10,8 +10,9 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 
 /**
  * Utility functions for working with integer/float tokens.
@@ -125,19 +126,19 @@ final class Numbers
      *               )
      *               ```
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      `T_LNUMBER` or `T_DNUMBER`.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_LNUMBER` or `T_DNUMBER` token.
      */
     public static function getCompleteNumber(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false
-            || ($tokens[$stackPtr]['code'] !== \T_LNUMBER && $tokens[$stackPtr]['code'] !== \T_DNUMBER)
-        ) {
-            throw new RuntimeException(
-                'Token type "' . $tokens[$stackPtr]['type'] . '" is not T_LNUMBER or T_DNUMBER'
-            );
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_LNUMBER && $tokens[$stackPtr]['code'] !== \T_DNUMBER) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_LNUMBER or T_DNUMBER', $tokens[$stackPtr]['type']);
         }
 
         $content = $tokens[$stackPtr]['content'];

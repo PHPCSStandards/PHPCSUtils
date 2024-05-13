@@ -10,9 +10,11 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\MissingArgumentError;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
@@ -75,19 +77,20 @@ final class PassedParameters
      *
      * @return bool
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
-     *                                                      accepted types or doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not one of the accepted types.
      */
     public static function hasParameters(File $phpcsFile, $stackPtr, $isShortArray = null)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false
-            || isset(Collections::parameterPassingTokens()[$tokens[$stackPtr]['code']]) === false
-        ) {
-            throw new RuntimeException(
-                'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
-            );
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        $acceptedTokens = 'function call, array, isset or unset';
+        if (isset(Collections::parameterPassingTokens()[$tokens[$stackPtr]['code']]) === false) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
         // Only accept self/static/parent if preceded by `new` or followed by an open parenthesis.
@@ -97,9 +100,7 @@ final class PassedParameters
             if ($tokens[$prev]['code'] !== \T_NEW
                 && ($next !== false && $tokens[$next]['code'] !== \T_OPEN_PARENTHESIS)
             ) {
-                throw new RuntimeException(
-                    'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
-                );
+                throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
             }
         }
 
@@ -107,9 +108,7 @@ final class PassedParameters
             && $isShortArray !== true
             && Arrays::isShortArray($phpcsFile, $stackPtr) === false
         ) {
-            throw new RuntimeException(
-                'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
-            );
+            throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
         if ($next === false) {
@@ -195,8 +194,8 @@ final class PassedParameters
      *                     _The key for named parameters will be the parameter name._
      *               If no parameters/array items are found, an empty array will be returned.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
-     *                                                      accepted types or doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not one of the accepted types.
      */
     public static function getParameters(File $phpcsFile, $stackPtr, $limit = 0, $isShortArray = null)
     {
@@ -385,10 +384,10 @@ final class PassedParameters
      *                                         See {@see PassedParameters::getParameters()} for the format of the
      *                                         returned (single-dimensional) array.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
-     *                                                      accepted types or doesn't exist.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If a function call parameter is requested and
-     *                                                      the `$paramName` parameter is not passed.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr  If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType  If the token passed is not one of the accepted types.
+     * @throws \PHPCSUtils\Exceptions\MissingArgumentError If a function call parameter is requested and
+     *                                                     the `$paramName` parameter is not passed.
      */
     public static function getParameter(File $phpcsFile, $stackPtr, $paramOffset, $paramNames = [])
     {
@@ -430,8 +429,8 @@ final class PassedParameters
      *
      * @return int
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
-     *                                                      accepted types or doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not one of the accepted types.
      */
     public static function getParameterCount(File $phpcsFile, $stackPtr)
     {
@@ -470,10 +469,9 @@ final class PassedParameters
      *                                         See {@see PassedParameters::getParameters()} for the format of the
      *                                         returned (single-dimensional) array.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the `$paramNames` parameter is not passed
-     *                                                      and the requested parameter was not passed
-     *                                                      as a positional parameter in the function call
-     *                                                      being examined.
+     * @throws \PHPCSUtils\Exceptions\MissingArgumentError If the `$paramNames` parameter is not passed and the
+     *                                                     requested parameter was not passed as a positional
+     *                                                     parameter in the function call being examined.
      */
     public static function getParameterFromStack(array $parameters, $paramOffset, $paramNames)
     {
@@ -500,9 +498,7 @@ final class PassedParameters
         }
 
         if (empty($paramNames) === true) {
-            throw new RuntimeException(
-                'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
-            );
+            throw MissingArgumentError::create(3, '$paramNames', 'to allow for support for PHP 8 named parameters');
         }
 
         return false;

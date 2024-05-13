@@ -43,8 +43,9 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
     public function testHasParametersDontSkipShortArrayCheck($testMarker, $targetType, $expectException)
     {
         if ($expectException === true) {
-            $this->expectPhpcsException(
-                'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+            $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+            $this->expectExceptionMessage(
+                'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
             );
         }
 
@@ -93,8 +94,9 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
          * will be received before the code reaches that point.
          */
         if ($targetType === \T_OPEN_SQUARE_BRACKET) {
-            $this->expectPhpcsException(
-                'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
+            $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+            $this->expectExceptionMessage(
+                'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
             );
         }
 

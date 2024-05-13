@@ -10,10 +10,11 @@
 
 namespace PHPCSUtils\Internal;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Internal\StableCollections;
@@ -182,20 +183,21 @@ final class IsShortArrayOrList
      *
      * @return void
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the token passed is not one of the
-     *                                                      accepted types or doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not one of the accepted types.
      */
     public function __construct(File $phpcsFile, $stackPtr)
     {
         $tokens       = $phpcsFile->getTokens();
         $openBrackets = StableCollections::$shortArrayListOpenTokensBC;
 
-        if (isset($tokens[$stackPtr]) === false
-            || isset($openBrackets[$tokens[$stackPtr]['code']]) === false
-        ) {
-            throw new RuntimeException(
-                'The IsShortArrayOrList class expects to be passed a T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET token.'
-            );
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if (isset($openBrackets[$tokens[$stackPtr]['code']]) === false) {
+            $acceptedTokens = 'T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET';
+            throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
         $this->phpcsFile = $phpcsFile;

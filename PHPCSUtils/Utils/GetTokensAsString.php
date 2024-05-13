@@ -10,9 +10,9 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
 
 /**
  * Utility functions to retrieve the content of a set of tokens as a string.
@@ -43,7 +43,7 @@ final class GetTokensAsString
      *
      * @return string The token contents.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     public static function normal(File $phpcsFile, $start, $end)
     {
@@ -72,7 +72,7 @@ final class GetTokensAsString
      *
      * @return string The token contents.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     public static function tabReplaced(File $phpcsFile, $start, $end)
     {
@@ -103,7 +103,7 @@ final class GetTokensAsString
      *
      * @return string The token contents.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     public static function origContent(File $phpcsFile, $start, $end)
     {
@@ -124,7 +124,7 @@ final class GetTokensAsString
      *
      * @return string The token contents stripped off comments.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     public static function noComments(File $phpcsFile, $start, $end)
     {
@@ -148,7 +148,7 @@ final class GetTokensAsString
      *
      * @return string The token contents stripped off comments and whitespace.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     public static function noEmpties(File $phpcsFile, $start, $end)
     {
@@ -172,7 +172,7 @@ final class GetTokensAsString
      *
      * @return string The token contents with compacted whitespace and optionally stripped off comments.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     public static function compact(File $phpcsFile, $start, $end, $stripComments = false)
     {
@@ -200,7 +200,7 @@ final class GetTokensAsString
      *
      * @return string The token contents.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified start position does not exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the $start token does not exist in the $phpcsFile.
      */
     protected static function getString(
         File $phpcsFile,
@@ -214,9 +214,7 @@ final class GetTokensAsString
         $tokens = $phpcsFile->getTokens();
 
         if (\is_int($start) === false || isset($tokens[$start]) === false) {
-            throw new RuntimeException(
-                'The $start position for GetTokensAsString methods must exist in the token stack'
-            );
+            throw OutOfBoundsStackPtr::create(2, '$start', $start);
         }
 
         if (\is_int($end) === false || $end < $start) {

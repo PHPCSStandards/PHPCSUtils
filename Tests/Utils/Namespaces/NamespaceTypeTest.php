@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Namespaces;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Namespaces;
 
 /**
@@ -24,7 +24,7 @@ use PHPCSUtils\Utils\Namespaces;
  *
  * @since 1.0.0
  */
-final class NamespaceTypeTest extends UtilityMethodTestCase
+final class NamespaceTypeTest extends PolyfilledTestCase
 {
 
     /**
@@ -34,7 +34,10 @@ final class NamespaceTypeTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_NAMESPACE');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
 
         Namespaces::getType(self::$phpcsFile, 100000);
     }
@@ -46,7 +49,10 @@ final class NamespaceTypeTest extends UtilityMethodTestCase
      */
     public function testNonNamespaceToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_NAMESPACE');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type T_NAMESPACE;'
+        );
 
         Namespaces::getType(self::$phpcsFile, 0);
     }

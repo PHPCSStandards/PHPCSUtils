@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
 use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\TextStrings;
 
 /**
@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\TextStrings;
  *
  * @since 1.0.0
  */
-final class GetCompleteTextStringTest extends UtilityMethodTestCase
+final class GetCompleteTextStringTest extends PolyfilledTestCase
 {
 
     /**
@@ -49,9 +49,9 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken($method)
     {
-        $this->expectPhpcsException(
-            '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
-            . ' or T_DOUBLE_QUOTED_STRING'
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
 
         TextStrings::$method(self::$phpcsFile, 100000);
@@ -68,9 +68,10 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      */
     public function testNotATextStringException($method)
     {
-        $this->expectPhpcsException(
-            '$stackPtr must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
-            . ' or T_DOUBLE_QUOTED_STRING'
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
+            . ' or T_DOUBLE_QUOTED_STRING;'
         );
 
         $next = $this->getTargetToken('/* testNotATextString */', \T_RETURN);
@@ -89,7 +90,8 @@ final class GetCompleteTextStringTest extends UtilityMethodTestCase
      */
     public function testNotFirstTextStringException($method)
     {
-        $this->expectPhpcsException('$stackPtr must be the start of the text string');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the start of the text string');
 
         $next = $this->getTargetToken(
             '/* testNotFirstTextStringToken */',

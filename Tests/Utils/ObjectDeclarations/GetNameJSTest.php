@@ -54,7 +54,10 @@ final class GetNameJSTest extends BCFile_GetDeclarationNameJSTest
      */
     public function testInvalidTokenPassed()
     {
-        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM'
+        );
 
         $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
         ObjectDeclarations::getName(self::$phpcsFile, $target);

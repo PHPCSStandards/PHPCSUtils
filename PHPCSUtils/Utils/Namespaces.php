@@ -14,6 +14,8 @@ use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Conditions;
@@ -44,8 +46,8 @@ final class Namespaces
      *                reliably determined what the `T_NAMESPACE` token is used for,
      *                which, in most cases, will mean the code contains a parse/fatal error.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
-     *                                                      not a `T_NAMESPACE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_NAMESPACE` token.
      */
     public static function getType(File $phpcsFile, $stackPtr)
     {
@@ -70,8 +72,12 @@ final class Namespaces
 
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false || $tokens[$stackPtr]['code'] !== \T_NAMESPACE) {
-            throw new RuntimeException('$stackPtr must be of type T_NAMESPACE');
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_NAMESPACE) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_NAMESPACE', $tokens[$stackPtr]['type']);
         }
 
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
@@ -125,8 +131,8 @@ final class Namespaces
      * @return bool `TRUE` if the token passed is the keyword for a namespace declaration.
      *              `FALSE` if not.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
-     *                                                      not a `T_NAMESPACE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_NAMESPACE` token.
      */
     public static function isDeclaration(File $phpcsFile, $stackPtr)
     {
@@ -146,8 +152,8 @@ final class Namespaces
      *
      * @return bool `TRUE` if the namespace token passed is used as an operator. `FALSE` if not.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is
-     *                                                      not a `T_NAMESPACE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_NAMESPACE` token.
      */
     public static function isOperator(File $phpcsFile, $stackPtr)
     {

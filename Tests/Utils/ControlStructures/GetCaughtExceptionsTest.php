@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ControlStructures;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ControlStructures;
 
 /**
@@ -20,7 +20,7 @@ use PHPCSUtils\Utils\ControlStructures;
  *
  * @since 1.0.0
  */
-final class GetCaughtExceptionsTest extends UtilityMethodTestCase
+final class GetCaughtExceptionsTest extends PolyfilledTestCase
 {
 
     /**
@@ -30,7 +30,10 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_CATCH');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object'
+        );
         ControlStructures::getCaughtExceptions(self::$phpcsFile, 10000);
     }
 
@@ -41,7 +44,8 @@ final class GetCaughtExceptionsTest extends UtilityMethodTestCase
      */
     public function testNotCatch()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_CATCH');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_CATCH; T_TRY given');
 
         $target = $this->getTargetToken('/* testNotCatch */', \T_TRY);
         ControlStructures::getCaughtExceptions(self::$phpcsFile, $target);

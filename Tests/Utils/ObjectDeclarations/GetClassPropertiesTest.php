@@ -58,6 +58,25 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
     }
 
     /**
+     * Test receiving an expected exception when a non class token is passed.
+     *
+     * @dataProvider dataNotAClassException
+     *
+     * @param string     $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string $tokenType  The type of token to look for after the marker.
+     *
+     * @return void
+     */
+    public function testNotAClassException($testMarker, $tokenType)
+    {
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_CLASS');
+
+        $target = $this->getTargetToken($testMarker, $tokenType);
+        ObjectDeclarations::getClassProperties(self::$phpcsFile, $target);
+    }
+
+    /**
      * Test retrieving the properties for a class declaration.
      *
      * @dataProvider dataGetClassProperties
