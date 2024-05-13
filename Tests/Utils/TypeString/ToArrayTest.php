@@ -37,8 +37,8 @@ final class ToArrayTest extends TestCase
      */
     public function testToArrayThrowsExceptionOnNonStringInput($input)
     {
-        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
-        $this->expectExceptionMessage('The $typeString parameter must be passed a string');
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #1 ($typeString) must be of type string,');
 
         TypeString::toArray($input);
     }
@@ -54,8 +54,8 @@ final class ToArrayTest extends TestCase
      */
     public function testToArrayUniqueThrowsExceptionOnNonStringInput($input)
     {
-        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
-        $this->expectExceptionMessage('The $typeString parameter must be passed a string');
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #1 ($typeString) must be of type string,');
 
         TypeString::toArrayUnique($input);
     }
