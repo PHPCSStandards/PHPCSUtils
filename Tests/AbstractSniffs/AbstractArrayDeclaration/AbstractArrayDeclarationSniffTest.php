@@ -41,6 +41,41 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     ];
 
     /**
+     * Test receiving an expected exception when an invalid token pointer is passed.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
+
+        $mockObj = $this->getMockedClassUnderTest();
+
+        $mockObj->expects($this->never())
+            ->method('processOpenClose');
+
+        $mockObj->expects($this->never())
+            ->method('processKey');
+
+        $mockObj->expects($this->never())
+            ->method('processNoKey');
+
+        $mockObj->expects($this->never())
+            ->method('processArrow');
+
+        $mockObj->expects($this->never())
+            ->method('processValue');
+
+        $mockObj->expects($this->never())
+            ->method('processComma');
+
+        $mockObj->process(self::$phpcsFile, 100000);
+    }
+
+    /**
      * Test that the abstract sniff correctly bows out when presented with a token which is not an array.
      *
      * @return void
