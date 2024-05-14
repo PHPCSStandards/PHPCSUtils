@@ -41,6 +41,39 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     ];
 
     /**
+     * Test receiving an expected exception when an non-integer token pointer is passed.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        $mockObj = $this->getMockedClassUnderTest();
+
+        $mockObj->expects($this->never())
+            ->method('processOpenClose');
+
+        $mockObj->expects($this->never())
+            ->method('processKey');
+
+        $mockObj->expects($this->never())
+            ->method('processNoKey');
+
+        $mockObj->expects($this->never())
+            ->method('processArrow');
+
+        $mockObj->expects($this->never())
+            ->method('processValue');
+
+        $mockObj->expects($this->never())
+            ->method('processComma');
+
+        $mockObj->process(self::$phpcsFile, false);
+    }
+
+    /**
      * Test receiving an expected exception when an invalid token pointer is passed.
      *
      * @return void
