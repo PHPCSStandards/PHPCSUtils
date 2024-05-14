@@ -55,6 +55,13 @@ if ($phpcsDir !== false && \file_exists($phpcsDir . '/autoload.php')) {
 
     // Pre-load the token back-fills to prevent undefined constant notices.
     require_once $phpcsDir . '/src/Util/Tokens.php';
+
+    if (defined('T_TYPE_OPEN_PARENTHESIS') === false) {
+        define('T_TYPE_OPEN_PARENTHESIS', 'PHPCS_T_TYPE_OPEN_PARENTHESIS');
+    }
+    if (defined('T_TYPE_CLOSE_PARENTHESIS') === false) {
+        define('T_TYPE_CLOSE_PARENTHESIS', 'PHPCS_T_TYPE_CLOSE_PARENTHESIS');
+    }
 } else {
     echo 'Uh oh... can\'t find PHPCS.
 
