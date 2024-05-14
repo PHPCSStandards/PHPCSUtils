@@ -28,6 +28,7 @@ parameters:
             message: '`^Cannot instantiate class PHPCSUtils\\ContextTracking\\[A-Za-z]+ via private constructor PHPCSUtils\\ContextTracking\\[A-Za-z]+::__construct\(\)\.$`'
             paths:
                 - Tests/ContextTracking/DeclaredFunctionsTracker/ExceptionsTest.php
+                - Tests/ContextTracking/ImportUseTracker/ExceptionsTest.php
                 - Tests/ContextTracking/NamespaceTracker/ExceptionsTest.php
 
         # Level 1
@@ -91,11 +92,13 @@ parameters:
             message: '`^Static property PHPCSUtils\\ContextTracking\\[A-Za-z]+::\$instance \(PHPCSUtils\\ContextTracking\\[A-Za-z]+\) in isset\(\) is not nullable\.$`'
             paths:
                 - PHPCSUtils/ContextTracking/DeclaredFunctionsTracker.php
+                - PHPCSUtils/ContextTracking/ImportUseTracker.php
                 - PHPCSUtils/ContextTracking/NamespaceTracker.php
         -
             message: '`^Strict comparison using === between true and false will always evaluate to false\.$`'
             paths:
                 - PHPCSUtils/ContextTracking/DeclaredFunctionsTracker.php
+                - PHPCSUtils/ContextTracking/ImportUseTracker.php
                 - PHPCSUtils/ContextTracking/NamespaceTracker.php
 
         # Level 5

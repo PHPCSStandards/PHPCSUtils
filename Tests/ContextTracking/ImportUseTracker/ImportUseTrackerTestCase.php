@@ -179,7 +179,9 @@ abstract class ImportUseTrackerTestCase extends UtilityMethodTestCase
             }
         }
 
-        $this->assertSame(\current($expected)['statements'], $tracker->getUseStatements(self::$phpcsFile, $stackPtr));
+        $currentSeenInFileResolved = \current($expected);
+        $this->assertNotFalse($currentSeenInFileResolved);
+        $this->assertSame($currentSeenInFileResolved['statements'], $tracker->getUseStatements(self::$phpcsFile, $stackPtr));
     }
 
     /**

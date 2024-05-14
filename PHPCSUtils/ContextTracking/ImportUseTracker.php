@@ -10,16 +10,24 @@
 
 namespace PHPCSUtils\ContextTracking;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\ContextTracking\NamespaceTracker;
 use PHPCSUtils\ContextTracking\Tracker;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\UseStatements;
 
 /**
  * Import use statement tracker.
+ *
+ * This tracker is intended to allow for finding if there is an active import use statement for
+ * any "name" used inline in the code.
+ *
+ * This tracker is not intended for sniffs which want to _examine_ import use statements. Those sniffs
+ * should listen to the `T_USE` token themselves, though, that can, of course, be combined with using
+ * this tracker.
  *
  * Example code:
  * ```php
@@ -33,16 +41,16 @@ use PHPCSUtils\Utils\UseStatements;
  *
  *     public function __construct()
  *     {
- *         $this->useContext = new ImportUseTracker();
+ *         $this->useContext = ImportUseTracker::getInstance();
  *     }
  *
  *     public function register()
  *     {
- *         $targets  = [ T_... => T_... ];
- *         // Note: only use array union if the above declared base $targets array has token constants as keys.
- *         // Otherwise, use `array_unique(array_merge($targets, $this->useContext->getTargetTokens()))` or
- *         // start with the tracker target tokens and add your own targets to that base array.
- *         $targets += $this->useContext->getTargetTokens();
+ *         $targets = $this->useContext->getTargetTokens();
+ *
+ *         // Add the tokens your own sniff targets.
+ *         $targets[] = T_...
+ *
  *         return $targets;
  *     }
  *
@@ -55,16 +63,16 @@ use PHPCSUtils\Utils\UseStatements;
  *         // Do your own processing.
  *
  *         // You can now use the `ImportUseTracker::getUseStatements()` method to get access to the applicable
- *         // import use statements for any token within the current file.
- *
- *         if (isset($this->useContext->getUseStatements()['function'][$functionName]) === true) {
- *             // Do something relevant to function calls for which there is an applicable import use statement.
- *         } else {
- *             // Do something relevant to function calls which don't have an import use statement.
- *         }
+ *         // import use statements at any point within the current file.
+ *         // Note: the tracker has no opinion on whether use statements are relevant for the `$stackPtr` !
+ *         $currentUseStatements = $this->useContext->getUseStatements($phpcsFile, $stackPtr);
  *     }
  * }
  * ```
+ *
+ * Pro-tip: this Tracker uses the {@see PHPCSUtils\ContextTracking\NamespaceTracker}, so if your sniff _also_
+ * uses the `NamespaceTracker`, you only need to call the `track()` method for this Tracker.
+ * The `track()` method for the `NamespaceTracker` will be invoked automatically by this Tracker.
  *
  * @since 1.1.0
  */
@@ -97,8 +105,8 @@ Also keep track of the end token of the last seen use statement to allow for add
     /**
      * Keep track of which T_USE tokens were seen per namespace.
      *
-     * Note: the T_USE tokens in these arrays may not necessarily be token pointers for import use statements.
-     * The non-import use tokens will only be filtered out when the statements are being resolved (performance tweak).
+     * {@internal The T_USE tokens in these arrays may not necessarily be token pointers for import use statements.
+     * The non-import use tokens will only be filtered out when the statements are being resolved (performance tweak).}
      *
      * @since 1.1.0
      *
@@ -116,8 +124,8 @@ Also keep track of the end token of the last seen use statement to allow for add
      *            Key is the token pointer to the effective start of a namespace.
      *            Value is an array with two keys:
      *            - 'lastPtr'       int|null                               Stack pointer to the T_USE token for the last
-     *                                                                     use statement  for this namespace examined for inclusion in the
-     *                                                                     statements array.
+     *                                                                     use statement  for this namespace examined for
+     *                                                                     inclusion in the statements array.
      *                                                                     Note: This could be the pointer to a
      *                                                                     trait/closure use statement.
      *                                                                     NULL if no statements were resolved.
@@ -251,11 +259,8 @@ Also keep track of the end token of the last seen use statement to allow for add
      *
      * @since 1.1.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the
-     *                                               token was found.
-     * @param int                         $stackPtr  The position in the PHP_CodeSniffer
-     *                                               file's token stack where the token
-     *                                               was found.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the token was found.
+     * @param int                         $stackPtr  The current position in the PHP_CodeSniffer file.
      *
      * @return void
      */
@@ -270,11 +275,17 @@ Also keep track of the end token of the last seen use statement to allow for add
             $this->currentFile = $fileName;
         }
 
+        $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false || isset($tokens[$stackPtr]) === false) {
+            // Invalid stack pointer, nothing to track. Ignore.
+            return;
+        }
+
         if ($this->lastSeenPtr >= $stackPtr) {
             /*
              * Don't do anything if this token has been handled already.
              * This is possible:
-// ?             * - when we are in a scoped namespace;
              * - when we've previously skipped to the end of something, like a closed scope;
              * - when a sniff has already called the `getUseStatements[Info]()` method for a later token;
              * - or when the tracker has been injected into another tracker.
@@ -282,12 +293,10 @@ Also keep track of the end token of the last seen use statement to allow for add
             return;
         }
 
-        // Record the last seen stackPtr.
-        $this->lastSeenPtr = $stackPtr;
-
         $this->nsContext->track($phpcsFile, $stackPtr);
 
-        $tokens = $phpcsFile->getTokens();
+        // Record the last seen stackPtr.
+        $this->lastSeenPtr = $stackPtr;
 
         /*
          * No need to look any further unless this is a T_USE token.
@@ -434,8 +443,7 @@ Also keep track of the end token of the last seen use statement to allow for add
      *
      * @since 1.1.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the
-     *                                               token was found.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the token was found.
      * @param int                         $stackPtr  The token to get the applioable use statements for.
      *
      * @return array<string, int|array<string, array<string, string>>|null> An array with the following keys:
@@ -452,22 +460,30 @@ Also keep track of the end token of the last seen use statement to allow for add
      *                                                                      last resolved import use statement takes effect.
      *                                                                      NULL if no statements were resolved.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the passed $stackPtr doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      */
     public function getUseStatementsInfo(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if (isset($tokens[$stackPtr]) === false) {
-            throw new RuntimeException('$stackPtr does not exist in the current file');
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
         }
 
-        // If this file hasn't been tracked yet, we'll have to track it now...
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        // Have we seen this file yet ?
         $fileName = $phpcsFile->getFilename();
         if ($fileName !== $this->currentFile) {
             $this->reset();
             $this->currentFile = $fileName;
         }
 
+        /*
+         * If this file hasn't been tracked yet, we'll have to track it now...
+         */
         if ($this->lastSeenPtr !== -1 && $this->lastSeenPtr < $stackPtr) {
             /*
              * Performance tweak: Was the last seen tracking token in a curly brace scope ?
@@ -497,8 +513,12 @@ Also keep track of the end token of the last seen use statement to allow for add
                     $i = $this->lastSeenPtr;
                 }
             }
-        }
 
+            // Remember that we walked up to this point.
+            if ($this->lastSeenPtr < $stackPtr) {
+                $this->lastSeenPtr = $stackPtr;
+            }
+        }
 
 /*
 When retrieving parse & merge the statements and store for later use.
@@ -599,15 +619,15 @@ Then again: maybe the "is import use" check should be moved to the tracker as ha
      *
      * @since 1.1.0
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the
-     *                                               token was found.
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The PHP_CodeSniffer file where the token was found.
      * @param int                         $stackPtr  The token to get the applicable use statements for.
      *
      * @return array<string, array<string, string>> Use statements array.
      *                                              See {@see UseStatements::splitImportUseStatement()}
      *                                              for more details about the array format.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the passed $stackPtr doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      */
     public function getUseStatements(File $phpcsFile, $stackPtr)
     {

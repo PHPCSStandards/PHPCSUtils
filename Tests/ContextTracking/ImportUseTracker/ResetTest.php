@@ -72,7 +72,7 @@ final class ResetTest extends UtilityMethodTestCase
         $tracker->getUseStatements(self::$phpcsFile, $stackPtr);
 
         // Test that the tracker has tracked the use statements in the first file correctly.
-        $this->verifyPropertiesAfterProcessingFirstFile();
+        $this->verifyPropertiesAfterProcessingFirstFile($stackPtr);
 
         // Get a second file to process.
         $sharedRuleSet  = self::$phpcsFile->ruleset;
@@ -150,7 +150,7 @@ final class ResetTest extends UtilityMethodTestCase
         $tracker->getUseStatements(self::$phpcsFile, $stackPtr);
 
         // Test that the tracker has tracked the use statements in the first file correctly.
-        $this->verifyPropertiesAfterProcessingFirstFile();
+        $this->verifyPropertiesAfterProcessingFirstFile($stackPtr);
 
         // Get a second file to process.
         $sharedRuleSet  = self::$phpcsFile->ruleset;
@@ -227,8 +227,9 @@ final class ResetTest extends UtilityMethodTestCase
             }
         }
 
-        // Test that the tracker has tracked the use statements of the first file correctly.
-        $this->verifyPropertiesAfterProcessingFirstFile(false);
+        // Test that the tracker has tracked the use statements in the first file correctly.
+        $stackPtr = $this->getTargetToken('/* testSecondNamespace */', \T_USE);
+        $this->verifyPropertiesAfterProcessingFirstFile($stackPtr, false);
 
         // Get a second file to process.
         $sharedRuleSet  = self::$phpcsFile->ruleset;
@@ -305,11 +306,12 @@ final class ResetTest extends UtilityMethodTestCase
     /**
      * Helper method to verify the class properties are set after processing the first file.
      *
+     * @param int  $lastSeenPtr   Expected `$lastSeenPtr` value.
      * @param bool $checkResolved Whether to also check the $seenInFileResolved property.
      *
      * @return void
      */
-    private function verifyPropertiesAfterProcessingFirstFile($checkResolved = true)
+    private function verifyPropertiesAfterProcessingFirstFile($lastSeenPtr, $checkResolved = true)
     {
         $tracker   = ImportUseTracker::getInstance();
         $php8Names = parent::usesPhp8NameTokens();
@@ -321,12 +323,14 @@ final class ResetTest extends UtilityMethodTestCase
             $tracker,
             'Failed asserting that the currentFile property is correct after processing the first file'
         );
+
         $this->assertPropertySame(
-            ($php8Names === true) ? 30 : 32,
+            $lastSeenPtr,
             'lastSeenPtr',
             $tracker,
             'Failed asserting that the lastSeenPtr property is correct after processing the first file'
         );
+
         $this->assertPropertySame(
             [
                 ($php8Names === true) ? 8 : 10  => ($php8Names === true) ? [10] : [12],
