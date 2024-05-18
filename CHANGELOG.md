@@ -9,6 +9,52 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 
 _Nothing yet._
 
+## [1.0.12] - 2024-05-20
+
+### Added
+
+#### PHPCS BackCompat
+
+* `BCFile::getMemberProperties()`: sync with PHPCS 3.10.0 - support for PHP 8.2 DNF types. [#604]
+* `BCFile::getMethodProperties()`: sync with PHPCS 3.10.0 - support for PHP 8.2 DNF types. [#604]
+* `BCFile::getMethodParameters()`: sync with PHPCS 3.10.0 - support for PHP 8.2 DNF types. [#604]
+
+#### Utils
+
+* `FunctionDeclarations::getParameters()`: support for PHP 8.2 DNF types. [#604]
+* `FunctionDeclarations::getProperties()`: support for PHP 8.2 DNF types. [#604]
+* `Variables::getMemberProperties()`: support for PHP 8.2 DNF types. [#604]
+
+### Changed
+
+#### Tokens
+
+* `Collections::parameterTypeTokens()`, `Collections::propertyTypeTokens()` and `Collections::returnTypeTokens()`: now include the new `T_TYPE_OPEN_PARENTHESIS` and `T_TYPE_CLOSE_PARENTHESIS` tokens for PHP 8.2 DNF type support. [#604]
+
+#### Utils
+
+* `ControlStructures::getCaughtExceptions()`: will now silently ignore parse errors in the code under scan which prevent the method from analyzing a `catch` statement. [#594]
+    The method will now return an empty array instead of throwing a `PHP_CodeSniffer\Exceptions\RuntimeException`.
+
+#### Other
+
+* Dropped support for [PHP_CodeSniffer] < 3.10.0. [#603]
+    Please ensure you run `composer update phpcsstandards/phpcsutils --with-dependencies` to benefit from this.
+* Various housekeeping and documentation improvements.
+
+### Fixed
+
+#### Utils
+
+* `UseStatements::splitImportUseStatement()`: the values in the return array will now never include a leading backslash. [#590]
+    Previously the behaviour around import `use` statements declared with a leading backslash was undefined and the backslash would be included in the return value.
+
+[#590]: https://github.com/PHPCSStandards/PHPCSUtils/pull/590
+[#594]: https://github.com/PHPCSStandards/PHPCSUtils/pull/594
+[#603]: https://github.com/PHPCSStandards/PHPCSUtils/pull/603
+[#604]: https://github.com/PHPCSStandards/PHPCSUtils/pull/604
+
+
 ## [1.0.11] - 2024-04-24
 
 ### Changed
@@ -1005,6 +1051,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.0.12]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.11...1.0.12
 [1.0.11]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.10...1.0.11
 [1.0.10]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.9...1.0.10
 [1.0.9]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.8...1.0.9
