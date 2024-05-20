@@ -75,6 +75,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
             'propertyModifierKeywords',
             'shortArrayTokens',
             'shortListTokens',
+            'ternaryOperators',
             'textStringStartTokens',
         ];
 

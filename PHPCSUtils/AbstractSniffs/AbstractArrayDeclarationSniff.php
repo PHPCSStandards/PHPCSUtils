@@ -118,8 +118,6 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         \T_DNUMBER                  => \T_DNUMBER,
         \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
         \T_STRING_CONCAT            => \T_STRING_CONCAT,
-        \T_INLINE_THEN              => \T_INLINE_THEN,
-        \T_INLINE_ELSE              => \T_INLINE_ELSE,
         \T_BOOLEAN_NOT              => \T_BOOLEAN_NOT,
     ];
 
@@ -143,6 +141,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         $this->acceptedTokens += Tokens::$castTokens;
         $this->acceptedTokens += Tokens::$bracketTokens;
         $this->acceptedTokens += Tokens::$heredocTokens;
+        $this->acceptedTokens += Collections::ternaryOperators();
     }
 
     /**
