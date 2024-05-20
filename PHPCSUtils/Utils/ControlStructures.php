@@ -10,9 +10,10 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tokens\Collections;
 
 /**
@@ -212,17 +213,19 @@ final class ControlStructures
      *               ```
      *               In case of an invalid catch structure, the array may be empty.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified `$stackPtr` is not of
-     *                                                      type `T_CATCH` or doesn't exist.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_CATCH` token.
      */
     public static function getCaughtExceptions(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false
-            || $tokens[$stackPtr]['code'] !== \T_CATCH
-        ) {
-            throw new RuntimeException('$stackPtr must be of type T_CATCH');
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_CATCH) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_CATCH', $tokens[$stackPtr]['type']);
         }
 
         if (isset($tokens[$stackPtr]['parenthesis_opener'], $tokens[$stackPtr]['parenthesis_closer']) === false) {

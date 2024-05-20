@@ -10,9 +10,11 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\Parentheses;
@@ -39,17 +41,19 @@ final class UseStatements
      *                the `T_USE` token is used for. An empty string being returned will
      *                normally mean the code being examined contains a parse error.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_USE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_USE` token.
      */
     public static function getType(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$stackPtr]) === false
-            || $tokens[$stackPtr]['code'] !== \T_USE
-        ) {
-            throw new RuntimeException('$stackPtr must be of type T_USE');
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_USE) {
+            throw UnexpectedTokenType::create(2, '$stackPtr', 'T_USE', $tokens[$stackPtr]['type']);
         }
 
         $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
@@ -100,8 +104,8 @@ final class UseStatements
      * @return bool `TRUE` if the token passed is a closure use statement.
      *              `FALSE` if it's not.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_USE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_USE` token.
      */
     public static function isClosureUse(File $phpcsFile, $stackPtr)
     {
@@ -119,8 +123,8 @@ final class UseStatements
      * @return bool `TRUE` if the token passed is an import use statement.
      *              `FALSE` if it's not.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_USE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_USE` token.
      */
     public static function isImportUse(File $phpcsFile, $stackPtr)
     {
@@ -138,8 +142,8 @@ final class UseStatements
      * @return bool `TRUE` if the token passed is a trait use statement.
      *              `FALSE` if it's not.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_USE` token.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_USE` token.
      */
     public static function isTraitUse(File $phpcsFile, $stackPtr)
     {
@@ -183,17 +187,16 @@ final class UseStatements
      *               )
      *               ```
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified position is not a
-     *                                                      `T_USE` token.
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the `T_USE` token is not for an import
-     *                                                      use statement.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_USE` token.
+     * @throws \PHPCSUtils\Exceptions\ValueError          If the `T_USE` token is not for an import use statement.
      */
     public static function splitImportUseStatement(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
         if (self::isImportUse($phpcsFile, $stackPtr) === false) {
-            throw new RuntimeException('$stackPtr must be an import use statement');
+            throw ValueError::create(2, '$stackPtr', 'must be the pointer to an import use statement');
         }
 
         if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
@@ -375,7 +378,7 @@ final class UseStatements
         try {
             $useStatements         = self::splitImportUseStatement($phpcsFile, $stackPtr);
             $previousUseStatements = self::mergeImportUseStatements($previousUseStatements, $useStatements);
-        } catch (RuntimeException $e) {
+        } catch (ValueError $e) {
             // Not an import use statement.
         }
 

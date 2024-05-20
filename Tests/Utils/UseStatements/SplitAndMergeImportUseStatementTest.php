@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\UseStatements;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\UseStatements;
 
 /**
@@ -22,8 +22,37 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
+final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
 {
+
+    /**
+     * Test passing a non-existent token pointer.
+     *
+     * @return void
+     */
+    public function testNonExistentToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
+
+        UseStatements::splitAndMergeImportUseStatement(self::$phpcsFile, 100000, []);
+    }
+
+    /**
+     * Test receiving an expected exception when a non-supported token is passed.
+     *
+     * @return void
+     */
+    public function testInvalidTokenPassed()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_USE;');
+
+        // 0 = PHP open tag.
+        UseStatements::splitAndMergeImportUseStatement(self::$phpcsFile, 0, []);
+    }
 
     /**
      * Test correctly splitting and merging a import `use` statements.
@@ -53,6 +82,15 @@ final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
     public static function dataSplitAndMergeImportUseStatement()
     {
         $data = [
+            'closure-use' => [
+                'testMarker' => '/* testClosureUse */',
+                // Same as previous, which, as this is the first test case, is an empty statements array.
+                'expected'   => [
+                    'name'     => [],
+                    'function' => [],
+                    'const'    => [],
+                ],
+            ],
             'name-plain' => [
                 'testMarker' => '/* testUseNamePlainAliased */',
                 'expected'   => [
@@ -118,7 +156,11 @@ final class SplitAndMergeImportUseStatementTest extends UtilityMethodTestCase
             ],
         ];
 
-        $previousUse = [];
+        $previousUse = [
+            'name'     => [],
+            'function' => [],
+            'const'    => [],
+        ];
         foreach ($data as $key => $value) {
             $data[$key]['previousUse'] = $previousUse;
             $previousUse               = $value['expected'];

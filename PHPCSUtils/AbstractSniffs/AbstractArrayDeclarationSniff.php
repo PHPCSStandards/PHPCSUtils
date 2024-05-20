@@ -10,10 +10,11 @@
 
 namespace PHPCSUtils\AbstractSniffs;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\LogicException;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Numbers;
@@ -178,7 +179,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     {
         try {
             $this->arrayItems = PassedParameters::getParameters($phpcsFile, $stackPtr);
-        } catch (RuntimeException $e) {
+        } catch (UnexpectedTokenType $e) {
             // Parse error, short list, real square open bracket or incorrectly tokenized short array token.
             return;
         }
@@ -245,7 +246,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         foreach ($this->arrayItems as $itemNr => $arrayItem) {
             try {
                 $arrowPtr = Arrays::getDoubleArrowPtr($phpcsFile, $arrayItem['start'], $arrayItem['end']);
-            } catch (RuntimeException $e) {
+            } catch (LogicException $e) {
                 // Parse error: empty array item. Ignore.
                 continue;
             }

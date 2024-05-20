@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
 use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -22,7 +22,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
+final class GetDoubleArrowPtrTest extends PolyfilledTestCase
 {
 
     /**
@@ -64,8 +64,9 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      */
     public function testInvalidStartPositionException()
     {
-        $this->expectPhpcsException(
-            'Invalid start and/or end position passed to getDoubleArrowPtr(). Received: $start -10, $end 10'
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($start) must be a stack pointer which exists in the $phpcsFile object'
         );
 
         Arrays::getDoubleArrowPtr(self::$phpcsFile, -10, 10);
@@ -78,8 +79,9 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      */
     public function testInvalidEndPositionException()
     {
-        $this->expectPhpcsException(
-            'Invalid start and/or end position passed to getDoubleArrowPtr(). Received: $start 0, $end 100000'
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #3 ($end) must be a stack pointer which exists in the $phpcsFile object'
         );
 
         Arrays::getDoubleArrowPtr(self::$phpcsFile, 0, 100000);
@@ -92,8 +94,9 @@ final class GetDoubleArrowPtrTest extends UtilityMethodTestCase
      */
     public function testInvalidStartEndPositionException()
     {
-        $this->expectPhpcsException(
-            'Invalid start and/or end position passed to getDoubleArrowPtr(). Received: $start 10, $end 5'
+        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectExceptionMessage(
+            'The $start token must be before the $end token. Received: $start 10, $end 5'
         );
 
         Arrays::getDoubleArrowPtr(self::$phpcsFile, 10, 5);

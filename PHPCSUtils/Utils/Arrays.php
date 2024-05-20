@@ -10,8 +10,9 @@
 
 namespace PHPCSUtils\Utils;
 
-use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Files\File;
+use PHPCSUtils\Exceptions\LogicException;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Internal\IsShortArrayOrListWithCache;
 use PHPCSUtils\Tokens\Collections;
@@ -151,16 +152,24 @@ final class Arrays
      *
      * @return int|false Stack pointer to the double arrow if this array item has a key; or `FALSE` otherwise.
      *
-     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the start or end positions are invalid.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the tokens passed do not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\LogicException      If $end pointer is before the $start pointer.
      */
     public static function getDoubleArrowPtr(File $phpcsFile, $start, $end)
     {
         $tokens = $phpcsFile->getTokens();
 
-        if (isset($tokens[$start], $tokens[$end]) === false || $start > $end) {
-            throw new RuntimeException(
-                'Invalid start and/or end position passed to getDoubleArrowPtr().'
-                . ' Received: $start ' . $start . ', $end ' . $end
+        if (isset($tokens[$start]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$start', $start);
+        }
+
+        if (isset($tokens[$end]) === false) {
+            throw OutOfBoundsStackPtr::create(3, '$end', $end);
+        }
+
+        if ($start > $end) {
+            throw LogicException::create(
+                \sprintf('The $start token must be before the $end token. Received: $start %d, $end %d', $start, $end)
             );
         }
 

@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\UseStatements;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\UseStatements;
 
 /**
@@ -26,7 +26,7 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-final class UseTypeTest extends UtilityMethodTestCase
+final class UseTypeTest extends PolyfilledTestCase
 {
 
     /**
@@ -36,7 +36,10 @@ final class UseTypeTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_USE');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
+        );
 
         UseStatements::getType(self::$phpcsFile, 100000);
     }
@@ -48,7 +51,8 @@ final class UseTypeTest extends UtilityMethodTestCase
      */
     public function testNonUseToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_USE');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_USE;');
 
         UseStatements::getType(self::$phpcsFile, 0);
     }

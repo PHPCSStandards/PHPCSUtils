@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
 use PHPCSUtils\Internal\IsShortArrayOrList;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\Utils\IsShortArrayOrList class.
@@ -20,7 +20,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-final class ConstructorTest extends UtilityMethodTestCase
+final class ConstructorTest extends PolyfilledTestCase
 {
 
     /**
@@ -30,8 +30,9 @@ final class ConstructorTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException(
-            'The IsShortArrayOrList class expects to be passed a T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET token.'
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
 
         new IsShortArrayOrList(self::$phpcsFile, 100000);
@@ -49,8 +50,9 @@ final class ConstructorTest extends UtilityMethodTestCase
      */
     public function testNotOpenBracket($testMarker, $targetType)
     {
-        $this->expectPhpcsException(
-            'The IsShortArrayOrList class expects to be passed a T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET token.'
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be of type T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET;'
         );
 
         $target = $this->getTargetToken($testMarker, $targetType);

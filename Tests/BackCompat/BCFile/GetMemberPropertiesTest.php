@@ -22,7 +22,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMemberProperties method.
@@ -33,7 +33,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class GetMemberPropertiesTest extends UtilityMethodTestCase
+class GetMemberPropertiesTest extends PolyfilledTestCase
 {
 
     /**
