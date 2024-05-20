@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
@@ -74,6 +75,7 @@ final class TextStrings
      *
      * @return string The contents of the complete text string.
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a valid text string token.
      * @throws \PHPCSUtils\Exceptions\ValueError          If the specified token is not the _first_ token in
@@ -120,6 +122,7 @@ final class TextStrings
      *
      * @return int Stack pointer to the last token in the text string.
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a valid text string token.
      * @throws \PHPCSUtils\Exceptions\ValueError          If the specified token is not the _first_ token in
@@ -128,6 +131,10 @@ final class TextStrings
     public static function getEndOfCompleteTextString(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false) {
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);

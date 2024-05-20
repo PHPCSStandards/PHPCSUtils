@@ -69,10 +69,8 @@ final class GetTokensAsStringTest extends PolyfilledTestCase
      */
     public function testNonIntegerStart()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
-        $this->expectExceptionMessage(
-            'Argument #2 ($start) must be a stack pointer which exists in the $phpcsFile object, false given'
-        );
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($start) must be of type integer, boolean given');
 
         GetTokensAsString::noEmpties(self::$phpcsFile, false, 10);
     }

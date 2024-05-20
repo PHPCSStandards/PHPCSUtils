@@ -24,6 +24,19 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
 {
 
     /**
+     * Test receiving an expected exception when a non-integer token is passed.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        ControlStructures::getCaughtExceptions(self::$phpcsFile, false);
+    }
+
+    /**
      * Test receiving an expected exception when a non-existent token is passed.
      *
      * @return void

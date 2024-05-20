@@ -13,6 +13,7 @@ namespace PHPCSUtils\Utils;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
@@ -58,6 +59,7 @@ final class ObjectDeclarations
      *                     or `NULL` if the passed token doesn't exist, the function or
      *                     class is anonymous or in case of a parse error/live coding.
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_FUNCTION`, `T_CLASS`,
      *                                                    `T_ANON_CLASS`, `T_CLOSURE`, `T_TRAIT`, `T_ENUM`
      *                                                    or `T_INTERFACE` token.
@@ -65,6 +67,10 @@ final class ObjectDeclarations
     public static function getName(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false
             || ($tokens[$stackPtr]['code'] === \T_ANON_CLASS || $tokens[$stackPtr]['code'] === \T_CLOSURE)
@@ -162,12 +168,17 @@ final class ObjectDeclarations
      *               );
      *               ```
      *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
      * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a T_CLASS token.
      */
     public static function getClassProperties(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
 
         if (isset($tokens[$stackPtr]) === false) {
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
