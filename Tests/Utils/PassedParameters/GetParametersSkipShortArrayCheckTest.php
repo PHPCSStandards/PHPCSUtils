@@ -10,7 +10,6 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -61,7 +60,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @see testHasParametersDontSkipShortArrayCheck() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int, array<string, int|string>>>>
      */
     public static function dataHasParametersDontSkipShortArrayCheck()
     {
@@ -80,9 +79,9 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @dataProvider dataGetParametersSkipShortArrayCheck
      *
-     * @param string     $testMarker The comment which prefaces the target token in the test file.
-     * @param int|string $targetType The type of token to look for.
-     * @param array      $expected   The expected return value.
+     * @param string                                $testMarker The comment which prefaces the target token in the test file.
+     * @param int|string                            $targetType The type of token to look for.
+     * @param array<int, array<string, int|string>> $expected   The expected return value.
      *
      * @return void
      */
@@ -93,7 +92,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
          * Note: this also means that the "$expected" value will not be tested as the exception
          * will be received before the code reaches that point.
          */
-        if ($targetType === \T_OPEN_SQUARE_BRACKET && \version_compare(Helper::getVersion(), '3.7.1', '>')) {
+        if ($targetType === \T_OPEN_SQUARE_BRACKET) {
             $this->expectPhpcsException(
                 'The hasParameters() method expects a function call, array, isset or unset token to be passed.'
             );
@@ -125,7 +124,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      *
      * @see testGetParametersSkipShortArrayCheck() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int, array<string, int|string>>>>
      */
     public static function dataGetParametersSkipShortArrayCheck()
     {
@@ -144,7 +143,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
      * @see testGetParametersSkipShortArrayCheck()     For the array format.
      * @see testHasParametersDontSkipShortArrayCheck() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, int|string|bool|array<int, array<string, int|string>>>>
      */
     public static function dataTestCases()
     {

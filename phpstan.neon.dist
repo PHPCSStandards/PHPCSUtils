@@ -81,21 +81,4 @@ parameters:
                 - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
                 - Tests/Utils/NamingConventions/IsValidIdentifierNameTest.php
 
-        # Ignoring as this is fine.
-        -
-            message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
-            path: Tests/TestUtils/UtilityMethodTestCase/SkipJSCSSTestsOnPHPCS4Test.php
-            count: 1
-
-        # Level 6
-        # Test data providers.
-        -
-            message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::data\S+\(\) return type has no value type specified in iterable type array\.$`'
-            path: Tests/*
-
-        # Test methods.
-        -
-            message: '`^Method PHPCSUtils\\Tests\\[^: ]+Test(Case)?::\S+\(\) has parameter \$\S* with no value type specified in iterable type array\.$`'
-            path: Tests/*
-
-            # yamllint enable rule:line-length
+                # yamllint enable rule:line-length

@@ -353,6 +353,21 @@ final class GetParameterCountTest extends UtilityMethodTestCase
                 'expected'   => 2,
             ],
 
+            'class-instantiation-in-attribute' => [
+                'testMarker' => '/* testPHP80ClassInstantiationInAttribute */',
+                'expected'   => 3,
+            ],
+            'class-instantiation-in-attribute-no-params' => [
+                'testMarker'    => '/* testPHP80ClassInstantiationInMultiAttribute */',
+                'expected'      => 0,
+                'targetContent' => 'AttributeOne',
+            ],
+            'class-instantiation-in-attribute-with-params' => [
+                'testMarker'    => '/* testPHP80ClassInstantiationInMultiAttribute */',
+                'expected'      => 2,
+                'targetContent' => ($php8Names === true) ? '\AttributeTwo' : 'AttributeTwo',
+            ],
+
             'array-with-empty-item' => [
                 'testMarker' => '/* testArrayWithEmptyItem */',
                 'expected'   => 3,

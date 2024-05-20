@@ -143,8 +143,8 @@ final class InterpolatedVariablesTest extends TestCase
      *
      * @dataProvider dataEmbedsInPhrases
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected function output of the respective functions.
+     * @param string                                   $input    The input string.
+     * @param array<string, string|array<int, string>> $expected The expected function output of the respective functions.
      *
      * @return void
      */
@@ -160,8 +160,8 @@ final class InterpolatedVariablesTest extends TestCase
      * @dataProvider dataEscaping
      * @dataProvider dataSpecificCases
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected function output of the respective functions.
+     * @param string                                   $input    The input string.
+     * @param array<string, string|array<int, string>> $expected The expected function output of the respective functions.
      *
      * @return void
      */
@@ -177,8 +177,8 @@ final class InterpolatedVariablesTest extends TestCase
      * @dataProvider dataEscaping
      * @dataProvider dataSpecificCases
      *
-     * @param string $input    The input string.
-     * @param array  $expected The expected function output of the respective functions.
+     * @param string                                   $input    The input string.
+     * @param array<string, string|array<int, string>> $expected The expected function output of the respective functions.
      *
      * @return void
      */
@@ -193,7 +193,7 @@ final class InterpolatedVariablesTest extends TestCase
      * @see testGetEmbeds()   For the array format.
      * @see testStripEmbeds() For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|array<int, string>>>>
      */
     public static function dataEmbedsInPhrases()
     {
@@ -286,7 +286,7 @@ final class InterpolatedVariablesTest extends TestCase
      * @see testGetEmbedsAndCheckOffset() For the array format.
      * @see testStripEmbeds()             For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|array<int, string>>>>
      */
     public static function dataEscaping()
     {
@@ -357,7 +357,7 @@ final class InterpolatedVariablesTest extends TestCase
      * @see testGetEmbedsAndCheckOffset() For the array format.
      * @see testStripEmbeds()             For the array format.
      *
-     * @return array
+     * @return array<string, array<string, string|array<string, string|array<int, string>>>>
      */
     public static function dataSpecificCases()
     {
