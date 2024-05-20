@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\TestUtils;
 
+use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Files\DummyFile;
 use PHP_CodeSniffer\Files\File;
@@ -239,7 +240,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @return \PHP_CodeSniffer\Files\File
      */
-    protected static function parseFile($caseFile, $ruleset, $config)
+    protected static function parseFile($caseFile, Ruleset $ruleset, Config $config)
     {
         if (\is_readable($caseFile) === false) {
             parent::fail("Test case file missing. Expected case file location: $caseFile");
