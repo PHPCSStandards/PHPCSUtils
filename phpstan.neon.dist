@@ -59,6 +59,12 @@ parameters:
             path: PHPCSUtils/Tokens/Collections.php
             count: 1
 
+        # Ignoring this as availability depends on which PHPUnit Polyfills version is loaded/installed. This is 100% okay.
+        -
+            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectError' will always evaluate to false\\.$`"
+            path: Tests/Utils/TypeString/FilterTypesTest.php
+            count: 2
+
         # This depends on the PHP version on which PHPStan is being run, so not valid.
         -
             message: "`^Comparison operation \"\\>\\=\" between '[0-9\\. -]+' and 10 is always true\\.$`"
@@ -79,5 +85,11 @@ parameters:
             message: '`^Parameter #[0-9]+ \$\S+ of class PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+ [A-Za-z]+ expects [^,]+, \S+ given\.$`'
             path: Tests/Internal/IsShortArrayOrList/ConstructorTest.php
             count: 1
+
+        # Ignoring as this is fine.
+        -
+            message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
+            path: Tests/Utils/TypeString/FilterTypesTest.php
+            count: 2
 
             # yamllint enable rule:line-length
