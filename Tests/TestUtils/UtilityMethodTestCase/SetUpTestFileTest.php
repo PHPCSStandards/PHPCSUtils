@@ -15,11 +15,13 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
 /**
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
  *
- * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase
+ * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::setUpTestFile
+ * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::parseFile
+ * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::skipJSCSSTestsOnPHPCS4
  *
  * @since 1.0.0
  */
-final class UtilityMethodTestCaseTest extends PolyfilledTestCase
+final class SetUpTestFileTest extends PolyfilledTestCase
 {
 
     /**
@@ -32,7 +34,7 @@ final class UtilityMethodTestCaseTest extends PolyfilledTestCase
      */
     public static function setUpTestFile()
     {
-        // Deliberately left empty.
+        // Deliberately not running the actual setUpTestFile() method.
     }
 
     /**
@@ -48,23 +50,5 @@ final class UtilityMethodTestCaseTest extends PolyfilledTestCase
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertIsArray($tokens);
-    }
-
-    /**
-     * Test that the class is correct reset.
-     *
-     * @depends testSetUp
-     *
-     * @return void
-     */
-    public function testTearDown()
-    {
-        parent::resetTestFile();
-        $this->assertSame('0', self::$phpcsVersion, 'phpcsVersion was not reset');
-        $this->assertSame('inc', self::$fileExtension, 'fileExtension was not reset');
-        $this->assertSame('', self::$caseFile, 'caseFile was not reset');
-        $this->assertSame(4, self::$tabWidth, 'tabWidth was not reset');
-        $this->assertNull(self::$phpcsFile, 'phpcsFile was not reset');
-        $this->assertSame(['Dummy.Dummy.Dummy'], self::$selectedSniff, 'selectedSniff was not reset');
     }
 }

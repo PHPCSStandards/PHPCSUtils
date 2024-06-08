@@ -31,7 +31,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      */
     public static function setUpTestFile()
     {
-        self::$caseFile = __DIR__ . '/UtilityMethodTestCaseTest.inc';
+        self::$caseFile = __DIR__ . '/SetUpTestFileTest.inc';
         parent::setUpTestFile();
     }
 
