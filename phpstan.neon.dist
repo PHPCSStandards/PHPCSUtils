@@ -35,6 +35,17 @@ parameters:
             count: 1
 
         # Level 2
+        # The __destruct() method exists on the ConfigDouble, not the PHPCS native Config. This is 100% okay.
+        -
+            message: '`^Call to an undefined method PHP_CodeSniffer\\Config::__destruct\(\)\.$`'
+            path: PHPCSUtils\TestUtils\UtilityMethodTestCase.php
+            count: 1
+        # The setStaticConfigProperty() method exists on the ConfigDouble, not the PHPCS native Config. This is 100% okay.
+        -
+            message: '`^Call to an undefined method PHP_CodeSniffer\\Config::setStaticConfigProperty\(\)\.$`'
+            path: Tests\TestUtils\UtilityMethodTestCase\ResetTestFileTest.php
+            count: 1
+
         # Ignoring as this refers to a non-mocked method on the original class. This is 100% okay.
         -
             message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject::process\(\)\.$`'

@@ -310,6 +310,16 @@ abstract class UtilityMethodTestCase extends TestCase
      */
     public static function resetTestFile()
     {
+        /*
+         * Explicitly trigger __destruct() on the ConfigDouble to reset the Config statics.
+         * The explicit method call prevents potential stray test-local references to the $config object
+         * preventing the destructor from running the clean up (which without stray references would be
+         * automagically triggered when `self::$phpcsFile` is reset, but we can't definitively rely on that).
+         */
+        if (isset(self::$phpcsFile)) {
+            self::$phpcsFile->config->__destruct();
+        }
+
         self::$phpcsVersion  = '0';
         self::$fileExtension = 'inc';
         self::$caseFile      = '';
