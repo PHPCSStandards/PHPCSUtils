@@ -78,7 +78,7 @@ final class ControlStructures
 
             // Check whether the body is empty.
             $start = ($tokens[$stackPtr]['scope_opener'] + 1);
-            $end   = ($phpcsFile->numTokens + 1);
+            $end   = $phpcsFile->numTokens;
             if (isset($tokens[$stackPtr]['scope_closer']) === true) {
                 $end = $tokens[$stackPtr]['scope_closer'];
             }
