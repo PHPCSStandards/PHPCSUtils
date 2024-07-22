@@ -65,16 +65,6 @@ parameters:
             path: Tests/Utils/TypeString/FilterTypesTest.php
             count: 2
 
-        # This depends on the PHP version on which PHPStan is being run, so not valid.
-        -
-            message: "`^Comparison operation \"\\>\\=\" between '[0-9\\. -]+' and 10 is always true\\.$`"
-            path: Tests/Utils/Orthography/FirstCharTest.php
-            count: 1
-        -
-            message: '`^Else branch is unreachable because previous condition is always true\.$`'
-            path: Tests/Utils/Orthography/FirstCharTest.php
-            count: 1
-
         # Level 5
         # This is by design to test handling of incorrect input.
         -
