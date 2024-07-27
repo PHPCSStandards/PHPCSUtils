@@ -10,7 +10,9 @@
 
 namespace PHPCSUtils\Tests\TestUtils\ConfigDouble;
 
+use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\ConfigDouble;
+use ReflectionProperty;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -24,6 +26,23 @@ use Yoast\PHPUnitPolyfills\TestCases\TestCase;
  */
 final class ConfigDoubleTest extends TestCase
 {
+
+    /**
+     * Reset the static properties in the Config class to their true defaults to prevent this class
+     * from influencing other tests.
+     *
+     * @afterClass
+     *
+     * @return void
+     */
+    public static function resetConfigToDefaults()
+    {
+        self::setStaticConfigProperty('overriddenDefaults', []);
+        self::setStaticConfigProperty('executablePaths', []);
+        self::setStaticConfigProperty('configData', null);
+        self::setStaticConfigProperty('configDataFile', null);
+        $_SERVER['argv'] = [];
+    }
 
     /**
      * Verify that the static properties in the Config class get cleared between instances.
@@ -199,5 +218,120 @@ final class ConfigDoubleTest extends TestCase
             // Skipping for CI as GH Actions **will** identify the screen width as 80 wide.
             $this->assertNotSame(80, $config->reportWidth, 'Report width has still been set to 80');
         }
+    }
+
+    /**
+     * Verify that the static properties in the Config class are reset when the object is destroyed.
+     *
+     * @covers ::__destruct
+     *
+     * @return void
+     */
+    public function testDestruct()
+    {
+        $standard     = 'Squiz';
+        $reportWidth  = 1250;
+        $fakeConfFile = 'path/to/file.conf';
+        $toolName     = 'a_tool';
+
+        // Create the ConfigDouble object and change the value of a few static properties to allow for testing the reset.
+        $cliArgs = [
+            '--standard=' . $standard,
+            '--report-width=' . $reportWidth,
+            '--runtime-set',
+            'arbitraryKey',
+            'arbitraryValue',
+        ];
+        $config  = new ConfigDouble($cliArgs);
+
+        $config->setStaticConfigProperty('configDataFile', $fakeConfFile);
+        $config::getExecutablePath($toolName);
+
+        // Verify the static properties in the Config are set to something other than their default value.
+        $this->assertSame([$standard], $config->standards, 'Precondition check: Standards was not set to Squiz');
+        $this->assertSame($reportWidth, $config->reportWidth, 'Precondition check: Report width was not set to 1250');
+        $this->assertSame(
+            'arbitraryValue',
+            Helper::getConfigData('arbitraryKey'),
+            'Precondition check: ArbitraryKey property was not set on the Config class'
+        );
+
+        $overriddenDefaults = $this->getStaticConfigProperty('overriddenDefaults', $config);
+        $this->assertIsArray($overriddenDefaults, 'Precondition check: overriddenDefaults property is not an array');
+        $this->assertNotEmpty($overriddenDefaults, 'Precondition check: overriddenDefaults property is an empty array');
+
+        $this->assertSame(
+            [$toolName => null],
+            $this->getStaticConfigProperty('executablePaths', $config),
+            'Precondition check: executablePaths is still an empty array'
+        );
+
+        $configData = $this->getStaticConfigProperty('configData', $config);
+        $this->assertIsArray($configData, 'Precondition check: configData property is not an array');
+        $this->assertNotEmpty($configData, 'Precondition check: configData property is an empty array');
+
+        $this->assertSame(
+            $fakeConfFile,
+            $this->getStaticConfigProperty('configDataFile', $config),
+            'Precondition check: configDataFile property has not been set'
+        );
+
+        // Destroy the object.
+        unset($config);
+
+        // Verify the static properties in the Config are reset to their default values.
+        $this->assertSame([], $this->getStaticConfigProperty('overriddenDefaults'), 'overriddenDefaults reset failed');
+        $this->assertSame([], $this->getStaticConfigProperty('executablePaths'), 'executablePaths reset failed');
+        $this->assertNull($this->getStaticConfigProperty('configData'), 'configData reset failed');
+        $this->assertNull($this->getStaticConfigProperty('configDataFile'), 'configDataFile reset failed');
+
+        // This assertion must be last as it re-initializes the $configData and $configDataFile properties.
+        $this->assertNull(Helper::getConfigData('arbitraryKey'), 'arbitraryKey property is still set');
+    }
+
+    /**
+     * Helper function to retrieve the value of a private static property on the Config class.
+     *
+     * @param string                  $name   The name of the property to retrieve.
+     * @param \PHP_CodeSniffer\Config $config Optional. The config object.
+     *
+     * @return mixed
+     */
+    private function getStaticConfigProperty($name, $config = null)
+    {
+        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property->setAccessible(true);
+
+        if ($name === 'overriddenDefaults' && \version_compare(Helper::getVersion(), '3.99.99', '>')) {
+            // The `overriddenDefaults` property is no longer static on PHPCS 4.0+.
+            if (isset($config)) {
+                return $property->getValue($config);
+            } else {
+                return [];
+            }
+        }
+
+        return $property->getValue();
+    }
+
+    /**
+     * Helper function to set the value of a private static property on the Config class.
+     *
+     * @param string $name  The name of the property to set.
+     * @param mixed  $value The value to set the property to.
+     *
+     * @return void
+     */
+    public static function setStaticConfigProperty($name, $value)
+    {
+        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property->setAccessible(true);
+
+        // The `overriddenDefaults` property is no longer static on PHPCS 4.0+, so ignore it.
+        if ($name !== 'overriddenDefaults' && \version_compare(Helper::getVersion(), '3.99.99', '<=')) {
+            $property->setValue(null, $value);
+        }
+
+        $property->setAccessible(false);
     }
 }
