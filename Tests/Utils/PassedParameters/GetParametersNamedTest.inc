@@ -53,6 +53,9 @@ foo( label: $cond ? true : false, more: $cond ? CONSTANT_A : CONSTANT_B );
 /* testTernaryWithFunctionCallsInThenElse */
 echo $cond ? foo( label: $something ) : /* testTernaryWithFunctionCallsInElse */ bar( more: $something_else );
 
+/* testExitWithNamedParam */
+exit( status: 1 );
+
 /* testCompileErrorNamedBeforePositional */
 // Not the concern of PHPCSUtils. Should still be handled.
 test(param: $bar, $foo);

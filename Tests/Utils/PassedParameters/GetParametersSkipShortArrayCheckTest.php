@@ -45,7 +45,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
         if ($expectException === true) {
             $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
             $this->expectExceptionMessage(
-                'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
+                'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
             );
         }
 
@@ -96,7 +96,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
         if ($targetType === \T_OPEN_SQUARE_BRACKET) {
             $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
             $this->expectExceptionMessage(
-                'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
+                'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
             );
         }
 

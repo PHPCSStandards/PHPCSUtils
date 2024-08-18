@@ -692,6 +692,10 @@ final class Collections
         $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
         $tokens               += self::$ooHierarchyKeywords;
 
+        // As of PHP 8.4, exit()/die() should be treated as function call tokens.
+        // Sniffs using this collection should safeguard against use as a constant.
+        $tokens[\T_EXIT] = \T_EXIT;
+
         return $tokens;
     }
 

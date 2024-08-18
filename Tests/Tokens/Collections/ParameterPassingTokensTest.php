@@ -40,6 +40,7 @@ final class ParameterPassingTokensTest extends TestCase
             \T_PARENT               => \T_PARENT,
             \T_SELF                 => \T_SELF,
             \T_STATIC               => \T_STATIC,
+            \T_EXIT                 => \T_EXIT,
             \T_ISSET                => \T_ISSET,
             \T_UNSET                => \T_UNSET,
             \T_ARRAY                => \T_ARRAY,

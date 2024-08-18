@@ -62,7 +62,7 @@ final class HasParametersTest extends PolyfilledTestCase
     {
         $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
         $this->expectExceptionMessage(
-            'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
+            'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
         );
 
         $interface = $this->getTargetToken('/* testNotAnAcceptedToken */', \T_INTERFACE);
@@ -83,7 +83,7 @@ final class HasParametersTest extends PolyfilledTestCase
     {
         $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
         $this->expectExceptionMessage(
-            'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
+            'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
         );
 
         $self = $this->getTargetToken($testMarker, $targetType);
@@ -124,7 +124,7 @@ final class HasParametersTest extends PolyfilledTestCase
     {
         $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
         $this->expectExceptionMessage(
-            'Argument #2 ($stackPtr) must be of type function call, array, isset or unset;'
+            'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
         );
 
         $self = $this->getTargetToken(
@@ -384,6 +384,38 @@ final class HasParametersTest extends PolyfilledTestCase
             'has-params-unset' => [
                 'testMarker' => '/* testHasParamsUnset */',
                 'targetType' => \T_UNSET,
+                'expected'   => true,
+            ],
+
+            // Exit/die.
+            'exit as a constant' => [
+                'testMarker' => '/* testExitAsConstant */',
+                'targetType' => \T_EXIT,
+                'expected'   => false,
+            ],
+            'die as a constant' => [
+                'testMarker' => '/* testDieAsConstant */',
+                'targetType' => \T_EXIT,
+                'expected'   => false,
+            ],
+            'no-params-exit' => [
+                'testMarker' => '/* testNoParamsExit */',
+                'targetType' => \T_EXIT,
+                'expected'   => false,
+            ],
+            'has-params-exit' => [
+                'testMarker' => '/* testHasParamsExit */',
+                'targetType' => \T_EXIT,
+                'expected'   => true,
+            ],
+            'no-params-die' => [
+                'testMarker' => '/* testNoParamsDie */',
+                'targetType' => \T_EXIT,
+                'expected'   => false,
+            ],
+            'has-params-die' => [
+                'testMarker' => '/* testHasParamsDie */',
+                'targetType' => \T_EXIT,
                 'expected'   => true,
             ],
 
