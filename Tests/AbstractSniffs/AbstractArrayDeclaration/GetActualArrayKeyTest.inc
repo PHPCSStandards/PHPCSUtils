@@ -136,3 +136,13 @@ $\{abc}
 EOD
               => 3,
 ];
+
+/* testStringLiteralsWithNumbers */
+$validStringKeys = array(
+    '_1'  => 'value1',
+    '_2'  => 'value2',
+    '3_'  => 'value3',
+    '4_'  => 'value4',
+    '_5_' => 'value5',
+    '_6_' => 'value6',
+);

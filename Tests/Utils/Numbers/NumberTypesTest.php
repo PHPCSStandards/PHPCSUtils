@@ -402,6 +402,269 @@ final class NumberTypesTest extends TestCase
                 ],
             ],
 
+            // Invalid numeric literal with separator look-a-like strings
+            'invalid-numeric-literal-leading-underscore-decimal' => [
+                'input'    => '_1',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-decimal' => [
+                'input'    => '1_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-and-trailing-underscore-decimal' => [
+                'input'    => '_1_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-octal' => [
+                'input'    => '_072',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-after-prefix-octal' => [
+                'input'    => '0o_1256',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-octal' => [
+                'input'    => '0O271_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-and-trailing-underscore-octal' => [
+                'input'    => '_0o_1561_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-binary' => [
+                'input'    => '_0b01',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-after-prefix-binary' => [
+                'input'    => '0b_101011',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-binary' => [
+                'input'    => '0b10001_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-and-trailing-underscore-binary' => [
+                'input'    => '_0b_00101_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-hex' => [
+                'input'    => '_0xAF451212',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-after-prefix-hex' => [
+                'input'    => '0x_241FB4C',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-hex' => [
+                'input'    => '0x12_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-and-trailing-underscore-hex' => [
+                'input'    => '_0x_213CAD1_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+
+            'invalid-numeric-literal-leading-underscore-next-to-leading-zero-float' => [
+                'input'    => '_012.12',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-next-to-number-float' => [
+                'input'    => '_12.12',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-leading-underscore-next-to-decimalpoint-float' => [
+                'input'    => '_.1212',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-next-to-number-float' => [
+                'input'    => '12.21378_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-next-to-zero-float' => [
+                'input'    => '12.700_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-next-to-decimalpoint-float' => [
+                'input'    => '12._',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-underscore-before-decimalpoint-float' => [
+                'input'    => '1_.0',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-after-decimalpoint-float' => [
+                'input'    => '1._0',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-underscore-before-e-float' => [
+                'input'    => '1_e2',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-trailing-underscore-after-e-float' => [
+                'input'    => '1e_2',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+            'invalid-numeric-literal-underscores-everywhere-float' => [
+                'input'    => '_002781_._219_28173_E_+56_',
+                'expected' => [
+                    'decimal' => false,
+                    'hex'     => false,
+                    'binary'  => false,
+                    'octal'   => false,
+                    'float'   => false,
+                ],
+            ],
+
             // Decimal numeric strings.
             'decimal-single-digit-zero' => [
                 'input'    => '0',
