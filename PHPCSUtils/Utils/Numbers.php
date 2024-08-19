@@ -42,7 +42,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_DECIMAL_INT = '`^(?:0|[1-9][0-9]*)$`D';
+    const REGEX_DECIMAL_INT = '`^(?:0|[1-9](?:[0-9_]*[0-9])?)$`D';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents an octal integer.
@@ -51,7 +51,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_OCTAL_INT = '`^0[o]?[0-7]+$`iD';
+    const REGEX_OCTAL_INT = '`^0[o]?[0-7](?:[0-7_]*[0-7])?$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a binary integer.
@@ -60,7 +60,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_BINARY_INT = '`^0b[0-1]+$`iD';
+    const REGEX_BINARY_INT = '`^0b[0-1](?:[0-1_]*[0-1])?$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a hexidecimal integer.
@@ -69,7 +69,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_HEX_INT = '`^0x[0-9A-F]+$`iD';
+    const REGEX_HEX_INT = '`^0x[0-9A-F](?:[0-9A-F_]*[0-9A-F])?$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a float.
@@ -84,16 +84,16 @@ final class Numbers
         ^(?:
             (?:
                 (?:
-                    (?P<LNUM>[0-9]+)
+                    (?P<LNUM>[0-9](?:[0-9_]*[0-9])?)
                 |
-                    (?P<DNUM>([0-9]*\.(?P>LNUM)|(?P>LNUM)\.[0-9]*))
+                    (?P<DNUM>((?:[0-9](?:[0-9_]*[0-9])?)*\.(?P>LNUM)|(?P>LNUM)\.(?:[0-9](?:[0-9_]*[0-9])?)*))
                 )
                 [e][+-]?(?P>LNUM)
             )
             |
             (?P>DNUM)
             |
-            (?:0|[1-9][0-9]*)
+            (?:0|[1-9](?:[0-9_]*[0-9])?)
         )$
         `ixD';
 
@@ -215,7 +215,7 @@ final class Numbers
     /**
      * Verify whether the contents of an arbitrary string represents a decimal integer.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators in numbers into account in the regex.
      *
      * @since 1.0.0
      *
@@ -229,16 +229,13 @@ final class Numbers
             return false;
         }
 
-        // Remove potential PHP 7.4 numeric literal separators.
-        $textString = \str_replace('_', '', $textString);
-
         return (\preg_match(self::REGEX_DECIMAL_INT, $textString) === 1);
     }
 
     /**
      * Verify whether the contents of an arbitrary string represents a hexidecimal integer.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators in numbers into account in the regex.
      *
      * @since 1.0.0
      *
@@ -252,16 +249,13 @@ final class Numbers
             return false;
         }
 
-        // Remove potential PHP 7.4 numeric literal separators.
-        $textString = \str_replace('_', '', $textString);
-
         return (\preg_match(self::REGEX_HEX_INT, $textString) === 1);
     }
 
     /**
      * Verify whether the contents of an arbitrary string represents a binary integer.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators in numbers into account in the regex.
      *
      * @since 1.0.0
      *
@@ -275,16 +269,13 @@ final class Numbers
             return false;
         }
 
-        // Remove potential PHP 7.4 numeric literal separators.
-        $textString = \str_replace('_', '', $textString);
-
         return (\preg_match(self::REGEX_BINARY_INT, $textString) === 1);
     }
 
     /**
      * Verify whether the contents of an arbitrary string represents an octal integer.
      *
-     * Takes PHP 7.4 numeric literal separators and explicit octal literals in numbers into account.
+     * Takes PHP 7.4 numeric literal separators and explicit octal literals in numbers into account in the regex.
      *
      * @since 1.0.0
      *
@@ -298,16 +289,13 @@ final class Numbers
             return false;
         }
 
-        // Remove potential PHP 7.4 numeric literal separators.
-        $textString = \str_replace('_', '', $textString);
-
         return (\preg_match(self::REGEX_OCTAL_INT, $textString) === 1);
     }
 
     /**
      * Verify whether the contents of an arbitrary string represents a floating point number.
      *
-     * Takes PHP 7.4 numeric literal separators in numbers into account.
+     * Takes PHP 7.4 numeric literal separators in numbers into account in the regex.
      *
      * @since 1.0.0
      *
@@ -320,9 +308,6 @@ final class Numbers
         if (\is_string($textString) === false || $textString === '') {
             return false;
         }
-
-        // Remove potential PHP 7.4 numeric literal separators.
-        $textString = \str_replace('_', '', $textString);
 
         return (\preg_match(self::REGEX_FLOAT, $textString) === 1);
     }
