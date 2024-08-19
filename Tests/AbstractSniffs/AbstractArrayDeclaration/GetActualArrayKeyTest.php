@@ -144,7 +144,7 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testStringLiteralsWithNumbers()
+    public function testGetActualArrayKeyForStringLiteralsWithNumbers()
     {
         $testObj         = new ArrayDeclarationSniffTestDouble();
         $testObj->tokens = self::$phpcsFile->getTokens();
@@ -185,7 +185,7 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testZeroPrefixedNumericStringKeys()
+    public function testGetActualArrayKeyForZeroPrefixedNumericStringKeys()
     {
         $testObj         = new ArrayDeclarationSniffTestDouble();
         $testObj->tokens = self::$phpcsFile->getTokens();
