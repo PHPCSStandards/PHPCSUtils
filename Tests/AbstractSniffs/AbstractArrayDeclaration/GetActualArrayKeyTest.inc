@@ -146,3 +146,13 @@ $validStringKeys = array(
     '_5_' => 'value5',
     '_6_' => 'value6',
 );
+
+/* testZeroPrefixedNumericStringKeys */
+$validNumericStringKeys = array(
+    '01'  => 'value1',
+    '002' => 'value2',
+    '0o3' => 'value3',
+    '0b1' => 'value4',
+    '0x7' => 'value5',
+    '0.0' => 'value6',
+);
