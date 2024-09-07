@@ -20,6 +20,9 @@ use PHPCSUtils\Exceptions\TestFileNotFound;
 use PHPCSUtils\Exceptions\TestMarkerNotFound;
 use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPCSUtils\TestUtils\ConfigDouble;
+use PHPUnit\Framework\Attributes\AfterClass;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionProperty;
@@ -30,7 +33,7 @@ use ReflectionProperty;
  * This class is compatible with PHP_CodeSniffer 3.x and contains preliminary compatibility with 4.x
  * based on its currently known state/roadmap.
  *
- * This class is compatible with {@link https://phpunit.de/ PHPUnit} 4.5 - 9.x providing the PHPCSUtils
+ * This class is compatible with {@link https://phpunit.de/ PHPUnit} 4.5 - 11.x providing the PHPCSUtils
  * autoload file is included in the test bootstrap. For more information about that, please consult
  * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *
@@ -105,6 +108,8 @@ use ReflectionProperty;
  *   for the PHPCSUtils utility functions themselves.
  *
  * @since 1.0.0
+ * @since 1.0.7 Compatible with PHPUnit 10.
+ * @since 1.1.0 Compatible with PHPUnit 11.
  */
 abstract class UtilityMethodTestCase extends TestCase
 {
@@ -194,6 +199,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @return void
      */
+    #[BeforeClass]
     public static function setUpTestFile()
     {
         parent::setUpBeforeClass();
@@ -283,6 +289,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @return void
      */
+    #[Before]
     public function skipJSCSSTestsOnPHPCS4()
     {
         if (static::$fileExtension !== 'js' && static::$fileExtension !== 'css') {
@@ -308,6 +315,7 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @return void
      */
+    #[AfterClass]
     public static function resetTestFile()
     {
         /*

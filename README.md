@@ -60,7 +60,7 @@ These classes take most of the heavy lifting away for some frequently occurring 
 ### Test utilities
 
 An abstract `UtilityMethodTestCase` class to support testing of your utility methods written for PHP_CodeSniffer.
-Supports PHPUnit 4.x up to 9.x.
+Supports PHPUnit 4.x up to 11.x.
 
 ### Use the latest version of PHP_CodeSniffer native utility functions
 
