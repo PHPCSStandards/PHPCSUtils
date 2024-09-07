@@ -79,7 +79,7 @@ if (\version_compare(Autoload::VERSION, '3.0.0', '>=')) {
     }
 } elseif (\version_compare(Autoload::VERSION, '2.0.0', '>=')) {
     /**
-     * Abstract utility method base test case which includes all available polyfills (PHPUnit Polyfills 2.x compaible).
+     * Abstract utility method base test case which includes all available polyfills (PHPUnit Polyfills 2.x compatible).
      *
      * This test case includes all polyfills from the PHPUnit Polyfill library to make them
      * available to the tests.
@@ -116,7 +116,7 @@ if (\version_compare(Autoload::VERSION, '3.0.0', '>=')) {
     }
 } else {
     /**
-     * Abstract utility method base test case which includes all available polyfills (PHPUnit Polyfills 1.x compaible).
+     * Abstract utility method base test case which includes all available polyfills (PHPUnit Polyfills 1.x compatible).
      *
      * This test case includes all polyfills from the PHPUnit Polyfill library to make them
      * available to the tests.

@@ -27,7 +27,7 @@
             <!--
             A number of tests need process isolation to allow for recording code coverage on
             the setting of function local static variables.
-            However, using process isolation runs into trouble with PHPUnit 4.x/PHPCS 2.6.0.
+            However, using process isolation runs into trouble with PHPUnit 4.x.
             Executing these specific tests in a separate testsuite, which is run
             before the full test suite, will allow for the code coverage for these methods
             to be recorded properly, while still allowing the tests to run on all supported
