@@ -287,8 +287,9 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
                 [self::$phpcsFile, $target + 7, $target + 8, 1],
                 [self::$phpcsFile, $target + 15, $target + 16, 2],
                 [self::$phpcsFile, $target + 23, $target + 24, 3],
-            ]
-        )->will($this->onConsecutiveCalls(null, null, true)); // Testing short-circuiting the loop.
+            ],
+            [null, null, true] // Testing short-circuiting the loop.
+        );
 
         $this->setExpectationWithConsecutiveArgs(
             $mockObj,
