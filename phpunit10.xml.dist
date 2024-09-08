@@ -5,6 +5,7 @@
         backupGlobals="true"
         bootstrap="./Tests/bootstrap.php"
         beStrictAboutTestsThatDoNotTestAnything="true"
+        cacheDirectory="build/.phpunit-cache"
         colors="true"
         displayDetailsOnTestsThatTriggerErrors="true"
         displayDetailsOnTestsThatTriggerWarnings="true"

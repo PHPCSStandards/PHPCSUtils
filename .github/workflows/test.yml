@@ -344,7 +344,7 @@ jobs:
       # As coverage is only run on high/low PHP, the high PHP version will use PHPUnit 11, so just check for that.
       - name: "Warm the PHPUnit cache (PHPUnit 9.3+)"
         if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}
-        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-cache ./build/phpunit-cache --warm-coverage-cache
+        run: vendor/bin/phpunit -c phpunit10.xml.dist --warm-coverage-cache
 
       - name: "Run the unit tests without caching with code coverage (PHPUnit < 10)"
         if: ${{ ! startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}
@@ -355,7 +355,7 @@ jobs:
 
       - name: "Run the unit tests without caching with code coverage (PHPUnit 10+)"
         if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}
-        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-cache ./build/phpunit-cache
+        run: vendor/bin/phpunit -c phpunit10.xml.dist
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
