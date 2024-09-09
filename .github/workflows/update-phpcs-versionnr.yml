@@ -73,6 +73,7 @@ jobs:
           base: ${{ steps.branches.outputs.BASE }}
           branch: ${{ steps.branches.outputs.PR_BRANCH }}
           delete-branch: true
+          sign-commits: true
           commit-message: "GetVersionTest: update for release of PHPCS ${{ steps.version.outputs.TAG }}"
           title: "GetVersionTest: update for release of PHPCS ${{ steps.version.outputs.TAG }}"
           # yamllint disable rule:line-length
