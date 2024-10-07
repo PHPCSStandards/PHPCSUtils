@@ -46,7 +46,7 @@ Whether you need to split an `array` into the individual items, are trying to de
 
 Includes improved versions of the PHPCS native utility functions and plenty of new utility functions.
 
-These functions are compatible with PHPCS 3.10.0 up to PHPCS `master`.
+These functions are compatible with PHPCS 3.10.1 up to PHPCS `master`.
 
 ### A collection of static properties and methods for often-used token groups
 
@@ -78,7 +78,7 @@ To see detailed information about all the available abstract sniffs, utility fun
 ## Minimum Requirements
 
 * PHP 5.4 or higher.
-* [PHP_CodeSniffer] 3.10.0+.
+* [PHP_CodeSniffer] 3.10.1+.
 * Recommended PHP extensions for optimal functionality:
     - PCRE with Unicode support (normally enabled by default)
 

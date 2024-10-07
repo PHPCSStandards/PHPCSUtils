@@ -22,6 +22,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
@@ -34,6 +35,40 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  */
 final class FindEndOfStatementTest extends UtilityMethodTestCase
 {
+
+    /**
+     * Test that end of statement is NEVER before the "current" token.
+     *
+     * @return void
+     */
+    public function testEndIsNeverLessThanCurrentToken()
+    {
+        $tokens = self::$phpcsFile->getTokens();
+        $errors = [];
+
+        for ($i = 0; $i < self::$phpcsFile->numTokens; $i++) {
+            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
+                continue;
+            }
+
+            $end = BCFile::findEndOfStatement(self::$phpcsFile, $i);
+
+            // Collect all the errors.
+            if ($end < $i) {
+                $errors[] = sprintf(
+                    'End of statement for token %1$d (%2$s: %3$s) on line %4$d is %5$d (%6$s), which is less than %1$d',
+                    $i,
+                    $tokens[$i]['type'],
+                    $tokens[$i]['content'],
+                    $tokens[$i]['line'],
+                    $end,
+                    $tokens[$end]['type']
+                );
+            }
+        }
+
+        $this->assertSame([], $errors);
+    }
 
     /**
      * Test a simple assignment.
