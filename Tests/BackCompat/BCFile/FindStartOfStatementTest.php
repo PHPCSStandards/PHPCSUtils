@@ -660,4 +660,157 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
             ],
         ];
     }
+
+    /**
+     * Test finding the start of a statement for a token within a set of parentheses within a match expressions.
+     *
+     * @param string     $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string $target         The token to search for after the test marker.
+     * @param int|string $expectedTarget Token code of the expected start of statement stack pointer.
+     *
+     * @link https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/437
+     *
+     * @dataProvider dataFindStartInsideParenthesesNestedWithinMatch
+     *
+     * @return void
+     */
+    public function testFindStartInsideParenthesesNestedWithinMatch($testMarker, $target, $expectedTarget)
+    {
+        $testToken = $this->getTargetToken($testMarker, $target);
+        $expected  = $this->getTargetToken($testMarker, $expectedTarget);
+
+        $found = BCFile::findStartOfStatement(self::$phpcsFile, $testToken);
+
+        $this->assertSame($expected, $found);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @return array<string, array<string, int|string>>
+     */
+    public static function dataFindStartInsideParenthesesNestedWithinMatch()
+    {
+        return [
+            'Array item itself should be start for first array item'                       => [
+                'testMarker'     => '/* test437NestedLongArrayWithinMatch */',
+                'target'         => T_LNUMBER,
+                'expectedTarget' => T_LNUMBER,
+            ],
+            'Array item itself should be start for second array item'                      => [
+                'testMarker'     => '/* test437NestedLongArrayWithinMatch */',
+                'target'         => T_DNUMBER,
+                'expectedTarget' => T_DNUMBER,
+            ],
+            'Array item itself should be start for third array item'                       => [
+                'testMarker'     => '/* test437NestedLongArrayWithinMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+
+            'Parameter itself should be start for first param passed to function call'     => [
+                'testMarker'     => '/* test437NestedFunctionCallWithinMatch */',
+                'target'         => T_LNUMBER,
+                'expectedTarget' => T_LNUMBER,
+            ],
+            'Parameter itself should be start for second param passed to function call'    => [
+                'testMarker'     => '/* test437NestedFunctionCallWithinMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+            'Parameter itself should be start for third param passed to function call'     => [
+                'testMarker'     => '/* test437NestedFunctionCallWithinMatch */',
+                'target'         => T_DNUMBER,
+                'expectedTarget' => T_DNUMBER,
+            ],
+
+            'Parameter itself should be start for first param declared in arrow function'  => [
+                'testMarker'     => '/* test437NestedArrowFunctionWithinMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+            'Parameter itself should be start for second param declared in arrow function' => [
+                'testMarker'     => '/* test437FnSecondParamWithinMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+        ];
+    }
+
+    /**
+     * Test finding the start of a statement for a token within a set of parentheses within a match expressions,
+     * which itself is nested within parentheses.
+     *
+     * @param string     $testMarker     The comment which prefaces the target token in the test file.
+     * @param int|string $target         The token to search for after the test marker.
+     * @param int|string $expectedTarget Token code of the expected start of statement stack pointer.
+     *
+     * @link https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/437
+     *
+     * @dataProvider dataFindStartInsideParenthesesNestedWithinNestedMatch
+     *
+     * @return void
+     */
+    public function testFindStartInsideParenthesesNestedWithinNestedMatch($testMarker, $target, $expectedTarget)
+    {
+        $testToken = $this->getTargetToken($testMarker, $target);
+        $expected  = $this->getTargetToken($testMarker, $expectedTarget);
+
+        $found = BCFile::findStartOfStatement(self::$phpcsFile, $testToken);
+
+        $this->assertSame($expected, $found);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @return array<string, array<string, int|string>>
+     */
+    public static function dataFindStartInsideParenthesesNestedWithinNestedMatch()
+    {
+        return [
+            'Array item itself should be start for first array item'                       => [
+                'testMarker'     => '/* test437NestedLongArrayWithinNestedMatch */',
+                'target'         => T_LNUMBER,
+                'expectedTarget' => T_LNUMBER,
+            ],
+            'Array item itself should be start for second array item'                      => [
+                'testMarker'     => '/* test437NestedLongArrayWithinNestedMatch */',
+                'target'         => T_DNUMBER,
+                'expectedTarget' => T_DNUMBER,
+            ],
+            'Array item itself should be start for third array item'                       => [
+                'testMarker'     => '/* test437NestedLongArrayWithinNestedMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+
+            'Parameter itself should be start for first param passed to function call'     => [
+                'testMarker'     => '/* test437NestedFunctionCallWithinNestedMatch */',
+                'target'         => T_LNUMBER,
+                'expectedTarget' => T_LNUMBER,
+            ],
+            'Parameter itself should be start for second param passed to function call'    => [
+                'testMarker'     => '/* test437NestedFunctionCallWithinNestedMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+            'Parameter itself should be start for third param passed to function call'     => [
+                'testMarker'     => '/* test437NestedFunctionCallWithinNestedMatch */',
+                'target'         => T_DNUMBER,
+                'expectedTarget' => T_DNUMBER,
+            ],
+
+            'Parameter itself should be start for first param declared in arrow function'  => [
+                'testMarker'     => '/* test437NestedArrowFunctionWithinNestedMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+            'Parameter itself should be start for second param declared in arrow function' => [
+                'testMarker'     => '/* test437FnSecondParamWithinNestedMatch */',
+                'target'         => T_VARIABLE,
+                'expectedTarget' => T_VARIABLE,
+            ],
+        ];
+    }
 }
