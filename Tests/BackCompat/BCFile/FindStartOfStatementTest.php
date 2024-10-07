@@ -85,7 +85,7 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
         $start = $this->getTargetToken('/* testClosureAssignment */', T_CLOSE_CURLY_BRACKET);
         $found = BCFile::findStartOfStatement(self::$phpcsFile, $start);
 
-        $this->assertSame(($start - 12), $found);
+        $this->assertSame(($start - 11), $found);
     }
 
     /**
@@ -208,7 +208,7 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
         $start = $this->getTargetToken('/* testArrowFunctionArrayValue */', T_COMMA);
         $found = BCFile::findStartOfStatement(self::$phpcsFile, $start);
 
-        $this->assertSame(($start - 9), $found);
+        $this->assertSame(($start - 7), $found);
     }
 
     /**
