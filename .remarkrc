@@ -14,8 +14,12 @@
             "skipUrlPatterns": [
                 "^https?://github\\.com/PHPCSStandards/PHPCSUtils/compare/[0-9\\.]+?\\.{3}[0-9\\.]+",
                 "^https://phpcsutils\\.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_isArrowFunction",
-                "^https://phpcsutils\\.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose"
-            ]
+                "^https://phpcsutils\\.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations.html#method_getArrowFunctionOpenClose",
+                "^https://packagist.org/packages/phpcsstandards/phpcsutils#dev-develop"
+            ],
+            "deadOrAliveOptions": {
+                "maxRetries": 3
+            }
         }
     ],
     "remark-lint-no-duplicate-defined-urls",
