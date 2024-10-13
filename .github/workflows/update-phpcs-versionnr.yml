@@ -40,7 +40,7 @@ jobs:
       - name: Grab latest tag name from API response
         id: version
         run: |
-          echo "TAG=${{ fromJson(steps.get_latest_release.outputs.data).tag_name }}" >> $GITHUB_OUTPUT
+          echo "TAG=${{ fromJson(steps.get_latest_release.outputs.data).tag_name }}" >> "$GITHUB_OUTPUT"
 
       - name: Show tag name found in API response
         run: "echo latest release: ${{ steps.version.outputs.TAG }}"
@@ -48,8 +48,8 @@ jobs:
       - name: Set branches to use
         id: branches
         run: |
-          echo "BASE=develop" >> $GITHUB_OUTPUT
-          echo "PR_BRANCH=feature/getversiontest-update-phpcs-version" >> $GITHUB_OUTPUT
+          echo "BASE=develop" >> "$GITHUB_OUTPUT"
+          echo "PR_BRANCH=feature/getversiontest-update-phpcs-version" >> "$GITHUB_OUTPUT"
 
       - name: Checkout code
         uses: actions/checkout@v4

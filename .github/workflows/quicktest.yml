@@ -48,9 +48,9 @@ jobs:
         id: set_ini
         run: |
           if [ "${{ matrix.phpcs_version }}" != "dev-master" ]; then
-            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
-            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install PHP
@@ -87,20 +87,20 @@ jobs:
       - name: Grab PHPUnit version
         id: phpunit_version
         # yamllint disable-line rule:line-length
-        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> "$GITHUB_OUTPUT"
 
       - name: Determine PHPUnit config file to use
         id: phpunit_config
         run: |
           if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}" == "true" ]; then
-            echo 'FILE=phpunit10.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS=' >> $GITHUB_OUTPUT
+            echo 'FILE=phpunit10.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS=' >> "$GITHUB_OUTPUT"
           elif [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
-            echo 'FILE=phpunit10.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS=' >> $GITHUB_OUTPUT
+            echo 'FILE=phpunit10.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS=' >> "$GITHUB_OUTPUT"
           else
-            echo 'FILE=phpunit.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS= --repeat 2' >> $GITHUB_OUTPUT
+            echo 'FILE=phpunit.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS= --repeat 2' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run the unit tests without caching
