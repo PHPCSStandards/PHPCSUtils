@@ -76,7 +76,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - The upstream method has received no significant updates since PHPCS 3.10.1.
+     * - PHPCS 3.12.0: hardening to handle unfinished closure better.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
@@ -98,7 +98,49 @@ final class BCFile
      */
     public static function getDeclarationName(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getDeclarationName($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        $tokenCode = $tokens[$stackPtr]['code'];
+
+        if ($tokenCode === T_ANON_CLASS || $tokenCode === T_CLOSURE) {
+            return null;
+        }
+
+        if ($tokenCode !== T_FUNCTION
+            && $tokenCode !== T_CLASS
+            && $tokenCode !== T_INTERFACE
+            && $tokenCode !== T_TRAIT
+            && $tokenCode !== T_ENUM
+        ) {
+            throw new RuntimeException('Token type "' . $tokens[$stackPtr]['type'] . '" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
+        }
+
+        if ($tokenCode === T_FUNCTION
+            && strtolower($tokens[$stackPtr]['content']) !== 'function'
+        ) {
+            // This is a function declared without the "function" keyword.
+            // So this token is the function name.
+            return $tokens[$stackPtr]['content'];
+        }
+
+        $stopPoint = $phpcsFile->numTokens;
+        if (isset($tokens[$stackPtr]['parenthesis_opener']) === true) {
+            // For functions, stop searching at the parenthesis opener.
+            $stopPoint = $tokens[$stackPtr]['parenthesis_opener'];
+        } elseif (isset($tokens[$stackPtr]['scope_opener']) === true) {
+            // For OO tokens, stop searching at the open curly.
+            $stopPoint = $tokens[$stackPtr]['scope_opener'];
+        }
+
+        $content = null;
+        for ($i = $stackPtr; $i < $stopPoint; $i++) {
+            if ($tokens[$i]['code'] === T_STRING) {
+                $content = $tokens[$i]['content'];
+                break;
+            }
+        }
+
+        return $content;
     }
 
     /**
