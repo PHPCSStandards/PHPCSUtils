@@ -539,6 +539,7 @@ final class BCFile
      *   'scope_specified' => boolean,       // TRUE if the scope was explicitly specified.
      *   'is_static'       => boolean,       // TRUE if the static keyword was found.
      *   'is_readonly'     => boolean,       // TRUE if the readonly keyword was found.
+     *   'is_final'        => boolean,       // TRUE if the final keyword was found.
      *   'type'            => string,        // The type of the var (empty if no type specified).
      *   'type_token'      => integer|false, // The stack pointer to the start of the type
      *                                       // or FALSE if there is no type.
@@ -553,7 +554,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - The upstream method has received no significant updates since PHPCS 3.10.1.
+     * - PHPCS 3.12.0: report final properties
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
      * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
@@ -572,8 +573,171 @@ final class BCFile
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getMemberProperties($stackPtr);
-    }
+        $tokens = $phpcsFile->getTokens();
+        if ($tokens[$stackPtr]['code'] !== T_VARIABLE) {
+            throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
+        }
+
+        $conditions = array_keys($tokens[$stackPtr]['conditions']);
+        $ptr        = array_pop($conditions);
+        if (isset($tokens[$ptr]) === false
+            || ($tokens[$ptr]['code'] !== T_CLASS
+            && $tokens[$ptr]['code'] !== T_ANON_CLASS
+            && $tokens[$ptr]['code'] !== T_TRAIT)
+        ) {
+            if (isset($tokens[$ptr]) === true
+                && ($tokens[$ptr]['code'] === T_INTERFACE
+                || $tokens[$ptr]['code'] === T_ENUM)
+            ) {
+                // T_VARIABLEs in interfaces/enums can actually be method arguments
+                // but they won't be seen as being inside the method because there
+                // are no scope openers and closers for abstract methods. If it is in
+                // parentheses, we can be pretty sure it is a method argument.
+                if (isset($tokens[$stackPtr]['nested_parenthesis']) === false
+                    || empty($tokens[$stackPtr]['nested_parenthesis']) === true
+                ) {
+                    $error = 'Possible parse error: %ss may not include member vars';
+                    $code  = sprintf('Internal.ParseError.%sHasMemberVar', ucfirst($tokens[$ptr]['content']));
+                    $data  = [strtolower($tokens[$ptr]['content'])];
+                    $phpcsFile->addWarning($error, $stackPtr, $code, $data);
+                    return [];
+                }
+            } else {
+                throw new RuntimeException('$stackPtr is not a class member var');
+            }
+        }//end if
+
+        // Make sure it's not a method parameter.
+        if (empty($tokens[$stackPtr]['nested_parenthesis']) === false) {
+            $parenthesis = array_keys($tokens[$stackPtr]['nested_parenthesis']);
+            $deepestOpen = array_pop($parenthesis);
+            if ($deepestOpen > $ptr
+                && isset($tokens[$deepestOpen]['parenthesis_owner']) === true
+                && $tokens[$tokens[$deepestOpen]['parenthesis_owner']]['code'] === T_FUNCTION
+            ) {
+                throw new RuntimeException('$stackPtr is not a class member var');
+            }
+        }
+
+        $valid = [
+            T_PUBLIC    => T_PUBLIC,
+            T_PRIVATE   => T_PRIVATE,
+            T_PROTECTED => T_PROTECTED,
+            T_STATIC    => T_STATIC,
+            T_VAR       => T_VAR,
+            T_READONLY  => T_READONLY,
+            T_FINAL     => T_FINAL,
+        ];
+
+        $valid += Tokens::$emptyTokens;
+
+        $scope          = 'public';
+        $scopeSpecified = false;
+        $isStatic       = false;
+        $isReadonly     = false;
+        $isFinal        = false;
+
+        $startOfStatement = $phpcsFile->findPrevious(
+            [
+                T_SEMICOLON,
+                T_OPEN_CURLY_BRACKET,
+                T_CLOSE_CURLY_BRACKET,
+                T_ATTRIBUTE_END,
+            ],
+            ($stackPtr - 1)
+        );
+
+        for ($i = ($startOfStatement + 1); $i < $stackPtr; $i++) {
+            if (isset($valid[$tokens[$i]['code']]) === false) {
+                break;
+            }
+
+            switch ($tokens[$i]['code']) {
+            case T_PUBLIC:
+                $scope          = 'public';
+                $scopeSpecified = true;
+                break;
+            case T_PRIVATE:
+                $scope          = 'private';
+                $scopeSpecified = true;
+                break;
+            case T_PROTECTED:
+                $scope          = 'protected';
+                $scopeSpecified = true;
+                break;
+            case T_STATIC:
+                $isStatic = true;
+                break;
+            case T_READONLY:
+                $isReadonly = true;
+                break;
+            case T_FINAL:
+                $isFinal = true;
+                break;
+            }//end switch
+        }//end for
+
+        $type         = '';
+        $typeToken    = false;
+        $typeEndToken = false;
+        $nullableType = false;
+
+        if ($i < $stackPtr) {
+            // We've found a type.
+            $valid = [
+                T_STRING                 => T_STRING,
+                T_CALLABLE               => T_CALLABLE,
+                T_SELF                   => T_SELF,
+                T_PARENT                 => T_PARENT,
+                T_FALSE                  => T_FALSE,
+                T_TRUE                   => T_TRUE,
+                T_NULL                   => T_NULL,
+                T_NAMESPACE              => T_NAMESPACE,
+                T_NS_SEPARATOR           => T_NS_SEPARATOR,
+                T_TYPE_UNION             => T_TYPE_UNION,
+                T_TYPE_INTERSECTION      => T_TYPE_INTERSECTION,
+                T_TYPE_OPEN_PARENTHESIS  => T_TYPE_OPEN_PARENTHESIS,
+                T_TYPE_CLOSE_PARENTHESIS => T_TYPE_CLOSE_PARENTHESIS,
+            ];
+
+            for ($i; $i < $stackPtr; $i++) {
+                if ($tokens[$i]['code'] === T_VARIABLE) {
+                    // Hit another variable in a group definition.
+                    break;
+                }
+
+                if ($tokens[$i]['code'] === T_NULLABLE) {
+                    $nullableType = true;
+                }
+
+                if (isset($valid[$tokens[$i]['code']]) === true) {
+                    $typeEndToken = $i;
+                    if ($typeToken === false) {
+                        $typeToken = $i;
+                    }
+
+                    $type .= $tokens[$i]['content'];
+                }
+            }
+
+            if ($type !== '' && $nullableType === true) {
+                $type = '?'.$type;
+            }
+        }//end if
+
+        return [
+            'scope'           => $scope,
+            'scope_specified' => $scopeSpecified,
+            'is_static'       => $isStatic,
+            'is_readonly'     => $isReadonly,
+            'is_final'        => $isFinal,
+            'type'            => $type,
+            'type_token'      => $typeToken,
+            'type_end_token'  => $typeEndToken,
+            'nullable_type'   => $nullableType,
+        ];
+
+    }//end getMemberProperties()
 
     /**
      * Returns the implementation properties of a class.
