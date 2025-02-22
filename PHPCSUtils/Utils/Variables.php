@@ -104,6 +104,7 @@ final class Variables
      *                 'scope_specified' => boolean,       // TRUE if the scope was explicitly specified.
      *                 'is_static'       => boolean,       // TRUE if the static keyword was found.
      *                 'is_readonly'     => boolean,       // TRUE if the readonly keyword was found.
+     *                 'is_final'        => boolean,       // TRUE if the final keyword was found.
      *                 'type'            => string,        // The type of the var (empty if no type specified).
      *                 'type_token'      => integer|false, // The stack pointer to the start of the type
      *                                                     // or FALSE if there is no type.
@@ -149,6 +150,7 @@ final class Variables
         $scopeSpecified = false;
         $isStatic       = false;
         $isReadonly     = false;
+        $isFinal        = false;
 
         $startOfStatement = $phpcsFile->findPrevious(
             [
@@ -183,6 +185,9 @@ final class Variables
                     break;
                 case \T_READONLY:
                     $isReadonly = true;
+                    break;
+                case \T_FINAL:
+                    $isFinal = true;
                     break;
             }
         }
@@ -225,6 +230,7 @@ final class Variables
             'scope_specified' => $scopeSpecified,
             'is_static'       => $isStatic,
             'is_readonly'     => $isReadonly,
+            'is_final'        => $isFinal,
             'type'            => $type,
             'type_token'      => $typeToken,
             'type_end_token'  => $typeEndToken,
