@@ -653,27 +653,27 @@ final class BCFile
             }
 
             switch ($tokens[$i]['code']) {
-            case T_PUBLIC:
-                $scope          = 'public';
-                $scopeSpecified = true;
-                break;
-            case T_PRIVATE:
-                $scope          = 'private';
-                $scopeSpecified = true;
-                break;
-            case T_PROTECTED:
-                $scope          = 'protected';
-                $scopeSpecified = true;
-                break;
-            case T_STATIC:
-                $isStatic = true;
-                break;
-            case T_READONLY:
-                $isReadonly = true;
-                break;
-            case T_FINAL:
-                $isFinal = true;
-                break;
+                case T_PUBLIC:
+                    $scope          = 'public';
+                    $scopeSpecified = true;
+                    break;
+                case T_PRIVATE:
+                    $scope          = 'private';
+                    $scopeSpecified = true;
+                    break;
+                case T_PROTECTED:
+                    $scope          = 'protected';
+                    $scopeSpecified = true;
+                    break;
+                case T_STATIC:
+                    $isStatic = true;
+                    break;
+                case T_READONLY:
+                    $isReadonly = true;
+                    break;
+                case T_FINAL:
+                    $isFinal = true;
+                    break;
             }//end switch
         }//end for
 
@@ -721,7 +721,7 @@ final class BCFile
             }
 
             if ($type !== '' && $nullableType === true) {
-                $type = '?'.$type;
+                $type = '?' . $type;
             }
         }//end if
 
@@ -736,8 +736,7 @@ final class BCFile
             'type_end_token'  => $typeEndToken,
             'nullable_type'   => $nullableType,
         ];
-
-    }//end getMemberProperties()
+    }
 
     /**
      * Returns the implementation properties of a class.
