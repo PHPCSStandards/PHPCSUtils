@@ -55,12 +55,42 @@ jobs:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
 
-      # Validate the XML file.
+      # Validate the XML files.
       - name: Validate ruleset XML against schema
         uses: phpcsstandards/xmllint-validate@v1
         with:
           pattern: "./*/ruleset.xml"
           xsd-file: "vendor/squizlabs/php_codesniffer/phpcs.xsd"
+
+      - name: Validate Project PHPCS ruleset against schema
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpcs.xml.dist"
+          xsd-file: "vendor/squizlabs/php_codesniffer/phpcs.xsd"
+
+      - name: "Validate PHPUnit < 10 config for use with PHPUnit 8"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/schema/8.5.xsd"
+
+      - name: "Validate PHPUnit < 10 config for use with PHPUnit 9"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/schema/9.2.xsd"
+
+      - name: "Validate PHPUnit 10+ config for use with PHPUnit 10"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit10.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/schema/10.5.xsd"
+
+      - name: "Validate PHPUnit 10+ config for use with PHPUnit 11"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit10.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/phpunit.xsd"
 
       # Check the code-style consistency of the XML file.
       # Note: this needs xmllint, but that will be installed via the phpcsstandards/xmllint-validate action runner.
