@@ -473,6 +473,7 @@ final class Collections
         \T_STATIC    => \T_STATIC,
         \T_VAR       => \T_VAR,
         \T_READONLY  => \T_READONLY,
+        \T_FINAL     => \T_FINAL,
     ];
 
     /**
