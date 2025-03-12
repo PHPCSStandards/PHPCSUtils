@@ -1356,7 +1356,7 @@ class GetMemberPropertiesTest extends PolyfilledTestCase
                     'is_readonly'     => false,
                     'is_final'        => true,
                     'type'            => '(Foo&\Bar)|bool',
-                    'type_token'      => -9,
+                    'type_token'      => ($php8Names === true) ? -8 : -9,
                     'type_end_token'  => -2,
                     'nullable_type'   => false,
                 ],

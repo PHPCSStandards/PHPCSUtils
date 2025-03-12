@@ -605,7 +605,7 @@ final class BCFile
             } else {
                 throw new RuntimeException('$stackPtr is not a class member var');
             }
-        }//end if
+        }
 
         // Make sure it's not a method parameter.
         if (empty($tokens[$stackPtr]['nested_parenthesis']) === false) {
@@ -619,16 +619,7 @@ final class BCFile
             }
         }
 
-        $valid = [
-            T_PUBLIC    => T_PUBLIC,
-            T_PRIVATE   => T_PRIVATE,
-            T_PROTECTED => T_PROTECTED,
-            T_STATIC    => T_STATIC,
-            T_VAR       => T_VAR,
-            T_READONLY  => T_READONLY,
-            T_FINAL     => T_FINAL,
-        ];
-
+        $valid  = Collections::propertyModifierKeywords();
         $valid += Tokens::$emptyTokens;
 
         $scope          = 'public';
@@ -674,32 +665,17 @@ final class BCFile
                 case T_FINAL:
                     $isFinal = true;
                     break;
-            }//end switch
-        }//end for
+            }
+        }
 
-        $type         = '';
-        $typeToken    = false;
-        $typeEndToken = false;
-        $nullableType = false;
+        $type               = '';
+        $typeToken          = false;
+        $typeEndToken       = false;
+        $nullableType       = false;
+        $propertyTypeTokens = Collections::propertyTypeTokens();
 
         if ($i < $stackPtr) {
             // We've found a type.
-            $valid = [
-                T_STRING                 => T_STRING,
-                T_CALLABLE               => T_CALLABLE,
-                T_SELF                   => T_SELF,
-                T_PARENT                 => T_PARENT,
-                T_FALSE                  => T_FALSE,
-                T_TRUE                   => T_TRUE,
-                T_NULL                   => T_NULL,
-                T_NAMESPACE              => T_NAMESPACE,
-                T_NS_SEPARATOR           => T_NS_SEPARATOR,
-                T_TYPE_UNION             => T_TYPE_UNION,
-                T_TYPE_INTERSECTION      => T_TYPE_INTERSECTION,
-                T_TYPE_OPEN_PARENTHESIS  => T_TYPE_OPEN_PARENTHESIS,
-                T_TYPE_CLOSE_PARENTHESIS => T_TYPE_CLOSE_PARENTHESIS,
-            ];
-
             for ($i; $i < $stackPtr; $i++) {
                 if ($tokens[$i]['code'] === T_VARIABLE) {
                     // Hit another variable in a group definition.
@@ -710,7 +686,7 @@ final class BCFile
                     $nullableType = true;
                 }
 
-                if (isset($valid[$tokens[$i]['code']]) === true) {
+                if (isset($propertyTypeTokens[$tokens[$i]['code']]) === true) {
                     $typeEndToken = $i;
                     if ($typeToken === false) {
                         $typeToken = $i;
@@ -723,7 +699,7 @@ final class BCFile
             if ($type !== '' && $nullableType === true) {
                 $type = '?' . $type;
             }
-        }//end if
+        }
 
         return [
             'scope'           => $scope,
