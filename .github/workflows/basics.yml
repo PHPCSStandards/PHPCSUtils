@@ -55,27 +55,45 @@ jobs:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
 
-      # Updating the lists can fail intermittently, typically after Microsoft has released a new package.
-      # This should not be blocking for this job, so ignore any errors from this step.
-      # Ref: https://github.com/dotnet/core/issues/4167
-      - name: Update the available packages list
-        continue-on-error: true
-        run: sudo apt-get update
+      # Validate the XML files.
+      - name: Validate ruleset XML against schema
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "./*/ruleset.xml"
+          xsd-file: "vendor/squizlabs/php_codesniffer/phpcs.xsd"
 
-      - name: Install xmllint
-        run: sudo apt-get install --no-install-recommends -y libxml2-utils
+      - name: Validate Project PHPCS ruleset against schema
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpcs.xml.dist"
+          xsd-file: "vendor/squizlabs/php_codesniffer/phpcs.xsd"
 
-      # Show XML violations inline in the file diff.
-      # @link https://github.com/marketplace/actions/xmllint-problem-matcher
-      - name: Enable showing XML issues inline
-        uses: korelstar/xmllint-problem-matcher@v1
+      - name: "Validate PHPUnit < 10 config for use with PHPUnit 8"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/schema/8.5.xsd"
 
-      # Validate the XML file.
-      # @link http://xmlsoft.org/xmllint.html
-      - name: Validate rulesets against schema
-        run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
+      - name: "Validate PHPUnit < 10 config for use with PHPUnit 9"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/schema/9.2.xsd"
+
+      - name: "Validate PHPUnit 10+ config for use with PHPUnit 10"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit10.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/schema/10.5.xsd"
+
+      - name: "Validate PHPUnit 10+ config for use with PHPUnit 11"
+        uses: phpcsstandards/xmllint-validate@v1
+        with:
+          pattern: "phpunit10.xml.dist"
+          xsd-file: "vendor/phpunit/phpunit/phpunit.xsd"
 
       # Check the code-style consistency of the XML file.
+      # Note: this needs xmllint, but that will be installed via the phpcsstandards/xmllint-validate action runner.
       - name: Check XML code style
         run: diff -B ./PHPCSUtils/ruleset.xml <(xmllint --format "./PHPCSUtils/ruleset.xml")
 
