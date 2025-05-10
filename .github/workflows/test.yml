@@ -3,9 +3,9 @@ name: Test
 on:
   # Run on pushes to `stable` and `develop` and on all pull requests.
   push:
-    branches:
-      - stable
-      - develop
+#    branches:
+#      - stable
+#      - develop
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -72,6 +72,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       # Keys:
       # - risky: Whether to run with tests which check for being in sync with PHPCS.
       # - experimental: Whether the build is "allowed to fail".
