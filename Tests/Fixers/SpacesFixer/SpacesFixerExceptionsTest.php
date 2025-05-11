@@ -89,8 +89,9 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
         $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type any, except whitespace;');
 
-        $stackPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_WHITESPACE);
-        SpacesFixer::checkAndFix(self::$phpcsFile, $stackPtr, 10, 0, 'Dummy');
+        $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_WHITESPACE);
+        $secondPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_ECHO);
+        SpacesFixer::checkAndFix(self::$phpcsFile, $stackPtr, $secondPtr, 0, 'Dummy');
     }
 
     /**
@@ -103,8 +104,9 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
         $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
         $this->expectExceptionMessage('Argument #3 ($secondPtr) must be of type any, except whitespace;');
 
+        $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_CONSTANT_ENCAPSED_STRING);
         $secondPtr = $this->getTargetToken('/* testPassingWhitespace2 */', \T_WHITESPACE);
-        SpacesFixer::checkAndFix(self::$phpcsFile, 10, $secondPtr, 0, 'Dummy');
+        SpacesFixer::checkAndFix(self::$phpcsFile, $stackPtr, $secondPtr, 0, 'Dummy');
     }
 
     /**

@@ -473,8 +473,10 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
      */
     public function testOpenTag()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $start  = $this->getTargetToken('/* testOpenTag */', T_OPEN_TAG);
-        $start += 2;
+        $start += ($php8Names === true) ? 3 : 2;
         $found  = BCFile::findStartOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame(($start - 1), $found);

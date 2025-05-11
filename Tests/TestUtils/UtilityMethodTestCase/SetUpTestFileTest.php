@@ -75,7 +75,14 @@ final class SetUpTestFileTest extends PolyfilledTestCase
         $this->assertNotSame('0', self::$phpcsVersion, 'phpcsVersion was not set');
 
         $this->assertInstanceOf('PHP_CodeSniffer\Files\File', self::$phpcsFile);
-        $this->assertSame(57, self::$phpcsFile->numTokens);
+
+        if (parent::usesPhp8NameTokens() === true) {
+            // The PHP open tag + whitespace is two tokens in PHPCS 4.x.
+            $this->assertSame(58, self::$phpcsFile->numTokens);
+        } else {
+            // PHPCS 3.x.
+            $this->assertSame(57, self::$phpcsFile->numTokens);
+        }
 
         $tokens = self::$phpcsFile->getTokens();
         $this->assertIsArray($tokens);
