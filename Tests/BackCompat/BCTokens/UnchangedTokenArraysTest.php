@@ -186,9 +186,12 @@ final class UnchangedTokenArraysTest extends TestCase
      * @var array<int|string, int|string>
      */
     private $scopeModifiers = [
-        \T_PRIVATE   => \T_PRIVATE,
-        \T_PUBLIC    => \T_PUBLIC,
-        \T_PROTECTED => \T_PROTECTED,
+        \T_PRIVATE       => \T_PRIVATE,
+        \T_PUBLIC        => \T_PUBLIC,
+        \T_PROTECTED     => \T_PROTECTED,
+        \T_PUBLIC_SET    => \T_PUBLIC_SET,
+        \T_PROTECTED_SET => \T_PROTECTED_SET,
+        \T_PRIVATE_SET   => \T_PRIVATE_SET,
     ];
 
     /**

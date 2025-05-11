@@ -76,7 +76,7 @@ final class BCTokens
 
     /**
      * Handle calls to (undeclared) methods for token arrays which haven't received any
-     * changes since PHPCS 3.10.1.
+     * changes since PHPCS 3.13.0.
      *
      * @since 1.0.0
      *
@@ -105,7 +105,6 @@ final class BCTokens
      *
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 2.3.3.
-     * - PHPCS 3.7.2: `T_PARENT` added to the array.
      * - PHPCS 4.0.0: `T_NAME_QUALIFIED`, `T_NAME_FULLY_QUALIFIED` and `T_NAME_RELATIVE` added to the array.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$functionNameTokens Original array.

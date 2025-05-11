@@ -467,13 +467,16 @@ final class Collections
      * @var array<int|string, int|string>
      */
     private static $propertyModifierKeywords = [
-        \T_PUBLIC    => \T_PUBLIC,
-        \T_PRIVATE   => \T_PRIVATE,
-        \T_PROTECTED => \T_PROTECTED,
-        \T_STATIC    => \T_STATIC,
-        \T_VAR       => \T_VAR,
-        \T_READONLY  => \T_READONLY,
-        \T_FINAL     => \T_FINAL,
+        \T_PUBLIC        => \T_PUBLIC,
+        \T_PUBLIC_SET    => \T_PUBLIC_SET,
+        \T_PROTECTED     => \T_PROTECTED,
+        \T_PROTECTED_SET => \T_PROTECTED_SET,
+        \T_PRIVATE       => \T_PRIVATE,
+        \T_PRIVATE_SET   => \T_PRIVATE_SET,
+        \T_STATIC        => \T_STATIC,
+        \T_VAR           => \T_VAR,
+        \T_READONLY      => \T_READONLY,
+        \T_FINAL         => \T_FINAL,
     ];
 
     /**
