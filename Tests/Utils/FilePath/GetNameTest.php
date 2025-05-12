@@ -11,8 +11,8 @@
 namespace PHPCSUtils\Tests\Utils\FilePath;
 
 use PHP_CodeSniffer\Files\DummyFile;
-use PHP_CodeSniffer\Ruleset;
 use PHPCSUtils\TestUtils\ConfigDouble;
+use PHPCSUtils\TestUtils\RulesetDouble;
 use PHPCSUtils\Utils\FilePath;
 use PHPUnit\Framework\TestCase;
 
@@ -55,7 +55,7 @@ final class GetNameTest extends TestCase
         self::$config->sniffs = ['Dummy.Dummy.Dummy']; // Limiting it to just one (dummy) sniff.
         self::$config->cache  = false;
 
-        self::$ruleset = new Ruleset(self::$config);
+        self::$ruleset = new RulesetDouble(self::$config);
     }
 
     /**
