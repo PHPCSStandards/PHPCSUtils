@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         php: ['7.2', 'latest']
-        phpcs_version: ['lowest', '3.x-dev', '4.0.0', '4.x-dev']
+        phpcs_version: ['lowest', '4.x-dev']
 
     name: "QTest${{ matrix.phpcs_version == '4.x-dev' && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
@@ -47,7 +47,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
+          if [ "${{ matrix.phpcs_version }}" != "4.x-dev" ]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On, display_startup_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On, display_startup_errors=On' >> "$GITHUB_OUTPUT"
@@ -60,7 +60,7 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      - name: "Composer: set PHPCS version for tests"
+      - name: "Composer: set PHPCS version for tests (dev)"
         if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 

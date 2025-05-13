@@ -81,7 +81,7 @@ jobs:
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
         php: ['7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
-        phpcs_version: ['lowest', '3.x-dev', '4.0.0', '4.x-dev']
+        phpcs_version: ['lowest', '4.x-dev']
         risky: [false]
         experimental: [false]
 
@@ -99,10 +99,6 @@ jobs:
 
           # Experimental builds. These are allowed to fail.
           - php: '8.5'
-            phpcs_version: '3.x-dev'
-            risky: false
-            experimental: true
-          - php: '8.5'
             phpcs_version: '4.x-dev'
             risky: false
             experimental: true
@@ -114,22 +110,12 @@ jobs:
             experimental: true
 
           - php: '7.2'
-            phpcs_version: '3.x-dev'
-            risky: true
-            experimental: true
-
-          - php: '7.2'
             phpcs_version: '4.x-dev'
             risky: true
             experimental: true
 
           - php: '8.4'
             phpcs_version: 'lowest'
-            risky: true
-            experimental: true
-
-          - php: '8.4'
-            phpcs_version: '4.0.0'
             risky: true
             experimental: true
 
@@ -151,7 +137,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
+          if [ "${{ matrix.phpcs_version }}" != "4.x-dev" ]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On, display_startup_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On, display_startup_errors=On' >> "$GITHUB_OUTPUT"
@@ -165,7 +151,7 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      - name: "Composer: set PHPCS version for tests"
+      - name: "Composer: set PHPCS version for tests (dev)"
         if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
@@ -259,18 +245,9 @@ jobs:
             phpcs_version: '4.x-dev'
             extensions: ':iconv' # Run one build with iconv disabled.
           - php: '8.4'
-            phpcs_version: '4.0.0'
-          - php: '8.4'
-            phpcs_version: '3.x-dev'
-          - php: '8.4'
             phpcs_version: 'lowest'
           - php: '7.2'
             phpcs_version: '4.x-dev'
-          - php: '7.2'
-            phpcs_version: '4.0.0'
-            extensions: ':iconv' # Run one build with iconv disabled.
-          - php: '7.2'
-            phpcs_version: '3.x-dev'
           - php: '7.2'
             phpcs_version: 'lowest'
 
@@ -285,7 +262,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
+          if [ "${{ matrix.phpcs_version }}" != "4.x-dev" ]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On, display_startup_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On, display_startup_errors=On' >> "$GITHUB_OUTPUT"
@@ -302,7 +279,7 @@ jobs:
       - name: "DEBUG: Show version details"
         run: php -v
 
-      - name: "Composer: set PHPCS version for tests"
+      - name: "Composer: set PHPCS version for tests (dev)"
         if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
