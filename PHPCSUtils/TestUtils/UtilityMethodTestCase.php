@@ -22,7 +22,6 @@ use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPCSUtils\TestUtils\ConfigDouble;
 use PHPCSUtils\TestUtils\RulesetDouble;
 use PHPUnit\Framework\Attributes\AfterClass;
-use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -127,8 +126,7 @@ abstract class UtilityMethodTestCase extends TestCase
     /**
      * The file extension of the test case file (without leading dot).
      *
-     * This allows concrete test classes to overrule the default `"inc"` with, for instance,
-     * `"js"` or `"css"` when applicable.
+     * This allows concrete test classes to overrule the default `"inc"`.
      *
      * @since 1.0.0
      *
@@ -268,36 +266,6 @@ abstract class UtilityMethodTestCase extends TestCase
         }
 
         return $file;
-    }
-
-    /**
-     * Skip JS and CSS related tests on PHPCS 4.x.
-     *
-     * PHPCS 4.x drops support for the JS and CSS tokenizers.
-     * This method takes care of automatically skipping tests involving JS/CSS case files
-     * when the tests are being run with PHPCS 4.x.
-     *
-     * Note: This is a PHPUnit cross-version compatible {@see \PHPUnit\Framework\TestCase::setUp()}
-     * method.
-     *
-     * @since 1.0.0
-     *
-     * @before
-     *
-     * @return void
-     */
-    #[Before]
-    public function skipJSCSSTestsOnPHPCS4()
-    {
-        if (static::$fileExtension !== 'js' && static::$fileExtension !== 'css') {
-            return;
-        }
-
-        if (\version_compare(self::$phpcsVersion, '3.99.99', '<=')) {
-            return;
-        }
-
-        $this->markTestSkipped('JS and CSS support has been removed in PHPCS 4.');
     }
 
     /**

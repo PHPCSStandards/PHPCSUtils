@@ -37,18 +37,6 @@ final class ExpectPhpcsExceptionTest extends UtilityMethodTestCase
     }
 
     /**
-     * Overload the "normal" "set up" to do nothing.
-     *
-     * @before
-     *
-     * @return void
-     */
-    public function skipJSCSSTestsOnPHPCS4()
-    {
-        // Deliberately left empty.
-    }
-
-    /**
      * Overload the "normal" "tear down after class" to do nothing.
      *
      * @afterClass

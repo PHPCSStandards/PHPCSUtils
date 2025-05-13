@@ -17,7 +17,6 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::setUpTestFile
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::parseFile
- * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::skipJSCSSTestsOnPHPCS4
  *
  * @since 1.0.0
  */
