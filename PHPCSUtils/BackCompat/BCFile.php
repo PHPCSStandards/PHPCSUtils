@@ -110,14 +110,6 @@ final class BCFile
             throw new RuntimeException('Token type "' . $tokens[$stackPtr]['type'] . '" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
         }
 
-        if ($tokenCode === T_FUNCTION
-            && strtolower($tokens[$stackPtr]['content']) !== 'function'
-        ) {
-            // This is a function declared without the "function" keyword.
-            // So this token is the function name.
-            return $tokens[$stackPtr]['content'];
-        }
-
         $stopPoint = $phpcsFile->numTokens;
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === true) {
             // For functions, stop searching at the parenthesis opener.

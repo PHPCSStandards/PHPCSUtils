@@ -96,14 +96,6 @@ final class ObjectDeclarations
             throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
-        if ($tokenCode === \T_FUNCTION
-            && \strtolower($tokens[$stackPtr]['content']) !== 'function'
-        ) {
-            // This is a function declared without the "function" keyword.
-            // So this token is the function name.
-            return $tokens[$stackPtr]['content'];
-        }
-
         /*
          * Determine the name. Note that we cannot simply look for the first T_STRING
          * because an (invalid) class name starting with a number will be multiple tokens.
