@@ -66,7 +66,7 @@ Supports PHPUnit 4.x up to 11.x.
 
 Normally to use the latest version of PHP_CodeSniffer native utility functions, you would have to raise the minimum requirements of your external PHPCS standard.
 
-Now you won't have to anymore. This package allows you to use the latest version of those utility functions in all PHP_CodeSniffer versions from PHPCS 3.10.0 and up.
+Now you won't have to anymore. This package allows you to use the latest version of those utility functions in all PHP_CodeSniffer versions from PHPCS 3.13.0 and up.
 
 ### Fully documented
 
