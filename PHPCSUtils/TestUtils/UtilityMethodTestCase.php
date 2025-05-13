@@ -33,7 +33,7 @@ use ReflectionProperty;
  *
  * This class is compatible with PHP_CodeSniffer 3.x and 4.x.
  *
- * This class is compatible with {@link https://phpunit.de/ PHPUnit} 4.5 - 11.x providing the PHPCSUtils
+ * This class is compatible with {@link https://phpunit.de/ PHPUnit} 8.0 - 11.x providing the PHPCSUtils
  * autoload file is included in the test bootstrap. For more information about that, please consult
  * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
  *
@@ -512,13 +512,7 @@ abstract class UtilityMethodTestCase extends TestCase
             $exception = 'PHP_CodeSniffer\Exceptions\TokenizerException';
         }
 
-        if (\method_exists($this, 'expectException')) {
-            // PHPUnit 5+.
-            $this->expectException($exception);
-            $this->expectExceptionMessage($msg);
-        } else {
-            // PHPUnit 4.
-            $this->setExpectedException($exception, $msg);
-        }
+        $this->expectException($exception);
+        $this->expectExceptionMessage($msg);
     }
 }

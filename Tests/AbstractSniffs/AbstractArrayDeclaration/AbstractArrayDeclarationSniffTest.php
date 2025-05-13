@@ -26,9 +26,6 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
     /**
      * List of methods in the abstract which should be mocked.
      *
-     * Needed for PHPUnit cross-version support as PHPUnit 4.x does not have a
-     * `setMethodsExcept()` method yet.
-     *
      * @var array<string>
      */
     public $methodsToMock = [
@@ -670,14 +667,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
             '\PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration\ArrayDeclarationSniffMock'
         );
 
-        if (\method_exists($mockedObj, 'onlyMethods')) {
-            // PHPUnit 8+.
-            return $mockedObj->onlyMethods($this->methodsToMock)
-                ->getMock();
-        }
-
-        // PHPUnit < 8.
-        return $mockedObj->setMethods($this->methodsToMock)
+        return $mockedObj->onlyMethods($this->methodsToMock)
             ->getMock();
     }
 }

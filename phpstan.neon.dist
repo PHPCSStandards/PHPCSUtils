@@ -8,25 +8,12 @@ parameters:
         - .github/GHPages
         - PHPCSUtils
         - Tests
-    excludePaths:
-        # This file needs to be excluded as the availability of the traits depends on which PHPUnit Polyfills version is loaded/installed.
-        - Tests/PolyfilledTestCase.php
-        # These will be seen as unused due to these only being used in conjunction with the above excluded TestCase.
-        - Tests/AssertPropertySame.php
-        - Tests/ExpectWithConsecutiveArgs.php
     bootstrapFiles:
         - Tests/bootstrap.php
     treatPhpDocTypesAsCertain: false
 
     ignoreErrors:
         # yamllint disable rule:line-length
-
-        # Level 0
-        # Ignoring this as availability depends on which PHPUnit Polyfills version is loaded/installed. This is 100% okay.
-        -
-            message: '`^Call to an undefined method \S+UtilityMethodTestCase::setExpectedException\(\)\.$`'
-            path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
-            count: 1
 
         # Level 1
         # These are on purpose for testing the magic method. This is 100% okay.
@@ -57,12 +44,6 @@ parameters:
             message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject::process\(\)\.$`'
             path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
 
-        # Ignoring as availability depends on which PHPUnit version is loaded/installed. This is 100% okay.
-        -
-            message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockBuilder<[^>]+>::setMethods\(\)\.$`'
-            path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
-            count: 1
-
         # Level 3
         # Ignoring as `null` is the initial value for config settings in PHPCS which this test is resetting to.
         # The PHPCS docs just don't reflect that. This is 100% okay.
@@ -83,20 +64,6 @@ parameters:
             path: PHPCSUtils/Tokens/Collections.php
             count: 1
 
-        # Ignoring these as availability depends on which PHPUnit/PHPUnit Polyfills version is loaded/installed. This is 100% okay.
-        -
-            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectError' will always evaluate to false\\.$`"
-            path: Tests/Utils/TypeString/FilterTypesTest.php
-            count: 2
-        -
-            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectException' will always evaluate to true\\.$`"
-            path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
-            count: 1
-        -
-            message: "`^Call to function method_exists\\(\\) with PHPUnit\\\\Framework\\\\MockObject\\\\MockBuilder and 'onlyMethods' will always evaluate to true\\.$`"
-            path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
-            count: 1
-
         # Level 5
         # This is by design to test handling of incorrect input.
         -
@@ -109,12 +76,6 @@ parameters:
             count: 1
         -
             message: '`^Parameter #1 \$types of static method PHPCSUtils\\Utils\\TypeString::filter\S+\(\) expects array<[^<>]+(<[^<>]+>[^<>]+)*>, array<[^<>]+(<[^<>]+>[^<>]+)*> given\.$`'
-            path: Tests/Utils/TypeString/FilterTypesTest.php
-            count: 2
-
-        # Ignoring as this is fine.
-        -
-            message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
             path: Tests/Utils/TypeString/FilterTypesTest.php
             count: 2
 

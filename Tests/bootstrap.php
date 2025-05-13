@@ -97,8 +97,7 @@ if (\defined('__PHPUNIT_PHAR__')) {
 }
 
 /*
- * Alias the non-namespaced PHPUnit 4.x/5.x test case class to the
- * namespaced PHPUnit 6+ version.
+ * Load the autoloader to allow for the tests to run via a PHPUnit PHAR file.
  */
 require_once \dirname(__DIR__) . '/phpcsutils-autoload.php';
 

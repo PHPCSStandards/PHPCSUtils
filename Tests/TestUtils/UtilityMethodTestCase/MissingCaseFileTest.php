@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
 use PHPCSUtils\Tests\PolyfilledTestCase;
+use PHPUnit\Framework\AssertionFailedError;
 
 /**
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
@@ -55,15 +56,8 @@ final class MissingCaseFileTest extends PolyfilledTestCase
      */
     public function testMissingCaseFile()
     {
-        $msg       = 'Test case file missing. Expected case file location: ';
-        $exception = 'PHPUnit\Framework\AssertionFailedError';
-        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
-            // PHPUnit < 6.
-            $exception = 'PHPUnit_Framework_AssertionFailedError';
-        }
-
-        $this->expectException($exception);
-        $this->expectExceptionMessage($msg);
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Test case file missing. Expected case file location: ');
 
         parent::setUpTestFile();
     }

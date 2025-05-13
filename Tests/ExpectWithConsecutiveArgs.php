@@ -53,7 +53,7 @@ trait ExpectWithConsecutiveArgs
             ->method($methodName);
 
         if (\method_exists($methodExpectation, 'withConsecutive')) {
-            // PHPUnit 4.x - 9.x.
+            // PHPUnit 8.x - 9.x.
 
             $expectationsArray = [];
             foreach ($expectedArgs as $key => $series) {

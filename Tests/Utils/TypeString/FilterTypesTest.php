@@ -38,16 +38,7 @@ final class FilterTypesTest extends TestCase
      */
     public function testFilterKeywordTypesNonArrayInput($input)
     {
-        if (\PHP_VERSION_ID >= 70000) {
-            // PHP 7.0+
-            $this->expectException('\TypeError');
-        } elseif (\method_exists($this, 'expectError')) {
-            // PHP 5.4 + 5.5 with PHPUnit Polyfills 1.x.
-            $this->expectError();
-        } else {
-            // PHP 5.6 with PHPUnit 5.2+ and PHPUnit Polyfills 2.x.
-            $this->expectException('\PHPUnit_Framework_Error');
-        }
+        $this->expectException('\TypeError');
 
         TypeString::filterKeywordTypes($input);
     }
@@ -63,16 +54,7 @@ final class FilterTypesTest extends TestCase
      */
     public function testFilterOOTypesNonArrayInput($input)
     {
-        if (\PHP_VERSION_ID >= 70000) {
-            // PHP 7.0+
-            $this->expectException('\TypeError');
-        } elseif (\method_exists($this, 'expectError')) {
-            // PHP 5.4 + 5.5 with PHPUnit Polyfills 1.x.
-            $this->expectError();
-        } else {
-            // PHP 5.6 with PHPUnit 5.2+ and PHPUnit Polyfills 2.x.
-            $this->expectException('\PHPUnit_Framework_Error');
-        }
+        $this->expectException('\TypeError');
 
         TypeString::filterOOTypes($input);
     }

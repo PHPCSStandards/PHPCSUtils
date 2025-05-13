@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
 use PHPCSUtils\Tests\PolyfilledTestCase;
+use PHPUnit\Framework\AssertionFailedError;
 
 /**
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
@@ -30,15 +31,8 @@ final class TestMarkersAreUniqueFailsTest extends PolyfilledTestCase
      */
     public function testTestMarkersAreUnique()
     {
-        $msg       = "Duplicate test markers found.\nFailed asserting that ";
-        $exception = 'PHPUnit\Framework\AssertionFailedError';
-        if (\class_exists('PHPUnit_Framework_AssertionFailedError')) {
-            // PHPUnit < 6.
-            $exception = 'PHPUnit_Framework_AssertionFailedError';
-        }
-
-        $this->expectException($exception);
-        $this->expectExceptionMessage($msg);
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage("Duplicate test markers found.\nFailed asserting that ");
 
         parent::testTestMarkersAreUnique();
     }
