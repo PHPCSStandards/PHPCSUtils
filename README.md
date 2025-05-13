@@ -230,8 +230,7 @@ If your standard includes both PHPCS native sniffs as well as your own sniffs, y
 
 ### Q: Do the utilities work with javascript/CSS files?
 
-A: JS/CSS support will be removed from `PHP_CodeSniffer` in PHPCS 4.x.
-While at this time, some of the utilities _may_ work with JS/CSS files, PHPCSUtils does not offer formal support for JS/CSS sniffing with `PHP_CodeSniffer` and will stop any existing support once PHPCS 4.x has been released.
+A: No, JS/CSS support has been removed from `PHP_CodeSniffer` in PHPCS 4.x.
 
 ### Q: Are all file encodings supported?
 
