@@ -26,30 +26,30 @@ class GetDeclarationNameParseError2Test extends PolyfilledTestCase
 {
 
     /**
-     * Test receiving "null" in case of a parse error.
+     * Test receiving an empty string in case of a parse error.
      *
-     * @dataProvider dataGetDeclarationNameNull
+     * @dataProvider dataGetDeclarationName
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
-    public function testGetDeclarationNameNull($testMarker, $targetType)
+    public function testGetDeclarationName($testMarker, $targetType)
     {
         $target = $this->getTargetToken($testMarker, $targetType);
         $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
-        $this->assertNull($result);
+        $this->assertSame('', $result);
     }
 
     /**
      * Data provider.
      *
-     * @see testGetDeclarationNameNull() For the array format.
+     * @see testGetDeclarationName() For the array format.
      *
      * @return array<string, array<string, int|string>>
      */
-    public static function dataGetDeclarationNameNull()
+    public static function dataGetDeclarationName()
     {
         return [
             'unfinished closure/live coding' => [

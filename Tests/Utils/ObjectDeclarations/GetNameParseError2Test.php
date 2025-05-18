@@ -50,14 +50,17 @@ final class GetNameParseError2Test extends BCFile_GetDeclarationNameParseError2T
     /**
      * Test receiving "null" in case of a parse error.
      *
-     * @dataProvider dataGetDeclarationNameNull
+     * Note: the upstream and the BCFile method no longer returns `null`, but an empty string.
+     * For PHPCSUtils, this change needs to wait for the next major.
+     *
+     * @dataProvider dataGetDeclarationName
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
-    public function testGetDeclarationNameNull($testMarker, $targetType)
+    public function testGetDeclarationName($testMarker, $targetType)
     {
         $target = $this->getTargetToken($testMarker, $targetType);
         $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
