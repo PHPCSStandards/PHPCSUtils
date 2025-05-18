@@ -45,27 +45,25 @@ final class ObjectDeclarations
      *   to return the name of the *next* construct, a partial name and/or the name of a class
      *   being extended/interface being implemented.
      *   Using this version of the utility method, either the complete name (invalid or not) will
-     *   be returned or `null` in case of no name (parse error).
-     * - The PHPCS 4.0 change to no longer accept tokens for anonymous structures (T_CLOSURE/T_ANON_CLASS)
-     *   has not been applied to this method (yet). This will change in PHPCSUtils 2.0.
-     * - The PHPCS 4.0 change to normalize the return type to `string` and no longer return `null`
-     *   has not been applied to this method (yet). This will change in PHPCSUtils 2.0.
+     *   be returned or an empty string in case of no name (parse error).
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Cross-version compatible version of the original.
      *
      * @since 1.0.0
+     * @since 2.0.0 This function no longer returns `null` for non-existent tokens and
+     *              anonymous constructs. In that case, it will now throw an exception instead.
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the declaration token
      *                                               which declared the class, interface,
      *                                               trait, enum or function.
      *
-     * @return string|null The name of the class, interface, trait, enum, or function;
-     *                     or `NULL` if the passed token doesn't exist, the function or
-     *                     class is anonymous or in case of a parse error/live coding.
+     * @return string The name of the class, interface, trait, or function or an empty string
+     *                if the name could not be determined (live coding).
      *
      * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_FUNCTION`, `T_CLASS`,
      *                                                    `T_ANON_CLASS`, `T_CLOSURE`, `T_TRAIT`, `T_ENUM`
      *                                                    or `T_INTERFACE` token.
@@ -78,10 +76,8 @@ final class ObjectDeclarations
             throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
         }
 
-        if (isset($tokens[$stackPtr]) === false
-            || ($tokens[$stackPtr]['code'] === \T_ANON_CLASS || $tokens[$stackPtr]['code'] === \T_CLOSURE)
-        ) {
-            return null;
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
         }
 
         $tokenCode = $tokens[$stackPtr]['code'];
@@ -118,7 +114,7 @@ final class ObjectDeclarations
         $nameStart = $phpcsFile->findNext($exclude, ($stackPtr + 1), $stopPoint, true);
         if ($nameStart === false) {
             // Live coding or parse error.
-            return null;
+            return '';
         }
 
         $tokenAfterNameEnd = $phpcsFile->findNext($exclude, $nameStart, $stopPoint);

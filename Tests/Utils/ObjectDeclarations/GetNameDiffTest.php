@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
 use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ObjectDeclarations;
@@ -49,35 +50,39 @@ final class GetNameDiffTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $result = ObjectDeclarations::getName(self::$phpcsFile, 10000);
-        $this->assertNull($result);
+        $this->expectException(OutOfBoundsStackPtr::class);
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
+        );
+
+        ObjectDeclarations::getName(self::$phpcsFile, 10000);
     }
 
     /**
-     * Test receiving "null" when passed an anonymous construct or in case of a parse error.
+     * Test receiving an empty string in case of a parse error.
      *
-     * @dataProvider dataGetNameNull
+     * @dataProvider dataGetNameEmptyString
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
-    public function testGetNameNull($testMarker, $targetType)
+    public function testGetNameEmptyString($testMarker, $targetType)
     {
         $target = $this->getTargetToken($testMarker, $targetType);
         $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
-        $this->assertNull($result);
+        $this->assertSame('', $result);
     }
 
     /**
      * Data provider.
      *
-     * @see testGetNameNull() For the array format.
+     * @see testGetNameEmptyString() For the array format.
      *
      * @return array<string, array<string, int|string>>
      */
-    public static function dataGetNameNull()
+    public static function dataGetNameEmptyString()
     {
         return [
             'live-coding' => [

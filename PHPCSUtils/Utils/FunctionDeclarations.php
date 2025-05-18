@@ -125,16 +125,19 @@ final class FunctionDeclarations
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()     PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 2.0.0 This function no longer returns `null` for non-existent tokens and
+     *              anonymous constructs. In that case, it will now throw an exception instead.
      *
      * @codeCoverageIgnore
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position of the function keyword token.
      *
-     * @return string|null The name of the function; or `NULL` if the passed token doesn't exist,
-     *                     the function is anonymous or in case of a parse error/live coding.
+     * @return string The name of the function;  or an empty string
+     *                if the name could not be determined (live coding).
      *
      * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
      * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_FUNCTION` token.
      */
     public static function getName(File $phpcsFile, $stackPtr)

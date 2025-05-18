@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
-use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetDeclarationNameTest as BCFile_GetDeclarationNameTest;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
@@ -51,27 +51,6 @@ final class GetNameTest extends BCFile_GetDeclarationNameTest
     /**
      * Test receiving an expected exception when a non-supported token is passed.
      *
-     * @return void
-     */
-    public function testTrulyInvalidTokenPassed()
-    {
-        $this->expectException(UnexpectedTokenType::class);
-        $this->expectExceptionMessage(
-            'Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM'
-        );
-
-        $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
-        ObjectDeclarations::getName(self::$phpcsFile, $target);
-    }
-
-    /**
-     * Test receiving "null" when passed an anonymous construct or in case of a parse error.
-     *
-     * Note: the upstream and the BCFile method no longer returns `null`, but throws an exception.
-     * For PHPCSUtils, this change needs to wait for the next major.
-     *
-     * {@internal Method name not adjusted as otherwise it wouldn't overload the parent method.}
-     *
      * @dataProvider dataInvalidTokenPassed
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
@@ -81,24 +60,14 @@ final class GetNameTest extends BCFile_GetDeclarationNameTest
      */
     public function testInvalidTokenPassed($testMarker, $targetType)
     {
+        $tokenName = Tokens::tokenName($targetType);
+        $this->expectPhpcsException(
+            'Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM; '
+            . $tokenName . ' given'
+        );
+
         $target = $this->getTargetToken($testMarker, $targetType);
-        $result = ObjectDeclarations::getName(self::$phpcsFile, $target);
-        $this->assertNull($result);
-    }
-
-    /**
-     * Data provider.
-     *
-     * @see testInvalidTokenPassed() For the array format.
-     *
-     * @return array<string, array<string, int|string>>
-     */
-    public static function dataInvalidTokenPassed()
-    {
-        $data = parent::dataInvalidTokenPassed();
-        unset($data['unsupported token T_STRING']);
-
-        return $data;
+        ObjectDeclarations::getName(self::$phpcsFile, $target);
     }
 
     /**
