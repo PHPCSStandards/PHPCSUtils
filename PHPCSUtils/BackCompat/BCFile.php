@@ -512,7 +512,8 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - The upstream method has received no significant updates since PHPCS 3.13.0.
+     * - PHPCS 4.0: properties in interfaces (PHP 8.4+) are accepted.
+     * - PHPCS 4.0: will no longer throw a parse error warning.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
      * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
@@ -531,7 +532,137 @@ final class BCFile
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getMemberProperties($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        if ($tokens[$stackPtr]['code'] !== T_VARIABLE) {
+            throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
+        }
+
+        $conditions = $tokens[$stackPtr]['conditions'];
+        $conditions = array_keys($conditions);
+        $ptr        = array_pop($conditions);
+        if (isset($tokens[$ptr]) === false
+            || isset(Tokens::$ooScopeTokens[$tokens[$ptr]['code']]) === false
+            || $tokens[$ptr]['code'] === T_ENUM
+        ) {
+            throw new RuntimeException('$stackPtr is not a class member var');
+        }
+
+        // Make sure it's not a method parameter.
+        if (empty($tokens[$stackPtr]['nested_parenthesis']) === false) {
+            $parenthesis = array_keys($tokens[$stackPtr]['nested_parenthesis']);
+            $deepestOpen = array_pop($parenthesis);
+            if ($deepestOpen > $ptr
+                && isset($tokens[$deepestOpen]['parenthesis_owner']) === true
+                && $tokens[$tokens[$deepestOpen]['parenthesis_owner']]['code'] === T_FUNCTION
+            ) {
+                throw new RuntimeException('$stackPtr is not a class member var');
+            }
+        }
+
+        $valid = [
+            T_PUBLIC    => T_PUBLIC,
+            T_PRIVATE   => T_PRIVATE,
+            T_PROTECTED => T_PROTECTED,
+            T_STATIC    => T_STATIC,
+            T_VAR       => T_VAR,
+            T_READONLY  => T_READONLY,
+            T_FINAL     => T_FINAL,
+        ];
+
+        $valid += Tokens::$emptyTokens;
+
+        $scope          = 'public';
+        $scopeSpecified = false;
+        $isStatic       = false;
+        $isReadonly     = false;
+        $isFinal        = false;
+
+        $startOfStatement = $phpcsFile->findPrevious(
+            [
+                T_SEMICOLON,
+                T_OPEN_CURLY_BRACKET,
+                T_CLOSE_CURLY_BRACKET,
+                T_ATTRIBUTE_END,
+            ],
+            ($stackPtr - 1)
+        );
+
+        for ($i = ($startOfStatement + 1); $i < $stackPtr; $i++) {
+            if (isset($valid[$tokens[$i]['code']]) === false) {
+                break;
+            }
+
+            switch ($tokens[$i]['code']) {
+                case T_PUBLIC:
+                    $scope          = 'public';
+                    $scopeSpecified = true;
+                    break;
+                case T_PRIVATE:
+                    $scope          = 'private';
+                    $scopeSpecified = true;
+                    break;
+                case T_PROTECTED:
+                    $scope          = 'protected';
+                    $scopeSpecified = true;
+                    break;
+                case T_STATIC:
+                    $isStatic = true;
+                    break;
+                case T_READONLY:
+                    $isReadonly = true;
+                    break;
+                case T_FINAL:
+                    $isFinal = true;
+                    break;
+            }
+        }
+
+        $type         = '';
+        $typeToken    = false;
+        $typeEndToken = false;
+        $nullableType = false;
+
+        if ($i < $stackPtr) {
+            // We've found a type.
+            $valid = Collections::propertyTypeTokens();
+
+            for ($i; $i < $stackPtr; $i++) {
+                if ($tokens[$i]['code'] === T_VARIABLE) {
+                    // Hit another variable in a group definition.
+                    break;
+                }
+
+                if ($tokens[$i]['code'] === T_NULLABLE) {
+                    $nullableType = true;
+                }
+
+                if (isset($valid[$tokens[$i]['code']]) === true) {
+                    $typeEndToken = $i;
+                    if ($typeToken === false) {
+                        $typeToken = $i;
+                    }
+
+                    $type .= $tokens[$i]['content'];
+                }
+            }
+
+            if ($type !== '' && $nullableType === true) {
+                $type = '?' . $type;
+            }
+        }
+
+        return [
+            'scope'           => $scope,
+            'scope_specified' => $scopeSpecified,
+            'is_static'       => $isStatic,
+            'is_readonly'     => $isReadonly,
+            'is_final'        => $isFinal,
+            'type'            => $type,
+            'type_token'      => $typeToken,
+            'type_end_token'  => $typeEndToken,
+            'nullable_type'   => $nullableType,
+        ];
     }
 
     /**

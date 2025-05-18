@@ -415,7 +415,7 @@ final class Collections
     /**
      * OO scopes in which properties can be declared.
      *
-     * Note: interfaces can not declare properties.
+     * - PHP 8.4 added support for properties in interfaces.
      *
      * @since 1.0.0 Use the {@see Collections::ooPropertyScopes()} method for access.
      *
@@ -424,6 +424,7 @@ final class Collections
     private static $ooPropertyScopes = [
         \T_CLASS      => \T_CLASS,
         \T_ANON_CLASS => \T_ANON_CLASS,
+        \T_INTERFACE  => \T_INTERFACE,
         \T_TRAIT      => \T_TRAIT,
     ];
 

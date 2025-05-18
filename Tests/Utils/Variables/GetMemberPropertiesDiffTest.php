@@ -55,37 +55,4 @@ final class GetMemberPropertiesDiffTest extends PolyfilledTestCase
 
         Variables::getMemberProperties(self::$phpcsFile, 10000);
     }
-
-    /**
-     * Test receiving an expected exception when an (invalid) interface or enum property is passed.
-     *
-     * @dataProvider dataNotClassPropertyException
-     *
-     * @param string $testMarker Comment which precedes the test case.
-     *
-     * @return void
-     */
-    public function testNotClassPropertyException($testMarker)
-    {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
-        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to a class member var');
-
-        $variable = $this->getTargetToken($testMarker, \T_VARIABLE);
-        Variables::getMemberProperties(self::$phpcsFile, $variable);
-    }
-
-    /**
-     * Data provider.
-     *
-     * @see testNotClassPropertyException()
-     *
-     * @return array<string, array<string>>
-     */
-    public static function dataNotClassPropertyException()
-    {
-        return [
-            'interface property' => ['/* testInterfaceProperty */'],
-            'enum property'      => ['/* testEnumProperty */'],
-        ];
-    }
 }

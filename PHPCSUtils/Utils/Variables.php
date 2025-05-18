@@ -80,7 +80,7 @@ final class Variables
      * Retrieve the visibility and implementation properties of a class member variable.
      *
      * Main differences with the PHPCS version:
-     * - Removed the parse error warning for properties in interfaces.
+     * - Removed the parse error warning for properties in enums (PHPCS 4.0 makes the same change).
      *   This will now throw the same _"$stackPtr is not a class member var"_ runtime exception as
      *   other non-property variables passed to the method.
      * - Defensive coding against incorrect calls to this method.
