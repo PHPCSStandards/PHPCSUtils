@@ -69,7 +69,7 @@ final class UseStatements
             return 'closure';
         }
 
-        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+        $prev = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
         if ($prev !== false && $tokens[$prev]['code'] === \T_CLOSE_PARENTHESIS
             // T_FUNCTION is included to handle certain parse errors, which are still clearly closure use, correctly.
             && Parentheses::isOwnerIn($phpcsFile, $prev, [\T_CLOSURE, \T_FUNCTION]) === true
@@ -77,7 +77,7 @@ final class UseStatements
             return 'closure';
         }
 
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
         if ($next === false) {
             // Live coding or parse error.
             return '';
@@ -89,7 +89,7 @@ final class UseStatements
             return 'import';
         }
 
-        $traitScopes = Tokens::$ooScopeTokens;
+        $traitScopes = Tokens::OO_SCOPE_TOKENS;
         // Only classes, traits and enums can import traits.
         unset($traitScopes[\T_INTERFACE]);
 
@@ -239,7 +239,7 @@ final class UseStatements
         $alias     = '';
 
         for ($i = ($stackPtr + 1); $i < $endOfStatement; $i++) {
-            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
+            if (isset(Tokens::EMPTY_TOKENS[$tokens[$i]['code']]) === true) {
                 continue;
             }
 

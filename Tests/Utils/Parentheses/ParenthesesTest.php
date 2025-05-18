@@ -225,7 +225,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      * This array is merged with expected result arrays for various unit tests
      * to make sure all possible parentheses owners are tested.
      *
-     * This array should be kept in sync with the Tokens::$parenthesisOpeners array
+     * This array should be kept in sync with the Tokens::PARENTHESIS_OPENERS array
      * + the extra tokens the Parentheses class allows for (if any).
      *
      * This array isn't auto-generated based on the array in Tokens as for these

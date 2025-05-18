@@ -146,7 +146,7 @@ final class TextStrings
         }
 
         // Must be the start of a text string token.
-        if (isset(Tokens::$stringTokens[$tokens[$stackPtr]['code']]) === true) {
+        if (isset(Tokens::STRING_TOKENS[$tokens[$stackPtr]['code']]) === true) {
             $prev = $phpcsFile->findPrevious(\T_WHITESPACE, ($stackPtr - 1), null, true);
             if ($tokens[$stackPtr]['code'] === $tokens[$prev]['code']) {
                 throw ValueError::create(2, '$stackPtr', 'must be the start of the text string');

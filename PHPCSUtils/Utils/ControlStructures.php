@@ -62,7 +62,7 @@ final class ControlStructures
 
         // Handle `else if`.
         if ($tokens[$stackPtr]['code'] === \T_ELSE && isset($tokens[$stackPtr]['scope_opener']) === false) {
-            $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
             if ($next !== false && $tokens[$next]['code'] === \T_IF) {
                 $stackPtr = $next;
             }
@@ -83,7 +83,7 @@ final class ControlStructures
                 $end = $tokens[$stackPtr]['scope_closer'];
             }
 
-            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $start, $end, true);
+            $nextNonEmpty = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $start, $end, true);
             if ($nextNonEmpty !== false) {
                 return true;
             }
@@ -107,7 +107,7 @@ final class ControlStructures
         }
 
         $nextNonEmpty = $phpcsFile->findNext(
-            Tokens::$emptyTokens,
+            Tokens::EMPTY_TOKENS,
             $searchStart,
             null,
             true
@@ -127,7 +127,7 @@ final class ControlStructures
 
             // Unrecognized scope opener due to parse error.
             $nextNext = $phpcsFile->findNext(
-                Tokens::$emptyTokens,
+                Tokens::EMPTY_TOKENS,
                 ($nextNonEmpty + 1),
                 null,
                 true
@@ -176,14 +176,14 @@ final class ControlStructures
 
         switch ($tokens[$stackPtr]['code']) {
             case \T_ELSE:
-                $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+                $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
                 if ($next !== false && $tokens[$next]['code'] === \T_IF) {
                     return true;
                 }
                 break;
 
             case \T_IF:
-                $previous = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+                $previous = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
                 if ($previous !== false && $tokens[$previous]['code'] === \T_ELSE) {
                     return true;
                 }
@@ -247,7 +247,7 @@ final class ControlStructures
         $lastToken  = null;
 
         for ($i = ($opener + 1); $i <= $closer; $i++) {
-            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
+            if (isset(Tokens::EMPTY_TOKENS[$tokens[$i]['code']])) {
                 continue;
             }
 

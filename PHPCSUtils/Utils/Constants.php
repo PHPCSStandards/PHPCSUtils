@@ -99,7 +99,7 @@ final class Constants
             throw ValueError::create(2, '$stackPtr', 'must be the pointer to an OO constant');
         }
 
-        $namePtr = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($assignmentPtr - 1), ($stackPtr + 1), true);
+        $namePtr = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($assignmentPtr - 1), ($stackPtr + 1), true);
 
         $returnValue = [
             'scope'          => 'public',
@@ -123,7 +123,7 @@ final class Constants
                 continue;
             }
 
-            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
+            if (isset(Tokens::EMPTY_TOKENS[$tokens[$i]['code']]) === true) {
                 continue;
             }
 
@@ -161,7 +161,7 @@ final class Constants
 
         // Now, let's check for a type.
         for ($i = ($stackPtr + 1); $i < $namePtr; $i++) {
-            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']]) === true) {
+            if (isset(Tokens::EMPTY_TOKENS[$tokens[$i]['code']]) === true) {
                 continue;
             }
 

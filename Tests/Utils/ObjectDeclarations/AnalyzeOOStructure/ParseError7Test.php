@@ -55,7 +55,7 @@ final class ParseError7Test extends ParseErrorTestCase
             $expected[$name] = $this->getTargetToken($marker, [\T_FUNCTION]);
         }
 
-        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::OO_SCOPE_TOKENS);
         $result   = ObjectDeclarations::getDeclaredMethods(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }

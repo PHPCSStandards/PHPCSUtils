@@ -36,7 +36,7 @@ abstract class ParseErrorTestCase extends UtilityMethodTestCase
      */
     public function testGetDeclaredConstants()
     {
-        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::OO_SCOPE_TOKENS);
         $this->assertSame([], ObjectDeclarations::getDeclaredConstants(self::$phpcsFile, $stackPtr));
     }
 
@@ -47,7 +47,7 @@ abstract class ParseErrorTestCase extends UtilityMethodTestCase
      */
     public function testGetDeclaredEnumCases()
     {
-        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::OO_SCOPE_TOKENS);
         $this->assertSame([], ObjectDeclarations::getDeclaredEnumCases(self::$phpcsFile, $stackPtr));
     }
 
@@ -58,7 +58,7 @@ abstract class ParseErrorTestCase extends UtilityMethodTestCase
      */
     public function testGetDeclaredProperties()
     {
-        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::OO_SCOPE_TOKENS);
         $this->assertSame([], ObjectDeclarations::getDeclaredProperties(self::$phpcsFile, $stackPtr));
     }
 
@@ -69,7 +69,7 @@ abstract class ParseErrorTestCase extends UtilityMethodTestCase
      */
     public function testGetDeclaredMethods()
     {
-        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken('/* testParseError */', Tokens::OO_SCOPE_TOKENS);
         $this->assertSame([], ObjectDeclarations::getDeclaredMethods(self::$phpcsFile, $stackPtr));
     }
 }

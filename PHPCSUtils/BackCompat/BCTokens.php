@@ -33,8 +33,8 @@ use PHPCSUtils\Exceptions\InvalidTokenArray;
  * across PHPCS versions.
  *
  * The names of the PHPCS native token arrays translate one-on-one to the methods in this class:
- * - `PHP_CodeSniffer\Util\Tokens::$emptyTokens` => `PHPCSUtils\BackCompat\BCTokens::emptyTokens()`
- * - `PHP_CodeSniffer\Util\Tokens::$operators`   => `PHPCSUtils\BackCompat\BCTokens::operators()`
+ * - `PHP_CodeSniffer\Util\Tokens::EMPTY_TOKENS` => `PHPCSUtils\BackCompat\BCTokens::emptyTokens()`
+ * - `PHP_CodeSniffer\Util\Tokens::OPERATORS`    => `PHPCSUtils\BackCompat\BCTokens::operators()`
  * - ... etc
  *
  * The order of the tokens in the arrays may differ between the PHPCS native token arrays and

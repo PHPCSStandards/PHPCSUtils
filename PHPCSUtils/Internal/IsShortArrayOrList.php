@@ -215,8 +215,8 @@ final class IsShortArrayOrList
             $this->closer = $this->tokens[$stackPtr]['bracket_closer'];
         }
 
-        $this->beforeOpener = $this->phpcsFile->findPrevious(Tokens::$emptyTokens, ($this->opener - 1), null, true);
-        $this->afterCloser  = $this->phpcsFile->findNext(Tokens::$emptyTokens, ($this->closer + 1), null, true);
+        $this->beforeOpener = $this->phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($this->opener - 1), null, true);
+        $this->afterCloser  = $this->phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($this->closer + 1), null, true);
 
         $this->phpcsVersion = Helper::getVersion();
         $this->openBrackets = $openBrackets;
@@ -293,7 +293,7 @@ final class IsShortArrayOrList
         if ($this->tokens[$this->afterCloser]['code'] === \T_COMMA) {
             // Skip over potential trailing commas.
             $nextEffectiveAfterCloser = $this->phpcsFile->findNext(
-                Tokens::$emptyTokens,
+                Tokens::EMPTY_TOKENS,
                 ($this->afterCloser + 1),
                 null,
                 true
@@ -448,7 +448,7 @@ final class IsShortArrayOrList
         }
 
         // Make sure vars assigned by reference are handled correctly.
-        $skip   = Tokens::$emptyTokens;
+        $skip   = Tokens::EMPTY_TOKENS;
         $skip[] = \T_BITWISE_AND;
 
         $skipNames = Collections::namespacedNameTokens() + Collections::ooHierarchyKeywords();
@@ -497,7 +497,7 @@ final class IsShortArrayOrList
                      * Double colon, so make sure there is a variable after it.
                      * If not, it's constant or function call, i.e. a short array.
                      */
-                    $nextNextAfter = $this->phpcsFile->findNext(Tokens::$emptyTokens, ($nextAfter + 1), null, true);
+                    $nextNextAfter = $this->phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($nextAfter + 1), null, true);
                     if ($this->tokens[$nextNextAfter]['code'] !== \T_VARIABLE) {
                         return self::SHORT_ARRAY;
                     }
@@ -513,7 +513,7 @@ final class IsShortArrayOrList
                  * but that's not the concern of the current determination).
                  */
                 $lastNonEmptyInValue = $this->phpcsFile->findPrevious(
-                    Tokens::$emptyTokens,
+                    Tokens::EMPTY_TOKENS,
                     $item['end'],
                     $item['start'],
                     true
@@ -562,7 +562,7 @@ final class IsShortArrayOrList
                 continue;
             }
 
-            if (isset(Tokens::$emptyTokens[$this->tokens[$i]['code']]) === true) {
+            if (isset(Tokens::EMPTY_TOKENS[$this->tokens[$i]['code']]) === true) {
                 continue;
             }
 
@@ -599,7 +599,7 @@ final class IsShortArrayOrList
                 if ($i === $this->tokens[$i]['parenthesis_opener']
                     && $this->tokens[$i]['parenthesis_closer'] > $this->closer
                 ) {
-                    $beforeParensOpen = $this->phpcsFile->findPrevious(Tokens::$emptyTokens, ($i - 1), null, true);
+                    $beforeParensOpen = $this->phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($i - 1), null, true);
                     if ($this->tokens[$beforeParensOpen]['code'] === \T_LIST) {
                         // Parse error, mixing long and short list, but that's not our concern.
                         return self::SHORT_LIST;
@@ -649,8 +649,8 @@ final class IsShortArrayOrList
                  * as adjacent sets of brackets will have the same type.
                  */
                 $adjOpener    = $this->tokens[$i]['bracket_opener'];
-                $prevNonEmpty = $this->phpcsFile->findPrevious(Tokens::$emptyTokens, ($adjOpener - 1), null, true);
-                $nextNonEmpty = $this->phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
+                $prevNonEmpty = $this->phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($adjOpener - 1), null, true);
+                $nextNonEmpty = $this->phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($i + 1), null, true);
 
                 if ($this->tokens[$prevNonEmpty]['code'] === $this->tokens[$this->beforeOpener]['code']
                     && $this->tokens[$nextNonEmpty]['code'] === $this->tokens[$this->afterCloser]['code']

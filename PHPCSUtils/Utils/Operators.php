@@ -82,7 +82,7 @@ final class Operators
             return false;
         }
 
-        $tokenBefore = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+        $tokenBefore = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
 
         if (isset(Collections::functionDeclarationTokens()[$tokens[$tokenBefore]['code']]) === true) {
             // Function returns a reference.
@@ -99,13 +99,13 @@ final class Operators
             return true;
         }
 
-        if (isset(Tokens::$assignmentTokens[$tokens[$tokenBefore]['code']]) === true) {
+        if (isset(Tokens::ASSIGNMENT_TOKENS[$tokens[$tokenBefore]['code']]) === true) {
             // This is directly after an assignment. It's a reference. Even if
             // it is part of an operation, the other tests will handle it.
             return true;
         }
 
-        $tokenAfter = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        $tokenAfter = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
 
         if ($tokens[$tokenAfter]['code'] === \T_NEW) {
             return true;
@@ -138,7 +138,7 @@ final class Operators
             if ($tokens[$tokenAfter]['code'] === \T_VARIABLE) {
                 return true;
             } else {
-                $skip   = Tokens::$emptyTokens;
+                $skip   = Tokens::EMPTY_TOKENS;
                 $skip  += Collections::namespacedNameTokens();
                 $skip  += Collections::ooHierarchyKeywords();
                 $skip[] = \T_DOUBLE_COLON;
@@ -181,27 +181,27 @@ final class Operators
             return false;
         }
 
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
         if ($next === false) {
             // Live coding or parse error.
             return false;
         }
 
-        if (isset(Tokens::$operators[$tokens[$next]['code']]) === true) {
+        if (isset(Tokens::OPERATORS[$tokens[$next]['code']]) === true) {
             // Next token is an operator, so this is not a unary.
             return false;
         }
 
-        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+        $prev = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
 
         /*
          * Check the preceeding token for an indication that this is not an arithmetic operation.
          */
-        if (isset(Tokens::$operators[$tokens[$prev]['code']]) === true
-            || isset(Tokens::$comparisonTokens[$tokens[$prev]['code']]) === true
-            || isset(Tokens::$booleanOperators[$tokens[$prev]['code']]) === true
-            || isset(Tokens::$assignmentTokens[$tokens[$prev]['code']]) === true
-            || isset(Tokens::$castTokens[$tokens[$prev]['code']]) === true
+        if (isset(Tokens::OPERATORS[$tokens[$prev]['code']]) === true
+            || isset(Tokens::COMPARISON_TOKENS[$tokens[$prev]['code']]) === true
+            || isset(Tokens::BOOLEAN_OPERATORS[$tokens[$prev]['code']]) === true
+            || isset(Tokens::ASSIGNMENT_TOKENS[$tokens[$prev]['code']]) === true
+            || isset(Tokens::CAST_TOKENS[$tokens[$prev]['code']]) === true
             || isset(Collections::ternaryOperators()[$tokens[$prev]['code']]) === true
             || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
         ) {
@@ -230,14 +230,14 @@ final class Operators
         }
 
         if ($tokens[$stackPtr]['code'] === \T_INLINE_THEN) {
-            $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            $nextNonEmpty = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
             if ($nextNonEmpty !== false && $tokens[$nextNonEmpty]['code'] === \T_INLINE_ELSE) {
                 return true;
             }
         }
 
         if ($tokens[$stackPtr]['code'] === \T_INLINE_ELSE) {
-            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+            $prevNonEmpty = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
             if ($prevNonEmpty !== false && $tokens[$prevNonEmpty]['code'] === \T_INLINE_THEN) {
                 return true;
             }

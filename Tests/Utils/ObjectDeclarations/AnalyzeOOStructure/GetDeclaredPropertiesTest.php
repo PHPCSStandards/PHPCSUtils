@@ -107,7 +107,7 @@ final class GetDeclaredPropertiesTest extends PolyfilledTestCase
             $expected[$name] = $this->getTargetToken($marker, [\T_VARIABLE]);
         }
 
-        $stackPtr = $this->getTargetToken($testMarker, Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken($testMarker, Tokens::OO_SCOPE_TOKENS);
         $result   = ObjectDeclarations::getDeclaredProperties(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -241,7 +241,7 @@ final class GetDeclaredPropertiesTest extends PolyfilledTestCase
             $expected[$name] = $this->getTargetToken($marker, [\T_VARIABLE]);
         }
 
-        $stackPtr = $this->getTargetToken($testMarker, Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken($testMarker, Tokens::OO_SCOPE_TOKENS);
 
         // Verify the caching works.
         $origStatus     = Cache::$enabled;

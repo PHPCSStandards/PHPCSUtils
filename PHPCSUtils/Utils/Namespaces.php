@@ -63,11 +63,11 @@ final class Namespaces
              * Set up array of tokens which can only be used in combination with the keyword as operator
              * and which cannot be confused with other keywords.
              */
-            $findAfter = Tokens::$assignmentTokens
-                + Tokens::$comparisonTokens
-                + Tokens::$operators
-                + Tokens::$castTokens
-                + Tokens::$blockOpeners
+            $findAfter = Tokens::ASSIGNMENT_TOKENS
+                + Tokens::COMPARISON_TOKENS
+                + Tokens::OPERATORS
+                + Tokens::CAST_TOKENS
+                + Tokens::BLOCK_OPENERS
                 + Collections::incrementDecrementOperators()
                 + Collections::objectOperators()
                 + Collections::shortArrayListOpenTokensBC();
@@ -89,7 +89,7 @@ final class Namespaces
             throw UnexpectedTokenType::create(2, '$stackPtr', 'T_NAMESPACE', $tokens[$stackPtr]['type']);
         }
 
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
         if ($next === false) {
             // Live coding or parse error.
             return '';
@@ -209,7 +209,7 @@ final class Namespaces
             return false;
         }
 
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), ($endOfStatement + 1), true);
+        $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), ($endOfStatement + 1), true);
         if ($next === $endOfStatement) {
             // Declaration of global namespace. I.e.: namespace {}.
             // If not a scoped {} namespace declaration, no name/global declarations are invalid

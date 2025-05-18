@@ -230,7 +230,7 @@ final class Lists
         $keys         = [];
 
         for ($i = ($opener + 1); $i <= $closer; $i++) {
-            if (isset(Tokens::$emptyTokens[$tokens[$i]['code']])) {
+            if (isset(Tokens::EMPTY_TOKENS[$tokens[$i]['code']])) {
                 continue;
             }
 

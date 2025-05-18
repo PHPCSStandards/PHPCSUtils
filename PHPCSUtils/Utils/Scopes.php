@@ -134,7 +134,7 @@ final class Scopes
             return false;
         }
 
-        if (self::validDirectScope($phpcsFile, $stackPtr, Tokens::$ooScopeTokens) !== false) {
+        if (self::validDirectScope($phpcsFile, $stackPtr, Tokens::OO_SCOPE_TOKENS) !== false) {
             return true;
         }
 

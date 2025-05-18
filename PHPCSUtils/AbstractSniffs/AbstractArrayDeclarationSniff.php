@@ -134,14 +134,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     final public function __construct()
     {
         // Enhance the list of accepted tokens.
-        $this->acceptedTokens += Tokens::$assignmentTokens;
-        $this->acceptedTokens += Tokens::$comparisonTokens;
-        $this->acceptedTokens += Tokens::$arithmeticTokens;
-        $this->acceptedTokens += Tokens::$operators;
-        $this->acceptedTokens += Tokens::$booleanOperators;
-        $this->acceptedTokens += Tokens::$castTokens;
-        $this->acceptedTokens += Tokens::$bracketTokens;
-        $this->acceptedTokens += Tokens::$heredocTokens;
+        $this->acceptedTokens += Tokens::ASSIGNMENT_TOKENS;
+        $this->acceptedTokens += Tokens::COMPARISON_TOKENS;
+        $this->acceptedTokens += Tokens::ARITHMETIC_TOKENS;
+        $this->acceptedTokens += Tokens::OPERATORS;
+        $this->acceptedTokens += Tokens::BOOLEAN_OPERATORS;
+        $this->acceptedTokens += Tokens::CAST_TOKENS;
+        $this->acceptedTokens += Tokens::BRACKET_TOKENS;
+        $this->acceptedTokens += Tokens::HEREDOC_TOKENS;
         $this->acceptedTokens += Collections::ternaryOperators();
     }
 
@@ -463,13 +463,13 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
         /*
          * Determine the value of the key.
          */
-        $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $startPtr, null, true);
-        $lastNonEmpty  = $phpcsFile->findPrevious(Tokens::$emptyTokens, $endPtr, null, true);
+        $firstNonEmpty = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $startPtr, null, true);
+        $lastNonEmpty  = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, $endPtr, null, true);
 
         $content = '';
 
         for ($i = $firstNonEmpty; $i <= $lastNonEmpty; $i++) {
-            if (isset(Tokens::$commentTokens[$this->tokens[$i]['code']]) === true) {
+            if (isset(Tokens::COMMENT_TOKENS[$this->tokens[$i]['code']]) === true) {
                 continue;
             }
 

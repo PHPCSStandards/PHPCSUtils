@@ -109,7 +109,7 @@ final class ObjectDeclarations
             $stopPoint = $tokens[$stackPtr]['scope_opener'];
         }
 
-        $exclude   = Tokens::$emptyTokens;
+        $exclude   = Tokens::EMPTY_TOKENS;
         $exclude[] = \T_OPEN_PARENTHESIS;
         $exclude[] = \T_OPEN_CURLY_BRACKET;
         $exclude[] = \T_BITWISE_AND;
@@ -186,7 +186,7 @@ final class ObjectDeclarations
             throw UnexpectedTokenType::create(2, '$stackPtr', 'T_CLASS', $tokens[$stackPtr]['type']);
         }
 
-        $valid      = Collections::classModifierKeywords() + Tokens::$emptyTokens;
+        $valid      = Collections::classModifierKeywords() + Tokens::EMPTY_TOKENS;
         $properties = [
             'is_abstract'    => false,
             'abstract_token' => false,
@@ -345,7 +345,7 @@ final class ObjectDeclarations
             return false;
         }
 
-        $find  = Collections::namespacedNameTokens() + Tokens::$emptyTokens;
+        $find  = Collections::namespacedNameTokens() + Tokens::EMPTY_TOKENS;
         $names = [];
         $end   = $keywordPtr;
         do {
@@ -506,7 +506,7 @@ final class ObjectDeclarations
             throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
         }
 
-        if (isset(Tokens::$ooScopeTokens[$tokens[$stackPtr]['code']]) === false) {
+        if (isset(Tokens::OO_SCOPE_TOKENS[$tokens[$stackPtr]['code']]) === false) {
             $acceptedTokens = 'T_CLASS, T_ANON_CLASS, T_INTERFACE, T_TRAIT or T_ENUM';
             throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
@@ -564,7 +564,7 @@ final class ObjectDeclarations
                         continue 2;
                     }
 
-                    $namePtr = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($assignmentPtr - 1), ($i + 1), true);
+                    $namePtr = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($assignmentPtr - 1), ($i + 1), true);
                     if ($namePtr === false || $tokens[$namePtr]['code'] !== \T_STRING) {
                         // Probably a parse error. Ignore.
                         continue 2;
@@ -577,7 +577,7 @@ final class ObjectDeclarations
                     break;
 
                 case \T_ENUM_CASE:
-                    $namePtr = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
+                    $namePtr = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($i + 1), null, true);
                     if ($namePtr === false || $tokens[$namePtr]['code'] !== \T_STRING) {
                         // Probably a parse error. Ignore.
                         continue 2;

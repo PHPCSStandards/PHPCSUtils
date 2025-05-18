@@ -240,7 +240,7 @@ final class GetTokensAsString
 
         $lastAdded = null;
         for ($i = $start; $i <= $end; $i++) {
-            if ($stripComments === true && isset(Tokens::$commentTokens[$tokens[$i]['code']])) {
+            if ($stripComments === true && isset(Tokens::COMMENT_TOKENS[$tokens[$i]['code']])) {
                 continue;
             }
 

@@ -103,9 +103,9 @@ final class PassedParameters
         }
 
         // Only accept self/static/parent if preceded by `new` or followed by an open parenthesis.
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
         if (isset(Collections::ooHierarchyKeywords()[$tokens[$stackPtr]['code']]) === true) {
-            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
+            $prev = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
             if ($tokens[$prev]['code'] !== \T_NEW
                 && ($next !== false && $tokens[$next]['code'] !== \T_OPEN_PARENTHESIS)
             ) {
@@ -144,7 +144,7 @@ final class PassedParameters
             return false;
         }
 
-        $ignore              = Tokens::$emptyTokens;
+        $ignore              = Tokens::EMPTY_TOKENS;
         $ignore[\T_ELLIPSIS] = \T_ELLIPSIS; // Prevent PHP 8.1 first class callables from being seen as function calls.
 
         $closeParenthesis = $tokens[$next]['parenthesis_closer'];
@@ -230,7 +230,7 @@ final class PassedParameters
             $opener = $stackPtr;
             $closer = $tokens[$stackPtr]['bracket_closer'];
         } else {
-            $opener = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            $opener = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
             $closer = $tokens[$opener]['parenthesis_closer'];
         }
 
@@ -240,7 +240,7 @@ final class PassedParameters
         $nextComma    = $opener;
         $paramStart   = ($opener + 1);
         $cnt          = 1;
-        $stopPoints   = self::$callParsingStopPoints + Tokens::$scopeOpeners;
+        $stopPoints   = self::$callParsingStopPoints + Tokens::SCOPE_OPENERS;
         $stopPoints[] = $tokens[$closer]['code'];
 
         while (($nextComma = $phpcsFile->findNext($stopPoints, ($nextComma + 1), ($closer + 1))) !== false) {
@@ -296,10 +296,10 @@ final class PassedParameters
             $key      = $cnt;
 
             if ($mayHaveNames === true) {
-                $firstNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, $paramStart, ($paramEnd + 1), true);
+                $firstNonEmpty = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $paramStart, ($paramEnd + 1), true);
                 if ($firstNonEmpty !== $paramEnd) {
                     $secondNonEmpty = $phpcsFile->findNext(
-                        Tokens::$emptyTokens,
+                        Tokens::EMPTY_TOKENS,
                         ($firstNonEmpty + 1),
                         ($paramEnd + 1),
                         true
@@ -329,7 +329,7 @@ final class PassedParameters
             // Prevents function calls with trailing comma's from setting an extra parameter:
             // `functionCall( $param1, $param2, );`.
             $hasNextParam = $phpcsFile->findNext(
-                Tokens::$emptyTokens,
+                Tokens::EMPTY_TOKENS,
                 ($nextComma + 1),
                 $closer,
                 true

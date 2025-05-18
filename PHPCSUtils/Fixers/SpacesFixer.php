@@ -153,7 +153,7 @@ final class SpacesFixer
             $ptrB = $stackPtr;
         }
 
-        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($ptrA + 1), null, true);
+        $nextNonEmpty = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($ptrA + 1), null, true);
         if ($nextNonEmpty !== false && $nextNonEmpty < $ptrB) {
             throw LogicException::create(
                 'The $stackPtr and the $secondPtr token must be adjacent tokens separated only'

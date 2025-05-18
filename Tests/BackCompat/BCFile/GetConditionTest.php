@@ -88,7 +88,7 @@ class GetConditionTest extends UtilityMethodTestCase
      * This array is merged with expected result arrays for various unit tests
      * to make sure all possible conditions are tested.
      *
-     * This array should be kept in sync with the Tokens::$scopeOpeners array.
+     * This array should be kept in sync with the Tokens::SCOPE_OPENERS array.
      * This array isn't auto-generated based on the array in Tokens as for these
      * tests we want to have access to the token constant names, not just their values.
      *
@@ -160,7 +160,7 @@ class GetConditionTest extends UtilityMethodTestCase
 
         if (empty(self::$markerTokens) === true) {
             foreach ($this->conditionMarkers as $marker) {
-                self::$markerTokens[$marker] = $this->getTargetToken($marker, Tokens::$scopeOpeners);
+                self::$markerTokens[$marker] = $this->getTargetToken($marker, Tokens::SCOPE_OPENERS);
             }
         }
 

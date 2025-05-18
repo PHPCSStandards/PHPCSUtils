@@ -144,7 +144,7 @@ final class Variables
             return Cache::get($phpcsFile, __METHOD__, $stackPtr);
         }
 
-        $valid = Collections::propertyModifierKeywords() + Tokens::$emptyTokens;
+        $valid = Collections::propertyModifierKeywords() + Tokens::EMPTY_TOKENS;
 
         $scope          = 'public';
         $scopeSpecified = false;
@@ -321,8 +321,8 @@ final class Variables
         $content = $tokens[$stackPtr]['content'];
 
         if ($tokens[$stackPtr]['code'] === \T_CONSTANT_ENCAPSED_STRING) {
-            $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
-            $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+            $prev = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($stackPtr - 1), null, true);
+            $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($stackPtr + 1), null, true);
             if (($prev === false || $tokens[$prev]['code'] !== \T_OPEN_SQUARE_BRACKET)
                 || ($next === false || $tokens[$next]['code'] !== \T_CLOSE_SQUARE_BRACKET)
             ) {
@@ -330,7 +330,7 @@ final class Variables
                 return false;
             }
 
-            $pprev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($prev - 1), null, true);
+            $pprev = $phpcsFile->findPrevious(Tokens::EMPTY_TOKENS, ($prev - 1), null, true);
             if ($pprev === false
                 || $tokens[$pprev]['code'] !== \T_VARIABLE
                 || $tokens[$pprev]['content'] !== '$GLOBALS'

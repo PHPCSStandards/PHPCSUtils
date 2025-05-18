@@ -206,12 +206,12 @@ final class FunctionDeclarations
         }
 
         if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
-            $valid = Tokens::$methodPrefixes;
+            $valid = Tokens::METHOD_MODIFIERS;
         } else {
             $valid = [\T_STATIC => \T_STATIC];
         }
 
-        $valid += Tokens::$emptyTokens;
+        $valid += Tokens::EMPTY_TOKENS;
 
         $scope          = 'public';
         $scopeSpecified = false;
@@ -612,7 +612,7 @@ final class FunctionDeclarations
                     break;
 
                 case \T_EQUAL:
-                    $defaultStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
+                    $defaultStart = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, ($i + 1), null, true);
                     $equalToken   = $i;
 
                     // Skip past everything in the default value before going into the next switch loop.
@@ -763,7 +763,7 @@ final class FunctionDeclarations
             return false;
         }
 
-        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, Tokens::$ooScopeTokens);
+        $scopePtr = Scopes::validDirectScope($phpcsFile, $stackPtr, Tokens::OO_SCOPE_TOKENS);
         if ($scopePtr === false) {
             return false;
         }

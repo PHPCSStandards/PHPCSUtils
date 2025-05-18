@@ -105,7 +105,7 @@ final class GetDeclaredEnumCasesTest extends PolyfilledTestCase
             $expected[$name] = $this->getTargetToken($marker, [\T_ENUM_CASE]);
         }
 
-        $stackPtr = $this->getTargetToken($testMarker, Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken($testMarker, Tokens::OO_SCOPE_TOKENS);
         $result   = ObjectDeclarations::getDeclaredEnumCases(self::$phpcsFile, $stackPtr);
         $this->assertSame($expected, $result);
     }
@@ -153,7 +153,7 @@ final class GetDeclaredEnumCasesTest extends PolyfilledTestCase
             $expected[$name] = $this->getTargetToken($marker, [\T_ENUM_CASE]);
         }
 
-        $stackPtr = $this->getTargetToken($testMarker, Tokens::$ooScopeTokens);
+        $stackPtr = $this->getTargetToken($testMarker, Tokens::OO_SCOPE_TOKENS);
 
         // Verify the caching works.
         $origStatus     = Cache::$enabled;
