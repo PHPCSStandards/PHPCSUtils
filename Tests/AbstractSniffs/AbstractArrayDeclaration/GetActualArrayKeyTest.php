@@ -175,8 +175,8 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
         }
 
         // Verify against handling by PHP itself.
-        $expectedKeys = array_values($expected);
-        $actualKeys   = array_keys(array_combine($expected, $expected));
+        $expectedKeys = \array_values($expected);
+        $actualKeys   = \array_keys(\array_combine($expected, $expected));
         $this->assertSame($expectedKeys, $actualKeys, 'getActualArrayKey() results do not match PHP native handling');
     }
 
@@ -216,8 +216,8 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
         }
 
         // Verify against handling by PHP itself.
-        $expectedKeys = array_values($expected);
-        $actualKeys   = array_keys(array_combine($expected, $expected));
+        $expectedKeys = \array_values($expected);
+        $actualKeys   = \array_keys(\array_combine($expected, $expected));
         $this->assertSame($expectedKeys, $actualKeys, 'getActualArrayKey() results do not match PHP native handling');
     }
 }
