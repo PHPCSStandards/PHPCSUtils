@@ -50,6 +50,11 @@ final class ParenthesisOpenersTest extends TestCase
             \T_CATCH      => \T_CATCH,
             \T_DECLARE    => \T_DECLARE,
             \T_MATCH      => \T_MATCH,
+            \T_ISSET      => \T_ISSET,
+            \T_EMPTY      => \T_EMPTY,
+            \T_UNSET      => \T_UNSET,
+            \T_EVAL       => \T_EVAL,
+            \T_EXIT       => \T_EXIT,
         ];
 
         \asort($expected);
@@ -80,8 +85,13 @@ final class ParenthesisOpenersTest extends TestCase
              * Don't fail this test on the difference between PHPCS 4.x and 3.x.
              * This test is only run against `dev-master` and `dev-master` is still PHPCS 3.x.
              */
-            $expected         = Tokens::$parenthesisOpeners;
-            $expected[\T_USE] = \T_USE;
+            $expected           = Tokens::$parenthesisOpeners;
+            $expected[\T_USE]   = \T_USE;
+            $expected[\T_ISSET] = \T_ISSET;
+            $expected[\T_EMPTY] = \T_EMPTY;
+            $expected[\T_UNSET] = \T_UNSET;
+            $expected[\T_EVAL]  = \T_EVAL;
+            $expected[\T_EXIT]  = \T_EXIT;
 
             \asort($expected);
 

@@ -175,13 +175,13 @@ final class BCTokens
      *
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 0.0.5.
-     * - PHPCS 4.0.0: `T_USE` added to the array.
+     * - PHPCS 4.0.0: `T_USE` (for closures), `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EVAL` and `T_EXIT` added to the array.
      *
-     * Note: While `T_USE` will be included in the return value for this method, the
-     * associated parentheses will not have the `'parenthesis_owner'` index set
-     * until PHPCS 4.0.0. Use the {@see \PHPCSUtils\Utils\Parentheses::getOwner()}
-     * or {@see \PHPCSUtils\Utils\Parentheses::hasOwner()} methods if you need to check
-     * for a `T_USE` parentheses owner.
+     * **Important**: While `T_USE`, `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EVAL` and `T_EXIT` will be included
+     * in the return value for this method, the associated parentheses will not have the `'parenthesis_owner'` index
+     * set until PHPCS 4.0.0.
+     * Use the {@see \PHPCSUtils\Utils\Parentheses::getOwner()} or {@see \PHPCSUtils\Utils\Parentheses::hasOwner()} methods
+     * if you need to check for whether any of these tokens are a parentheses owner.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$parenthesisOpeners Original array.
      * @see \PHPCSUtils\Utils\Parentheses                     Class holding utility methods for
@@ -194,8 +194,13 @@ final class BCTokens
      */
     public static function parenthesisOpeners()
     {
-        $tokens         = Tokens::$parenthesisOpeners;
-        $tokens[\T_USE] = \T_USE;
+        $tokens           = Tokens::$parenthesisOpeners;
+        $tokens[\T_USE]   = \T_USE;
+        $tokens[\T_ISSET] = \T_ISSET;
+        $tokens[\T_UNSET] = \T_UNSET;
+        $tokens[\T_EMPTY] = \T_EMPTY;
+        $tokens[\T_EVAL]  = \T_EVAL;
+        $tokens[\T_EXIT]  = \T_EXIT;
 
         return $tokens;
     }
