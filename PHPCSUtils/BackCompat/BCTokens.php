@@ -44,8 +44,6 @@ use PHPCSUtils\Tokens\Collections;
  * @since 1.0.0
  *
  * @method static array<int|string, int|string> arithmeticTokens()         Tokens that represent arithmetic operators.
- * @method static array<int|string, int|string> assignmentTokens()         Tokens that represent assignments.
- * @method static array<int|string, int|string> blockOpeners()             Tokens that open code blocks.
  * @method static array<int|string, int|string> booleanOperators()         Tokens that perform boolean operations.
  * @method static array<int|string, int|string> bracketTokens()            Tokens that represent brackets and parenthesis.
  * @method static array<int|string, int|string> castTokens()               Tokens that represent type casting.
@@ -65,7 +63,6 @@ use PHPCSUtils\Tokens\Collections;
  * @method static array<int|string, int|string> phpcsCommentTokens()       Tokens that are comments containing PHPCS
  *                                                                         instructions.
  * @method static array<int|string, int|string> scopeModifiers()           Tokens that represent scope modifiers.
- * @method static array<int|string, int|string> scopeOpeners()             Tokens that are allowed to open scopes.
  * @method static array<int|string, int|string> stringTokens()             Tokens that represent strings.
  *                                                                         Note that `T_STRING`s are NOT represented in this
  *                                                                         list as this list is about _text_ strings.
@@ -99,6 +96,56 @@ final class BCTokens
     }
 
     /**
+     * Tokens that represent assignments.
+     *
+     * Retrieve the PHPCS assignments tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - PHPCS 4.0.0: The JS specific `T_ZSR_EQUAL` token is no longer available and has been removed from the array.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::$assignmentTokens Original array.
+     *
+     * @since 1.0.0
+     *
+     * @return array<int|string, int|string> Token array.
+     */
+    public static function assignmentTokens()
+    {
+        $tokens = Tokens::$assignmentTokens;
+
+        if (\defined('T_ZSR_EQUAL') && isset($tokens[\T_ZSR_EQUAL])) {
+            unset($tokens[\T_ZSR_EQUAL]);
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * Tokens that open code blocks.
+     *
+     * Retrieve the PHPCS block opener tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - PHPCS 4.0.0: The JS specific `T_OBJECT` token is no longer available and has been removed from the array.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::$blockOpeners Original array.
+     *
+     * @since 1.0.0
+     *
+     * @return array<int|string, int|string> Token array.
+     */
+    public static function blockOpeners()
+    {
+        $tokens = Tokens::$blockOpeners;
+
+        if (\defined('T_OBJECT') && isset($tokens[\T_OBJECT])) {
+            unset($tokens[\T_OBJECT]);
+        }
+
+        return $tokens;
+    }
+
+    /**
      * Tokens that represent the names of called functions.
      *
      * Retrieve the PHPCS function name tokens array in a cross-version compatible manner.
@@ -117,6 +164,36 @@ final class BCTokens
     {
         $tokens  = Tokens::$functionNameTokens;
         $tokens += Collections::nameTokens();
+
+        return $tokens;
+    }
+
+    /**
+     * Tokens that are allowed to open scopes.
+     *
+     * Retrieve the PHPCS scope opener tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - PHPCS 4.0.0: The JS specific `T_PROPERTY` and `T_OBJECT` tokens are no longer available
+     *   and have been removed from the array.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::$scopeOpeners Original array.
+     *
+     * @since 1.0.0
+     *
+     * @return array<int|string, int|string> Token array.
+     */
+    public static function scopeOpeners()
+    {
+        $tokens = Tokens::$scopeOpeners;
+
+        if (\defined('T_PROPERTY') && isset($tokens[\T_PROPERTY])) {
+            unset($tokens[\T_PROPERTY]);
+        }
+
+        if (\defined('T_OBJECT') && isset($tokens[\T_OBJECT])) {
+            unset($tokens[\T_OBJECT]);
+        }
 
         return $tokens;
     }
