@@ -152,7 +152,7 @@ final class BCTokens
      *
      * Changelog for the PHPCS native array:
      * - Introduced in PHPCS 2.3.3.
-     * - PHPCS 4.0.0: `T_NAME_QUALIFIED`, `T_NAME_FULLY_QUALIFIED` and `T_NAME_RELATIVE` added to the array.
+     * - PHPCS 4.0.0: `T_NAME_QUALIFIED`, `T_NAME_FULLY_QUALIFIED`, `T_NAME_RELATIVE` and `T_ANON_CLASS` added to the array.
      *
      * @see \PHP_CodeSniffer\Util\Tokens::$functionNameTokens Original array.
      *
@@ -162,8 +162,9 @@ final class BCTokens
      */
     public static function functionNameTokens()
     {
-        $tokens  = Tokens::$functionNameTokens;
-        $tokens += Collections::nameTokens();
+        $tokens                = Tokens::$functionNameTokens;
+        $tokens               += Collections::nameTokens();
+        $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
 
         return $tokens;
     }
