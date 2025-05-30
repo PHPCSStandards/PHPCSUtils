@@ -44,18 +44,11 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @param string                      $testMarker The comment which prefaces the target token in the test file.
      * @param array<string, string|false> $expected   The expected output for the function.
-     * @param bool                        $skipOnPHP8 Optional. Whether the test should be skipped when the
-     *                                                PHP 8 identifier name tokenization is used (as the target token
-     *                                                won't exist). Defaults to `false`.
      *
      * @return void
      */
-    public function testGetDeclaredNameClean($testMarker, $expected, $skipOnPHP8 = false)
+    public function testGetDeclaredNameClean($testMarker, $expected)
     {
-        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
-            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
-        }
-
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::getDeclaredName(self::$phpcsFile, $stackPtr, true);
 
@@ -69,18 +62,11 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @param string                      $testMarker The comment which prefaces the target token in the test file.
      * @param array<string, string|false> $expected   The expected output for the function.
-     * @param bool                        $skipOnPHP8 Optional. Whether the test should be skipped when the
-     *                                                PHP 8 identifier name tokenization is used (as the target token
-     *                                                won't exist). Defaults to `false`.
      *
      * @return void
      */
-    public function testGetDeclaredNameDirty($testMarker, $expected, $skipOnPHP8 = false)
+    public function testGetDeclaredNameDirty($testMarker, $expected)
     {
-        if ($skipOnPHP8 === true && parent::usesPhp8NameTokens() === true) {
-            $this->markTestSkipped("PHP 8.0 identifier name tokenization used. Target token won't exist.");
-        }
-
         $stackPtr = $this->getTargetToken($testMarker, \T_NAMESPACE);
         $result   = Namespaces::getDeclaredName(self::$phpcsFile, $stackPtr, false);
 
@@ -92,7 +78,7 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
      *
      * @see testGetDeclaredName() For the array format.
      *
-     * @return array<string, array<string, string|array<string, string|false>|bool>>
+     * @return array<string, array<string, string|array<string, string|false>>>
      */
     public static function dataGetDeclaredName()
     {
@@ -159,14 +145,6 @@ final class GetDeclaredNameTest extends UtilityMethodTestCase
             Deeper\ // Another comment
                 End',
                 ],
-            ],
-            'namespace-operator' => [
-                'testMarker' => '/* testNamespaceOperator */',
-                'expected'   => [
-                    'clean' => false,
-                    'dirty' => false,
-                ],
-                'skipOnPHP8' => true,
             ],
             'parse-error-reserved-keywords' => [
                 'testMarker' => '/* testParseErrorReservedKeywords */',

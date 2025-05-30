@@ -89,8 +89,6 @@ final class GetParametersTest extends UtilityMethodTestCase
      */
     public static function dataGetParameters()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         return [
             'function-call' => [
                 'testMarker' => '/* testFunctionCall */',
@@ -636,7 +634,7 @@ final class GetParametersTest extends UtilityMethodTestCase
             ],
             'class-instantiation-within-a-multi-attribute' => [
                 'testMarker' => '/* testPHP80ClassInstantiationInMultiAttribute */',
-                'targetType' => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'targetType' => \T_NAME_FULLY_QUALIFIED,
                 'expected'   => [
                     1 => [
                         'start' => 2,

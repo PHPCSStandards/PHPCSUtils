@@ -78,8 +78,6 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
      */
     public static function dataGetParameters()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         return [
             'only-positional-args' => [
                 'testMarker' => '/* testPositionalArgs */',
@@ -92,12 +90,12 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                     ],
                     2 => [
                         'start' => 4,
-                        'end'   => ($php8Names === true) ? 5 : 6,
+                        'end'   => 5,
                         'raw'   => '\COUNT',
                     ],
                     3 => [
-                        'start' => ($php8Names === true) ? 7 : 8,
-                        'end'   => ($php8Names === true) ? 8 : 11,
+                        'start' => 7,
+                        'end'   => 8,
                         'raw'   => 'MyNS\VALUE',
                     ],
                 ],
@@ -255,9 +253,9 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                 ],
             ],
             'named-args-in-fqn-function-call' => [
-                'testMarker'    => '/* testNamespacedFQNFunction */',
-                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
-                'expected'      => [
+                'testMarker' => '/* testNamespacedFQNFunction */',
+                'targetType' => \T_NAME_FULLY_QUALIFIED,
+                'expected'   => [
                     'label' => [
                         'name'       => 'label',
                         'name_token' => 2,
@@ -273,7 +271,6 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                         'raw'        => 'false',
                     ],
                 ],
-                'targetContent' => ($php8Names === true) ? null : 'function_name',
             ],
             'named-args-in-variable-function-call' => [
                 'testMarker' => '/* testVariableFunction */',

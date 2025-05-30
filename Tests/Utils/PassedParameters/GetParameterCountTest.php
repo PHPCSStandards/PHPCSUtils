@@ -60,8 +60,6 @@ final class GetParameterCountTest extends UtilityMethodTestCase
      */
     public static function dataGetParameterCount()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         return [
             'function-call-0' => [
                 'testMarker' => '/* testFunctionCall0 */',
@@ -256,28 +254,24 @@ final class GetParameterCountTest extends UtilityMethodTestCase
                 'expected'   => 1,
             ],
             'function-call-fully-qualified' => [
-                'testMarker'    => '/* testFunctionCallFullyQualified */',
-                'expected'      => 1,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testFunctionCallFullyQualified */',
+                'expected'   => 1,
             ],
             'function-call-fully-qualified-with-namespace' => [
-                'testMarker'    => '/* testFunctionCallFullyQualifiedWithNamespace */',
-                'expected'      => 1,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testFunctionCallFullyQualifiedWithNamespace */',
+                'expected'   => 1,
             ],
             'function-call-partially-qualified' => [
-                'testMarker'    => '/* testFunctionCallPartiallyQualified */',
-                'expected'      => 1,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testFunctionCallPartiallyQualified */',
+                'expected'   => 1,
             ],
             'function-call-namespace-operator' => [
-                'testMarker'    => '/* testFunctionCallNamespaceOperator */',
-                'expected'      => 1,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testFunctionCallNamespaceOperator */',
+                'expected'   => 1,
             ],
             'function-call-named-params-duplicate-name' => [
-                'testMarker'    => '/* testFunctionCallNamedParamsDuplicateName */',
-                'expected'      => 2,
+                'testMarker' => '/* testFunctionCallNamedParamsDuplicateName */',
+                'expected'   => 2,
             ],
 
             // Long arrays.
@@ -365,7 +359,7 @@ final class GetParameterCountTest extends UtilityMethodTestCase
             'class-instantiation-in-attribute-with-params' => [
                 'testMarker'    => '/* testPHP80ClassInstantiationInMultiAttribute */',
                 'expected'      => 2,
-                'targetContent' => ($php8Names === true) ? '\AttributeTwo' : 'AttributeTwo',
+                'targetContent' => '\AttributeTwo',
             ],
 
             'array-with-empty-item' => [

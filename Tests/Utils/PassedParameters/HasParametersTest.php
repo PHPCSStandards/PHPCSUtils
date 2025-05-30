@@ -163,8 +163,6 @@ final class HasParametersTest extends PolyfilledTestCase
      */
     public static function dataHasParameters()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         return [
             // Function calls.
             'no-params-function-call-1' => [
@@ -267,28 +265,24 @@ final class HasParametersTest extends PolyfilledTestCase
             ],
 
             'no-params-function-call-fully-qualified' => [
-                'testMarker'    => '/* testNoParamsFunctionCallFullyQualified */',
-                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
-                'expected'      => false,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testNoParamsFunctionCallFullyQualified */',
+                'targetType' => \T_NAME_FULLY_QUALIFIED,
+                'expected'   => false,
             ],
             'has-params-function-call-fully-qualified-with-namespace' => [
-                'testMarker'    => '/* testHasParamsFunctionCallFullyQualifiedWithNamespace */',
-                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
-                'expected'      => true,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testHasParamsFunctionCallFullyQualifiedWithNamespace */',
+                'targetType' => \T_NAME_FULLY_QUALIFIED,
+                'expected'   => true,
             ],
             'no-params-function-call-partially-qualified' => [
-                'testMarker'    => '/* testNoParamsFunctionCallPartiallyQualified */',
-                'targetType'    => ($php8Names === true) ? \T_NAME_QUALIFIED : \T_STRING,
-                'expected'      => false,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testNoParamsFunctionCallPartiallyQualified */',
+                'targetType' => \T_NAME_QUALIFIED,
+                'expected'   => false,
             ],
             'has-params-function-call-namespace-operator-relative' => [
-                'testMarker'    => '/* testHasParamsFunctionCallNamespaceOperator */',
-                'targetType'    => ($php8Names === true) ? \T_NAME_RELATIVE : \T_STRING,
-                'expected'      => true,
-                'targetContent' => ($php8Names === true) ? null : 'myfunction',
+                'testMarker' => '/* testHasParamsFunctionCallNamespaceOperator */',
+                'targetType' => \T_NAME_RELATIVE,
+                'expected'   => true,
             ],
 
             // Arrays.
@@ -450,9 +444,9 @@ final class HasParametersTest extends PolyfilledTestCase
             ],
             'has-params-class-instantiation-in-multi-attribute' => [
                 'testMarker'    => '/* testHasParamsPHP80ClassInstantiationInMultiAttribute */',
-                'targetType'    => ($php8Names === true) ? \T_NAME_FULLY_QUALIFIED : \T_STRING,
+                'targetType'    => \T_NAME_FULLY_QUALIFIED,
                 'expected'      => true,
-                'targetContent' => ($php8Names === true) ? '\AttributeTwo' : 'AttributeTwo',
+                'targetContent' => '\AttributeTwo',
             ],
 
             // PHP 8.1 first class callables are callbacks, not function calls.

@@ -197,7 +197,7 @@ final class FindEndOfStatementTest extends UtilityMethodTestCase
         $start = $this->getTargetToken('/* testUseGroup */', T_USE);
         $found = BCFile::findEndOfStatement(self::$phpcsFile, $start);
 
-        $expected = parent::usesPhp8NameTokens() ? ($start + 21) : ($start + 23);
+        $expected = ($start + 21);
 
         $this->assertSame($expected, $found);
     }

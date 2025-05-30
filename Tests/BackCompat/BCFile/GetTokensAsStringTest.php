@@ -118,8 +118,6 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
      */
     public static function dataGetTokensAsString()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         return [
             'length-0' => [
                 'testMarker'     => '/* testCalculation */',
@@ -235,7 +233,7 @@ final class GetTokensAsStringTest extends UtilityMethodTestCase
             'namespace' => [
                 'testMarker'     => '/* testNamespace */',
                 'startTokenType' => \T_NAMESPACE,
-                'length'         => ($php8Names === true) ? 4 : 8,
+                'length'         => 4,
                 'expected'       => 'namespace Foo\Bar\Baz;',
             ],
             'use-with-comments' => [

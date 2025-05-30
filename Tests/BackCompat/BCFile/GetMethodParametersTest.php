@@ -393,8 +393,6 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testNullableTypeHint()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
@@ -414,7 +412,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
         ];
 
         $expected[1] = [
-            'token'               => ($php8Names === true) ? 13 : 14,
+            'token'               => 13,
             'name'                => '$var2',
             'content'             => '?\bar $var2',
             'has_attributes'      => false,
@@ -424,7 +422,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '?\bar',
             'type_hint_token'     => 11,
-            'type_hint_end_token' => ($php8Names === true) ? 11 : 12,
+            'type_hint_end_token' => 11,
             'nullable_type'       => true,
             'comma_token'         => false,
         ];
@@ -782,12 +780,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testNameSpacedTypeDeclaration()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 7 : 12,
+            'token'               => 7,
             'name'                => '$a',
             'content'             => '\Package\Sub\ClassName $a',
             'has_attributes'      => false,
@@ -797,12 +793,12 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '\Package\Sub\ClassName',
             'type_hint_token'     => 5,
-            'type_hint_end_token' => ($php8Names === true) ? 5 : 10,
+            'type_hint_end_token' => 5,
             'nullable_type'       => false,
-            'comma_token'         => ($php8Names === true) ? 8 : 13,
+            'comma_token'         => 8,
         ];
         $expected[1] = [
-            'token'               => ($php8Names === true) ? 13 : 20,
+            'token'               => 13,
             'name'                => '$b',
             'content'             => '?Sub\AnotherClass $b',
             'has_attributes'      => false,
@@ -811,8 +807,8 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variable_length'     => false,
             'variadic_token'      => false,
             'type_hint'           => '?Sub\AnotherClass',
-            'type_hint_token'     => ($php8Names === true) ? 11 : 16,
-            'type_hint_end_token' => ($php8Names === true) ? 11 : 18,
+            'type_hint_token'     => 11,
+            'type_hint_end_token' => 11,
             'nullable_type'       => true,
             'comma_token'         => false,
         ];
@@ -1201,12 +1197,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testMessyDeclaration()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 24 : 25,
+            'token'               => 24,
             'name'                => '$a',
             'content'             => '// comment
     ?\MyNS /* comment */
@@ -1219,17 +1213,17 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '?\MyNS\SubCat\MyClass',
             'type_hint_token'     => 9,
-            'type_hint_end_token' => ($php8Names === true) ? 22 : 23,
+            'type_hint_end_token' => 22,
             'nullable_type'       => true,
-            'comma_token'         => ($php8Names === true) ? 25 : 26,
+            'comma_token'         => 25,
         ];
         $expected[1] = [
-            'token'               => ($php8Names === true) ? 28 : 29,
+            'token'               => 28,
             'name'                => '$b',
             'content'             => "\$b /* comment */ = /* comment */ 'default' /* comment*/",
             'default'             => "'default' /* comment*/",
-            'default_token'       => ($php8Names === true) ? 36 : 37,
-            'default_equal_token' => ($php8Names === true) ? 32 : 33,
+            'default_token'       => 36,
+            'default_equal_token' => 32,
             'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
@@ -1239,10 +1233,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'type_hint_token'     => false,
             'type_hint_end_token' => false,
             'nullable_type'       => false,
-            'comma_token'         => ($php8Names === true) ? 39 : 40,
+            'comma_token'         => 39,
         ];
         $expected[2] = [
-            'token'               => ($php8Names === true) ? 61 : 62,
+            'token'               => 61,
             'name'                => '$c',
             'content'             => '// phpcs:ignore Stnd.Cat.Sniff -- For reasons.
     ? /*comment*/
@@ -1250,12 +1244,12 @@ class GetMethodParametersTest extends PolyfilledTestCase
         & /*test*/ ... /* phpcs:ignore */ $c',
             'has_attributes'      => false,
             'pass_by_reference'   => true,
-            'reference_token'     => ($php8Names === true) ? 53 : 54,
+            'reference_token'     => 53,
             'variable_length'     => true,
-            'variadic_token'      => ($php8Names === true) ? 57 : 58,
+            'variadic_token'      => 57,
             'type_hint'           => '?bool',
-            'type_hint_token'     => ($php8Names === true) ? 49 : 50,
-            'type_hint_end_token' => ($php8Names === true) ? 49 : 50,
+            'type_hint_token'     => 49,
+            'type_hint_end_token' => 49,
             'nullable_type'       => true,
             'comma_token'         => false,
         ];
@@ -1326,12 +1320,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testNamespaceOperatorTypeHint()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 7 : 9,
+            'token'               => 7,
             'name'                => '$var1',
             'content'             => '?namespace\Name $var1',
             'has_attributes'      => false,
@@ -1341,7 +1333,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '?namespace\Name',
             'type_hint_token'     => 5,
-            'type_hint_end_token' => ($php8Names === true) ? 5 : 7,
+            'type_hint_end_token' => 5,
             'nullable_type'       => true,
             'comma_token'         => false,
         ];
@@ -1473,12 +1465,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testPHP8UnionTypesTwoClasses()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 8 : 11,
+            'token'               => 8,
             'name'                => '$var',
             'content'             => 'MyClassA|\Package\MyClassB $var',
             'has_attributes'      => false,
@@ -1488,7 +1478,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => 'MyClassA|\Package\MyClassB',
             'type_hint_token'     => 4,
-            'type_hint_end_token' => ($php8Names === true) ? 6 : 9,
+            'type_hint_end_token' => 6,
             'nullable_type'       => false,
             'comma_token'         => false,
         ];
@@ -2339,12 +2329,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testParameterAttributesInFunctionDeclaration()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 14 : 17,
+            'token'               => 14,
             'name'                => '$constructorPropPromTypedParamSingleAttribute',
             'content'             => '#[\MyExample\MyAttribute] private string'
                 . ' $constructorPropPromTypedParamSingleAttribute',
@@ -2354,16 +2342,16 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variable_length'     => false,
             'variadic_token'      => false,
             'type_hint'           => 'string',
-            'type_hint_token'     => ($php8Names === true) ? 12 : 15,
-            'type_hint_end_token' => ($php8Names === true) ? 12 : 15,
+            'type_hint_token'     => 12,
+            'type_hint_end_token' => 12,
             'nullable_type'       => false,
             'property_visibility' => 'private',
-            'visibility_token'    => ($php8Names === true) ? 10 : 13,
+            'visibility_token'    => 10,
             'property_readonly'   => false,
-            'comma_token'         => ($php8Names === true) ? 15 : 18,
+            'comma_token'         => 15,
         ];
         $expected[1] = [
-            'token'               => ($php8Names === true) ? 36 : 39,
+            'token'               => 36,
             'name'                => '$typedParamSingleAttribute',
             'content'             => '#[MyAttr([1, 2])]
         Type|false
@@ -2374,13 +2362,13 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variable_length'     => false,
             'variadic_token'      => false,
             'type_hint'           => 'Type|false',
-            'type_hint_token'     => ($php8Names === true) ? 31 : 34,
-            'type_hint_end_token' => ($php8Names === true) ? 33 : 36,
+            'type_hint_token'     => 31,
+            'type_hint_end_token' => 33,
             'nullable_type'       => false,
-            'comma_token'         => ($php8Names === true) ? 37 : 40,
+            'comma_token'         => 37,
         ];
         $expected[2] = [
-            'token'               => ($php8Names === true) ? 56 : 59,
+            'token'               => 56,
             'name'                => '$nullableTypedParamMultiAttribute',
             'content'             => '#[MyAttribute(1234), MyAttribute(5678)] ?int $nullableTypedParamMultiAttribute',
             'has_attributes'      => true,
@@ -2389,13 +2377,13 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variable_length'     => false,
             'variadic_token'      => false,
             'type_hint'           => '?int',
-            'type_hint_token'     => ($php8Names === true) ? 54 : 57,
-            'type_hint_end_token' => ($php8Names === true) ? 54 : 57,
+            'type_hint_token'     => 54,
+            'type_hint_end_token' => 54,
             'nullable_type'       => true,
-            'comma_token'         => ($php8Names === true) ? 57 : 60,
+            'comma_token'         => 57,
         ];
         $expected[3] = [
-            'token'               => ($php8Names === true) ? 71 : 74,
+            'token'               => 71,
             'name'                => '$nonTypedParamTwoAttributes',
             'content'             => '#[WithoutArgument] #[SingleArgument(0)] $nonTypedParamTwoAttributes',
             'has_attributes'      => true,
@@ -2407,23 +2395,23 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'type_hint_token'     => false,
             'type_hint_end_token' => false,
             'nullable_type'       => false,
-            'comma_token'         => ($php8Names === true) ? 72 : 75,
+            'comma_token'         => 72,
         ];
         $expected[4] = [
-            'token'               => ($php8Names === true) ? 92 : 95,
+            'token'               => 92,
             'name'                => '$otherParam',
             'content'             => '#[MyAttribute(array("key" => "value"))]
         &...$otherParam',
             'has_attributes'      => true,
             'pass_by_reference'   => true,
-            'reference_token'     => ($php8Names === true) ? 90 : 93,
+            'reference_token'     => 90,
             'variable_length'     => true,
-            'variadic_token'      => ($php8Names === true) ? 91 : 94,
+            'variadic_token'      => 91,
             'type_hint'           => '',
             'type_hint_token'     => false,
             'type_hint_end_token' => false,
             'nullable_type'       => false,
-            'comma_token'         => ($php8Names === true) ? 93 : 96,
+            'comma_token'         => 93,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -2523,12 +2511,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testPHP81MoreIntersectionTypes()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 10 : 16,
+            'token'               => 10,
             'name'                => '$var',
             'content'             => 'MyClassA&\Package\MyClassB&\Package\MyClassC $var',
             'has_attributes'      => false,
@@ -2538,7 +2524,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => 'MyClassA&\Package\MyClassB&\Package\MyClassC',
             'type_hint_token'     => 4,
-            'type_hint_end_token' => ($php8Names === true) ? 8 : 14,
+            'type_hint_end_token' => 8,
             'nullable_type'       => false,
             'comma_token'         => false,
         ];
@@ -2671,8 +2657,6 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testPHP81NewInInitializers()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
@@ -2694,12 +2678,12 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'comma_token'         => 20,
         ];
         $expected[1] = [
-            'token'               => ($php8Names === true) ? 25 : 28,
+            'token'               => 25,
             'name'                => '$newToo',
             'content'             => '\Package\TypeB $newToo = new \Package\TypeB(10, \'string\')',
             'default'             => "new \Package\TypeB(10, 'string')",
-            'default_token'       => ($php8Names === true) ? 29 : 32,
-            'default_equal_token' => ($php8Names === true) ? 27 : 30,
+            'default_token'       => 29,
+            'default_equal_token' => 27,
             'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
@@ -2707,9 +2691,9 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '\Package\TypeB',
             'type_hint_token'     => 23,
-            'type_hint_end_token' => ($php8Names === true) ? 23 : 26,
+            'type_hint_end_token' => 23,
             'nullable_type'       => false,
-            'comma_token'         => ($php8Names === true) ? 38 : 44,
+            'comma_token'         => 38,
         ];
 
         $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
@@ -2722,8 +2706,6 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testPHP82DNFTypes()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
@@ -2743,12 +2725,12 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'comma_token'         => 22,
         ];
         $expected[1] = [
-            'token'               => ($php8Names === true) ? 37 : 41,
+            'token'               => 37,
             'name'                => '$obj2',
             'content'             => '(\Boo&\Pck\Bar)|(Boo&Baz) $obj2 = new Boo()',
             'default'             => 'new Boo()',
-            'default_token'       => ($php8Names === true) ? 41 : 45,
-            'default_equal_token' => ($php8Names === true) ? 39 : 43,
+            'default_token'       => 41,
+            'default_equal_token' => 39,
             'has_attributes'      => false,
             'pass_by_reference'   => false,
             'reference_token'     => false,
@@ -2756,7 +2738,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '(\Boo&\Pck\Bar)|(Boo&Baz)',
             'type_hint_token'     => 25,
-            'type_hint_end_token' => ($php8Names === true) ? 35 : 39,
+            'type_hint_end_token' => 35,
             'nullable_type'       => false,
             'comma_token'         => false,
         ];
@@ -2815,12 +2797,10 @@ class GetMethodParametersTest extends PolyfilledTestCase
      */
     public function testPHP82DNFTypesIllegalNullable()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected    = [];
         $expected[0] = [
-            'token'               => ($php8Names === true) ? 21 : 27,
+            'token'               => 21,
             'name'                => '$var',
             'content'             => '? ( MyClassA & /*comment*/ \Package\MyClassB & \Package\MyClassC ) $var',
             'has_attributes'      => false,
@@ -2830,7 +2810,7 @@ class GetMethodParametersTest extends PolyfilledTestCase
             'variadic_token'      => false,
             'type_hint'           => '?(MyClassA&\Package\MyClassB&\Package\MyClassC)',
             'type_hint_token'     => 5,
-            'type_hint_end_token' => ($php8Names === true) ? 19 : 25,
+            'type_hint_end_token' => 19,
             'nullable_type'       => true,
             'comma_token'         => false,
         ];

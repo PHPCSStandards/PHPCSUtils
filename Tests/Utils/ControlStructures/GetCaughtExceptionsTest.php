@@ -97,8 +97,6 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
      */
     public static function dataGetCaughtExceptions()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         return [
             'single-name-only' => [
                 'testMarker'    => '/* testSingleCatchNameOnly */',
@@ -116,7 +114,7 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
                     [
                         'type'           => '\RuntimeException',
                         'type_token'     => 3,
-                        'type_end_token' => ($php8Names === true) ? 3 : 4,
+                        'type_end_token' => 3,
                     ],
                 ],
             ],
@@ -126,7 +124,7 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
                     [
                         'type'           => 'MyNS\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => ($php8Names === true) ? 4 : 6,
+                        'type_end_token' => 4,
                     ],
                 ],
             ],
@@ -136,7 +134,7 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
                     [
                         'type'           => '\MyNS\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => ($php8Names === true) ? 4 : 7,
+                        'type_end_token' => 4,
                     ],
                 ],
             ],
@@ -146,7 +144,7 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
                     [
                         'type'           => 'My\NS\Sub\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => ($php8Names === true) ? 13 : 15,
+                        'type_end_token' => 13,
                     ],
                 ],
             ],
@@ -156,7 +154,7 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
                     [
                         'type'           => 'namespace\RuntimeException',
                         'type_token'     => 4,
-                        'type_end_token' => ($php8Names === true) ? 4 : 6,
+                        'type_end_token' => 4,
                     ],
                 ],
             ],
@@ -187,17 +185,17 @@ final class GetCaughtExceptionsTest extends PolyfilledTestCase
                     [
                         'type'           => '\NS\RuntimeException',
                         'type_token'     => 3,
-                        'type_end_token' => ($php8Names === true) ? 3 : 6,
+                        'type_end_token' => 3,
                     ],
                     [
                         'type'           => 'My\ParseErrorException',
-                        'type_token'     => ($php8Names === true) ? 7 : 10,
-                        'type_end_token' => ($php8Names === true) ? 7 : 12,
+                        'type_token'     => 7,
+                        'type_end_token' => 7,
                     ],
                     [
                         'type'           => 'namespace\AnotherException',
-                        'type_token'     => ($php8Names === true) ? 11 : 16,
-                        'type_end_token' => ($php8Names === true) ? 15 : 20,
+                        'type_token'     => 11,
+                        'type_end_token' => 15,
                     ],
                 ],
             ],

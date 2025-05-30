@@ -321,15 +321,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testReturnNamespace()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '\MyNamespace\MyClass',
             'return_type_token'     => 7,
-            'return_type_end_token' => ($php8Names === true) ? 7 : 10,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -347,15 +345,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testReturnMultilineNamespace()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '\MyNamespace\MyClass\Foo',
             'return_type_token'     => 7,
-            'return_type_end_token' => ($php8Names === true) ? 20 : 23,
+            'return_type_end_token' => 20,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -397,15 +393,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testReturnPartiallyQualifiedName()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'Sub\Level\MyClass',
             'return_type_token'     => 7,
-            'return_type_end_token' => ($php8Names === true) ? 7 : 11,
+            'return_type_end_token' => 7,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -613,15 +607,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testNamespaceOperatorTypeHint()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?namespace\Name',
             'return_type_token'     => 9,
-            'return_type_end_token' => ($php8Names === true) ? 9 : 11,
+            'return_type_end_token' => 9,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -663,15 +655,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testPHP8UnionTypesTwoClasses()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA|\Package\MyClassB',
             'return_type_token'     => 6,
-            'return_type_end_token' => ($php8Names === true) ? 8 : 11,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -979,15 +969,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testPHP81MoreIntersectionTypes()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA&\Package\MyClassB&\Package\MyClassC',
             'return_type_token'     => 7,
-            'return_type_end_token' => ($php8Names === true) ? 11 : 17,
+            'return_type_end_token' => 11,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1005,15 +993,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testPHP81IntersectionArrowFunction()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'MyClassA&\Package\MyClassB',
             'return_type_token'     => 6,
-            'return_type_end_token' => ($php8Names === true) ? 8 : 11,
+            'return_type_end_token' => 8,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1175,15 +1161,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testPHP82DNFTypeIllegalNullable()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FUNCTION token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => '?(A&\Pck\B)|bool',
             'return_type_token'     => 8,
-            'return_type_end_token' => ($php8Names === true) ? 14 : 17,
+            'return_type_end_token' => 14,
             'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1201,15 +1185,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testPHP82DNFTypeClosure()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_CLOSURE token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'object|(namespace\Foo&Countable)',
             'return_type_token'     => 6,
-            'return_type_end_token' => ($php8Names === true) ? 12 : 14,
+            'return_type_end_token' => 12,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,
@@ -1227,15 +1209,13 @@ class GetMethodPropertiesTest extends PolyfilledTestCase
      */
     public function testPHP82DNFTypeFn()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         // Offsets are relative to the T_FN token.
         $expected = [
             'scope'                 => 'public',
             'scope_specified'       => false,
             'return_type'           => 'null|(Partially\Qualified&Traversable)|void',
             'return_type_token'     => 6,
-            'return_type_end_token' => ($php8Names === true) ? 14 : 16,
+            'return_type_end_token' => 14,
             'nullable_return_type'  => false,
             'is_abstract'           => false,
             'is_final'              => false,

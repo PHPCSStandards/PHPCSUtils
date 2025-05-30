@@ -67,69 +67,59 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      */
     public static function dataGetTargetToken()
     {
-        // Token offsets based on PHPCS 3.x tokenization.
-        $data = [
+        return [
             'single-token-type' => [
-                'expected'      => 6,
+                'expected'      => 7,
                 'commentString' => '/* testFindingTarget */',
                 'tokenType'     => \T_VARIABLE,
             ],
             'multi-token-type-1' => [
-                'expected'      => 6,
+                'expected'      => 7,
                 'commentString' => '/* testFindingTarget */',
                 'tokenType'     => [\T_VARIABLE, \T_FALSE],
             ],
             'multi-token-type-2' => [
-                'expected'      => 11,
+                'expected'      => 12,
                 'commentString' => '/* testFindingTarget */',
                 'tokenType'     => [\T_FALSE, \T_LNUMBER],
             ],
             'content-method' => [
-                'expected'      => 23,
+                'expected'      => 24,
                 'commentString' => '/* testFindingTargetWithContent */',
                 'tokenType'     => \T_STRING,
                 'tokenContent'  => 'method',
             ],
             'content-otherMethod' => [
-                'expected'      => 33,
+                'expected'      => 34,
                 'commentString' => '/* testFindingTargetWithContent */',
                 'tokenType'     => \T_STRING,
                 'tokenContent'  => 'otherMethod',
             ],
             'content-$a' => [
-                'expected'      => 21,
+                'expected'      => 22,
                 'commentString' => '/* testFindingTargetWithContent */',
                 'tokenType'     => \T_VARIABLE,
                 'tokenContent'  => '$a',
             ],
             'content-$b' => [
-                'expected'      => 31,
+                'expected'      => 32,
                 'commentString' => '/* testFindingTargetWithContent */',
                 'tokenType'     => \T_VARIABLE,
                 'tokenContent'  => '$b',
             ],
             'content-foo' => [
-                'expected'      => 26,
+                'expected'      => 27,
                 'commentString' => '/* testFindingTargetWithContent */',
                 'tokenType'     => [\T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_QUOTED_STRING],
                 'tokenContent'  => "'foo'",
             ],
             'content-bar' => [
-                'expected'      => 36,
+                'expected'      => 37,
                 'commentString' => '/* testFindingTargetWithContent */',
                 'tokenType'     => [\T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_QUOTED_STRING],
                 'tokenContent'  => "'bar'",
             ],
         ];
-
-        // The PHP open tag + whitespace is two tokens in PHPCS 4.x, while it is one in PHPCS 3.x.
-        if (parent::usesPhp8NameTokens() === true) {
-            foreach ($data as $key => $dataset) {
-                ++$data[$key]['expected'];
-            }
-        }
-
-        return $data;
     }
 
     /**

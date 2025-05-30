@@ -334,13 +334,14 @@ abstract class UtilityMethodTestCase extends TestCase
      *
      * @codeCoverageIgnore Nothing to test.
      *
-     * @since 1.0.0
+     * @since      1.0.0
+     * @deprecated x.x.x This method has become redundant once support for PHPCS < 4.0 was dropped.
      *
-     * @return bool
+     * @return true
      */
     public static function usesPhp8NameTokens()
     {
-        return \version_compare(Helper::getVersion(), '3.99.99', '>=');
+        return true;
     }
 
     /**

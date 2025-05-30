@@ -190,13 +190,8 @@ class GetConditionTest extends UtilityMethodTestCase
      */
     public function testNonConditionalToken()
     {
-        $targetType = \T_STRING;
-        if (parent::usesPhp8NameTokens() === true) {
-            $targetType = \T_NAME_QUALIFIED;
-        }
-
         $testClass = static::TEST_CLASS;
-        $stackPtr  = $this->getTargetToken('/* testStartPoint */', $targetType);
+        $stackPtr  = $this->getTargetToken('/* testStartPoint */', [\T_STRING, \T_NAME_QUALIFIED]);
 
         $result = $testClass::getCondition(self::$phpcsFile, $stackPtr, \T_IF);
         $this->assertFalse($result);

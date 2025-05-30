@@ -227,7 +227,7 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
     public function testUseGroup()
     {
         $start    = $this->getTargetToken('/* testUseGroup */', T_SEMICOLON);
-        $expected = parent::usesPhp8NameTokens() ? ($start - 21) : ($start - 23);
+        $expected = ($start - 21);
         $found    = BCFile::findStartOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame($expected, $found);
@@ -473,10 +473,8 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
      */
     public function testOpenTag()
     {
-        $php8Names = parent::usesPhp8NameTokens();
-
         $start  = $this->getTargetToken('/* testOpenTag */', T_OPEN_TAG);
-        $start += ($php8Names === true) ? 3 : 2;
+        $start += 3;
         $found  = BCFile::findStartOfStatement(self::$phpcsFile, $start);
 
         $this->assertSame(($start - 1), $found);
