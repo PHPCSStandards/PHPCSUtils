@@ -462,7 +462,12 @@ final class UnchangedTokenArraysTest extends TestCase
      */
     public function testUnchangedTokenArrays($name, $expected)
     {
-        $this->assertSame($expected, BCTokens::$name());
+        \asort($expected);
+
+        $result = BCTokens::$name();
+        \asort($result);
+
+        $this->assertSame($expected, $result);
     }
 
     /**
