@@ -169,6 +169,25 @@ final class BCTokens
     }
 
     /**
+     * Tokens used for "names", be it namespace, OO, function or constant names.
+     *
+     * Retrieve the PHPCS name tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - Introduced in PHPCS 4.0.0.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::NAME_TOKENS Original array.
+     *
+     * @since 1.1.0
+     *
+     * @return array<int|string, int|string> Token array.
+     */
+    public static function nameTokens()
+    {
+        return Collections::nameTokens();
+    }
+
+    /**
      * Token types that open parentheses.
      *
      * Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.
