@@ -56,29 +56,20 @@ final class Helper
      *                                        is deleted, reverting it to the default value.
      * @param bool                    $temp   Set this config data temporarily for this script run.
      *                                        This will not write the config data to the config file.
-     * @param \PHP_CodeSniffer\Config $config The PHPCS config object.
-     *                                        This parameter is required for PHPCS 4.x, optional
-     *                                        for PHPCS 3.x and not possible to pass for PHPCS 2.x.
-     *                                        Passing the `$phpcsFile->config` property should work
-     *                                        in PHPCS 3.x and higher.
+     * @param \PHP_CodeSniffer\Config $config The PHPCS config object. Pass the `$phpcsFile->config` property.
+     *                                        This parameter is required for PHPCS 4.x.
      *
      * @return bool Whether the setting of the data was successfull.
      *
-     * @throws \PHPCSUtils\Exceptions\MissingArgumentError When using PHPCS 4.x and not passing the $config parameter.
+     * @throws \PHPCSUtils\Exceptions\MissingArgumentError When not passing the $config parameter.
      */
     public static function setConfigData($key, $value, $temp = false, $config = null)
     {
         if (isset($config) === true) {
-            // PHPCS 3.x and 4.x.
             return $config->setConfigData($key, $value, $temp);
         }
 
-        if (\version_compare(self::getVersion(), '3.99.99', '>') === true) {
-            throw MissingArgumentError::create(4, '$config', 'when running on PHPCS 4.x');
-        }
-
-        // PHPCS 3.x.
-        return Config::setConfigData($key, $value, $temp);
+        throw MissingArgumentError::create(4, '$config', 'when running on PHPCS 4.x');
     }
 
     /**
