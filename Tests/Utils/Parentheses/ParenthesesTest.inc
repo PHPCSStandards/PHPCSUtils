@@ -65,6 +65,13 @@ eval($a . $b . $c );
 /* testExit */
 if (defined('FOO') || die('message')) {}
 
+/* testMatch */
+$m = match(count($a)) {
+    1 => true,
+    2 => false,
+    default => false,
+};
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 declare(ticks=1

@@ -182,6 +182,16 @@ final class ParenthesesTest extends UtilityMethodTestCase
             'code'    => \T_CONSTANT_ENCAPSED_STRING,
             'content' => "'message'",
         ],
+        'testMatch-count' => [
+            'marker'  => '/* testMatch */',
+            'code'    => \T_STRING,
+            'content' => 'count',
+        ],
+        'testMatch-$a' => [
+            'marker'  => '/* testMatch */',
+            'code'    => \T_VARIABLE,
+            'content' => '$a',
+        ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
             'code'    => \T_LNUMBER,
@@ -224,6 +234,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
         'T_ELSEIF'     => false,
         'T_CATCH'      => false,
         'T_DECLARE'    => false,
+        'T_MATCH'      => false,
         'T_FN'         => false,
 
         // Extra tokens.
@@ -910,6 +921,40 @@ final class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => -12,
                 ],
             ],
+            'testMatch-count' => [
+                'testName'        => 'testMatch-count',
+                'expectedResults' => [
+                    'firstOpener'           => -1,
+                    'firstCloser'           => 4,
+                    'firstOwner'            => -2,
+                    'firstScopeOwnerOpener' => -1,
+                    'firstScopeOwnerCloser' => 4,
+                    'firstScopeOwnerOwner'  => -2,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 4,
+                    'lastOwner'             => -2,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
+            'testMatch-$a' => [
+                'testName'        => 'testMatch-$a',
+                'expectedResults' => [
+                    'firstOpener'           => -3,
+                    'firstCloser'           => 2,
+                    'firstOwner'            => -4,
+                    'firstScopeOwnerOpener' => -3,
+                    'firstScopeOwnerCloser' => 2,
+                    'firstScopeOwnerOwner'  => -4,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => false,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
             'testParseError-1' => [
                 'testName'        => 'testParseError-1',
                 'expectedResults' => [
@@ -1141,6 +1186,18 @@ final class ParenthesesTest extends UtilityMethodTestCase
                     'T_EXIT' => true,
                 ],
             ],
+            'testMatch-count' => [
+                'testName'        => 'testMatch-count',
+                'expectedResults' => [
+                    'T_MATCH' => true,
+                ],
+            ],
+            'testMatch-$a' => [
+                'testName'        => 'testMatch-$a',
+                'expectedResults' => [
+                    'T_MATCH' => true,
+                ],
+            ],
             'testParseError-1' => [
                 'testName'        => 'testParseError-1',
                 'expectedResults' => [],
@@ -1273,6 +1330,16 @@ final class ParenthesesTest extends UtilityMethodTestCase
                 'validOwners' => [\T_CATCH],
                 'expected'    => false,
             ],
+            'testMatch-count-match' => [
+                'testName'    => 'testMatch-count',
+                'validOwners' => [\T_MATCH],
+                'expected'    => -2,
+            ],
+            'testMatch-count-catch' => [
+                'testName'    => 'testMatch-count',
+                'validOwners' => [\T_CATCH],
+                'expected'    => false,
+            ],
         ];
     }
 
@@ -1384,6 +1451,16 @@ final class ParenthesesTest extends UtilityMethodTestCase
                 'testName'    => 'testIfEmpty-$c',
                 'validOwners' => [\T_ISSET, \T_EMPTY],
                 'expected'    => -3,
+            ],
+            'testMatch-count' => [
+                'testName'    => 'testMatch-count',
+                'validOwners' => [\T_CATCH, \T_MATCH],
+                'expected'    => -2,
+            ],
+            'testMatch-$a' => [
+                'testName'    => 'testMatch-$a',
+                'validOwners' => [\T_CATCH, \T_MATCH],
+                'expected'    => false,
             ],
         ];
     }
