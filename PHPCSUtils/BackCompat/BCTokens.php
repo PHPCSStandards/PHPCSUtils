@@ -116,7 +116,6 @@ final class BCTokens
     public static function functionNameTokens()
     {
         $tokens  = Tokens::$functionNameTokens;
-        $tokens += Collections::ooHierarchyKeywords();
         $tokens += Collections::nameTokens();
 
         return $tokens;
