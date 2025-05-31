@@ -21,7 +21,7 @@ if (\defined('PHP_CODESNIFFER_IN_TESTS') === false) {
     \define('PHP_CODESNIFFER_IN_TESTS', true);
 }
 
-// The below two defines are needed for PHPCS 3.x.
+// The below two defines are needed for PHPCS >= 3.0.
 if (\defined('PHP_CODESNIFFER_CBF') === false) {
     \define('PHP_CODESNIFFER_CBF', false);
 }

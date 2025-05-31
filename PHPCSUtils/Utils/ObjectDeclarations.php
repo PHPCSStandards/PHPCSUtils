@@ -236,7 +236,6 @@ final class ObjectDeclarations
      *   - Handling of comments.
      * - Improved handling of parse errors.
      * - The returned name will be clean of superfluous whitespace and/or comments.
-     * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()               Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findExtendedClassName()             Cross-version compatible version of
@@ -271,7 +270,6 @@ final class ObjectDeclarations
      *   - Handling of comments.
      * - Improved handling of parse errors.
      * - The returned name(s) will be clean of superfluous whitespace and/or comments.
-     * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.
      *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::findImplementedInterfaceNames() Cross-version compatible version of

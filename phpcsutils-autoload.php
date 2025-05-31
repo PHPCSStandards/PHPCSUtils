@@ -4,8 +4,8 @@
  *
  * Autoloader for the PHPCSUtils files.
  *
- * - If an external standard only supports PHPCS >= 3.1.0 and uses the PHPCS
- *   native unit test framework, this file does not need to be included.
+ * - If an external standard uses the PHPCS native unit test framework,
+ *   this file does not need to be included.
  *
  * - If an external standard uses its own unit test setup, this file should
  *   be included from the unit test bootstrap file.

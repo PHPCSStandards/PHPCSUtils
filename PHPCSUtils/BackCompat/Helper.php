@@ -142,7 +142,7 @@ final class Helper
      * @param \PHP_CodeSniffer\Files\File|null $phpcsFile Optional. The current file being processed.
      *
      * @return string Encoding. Defaults to the PHPCS native default, which is 'utf-8'
-     *                for PHPCS 3.x.
+     *                since PHPCS 3.0.
      */
     public static function getEncoding(?File $phpcsFile = null)
     {

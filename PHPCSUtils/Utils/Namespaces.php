@@ -37,6 +37,9 @@ final class Namespaces
     /**
      * Determine what a T_NAMESPACE token is used for.
      *
+     * Note: this method is largely redundant for PHPCS >= 4.0, but remains to allow for handling
+     * PHP < 8.0 compatible code, where namespaced names may contain whitespace and comments.
+     *
      * @since 1.0.0
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.

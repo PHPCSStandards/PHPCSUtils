@@ -86,7 +86,7 @@ final class ConfigDoubleTest extends TestCase
     }
 
     /**
-     * Verify that when no standard is given, the default standard (PEAR) is overridden with the smaller PSR1.
+     * Verify that when no standard is given, the default standard (PSR12) is overridden with the smaller PSR1.
      *
      * Additionally verifies that `standards` is added to the "overriddenDefaults" array, which is what prevents
      * the file system search for a ruleset.

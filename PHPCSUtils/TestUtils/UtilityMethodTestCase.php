@@ -30,8 +30,6 @@ use ReflectionProperty;
 /**
  * Base class for use when testing utility methods for PHP_CodeSniffer.
  *
- * This class is compatible with PHP_CodeSniffer 3.x and 4.x.
- *
  * This class is compatible with {@link https://phpunit.de/ PHPUnit} 8.0 - 11.x providing the PHPCSUtils
  * autoload file is included in the test bootstrap. For more information about that, please consult
  * the project's {@link https://github.com/PHPCSStandards/PHPCSUtils/blob/develop/README.md README}.
@@ -257,7 +255,7 @@ abstract class UtilityMethodTestCase extends TestCase
         try {
             $file->parse();
         } catch (TokenizerException $e) {
-            // PHPCS 3.5.0 and higher. This is handled below.
+            // This is handled below.
         }
 
         // Fail the test if the file failed to tokenize.

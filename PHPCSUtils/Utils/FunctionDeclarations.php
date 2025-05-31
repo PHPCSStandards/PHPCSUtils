@@ -149,7 +149,6 @@ final class FunctionDeclarations
      *      parse errors or live coding.
      * - Defensive coding against incorrect calls to this method.
      * - More efficient checking whether a function has a body.
-     * - Support for PHP 8.0 identifier name tokens in return types, cross-version PHP & PHPCS.
      * - The results of this function call are cached during a PHPCS run for faster response times.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodProperties()   Original source.
@@ -386,7 +385,6 @@ final class FunctionDeclarations
      * - More efficient and more stable checking whether a `T_USE` token is a closure use.
      * - More efficient and more stable looping of the default value.
      * - Clearer exception message when a non-closure use token was passed to the function.
-     * - Support for PHP 8.0 identifier name tokens in parameter types, cross-version PHP & PHPCS.
      * - The results of this function call are cached during a PHPCS run for faster response times.
      *
      * @see \PHP_CodeSniffer\Files\File::getMethodParameters()   Original source.

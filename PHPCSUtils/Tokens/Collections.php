@@ -325,8 +325,8 @@ final class Collections
      * Includes the tokens introduced in PHP 8.0 for "Namespaced names as single token".
      *
      * Note: the PHP 8.0 namespaced name tokens are backfilled in PHPCS since PHPCS 3.5.7,
-     * but are not used yet (the PHP 8.0 tokenization is "undone" in PHPCS).
-     * As of PHPCS 4.0.0, these tokens _will_ be used and the PHP 8.0 tokenization is respected.
+     * but were not used in PHPCS 3.x (the PHP 8.0 tokenization was "undone" in PHPCS 3.x).
+     * As of PHPCS 4.0.0, these tokens are used and the PHP 8.0 tokenization is respected.
      *
      * @link https://wiki.php.net/rfc/namespaced_names_as_token PHP RFC on namespaced names as single token
      *
@@ -768,6 +768,10 @@ final class Collections
      * ```php
      * echo namespace\Sub\ClassName::method();
      * ```
+     *
+     * Note: even though the `T_NAMESPACE` and `T_NS_SEPARATOR` token won't exist in PHP 8.0+
+     * compatible namespaced names anymore, they are still included in this array to allow for
+     * supporting namespaced names which were allowed on PHP < 8.0, but are a parse error on PHP 8.0+.
      *
      * @since 1.0.0
      *

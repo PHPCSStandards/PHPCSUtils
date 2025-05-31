@@ -116,7 +116,6 @@ final class Operators
             $lastOwner = Parentheses::getOwner($phpcsFile, $lastOpener);
 
             if (isset(Collections::functionDeclarationTokens()[$tokens[$lastOwner]['code']]) === true
-                // As of PHPCS 4.x, `T_USE` is a parenthesis owner.
                 || $tokens[$lastOwner]['code'] === \T_USE
             ) {
                 $params = FunctionDeclarations::getParameters($phpcsFile, $lastOwner);
@@ -130,8 +129,7 @@ final class Operators
         }
 
         /*
-         * Pass by reference in function calls, assign by reference in arrays and
-         * closure use by reference in PHPCS 3.x.
+         * Pass by reference in function calls, assign by reference in arrays.
          */
         if ($tokens[$tokenBefore]['code'] === \T_OPEN_PARENTHESIS
             || $tokens[$tokenBefore]['code'] === \T_COMMA
