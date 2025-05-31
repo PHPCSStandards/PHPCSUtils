@@ -8,8 +8,6 @@
  * Grabs markdown files which will be used in the website, adjusts if needed
  * and places them in a target directory.
  *
- * {@internal This functionality has a minimum PHP requirement of PHP 7.2.}
- *
  * @internal
  *
  * @package   PHPCSUtils

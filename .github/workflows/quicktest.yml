@@ -33,20 +33,10 @@ jobs:
 
     strategy:
       matrix:
-        php: ['5.4', 'latest']
-        phpcs_version: ['lowest', '3.x-dev']
+        php: ['7.2', 'latest']
+        phpcs_version: ['lowest', '3.x-dev', '4.0.0', '4.x-dev']
 
-        include:
-          - php: '7.2'
-            phpcs_version: '4.0.0'
-          - php: '7.2'
-            phpcs_version: '4.x-dev'
-          - php: 'latest'
-            phpcs_version: '4.0.0'
-          - php: 'latest'
-            phpcs_version: '4.x-dev'
-
-    name: "QTest: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
+    name: "QTest${{ matrix.phpcs_version == '4.x-dev' && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
     steps:
       - name: Checkout code
@@ -90,11 +80,7 @@ jobs:
         if: ${{ matrix.phpcs_version == 'lowest' }}
         run: composer update squizlabs/php_codesniffer --prefer-lowest --no-scripts --no-interaction
 
-      - name: Lint against parse errors (PHP < 7.2)
-        if: ${{ matrix.php_version == '5.4' && matrix.phpcs_version == '3.x-dev' }}
-        run: composer lint-lt72
-
-      - name: Lint against parse errors (PHP 7.2+)
+      - name: Lint against parse errors
         if: ${{ matrix.phpcs_version == '4.x-dev' }}
         run: composer lint
 

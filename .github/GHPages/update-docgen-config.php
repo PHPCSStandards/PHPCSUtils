@@ -5,17 +5,12 @@
  *
  * Update the phpDocumentor configuration file.
  *
- * {@internal This functionality has a minimum PHP requirement of PHP 7.2.}
- *
  * @internal
  *
  * @package   PHPCSUtils
  * @copyright 2019-2020 PHPCSUtils Contributors
  * @license   https://opensource.org/licenses/LGPL-3.0 LGPL3
  * @link      https://github.com/PHPCSStandards/PHPCSUtils
- *
- * @phpcs:disable PHPCompatibility.FunctionUse.NewFunctionParameters.getenv_local_onlyFound
- * @phpcs:disable PHPCompatibility.FunctionUse.NewFunctionParameters.dirname_levelsFound
  */
 
 namespace PHPCSUtils\GHPages;

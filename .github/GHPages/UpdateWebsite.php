@@ -15,17 +15,7 @@ use RuntimeException;
 /**
  * Prepare markdown documents for use in a GH Pages website before deploy.
  *
- * {@internal This functionality has a minimum PHP requirement of PHP 7.2.}
- *
  * @internal
- *
- * @phpcs:disable PHPCompatibility.Classes.NewConstVisibility.Found
- * @phpcs:disable PHPCompatibility.FunctionDeclarations.NewParamTypeDeclarations.intFound
- * @phpcs:disable PHPCompatibility.FunctionDeclarations.NewParamTypeDeclarations.stringFound
- * @phpcs:disable PHPCompatibility.FunctionDeclarations.NewReturnTypeDeclarations.intFound
- * @phpcs:disable PHPCompatibility.FunctionDeclarations.NewReturnTypeDeclarations.stringFound
- * @phpcs:disable PHPCompatibility.FunctionDeclarations.NewReturnTypeDeclarations.voidFound
- * @phpcs:disable PHPCompatibility.InitialValue.NewConstantScalarExpressions.constFound
  */
 final class UpdateWebsite
 {

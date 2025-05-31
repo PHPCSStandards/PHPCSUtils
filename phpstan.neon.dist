@@ -1,5 +1,7 @@
 parameters:
-    # phpVersion: 50400 # Needs to be 70100 or higher... sigh...
+    phpVersion:
+        min: 70200
+        max: 80499
     level: 6
     paths:
         - phpcsutils-autoload.php

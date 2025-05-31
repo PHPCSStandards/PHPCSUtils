@@ -23,7 +23,7 @@
         "security": "https://github.com/PHPCSStandards/PHPCSUtils/security/policy"
     },
     "require" : {
-        "php" : ">=5.4",
+        "php" : ">=7.2",
         "squizlabs/php_codesniffer" : "^3.13.3 || ^4.0",
         "dealerdirect/phpcodesniffer-composer-installer" : "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0"
     },
@@ -52,11 +52,8 @@
         }
     },
     "scripts" : {
-        "lint-lt72": [
-            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . --show-deprecated -e php --exclude vendor --exclude .git --exclude .github/GHPages"
-        ],
         "lint": [
-            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git"
+            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . --show-deprecated -e php --exclude vendor --exclude .git"
         ],
         "checkcs": [
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
