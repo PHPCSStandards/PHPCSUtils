@@ -64,6 +64,12 @@ parameters:
             path: PHPCSUtils/Tokens/Collections.php
             count: 1
 
+        # Shortcoming of PHPStan, not a real error. Properties are read via get_class_vars().
+        -
+            message: '`^Property PHPCSUtils\\Tests\\BackCompat\\BCTokens\\UnchangedTokenArraysTest::\$[A-Za-z]+ is never read, only written\.$`'
+            path: Tests/BackCompat/BCTokens/UnchangedTokenArraysTest.php
+            count: 25
+
         # Level 5
         # This is by design to test handling of incorrect input.
         -

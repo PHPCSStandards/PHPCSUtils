@@ -27,6 +27,29 @@ final class UnchangedTokenArraysTest extends TestCase
 {
 
     /**
+     * Tokens that represent assignments.
+     *
+     * @var array<int|string, int|string>
+     */
+    private $assignmentTokens = [
+        \T_EQUAL          => \T_EQUAL,
+        \T_AND_EQUAL      => \T_AND_EQUAL,
+        \T_OR_EQUAL       => \T_OR_EQUAL,
+        \T_CONCAT_EQUAL   => \T_CONCAT_EQUAL,
+        \T_DIV_EQUAL      => \T_DIV_EQUAL,
+        \T_MINUS_EQUAL    => \T_MINUS_EQUAL,
+        \T_POW_EQUAL      => \T_POW_EQUAL,
+        \T_MOD_EQUAL      => \T_MOD_EQUAL,
+        \T_MUL_EQUAL      => \T_MUL_EQUAL,
+        \T_PLUS_EQUAL     => \T_PLUS_EQUAL,
+        \T_XOR_EQUAL      => \T_XOR_EQUAL,
+        \T_DOUBLE_ARROW   => \T_DOUBLE_ARROW,
+        \T_SL_EQUAL       => \T_SL_EQUAL,
+        \T_SR_EQUAL       => \T_SR_EQUAL,
+        \T_COALESCE_EQUAL => \T_COALESCE_EQUAL,
+    ];
+
+    /**
      * Tokens that represent equality comparisons.
      *
      * @var array<int|string, int|string>
@@ -123,6 +146,66 @@ final class UnchangedTokenArraysTest extends TestCase
     ];
 
     /**
+     * Token types that open parenthesis.
+     *
+     * @var array<int|string, int|string>
+     */
+    private $parenthesisOpeners = [
+        \T_ARRAY      => \T_ARRAY,
+        \T_LIST       => \T_LIST,
+        \T_FUNCTION   => \T_FUNCTION,
+        \T_CLOSURE    => \T_CLOSURE,
+        \T_USE        => \T_USE,
+        \T_ANON_CLASS => \T_ANON_CLASS,
+        \T_WHILE      => \T_WHILE,
+        \T_FOR        => \T_FOR,
+        \T_FOREACH    => \T_FOREACH,
+        \T_SWITCH     => \T_SWITCH,
+        \T_IF         => \T_IF,
+        \T_ELSEIF     => \T_ELSEIF,
+        \T_CATCH      => \T_CATCH,
+        \T_DECLARE    => \T_DECLARE,
+        \T_MATCH      => \T_MATCH,
+        \T_ISSET      => \T_ISSET,
+        \T_EMPTY      => \T_EMPTY,
+        \T_UNSET      => \T_UNSET,
+        \T_EVAL       => \T_EVAL,
+        \T_EXIT       => \T_EXIT,
+    ];
+
+    /**
+     * Tokens that are allowed to open scopes.
+     *
+     * @var array<int|string, int|string>
+     */
+    private $scopeOpeners = [
+        \T_CLASS      => \T_CLASS,
+        \T_ANON_CLASS => \T_ANON_CLASS,
+        \T_INTERFACE  => \T_INTERFACE,
+        \T_TRAIT      => \T_TRAIT,
+        \T_ENUM       => \T_ENUM,
+        \T_NAMESPACE  => \T_NAMESPACE,
+        \T_FUNCTION   => \T_FUNCTION,
+        \T_CLOSURE    => \T_CLOSURE,
+        \T_IF         => \T_IF,
+        \T_SWITCH     => \T_SWITCH,
+        \T_CASE       => \T_CASE,
+        \T_DECLARE    => \T_DECLARE,
+        \T_DEFAULT    => \T_DEFAULT,
+        \T_WHILE      => \T_WHILE,
+        \T_ELSE       => \T_ELSE,
+        \T_ELSEIF     => \T_ELSEIF,
+        \T_FOR        => \T_FOR,
+        \T_FOREACH    => \T_FOREACH,
+        \T_DO         => \T_DO,
+        \T_TRY        => \T_TRY,
+        \T_CATCH      => \T_CATCH,
+        \T_FINALLY    => \T_FINALLY,
+        \T_USE        => \T_USE,
+        \T_MATCH      => \T_MATCH,
+    ];
+
+    /**
      * Tokens that represent scope modifiers.
      *
      * @var array<int|string, int|string>
@@ -148,6 +231,17 @@ final class UnchangedTokenArraysTest extends TestCase
         \T_ABSTRACT  => \T_ABSTRACT,
         \T_STATIC    => \T_STATIC,
         \T_FINAL     => \T_FINAL,
+    ];
+
+    /**
+     * Tokens that open code blocks.
+     *
+     * @var array<int|string, int|string>
+     */
+    private $blockOpeners = [
+        \T_OPEN_CURLY_BRACKET  => \T_OPEN_CURLY_BRACKET,
+        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
+        \T_OPEN_PARENTHESIS    => \T_OPEN_PARENTHESIS,
     ];
 
     /**
@@ -253,6 +347,43 @@ final class UnchangedTokenArraysTest extends TestCase
         \T_REQUIRE      => \T_REQUIRE,
         \T_INCLUDE_ONCE => \T_INCLUDE_ONCE,
         \T_INCLUDE      => \T_INCLUDE,
+    ];
+
+    /**
+     * Tokens used for "names", be it namespace, OO, function or constant names.
+     *
+     * @var array<int|string, int|string>
+     */
+    private $nameTokens = [
+        \T_STRING               => \T_STRING,
+        \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+        \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+        \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
+    ];
+
+    /**
+     * Tokens that represent the names of called functions.
+     *
+     * @var array<int|string, int|string>
+     */
+    private $functionNameTokens = [
+        \T_INCLUDE              => \T_INCLUDE,
+        \T_INCLUDE_ONCE         => \T_INCLUDE_ONCE,
+        \T_REQUIRE              => \T_REQUIRE,
+        \T_REQUIRE_ONCE         => \T_REQUIRE_ONCE,
+        \T_STRING               => \T_STRING,
+        \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
+        \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
+        \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
+        \T_EVAL                 => \T_EVAL,
+        \T_EXIT                 => \T_EXIT,
+        \T_ISSET                => \T_ISSET,
+        \T_UNSET                => \T_UNSET,
+        \T_EMPTY                => \T_EMPTY,
+        \T_SELF                 => \T_SELF,
+        \T_PARENT               => \T_PARENT,
+        \T_STATIC               => \T_STATIC,
+        \T_ANON_CLASS           => \T_ANON_CLASS,
     ];
 
     /**
@@ -462,6 +593,36 @@ final class UnchangedTokenArraysTest extends TestCase
      */
     public function testPHPCSUnchangedTokenArrays($name)
     {
-        $this->assertSame(Tokens::${$name}, BCTokens::$name());
+        $translateVariableNameToConstantName = [
+            'arithmeticTokens'         => 'ARITHMETIC_TOKENS',
+            'assignmentTokens'         => 'ASSIGNMENT_TOKENS',
+            'blockOpeners'             => 'BLOCK_OPENERS',
+            'booleanOperators'         => 'BOOLEAN_OPERATORS',
+            'bracketTokens'            => 'BRACKET_TOKENS',
+            'castTokens'               => 'CAST_TOKENS',
+            'commentTokens'            => 'COMMENT_TOKENS',
+            'comparisonTokens'         => 'COMPARISON_TOKENS',
+            'contextSensitiveKeywords' => 'CONTEXT_SENSITIVE_KEYWORDS',
+            'emptyTokens'              => 'EMPTY_TOKENS',
+            'equalityTokens'           => 'EQUALITY_TOKENS',
+            'functionNameTokens'       => 'FUNCTION_NAME_TOKENS',
+            'heredocTokens'            => 'HEREDOC_TOKENS',
+            'includeTokens'            => 'INCLUDE_TOKENS',
+            'magicConstants'           => 'MAGIC_CONSTANTS',
+            'methodPrefixes'           => 'METHOD_MODIFIERS',
+            'nameTokens'               => 'NAME_TOKENS',
+            'ooScopeTokens'            => 'OO_SCOPE_TOKENS',
+            'operators'                => 'OPERATORS',
+            'parenthesisOpeners'       => 'PARENTHESIS_OPENERS',
+            'phpcsCommentTokens'       => 'PHPCS_ANNOTATION_TOKENS',
+            'scopeModifiers'           => 'SCOPE_MODIFIERS',
+            'scopeOpeners'             => 'SCOPE_OPENERS',
+            'stringTokens'             => 'STRING_TOKENS',
+            'textStringTokens'         => 'TEXT_STRING_TOKENS',
+        ];
+
+        $expected = \constant(Tokens::class . '::' . $translateVariableNameToConstantName[$name]);
+
+        $this->assertSame($expected, BCTokens::$name());
     }
 }
