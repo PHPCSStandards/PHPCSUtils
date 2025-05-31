@@ -226,7 +226,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      * to make sure all possible parentheses owners are tested.
      *
      * This array should be kept in sync with the Tokens::$parenthesisOpeners array
-     * + the extra tokens the Parentheses class allows for.
+     * + the extra tokens the Parentheses class allows for (if any).
      *
      * This array isn't auto-generated based on the array in Tokens as for these
      * tests we want to have access to the token constant names, not just their values.
@@ -249,14 +249,12 @@ final class ParenthesesTest extends UtilityMethodTestCase
         'T_CATCH'      => false,
         'T_DECLARE'    => false,
         'T_MATCH'      => false,
-        'T_FN'         => false,
-
-        // Extra tokens.
         'T_ISSET'      => false,
         'T_UNSET'      => false,
         'T_EMPTY'      => false,
         'T_EXIT'       => false,
         'T_EVAL'       => false,
+        'T_FN'         => false,
     ];
 
     /**
