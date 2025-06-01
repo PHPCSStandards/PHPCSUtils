@@ -10,6 +10,9 @@ $excluded = [
     $obj->get_key()             => 'excluded',
     $obj->prop                  => 'excluded',
     "my $var text"              => 'excluded',
+    \some\ true\name            => 'excluded',
+    \false\some\name            => 'excluded',
+    \some\name\null             => 'excluded',
     <<<EOD
 my $var text
 EOD
@@ -30,6 +33,7 @@ $emptyStringKey = array(
     ''             => 'empty',
     null           => 'null',
     (string) false => 'false',
+    \null          => 'null',
 );
 
 /* testAllZero */
@@ -56,6 +60,7 @@ $everythingZero = [
     .0               => 's',
     (true) ? 0 : 1   => 't',
     ! true           => 'u',
+    \false           => 'v',
 ];
 
 /* testAllOne */
@@ -83,6 +88,7 @@ $everythingOne = [
     (true) ? 1 : 0   => 's',
     ! false          => 't',
     (string) true    => 'u',
+    \true            => 'v',
 ];
 
 /* testAllEleven */
