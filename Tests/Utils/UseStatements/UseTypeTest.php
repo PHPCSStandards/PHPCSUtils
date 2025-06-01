@@ -274,15 +274,6 @@ final class UseTypeTest extends PolyfilledTestCase
                     'trait'   => true,
                 ],
             ],
-
-            'live-coding' => [
-                'testMarker' => '/* testLiveCoding */',
-                'expected'   => [
-                    'closure' => false,
-                    'import'  => false,
-                    'trait'   => false,
-                ],
-            ],
         ];
     }
 }

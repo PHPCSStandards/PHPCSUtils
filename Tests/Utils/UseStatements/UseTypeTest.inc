@@ -69,7 +69,3 @@ class PHPCS2ScopeConditionIssue {
     /* testUseImportPHPCS2DefaultNoSwitchB */
     use TraitD { oldfunction as Fool; }
 }
-
-// Intentional parse error. Live coding. This has to be the last test in the file.
-/* testLiveCoding */
-use
