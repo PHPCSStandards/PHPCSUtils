@@ -62,12 +62,6 @@ final class UseStatements
             throw UnexpectedTokenType::create(2, '$stackPtr', 'T_USE', $tokens[$stackPtr]['type']);
         }
 
-        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
-        if ($next === false) {
-            // Live coding or parse error.
-            return '';
-        }
-
         // More efficient & simpler check for closure use in PHPCS 4.x.
         if (isset($tokens[$stackPtr]['parenthesis_owner'])
             && $tokens[$stackPtr]['parenthesis_owner'] === $stackPtr
@@ -77,9 +71,16 @@ final class UseStatements
 
         $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
         if ($prev !== false && $tokens[$prev]['code'] === \T_CLOSE_PARENTHESIS
-            && Parentheses::isOwnerIn($phpcsFile, $prev, \T_CLOSURE) === true
+            // T_FUNCTION is included to handle certain parse errors, which are still clearly closure use, correctly.
+            && Parentheses::isOwnerIn($phpcsFile, $prev, [\T_CLOSURE, \T_FUNCTION]) === true
         ) {
             return 'closure';
+        }
+
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+        if ($next === false) {
+            // Live coding or parse error.
+            return '';
         }
 
         $lastCondition = Conditions::getLastCondition($phpcsFile, $stackPtr);
