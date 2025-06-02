@@ -130,6 +130,13 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
                 'identifier' => '/* testImplementsPartiallyQualified */',
                 'expected'   => ['Core\File\RelativeInterface'],
             ],
+            'class implements multiple interfaces, namespace relative' => [
+                'identifier' => '/* testImplementsMultipleNamespaceRelativeInterfaces */',
+                'expected'   => [
+                    'namespace\testInterfaceA',
+                    'namespace\testInterfaceB',
+                ],
+            ],
             'class extends and implements' => [
                 'identifier' => '/* testClassThatExtendsAndImplements */',
                 'expected'   => [

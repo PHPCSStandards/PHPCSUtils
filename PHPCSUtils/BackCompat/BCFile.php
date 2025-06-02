@@ -965,7 +965,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 2.7.0.
-     * - The upstream method has received no significant updates since PHPCS 3.13.0.
+     * - PHPCS 4.0.0: Handling of the namespace relative parent class using the namespace keyword as operator.
      *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()          Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() PHPCSUtils native improved version.
@@ -980,6 +980,44 @@ final class BCFile
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->findImplementedInterfaceNames($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        // Check for the existence of the token.
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['code'] !== T_CLASS
+            && $tokens[$stackPtr]['code'] !== T_ANON_CLASS
+            && $tokens[$stackPtr]['code'] !== T_ENUM
+        ) {
+            return false;
+        }
+
+        if (isset($tokens[$stackPtr]['scope_closer']) === false) {
+            return false;
+        }
+
+        $classOpenerIndex = $tokens[$stackPtr]['scope_opener'];
+        $implementsIndex  = $phpcsFile->findNext(T_IMPLEMENTS, $stackPtr, $classOpenerIndex);
+        if ($implementsIndex === false) {
+            return false;
+        }
+
+        $find   = Collections::namespacedNameTokens();
+        $find[] = T_WHITESPACE;
+        $find[] = T_COMMA;
+
+        $end  = $phpcsFile->findNext($find, ($implementsIndex + 1), ($classOpenerIndex + 1), true);
+        $name = $phpcsFile->getTokensAsString(($implementsIndex + 1), ($end - $implementsIndex - 1));
+        $name = trim($name);
+
+        if ($name === '') {
+            return false;
+        } else {
+            $names = explode(',', $name);
+            $names = array_map('trim', $names);
+            return $names;
+        }
     }
 }
