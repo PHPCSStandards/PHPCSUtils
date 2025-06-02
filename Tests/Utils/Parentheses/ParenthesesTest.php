@@ -192,6 +192,11 @@ final class ParenthesesTest extends UtilityMethodTestCase
             'code'    => \T_VARIABLE,
             'content' => '$a',
         ],
+        'testClosureUseInArray' => [
+            'marker'  => '/* testClosureUseInArray */',
+            'code'    => \T_VARIABLE,
+            'content' => '$var',
+        ],
         'testParseError-1' => [
             'marker'  => '/* testParseError */',
             'code'    => \T_LNUMBER,
@@ -225,6 +230,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
         'T_LIST'       => false,
         'T_FUNCTION'   => false,
         'T_CLOSURE'    => false,
+        'T_USE'        => false,
         'T_ANON_CLASS' => false,
         'T_WHILE'      => false,
         'T_FOR'        => false,
@@ -955,6 +961,24 @@ final class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => false,
                 ],
             ],
+            'testClosureUseInArray' => [
+                'testName'        => 'testClosureUseInArray',
+                'expectedResults' => [
+                    'firstOpener'           => -17,
+                    'firstCloser'           => 7,
+                    'firstOwner'            => -18,
+                    // T_USE is not really a scope opener here, but it is what it is.
+                    'firstScopeOwnerOpener' => -1,
+                    'firstScopeOwnerCloser' => 1,
+                    'firstScopeOwnerOwner'  => -5,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -5,
+                    'lastArrayOpener'       => -17,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => false,
+                ],
+            ],
             'testParseError-1' => [
                 'testName'        => 'testParseError-1',
                 'expectedResults' => [
@@ -1198,6 +1222,13 @@ final class ParenthesesTest extends UtilityMethodTestCase
                     'T_MATCH' => true,
                 ],
             ],
+            'testClosureUseInArray' => [
+                'testName'        => 'testClosureUseInArray',
+                'expectedResults' => [
+                    'T_ARRAY' => true,
+                    'T_USE'   => true,
+                ],
+            ],
             'testParseError-1' => [
                 'testName'        => 'testParseError-1',
                 'expectedResults' => [],
@@ -1340,6 +1371,11 @@ final class ParenthesesTest extends UtilityMethodTestCase
                 'validOwners' => [\T_CATCH],
                 'expected'    => false,
             ],
+            'testClosureUseInArray' => [
+                'testName'    => 'testClosureUseInArray',
+                'validOwners' => [\T_USE],
+                'expected'    => false,
+            ],
         ];
     }
 
@@ -1371,7 +1407,7 @@ final class ParenthesesTest extends UtilityMethodTestCase
      *
      * @see testLastOwnerIn() For the array format.
      *
-     * @return array<string, array<int|string|array<int|string>|false>>
+     * @return array<string, array<string, int|string|array<int|string>|false>>
      */
     public static function dataLastOwnerIn()
     {
@@ -1461,6 +1497,11 @@ final class ParenthesesTest extends UtilityMethodTestCase
                 'testName'    => 'testMatch-$a',
                 'validOwners' => [\T_CATCH, \T_MATCH],
                 'expected'    => false,
+            ],
+            'testClosureUseInArray' => [
+                'testName'    => 'testClosureUseInArray',
+                'validOwners' => [\T_USE],
+                'expected'    => -5,
             ],
         ];
     }
