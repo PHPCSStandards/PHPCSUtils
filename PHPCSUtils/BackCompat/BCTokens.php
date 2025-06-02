@@ -59,7 +59,6 @@ use PHPCSUtils\Tokens\Collections;
  * @method static array<int|string, int|string> methodPrefixes()           Tokens that can prefix a method name.
  * @method static array<int|string, int|string> ooScopeTokens()            Tokens that open class and object scopes.
  * @method static array<int|string, int|string> operators()                Tokens that perform operations.
- * @method static array<int|string, int|string> parenthesisOpeners()       Token types that open parenthesis.
  * @method static array<int|string, int|string> phpcsCommentTokens()       Tokens that are comments containing PHPCS
  *                                                                         instructions.
  * @method static array<int|string, int|string> scopeModifiers()           Tokens that represent scope modifiers.
@@ -165,6 +164,38 @@ final class BCTokens
         $tokens                = Tokens::$functionNameTokens;
         $tokens               += Collections::nameTokens();
         $tokens[\T_ANON_CLASS] = \T_ANON_CLASS;
+
+        return $tokens;
+    }
+
+    /**
+     * Token types that open parentheses.
+     *
+     * Retrieve the PHPCS parenthesis openers tokens array in a cross-version compatible manner.
+     *
+     * Changelog for the PHPCS native array:
+     * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 4.0.0: `T_USE` added to the array.
+     *
+     * Note: While `T_USE` will be included in the return value for this method, the
+     * associated parentheses will not have the `'parenthesis_owner'` index set
+     * until PHPCS 4.0.0. Use the {@see \PHPCSUtils\Utils\Parentheses::getOwner()}
+     * or {@see \PHPCSUtils\Utils\Parentheses::hasOwner()} methods if you need to check
+     * for a `T_USE` parentheses owner.
+     *
+     * @see \PHP_CodeSniffer\Util\Tokens::$parenthesisOpeners Original array.
+     * @see \PHPCSUtils\Utils\Parentheses                     Class holding utility methods for
+     *                                                        working with the `'parenthesis_...'`
+     *                                                        index keys in a token array.
+     *
+     * @since 1.0.0
+     *
+     * @return array<int|string, int|string> Token array.
+     */
+    public static function parenthesisOpeners()
+    {
+        $tokens         = Tokens::$parenthesisOpeners;
+        $tokens[\T_USE] = \T_USE;
 
         return $tokens;
     }
