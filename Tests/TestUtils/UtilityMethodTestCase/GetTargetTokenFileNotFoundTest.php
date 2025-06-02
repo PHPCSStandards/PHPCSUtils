@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
+use PHPCSUtils\Exceptions\TestFileNotFound;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
@@ -54,7 +55,7 @@ final class GetTargetTokenFileNotFoundTest extends PolyfilledTestCase
      */
     public function testGetTargetTokenFileNotFound()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestFileNotFound');
+        $this->expectException(TestFileNotFound::class);
         $this->expectExceptionMessage(
             'Failed to find a tokenized test case file.' . \PHP_EOL
             . 'Make sure the UtilityMethodTestCase::setUpTestFile() method has run'

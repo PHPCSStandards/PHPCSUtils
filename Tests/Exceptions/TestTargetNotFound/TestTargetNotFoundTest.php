@@ -30,7 +30,7 @@ final class TestTargetNotFoundTest extends TestCase
      */
     public function testCreateWithoutContent()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestTargetNotFound');
+        $this->expectException(TestTargetNotFound::class);
         $this->expectExceptionMessage(
             'Failed to find test target token for comment string: /* testDummy */ in test case file: filename.inc'
         );
@@ -45,7 +45,7 @@ final class TestTargetNotFoundTest extends TestCase
      */
     public function testCreateWithContent()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestTargetNotFound');
+        $this->expectException(TestTargetNotFound::class);
         $this->expectExceptionMessage(
             'Failed to find test target token for comment string: /* testDummy */'
             . ' with token content: foo in test case file: filename.inc'

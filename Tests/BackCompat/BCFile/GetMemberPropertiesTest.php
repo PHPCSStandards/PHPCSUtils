@@ -22,6 +22,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
+use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
@@ -44,7 +45,7 @@ class GetMemberPropertiesTest extends PolyfilledTestCase
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
+    const TEST_CLASS = BCFile::class;
 
     /**
      * Test the getMemberProperties() method.

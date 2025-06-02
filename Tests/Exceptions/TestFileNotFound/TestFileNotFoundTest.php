@@ -30,7 +30,7 @@ final class TestFileNotFoundTest extends TestCase
      */
     public function testNoCustomMessage()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestFileNotFound');
+        $this->expectException(TestFileNotFound::class);
         $this->expectExceptionMessage(
             'Failed to find a tokenized test case file.' . \PHP_EOL
             . 'Make sure the UtilityMethodTestCase::setUpTestFile() method has run'
@@ -46,7 +46,7 @@ final class TestFileNotFoundTest extends TestCase
      */
     public function testWithCustomMessage()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestFileNotFound');
+        $this->expectException(TestFileNotFound::class);
         $this->expectExceptionMessage('foobar');
 
         throw new TestFileNotFound('foobar');

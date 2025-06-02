@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\Namespaces;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Namespaces;
 
@@ -34,7 +37,7 @@ final class NamespaceTypeTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         Namespaces::getType(self::$phpcsFile, false);
@@ -47,7 +50,7 @@ final class NamespaceTypeTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -62,7 +65,7 @@ final class NamespaceTypeTest extends PolyfilledTestCase
      */
     public function testNonNamespaceToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type T_NAMESPACE;'
         );

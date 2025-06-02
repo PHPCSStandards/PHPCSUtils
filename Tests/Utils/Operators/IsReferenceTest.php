@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\Operators;
 
 use PHPCSUtils\Tests\BackCompat\BCFile\IsReferenceTest as BCFile_IsReferenceTest;
+use PHPCSUtils\Utils\Operators;
 
 /**
  * Tests for the \PHPCSUtils\Utils\Operators::isReference() method.
@@ -32,7 +33,7 @@ final class IsReferenceTest extends BCFile_IsReferenceTest
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\Utils\Operators';
+    const TEST_CLASS = Operators::class;
 
     /**
      * Full path to the test case file associated with this test class.

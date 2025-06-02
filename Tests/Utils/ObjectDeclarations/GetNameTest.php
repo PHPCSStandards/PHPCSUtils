@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetDeclarationNameTest as BCFile_GetDeclarationNameTest;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
@@ -54,7 +55,7 @@ final class GetNameTest extends BCFile_GetDeclarationNameTest
      */
     public function testTrulyInvalidTokenPassed()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM'
         );

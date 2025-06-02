@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Constants;
 
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Constants;
 
@@ -32,7 +33,7 @@ final class GetPropertiesParseError4Test extends PolyfilledTestCase
      */
     public function testParseError()
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to an OO constant');
 
         $const = $this->getTargetToken('/* testParseErrorLiveCoding */', \T_CONST);

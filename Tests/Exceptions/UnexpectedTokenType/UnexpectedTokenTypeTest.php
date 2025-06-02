@@ -35,7 +35,7 @@ final class UnexpectedTokenTypeTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage($message);
 
         throw UnexpectedTokenType::create(2, '$stackPtr', 'T_NAMESPACE', 'T_WHITESPACE');

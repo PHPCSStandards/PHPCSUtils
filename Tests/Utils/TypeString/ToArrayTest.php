@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\TypeString;
 
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Tests\TypeProviderHelper;
 use PHPCSUtils\Utils\TypeString;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
@@ -37,7 +38,7 @@ final class ToArrayTest extends TestCase
      */
     public function testToArrayThrowsExceptionOnNonStringInput($input)
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($typeString) must be of type string,');
 
         TypeString::toArray($input);
@@ -54,7 +55,7 @@ final class ToArrayTest extends TestCase
      */
     public function testToArrayUniqueThrowsExceptionOnNonStringInput($input)
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($typeString) must be of type string,');
 
         TypeString::toArrayUnique($input);

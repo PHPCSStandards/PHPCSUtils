@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Lists;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
@@ -32,7 +33,7 @@ final class GetAssignmentsTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type long/short list; 100000');
 
         Lists::getAssignments(self::$phpcsFile, 100000);
@@ -50,7 +51,7 @@ final class GetAssignmentsTest extends PolyfilledTestCase
      */
     public function testNotListToken($testMarker, $targetToken)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type long/short list; T_');
 
         $target = $this->getTargetToken($testMarker, $targetToken);

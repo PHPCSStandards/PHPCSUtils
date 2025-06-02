@@ -35,7 +35,7 @@ final class ValueErrorTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage($message);
 
         throw ValueError::create(1, '$end', 'must be before $start');

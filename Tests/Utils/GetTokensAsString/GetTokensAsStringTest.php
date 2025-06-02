@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tests\Utils\GetTokensAsString;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\GetTokensAsString;
 
@@ -54,7 +56,7 @@ final class GetTokensAsStringTest extends PolyfilledTestCase
      */
     public function testNonExistentStart()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($start) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -69,7 +71,7 @@ final class GetTokensAsStringTest extends PolyfilledTestCase
      */
     public function testNonIntegerStart()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($start) must be of type integer, boolean given');
 
         GetTokensAsString::noEmpties(self::$phpcsFile, false, 10);

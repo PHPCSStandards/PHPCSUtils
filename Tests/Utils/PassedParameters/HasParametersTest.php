@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\PassedParameters;
@@ -31,7 +34,7 @@ final class HasParametersTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, array given');
 
         PassedParameters::hasParameters(self::$phpcsFile, []);
@@ -44,7 +47,7 @@ final class HasParametersTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -60,7 +63,7 @@ final class HasParametersTest extends PolyfilledTestCase
      */
     public function testNotAnAcceptedTokenException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
         );
@@ -81,7 +84,7 @@ final class HasParametersTest extends PolyfilledTestCase
      */
     public function testNotACallToConstructor($testMarker, $targetType)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
         );
@@ -122,7 +125,7 @@ final class HasParametersTest extends PolyfilledTestCase
      */
     public function testNotAShortArray()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
         );

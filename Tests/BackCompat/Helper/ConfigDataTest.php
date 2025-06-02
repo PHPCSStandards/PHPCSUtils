@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\Helper;
 
 use PHP_CodeSniffer\Config;
 use PHPCSUtils\BackCompat\Helper;
+use PHPCSUtils\Exceptions\MissingArgumentError;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -53,7 +54,7 @@ final class ConfigDataTest extends TestCase
      */
     public function testConfigDataPHPCS4Exception()
     {
-        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectException(MissingArgumentError::class);
         $this->expectExceptionMessage('Argument #4 ($config) is required when running on PHPCS 4.x.');
 
         Helper::setConfigData('arbitrary_name', 'test', true);

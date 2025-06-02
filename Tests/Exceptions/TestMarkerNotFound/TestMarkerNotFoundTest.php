@@ -30,7 +30,7 @@ final class TestMarkerNotFoundTest extends TestCase
      */
     public function testCreate()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestMarkerNotFound');
+        $this->expectException(TestMarkerNotFound::class);
         $this->expectExceptionMessage('Failed to find the test marker: /* testDummy */ in test case file filename.inc');
 
         throw TestMarkerNotFound::create('/* testDummy */', 'filename.inc');

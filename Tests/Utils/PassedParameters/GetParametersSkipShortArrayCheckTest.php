@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -43,7 +44,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
     public function testHasParametersDontSkipShortArrayCheck($testMarker, $targetType, $expectException)
     {
         if ($expectException === true) {
-            $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+            $this->expectException(UnexpectedTokenType::class);
             $this->expectExceptionMessage(
                 'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
             );
@@ -94,7 +95,7 @@ final class GetParametersSkipShortArrayCheckTest extends PolyfilledTestCase
          * will be received before the code reaches that point.
          */
         if ($targetType === \T_OPEN_SQUARE_BRACKET) {
-            $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+            $this->expectException(UnexpectedTokenType::class);
             $this->expectExceptionMessage(
                 'Argument #2 ($stackPtr) must be of type function call, array, isset, unset or exit;'
             );

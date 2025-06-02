@@ -23,6 +23,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
+use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -45,7 +46,7 @@ class FindImplementedInterfaceNamesTest extends UtilityMethodTestCase
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
+    const TEST_CLASS = BCFile::class;
 
     /**
      * Test getting a `false` result when a non-existent token is passed.

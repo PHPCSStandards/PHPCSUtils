@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\Arrays;
 
+use PHPCSUtils\Exceptions\LogicException;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Arrays;
@@ -64,7 +67,7 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
      */
     public function testNonIntegerStartException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($start) must be of type integer, boolean given');
 
         Arrays::getDoubleArrowPtr(self::$phpcsFile, false, 10);
@@ -77,7 +80,7 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
      */
     public function testNonIntegerEndException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #3 ($end) must be of type integer, boolean given');
 
         Arrays::getDoubleArrowPtr(self::$phpcsFile, 0, false);
@@ -90,7 +93,7 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
      */
     public function testInvalidStartPositionException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($start) must be a stack pointer which exists in the $phpcsFile object'
         );
@@ -105,7 +108,7 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
      */
     public function testInvalidEndPositionException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #3 ($end) must be a stack pointer which exists in the $phpcsFile object'
         );
@@ -120,7 +123,7 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
      */
     public function testInvalidStartEndPositionException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage(
             'The $start token must be before the $end token. Received: $start 10, $end 5'
         );

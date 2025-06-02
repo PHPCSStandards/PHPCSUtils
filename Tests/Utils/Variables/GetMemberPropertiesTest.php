@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tests\Utils\Variables;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMemberPropertiesTest as BCFile_GetMemberPropertiesTest;
 use PHPCSUtils\Utils\Variables;
@@ -34,7 +36,7 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\Utils\Variables';
+    const TEST_CLASS = Variables::class;
 
     /**
      * Full path to the test case file associated with this test class.
@@ -69,7 +71,7 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
      */
     public function testNotClassPropertyException($identifier)
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to a class member var');
 
         $variable = $this->getTargetToken($identifier, \T_VARIABLE);
@@ -83,7 +85,7 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
      */
     public function testNotAVariableException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_VARIABLE;');
 
         $next = $this->getTargetToken('/* testNotAVariable */', \T_RETURN);

@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
@@ -37,7 +39,7 @@ final class GetPropertiesDiffTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         FunctionDeclarations::getProperties(self::$phpcsFile, false);
@@ -50,7 +52,7 @@ final class GetPropertiesDiffTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object'
         );

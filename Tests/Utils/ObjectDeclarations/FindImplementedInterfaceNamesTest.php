@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
 use PHPCSUtils\Tests\BackCompat\BCFile\FindImplementedInterfaceNamesTest as BCFile_FindImplInterfaceNamesTest;
+use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
  * Tests for the \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() method.
@@ -33,7 +34,7 @@ final class FindImplementedInterfaceNamesTest extends BCFile_FindImplInterfaceNa
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\Utils\ObjectDeclarations';
+    const TEST_CLASS = ObjectDeclarations::class;
 
     /**
      * Full path to the test case file associated with this test class.

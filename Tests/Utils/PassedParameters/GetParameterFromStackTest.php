@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
+use PHPCSUtils\Exceptions\MissingArgumentError;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
@@ -113,7 +114,7 @@ final class GetParameterFromStackTest extends PolyfilledTestCase
      */
     public function testGetParameterFunctionCallMissingParamName()
     {
-        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectException(MissingArgumentError::class);
         $this->expectExceptionMessage(
             'Argument #3 ($paramNames) is required to allow for support for PHP 8 named parameters.'
         );
@@ -132,7 +133,7 @@ final class GetParameterFromStackTest extends PolyfilledTestCase
      */
     public function testGetParameterFunctionCallPositionalMissingParamNameNonExistentParam()
     {
-        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectException(MissingArgumentError::class);
         $this->expectExceptionMessage(
             'Argument #3 ($paramNames) is required to allow for support for PHP 8 named parameters.'
         );

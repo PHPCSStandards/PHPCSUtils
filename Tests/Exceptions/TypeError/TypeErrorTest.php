@@ -35,7 +35,7 @@ final class TypeErrorTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage($message);
 
         throw TypeError::create(1, '$typeString', 'string', 1);

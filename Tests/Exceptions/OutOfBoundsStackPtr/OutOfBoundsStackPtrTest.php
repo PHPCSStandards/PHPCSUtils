@@ -35,7 +35,7 @@ final class OutOfBoundsStackPtrTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage($message);
 
         throw OutOfBoundsStackPtr::create(2, '$stackPtr', 100000);
@@ -53,7 +53,7 @@ final class OutOfBoundsStackPtrTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage($message);
 
         throw OutOfBoundsStackPtr::create(2, '$stackPtr', []);

@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
+use PHPCSUtils\Exceptions\TestMarkerNotFound;
+use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
@@ -129,7 +131,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      */
     public function testGetTargetTokenCommentNotFound()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestMarkerNotFound');
+        $this->expectException(TestMarkerNotFound::class);
         $this->expectExceptionMessage('Failed to find the test marker: ');
 
         $this->getTargetToken('/* testCommentDoesNotExist */', [\T_VARIABLE], '$a');
@@ -142,7 +144,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      */
     public function testGetTargetTokenNotFoundException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TestTargetNotFound');
+        $this->expectException(TestTargetNotFound::class);
         $this->expectExceptionMessage('Failed to find test target token for comment string: ');
 
         self::getTargetToken('/* testNotFindingTarget */', [\T_VARIABLE], '$a');

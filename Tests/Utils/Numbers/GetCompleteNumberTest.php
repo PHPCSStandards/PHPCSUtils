@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\Numbers;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Numbers;
 
@@ -30,7 +33,7 @@ final class GetCompleteNumberTest extends PolyfilledTestCase
      */
     public function testNonIntegerTokenException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, double given');
 
         Numbers::getCompleteNumber(self::$phpcsFile, 1.5);
@@ -43,7 +46,7 @@ final class GetCompleteNumberTest extends PolyfilledTestCase
      */
     public function testNonExistentTokenException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -58,7 +61,7 @@ final class GetCompleteNumberTest extends PolyfilledTestCase
      */
     public function testNotANumberException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_LNUMBER or T_DNUMBER;');
 
         $stackPtr = $this->getTargetToken('/* testNotAnLNumber */', \T_STRING);

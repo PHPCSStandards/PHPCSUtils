@@ -33,7 +33,7 @@ final class GetConditionTest extends BCFile_GetConditionTest
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\Utils\Conditions';
+    const TEST_CLASS = Conditions::class;
 
     /**
      * Full path to the test case file associated with this test class.

@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\Utils\UseStatements;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\UseStatements;
 
@@ -32,7 +35,7 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, NULL given');
 
         UseStatements::splitAndMergeImportUseStatement(self::$phpcsFile, null, []);
@@ -45,7 +48,7 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -60,7 +63,7 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
      */
     public function testInvalidTokenPassed()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_USE;');
 
         // 0 = PHP open tag.

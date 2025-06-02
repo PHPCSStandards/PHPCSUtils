@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMethodParametersTest as BCFile_GetMethodParametersTest;
 use PHPCSUtils\Tokens\Collections;
@@ -61,7 +63,7 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     public function testUnexpectedTokenException($commentString, $targetTokenType)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLOSURE, T_FN or T_USE');
 
         $next = $this->getTargetToken($commentString, $targetTokenType);
@@ -79,7 +81,7 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
      */
     public function testInvalidUse($identifier)
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to a closure use statement');
 
         $use = $this->getTargetToken($identifier, [\T_USE]);

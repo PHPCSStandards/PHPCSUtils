@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Tokens\Collections;
 
+use PHPCSUtils\Exceptions\InvalidTokenArray;
 use PHPCSUtils\Tokens\Collections;
 use ReflectionProperty;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
@@ -35,7 +36,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
      */
     public function testPropertyBasedTokenArrays($name)
     {
-        $reflProp = new ReflectionProperty('PHPCSUtils\Tokens\Collections', $name);
+        $reflProp = new ReflectionProperty(Collections::class, $name);
         (\PHP_VERSION_ID < 80100) && $reflProp->setAccessible(true);
         $expected = $reflProp->getValue();
         (\PHP_VERSION_ID < 80100) && $reflProp->setAccessible(false);
@@ -94,7 +95,7 @@ final class PropertyBasedTokenArraysTest extends TestCase
      */
     public function testUndeclaredTokenArray()
     {
-        $this->expectException('PHPCSUtils\Exceptions\InvalidTokenArray');
+        $this->expectException(InvalidTokenArray::class);
         $this->expectExceptionMessage('Call to undefined method PHPCSUtils\Tokens\Collections::notATokenArray()');
 
         Collections::notATokenArray();

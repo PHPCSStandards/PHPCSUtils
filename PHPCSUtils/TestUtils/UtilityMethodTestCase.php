@@ -11,6 +11,7 @@
 namespace PHPCSUtils\TestUtils;
 
 use PHP_CodeSniffer\Config;
+use PHP_CodeSniffer\Exceptions\RuntimeException;
 use PHP_CodeSniffer\Exceptions\TokenizerException;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Files\LocalFile;
@@ -314,7 +315,7 @@ abstract class UtilityMethodTestCase extends TestCase
      */
     public static function setStaticConfigProperty($name, $value)
     {
-        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property = new ReflectionProperty(Config::class, $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
         $property->setValue(null, $value);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(false);
@@ -474,9 +475,9 @@ abstract class UtilityMethodTestCase extends TestCase
      */
     public function expectPhpcsException($msg, $type = 'runtime')
     {
-        $exception = 'PHP_CodeSniffer\Exceptions\RuntimeException';
+        $exception = RuntimeException::class;
         if ($type === 'tokenizer') {
-            $exception = 'PHP_CodeSniffer\Exceptions\TokenizerException';
+            $exception = TokenizerException::class;
         }
 
         $this->expectException($exception);

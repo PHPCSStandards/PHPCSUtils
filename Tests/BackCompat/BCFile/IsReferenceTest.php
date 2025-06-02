@@ -22,6 +22,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
+use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
 /**
@@ -44,7 +45,7 @@ class IsReferenceTest extends UtilityMethodTestCase
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
+    const TEST_CLASS = BCFile::class;
 
     /**
      * Test that false is returned when a non-"bitwise and" token is passed.

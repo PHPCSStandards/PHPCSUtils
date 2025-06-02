@@ -11,6 +11,9 @@
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations\AnalyzeOOStructure;
 
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\ObjectDeclarations;
@@ -53,7 +56,7 @@ final class GetDeclaredEnumCasesTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         ObjectDeclarations::getDeclaredEnumCases(self::$phpcsFile, false);
@@ -66,7 +69,7 @@ final class GetDeclaredEnumCasesTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -81,7 +84,7 @@ final class GetDeclaredEnumCasesTest extends PolyfilledTestCase
      */
     public function testNotTargetToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_ENUM;');
 
         $stackPtr = $this->getTargetToken('/* testUnacceptableToken */', \T_FUNCTION);

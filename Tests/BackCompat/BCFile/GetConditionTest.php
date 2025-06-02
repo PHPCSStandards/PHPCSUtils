@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHP_CodeSniffer\Util\Tokens;
+use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\BackCompat\BCTokens;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 
@@ -36,7 +37,7 @@ class GetConditionTest extends UtilityMethodTestCase
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
+    const TEST_CLASS = BCFile::class;
 
     /**
      * List of all the test markers with their target token in the test case file.

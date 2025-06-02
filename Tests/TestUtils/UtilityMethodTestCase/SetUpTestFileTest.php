@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\TestUtils\UtilityMethodTestCase;
 
+use PHP_CodeSniffer\Files\File;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
@@ -73,7 +74,7 @@ final class SetUpTestFileTest extends PolyfilledTestCase
         // Verify select properties have been set correctly.
         $this->assertNotSame('0', self::$phpcsVersion, 'phpcsVersion was not set');
 
-        $this->assertInstanceOf('PHP_CodeSniffer\Files\File', self::$phpcsFile);
+        $this->assertInstanceOf(File::class, self::$phpcsFile);
 
         $this->assertSame(58, self::$phpcsFile->numTokens);
 

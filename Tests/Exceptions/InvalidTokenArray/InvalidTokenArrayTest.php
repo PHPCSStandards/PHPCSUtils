@@ -30,7 +30,7 @@ final class InvalidTokenArrayTest extends TestCase
      */
     public function testCreate()
     {
-        $this->expectException('PHPCSUtils\Exceptions\InvalidTokenArray');
+        $this->expectException(InvalidTokenArray::class);
         $this->expectExceptionMessage(\sprintf('Call to undefined method %s::dummy()', __CLASS__));
 
         throw InvalidTokenArray::create('dummy');

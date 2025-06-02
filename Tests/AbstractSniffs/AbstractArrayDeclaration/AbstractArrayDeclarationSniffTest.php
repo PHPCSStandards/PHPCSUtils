@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration\ArrayDeclarationSniffMock;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Tokens\Collections;
 
@@ -44,7 +47,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         $mockObj = $this->getMockedClassUnderTest();
@@ -77,7 +80,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -663,9 +666,7 @@ final class AbstractArrayDeclarationSniffTest extends PolyfilledTestCase
      */
     private function getMockedClassUnderTest()
     {
-        $mockedObj = $this->getMockBuilder(
-            '\PHPCSUtils\Tests\AbstractSniffs\AbstractArrayDeclaration\ArrayDeclarationSniffMock'
-        );
+        $mockedObj = $this->getMockBuilder(ArrayDeclarationSniffMock::class);
 
         return $mockedObj->onlyMethods($this->methodsToMock)
             ->getMock();

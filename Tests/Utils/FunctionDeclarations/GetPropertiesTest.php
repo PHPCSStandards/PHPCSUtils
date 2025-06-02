@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\FunctionDeclarations;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetMethodPropertiesTest as BCFile_GetMethodPropertiesTest;
 use PHPCSUtils\Utils\FunctionDeclarations;
 
@@ -59,7 +60,7 @@ final class GetPropertiesTest extends BCFile_GetMethodPropertiesTest
      */
     public function testNotAFunctionException($commentString, $targetTokenType)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_FUNCTION, T_CLOSURE or T_FN');
 
         $next = $this->getTargetToken($commentString, $targetTokenType);

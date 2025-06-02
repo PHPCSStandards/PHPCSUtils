@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\TestUtils\ConfigDouble;
 
+use PHP_CodeSniffer\Config;
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\ConfigDouble;
 use ReflectionProperty;
@@ -299,7 +300,7 @@ final class ConfigDoubleTest extends TestCase
      */
     private function getStaticConfigProperty($name, $config = null)
     {
-        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property = new ReflectionProperty(Config::class, $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
 
         if ($name === 'overriddenDefaults') {
@@ -329,7 +330,7 @@ final class ConfigDoubleTest extends TestCase
             return;
         }
 
-        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property = new ReflectionProperty(Config::class, $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
         $property->setValue(null, $value);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(false);

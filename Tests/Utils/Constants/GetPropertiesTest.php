@@ -10,6 +10,10 @@
 
 namespace PHPCSUtils\Tests\Utils\Constants;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Constants;
@@ -33,7 +37,7 @@ final class GetPropertiesTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         Constants::getProperties(self::$phpcsFile, false);
@@ -46,7 +50,7 @@ final class GetPropertiesTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -61,7 +65,7 @@ final class GetPropertiesTest extends PolyfilledTestCase
      */
     public function testNotAConstException()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_CONST;');
 
         $define = $this->getTargetToken('/* testNotAConstToken */', \T_STRING);
@@ -79,7 +83,7 @@ final class GetPropertiesTest extends PolyfilledTestCase
      */
     public function testNotOOConstantException($identifier)
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to an OO constant');
 
         $const = $this->getTargetToken($identifier, \T_CONST);

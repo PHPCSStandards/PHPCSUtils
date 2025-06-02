@@ -12,6 +12,7 @@ namespace PHPCSUtils\Tests\BackCompat\BCTokens;
 
 use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCTokens;
+use PHPCSUtils\Exceptions\InvalidTokenArray;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -572,7 +573,7 @@ final class UnchangedTokenArraysTest extends TestCase
      */
     public function testUndeclaredTokenArray()
     {
-        $this->expectException('PHPCSUtils\Exceptions\InvalidTokenArray');
+        $this->expectException(InvalidTokenArray::class);
         $this->expectExceptionMessage('Call to undefined method PHPCSUtils\BackCompat\BCTokens::notATokenArray()');
 
         BCTokens::notATokenArray();

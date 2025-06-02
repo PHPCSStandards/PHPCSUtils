@@ -35,7 +35,7 @@ final class LogicExceptionTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage($message);
 
         throw LogicException::create('your message');

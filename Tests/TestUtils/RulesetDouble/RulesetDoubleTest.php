@@ -10,6 +10,8 @@
 
 namespace PHPCSUtils\Tests\TestUtils\RulesetDouble;
 
+use PHP_CodeSniffer\Exceptions\RuntimeException;
+use PHP_CodeSniffer\Ruleset;
 use PHPCSUtils\TestUtils\ConfigDouble;
 use PHPCSUtils\TestUtils\RulesetDouble;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
@@ -40,7 +42,7 @@ final class RulesetDoubleTest extends TestCase
 
         $ruleset = new RulesetDouble($config);
 
-        $this->assertInstanceOf('\PHP_CodeSniffer\Ruleset', $ruleset);
+        $this->assertInstanceOf(Ruleset::class, $ruleset);
         $this->assertCount(1, $ruleset->sniffs, 'Ruleset did not register exactly 1 sniff');
     }
 
@@ -59,7 +61,7 @@ final class RulesetDoubleTest extends TestCase
 
         $ruleset = new RulesetDouble($config);
 
-        $this->assertInstanceOf('\PHP_CodeSniffer\Ruleset', $ruleset);
+        $this->assertInstanceOf(Ruleset::class, $ruleset);
         $this->assertCount(0, $ruleset->sniffs, 'Ruleset has registered a sniff, even though it doesn\'t exist');
     }
 
@@ -74,9 +76,7 @@ final class RulesetDoubleTest extends TestCase
         $message  = 'ERROR: Referenced sniff "./MissingFile.xml" does not exist.' . \PHP_EOL;
         $message .= 'ERROR: No sniffs were registered.' . \PHP_EOL . \PHP_EOL;
 
-        $exception = 'PHP_CodeSniffer\Exceptions\RuntimeException';
-
-        $this->expectException($exception);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage($message);
 
         $standard = __DIR__ . '/InvalidSniffRef.xml';

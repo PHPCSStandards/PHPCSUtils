@@ -10,6 +10,9 @@
 
 namespace PHPCSUtils\Tests\Internal\IsShortArrayOrList;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Internal\IsShortArrayOrList;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
@@ -30,7 +33,7 @@ final class ConstructorTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         new IsShortArrayOrList(self::$phpcsFile, false);
@@ -43,7 +46,7 @@ final class ConstructorTest extends PolyfilledTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -63,7 +66,7 @@ final class ConstructorTest extends PolyfilledTestCase
      */
     public function testNotOpenBracket($testMarker, $targetType)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type T_OPEN_SHORT_ARRAY or T_OPEN_SQUARE_BRACKET;'
         );
@@ -120,7 +123,7 @@ final class ConstructorTest extends PolyfilledTestCase
         $target = $this->getTargetToken($testMarker, $targetType);
         $solver = new IsShortArrayOrList(self::$phpcsFile, $target);
 
-        $this->assertInstanceof('\PHPCSUtils\Internal\IsShortArrayOrList', $solver);
+        $this->assertInstanceof(IsShortArrayOrList::class, $solver);
     }
 
     /**

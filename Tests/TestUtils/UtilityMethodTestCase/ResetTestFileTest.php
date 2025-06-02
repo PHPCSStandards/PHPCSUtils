@@ -182,7 +182,7 @@ final class ResetTestFileTest extends PolyfilledTestCase
      */
     private function getStaticConfigProperty($name, $config = null)
     {
-        $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
+        $property = new ReflectionProperty(Config::class, $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
 
         if ($name === 'overriddenDefaults') {

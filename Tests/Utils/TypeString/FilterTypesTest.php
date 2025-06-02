@@ -13,6 +13,7 @@ namespace PHPCSUtils\Tests\Utils\TypeString;
 use PHPCSUtils\Tests\TypeProviderHelper;
 use PHPCSUtils\Utils\TypeString;
 use stdClass;
+use TypeError;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -38,7 +39,7 @@ final class FilterTypesTest extends TestCase
      */
     public function testFilterKeywordTypesNonArrayInput($input)
     {
-        $this->expectException('\TypeError');
+        $this->expectException(TypeError::class);
 
         TypeString::filterKeywordTypes($input);
     }
@@ -54,7 +55,7 @@ final class FilterTypesTest extends TestCase
      */
     public function testFilterOOTypesNonArrayInput($input)
     {
-        $this->expectException('\TypeError');
+        $this->expectException(TypeError::class);
 
         TypeString::filterOOTypes($input);
     }

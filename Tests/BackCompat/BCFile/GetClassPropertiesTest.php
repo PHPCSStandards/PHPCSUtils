@@ -33,7 +33,7 @@ class GetClassPropertiesTest extends PolyfilledTestCase
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\BackCompat\BCFile';
+    const TEST_CLASS = BCFile::class;
 
     /**
      * Test receiving an expected exception when a non class token is passed.

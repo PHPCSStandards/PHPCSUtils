@@ -10,6 +10,11 @@
 
 namespace PHPCSUtils\Tests\Fixers\SpacesFixer;
 
+use PHPCSUtils\Exceptions\LogicException;
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Fixers\SpacesFixer;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
@@ -30,7 +35,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testNonIntegerFirstToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         SpacesFixer::checkAndFix(self::$phpcsFile, false, 10, 0, 'Dummy');
@@ -43,7 +48,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testNonIntegerSecondToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #3 ($secondPtr) must be of type integer, boolean given');
 
         SpacesFixer::checkAndFix(self::$phpcsFile, 10, false, 0, 'Dummy');
@@ -56,7 +61,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testNonExistentFirstToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
         );
@@ -71,7 +76,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testNonExistentSecondToken()
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #3 ($secondPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
         );
@@ -86,7 +91,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testFirstTokenWhitespace()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type any, except whitespace;');
 
         $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_WHITESPACE);
@@ -101,7 +106,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testSecondTokenWhitespace()
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #3 ($secondPtr) must be of type any, except whitespace;');
 
         $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_CONSTANT_ENCAPSED_STRING);
@@ -116,7 +121,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testNonAdjacentTokens()
     {
-        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage(
             'The $stackPtr and the $secondPtr token must be adjacent tokens separated only'
                 . ' by whitespace and/or comments'
@@ -134,7 +139,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testNonAdjacentTokensReverseOrder()
     {
-        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage(
             'The $stackPtr and the $secondPtr token must be adjacent tokens separated only'
                 . ' by whitespace and/or comments'
@@ -152,7 +157,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testInvalidExpectedSpacesNegativeValue()
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage(
             'The value of argument #4 ($expectedSpaces) should be either "newline", 0 or a positive integer'
         );
@@ -169,7 +174,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testInvalidExpectedSpacesUnexpectedType()
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage(
             'The value of argument #4 ($expectedSpaces) should be either "newline", 0 or a positive integer'
         );
@@ -186,7 +191,7 @@ final class SpacesFixerExceptionsTest extends PolyfilledTestCase
      */
     public function testInvalidExpectedSpacesNonDecimalString()
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage(
             'The value of argument #4 ($expectedSpaces) should be either "newline", 0 or a positive integer'
         );

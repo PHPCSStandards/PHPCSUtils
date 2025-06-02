@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Tests\BackCompat\BCFile\GetClassPropertiesTest as BCFile_GetClassPropertiesTest;
 use PHPCSUtils\Utils\ObjectDeclarations;
 
@@ -33,7 +34,7 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\Utils\ObjectDeclarations';
+    const TEST_CLASS = ObjectDeclarations::class;
 
     /**
      * Full path to the test case file associated with this test class.
@@ -69,7 +70,7 @@ final class GetClassPropertiesTest extends BCFile_GetClassPropertiesTest
      */
     public function testNotAClassException($testMarker, $tokenType)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_CLASS');
 
         $target = $this->getTargetToken($testMarker, $tokenType);

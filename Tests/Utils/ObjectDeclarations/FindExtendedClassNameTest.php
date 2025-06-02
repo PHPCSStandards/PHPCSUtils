@@ -11,6 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\ObjectDeclarations;
 
 use PHPCSUtils\Tests\BackCompat\BCFile\FindExtendedClassNameTest as BCFile_FindExtendedClassNameTest;
+use PHPCSUtils\Utils\ObjectDeclarations;
 
 /**
  * Tests for the \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName() method.
@@ -33,7 +34,7 @@ final class FindExtendedClassNameTest extends BCFile_FindExtendedClassNameTest
      *
      * @var string
      */
-    const TEST_CLASS = '\PHPCSUtils\Utils\ObjectDeclarations';
+    const TEST_CLASS = ObjectDeclarations::class;
 
     /**
      * Full path to the test case file associated with this test class.

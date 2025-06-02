@@ -35,7 +35,7 @@ final class MissingArgumentErrorTest extends TestCase
             __METHOD__
         );
 
-        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectException(MissingArgumentError::class);
         $this->expectExceptionMessage($message);
 
         throw MissingArgumentError::create(2, '$config', 'for PHPCS 4.x');

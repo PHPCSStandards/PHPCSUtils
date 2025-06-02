@@ -10,6 +10,10 @@
 
 namespace PHPCSUtils\Tests\Utils\TextStrings;
 
+use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
+use PHPCSUtils\Exceptions\TypeError;
+use PHPCSUtils\Exceptions\UnexpectedTokenType;
+use PHPCSUtils\Exceptions\ValueError;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\TextStrings;
@@ -49,7 +53,7 @@ final class GetCompleteTextStringTest extends PolyfilledTestCase
      */
     public function testNonIntegerToken($method)
     {
-        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
 
         TextStrings::$method(self::$phpcsFile, false);
@@ -66,7 +70,7 @@ final class GetCompleteTextStringTest extends PolyfilledTestCase
      */
     public function testNonExistentToken($method)
     {
-        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectException(OutOfBoundsStackPtr::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 100000 given'
         );
@@ -85,7 +89,7 @@ final class GetCompleteTextStringTest extends PolyfilledTestCase
      */
     public function testNotATextStringException($method)
     {
-        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectException(UnexpectedTokenType::class);
         $this->expectExceptionMessage(
             'Argument #2 ($stackPtr) must be of type T_START_HEREDOC, T_START_NOWDOC, T_CONSTANT_ENCAPSED_STRING'
             . ' or T_DOUBLE_QUOTED_STRING;'
@@ -107,7 +111,7 @@ final class GetCompleteTextStringTest extends PolyfilledTestCase
      */
     public function testNotFirstTextStringException($method)
     {
-        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the start of the text string');
 
         $next = $this->getTargetToken(
