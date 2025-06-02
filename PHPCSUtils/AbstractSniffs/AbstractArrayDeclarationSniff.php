@@ -478,21 +478,6 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                 continue;
             }
 
-            // Handle FQN true/false/null for PHPCS 3.x.
-            if ($this->tokens[$i]['code'] === \T_NS_SEPARATOR) {
-                $nextNonEmpty   = $phpcsFile->findNext(Tokens::$emptyTokens, ($i + 1), null, true);
-                $nextNonEmptyLC = \strtolower($this->tokens[$nextNonEmpty]['content']);
-                if ($nextNonEmpty !== false
-                    && ($this->tokens[$nextNonEmpty]['code'] === \T_TRUE
-                    || $this->tokens[$nextNonEmpty]['code'] === \T_FALSE
-                    || $this->tokens[$nextNonEmpty]['code'] === \T_NULL)
-                ) {
-                    $content .= $this->tokens[$nextNonEmpty]['content'];
-                    $i        = $nextNonEmpty;
-                    continue;
-                }
-            }
-
             if (isset($this->acceptedTokens[$this->tokens[$i]['code']]) === false) {
                 // This is not a key we can evaluate. Might be a variable or constant.
                 return;
