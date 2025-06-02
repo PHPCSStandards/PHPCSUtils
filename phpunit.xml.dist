@@ -57,7 +57,6 @@
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
-            <!-- Not recording coverage for PHPCS23Utils as there is nothing directly testable. -->
             <directory suffix=".php">./PHPCSUtils/</directory>
         </whitelist>
     </filter>
