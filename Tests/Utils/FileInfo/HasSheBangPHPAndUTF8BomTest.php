@@ -14,8 +14,9 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
 use PHPCSUtils\Utils\FileInfo;
 
 /**
- * Tests for the \PHPCSUtils\Utils\FileInfo::hasSheBang() method.
+ * Tests for the \PHPCSUtils\Utils\FileInfo::hasSheBang() and \PHPCSUtils\Utils\FileInfo::hasByteOrderMark() methods.
  *
+ * @covers \PHPCSUtils\Utils\FileInfo::hasByteOrderMark
  * @covers \PHPCSUtils\Utils\FileInfo::hasSheBang
  *
  * @since 1.1.0

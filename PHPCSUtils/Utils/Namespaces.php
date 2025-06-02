@@ -116,7 +116,7 @@ final class Namespaces
         }
 
         if (($tokens[$next]['code'] === \T_NS_SEPARATOR
-            || $tokens[$next]['code'] === \T_NAME_FULLY_QUALIFIED) // PHP 8.0 parse error.
+            || $tokens[$next]['code'] === \T_NAME_FULLY_QUALIFIED) // PHP >= 8.0 parse error.
             && ($start !== $stackPtr
                 || $phpcsFile->findNext($findAfter, ($stackPtr + 1), null, false, null, true) !== false)
         ) {

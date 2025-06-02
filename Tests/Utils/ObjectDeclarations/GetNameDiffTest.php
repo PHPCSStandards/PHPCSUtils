@@ -93,7 +93,7 @@ final class GetNameDiffTest extends PolyfilledTestCase
      *
      * @param string          $testMarker The comment which prefaces the target token in the test file.
      * @param string          $expected   Expected function output.
-     * @param int|string|null $targetType Token type of the token to get as stackPtr.
+     * @param int|string|null $targetType Optional. Token type of the token to get as stackPtr.
      *
      * @return void
      */
