@@ -47,7 +47,7 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
      *
      * @var string
      */
-    const TEST_CLASS = BCFile::class;
+    protected const TEST_CLASS = BCFile::class;
 
     /**
      * Test getting a `false` result when a non-existent token is passed.

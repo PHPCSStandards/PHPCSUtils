@@ -32,7 +32,7 @@ final class Helper
      *
      * @var int
      */
-    const DEFAULT_TABWIDTH = 4;
+    public const DEFAULT_TABWIDTH = 4;
 
     /**
      * Get the PHP_CodeSniffer version number.

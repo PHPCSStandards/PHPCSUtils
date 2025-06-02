@@ -42,7 +42,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_DECIMAL_INT = '`^(?:0|[1-9](?:[0-9_]*[0-9])?)$`D';
+    public const REGEX_DECIMAL_INT = '`^(?:0|[1-9](?:[0-9_]*[0-9])?)$`D';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents an octal integer.
@@ -51,7 +51,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_OCTAL_INT = '`^0[o]?[0-7](?:[0-7_]*[0-7])?$`iD';
+    public const REGEX_OCTAL_INT = '`^0[o]?[0-7](?:[0-7_]*[0-7])?$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a binary integer.
@@ -60,7 +60,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_BINARY_INT = '`^0b[0-1](?:[0-1_]*[0-1])?$`iD';
+    public const REGEX_BINARY_INT = '`^0b[0-1](?:[0-1_]*[0-1])?$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a hexidecimal integer.
@@ -69,7 +69,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_HEX_INT = '`^0x[0-9A-F](?:[0-9A-F_]*[0-9A-F])?$`iD';
+    public const REGEX_HEX_INT = '`^0x[0-9A-F](?:[0-9A-F_]*[0-9A-F])?$`iD';
 
     /**
      * Regex to determine whether the contents of an arbitrary string represents a float.
@@ -80,7 +80,7 @@ final class Numbers
      *
      * @var string
      */
-    const REGEX_FLOAT = '`
+    public const REGEX_FLOAT = '`
         ^(?:
             (?:
                 (?:

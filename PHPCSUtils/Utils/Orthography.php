@@ -33,7 +33,7 @@ final class Orthography
      *
      * @var string
      */
-    const TERMINAL_POINTS = '.?!';
+    public const TERMINAL_POINTS = '.?!';
 
     /**
      * Check if the first character of an arbitrary text string is a capital letter.

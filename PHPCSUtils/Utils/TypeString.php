@@ -56,13 +56,11 @@ final class TypeString
      *
      * A type string should **not** match against this regex to be considered potentially valid.
      *
-     * @internal
-     *
      * @since 1.1.0
      *
      * @var string
      */
-    const INVALID_DNF_REGEX = '`(?:
+    private const INVALID_DNF_REGEX = '`(?:
         [()|]\s*&          # Make sure that a "&" is always preceeded by something different than "(", ")" or "|".
         |
         &\s*[()|]          # Make sure that a "&" is always followed by something different than "(", ")" or "|".

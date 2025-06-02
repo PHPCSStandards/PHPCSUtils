@@ -35,7 +35,7 @@ final class NamingConventions
      *
      * @var string
      */
-    const PHP_LABEL_REGEX = '`^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`';
+    public const PHP_LABEL_REGEX = '`^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$`';
 
     /**
      * Uppercase A-Z.
@@ -45,7 +45,7 @@ final class NamingConventions
      *
      * @var string
      */
-    const AZ_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    public const AZ_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     /**
      * Lowercase a-z.
@@ -55,7 +55,7 @@ final class NamingConventions
      *
      * @var string
      */
-    const AZ_LOWER = 'abcdefghijklmnopqrstuvwxyz';
+    public const AZ_LOWER = 'abcdefghijklmnopqrstuvwxyz';
 
     /**
      * Verify whether an arbitrary text string is valid as an identifier name in PHP.
