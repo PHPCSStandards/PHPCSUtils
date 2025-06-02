@@ -11,7 +11,6 @@
 namespace PHPCSUtils\TestUtils;
 
 use PHP_CodeSniffer\Config;
-use PHPCSUtils\BackCompat\Helper;
 use ReflectionProperty;
 
 /**
@@ -29,15 +28,6 @@ use ReflectionProperty;
  */
 final class ConfigDouble extends Config
 {
-
-    /**
-     * The PHPCS version the tests are being run on.
-     *
-     * @since 1.1.0
-     *
-     * @var string
-     */
-    private $phpcsVersion = '0';
 
     /**
      * Whether or not the setting of a standard should be skipped.
@@ -78,7 +68,6 @@ final class ConfigDouble extends Config
     public function __construct(array $cliArgs = [], $skipSettingStandard = false, $skipSettingReportWidth = false)
     {
         $this->skipSettingStandard = $skipSettingStandard;
-        $this->phpcsVersion        = Helper::getVersion();
 
         $this->resetSelectProperties();
         $this->preventReadingCodeSnifferConfFile();
@@ -213,7 +202,7 @@ final class ConfigDouble extends Config
         $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
 
-        if ($name === 'overriddenDefaults' && \version_compare($this->phpcsVersion, '3.99.99', '>')) {
+        if ($name === 'overriddenDefaults') {
             return $property->getValue($this);
         }
 
@@ -238,7 +227,7 @@ final class ConfigDouble extends Config
         $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
 
-        if ($name === 'overriddenDefaults' && \version_compare($this->phpcsVersion, '3.99.99', '>')) {
+        if ($name === 'overriddenDefaults') {
             $property->setValue($this, $value);
         } else {
             $property->setValue(null, $value);

@@ -185,10 +185,8 @@ final class ResetTestFileTest extends PolyfilledTestCase
         $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
 
-        if ($name === 'overriddenDefaults'
-            && (self::$phpcsVersion === '0' || \version_compare(self::$phpcsVersion, '3.99.99', '>'))
-        ) {
-            // The `overriddenDefaults` property is no longer static on PHPCS 4.0+.
+        if ($name === 'overriddenDefaults') {
+            // The `overriddenDefaults` property is not static on PHPCS 4.0+.
             if (isset($config)) {
                 return $property->getValue($config);
             } else {

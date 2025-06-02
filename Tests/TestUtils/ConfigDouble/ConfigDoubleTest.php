@@ -302,8 +302,8 @@ final class ConfigDoubleTest extends TestCase
         $property = new ReflectionProperty('PHP_CodeSniffer\Config', $name);
         (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
 
-        if ($name === 'overriddenDefaults' && \version_compare(Helper::getVersion(), '3.99.99', '>')) {
-            // The `overriddenDefaults` property is no longer static on PHPCS 4.0+.
+        if ($name === 'overriddenDefaults') {
+            // The `overriddenDefaults` property is not a static property on PHPCS 4.0+.
             if (isset($config)) {
                 return $property->getValue($config);
             } else {
@@ -324,8 +324,8 @@ final class ConfigDoubleTest extends TestCase
      */
     public static function setStaticConfigProperty($name, $value)
     {
-        // The `overriddenDefaults` property is no longer static on PHPCS 4.0+, so ignore it.
-        if ($name === 'overriddenDefaults' && \version_compare(Helper::getVersion(), '3.99.99', '>')) {
+        // The `overriddenDefaults` property is not a static property on PHPCS 4.0+, so ignore it.
+        if ($name === 'overriddenDefaults') {
             return;
         }
 
