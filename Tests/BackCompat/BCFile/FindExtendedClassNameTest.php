@@ -121,6 +121,10 @@ class FindExtendedClassNameTest extends UtilityMethodTestCase
                 'identifier' => '/* testExtendsPartiallyQualifiedClass */',
                 'expected'   => 'Core\File\RelativeClass',
             ],
+            'class extends namespace relative class' => [
+                'identifier' => '/* testExtendsNamespaceRelativeClass */',
+                'expected'   => 'namespace\Bar',
+            ],
             'interface does not extend' => [
                 'identifier' => '/* testNonExtendedInterface */',
                 'expected'   => false,

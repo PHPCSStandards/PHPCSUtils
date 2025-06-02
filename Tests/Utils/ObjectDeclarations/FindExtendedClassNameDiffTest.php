@@ -60,10 +60,6 @@ final class FindExtendedClassNameDiffTest extends UtilityMethodTestCase
                 'testMarker' => '/* testDeclarationWithComments */',
                 'expected'   => '\Package\SubDir\SomeClass',
             ],
-            'namespace-operator' => [
-                'testMarker' => '/* testExtendedClassUsingNamespaceOperator */',
-                'expected'   => 'namespace\Bar',
-            ],
             'parse-error-stray-comma' => [
                 'testMarker' => '/* testExtendedClassStrayComma */',
                 'expected'   => 'testClass',

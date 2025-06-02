@@ -242,7 +242,6 @@ final class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
-     *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name will be clean of superfluous whitespace and/or comments.
      * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.
