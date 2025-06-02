@@ -12,7 +12,6 @@ namespace PHPCSUtils\Tests\BackCompat\Helper;
 
 use PHPCSUtils\BackCompat\Helper;
 use PHPCSUtils\TestUtils\UtilityMethodTestCase;
-use stdClass;
 
 /**
  * Test class.
@@ -209,7 +208,7 @@ final class GetCommandLineDataTest extends UtilityMethodTestCase
      *
      * @return void
      */
-    public function testIgnoreAnnotationsUsesGetConfigDataWhenInvalidFileParamPassed()
+    public function testIgnoreAnnotationsUsesGetConfigDataWhenFileParamIsNull()
     {
         $config = null;
         if (isset(self::$phpcsFile->config) === true) {
@@ -218,7 +217,7 @@ final class GetCommandLineDataTest extends UtilityMethodTestCase
 
         Helper::setConfigData('annotations', false, true, $config);
 
-        $result = Helper::ignoreAnnotations(new stdClass());
+        $result = Helper::ignoreAnnotations(null);
 
         // Restore defaults before moving to the next test.
         Helper::setConfigData('annotations', true, true, $config);
