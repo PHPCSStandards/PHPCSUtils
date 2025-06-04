@@ -32,7 +32,7 @@ if (defined('PHPCSUTILS_AUTOLOAD') === false) {
      */
     spl_autoload_register(function ($fqClassName) {
         // Only try & load our own classes.
-        if (stripos($fqClassName, 'PHPCSUtils') !== 0) {
+        if (stripos($fqClassName, 'PHPCSUtils\\') !== 0) {
             return;
         }
 
