@@ -21,7 +21,6 @@ use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\ObjectDeclarations;
 use PHPCSUtils\Utils\Scopes;
-use PHPCSUtils\Utils\UseStatements;
 
 /**
  * Utility functions for use when examining function declaration statements.
@@ -426,23 +425,18 @@ final class FunctionDeclarations
             throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
         }
 
-        if ($tokens[$stackPtr]['code'] === \T_USE) {
-            // This will work PHPCS 3.x/4.x cross-version without much overhead.
-            $opener = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
-            if ($opener === false
-                || $tokens[$opener]['code'] !== \T_OPEN_PARENTHESIS
-                || UseStatements::isClosureUse($phpcsFile, $stackPtr) === false
-            ) {
-                throw ValueError::create(2, '$stackPtr', 'must be the pointer to a closure use statement');
-            }
-        } else {
-            if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {
-                // Live coding or syntax error, so no params to find.
-                return [];
-            }
-
-            $opener = $tokens[$stackPtr]['parenthesis_opener'];
+        if ($tokens[$stackPtr]['code'] === \T_USE
+            && isset($tokens[$stackPtr]['parenthesis_owner']) === false
+        ) {
+            throw ValueError::create(2, '$stackPtr', 'must be the pointer to a closure use statement');
         }
+
+        if (isset($tokens[$stackPtr]['parenthesis_opener']) === false) {
+            // Live coding or syntax error, so no params to find.
+            return [];
+        }
+
+        $opener = $tokens[$stackPtr]['parenthesis_opener'];
 
         if (isset($tokens[$opener]['parenthesis_closer']) === false) {
             // Live coding or syntax error, so no params to find.
