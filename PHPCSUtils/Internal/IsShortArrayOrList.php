@@ -352,15 +352,13 @@ final class IsShortArrayOrList
     /**
      * Verify that the current set of brackets is not affected by known PHPCS cross-version tokenizer issues.
      *
-     * List of current tokenizer issues which affect the short array/short list tokenization:
-     * - {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3632 PHPCS#3632} (PHPCS < 3.7.2)
-     *
      * List of previous tokenizer issues which affected the short array/short list tokenization for reference:
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/1284 PHPCS#1284} (PHPCS < 2.8.1)
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/1381 PHPCS#1381} (PHPCS < 2.9.0)
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/issues/1971 PHPCS#1971} (PHPCS 2.8.0 - 3.2.3)
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3013 PHPCS#3013} (PHPCS < 3.5.6)
      * - {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3172 PHPCS#3172} (PHPCS < 3.6.0)
+     * - {@link https://github.com/squizlabs/PHP_CodeSniffer/pull/3632 PHPCS#3632} (PHPCS < 3.7.2)
      *
      * @since 1.0.0
      *
@@ -370,7 +368,7 @@ final class IsShortArrayOrList
     private function isShortArrayBracket()
     {
         if ($this->tokens[$this->opener]['code'] === \T_OPEN_SQUARE_BRACKET) {
-            // Currently there are no known issues with the tokenization in PHPCS 3.9.0 and higher.
+            // Currently there are no known issues with the tokenization in PHPCS.
             return false;
         }
 

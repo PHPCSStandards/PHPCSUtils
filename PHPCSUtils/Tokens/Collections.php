@@ -383,7 +383,7 @@ final class Collections
     /**
      * OO scopes in which constants can be declared.
      *
-     * Note: traits can only declare constants since PHP 8.2.
+     * - PHP 8.2 added support for constants in traits.
      *
      * @since 1.0.0 Use the {@see Collections::ooConstantScopes()} method for access.
      *
