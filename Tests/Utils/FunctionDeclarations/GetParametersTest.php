@@ -162,6 +162,9 @@ final class GetParametersTest extends BCFile_GetMethodParametersTest
             if (isset($param['visibility_token']) && \is_int($param['visibility_token']) === true) {
                 $expected[$key]['visibility_token'] += $targetPtr;
             }
+            if (isset($param['set_visibility_token']) && \is_int($param['set_visibility_token']) === true) {
+                $expected[$key]['set_visibility_token'] += $targetPtr;
+            }
             if (isset($param['readonly_token'])) {
                 $expected[$key]['readonly_token'] += $targetPtr;
             }

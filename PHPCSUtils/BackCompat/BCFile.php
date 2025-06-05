@@ -185,6 +185,12 @@ final class BCFile
      *                                           // This index will only be set if the property is readonly.
      * ```
      *
+     * ... and if the promoted property uses asymmetric visibility, these additional array indexes will also be available:
+     * ```php
+     *   'set_visibility'       => string,       // The property set-visibility as declared.
+     *   'set_visibility_token' => integer,      // The stack pointer to the set-visibility modifier token.
+     * ```
+     *
      * PHPCS cross-version compatible version of the `File::getMethodParameters()` method.
      *
      * Changelog for the PHPCS native function:
@@ -196,6 +202,7 @@ final class BCFile
      *
      * @since 1.0.0
      * @since 1.0.6 Sync with PHPCS 3.8.0, support for readonly properties without explicit visibility. PHPCS#3801.
+     * @since 1.1.0 Sync with PHPCS 3.13.1, support for asymmetric properties. PHPCS(new)#851
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the function token
@@ -242,23 +249,24 @@ final class BCFile
 
         $closer = $tokens[$opener]['parenthesis_closer'];
 
-        $vars             = [];
-        $currVar          = null;
-        $paramStart       = ($opener + 1);
-        $defaultStart     = null;
-        $equalToken       = null;
-        $paramCount       = 0;
-        $hasAttributes    = false;
-        $passByReference  = false;
-        $referenceToken   = false;
-        $variableLength   = false;
-        $variadicToken    = false;
-        $typeHint         = '';
-        $typeHintToken    = false;
-        $typeHintEndToken = false;
-        $nullableType     = false;
-        $visibilityToken  = null;
-        $readonlyToken    = null;
+        $vars               = [];
+        $currVar            = null;
+        $paramStart         = ($opener + 1);
+        $defaultStart       = null;
+        $equalToken         = null;
+        $paramCount         = 0;
+        $hasAttributes      = false;
+        $passByReference    = false;
+        $referenceToken     = false;
+        $variableLength     = false;
+        $variadicToken      = false;
+        $typeHint           = '';
+        $typeHintToken      = false;
+        $typeHintEndToken   = false;
+        $nullableType       = false;
+        $visibilityToken    = null;
+        $setVisibilityToken = null;
+        $readonlyToken      = null;
 
         for ($i = $paramStart; $i <= $closer; $i++) {
             // Check to see if this token has a parenthesis or bracket opener. If it does
@@ -392,6 +400,13 @@ final class BCFile
                         $visibilityToken = $i;
                     }
                     break;
+                case T_PUBLIC_SET:
+                case T_PROTECTED_SET:
+                case T_PRIVATE_SET:
+                    if ($defaultStart === null) {
+                        $setVisibilityToken = $i;
+                    }
+                    break;
                 case T_READONLY:
                     if ($defaultStart === null) {
                         $readonlyToken = $i;
@@ -426,16 +441,21 @@ final class BCFile
                     $vars[$paramCount]['type_hint_end_token'] = $typeHintEndToken;
                     $vars[$paramCount]['nullable_type']       = $nullableType;
 
-                    if ($visibilityToken !== null || $readonlyToken !== null) {
+                    if ($visibilityToken !== null || $setVisibilityToken !== null || $readonlyToken !== null) {
                         $vars[$paramCount]['property_visibility'] = 'public';
                         $vars[$paramCount]['visibility_token']    = false;
-                        $vars[$paramCount]['property_readonly']   = false;
 
                         if ($visibilityToken !== null) {
                             $vars[$paramCount]['property_visibility'] = $tokens[$visibilityToken]['content'];
                             $vars[$paramCount]['visibility_token']    = $visibilityToken;
                         }
 
+                        if ($setVisibilityToken !== null) {
+                            $vars[$paramCount]['set_visibility']       = $tokens[$setVisibilityToken]['content'];
+                            $vars[$paramCount]['set_visibility_token'] = $setVisibilityToken;
+                        }
+
+                        $vars[$paramCount]['property_readonly'] = false;
                         if ($readonlyToken !== null) {
                             $vars[$paramCount]['property_readonly'] = true;
                             $vars[$paramCount]['readonly_token']    = $readonlyToken;
@@ -449,21 +469,22 @@ final class BCFile
                     }
 
                     // Reset the vars, as we are about to process the next parameter.
-                    $currVar          = null;
-                    $paramStart       = ($i + 1);
-                    $defaultStart     = null;
-                    $equalToken       = null;
-                    $hasAttributes    = false;
-                    $passByReference  = false;
-                    $referenceToken   = false;
-                    $variableLength   = false;
-                    $variadicToken    = false;
-                    $typeHint         = '';
-                    $typeHintToken    = false;
-                    $typeHintEndToken = false;
-                    $nullableType     = false;
-                    $visibilityToken  = null;
-                    $readonlyToken    = null;
+                    $currVar            = null;
+                    $paramStart         = ($i + 1);
+                    $defaultStart       = null;
+                    $equalToken         = null;
+                    $hasAttributes      = false;
+                    $passByReference    = false;
+                    $referenceToken     = false;
+                    $variableLength     = false;
+                    $variadicToken      = false;
+                    $typeHint           = '';
+                    $typeHintToken      = false;
+                    $typeHintEndToken   = false;
+                    $nullableType       = false;
+                    $visibilityToken    = null;
+                    $setVisibilityToken = null;
+                    $readonlyToken      = null;
 
                     ++$paramCount;
                     break;
