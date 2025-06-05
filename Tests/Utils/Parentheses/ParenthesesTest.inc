@@ -72,6 +72,11 @@ $m = match(count($a)) {
     default => false,
 };
 
+/* testClosureUseInArray */
+$array = array(
+    'cl' => function () use /*comment*/ ($var) {},
+);
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 declare(ticks=1

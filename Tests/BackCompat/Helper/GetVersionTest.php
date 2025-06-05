@@ -54,7 +54,7 @@ final class GetVersionTest extends TestCase
 
         if ($expected === 'dev-master') {
             $this->assertTrue(\version_compare(self::DEVMASTER, $result, '<='));
-        } elseif ($expected === '4.0.x-dev@dev') {
+        } elseif ($expected === '4.x-dev') {
             $this->assertTrue(\version_compare('4.0.0', $result, '=='));
         } else {
             $this->assertSame($expected, $result);

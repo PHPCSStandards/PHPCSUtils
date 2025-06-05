@@ -91,26 +91,6 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
     }
 
     /**
-     * Data provider.
-     *
-     * @see testGetMemberProperties()
-     *
-     * @return array<string, array<string|array<string, string|int|bool>>>
-     */
-    public static function dataGetMemberProperties()
-    {
-        $data = parent::dataGetMemberProperties();
-
-        /*
-         * Remove the data sets related to the invalid interface/enum properties.
-         * These will now throw an exception instead.
-         */
-        unset($data['invalid-property-in-interface'], $data['invalid-property-in-enum']);
-
-        return $data;
-    }
-
-    /**
      * Verify that the build-in caching is used when caching is enabled.
      *
      * @return void

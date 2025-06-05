@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\BackCompat\BCFile;
 use PHPCSUtils\Tests\PolyfilledTestCase;
 
@@ -35,43 +36,38 @@ class GetDeclarationNameJSTest extends PolyfilledTestCase
     /**
      * Test receiving an expected exception when a non-supported token is passed.
      *
-     * @return void
-     */
-    public function testInvalidTokenPassed()
-    {
-        $this->expectPhpcsException('Token type "T_STRING" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
-
-        $target = $this->getTargetToken('/* testInvalidTokenPassed */', \T_STRING);
-        BCFile::getDeclarationName(self::$phpcsFile, $target);
-    }
-
-    /**
-     * Test receiving "null" when passed an anonymous construct or in case of a parse error.
-     *
-     * @dataProvider dataGetDeclarationNameNull
+     * @dataProvider dataInvalidTokenPassed
      *
      * @param string     $testMarker The comment which prefaces the target token in the test file.
      * @param int|string $targetType Token type of the token to get as stackPtr.
      *
      * @return void
      */
-    public function testGetDeclarationNameNull($testMarker, $targetType)
+    public function testInvalidTokenPassed($testMarker, $targetType)
     {
+        $tokenName = Tokens::tokenName($targetType);
+        $this->expectPhpcsException(
+            'Token type "' . $tokenName . '" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM'
+        );
+
         $target = $this->getTargetToken($testMarker, $targetType);
-        $result = BCFile::getDeclarationName(self::$phpcsFile, $target);
-        $this->assertNull($result);
+        BCFile::getDeclarationName(self::$phpcsFile, $target);
     }
 
     /**
      * Data provider.
      *
-     * @see GetDeclarationNameTest::testGetDeclarationNameNull()
+     * @see testInvalidTokenPassed() For the array format.
      *
      * @return array<string, array<string, int|string>>
      */
-    public static function dataGetDeclarationNameNull()
+    public static function dataInvalidTokenPassed()
     {
         return [
+            'unsupported token T_STRING' => [
+                'testMarker' => '/* testInvalidTokenPassed */',
+                'targetType' => \T_STRING,
+            ],
             'closure' => [
                 'testMarker' => '/* testClosure */',
                 'targetType' => \T_CLOSURE,

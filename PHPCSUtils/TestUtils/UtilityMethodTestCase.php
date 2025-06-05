@@ -20,6 +20,7 @@ use PHPCSUtils\Exceptions\TestFileNotFound;
 use PHPCSUtils\Exceptions\TestMarkerNotFound;
 use PHPCSUtils\Exceptions\TestTargetNotFound;
 use PHPCSUtils\TestUtils\ConfigDouble;
+use PHPCSUtils\TestUtils\RulesetDouble;
 use PHPUnit\Framework\Attributes\AfterClass;
 use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\BeforeClass;
@@ -30,8 +31,7 @@ use ReflectionProperty;
 /**
  * Base class for use when testing utility methods for PHP_CodeSniffer.
  *
- * This class is compatible with PHP_CodeSniffer 3.x and contains preliminary compatibility with 4.x
- * based on its currently known state/roadmap.
+ * This class is compatible with PHP_CodeSniffer 3.x and 4.x.
  *
  * This class is compatible with {@link https://phpunit.de/ PHPUnit} 4.5 - 11.x providing the PHPCSUtils
  * autoload file is included in the test bootstrap. For more information about that, please consult
@@ -110,6 +110,7 @@ use ReflectionProperty;
  * @since 1.0.0
  * @since 1.0.7 Compatible with PHPUnit 10.
  * @since 1.1.0 Compatible with PHPUnit 11.
+ * @since 1.1.0 Compatible with PHP_CodeSniffer 4.0.0.
  */
 abstract class UtilityMethodTestCase extends TestCase
 {
@@ -226,7 +227,7 @@ abstract class UtilityMethodTestCase extends TestCase
         // Also set a tab-width to enable testing tab-replaced vs `orig_content`.
         $config->tabWidth = static::$tabWidth;
 
-        $ruleset = new Ruleset($config);
+        $ruleset = new RulesetDouble($config);
 
         self::$phpcsFile = self::parseFile($caseFile, $ruleset, $config);
     }

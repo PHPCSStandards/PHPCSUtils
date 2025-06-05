@@ -46,6 +46,10 @@ final class ObjectDeclarations
      *   being extended/interface being implemented.
      *   Using this version of the utility method, either the complete name (invalid or not) will
      *   be returned or `null` in case of no name (parse error).
+     * - The PHPCS 4.0 change to no longer accept tokens for anonymous structures (T_CLOSURE/T_ANON_CLASS)
+     *   has not been applied to this method (yet). This will change in PHPCSUtils 2.0.
+     * - The PHPCS 4.0 change to normalize the return type to `string` and no longer return `null`
+     *   has not been applied to this method (yet). This will change in PHPCSUtils 2.0.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName()   Original source.
      * @see \PHPCSUtils\BackCompat\BCFile::getDeclarationName() Cross-version compatible version of the original.
@@ -238,7 +242,6 @@ final class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
-     *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name will be clean of superfluous whitespace and/or comments.
      * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.
@@ -274,7 +277,6 @@ final class ObjectDeclarations
      * - Bugs fixed:
      *   - Handling of PHPCS annotations.
      *   - Handling of comments.
-     *   - Handling of the namespace keyword used as operator.
      * - Improved handling of parse errors.
      * - The returned name(s) will be clean of superfluous whitespace and/or comments.
      * - Support for PHP 8.0 tokenization of identifier/namespaced names, cross-version PHP & PHPCS.

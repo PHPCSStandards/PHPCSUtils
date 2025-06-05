@@ -51,6 +51,7 @@ final class FunctionNameTokensTest extends TestCase
             \T_NAME_QUALIFIED       => \T_NAME_QUALIFIED,
             \T_NAME_FULLY_QUALIFIED => \T_NAME_FULLY_QUALIFIED,
             \T_NAME_RELATIVE        => \T_NAME_RELATIVE,
+            \T_ANON_CLASS           => \T_ANON_CLASS,
         ];
 
         \asort($expected);
@@ -85,6 +86,7 @@ final class FunctionNameTokensTest extends TestCase
             $expected[\T_NAME_QUALIFIED] = \T_NAME_QUALIFIED;
             $expected[\T_NAME_FULLY_QUALIFIED] = \T_NAME_FULLY_QUALIFIED;
             $expected[\T_NAME_RELATIVE]        = \T_NAME_RELATIVE;
+            $expected[\T_ANON_CLASS]           = \T_ANON_CLASS;
 
             \asort($expected);
 

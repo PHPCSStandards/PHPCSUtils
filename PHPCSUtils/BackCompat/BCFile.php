@@ -76,7 +76,8 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - The upstream method has received no significant updates since PHPCS 3.13.0.
+     * - PHPCS 4.0: The method no longer accepts `T_CLOSURE` and `T_ANON_CLASS` tokens.
+     * - PHPCS 4.0: The method will now always return a string.
      *
      * @see \PHP_CodeSniffer\Files\File::getDeclarationName() Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::getName()   PHPCSUtils native improved version.
@@ -88,17 +89,53 @@ final class BCFile
      *                                               which declared the class, interface,
      *                                               trait, enum or function.
      *
-     * @return string|null The name of the class, interface, trait, enum, or function;
-     *                     or `NULL` if the function or class is anonymous or
-     *                     in case of a parse error/live coding.
+     * @return string The name of the class, interface, trait, or function or an empty string
+     *                if the name could not be determined (live coding).
      *
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the specified token is not of type
-     *                                                      `T_FUNCTION`, `T_CLASS`, `T_ANON_CLASS`,
-     *                                                      `T_CLOSURE`, `T_TRAIT`, `T_ENUM` or `T_INTERFACE`.
+     *                                                      `T_FUNCTION`, `T_CLASS`, `T_TRAIT`, `T_ENUM`, or `T_INTERFACE`.
      */
     public static function getDeclarationName(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getDeclarationName($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        $tokenCode = $tokens[$stackPtr]['code'];
+
+        if ($tokenCode !== T_FUNCTION
+            && $tokenCode !== T_CLASS
+            && $tokenCode !== T_INTERFACE
+            && $tokenCode !== T_TRAIT
+            && $tokenCode !== T_ENUM
+        ) {
+            throw new RuntimeException('Token type "' . $tokens[$stackPtr]['type'] . '" is not T_FUNCTION, T_CLASS, T_INTERFACE, T_TRAIT or T_ENUM');
+        }
+
+        if ($tokenCode === T_FUNCTION
+            && strtolower($tokens[$stackPtr]['content']) !== 'function'
+        ) {
+            // This is a function declared without the "function" keyword.
+            // So this token is the function name.
+            return $tokens[$stackPtr]['content'];
+        }
+
+        $stopPoint = $phpcsFile->numTokens;
+        if (isset($tokens[$stackPtr]['parenthesis_opener']) === true) {
+            // For functions, stop searching at the parenthesis opener.
+            $stopPoint = $tokens[$stackPtr]['parenthesis_opener'];
+        } elseif (isset($tokens[$stackPtr]['scope_opener']) === true) {
+            // For OO tokens, stop searching at the open curly.
+            $stopPoint = $tokens[$stackPtr]['scope_opener'];
+        }
+
+        $content = '';
+        for ($i = $stackPtr; $i < $stopPoint; $i++) {
+            if ($tokens[$i]['code'] === T_STRING) {
+                $content = $tokens[$i]['content'];
+                break;
+            }
+        }
+
+        return $content;
     }
 
     /**
@@ -512,7 +549,8 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
-     * - The upstream method has received no significant updates since PHPCS 3.13.0.
+     * - PHPCS 4.0: properties in interfaces (PHP 8.4+) are accepted.
+     * - PHPCS 4.0: will no longer throw a parse error warning.
      *
      * @see \PHP_CodeSniffer\Files\File::getMemberProperties() Original source.
      * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
@@ -531,7 +569,137 @@ final class BCFile
      */
     public static function getMemberProperties(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->getMemberProperties($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        if ($tokens[$stackPtr]['code'] !== T_VARIABLE) {
+            throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
+        }
+
+        $conditions = $tokens[$stackPtr]['conditions'];
+        $conditions = array_keys($conditions);
+        $ptr        = array_pop($conditions);
+        if (isset($tokens[$ptr]) === false
+            || isset(Tokens::$ooScopeTokens[$tokens[$ptr]['code']]) === false
+            || $tokens[$ptr]['code'] === T_ENUM
+        ) {
+            throw new RuntimeException('$stackPtr is not a class member var');
+        }
+
+        // Make sure it's not a method parameter.
+        if (empty($tokens[$stackPtr]['nested_parenthesis']) === false) {
+            $parenthesis = array_keys($tokens[$stackPtr]['nested_parenthesis']);
+            $deepestOpen = array_pop($parenthesis);
+            if ($deepestOpen > $ptr
+                && isset($tokens[$deepestOpen]['parenthesis_owner']) === true
+                && $tokens[$tokens[$deepestOpen]['parenthesis_owner']]['code'] === T_FUNCTION
+            ) {
+                throw new RuntimeException('$stackPtr is not a class member var');
+            }
+        }
+
+        $valid = [
+            T_PUBLIC    => T_PUBLIC,
+            T_PRIVATE   => T_PRIVATE,
+            T_PROTECTED => T_PROTECTED,
+            T_STATIC    => T_STATIC,
+            T_VAR       => T_VAR,
+            T_READONLY  => T_READONLY,
+            T_FINAL     => T_FINAL,
+        ];
+
+        $valid += Tokens::$emptyTokens;
+
+        $scope          = 'public';
+        $scopeSpecified = false;
+        $isStatic       = false;
+        $isReadonly     = false;
+        $isFinal        = false;
+
+        $startOfStatement = $phpcsFile->findPrevious(
+            [
+                T_SEMICOLON,
+                T_OPEN_CURLY_BRACKET,
+                T_CLOSE_CURLY_BRACKET,
+                T_ATTRIBUTE_END,
+            ],
+            ($stackPtr - 1)
+        );
+
+        for ($i = ($startOfStatement + 1); $i < $stackPtr; $i++) {
+            if (isset($valid[$tokens[$i]['code']]) === false) {
+                break;
+            }
+
+            switch ($tokens[$i]['code']) {
+                case T_PUBLIC:
+                    $scope          = 'public';
+                    $scopeSpecified = true;
+                    break;
+                case T_PRIVATE:
+                    $scope          = 'private';
+                    $scopeSpecified = true;
+                    break;
+                case T_PROTECTED:
+                    $scope          = 'protected';
+                    $scopeSpecified = true;
+                    break;
+                case T_STATIC:
+                    $isStatic = true;
+                    break;
+                case T_READONLY:
+                    $isReadonly = true;
+                    break;
+                case T_FINAL:
+                    $isFinal = true;
+                    break;
+            }
+        }
+
+        $type         = '';
+        $typeToken    = false;
+        $typeEndToken = false;
+        $nullableType = false;
+
+        if ($i < $stackPtr) {
+            // We've found a type.
+            $valid = Collections::propertyTypeTokens();
+
+            for ($i; $i < $stackPtr; $i++) {
+                if ($tokens[$i]['code'] === T_VARIABLE) {
+                    // Hit another variable in a group definition.
+                    break;
+                }
+
+                if ($tokens[$i]['code'] === T_NULLABLE) {
+                    $nullableType = true;
+                }
+
+                if (isset($valid[$tokens[$i]['code']]) === true) {
+                    $typeEndToken = $i;
+                    if ($typeToken === false) {
+                        $typeToken = $i;
+                    }
+
+                    $type .= $tokens[$i]['content'];
+                }
+            }
+
+            if ($type !== '' && $nullableType === true) {
+                $type = '?' . $type;
+            }
+        }
+
+        return [
+            'scope'           => $scope,
+            'scope_specified' => $scopeSpecified,
+            'is_static'       => $isStatic,
+            'is_readonly'     => $isReadonly,
+            'is_final'        => $isFinal,
+            'type'            => $type,
+            'type_token'      => $typeToken,
+            'type_end_token'  => $typeEndToken,
+            'nullable_type'   => $nullableType,
+        ];
     }
 
     /**
@@ -737,7 +905,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 1.2.0.
-     * - The upstream method has received no significant updates since PHPCS 3.13.0.
+     * - PHPCS 4.0.0: Handling of the namespace relative parent class using the namespace keyword as operator.
      *
      * @see \PHP_CodeSniffer\Files\File::findExtendedClassName()          Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::findExtendedClassName() PHPCSUtils native improved version.
@@ -752,7 +920,42 @@ final class BCFile
      */
     public static function findExtendedClassName(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->findExtendedClassName($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        // Check for the existence of the token.
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['code'] !== T_CLASS
+            && $tokens[$stackPtr]['code'] !== T_ANON_CLASS
+            && $tokens[$stackPtr]['code'] !== T_INTERFACE
+        ) {
+            return false;
+        }
+
+        if (isset($tokens[$stackPtr]['scope_opener']) === false) {
+            return false;
+        }
+
+        $classOpenerIndex = $tokens[$stackPtr]['scope_opener'];
+        $extendsIndex     = $phpcsFile->findNext(T_EXTENDS, $stackPtr, $classOpenerIndex);
+        if ($extendsIndex === false) {
+            return false;
+        }
+
+        $find   = Collections::namespacedNameTokens();
+        $find[] = T_WHITESPACE;
+
+        $end  = $phpcsFile->findNext($find, ($extendsIndex + 1), ($classOpenerIndex + 1), true);
+        $name = $phpcsFile->getTokensAsString(($extendsIndex + 1), ($end - $extendsIndex - 1));
+        $name = trim($name);
+
+        if ($name === '') {
+            return false;
+        }
+
+        return $name;
     }
 
     /**
@@ -762,7 +965,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 2.7.0.
-     * - The upstream method has received no significant updates since PHPCS 3.13.0.
+     * - PHPCS 4.0.0: Handling of the namespace relative parent class using the namespace keyword as operator.
      *
      * @see \PHP_CodeSniffer\Files\File::findImplementedInterfaceNames()          Original source.
      * @see \PHPCSUtils\Utils\ObjectDeclarations::findImplementedInterfaceNames() PHPCSUtils native improved version.
@@ -777,6 +980,44 @@ final class BCFile
      */
     public static function findImplementedInterfaceNames(File $phpcsFile, $stackPtr)
     {
-        return $phpcsFile->findImplementedInterfaceNames($stackPtr);
+        $tokens = $phpcsFile->getTokens();
+
+        // Check for the existence of the token.
+        if (isset($tokens[$stackPtr]) === false) {
+            return false;
+        }
+
+        if ($tokens[$stackPtr]['code'] !== T_CLASS
+            && $tokens[$stackPtr]['code'] !== T_ANON_CLASS
+            && $tokens[$stackPtr]['code'] !== T_ENUM
+        ) {
+            return false;
+        }
+
+        if (isset($tokens[$stackPtr]['scope_closer']) === false) {
+            return false;
+        }
+
+        $classOpenerIndex = $tokens[$stackPtr]['scope_opener'];
+        $implementsIndex  = $phpcsFile->findNext(T_IMPLEMENTS, $stackPtr, $classOpenerIndex);
+        if ($implementsIndex === false) {
+            return false;
+        }
+
+        $find   = Collections::namespacedNameTokens();
+        $find[] = T_WHITESPACE;
+        $find[] = T_COMMA;
+
+        $end  = $phpcsFile->findNext($find, ($implementsIndex + 1), ($classOpenerIndex + 1), true);
+        $name = $phpcsFile->getTokensAsString(($implementsIndex + 1), ($end - $implementsIndex - 1));
+        $name = trim($name);
+
+        if ($name === '') {
+            return false;
+        } else {
+            $names = explode(',', $name);
+            $names = array_map('trim', $names);
+            return $names;
+        }
     }
 }

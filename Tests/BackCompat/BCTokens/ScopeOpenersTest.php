@@ -18,13 +18,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\BackCompat\BCTokens::parenthesisOpeners
+ * @covers \PHPCSUtils\BackCompat\BCTokens::scopeOpeners
  *
  * @group tokens
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
-final class ParenthesisOpenersTest extends TestCase
+final class ScopeOpenersTest extends TestCase
 {
 
     /**
@@ -32,37 +32,36 @@ final class ParenthesisOpenersTest extends TestCase
      *
      * @return void
      */
-    public function testParenthesisOpeners()
+    public function testScopeOpeners()
     {
         $expected = [
-            \T_ARRAY      => \T_ARRAY,
-            \T_LIST       => \T_LIST,
+            \T_CLASS      => \T_CLASS,
+            \T_ANON_CLASS => \T_ANON_CLASS,
+            \T_INTERFACE  => \T_INTERFACE,
+            \T_TRAIT      => \T_TRAIT,
+            \T_ENUM       => \T_ENUM,
+            \T_NAMESPACE  => \T_NAMESPACE,
             \T_FUNCTION   => \T_FUNCTION,
             \T_CLOSURE    => \T_CLOSURE,
-            \T_USE        => \T_USE,
-            \T_ANON_CLASS => \T_ANON_CLASS,
+            \T_IF         => \T_IF,
+            \T_SWITCH     => \T_SWITCH,
+            \T_CASE       => \T_CASE,
+            \T_DECLARE    => \T_DECLARE,
+            \T_DEFAULT    => \T_DEFAULT,
             \T_WHILE      => \T_WHILE,
+            \T_ELSE       => \T_ELSE,
+            \T_ELSEIF     => \T_ELSEIF,
             \T_FOR        => \T_FOR,
             \T_FOREACH    => \T_FOREACH,
-            \T_SWITCH     => \T_SWITCH,
-            \T_IF         => \T_IF,
-            \T_ELSEIF     => \T_ELSEIF,
+            \T_DO         => \T_DO,
+            \T_TRY        => \T_TRY,
             \T_CATCH      => \T_CATCH,
-            \T_DECLARE    => \T_DECLARE,
+            \T_FINALLY    => \T_FINALLY,
+            \T_USE        => \T_USE,
             \T_MATCH      => \T_MATCH,
-            \T_ISSET      => \T_ISSET,
-            \T_EMPTY      => \T_EMPTY,
-            \T_UNSET      => \T_UNSET,
-            \T_EVAL       => \T_EVAL,
-            \T_EXIT       => \T_EXIT,
         ];
 
-        \asort($expected);
-
-        $result = BCTokens::parenthesisOpeners();
-        \asort($result);
-
-        $this->assertSame($expected, $result);
+        $this->assertSame($expected, BCTokens::scopeOpeners());
     }
 
     /**
@@ -74,29 +73,21 @@ final class ParenthesisOpenersTest extends TestCase
      *
      * @return void
      */
-    public function testPHPCSParenthesisOpeners()
+    public function testPHPCSScopeOpeners()
     {
         $version = Helper::getVersion();
 
         if (\version_compare($version, '3.99.99', '>') === true) {
-            $this->assertSame(Tokens::$parenthesisOpeners, BCTokens::parenthesisOpeners());
+            $this->assertSame(Tokens::$scopeOpeners, BCTokens::scopeOpeners());
         } else {
             /*
              * Don't fail this test on the difference between PHPCS 4.x and 3.x.
              * This test is only run against `dev-master` and `dev-master` is still PHPCS 3.x.
              */
-            $expected           = Tokens::$parenthesisOpeners;
-            $expected[\T_USE]   = \T_USE;
-            $expected[\T_ISSET] = \T_ISSET;
-            $expected[\T_EMPTY] = \T_EMPTY;
-            $expected[\T_UNSET] = \T_UNSET;
-            $expected[\T_EVAL]  = \T_EVAL;
-            $expected[\T_EXIT]  = \T_EXIT;
+            $expected = Tokens::$scopeOpeners;
+            unset($expected[\T_PROPERTY], $expected[\T_OBJECT]);
 
-            \asort($expected);
-
-            $result = BCTokens::parenthesisOpeners();
-            \asort($result);
+            $result = BCTokens::scopeOpeners();
 
             $this->assertSame($expected, $result);
         }

@@ -108,13 +108,13 @@ jobs:
             experimental: true
 
           - php: '7.4'
-            phpcs_version: '4.0.x-dev'
+            phpcs_version: '4.x-dev'
             risky: false
             experimental: true
 
           # Run risky tests separately.
           - php: '7.4'
-            phpcs_version: '4.0.x-dev'
+            phpcs_version: '4.x-dev'
             risky: true
             experimental: true
 
@@ -151,7 +151,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.0.x-dev" ]]; then
+          if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.x-dev" ]]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
@@ -214,7 +214,7 @@ jobs:
         if: ${{ matrix.risky == false }}
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.x-dev' && '4.0.0' || matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
       - name: Run the unit tests with caching (non-risky)
@@ -223,7 +223,7 @@ jobs:
           vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }}
           --testsuite PHPCSUtils --no-coverage ${{ steps.phpunit_config.outputs.EXTRA_ARGS }}
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.x-dev' && '4.0.0' || matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: true
 
       # Only run the "compare with PHPCS" group against dev-master as it ensures that PHPCSUtils
@@ -233,7 +233,7 @@ jobs:
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group compareWithPHPCS --exclude-group nothing
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.x-dev' && '4.0.0' || matrix.phpcs_version }}
 
       # Run the "xtra" group against high and low PHPCS as these are tests safeguarding PHPCS itself.
       - name: Run the unit tests (risky, xtra)
@@ -241,7 +241,7 @@ jobs:
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group xtra --exclude-group nothing
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.x-dev' && '4.0.0' || matrix.phpcs_version }}
 
 
   #### CODE COVERAGE STAGE ####

@@ -63,13 +63,6 @@ final class FindImplementedInterfaceNamesDiffTest extends UtilityMethodTestCase
                     'InterfaceB',
                 ],
             ],
-            'namespace-operator' => [
-                'testMarker' => '/* testDeclarationMultiImplementedNamespaceOperator */',
-                'expected'   => [
-                    'namespace\testInterfaceA',
-                    'namespace\testInterfaceB',
-                ],
-            ],
             'parse-error-stray-comma' => [
                 'testMarker' => '/* testMultiImplementedStrayComma */',
                 'expected'   => [
