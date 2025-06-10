@@ -56,11 +56,21 @@ jobs:
         with:
           ref: ${{ steps.branches.outputs.BASE }}
 
-      - name: Update the version constant in the test file
+      - name: Update the version constant in the test file (PHPCS 3)
+        if: ${{ startsWith( steps.version.outputs.TAG, '3.' ) }}
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          find: "const DEVMASTER = '[^']+';"
-          replace: "const DEVMASTER = '${{ steps.version.outputs.TAG }}';"
+          find: "const LATEST_3X_VERSION = '[^']+';"
+          replace: "const LATEST_3X_VERSION = '${{ steps.version.outputs.TAG }}';"
+          include: "Tests/BackCompat/Helper/GetVersionTest.php"
+          regex: true
+
+      - name: Update the version constant in the test file (PHPCS 4)
+        if: ${{ startsWith( steps.version.outputs.TAG, '4.' ) }}
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "const LATEST_4X_VERSION = '[^']+';"
+          replace: "const LATEST_4X_VERSION = '${{ steps.version.outputs.TAG }}';"
           include: "Tests/BackCompat/Helper/GetVersionTest.php"
           regex: true
 
