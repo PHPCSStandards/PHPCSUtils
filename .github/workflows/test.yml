@@ -86,20 +86,30 @@ jobs:
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
         php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
-        phpcs_version: ['lowest', 'dev-master', '4.x-dev']
+        phpcs_version: ['lowest', '3.x-dev', '4.0.0', '4.x-dev']
         risky: [false]
         experimental: [false]
 
         exclude:
           - php: '5.5'
+            phpcs_version: '4.0.0'
+          - php: '5.5'
             phpcs_version: '4.x-dev'
+          - php: '5.6'
+            phpcs_version: '4.0.0'
           - php: '5.6'
             phpcs_version: '4.x-dev'
           - php: '7.0'
+            phpcs_version: '4.0.0'
+          - php: '7.0'
             phpcs_version: '4.x-dev'
           - php: '7.1'
+            phpcs_version: '4.0.0'
+          - php: '7.1'
             phpcs_version: '4.x-dev'
-          # Also exclude the 7.2 build as that's run in code coverage, no need to duplicate.
+          # Also exclude the 7.2 builds as those are run in code coverage, no need to duplicate.
+          - php: '7.2'
+            phpcs_version: '4.0.0'
           - php: '7.2'
             phpcs_version: '4.x-dev'
 
@@ -110,14 +120,14 @@ jobs:
             experimental: false
             extensions: ':iconv' # Run with iconv disabled.
           - php: '8.0'
-            phpcs_version: 'dev-master'
+            phpcs_version: '4.x-dev'
             risky: false
             experimental: false
             extensions: ':iconv' # Run with iconv disabled.
 
           # Experimental builds. These are allowed to fail.
           - php: '8.5'
-            phpcs_version: 'dev-master'
+            phpcs_version: '3.x-dev'
             risky: false
             experimental: true
           - php: '8.5'
@@ -132,7 +142,7 @@ jobs:
             experimental: true
 
           - php: '5.4'
-            phpcs_version: 'dev-master'
+            phpcs_version: '3.x-dev'
             risky: true
             experimental: true
 
@@ -147,7 +157,12 @@ jobs:
             experimental: true
 
           - php: '8.4'
-            phpcs_version: 'dev-master'
+            phpcs_version: '3.x-dev'
+            risky: true
+            experimental: true
+
+          - php: '8.4'
+            phpcs_version: '4.0.0'
             risky: true
             experimental: true
 
@@ -187,8 +202,8 @@ jobs:
       - name: 'Composer: remove PHPCSDevCS'
         run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
 
-      - name: "Composer: set PHPCS version for tests (dev)"
-        if: ${{ contains( matrix.phpcs_version, 'dev') }}
+      - name: "Composer: set PHPCS version for tests"
+        if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
@@ -244,10 +259,10 @@ jobs:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: true
 
-      # Only run the "compare with PHPCS" group against dev-master as it ensures that PHPCSUtils
-      # functionality is up to date with `dev` versions, so would quickly fail on older PHPCS.
+      # Only run the "compare with PHPCS" group against 4.x-dev as it ensures that PHPCSUtils
+      # functionality is up to date with `4.x-dev`, so would quickly fail on older PHPCS.
       - name: Run the unit tests (risky, comparewithPHPCS)
-        if: ${{ matrix.risky && contains( matrix.phpcs_version, 'dev') }}
+        if: ${{ matrix.risky && matrix.phpcs_version == '4.x-dev' }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group compareWithPHPCS --exclude-group nothing
         env:
@@ -279,15 +294,19 @@ jobs:
         include:
           - php: '8.4'
             phpcs_version: '4.x-dev'
+            extensions: ':iconv' # Run one build with iconv disabled.
           - php: '8.4'
-            phpcs_version: 'dev-master'
+            phpcs_version: '4.0.0'
+          - php: '8.4'
+            phpcs_version: '3.x-dev'
           - php: '8.4'
             phpcs_version: 'lowest'
-            extensions: ':iconv' # Run one build with iconv disabled.
           - php: '7.2'
             phpcs_version: '4.x-dev'
+          - php: '7.2'
+            phpcs_version: '4.0.0'
           - php: '5.4'
-            phpcs_version: 'dev-master'
+            phpcs_version: '3.x-dev'
           - php: '5.4'
             phpcs_version: 'lowest'
 
@@ -323,8 +342,8 @@ jobs:
       - name: 'Composer: remove PHPCSDevCS'
         run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
 
-      - name: "Composer: set PHPCS version for tests (dev)"
-        if: ${{ contains( matrix.phpcs_version, 'dev') }}
+      - name: "Composer: set PHPCS version for tests"
+        if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
