@@ -10,11 +10,11 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
-## [1.1.0] - 2025-06-11
+## [1.1.0] - 2025-06-12
 
 ### Added
 
-Compatibility with the new PHP_CodeSniffer `4.x` branch in anticipation of the PHP_CodeSniffer 4.0 release. [#674],  [#679]
+Compatibility with the new PHP_CodeSniffer `4.x` branch in anticipation of the PHP_CodeSniffer 4.0 release. [#674], [#679]
 PHPCSUtils should now be fully compatible with PHP_CodeSniffer 4.0 (again). If you still find an issue, please report it.
 
 #### PHPCS BackCompat
@@ -22,11 +22,11 @@ PHPCSUtils should now be fully compatible with PHP_CodeSniffer 4.0 (again). If y
 * `BCFile::findExtendedClassName()`: sync with PHPCS 4.0.0 - support for namespace relative names when used as the _extended_ parent class name. [#674]
 * `BCFile::findImplementedInterfaceNames()`: sync with PHPCS 4.0.0 - support for namespace relative names when used in _implemented_ interface names. [#674]
 * `BCFile::getMemberProperties()`: sync with PHPCS 3.12.0 - support for PHP 8.4 final properties. Thanks [@DanielEScherzer]! [#646]
-* `BCFile::getMemberProperties()`: sync with PHPCS 3.13.1 - support for PHP 8.4 asymmetric visibility.[#677]
+* `BCFile::getMemberProperties()`: sync with PHPCS 3.13.1 - support for PHP 8.4 asymmetric visibility. [#677]
 * `BCFile::getMemberProperties()`: sync with PHPCS 4.0.0. [#674]
     - Add support for PHP 8.4 properties in interfaces.
     - Removed parse error warning.
-* `BCFile::getMethodParameters()`: sync with PHPCS 3.13.1 - support for PHP 8.4 asymmetric visibility.[#677]
+* `BCFile::getMethodParameters()`: sync with PHPCS 3.13.1 - support for PHP 8.4 asymmetric visibility. [#677]
 * `BCFile::findStartOfStatement()`: sync with PHPCS 3.12.1 - support for `goto` as a `switch` - `case` terminating statement. [#661]
 * `BCTokens::nameTokens()` as introduced in PHPCS 4.0.0. [#674]
     The same token array previously already existed in PHPCSUtils as `Collections::nameTokens()`.
@@ -34,7 +34,7 @@ PHPCSUtils should now be fully compatible with PHP_CodeSniffer 4.0 (again). If y
 * `BCTokens::parenthesisOpeners()`: sync with PHPCS 4.0.0 - added the `T_USE`, `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EVAL` and `T_EXIT` tokens. [#674]
     Note: While `T_USE`, `T_ISSET`, `T_UNSET`, `T_EMPTY`, `T_EVAL` and `T_EXIT` will be included in the return value for this method,
     the associated parentheses will not have the `'parenthesis_owner'` index set unless PHPCS 4.0.0 is used.
-    Use the [`Parentheses::getOwner()`][`Parentheses`] or the [`Parentheses::hasOwner()`[`Parentheses`] methods if you need to check
+    Use the [`Parentheses::getOwner()`][`Parentheses`] or the [`Parentheses::hasOwner()`][`Parentheses`] methods if you need to check
     whether any of these tokens are a parentheses owner. The methods in the `Parentheses` class are PHPCS cross-version compatible.
 
 #### TestUtils
@@ -71,9 +71,9 @@ PHPCSUtils should now be fully compatible with PHP_CodeSniffer 4.0 (again). If y
     These methods will each return an array with the name of the constant/case/property/method as the key and the typical stack pointer needed for further processing.
     The retrieval of this information is highly optimized for performance. If a sniff needs to search for a named constant/enum case/property/method in an OO structure, in most cases, these methods should be the recommended way for finding the declaration, instead of the sniff attempting to do this itself.
     Mind: the return value of the `getDeclaredProperties()` method includes constructor promoted properties. Passing the stack pointer of constructor promoted properties onto a call to the `Variables::getMemberProperties()` method, however, is currently not supported.
-* `FunctionDeclarations::getParameters()`: support for PHP 8.4 asymmetric visibility.[#677]
+* `FunctionDeclarations::getParameters()`: support for PHP 8.4 asymmetric visibility. [#677]
 * `Variables::getMemberProperties()`: support for PHP 8.4 final properties. Thanks [@DanielEScherzer]! [#646]
-* `Variables::getMemberProperties()`: support for PHP 8.4 asymmetric visibility.[#677]
+* `Variables::getMemberProperties()`: support for PHP 8.4 asymmetric visibility. [#677]
 
 ### Changed
 
