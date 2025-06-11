@@ -51,7 +51,7 @@ jobs:
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v3"
         with:
-          # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
+          # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
           composer-options: ${{ matrix.php == '8.5' && '--ignore-platform-req=php+' || '' }}
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
@@ -85,9 +85,19 @@ jobs:
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
         php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
-        phpcs_version: ['lowest', 'dev-master']
+        phpcs_version: ['lowest', 'dev-master', '4.x-dev']
         risky: [false]
         experimental: [false]
+
+        exclude:
+          - php: '5.5'
+            phpcs_version: '4.x-dev'
+          - php: '5.6'
+            phpcs_version: '4.x-dev'
+          - php: '7.0'
+            phpcs_version: '4.x-dev'
+          - php: '7.1'
+            phpcs_version: '4.x-dev'
 
         include:
           - php: '5.6'
@@ -107,27 +117,22 @@ jobs:
             risky: false
             experimental: true
 
-          - php: '7.4'
-            phpcs_version: '4.x-dev'
-            risky: false
-            experimental: true
-
           # Run risky tests separately.
-          - php: '7.4'
+          - php: '5.4'
+            phpcs_version: 'lowest'
+            risky: true
+            experimental: true
+
+          - php: '5.4'
+            phpcs_version: 'dev-master'
+            risky: true
+            experimental: true
+
+          - php: '7.2'
             phpcs_version: '4.x-dev'
             risky: true
             experimental: true
 
-          - php: '5.4'
-            phpcs_version: 'lowest'
-            risky: true
-            experimental: true
-
-          - php: '5.4'
-            phpcs_version: 'dev-master'
-            risky: true
-            experimental: true
-
           - php: '8.4'
             phpcs_version: 'lowest'
             risky: true
@@ -135,6 +140,11 @@ jobs:
 
           - php: '8.4'
             phpcs_version: 'dev-master'
+            risky: true
+            experimental: true
+
+          - php: '8.4'
+            phpcs_version: '4.x-dev'
             risky: true
             experimental: true
 
@@ -165,13 +175,13 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      - name: "Composer: set PHPCS version for tests (master)"
-        if: ${{ matrix.phpcs_version != 'lowest' }}
-        run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
-
       # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
       - name: 'Composer: remove PHPCSDevCS'
-        run: composer remove --dev --no-update phpcsstandards/phpcsdevcs
+        run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
+
+      - name: "Composer: set PHPCS version for tests (dev)"
+        if: ${{ contains( matrix.phpcs_version, 'dev') }}
+        run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
         if: ${{ matrix.phpcs_version == 'lowest' }}
@@ -182,7 +192,7 @@ jobs:
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v3"
         with:
-          # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
+          # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
           composer-options: ${{ matrix.php == '8.5' && '--ignore-platform-req=php+' || '' }}
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
@@ -227,9 +237,9 @@ jobs:
           PHPCSUTILS_USE_CACHE: true
 
       # Only run the "compare with PHPCS" group against dev-master as it ensures that PHPCSUtils
-      # functionality is up to date with `dev-master`, so would quickly fail on older PHPCS.
+      # functionality is up to date with `dev` versions, so would quickly fail on older PHPCS.
       - name: Run the unit tests (risky, comparewithPHPCS)
-        if: ${{ matrix.risky && matrix.phpcs_version == 'dev-master' }}
+        if: ${{ matrix.risky && contains( matrix.phpcs_version, 'dev') }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group compareWithPHPCS --exclude-group nothing
         env:
@@ -260,10 +270,14 @@ jobs:
       matrix:
         include:
           - php: '8.4'
+            phpcs_version: '4.x-dev'
+          - php: '8.4'
             phpcs_version: 'dev-master'
           - php: '8.4'
             phpcs_version: 'lowest'
             extensions: ':iconv' # Run one build with iconv disabled.
+          - php: '7.2'
+            phpcs_version: '4.x-dev'
           - php: '5.4'
             phpcs_version: 'dev-master'
           - php: '5.4'
@@ -280,7 +294,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ matrix.phpcs_version }}" != "dev-master" ]; then
+          if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.x-dev" ]]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
@@ -297,8 +311,12 @@ jobs:
       - name: "DEBUG: Show version details"
         run: php -v
 
-      - name: "Composer: set PHPCS version for tests (master)"
-        if: ${{ matrix.phpcs_version != 'lowest' }}
+      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
+      - name: 'Composer: remove PHPCSDevCS'
+        run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
+
+      - name: "Composer: set PHPCS version for tests (dev)"
+        if: ${{ contains( matrix.phpcs_version, 'dev') }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
