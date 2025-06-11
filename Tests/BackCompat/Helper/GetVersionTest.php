@@ -61,7 +61,7 @@ final class GetVersionTest extends TestCase
 
         $result = Helper::getVersion();
 
-        if ($expected === 'dev-master') {
+        if ($expected === '3.x-dev') {
             $this->assertTrue(\version_compare(self::LATEST_3X_VERSION, $result, '<='));
         } elseif ($expected === '4.x-dev') {
             $this->assertTrue(\version_compare(self::LATEST_4X_VERSION, $result, '<='));
