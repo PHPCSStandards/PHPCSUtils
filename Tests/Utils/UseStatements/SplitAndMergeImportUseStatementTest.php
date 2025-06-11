@@ -70,6 +70,7 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
     /**
      * Test correctly splitting and merging a import `use` statements.
      *
+     * @dataProvider dataSplitAndMergeImportUseStatementNonImportUse
      * @dataProvider dataSplitAndMergeImportUseStatement
      *
      * @param string                               $testMarker  The comment which prefaces the target token in the test file.
@@ -90,20 +91,52 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
      *
      * @see testSplitAndMergeImportUseStatement() For the array format.
      *
-     * @return array<string, array<string, string|array<string, array<string, string>>>>
+     * @return array<string, array<string, string|array<string, array<string, string>>|array<string, string>>>
      */
-    public static function dataSplitAndMergeImportUseStatement()
+    public static function dataSplitAndMergeImportUseStatementNonImportUse()
     {
-        $data = [
-            'closure-use' => [
+        return [
+            'closure-use-previous-empty-array' => [
                 'testMarker' => '/* testClosureUse */',
-                // Same as previous, which, as this is the first test case, is an empty statements array.
+                'expected'    => [],
+                'previousUse' => [],
+            ],
+            // Documenting that a "previous" array is not cleaned of unexpected keys.
+            'closure-use-previous-non-empty-array-unexpected-keys' => [
+                'testMarker' => '/* testClosureUse */',
+                'expected'   => [
+                    'something' => 'else',
+                ],
+                'previousUse' => [
+                    'something' => 'else',
+                ],
+            ],
+            'closure-use-previous-base-array' => [
+                'testMarker' => '/* testClosureUse */',
                 'expected'   => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [],
                 ],
+                'previousUse' => [
+                    'name'     => [],
+                    'function' => [],
+                    'const'    => [],
+                ],
             ],
+        ];
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testSplitAndMergeImportUseStatement() For the array format.
+     *
+     * @return array<string, array<string, string|array<string, array<string, string>>>>
+     */
+    public static function dataSplitAndMergeImportUseStatement()
+    {
+        $data = [
             'name-plain' => [
                 'testMarker' => '/* testUseNamePlainAliased */',
                 'expected'   => [
@@ -111,6 +144,7 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
                     'function' => [],
                     'const'    => [],
                 ],
+                'previousUse' => [],
             ],
             'function-plain' => [
                 'testMarker' => '/* testUseFunctionPlain */',
@@ -175,8 +209,11 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
             'const'    => [],
         ];
         foreach ($data as $key => $value) {
-            $data[$key]['previousUse'] = $previousUse;
-            $previousUse               = $value['expected'];
+            if (isset($value['previousUse']) === false) {
+                $data[$key]['previousUse'] = $previousUse;
+            }
+
+            $previousUse = $value['expected'];
         }
 
         return $data;
