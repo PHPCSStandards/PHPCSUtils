@@ -53,7 +53,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ matrix.phpcs_version }}" == "lowest" ]; then
+          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"

@@ -98,6 +98,9 @@ jobs:
             phpcs_version: '4.x-dev'
           - php: '7.1'
             phpcs_version: '4.x-dev'
+          # Also exclude the 7.2 build as that's run in code coverage, no need to duplicate.
+          - php: '7.2'
+            phpcs_version: '4.x-dev'
 
         include:
           - php: '5.6'
@@ -114,6 +117,10 @@ jobs:
           # Experimental builds. These are allowed to fail.
           - php: '8.5'
             phpcs_version: 'dev-master'
+            risky: false
+            experimental: true
+          - php: '8.5'
+            phpcs_version: '4.x-dev'
             risky: false
             experimental: true
 
@@ -161,7 +168,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.x-dev" ]]; then
+          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
@@ -294,7 +301,7 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.x-dev" ]]; then
+          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
             echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
             echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
