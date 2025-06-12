@@ -77,10 +77,11 @@ final class TypeString
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.1.0
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<string, string>
      */
-    private static $keywordTypes = [
+    private const KEYWORD_TYPES = [
         'array'    => 'array',
         'bool'     => 'bool',
         'callable' => 'callable',
@@ -109,7 +110,7 @@ final class TypeString
      */
     public static function getKeywordTypes()
     {
-        return self::$keywordTypes;
+        return self::KEYWORD_TYPES;
     }
 
     /**
@@ -128,7 +129,7 @@ final class TypeString
         }
 
         $typeLC = \strtolower(\ltrim(\trim($type), '\\'));
-        return isset(self::$keywordTypes[$typeLC]);
+        return isset(self::KEYWORD_TYPES[$typeLC]);
     }
 
     /**
