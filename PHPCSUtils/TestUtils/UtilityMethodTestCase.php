@@ -26,7 +26,6 @@ use PHPUnit\Framework\Attributes\AfterClass;
 use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use ReflectionProperty;
 
 /**
  * Base class for use when testing utility methods for PHP_CodeSniffer.
@@ -298,27 +297,6 @@ abstract class UtilityMethodTestCase extends TestCase
         self::$tabWidth      = 4;
         self::$phpcsFile     = null;
         self::$selectedSniff = ['Dummy.Dummy.Dummy'];
-    }
-
-    /**
-     * Helper function to set the value of a private static property on the PHPCS Config class.
-     *
-     * @since      1.0.9
-     * @deprecated 1.1.0 Use the `PHPCSUtils\TestUtils\ConfigDouble::setStaticConfigProperty()` method instead.
-     *
-     * @codeCoverageIgnore
-     *
-     * @param string $name  The name of the property to set.
-     * @param mixed  $value The value to set the property to.
-     *
-     * @return void
-     */
-    public static function setStaticConfigProperty($name, $value)
-    {
-        $property = new ReflectionProperty(Config::class, $name);
-        (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
-        $property->setValue(null, $value);
-        (\PHP_VERSION_ID < 80100) && $property->setAccessible(false);
     }
 
     /**
