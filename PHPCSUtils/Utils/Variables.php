@@ -42,7 +42,7 @@ final class Variables
      *
      * @link https://php.net/reserved.variables PHP Manual on reserved variables
      *
-     * @since 1.x.x Replaces the `Variables::$phpReservedVars` property and holds the same values.
+     * @since 1.x.x Replaced the `Variables::$phpReservedVars` property and holds the same values.
      *
      * @var array<string, bool>
      */
@@ -75,16 +75,6 @@ final class Variables
         // Removed PHP 5.6.0.
         'HTTP_RAW_POST_DATA'   => false,
     ];
-
-    /**
-     * List of PHP Reserved variables.
-     *
-     * @since      1.0.0
-     * @deprecated 1.x.x Use the Variables::PHP_RESERVED_VARS class constant instead.
-     *
-     * @var array<string, bool>
-     */
-    public static $phpReservedVars = self::PHP_RESERVED_VARS;
 
     /**
      * Retrieve the visibility and implementation properties of a class member variable.
