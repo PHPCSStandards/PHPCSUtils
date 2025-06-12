@@ -35,17 +35,19 @@ final class PassedParameters
      * of the parameter (comma) or because we need to skip over them.
      *
      * @since 1.0.0
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<int|string, int|string>
      */
-    private static $callParsingStopPoints = [
-        \T_COMMA                => \T_COMMA,
-        \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
-        \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
-        \T_OPEN_PARENTHESIS     => \T_OPEN_PARENTHESIS,
-        \T_DOC_COMMENT_OPEN_TAG => \T_DOC_COMMENT_OPEN_TAG,
-        \T_ATTRIBUTE            => \T_ATTRIBUTE,
-    ];
+    private const CALL_PARSING_STOP_POINTS = Tokens::SCOPE_OPENERS
+        + [
+            \T_COMMA                => \T_COMMA,
+            \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
+            \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,
+            \T_OPEN_PARENTHESIS     => \T_OPEN_PARENTHESIS,
+            \T_DOC_COMMENT_OPEN_TAG => \T_DOC_COMMENT_OPEN_TAG,
+            \T_ATTRIBUTE            => \T_ATTRIBUTE,
+        ];
 
     /**
      * Checks if any parameters have been passed.
@@ -240,7 +242,7 @@ final class PassedParameters
         $nextComma    = $opener;
         $paramStart   = ($opener + 1);
         $cnt          = 1;
-        $stopPoints   = self::$callParsingStopPoints + Tokens::SCOPE_OPENERS;
+        $stopPoints   = self::CALL_PARSING_STOP_POINTS;
         $stopPoints[] = $tokens[$closer]['code'];
 
         while (($nextComma = $phpcsFile->findNext($stopPoints, ($nextComma + 1), ($closer + 1))) !== false) {
