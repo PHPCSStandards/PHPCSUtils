@@ -300,28 +300,6 @@ abstract class UtilityMethodTestCase extends TestCase
     }
 
     /**
-     * Check whether or not the PHP 8.0 identifier name tokens will be in use.
-     *
-     * The expected token positions/token counts for certain tokens will differ depending
-     * on whether the PHP 8.0 identifier name tokenization is used or the PHP < 8.0
-     * identifier name tokenization.
-     *
-     * Tests can use this method to determine which flavour of tokenization to expect and
-     * to set test expectations accordingly.
-     *
-     * @codeCoverageIgnore Nothing to test.
-     *
-     * @since      1.0.0
-     * @deprecated x.x.x This method has become redundant once support for PHPCS < 4.0 was dropped.
-     *
-     * @return true
-     */
-    public static function usesPhp8NameTokens()
-    {
-        return true;
-    }
-
-    /**
      * Test QA: verify that a test case file does not contain any duplicate test markers.
      *
      * When a test case file contains a lot of test cases, it is easy to overlook that a test marker name
