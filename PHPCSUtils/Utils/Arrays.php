@@ -30,10 +30,11 @@ final class Arrays
      * The tokens to target to find the double arrow in an array item.
      *
      * @since 1.0.0
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<int|string, int|string>
      */
-    private static $doubleArrowTargets = [
+    private const DOUBLE_ARROW_TARGETS = [
         \T_DOUBLE_ARROW     => \T_DOUBLE_ARROW,
 
         // Nested arrays.
@@ -188,7 +189,7 @@ final class Arrays
             return Cache::get($phpcsFile, __METHOD__, $cacheId);
         }
 
-        $targets  = self::$doubleArrowTargets;
+        $targets  = self::DOUBLE_ARROW_TARGETS;
         $targets += Collections::closedScopes();
 
         $doubleArrow = ($start - 1);
