@@ -44,7 +44,7 @@ final class FunctionDeclarations
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
-     * @since 1.x.x Replaces the `FunctionDeclarations::$magicFunctions` property and holds the same values.
+     * @since 1.x.x Replaced the `FunctionDeclarations::$magicFunctions` property and holds the same values.
      *
      * @var array<string, string>
      */
@@ -61,7 +61,7 @@ final class FunctionDeclarations
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
-     * @since 1.x.x Replaces the `FunctionDeclarations::$magicMethods` property and holds the same values.
+     * @since 1.x.x Replaced the `FunctionDeclarations::$magicMethods` property and holds the same values.
      *
      * @var array<string, string>
      */
@@ -97,7 +97,7 @@ final class FunctionDeclarations
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
-     * @since 1.x.x Replaces the `FunctionDeclarations::$methodsDoubleUnderscore` property and holds the same values.
+     * @since 1.x.x Replaced the `FunctionDeclarations::$methodsDoubleUnderscore` property and holds the same values.
      *
      * @var array<string, string>
      */
@@ -115,36 +115,6 @@ final class FunctionDeclarations
         '__setsoapheaders'         => 'SOAPClient',
         '__soapcall'               => 'SOAPClient',
     ];
-
-    /**
-     * A list of all PHP magic functions.
-     *
-     * @since      1.0.0
-     * @deprecated 1.x.x Use the FunctionDeclarations::MAGIC_FUNCTIONS class constant instead.
-     *
-     * @var array<string, string>
-     */
-    public static $magicFunctions = self::MAGIC_FUNCTIONS;
-
-    /**
-     * A list of all PHP magic methods.
-     *
-     * @since      1.0.0
-     * @deprecated 1.x.x Use the FunctionDeclarations::MAGIC_METHODS class constant instead.
-     *
-     * @var array<string, string>
-     */
-    public static $magicMethods = self::MAGIC_METHODS;
-
-    /**
-     * A list of all PHP native non-magic methods starting with a double underscore.
-     *
-     * @since      1.0.0
-     * @deprecated 1.x.x Use the FunctionDeclarations::METHODS_DOUBLE_UNDERSCORE class constant instead.
-     *
-     * @var array<string, string>
-     */
-    public static $methodsDoubleUnderscore = self::METHODS_DOUBLE_UNDERSCORE;
 
     /**
      * Returns the declaration name for a function.
