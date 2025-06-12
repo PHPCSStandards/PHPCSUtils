@@ -26,10 +26,11 @@ final class FileInfo
      * Use encoding names as keys and hex BOM representations as values.
      *
      * @since 1.1.0
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<string, string>
      */
-    private static $bomDefinitions = [
+    private const BOM_DEFINITIONS = [
         'UTF-8'       => 'efbbbf',
         'UTF-16 (BE)' => 'feff',
         'UTF-16 (LE)' => 'fffe',
@@ -54,7 +55,7 @@ final class FileInfo
             return false;
         }
 
-        foreach (self::$bomDefinitions as $bomName => $expectedBomHex) {
+        foreach (self::BOM_DEFINITIONS as $bomName => $expectedBomHex) {
             $bomByteLength = (int) (\strlen($expectedBomHex) / 2);
             $htmlBomHex    = \bin2hex(\substr($tokens[0]['content'], 0, $bomByteLength));
             if ($htmlBomHex === $expectedBomHex) {
@@ -84,7 +85,7 @@ final class FileInfo
         $start            = 0;
         $hasByteOrderMark = self::hasByteOrderMark($phpcsFile);
         if ($hasByteOrderMark !== false) {
-            $start = (int) (\strlen(self::$bomDefinitions[$hasByteOrderMark]) / 2);
+            $start = (int) (\strlen(self::BOM_DEFINITIONS[$hasByteOrderMark]) / 2);
         }
 
         return (\substr($tokens[0]['content'], $start, 2) === '#!');
