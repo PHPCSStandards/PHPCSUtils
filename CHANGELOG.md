@@ -10,6 +10,24 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.1.1] - 2025-08-10
+
+### Changed
+
+#### TestUtils
+
+* The [`PHPCSUtils\TestUtils\UtilityMethodTestCase`][`UtilityMethodTestCase`] now uses the PHP_CodeSniffer `LocalFile` instead of the `DummyFile` class under the hood. [#692]
+
+### Fixed
+
+#### TestUtils
+
+* Prevent PHP 8.5 deprecation notices for `Reflection*::setAccessible()` in the [`PHPCSUtils\TestUtils\UtilityMethodTestCase`][`UtilityMethodTestCase`] and the [`PHPCSUtils\TestUtils\ConfigDouble`][`ConfigDouble`] classes. [#695]
+
+[#692]: https://github.com/PHPCSStandards/PHPCSUtils/pull/692
+[#695]: https://github.com/PHPCSStandards/PHPCSUtils/pull/695
+
+
 ## [1.1.0] - 2025-06-12
 
 ### Added
@@ -1221,6 +1239,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.1.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.0...1.1.1
 [1.1.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.12...1.1.0
 [1.0.12]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.11...1.0.12
 [1.0.11]:       https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.10...1.0.11
