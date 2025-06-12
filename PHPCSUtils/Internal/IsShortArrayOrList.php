@@ -191,7 +191,7 @@ final class IsShortArrayOrList
     public function __construct(File $phpcsFile, $stackPtr)
     {
         $tokens       = $phpcsFile->getTokens();
-        $openBrackets = StableCollections::$shortArrayListOpenTokensBC;
+        $openBrackets = StableCollections::SHORT_ARRAY_LIST_OPEN_TOKENS_BC;
 
         if (\is_int($stackPtr) === false) {
             throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);

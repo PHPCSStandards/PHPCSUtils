@@ -215,7 +215,7 @@ final class IsShortArrayOrListWithCache
     private function isValidStackPtr()
     {
         return (isset($this->tokens[$this->stackPtr]) === true
-            && isset(StableCollections::$shortArrayListTokensBC[$this->tokens[$this->stackPtr]['code']]) === true);
+            && isset(StableCollections::SHORT_ARRAY_LIST_TOKENS_BC[$this->tokens[$this->stackPtr]['code']]) === true);
     }
 
     /**

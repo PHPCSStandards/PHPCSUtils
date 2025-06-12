@@ -38,7 +38,7 @@ final class IsShortArrayBracketBC3Test extends UtilityMethodTestCase
      */
     public function testIsShortArrayBracket($testMarker, $expected)
     {
-        $stackPtr = $this->getTargetToken($testMarker, StableCollections::$shortArrayListOpenTokensBC);
+        $stackPtr = $this->getTargetToken($testMarker, StableCollections::SHORT_ARRAY_LIST_OPEN_TOKENS_BC);
         $solver   = new IsShortArrayOrList(self::$phpcsFile, $stackPtr);
         $type     = $solver->solve();
 

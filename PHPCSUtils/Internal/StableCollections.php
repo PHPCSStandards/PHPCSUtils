@@ -45,10 +45,11 @@ final class StableCollections
      * @ignore   This array is only for internal use by PHPCSUtils and is not part of the public API.
      *
      * @since 1.0.2
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<int|string, int|string>
      */
-    public static $shortArrayListOpenTokensBC = [
+    public const SHORT_ARRAY_LIST_OPEN_TOKENS_BC = [
         \T_OPEN_SHORT_ARRAY    => \T_OPEN_SHORT_ARRAY,
         \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
     ];
@@ -63,10 +64,11 @@ final class StableCollections
      * @ignore   This array is only for internal use by PHPCSUtils and is not part of the public API.
      *
      * @since 1.0.2
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<int|string, int|string>
      */
-    public static $shortArrayListTokensBC = [
+    public const SHORT_ARRAY_LIST_TOKENS_BC = [
         \T_OPEN_SHORT_ARRAY     => \T_OPEN_SHORT_ARRAY,
         \T_CLOSE_SHORT_ARRAY    => \T_CLOSE_SHORT_ARRAY,
         \T_OPEN_SQUARE_BRACKET  => \T_OPEN_SQUARE_BRACKET,

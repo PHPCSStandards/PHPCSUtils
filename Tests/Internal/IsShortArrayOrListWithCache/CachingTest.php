@@ -41,7 +41,7 @@ final class CachingTest extends IsShortArrayOrListWithCacheTestCase
      */
     public function testResultIsCached($testMarker, $expected)
     {
-        $opener = $this->getTargetToken($testMarker, StableCollections::$shortArrayListOpenTokensBC);
+        $opener = $this->getTargetToken($testMarker, StableCollections::SHORT_ARRAY_LIST_OPEN_TOKENS_BC);
         $closer = $this->getTargetToken($testMarker, [\T_CLOSE_SHORT_ARRAY, \T_CLOSE_SQUARE_BRACKET]);
 
         // Verify the caching works.

@@ -145,15 +145,15 @@ final class EntryPointsTest extends IsShortArrayOrListWithCacheTestCase
             ],
             'short array' => [
                 'testMarker' => '/* testShortArray */',
-                'targetType' => StableCollections::$shortArrayListOpenTokensBC,
+                'targetType' => StableCollections::SHORT_ARRAY_LIST_OPEN_TOKENS_BC,
             ],
             'short list' => [
                 'testMarker' => '/* testShortList */',
-                'targetType' => StableCollections::$shortArrayListOpenTokensBC,
+                'targetType' => StableCollections::SHORT_ARRAY_LIST_OPEN_TOKENS_BC,
             ],
             'square bracket' => [
                 'testMarker' => '/* testSquareBrackets */',
-                'targetType' => StableCollections::$shortArrayListOpenTokensBC,
+                'targetType' => StableCollections::SHORT_ARRAY_LIST_OPEN_TOKENS_BC,
             ],
         ];
     }
