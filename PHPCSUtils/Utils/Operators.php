@@ -33,29 +33,34 @@ final class Operators
     /**
      * Tokens which indicate that a plus/minus is unary when they preceed it.
      *
-     * @since 1.0.0
+     * @since 1.x.x
      *
      * @var array<int|string, true> Note: value is irrelevant, only key is used.
      */
-    private static $extraUnaryIndicators = [
-        \T_STRING_CONCAT       => true,
-        \T_RETURN              => true,
-        \T_EXIT                => true,
-        \T_CONTINUE            => true,
-        \T_BREAK               => true,
-        \T_ECHO                => true,
-        \T_PRINT               => true,
-        \T_YIELD               => true,
-        \T_COMMA               => true,
-        \T_OPEN_PARENTHESIS    => true,
-        \T_OPEN_SQUARE_BRACKET => true,
-        \T_OPEN_SHORT_ARRAY    => true,
-        \T_OPEN_CURLY_BRACKET  => true,
-        \T_COLON               => true,
-        \T_CASE                => true,
-        \T_FN_ARROW            => true,
-        \T_MATCH_ARROW         => true,
-    ];
+    private const UNARY_INDICATORS = Tokens::OPERATORS
+        + Tokens::COMPARISON_TOKENS
+        + Tokens::BOOLEAN_OPERATORS
+        + Tokens::ASSIGNMENT_TOKENS
+        + Tokens::CAST_TOKENS
+        + [
+            \T_STRING_CONCAT       => true,
+            \T_RETURN              => true,
+            \T_EXIT                => true,
+            \T_CONTINUE            => true,
+            \T_BREAK               => true,
+            \T_ECHO                => true,
+            \T_PRINT               => true,
+            \T_YIELD               => true,
+            \T_COMMA               => true,
+            \T_OPEN_PARENTHESIS    => true,
+            \T_OPEN_SQUARE_BRACKET => true,
+            \T_OPEN_SHORT_ARRAY    => true,
+            \T_OPEN_CURLY_BRACKET  => true,
+            \T_COLON               => true,
+            \T_CASE                => true,
+            \T_FN_ARROW            => true,
+            \T_MATCH_ARROW         => true,
+        ];
 
     /**
      * Determine if the passed token is a reference operator.
@@ -197,13 +202,8 @@ final class Operators
         /*
          * Check the preceeding token for an indication that this is not an arithmetic operation.
          */
-        if (isset(Tokens::OPERATORS[$tokens[$prev]['code']]) === true
-            || isset(Tokens::COMPARISON_TOKENS[$tokens[$prev]['code']]) === true
-            || isset(Tokens::BOOLEAN_OPERATORS[$tokens[$prev]['code']]) === true
-            || isset(Tokens::ASSIGNMENT_TOKENS[$tokens[$prev]['code']]) === true
-            || isset(Tokens::CAST_TOKENS[$tokens[$prev]['code']]) === true
+        if (isset(self::UNARY_INDICATORS[$tokens[$prev]['code']]) === true
             || isset(Collections::ternaryOperators()[$tokens[$prev]['code']]) === true
-            || isset(self::$extraUnaryIndicators[$tokens[$prev]['code']]) === true
         ) {
             return true;
         }
