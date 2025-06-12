@@ -35,6 +35,19 @@ final class GetTargetTokenFileNotFoundTest extends PolyfilledTestCase
     }
 
     /**
+     * Overload the "normal" test marker QA check - this test class does not have a File object.
+     *
+     * @coversNothing
+     * @doesNotPerformAssertions
+     *
+     * @return void
+     */
+    public function testTestMarkersAreUnique()
+    {
+        // Deliberately left empty.
+    }
+
+    /**
      * Test the behaviour of the getTargetToken() method when the test case file has not been tokenized.
      *
      * @return void

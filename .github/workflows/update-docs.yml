@@ -52,9 +52,9 @@ jobs:
           REF: ${{ github.ref }}
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            echo "BRANCH=$REF" >> $GITHUB_OUTPUT
+            echo "BRANCH=$REF" >> "$GITHUB_OUTPUT"
           else
-            echo 'BRANCH=${{ env.DEFAULT_BRANCH }}' >> $GITHUB_OUTPUT
+            echo 'BRANCH=${{ env.DEFAULT_BRANCH }}' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Checkout code
@@ -86,9 +86,9 @@ jobs:
         # yamllint disable rule:line-length
         run: |
           if [[ "${{ github.event_name }}" == 'release' && "${{ github.ref_type }}" == 'published' && "$REF_NAME" == "${{ env.DEFAULT_BRANCH }}" ]]; then
-            echo "LAST_TAG=$REF_NAME" >> $GITHUB_OUTPUT
+            echo "LAST_TAG=$REF_NAME" >> "$GITHUB_OUTPUT"
           else # = Pushed tag.
-            echo "LAST_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+            echo "LAST_TAG=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
           fi
         # yamllint enable rule:line-length
 

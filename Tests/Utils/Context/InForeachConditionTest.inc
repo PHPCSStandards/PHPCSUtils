@@ -47,6 +47,36 @@ add_action('something', function($array) {
     return;
 });
 
+foreach(
+    array(
+        'anon class' => new class {
+            use A, B {
+                /* testForeachBeforeContainsAsInLongArrayBefore1 */
+                B::bigTalk as talk;
+            }
+            /* testForeachBeforeContainsAsInLongArrayBefore2 */
+            use HelloWorld { sayHello as protected; }
+        },
+    )
+    /* testForeachBeforeContainsAsInLongArrayAs */
+    as $key => $value
+) {}
+
+foreach(
+    [
+        'anon class' => new class {
+            use A, B {
+                /* testForeachBeforeContainsAsInShortArrayBefore1 */
+                B::bigTalk as talk;
+            }
+            /* testForeachBeforeContainsAsInShortArrayBefore2 */
+            use HelloWorld { sayHello as protected; }
+        },
+    ]
+    /* testForeachBeforeContainsAsInShortArrayAs */
+    as $key => $value
+) {}
+
 // Intentional parse error. This has to be the last test in the file.
 /* testParseError */
 foreach ($array as $target {}

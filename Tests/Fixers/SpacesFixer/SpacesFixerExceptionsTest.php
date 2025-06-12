@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Fixers\SpacesFixer;
 
 use PHPCSUtils\Fixers\SpacesFixer;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the exceptions thrown in the \PHPCSUtils\Fixers\SpacesFixer::checkAndFix() method.
@@ -20,8 +20,34 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
+final class SpacesFixerExceptionsTest extends PolyfilledTestCase
 {
+
+    /**
+     * Test passing a non-integer token pointer for the stackPtr token (like an unchecked result of File::findPrevious()).
+     *
+     * @return void
+     */
+    public function testNonIntegerFirstToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        SpacesFixer::checkAndFix(self::$phpcsFile, false, 10, 0, 'Dummy');
+    }
+
+    /**
+     * Test passing a non-integer token pointer for the second token (like an unchecked result of File::findNext()).
+     *
+     * @return void
+     */
+    public function testNonIntegerSecondToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #3 ($secondPtr) must be of type integer, boolean given');
+
+        SpacesFixer::checkAndFix(self::$phpcsFile, 10, false, 0, 'Dummy');
+    }
 
     /**
      * Test passing a non-existent token pointer for the stackPtr token.
@@ -30,7 +56,10 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testNonExistentFirstToken()
     {
-        $this->expectPhpcsException('The $stackPtr and the $secondPtr token must exist and not be whitespace');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
+        );
 
         SpacesFixer::checkAndFix(self::$phpcsFile, 10000, 10, 0, 'Dummy');
     }
@@ -42,7 +71,10 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testNonExistentSecondToken()
     {
-        $this->expectPhpcsException('The $stackPtr and the $secondPtr token must exist and not be whitespace');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #3 ($secondPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
+        );
 
         SpacesFixer::checkAndFix(self::$phpcsFile, 10, 10000, 0, 'Dummy');
     }
@@ -54,10 +86,12 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testFirstTokenWhitespace()
     {
-        $this->expectPhpcsException('The $stackPtr and the $secondPtr token must exist and not be whitespace');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type any, except whitespace;');
 
-        $stackPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_WHITESPACE);
-        SpacesFixer::checkAndFix(self::$phpcsFile, $stackPtr, 10, 0, 'Dummy');
+        $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_WHITESPACE);
+        $secondPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_ECHO);
+        SpacesFixer::checkAndFix(self::$phpcsFile, $stackPtr, $secondPtr, 0, 'Dummy');
     }
 
     /**
@@ -67,10 +101,12 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testSecondTokenWhitespace()
     {
-        $this->expectPhpcsException('The $stackPtr and the $secondPtr token must exist and not be whitespace');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #3 ($secondPtr) must be of type any, except whitespace;');
 
+        $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_CONSTANT_ENCAPSED_STRING);
         $secondPtr = $this->getTargetToken('/* testPassingWhitespace2 */', \T_WHITESPACE);
-        SpacesFixer::checkAndFix(self::$phpcsFile, 10, $secondPtr, 0, 'Dummy');
+        SpacesFixer::checkAndFix(self::$phpcsFile, $stackPtr, $secondPtr, 0, 'Dummy');
     }
 
     /**
@@ -80,7 +116,8 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testNonAdjacentTokens()
     {
-        $this->expectPhpcsException(
+        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectExceptionMessage(
             'The $stackPtr and the $secondPtr token must be adjacent tokens separated only'
                 . ' by whitespace and/or comments'
         );
@@ -97,7 +134,8 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testNonAdjacentTokensReverseOrder()
     {
-        $this->expectPhpcsException(
+        $this->expectException('PHPCSUtils\Exceptions\LogicException');
+        $this->expectExceptionMessage(
             'The $stackPtr and the $secondPtr token must be adjacent tokens separated only'
                 . ' by whitespace and/or comments'
         );
@@ -114,7 +152,10 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testInvalidExpectedSpacesNegativeValue()
     {
-        $this->expectPhpcsException('The $expectedSpaces setting should be either "newline", 0 or a positive integer');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage(
+            'The value of argument #4 ($expectedSpaces) should be either "newline", 0 or a positive integer'
+        );
 
         $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_ECHO);
         $secondPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_CONSTANT_ENCAPSED_STRING);
@@ -128,7 +169,10 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testInvalidExpectedSpacesUnexpectedType()
     {
-        $this->expectPhpcsException('The $expectedSpaces setting should be either "newline", 0 or a positive integer');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage(
+            'The value of argument #4 ($expectedSpaces) should be either "newline", 0 or a positive integer'
+        );
 
         $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_ECHO);
         $secondPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_CONSTANT_ENCAPSED_STRING);
@@ -142,7 +186,10 @@ final class SpacesFixerExceptionsTest extends UtilityMethodTestCase
      */
     public function testInvalidExpectedSpacesNonDecimalString()
     {
-        $this->expectPhpcsException('The $expectedSpaces setting should be either "newline", 0 or a positive integer');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage(
+            'The value of argument #4 ($expectedSpaces) should be either "newline", 0 or a positive integer'
+        );
 
         $stackPtr  = $this->getTargetToken('/* testPassingWhitespace1 */', \T_ECHO);
         $secondPtr = $this->getTargetToken('/* testPassingWhitespace1 */', \T_CONSTANT_ENCAPSED_STRING);

@@ -61,6 +61,19 @@ final class ExpectPhpcsExceptionTest extends UtilityMethodTestCase
     }
 
     /**
+     * Overload the "normal" test marker QA check - this test class does not have a File object.
+     *
+     * @coversNothing
+     * @doesNotPerformAssertions
+     *
+     * @return void
+     */
+    public function testTestMarkersAreUnique()
+    {
+        // Deliberately left empty.
+    }
+
+    /**
      * Test that the helper method to handle cross-version testing of exceptions in PHPUnit
      * works correctly.
      *

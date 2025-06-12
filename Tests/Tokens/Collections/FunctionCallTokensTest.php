@@ -40,6 +40,7 @@ final class FunctionCallTokensTest extends TestCase
             \T_PARENT               => \T_PARENT,
             \T_SELF                 => \T_SELF,
             \T_STATIC               => \T_STATIC,
+            \T_EXIT                 => \T_EXIT,
         ];
 
         $this->assertSame($expected, Collections::functionCallTokens());

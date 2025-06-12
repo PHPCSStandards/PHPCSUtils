@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test class.
  *
- * @covers \PHPCSUtils\BackCompat\BCTokens::__callStatic
+ * @covers \PHPCSUtils\BackCompat\BCTokens::parenthesisOpeners
  *
  * @group tokens
  *
@@ -34,12 +34,12 @@ final class ParenthesisOpenersTest extends TestCase
      */
     public function testParenthesisOpeners()
     {
-        $version  = Helper::getVersion();
         $expected = [
             \T_ARRAY      => \T_ARRAY,
             \T_LIST       => \T_LIST,
             \T_FUNCTION   => \T_FUNCTION,
             \T_CLOSURE    => \T_CLOSURE,
+            \T_USE        => \T_USE,
             \T_ANON_CLASS => \T_ANON_CLASS,
             \T_WHILE      => \T_WHILE,
             \T_FOR        => \T_FOR,
@@ -50,11 +50,12 @@ final class ParenthesisOpenersTest extends TestCase
             \T_CATCH      => \T_CATCH,
             \T_DECLARE    => \T_DECLARE,
             \T_MATCH      => \T_MATCH,
+            \T_ISSET      => \T_ISSET,
+            \T_EMPTY      => \T_EMPTY,
+            \T_UNSET      => \T_UNSET,
+            \T_EVAL       => \T_EVAL,
+            \T_EXIT       => \T_EXIT,
         ];
-
-        if (\version_compare($version, '3.99.99', '>=') === true) {
-            $expected[\T_USE] = \T_USE;
-        }
 
         \asort($expected);
 
@@ -75,6 +76,29 @@ final class ParenthesisOpenersTest extends TestCase
      */
     public function testPHPCSParenthesisOpeners()
     {
-        $this->assertSame(Tokens::$parenthesisOpeners, BCTokens::parenthesisOpeners());
+        $version = Helper::getVersion();
+
+        if (\version_compare($version, '3.99.99', '>') === true) {
+            $this->assertSame(Tokens::$parenthesisOpeners, BCTokens::parenthesisOpeners());
+        } else {
+            /*
+             * Don't fail this test on the difference between PHPCS 4.x and 3.x.
+             * This test is only run against `dev-master` and `dev-master` is still PHPCS 3.x.
+             */
+            $expected           = Tokens::$parenthesisOpeners;
+            $expected[\T_USE]   = \T_USE;
+            $expected[\T_ISSET] = \T_ISSET;
+            $expected[\T_EMPTY] = \T_EMPTY;
+            $expected[\T_UNSET] = \T_UNSET;
+            $expected[\T_EVAL]  = \T_EVAL;
+            $expected[\T_EXIT]  = \T_EXIT;
+
+            \asort($expected);
+
+            $result = BCTokens::parenthesisOpeners();
+            \asort($result);
+
+            $this->assertSame($expected, $result);
+        }
     }
 }

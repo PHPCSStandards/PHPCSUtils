@@ -1,0 +1,3 @@
+þÿ<?php
+
+echo 'This file has a UTF-16 BE byte order mark';

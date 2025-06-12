@@ -138,4 +138,86 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
             );
         }
     }
+
+    /**
+     * Test retrieving the actual array key when string keys look like numeric literals with underscores.
+     *
+     * @return void
+     */
+    public function testGetActualArrayKeyForStringLiteralsWithNumbers()
+    {
+        $testObj         = new ArrayDeclarationSniffTestDouble();
+        $testObj->tokens = self::$phpcsFile->getTokens();
+
+        $stackPtr   = $this->getTargetToken('/* testStringLiteralsWithNumbers */', [\T_ARRAY, \T_OPEN_SHORT_ARRAY]);
+        $arrayItems = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        $expected = [
+            1 => '_1',
+            2 => '_2',
+            3 => '3_',
+            4 => '4_',
+            5 => '_5_',
+            6 => '_6_',
+        ];
+
+        $this->assertCount(\count($expected), $arrayItems);
+
+        foreach ($arrayItems as $itemNr => $arrayItem) {
+            $arrowPtr = Arrays::getDoubleArrowPtr(self::$phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            $result   = $testObj->getActualArrayKey(self::$phpcsFile, $arrayItem['start'], ($arrowPtr - 1));
+            $this->assertSame(
+                $expected[$itemNr],
+                $result,
+                'Failed: actual key ' . \var_export($result, true) . ' is not the same as the expected key '
+                    . \var_export($expected[$itemNr], true) . ' for item number ' . $itemNr
+            );
+        }
+
+        // Verify against handling by PHP itself.
+        $expectedKeys = \array_values($expected);
+        $actualKeys   = \array_keys(\array_combine($expected, $expected));
+        $this->assertSame($expectedKeys, $actualKeys, 'getActualArrayKey() results do not match PHP native handling');
+    }
+
+    /**
+     * Test retrieving the actual array key when string keys look like numeric keys but start with 0.
+     *
+     * @return void
+     */
+    public function testGetActualArrayKeyForZeroPrefixedNumericStringKeys()
+    {
+        $testObj         = new ArrayDeclarationSniffTestDouble();
+        $testObj->tokens = self::$phpcsFile->getTokens();
+
+        $stackPtr   = $this->getTargetToken('/* testZeroPrefixedNumericStringKeys */', [\T_ARRAY, \T_OPEN_SHORT_ARRAY]);
+        $arrayItems = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        $expected = [
+            1 => '01',
+            2 => '002',
+            3 => '0o3',
+            4 => '0b1',
+            5 => '0x7', // phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+            6 => '0.0',
+        ];
+
+        $this->assertCount(\count($expected), $arrayItems);
+
+        foreach ($arrayItems as $itemNr => $arrayItem) {
+            $arrowPtr = Arrays::getDoubleArrowPtr(self::$phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            $result   = $testObj->getActualArrayKey(self::$phpcsFile, $arrayItem['start'], ($arrowPtr - 1));
+            $this->assertSame(
+                $expected[$itemNr],
+                $result,
+                'Failed: actual key ' . \var_export($result, true) . ' is not the same as the expected key '
+                    . \var_export($expected[$itemNr], true) . ' for item number ' . $itemNr
+            );
+        }
+
+        // Verify against handling by PHP itself.
+        $expectedKeys = \array_values($expected);
+        $actualKeys   = \array_keys(\array_combine($expected, $expected));
+        $this->assertSame($expectedKeys, $actualKeys, 'getActualArrayKey() results do not match PHP native handling');
+    }
 }

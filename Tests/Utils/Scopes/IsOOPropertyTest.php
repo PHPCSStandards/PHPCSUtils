@@ -125,7 +125,7 @@ final class IsOOPropertyTest extends UtilityMethodTestCase
             ],
             'interface-property' => [
                 'testMarker' => '/* testInterfaceProp */',
-                'expected'   => false,
+                'expected'   => true,
             ],
             'interface-method-param' => [
                 'testMarker' => '/* testInterfaceMethodParameter */',

@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\PassedParameters;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\PassedParameters;
 
 /**
@@ -23,7 +23,7 @@ use PHPCSUtils\Utils\PassedParameters;
  *
  * @since 1.0.0
  */
-final class GetParameterFromStackTest extends UtilityMethodTestCase
+final class GetParameterFromStackTest extends PolyfilledTestCase
 {
 
     /**
@@ -113,8 +113,9 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      */
     public function testGetParameterFunctionCallMissingParamName()
     {
-        $this->expectPhpcsException(
-            'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
+        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectExceptionMessage(
+            'Argument #3 ($paramNames) is required to allow for support for PHP 8 named parameters.'
         );
 
         $stackPtr = $this->getTargetToken('/* testAllParamsNamedStandardOrder */', \T_STRING);
@@ -131,8 +132,9 @@ final class GetParameterFromStackTest extends UtilityMethodTestCase
      */
     public function testGetParameterFunctionCallPositionalMissingParamNameNonExistentParam()
     {
-        $this->expectPhpcsException(
-            'To allow for support for PHP 8 named parameters, the $paramNames parameter must be passed.'
+        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectExceptionMessage(
+            'Argument #3 ($paramNames) is required to allow for support for PHP 8 named parameters.'
         );
 
         $stackPtr = $this->getTargetToken('/* testAllParamsPositional */', \T_STRING);

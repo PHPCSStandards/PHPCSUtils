@@ -16,6 +16,7 @@ use PHPCSUtils\Tests\PolyfilledTestCase;
  * Tests for the \PHPCSUtils\TestUtils\UtilityMethodTestCase class.
  *
  * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::setUpTestFile
+ * @covers \PHPCSUtils\TestUtils\UtilityMethodTestCase::parseFile
  *
  * @since 1.0.0
  */
@@ -30,6 +31,19 @@ final class MissingCaseFileTest extends PolyfilledTestCase
      * @return void
      */
     public static function setUpTestFile()
+    {
+        // Deliberately left empty.
+    }
+
+    /**
+     * Overload the "normal" test marker QA check - this test class does not have a File object.
+     *
+     * @coversNothing
+     * @doesNotPerformAssertions
+     *
+     * @return void
+     */
+    public function testTestMarkersAreUnique()
     {
         // Deliberately left empty.
     }

@@ -81,8 +81,8 @@ final class ConfigDataTest extends TestCase
             $this->markTestSkipped('Test only applicable to PHPCS 4.x');
         }
 
-        $this->expectException('PHP_CodeSniffer\Exceptions\RuntimeException');
-        $this->expectExceptionMessage('Passing the $config parameter is required in PHPCS 4.x');
+        $this->expectException('PHPCSUtils\Exceptions\MissingArgumentError');
+        $this->expectExceptionMessage('Argument #4 ($config) is required when running on PHPCS 4.x.');
 
         Helper::setConfigData('arbitrary_name', 'test', true);
     }

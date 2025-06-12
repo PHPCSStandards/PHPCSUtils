@@ -21,7 +21,7 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodProperties method.
@@ -32,7 +32,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class GetMethodPropertiesTest extends UtilityMethodTestCase
+class GetMethodPropertiesTest extends PolyfilledTestCase
 {
 
     /**
@@ -525,6 +525,30 @@ class GetMethodPropertiesTest extends UtilityMethodTestCase
             'return_type_token'     => 7,
             'return_type_end_token' => 7,
             'nullable_return_type'  => false,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getMethodPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
+     * Test a function with return type "?static".
+     *
+     * @return void
+     */
+    public function testReturnTypeNullableStatic()
+    {
+        // Offsets are relative to the T_FUNCTION token.
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => '?static',
+            'return_type_token'     => 8,
+            'return_type_end_token' => 8,
+            'nullable_return_type'  => true,
             'is_abstract'           => false,
             'is_final'              => false,
             'is_static'             => false,

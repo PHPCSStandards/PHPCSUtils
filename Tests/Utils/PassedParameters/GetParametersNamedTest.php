@@ -426,6 +426,20 @@ final class GetParametersNamedTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'named-args-for-exit' => [
+                'testMarker' => '/* testExitWithNamedParam */',
+                'targetType' => \T_EXIT,
+                'expected'   => [
+                    'status' => [
+                        'name'       => 'status',
+                        'name_token' => 3,
+                        'start'      => 5,
+                        'end'        => 7,
+                        'raw'        => '1',
+                    ],
+                ],
+            ],
+
             'named-args-compile-error-named-before-positional' => [
                 'testMarker' => '/* testCompileErrorNamedBeforePositional */',
                 'targetType' => \T_STRING,

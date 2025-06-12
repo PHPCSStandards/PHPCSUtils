@@ -9,6 +9,9 @@ parameters:
     excludePaths:
         # This file needs to be excluded as the availability of the traits depends on which PHPUnit Polyfills version is loaded/installed.
         - Tests/PolyfilledTestCase.php
+        # These will be seen as unused due to these only being used in conjunction with the above excluded TestCase.
+        - Tests/AssertPropertySame.php
+        - Tests/ExpectWithConsecutiveArgs.php
     bootstrapFiles:
         - Tests/bootstrap.php
     treatPhpDocTypesAsCertain: false
@@ -35,10 +38,23 @@ parameters:
             count: 1
 
         # Level 2
+        # The __destruct() method exists on the ConfigDouble, not the PHPCS native Config. This is 100% okay.
+        -
+            message: '`^Call to an undefined method PHP_CodeSniffer\\Config::__destruct\(\)\.$`'
+            path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
+            count: 1
+
+        # The setStaticConfigProperty() method exists on the ConfigDouble, not the PHPCS native Config. This is 100% okay.
+        -
+            message: '`^Call to an undefined method PHP_CodeSniffer\\Config::setStaticConfigProperty\(\)\.$`'
+            path: Tests/TestUtils/UtilityMethodTestCase\ResetTestFileTest.php
+            count: 1
+
         # Ignoring as this refers to a non-mocked method on the original class. This is 100% okay.
         -
             message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject::process\(\)\.$`'
             path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
+
         # Ignoring as availability depends on which PHPUnit version is loaded/installed. This is 100% okay.
         -
             message: '`^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockBuilder<[^>]+>::setMethods\(\)\.$`'
@@ -53,20 +69,30 @@ parameters:
             path: Tests/BackCompat/Helper/GetCommandLineDataTest.php
 
         # Level 4
+        # Defensive coding as this project is not type safe. This is okay.
+        -
+            message: '`^Call to function is_string\(\) with string will always evaluate to true\.$`'
+            path: PHPCSUtils/Utils/TypeString.php
+            count: 1
+
         # This is by design.
         -
             message: '`^Static method PHPCSUtils\\Tokens\\Collections::triggerDeprecation\(\) is unused\.$`'
             path: PHPCSUtils/Tokens/Collections.php
             count: 1
 
-        # This depends on the PHP version on which PHPStan is being run, so not valid.
+        # Ignoring these as availability depends on which PHPUnit/PHPUnit Polyfills version is loaded/installed. This is 100% okay.
         -
-            message: "`^Comparison operation \"\\>\\=\" between '[0-9\\. -]+' and 10 is always true\\.$`"
-            path: Tests/Utils/Orthography/FirstCharTest.php
+            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectError' will always evaluate to false\\.$`"
+            path: Tests/Utils/TypeString/FilterTypesTest.php
+            count: 2
+        -
+            message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectException' will always evaluate to true\\.$`"
+            path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
             count: 1
         -
-            message: '`^Else branch is unreachable because previous condition is always true\.$`'
-            path: Tests/Utils/Orthography/FirstCharTest.php
+            message: "`^Call to function method_exists\\(\\) with PHPUnit\\\\Framework\\\\MockObject\\\\MockBuilder and 'onlyMethods' will always evaluate to true\\.$`"
+            path: Tests/AbstractSniffs/AbstractArrayDeclaration/AbstractArrayDeclarationSniffTest.php
             count: 1
 
         # Level 5
@@ -74,11 +100,26 @@ parameters:
         -
             message: '`^Parameter #[0-9]+ \$\S+ of static method PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+::[A-Za-z]+\(\) expects [^,]+, \S+ given\.$`'
             paths:
-                - Tests/BackCompat/Helper/GetCommandLineDataTest.php
-                - Tests/BackCompat/BCFile/GetTokensAsStringTest.php
-                - Tests/Exceptions/TestTargetNotFound/TestTargetNotFoundTest.php
-                - Tests/Fixers/SpacesFixer/SpacesFixerExceptionsTest.php
-                - Tests/Utils/GetTokensAsString/GetTokensAsStringTest.php
-                - Tests/Utils/NamingConventions/IsValidIdentifierNameTest.php
+                - Tests/
+        -
+            message: '`^Parameter #[0-9]+ \$\S+ of class PHPCSUtils\\(?!Tests)[A-Za-z]+\\[A-Za-z]+ [A-Za-z]+ expects [^,]+, \S+ given\.$`'
+            path: Tests/Internal/IsShortArrayOrList/ConstructorTest.php
+            count: 1
+        -
+            message: '`^Parameter #1 \$types of static method PHPCSUtils\\Utils\\TypeString::filter\S+\(\) expects array<[^<>]+(<[^<>]+>[^<>]+)*>, array<[^<>]+(<[^<>]+>[^<>]+)*> given\.$`'
+            path: Tests/Utils/TypeString/FilterTypesTest.php
+            count: 2
+
+        # Ignoring as this is fine.
+        -
+            message: '`^Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$`'
+            path: Tests/Utils/TypeString/FilterTypesTest.php
+            count: 2
+
+        # Shortcoming of PHPStan, not a real error.
+        -
+            message: '`^Parameter #1 \$expected of method PHPUnit\\Framework\\Assert::assertSame\(\) contains unresolvable type\.$`'
+            paths:
+                - Tests/
 
                 # yamllint enable rule:line-length

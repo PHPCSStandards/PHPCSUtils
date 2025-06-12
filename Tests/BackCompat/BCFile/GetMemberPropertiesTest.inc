@@ -354,3 +354,50 @@ trait DNFTypes {
     // Intentional fatal error - nullable operator cannot be combined with DNF.
     var ?(A&\Pck\B)|bool $propD;
 }
+
+class WithFinalProperties {
+    /* testPHP84FinalPublicTypedProp */
+    final public string $val1;
+    /* testPHP84FinalProtectedTypedProp */
+    final protected string $val2;
+    /* testPHP84FinalMiddleTypedProp */
+    public final string $val3;
+    /* testPHP84FinalMiddleStaticTypedProp */
+    public final static string $val4;
+    /* testPHP84FinalLastTypedProp */
+    public readonly final string $val5;
+    /* testPHP84FinalImplicitVisibilityTypedProp */
+    final string $val6;
+    /* testPHP84FinalImplicitVisibilityProp */
+    final $val7;
+    /* testPHP84FinalNullableTypedProp */
+    final public ?string $val8;
+    /* testPHP84FinalComplexTypedProp */
+    final public (Foo&\Bar)|bool $val9;
+}
+
+class AsymVisibility {
+    /* testPHP84AsymPublicSetProperty */
+    public(set) mixed $prop1;
+    /* testPHP84AsymPublicPublicSetProperty */
+    public public(set) (A&B)|null $prop2;
+    /* testPHP84AsymPublicSetPublicProperty */
+    public(set) public bool $prop3;
+
+    /* testPHP84AsymProtectedSetProperty */
+    protected(set) readonly mixed $prop4;
+    /* testPHP84AsymPublicProtectedSetProperty */
+    public protected(set) string $prop5;
+    /* testPHP84AsymProtectedSetPublicProperty */
+    protected(set) public ?float $prop6;
+
+    /* testPHP84AsymPrivateSetProperty */
+    private(set) string|int $prop7;
+    /* testPHP84AsymProtectedPrivateSetProperty */
+    final protected private(set) $prop8;
+    /* testPHP84AsymPrivateSetPublicProperty */
+    private(set) public mixed $prop9;
+
+    /* testPHP84IllegalAsymPublicProtectedSetStaticProperty */
+    public protected(set) static mixed $prop10;
+}

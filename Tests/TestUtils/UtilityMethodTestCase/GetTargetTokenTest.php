@@ -31,7 +31,7 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      */
     public static function setUpTestFile()
     {
-        self::$caseFile = __DIR__ . '/UtilityMethodTestCaseTest.inc';
+        self::$caseFile = __DIR__ . '/SetUpTestFileTest.inc';
         parent::setUpTestFile();
     }
 
@@ -67,7 +67,8 @@ final class GetTargetTokenTest extends PolyfilledTestCase
      */
     public static function dataGetTargetToken()
     {
-        return [
+        // Token offsets based on PHPCS 3.x tokenization.
+        $data = [
             'single-token-type' => [
                 'expected'      => 6,
                 'commentString' => '/* testFindingTarget */',
@@ -120,6 +121,15 @@ final class GetTargetTokenTest extends PolyfilledTestCase
                 'tokenContent'  => "'bar'",
             ],
         ];
+
+        // The PHP open tag + whitespace is two tokens in PHPCS 4.x, while it is one in PHPCS 3.x.
+        if (parent::usesPhp8NameTokens() === true) {
+            foreach ($data as $key => $dataset) {
+                ++$data[$key]['expected'];
+            }
+        }
+
+        return $data;
     }
 
     /**

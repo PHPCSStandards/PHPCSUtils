@@ -27,30 +27,6 @@ final class UnchangedTokenArraysTest extends TestCase
 {
 
     /**
-     * Tokens that represent assignments.
-     *
-     * @var array<int|string, int|string>
-     */
-    private $assignmentTokens = [
-        \T_EQUAL          => \T_EQUAL,
-        \T_AND_EQUAL      => \T_AND_EQUAL,
-        \T_OR_EQUAL       => \T_OR_EQUAL,
-        \T_CONCAT_EQUAL   => \T_CONCAT_EQUAL,
-        \T_DIV_EQUAL      => \T_DIV_EQUAL,
-        \T_MINUS_EQUAL    => \T_MINUS_EQUAL,
-        \T_POW_EQUAL      => \T_POW_EQUAL,
-        \T_MOD_EQUAL      => \T_MOD_EQUAL,
-        \T_MUL_EQUAL      => \T_MUL_EQUAL,
-        \T_PLUS_EQUAL     => \T_PLUS_EQUAL,
-        \T_XOR_EQUAL      => \T_XOR_EQUAL,
-        \T_DOUBLE_ARROW   => \T_DOUBLE_ARROW,
-        \T_SL_EQUAL       => \T_SL_EQUAL,
-        \T_SR_EQUAL       => \T_SR_EQUAL,
-        \T_COALESCE_EQUAL => \T_COALESCE_EQUAL,
-        \T_ZSR_EQUAL      => \T_ZSR_EQUAL,
-    ];
-
-    /**
      * Tokens that represent equality comparisons.
      *
      * @var array<int|string, int|string>
@@ -147,48 +123,17 @@ final class UnchangedTokenArraysTest extends TestCase
     ];
 
     /**
-     * Tokens that are allowed to open scopes.
-     *
-     * @var array<int|string, int|string>
-     */
-    private $scopeOpeners = [
-        \T_CLASS      => \T_CLASS,
-        \T_ANON_CLASS => \T_ANON_CLASS,
-        \T_INTERFACE  => \T_INTERFACE,
-        \T_TRAIT      => \T_TRAIT,
-        \T_ENUM       => \T_ENUM,
-        \T_NAMESPACE  => \T_NAMESPACE,
-        \T_FUNCTION   => \T_FUNCTION,
-        \T_CLOSURE    => \T_CLOSURE,
-        \T_IF         => \T_IF,
-        \T_SWITCH     => \T_SWITCH,
-        \T_CASE       => \T_CASE,
-        \T_DECLARE    => \T_DECLARE,
-        \T_DEFAULT    => \T_DEFAULT,
-        \T_WHILE      => \T_WHILE,
-        \T_ELSE       => \T_ELSE,
-        \T_ELSEIF     => \T_ELSEIF,
-        \T_FOR        => \T_FOR,
-        \T_FOREACH    => \T_FOREACH,
-        \T_DO         => \T_DO,
-        \T_TRY        => \T_TRY,
-        \T_CATCH      => \T_CATCH,
-        \T_FINALLY    => \T_FINALLY,
-        \T_PROPERTY   => \T_PROPERTY,
-        \T_OBJECT     => \T_OBJECT,
-        \T_USE        => \T_USE,
-        \T_MATCH      => \T_MATCH,
-    ];
-
-    /**
      * Tokens that represent scope modifiers.
      *
      * @var array<int|string, int|string>
      */
     private $scopeModifiers = [
-        \T_PRIVATE   => \T_PRIVATE,
-        \T_PUBLIC    => \T_PUBLIC,
-        \T_PROTECTED => \T_PROTECTED,
+        \T_PRIVATE       => \T_PRIVATE,
+        \T_PUBLIC        => \T_PUBLIC,
+        \T_PROTECTED     => \T_PROTECTED,
+        \T_PUBLIC_SET    => \T_PUBLIC_SET,
+        \T_PROTECTED_SET => \T_PROTECTED_SET,
+        \T_PRIVATE_SET   => \T_PRIVATE_SET,
     ];
 
     /**
@@ -203,18 +148,6 @@ final class UnchangedTokenArraysTest extends TestCase
         \T_ABSTRACT  => \T_ABSTRACT,
         \T_STATIC    => \T_STATIC,
         \T_FINAL     => \T_FINAL,
-    ];
-
-    /**
-     * Tokens that open code blocks.
-     *
-     * @var array<int|string, int|string>
-     */
-    private $blockOpeners = [
-        \T_OPEN_CURLY_BRACKET  => \T_OPEN_CURLY_BRACKET,
-        \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET,
-        \T_OPEN_PARENTHESIS    => \T_OPEN_PARENTHESIS,
-        \T_OBJECT              => \T_OBJECT,
     ];
 
     /**
@@ -459,7 +392,12 @@ final class UnchangedTokenArraysTest extends TestCase
      */
     public function testUnchangedTokenArrays($name, $expected)
     {
-        $this->assertSame($expected, BCTokens::$name());
+        \asort($expected);
+
+        $result = BCTokens::$name();
+        \asort($result);
+
+        $this->assertSame($expected, $result);
     }
 
     /**

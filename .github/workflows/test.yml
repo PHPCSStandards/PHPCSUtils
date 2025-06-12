@@ -30,11 +30,11 @@ jobs:
 
     strategy:
       matrix:
-        php: ['5.4', '7.0', '7.4', '8.0', '8.3', '8.4']
+        php: ['5.4', '7.0', '7.4', '8.0', '8.4', '8.5']
 
     name: "Lint: PHP ${{ matrix.php }}"
 
-    continue-on-error: ${{ matrix.php == '8.4' }}
+    continue-on-error: ${{ matrix.php == '8.5' }}
 
     steps:
       - name: Checkout code
@@ -48,19 +48,12 @@ jobs:
           coverage: none
           tools: cs2pr
 
-      - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.4 }}
+      - name: Install Composer dependencies
         uses: "ramsey/composer-install@v3"
         with:
+          # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
+          composer-options: ${{ matrix.php == '8.5' && '--ignore-platform-req=php+' || '' }}
           # Bust the cache at least once a month - output format: YYYY-MM.
-          custom-cache-suffix: $(date -u "+%Y-%m")
-
-      # For the PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
-      - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.4 }}
-        uses: "ramsey/composer-install@v3"
-        with:
-          composer-options: --ignore-platform-req=php+
           custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: "Lint against parse errors (PHP < 7.2)"
@@ -91,10 +84,23 @@ jobs:
         # IMPORTANT: test runs shouldn't fail because of PHPCS being incompatible with a PHP version.
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
-        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
-        phpcs_version: ['lowest', 'dev-master']
+        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+        phpcs_version: ['lowest', 'dev-master', '4.x-dev']
         risky: [false]
         experimental: [false]
+
+        exclude:
+          - php: '5.5'
+            phpcs_version: '4.x-dev'
+          - php: '5.6'
+            phpcs_version: '4.x-dev'
+          - php: '7.0'
+            phpcs_version: '4.x-dev'
+          - php: '7.1'
+            phpcs_version: '4.x-dev'
+          # Also exclude the 7.2 build as that's run in code coverage, no need to duplicate.
+          - php: '7.2'
+            phpcs_version: '4.x-dev'
 
         include:
           - php: '5.6'
@@ -109,22 +115,16 @@ jobs:
             extensions: ':iconv' # Run with iconv disabled.
 
           # Experimental builds. These are allowed to fail.
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: 'dev-master'
             risky: false
             experimental: true
-
-          - php: '7.4'
-            phpcs_version: '4.0.x-dev'
+          - php: '8.5'
+            phpcs_version: '4.x-dev'
             risky: false
             experimental: true
 
           # Run risky tests separately.
-          - php: '7.4'
-            phpcs_version: '4.0.x-dev'
-            risky: true
-            experimental: true
-
           - php: '5.4'
             phpcs_version: 'lowest'
             risky: true
@@ -135,13 +135,23 @@ jobs:
             risky: true
             experimental: true
 
-          - php: '8.3'
+          - php: '7.2'
+            phpcs_version: '4.x-dev'
+            risky: true
+            experimental: true
+
+          - php: '8.4'
             phpcs_version: 'lowest'
             risky: true
             experimental: true
 
-          - php: '8.3'
+          - php: '8.4'
             phpcs_version: 'dev-master'
+            risky: true
+            experimental: true
+
+          - php: '8.4'
+            phpcs_version: '4.x-dev'
             risky: true
             experimental: true
 
@@ -158,10 +168,10 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [[ "${{ matrix.phpcs_version }}" != "dev-master" && "${{ matrix.phpcs_version }}" != "4.0.x-dev" ]]; then
-            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
+          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
-            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install PHP
@@ -172,13 +182,13 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      - name: "Composer: set PHPCS version for tests (master)"
-        if: ${{ matrix.phpcs_version != 'lowest' }}
-        run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
-
       # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
       - name: 'Composer: remove PHPCSDevCS'
-        run: composer remove --dev --no-update phpcsstandards/phpcsdevcs
+        run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
+
+      - name: "Composer: set PHPCS version for tests (dev)"
+        if: ${{ contains( matrix.phpcs_version, 'dev') }}
+        run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
         if: ${{ matrix.phpcs_version == 'lowest' }}
@@ -186,19 +196,12 @@ jobs:
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
-      - name: Install Composer dependencies - normal
-        if: ${{ matrix.php < 8.4 }}
+      - name: Install Composer dependencies
         uses: "ramsey/composer-install@v3"
         with:
+          # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
+          composer-options: ${{ matrix.php == '8.5' && '--ignore-platform-req=php+' || '' }}
           # Bust the cache at least once a month - output format: YYYY-MM.
-          custom-cache-suffix: $(date -u "+%Y-%m")
-
-      # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies allow it yet.
-      - name: Install Composer dependencies - with ignore platform
-        if: ${{ matrix.php >= 8.4 }}
-        uses: "ramsey/composer-install@v3"
-        with:
-          composer-options: --ignore-platform-req=php+
           custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: "Composer: set PHPCS version for tests (lowest)"
@@ -208,24 +211,27 @@ jobs:
       - name: Grab PHPUnit version
         id: phpunit_version
         # yamllint disable-line rule:line-length
-        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> "$GITHUB_OUTPUT"
 
       - name: Determine PHPUnit config file to use
         id: phpunit_config
         run: |
-          if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
-            echo 'FILE=phpunit10.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS=' >> $GITHUB_OUTPUT
+          if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}" == "true" ]; then
+            echo 'FILE=phpunit10.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS=' >> "$GITHUB_OUTPUT"
+          elif [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
+            echo 'FILE=phpunit10.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS=' >> "$GITHUB_OUTPUT"
           else
-            echo 'FILE=phpunit.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS= --repeat 2' >> $GITHUB_OUTPUT
+            echo 'FILE=phpunit.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS= --repeat 2' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run the unit tests without caching (non-risky)
         if: ${{ matrix.risky == false }}
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
       - name: Run the unit tests with caching (non-risky)
@@ -234,17 +240,17 @@ jobs:
           vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }}
           --testsuite PHPCSUtils --no-coverage ${{ steps.phpunit_config.outputs.EXTRA_ARGS }}
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: true
 
       # Only run the "compare with PHPCS" group against dev-master as it ensures that PHPCSUtils
-      # functionality is up to date with `dev-master`, so would quickly fail on older PHPCS.
+      # functionality is up to date with `dev` versions, so would quickly fail on older PHPCS.
       - name: Run the unit tests (risky, comparewithPHPCS)
-        if: ${{ matrix.risky && matrix.phpcs_version == 'dev-master' }}
+        if: ${{ matrix.risky && contains( matrix.phpcs_version, 'dev') }}
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group compareWithPHPCS --exclude-group nothing
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
 
       # Run the "xtra" group against high and low PHPCS as these are tests safeguarding PHPCS itself.
       - name: Run the unit tests (risky, xtra)
@@ -252,7 +258,7 @@ jobs:
         # "nothing" is excluded to force PHPUnit to ignore the <exclude> settings in phpunit.xml.dist.
         run: vendor/bin/phpunit -c ${{ steps.phpunit_config.outputs.FILE }} --no-coverage --group xtra --exclude-group nothing
         env:
-          PHPCS_VERSION: ${{ matrix.phpcs_version == '4.0.x-dev' && '4.0.0' || matrix.phpcs_version }}
+          PHPCS_VERSION: ${{ matrix.phpcs_version }}
 
 
   #### CODE COVERAGE STAGE ####
@@ -270,11 +276,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: '8.3'
+          - php: '8.4'
+            phpcs_version: '4.x-dev'
+          - php: '8.4'
             phpcs_version: 'dev-master'
-          - php: '8.3'
+          - php: '8.4'
             phpcs_version: 'lowest'
             extensions: ':iconv' # Run one build with iconv disabled.
+          - php: '7.2'
+            phpcs_version: '4.x-dev'
           - php: '5.4'
             phpcs_version: 'dev-master'
           - php: '5.4'
@@ -291,10 +301,10 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ matrix.phpcs_version }}" != "dev-master" ]; then
-            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
+          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
-            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install PHP
@@ -308,8 +318,12 @@ jobs:
       - name: "DEBUG: Show version details"
         run: php -v
 
-      - name: "Composer: set PHPCS version for tests (master)"
-        if: ${{ matrix.phpcs_version != 'lowest' }}
+      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
+      - name: 'Composer: remove PHPCSDevCS'
+        run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
+
+      - name: "Composer: set PHPCS version for tests (dev)"
+        if: ${{ contains( matrix.phpcs_version, 'dev') }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
@@ -329,7 +343,7 @@ jobs:
       - name: Grab PHPUnit version
         id: phpunit_version
         # yamllint disable-line rule:line-length
-        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> "$GITHUB_OUTPUT"
 
       - name: "DEBUG: Show grabbed version"
         run: echo ${{ steps.phpunit_version.outputs.VERSION }}
@@ -338,21 +352,21 @@ jobs:
       # As of PHPUnit 9.3.4, a cache warming option is available.
       # Using that option prevents issues with PHP-Parser backfilling PHP tokens when PHPCS does not (yet),
       # which would otherwise cause tests to fail on tokens being available when they shouldn't be.
-      # As coverage is only run on high/low PHP, the high PHP version will use PHPUnit 10, so just check for that.
+      # As coverage is only run on high/low PHP, the high PHP version will use PHPUnit 11, so just check for that.
       - name: "Warm the PHPUnit cache (PHPUnit 9.3+)"
-        if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
-        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-cache ./build/phpunit-cache --warm-coverage-cache
+        if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}
+        run: vendor/bin/phpunit -c phpunit10.xml.dist --warm-coverage-cache
 
       - name: "Run the unit tests without caching with code coverage (PHPUnit < 10)"
-        if: ${{ ! startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
+        if: ${{ ! startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}
         run: vendor/bin/phpunit
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false
 
       - name: "Run the unit tests without caching with code coverage (PHPUnit 10+)"
-        if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
-        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-cache ./build/phpunit-cache
+        if: ${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}
+        run: vendor/bin/phpunit -c phpunit10.xml.dist
         env:
           PHPCS_VERSION: ${{ matrix.phpcs_version }}
           PHPCSUTILS_USE_CACHE: false

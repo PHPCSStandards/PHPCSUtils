@@ -1,5 +1,8 @@
 <?php
 
+/* testClosureUse */
+$closure = function() use($bar) {};
+
 /* testUseNamePlainAliased */
 use MyNamespace \ YourClass as ClassAlias;
 

@@ -178,6 +178,58 @@ final class InForeachConditionTest extends UtilityMethodTestCase
                 'testMarker' => '/* testNestedForeach */',
                 'expected'   => 'afterAs',
             ],
+            'before-trait-use-as-in-anon-class-nested-in-long-array-as-token-1' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInLongArrayBefore1 */',
+                'expected'   => 'beforeAs',
+                'targetType' => \T_AS,
+            ],
+            'before-trait-use-in-anon-class-nested-in-long-array-after-as-token-1' => [
+                'testMarker'    => '/* testForeachBeforeContainsAsInLongArrayBefore1 */',
+                'expected'      => 'beforeAs',
+                'targetType'    => \T_STRING,
+                'targetContent' => 'talk',
+            ],
+            'before-trait-use-as-in-anon-class-nested-in-long-array-as-token-2' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInLongArrayBefore2 */',
+                'expected'   => 'beforeAs',
+                'targetType' => \T_AS,
+            ],
+            'before-trait-use-in-anon-class-nested-in-long-array-after-as-token-2' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInLongArrayBefore2 */',
+                'expected'   => 'beforeAs',
+                'targetType' => \T_PROTECTED,
+            ],
+            'as-with-as-used-in-long-array-before' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInLongArrayAs */',
+                'expected'   => 'as',
+                'targetType' => \T_AS,
+            ],
+            'before-trait-use-as-in-anon-class-nested-in-short-array-as-token-1' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInShortArrayBefore1 */',
+                'expected'   => 'beforeAs',
+                'targetType' => \T_AS,
+            ],
+            'before-trait-use-in-anon-class-nested-in-short-array-after-as-token-1' => [
+                'testMarker'    => '/* testForeachBeforeContainsAsInShortArrayBefore1 */',
+                'expected'      => 'beforeAs',
+                'targetType'    => \T_STRING,
+                'targetContent' => 'talk',
+            ],
+            'before-trait-use-as-in-anon-class-nested-in-short-array-as-token-2' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInShortArrayBefore2 */',
+                'expected'   => 'beforeAs',
+                'targetType' => \T_AS,
+            ],
+            'before-trait-use-in-anon-class-nested-in-short-array-after-as-token-2' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInShortArrayBefore2 */',
+                'expected'   => 'beforeAs',
+                'targetType' => \T_PROTECTED,
+            ],
+            'as-with-as-used-in-short-array-before' => [
+                'testMarker' => '/* testForeachBeforeContainsAsInShortArrayAs */',
+                'expected'   => 'as',
+                'targetType' => \T_AS,
+            ],
         ];
     }
 }

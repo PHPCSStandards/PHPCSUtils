@@ -19,6 +19,13 @@ class Foo {
 /* testShortListNotShortArray */
 [ $a, $b ] = $array;
 
+/* testExitAsConstant */
+exit;
+
+/* testDieAsConstant */
+die;
+
+
 // Function calls: no parameters.
 
 /* testNoParamsFunctionCall1 */
@@ -162,6 +169,18 @@ unset(
       $hello,
 
 );
+
+/* testNoParamsExit */
+exit();
+
+/* testHasParamsExit */
+exit( $code );
+
+/* testNoParamsDie */
+die( /*comment*/ );
+
+/* testHasParamsDie */
+die( $status );
 
 /* testNoParamsNoParensAnonClass */
 $anon = new class extends FooBar {};

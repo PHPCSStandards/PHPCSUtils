@@ -59,23 +59,35 @@ final class GetMemberPropertiesTest extends BCFile_GetMemberPropertiesTest
     }
 
     /**
-     * Data provider.
+     * Test receiving an expected exception when a non property is passed.
      *
-     * @see testGetMemberProperties()
+     * @dataProvider dataNotClassProperty
      *
-     * @return array<string, array<string|array<string, string|int|bool>>>
+     * @param string $identifier Comment which precedes the test case.
+     *
+     * @return void
      */
-    public static function dataGetMemberProperties()
+    public function testNotClassPropertyException($identifier)
     {
-        $data = parent::dataGetMemberProperties();
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to a class member var');
 
-        /*
-         * Remove the data sets related to the invalid interface/enum properties.
-         * These will now throw an exception instead.
-         */
-        unset($data['invalid-property-in-interface'], $data['invalid-property-in-enum']);
+        $variable = $this->getTargetToken($identifier, \T_VARIABLE);
+        Variables::getMemberProperties(self::$phpcsFile, $variable);
+    }
 
-        return $data;
+    /**
+     * Test receiving an expected exception when a non variable is passed.
+     *
+     * @return void
+     */
+    public function testNotAVariableException()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_VARIABLE;');
+
+        $next = $this->getTargetToken('/* testNotAVariable */', \T_RETURN);
+        Variables::getMemberProperties(self::$phpcsFile, $next);
     }
 
     /**

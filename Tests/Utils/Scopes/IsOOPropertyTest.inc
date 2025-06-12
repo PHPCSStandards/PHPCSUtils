@@ -41,7 +41,7 @@ $a = new class {
 };
 
 interface MyInterface {
-    // Intentional parse error. Properties are not allowed in interfaces.
+    // Properties are allowed in interfaces since PHP 8.4 (with a property hook).
     /* testInterfaceProp */
     public $interfaceProp = false;
 

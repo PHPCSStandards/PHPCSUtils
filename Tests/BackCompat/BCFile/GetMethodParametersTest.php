@@ -24,7 +24,7 @@
 namespace PHPCSUtils\Tests\BackCompat\BCFile;
 
 use PHPCSUtils\BackCompat\BCFile;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 
 /**
  * Tests for the \PHPCSUtils\BackCompat\BCFile::getMethodParameters method.
@@ -35,7 +35,7 @@ use PHPCSUtils\TestUtils\UtilityMethodTestCase;
  *
  * @since 1.0.0
  */
-class GetMethodParametersTest extends UtilityMethodTestCase
+class GetMethodParametersTest extends PolyfilledTestCase
 {
 
     /**
@@ -1226,8 +1226,8 @@ class GetMethodParametersTest extends UtilityMethodTestCase
         $expected[1] = [
             'token'               => ($php8Names === true) ? 28 : 29,
             'name'                => '$b',
-            'content'             => "\$b /* test */ = /* test */ 'default' /* test*/",
-            'default'             => "'default' /* test*/",
+            'content'             => "\$b /* comment */ = /* comment */ 'default' /* comment*/",
+            'default'             => "'default' /* comment*/",
             'default_token'       => ($php8Names === true) ? 36 : 37,
             'default_equal_token' => ($php8Names === true) ? 32 : 33,
             'has_attributes'      => false,
@@ -2107,6 +2107,120 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify recognition of PHP8 constructor with property promotion using PHP 8.4 asymmetric visibility.
+     *
+     * @return void
+     */
+    public function testPHP84ConstructorPropertyPromotionWithAsymVisibility()
+    {
+        // Offsets are relative to the T_FUNCTION token.
+        $expected    = [];
+        $expected[0] = [
+            'token'                => 12,
+            'name'                 => '$book',
+            'content'              => 'protected(set) string|Book $book',
+            'has_attributes'       => false,
+            'pass_by_reference'    => false,
+            'reference_token'      => false,
+            'variable_length'      => false,
+            'variadic_token'       => false,
+            'type_hint'            => 'string|Book',
+            'type_hint_token'      => 8,
+            'type_hint_end_token'  => 10,
+            'nullable_type'        => false,
+            'property_visibility'  => 'public',
+            'visibility_token'     => false,
+            'set_visibility'       => 'protected(set)',
+            'set_visibility_token' => 6,
+            'property_readonly'    => false,
+            'comma_token'          => 13,
+        ];
+        $expected[1] = [
+            'token'                => 23,
+            'name'                 => '$publisher',
+            'content'              => 'public private(set) ?Publisher $publisher',
+            'has_attributes'       => false,
+            'pass_by_reference'    => false,
+            'reference_token'      => false,
+            'variable_length'      => false,
+            'variadic_token'       => false,
+            'type_hint'            => '?Publisher',
+            'type_hint_token'      => 21,
+            'type_hint_end_token'  => 21,
+            'nullable_type'        => true,
+            'property_visibility'  => 'public',
+            'visibility_token'     => 16,
+            'set_visibility'       => 'private(set)',
+            'set_visibility_token' => 18,
+            'property_readonly'    => false,
+            'comma_token'          => 24,
+        ];
+        $expected[2] = [
+            'token'                => 33,
+            'name'                 => '$author',
+            'content'              => 'Private(set) PROTECTED Author $author',
+            'has_attributes'       => false,
+            'pass_by_reference'    => false,
+            'reference_token'      => false,
+            'variable_length'      => false,
+            'variadic_token'       => false,
+            'type_hint'            => 'Author',
+            'type_hint_token'      => 31,
+            'type_hint_end_token'  => 31,
+            'nullable_type'        => false,
+            'property_visibility'  => 'PROTECTED',
+            'visibility_token'     => 29,
+            'set_visibility'       => 'Private(set)',
+            'set_visibility_token' => 27,
+            'property_readonly'    => false,
+            'comma_token'          => 34,
+        ];
+        $expected[3] = [
+            'token'                => 43,
+            'name'                 => '$pubYear',
+            'content'              => 'readonly public(set) int $pubYear',
+            'has_attributes'       => false,
+            'pass_by_reference'    => false,
+            'reference_token'      => false,
+            'variable_length'      => false,
+            'variadic_token'       => false,
+            'type_hint'            => 'int',
+            'type_hint_token'      => 41,
+            'type_hint_end_token'  => 41,
+            'nullable_type'        => false,
+            'property_visibility'  => 'public',
+            'visibility_token'     => false,
+            'set_visibility'       => 'public(set)',
+            'set_visibility_token' => 39,
+            'property_readonly'    => true,
+            'readonly_token'       => 37,
+            'comma_token'          => 44,
+        ];
+        $expected[4] = [
+            'token'                => 49,
+            'name'                 => '$illegalMissingType',
+            'content'              => 'protected(set) $illegalMissingType',
+            'has_attributes'       => false,
+            'pass_by_reference'    => false,
+            'reference_token'      => false,
+            'variable_length'      => false,
+            'variadic_token'       => false,
+            'type_hint'            => '',
+            'type_hint_token'      => false,
+            'type_hint_end_token'  => false,
+            'nullable_type'        => false,
+            'property_visibility'  => 'public',
+            'visibility_token'     => false,
+            'set_visibility'       => 'protected(set)',
+            'set_visibility_token' => 47,
+            'property_readonly'    => false,
+            'comma_token'          => 50,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Verify behaviour when a non-constructor function uses PHP 8 property promotion syntax.
      *
      * @return void
@@ -2827,6 +2941,49 @@ class GetMethodParametersTest extends UtilityMethodTestCase
     }
 
     /**
+     * Verify handling of a closure T_USE token with variables imported by reference.
+     *
+     * @return void
+     */
+    public function testClosureUseWithReference()
+    {
+        // Offsets are relative to the T_USE token.
+        $expected    = [];
+        $expected[0] = [
+            'token'               => 4,
+            'name'                => '$foo',
+            'content'             => '&$foo',
+            'has_attributes'      => false,
+            'pass_by_reference'   => true,
+            'reference_token'     => 3,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => 5,
+        ];
+        $expected[1] = [
+            'token'               => 8,
+            'name'                => '$bar',
+            'content'             => '&$bar',
+            'has_attributes'      => false,
+            'pass_by_reference'   => true,
+            'reference_token'     => 7,
+            'variable_length'     => false,
+            'variadic_token'      => false,
+            'type_hint'           => '',
+            'type_hint_token'     => false,
+            'type_hint_end_token' => false,
+            'nullable_type'       => false,
+            'comma_token'         => false,
+        ];
+
+        $this->getMethodParametersTestHelper('/* ' . __FUNCTION__ . ' */', $expected, [T_USE]);
+    }
+
+    /**
      * Verify function declarations with trailing commas are handled correctly.
      *
      * @return void
@@ -3043,6 +3200,9 @@ class GetMethodParametersTest extends UtilityMethodTestCase
             }
             if (isset($param['visibility_token']) && \is_int($param['visibility_token']) === true) {
                 $expected[$key]['visibility_token'] += $target;
+            }
+            if (isset($param['set_visibility_token']) && \is_int($param['set_visibility_token']) === true) {
+                $expected[$key]['set_visibility_token'] += $target;
             }
             if (isset($param['readonly_token'])) {
                 $expected[$key]['readonly_token'] += $target;

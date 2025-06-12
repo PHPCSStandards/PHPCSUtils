@@ -11,7 +11,7 @@
 namespace PHPCSUtils\Tests\Utils\UseStatements;
 
 use PHPCSUtils\Internal\Cache;
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\UseStatements;
 
 /**
@@ -21,8 +21,21 @@ use PHPCSUtils\Utils\UseStatements;
  *
  * @since 1.0.0
  */
-final class SplitImportUseStatementTest extends UtilityMethodTestCase
+final class SplitImportUseStatementTest extends PolyfilledTestCase
 {
+
+    /**
+     * Test passing a non-integer token pointer.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, NULL given');
+
+        UseStatements::splitImportUseStatement(self::$phpcsFile, null);
+    }
 
     /**
      * Test passing a non-existent token pointer.
@@ -31,7 +44,10 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_USE');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
+        );
 
         UseStatements::splitImportUseStatement(self::$phpcsFile, 10000);
     }
@@ -43,7 +59,8 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      */
     public function testInvalidTokenPassed()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_USE');
+        $this->expectException('PHPCSUtils\Exceptions\UnexpectedTokenType');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type T_USE;');
 
         // 0 = PHP open tag.
         UseStatements::splitImportUseStatement(self::$phpcsFile, 0);
@@ -60,7 +77,8 @@ final class SplitImportUseStatementTest extends UtilityMethodTestCase
      */
     public function testNonImportUseTokenPassed($testMarker)
     {
-        $this->expectPhpcsException('$stackPtr must be an import use statement');
+        $this->expectException('PHPCSUtils\Exceptions\ValueError');
+        $this->expectExceptionMessage('The value of argument #2 ($stackPtr) must be the pointer to an import use statement');
 
         $stackPtr = $this->getTargetToken($testMarker, \T_USE);
         UseStatements::splitImportUseStatement(self::$phpcsFile, $stackPtr);

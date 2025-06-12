@@ -64,7 +64,7 @@ final class SkipJSCSSTestsOnPHPCS4Test extends PolyfilledTestCase
             $this->expectExceptionMessage($msg);
         } else {
             // Get rid of the "does not perform assertions" warning when run with PHPCS 3.x.
-            $this->assertTrue(true);
+            $this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
         }
 
         parent::skipJSCSSTestsOnPHPCS4();

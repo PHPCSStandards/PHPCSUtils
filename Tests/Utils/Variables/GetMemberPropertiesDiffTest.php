@@ -10,7 +10,7 @@
 
 namespace PHPCSUtils\Tests\Utils\Variables;
 
-use PHPCSUtils\TestUtils\UtilityMethodTestCase;
+use PHPCSUtils\Tests\PolyfilledTestCase;
 use PHPCSUtils\Utils\Variables;
 
 /**
@@ -25,8 +25,21 @@ use PHPCSUtils\Utils\Variables;
  *
  * @since 1.0.0
  */
-final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
+final class GetMemberPropertiesDiffTest extends PolyfilledTestCase
 {
+
+    /**
+     * Test passing a non-integer token pointer.
+     *
+     * @return void
+     */
+    public function testNonIntegerToken()
+    {
+        $this->expectException('PHPCSUtils\Exceptions\TypeError');
+        $this->expectExceptionMessage('Argument #2 ($stackPtr) must be of type integer, boolean given');
+
+        Variables::getMemberProperties(self::$phpcsFile, false);
+    }
 
     /**
      * Test passing a non-existent token pointer.
@@ -35,40 +48,11 @@ final class GetMemberPropertiesDiffTest extends UtilityMethodTestCase
      */
     public function testNonExistentToken()
     {
-        $this->expectPhpcsException('$stackPtr must be of type T_VARIABLE');
+        $this->expectException('PHPCSUtils\Exceptions\OutOfBoundsStackPtr');
+        $this->expectExceptionMessage(
+            'Argument #2 ($stackPtr) must be a stack pointer which exists in the $phpcsFile object, 10000 given'
+        );
 
         Variables::getMemberProperties(self::$phpcsFile, 10000);
-    }
-
-    /**
-     * Test receiving an expected exception when an (invalid) interface or enum property is passed.
-     *
-     * @dataProvider dataNotClassPropertyException
-     *
-     * @param string $testMarker Comment which precedes the test case.
-     *
-     * @return void
-     */
-    public function testNotClassPropertyException($testMarker)
-    {
-        $this->expectPhpcsException('$stackPtr is not a class member var');
-
-        $variable = $this->getTargetToken($testMarker, \T_VARIABLE);
-        Variables::getMemberProperties(self::$phpcsFile, $variable);
-    }
-
-    /**
-     * Data provider.
-     *
-     * @see testNotClassPropertyException()
-     *
-     * @return array<string, array<string>>
-     */
-    public static function dataNotClassPropertyException()
-    {
-        return [
-            'interface property' => ['/* testInterfaceProperty */'],
-            'enum property'      => ['/* testEnumProperty */'],
-        ];
     }
 }

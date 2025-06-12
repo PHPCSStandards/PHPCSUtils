@@ -36,6 +36,12 @@ jobs:
         php: ['5.4', 'latest']
         phpcs_version: ['lowest', 'dev-master']
 
+        include:
+          - php: '7.2'
+            phpcs_version: '4.x-dev'
+          - php: 'latest'
+            phpcs_version: '4.x-dev'
+
     name: "QTest${{ matrix.phpcs_version == 'dev-master' && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
     steps:
@@ -47,10 +53,10 @@ jobs:
       - name: Setup ini config
         id: set_ini
         run: |
-          if [ "${{ matrix.phpcs_version }}" != "dev-master" ]; then
-            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
+          if [ "${{ contains( matrix.phpcs_version, 'dev') }}" == "false" ]; then
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> "$GITHUB_OUTPUT"
           else
-            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install PHP
@@ -60,8 +66,12 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      - name: "Composer: set PHPCS version for tests (master)"
-        if: ${{ matrix.phpcs_version != 'lowest' }}
+      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
+      - name: 'Composer: remove PHPCSDevCS'
+        run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
+
+      - name: "Composer: set PHPCS version for tests (dev)"
+        if: ${{ contains( matrix.phpcs_version, 'dev') }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
@@ -87,17 +97,20 @@ jobs:
       - name: Grab PHPUnit version
         id: phpunit_version
         # yamllint disable-line rule:line-length
-        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> "$GITHUB_OUTPUT"
 
       - name: Determine PHPUnit config file to use
         id: phpunit_config
         run: |
-          if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
-            echo 'FILE=phpunit10.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS=' >> $GITHUB_OUTPUT
+          if [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '11.' ) }}" == "true" ]; then
+            echo 'FILE=phpunit10.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS=' >> "$GITHUB_OUTPUT"
+          elif [ "${{ startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}" == "true" ]; then
+            echo 'FILE=phpunit10.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS=' >> "$GITHUB_OUTPUT"
           else
-            echo 'FILE=phpunit.xml.dist' >> $GITHUB_OUTPUT
-            echo 'EXTRA_ARGS= --repeat 2' >> $GITHUB_OUTPUT
+            echo 'FILE=phpunit.xml.dist' >> "$GITHUB_OUTPUT"
+            echo 'EXTRA_ARGS= --repeat 2' >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run the unit tests without caching

@@ -24,13 +24,22 @@ final class GetVersionTest extends TestCase
 {
 
     /**
-     * Version number of the last PHPCS release.
+     * Version number of the last PHPCS 3.x release.
      *
      * {@internal This should be updated regularly, but shouldn't cause issues if it isn't.}
      *
      * @var string
      */
-    const DEVMASTER = '3.9.2';
+    const LATEST_3X_VERSION = '3.13.0';
+
+    /**
+     * Version number of the last PHPCS 4.x release.
+     *
+     * {@internal This should be updated regularly, but shouldn't cause issues if it isn't.}
+     *
+     * @var string
+     */
+    const LATEST_4X_VERSION = '4.0.0';
 
     /**
      * Test the method.
@@ -47,15 +56,15 @@ final class GetVersionTest extends TestCase
         }
 
         if ($expected === 'lowest') {
-            $expected = '3.10.0';
+            $expected = '3.13.0';
         }
 
         $result = Helper::getVersion();
 
         if ($expected === 'dev-master') {
-            $this->assertTrue(\version_compare(self::DEVMASTER, $result, '<='));
-        } elseif ($expected === '4.0.x-dev@dev') {
-            $this->assertTrue(\version_compare('4.0.0', $result, '=='));
+            $this->assertTrue(\version_compare(self::LATEST_3X_VERSION, $result, '<='));
+        } elseif ($expected === '4.x-dev') {
+            $this->assertTrue(\version_compare(self::LATEST_4X_VERSION, $result, '<='));
         } else {
             $this->assertSame($expected, $result);
         }

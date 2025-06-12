@@ -523,6 +523,18 @@ final class GetParametersTest extends UtilityMethodTestCase
                     ],
                 ],
             ],
+            'die' => [
+                'testMarker' => '/* testDie */',
+                'targetType' => \T_EXIT,
+                'expected'   => [
+                    1 => [
+                        'start' => 2,
+                        'end'   => 4,
+                        'raw'   => '$status',
+                    ],
+                ],
+            ],
+
             'anon-class' => [
                 'testMarker' => '/* testAnonClass */',
                 'targetType' => \T_ANON_CLASS,

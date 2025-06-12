@@ -116,8 +116,6 @@ class GetConditionTest extends UtilityMethodTestCase
         'T_TRY'        => false,
         'T_CATCH'      => false,
         'T_FINALLY'    => false,
-        'T_PROPERTY'   => false,
-        'T_OBJECT'     => false,
         'T_USE'        => false,
     ];
 
