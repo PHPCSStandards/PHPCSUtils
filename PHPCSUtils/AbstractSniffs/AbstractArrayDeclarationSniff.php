@@ -111,16 +111,24 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
      *
      * @var array<int|string, int|string>
      */
-    private $acceptedTokens = [
-        \T_NULL                     => \T_NULL,
-        \T_TRUE                     => \T_TRUE,
-        \T_FALSE                    => \T_FALSE,
-        \T_LNUMBER                  => \T_LNUMBER,
-        \T_DNUMBER                  => \T_DNUMBER,
-        \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
-        \T_STRING_CONCAT            => \T_STRING_CONCAT,
-        \T_BOOLEAN_NOT              => \T_BOOLEAN_NOT,
-    ];
+    private $acceptedTokens = Tokens::ASSIGNMENT_TOKENS
+        + Tokens::COMPARISON_TOKENS
+        + Tokens::ARITHMETIC_TOKENS
+        + Tokens::OPERATORS
+        + Tokens::BOOLEAN_OPERATORS
+        + Tokens::CAST_TOKENS
+        + Tokens::BRACKET_TOKENS
+        + Tokens::HEREDOC_TOKENS
+        + [
+            \T_NULL                     => \T_NULL,
+            \T_TRUE                     => \T_TRUE,
+            \T_FALSE                    => \T_FALSE,
+            \T_LNUMBER                  => \T_LNUMBER,
+            \T_DNUMBER                  => \T_DNUMBER,
+            \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
+            \T_STRING_CONCAT            => \T_STRING_CONCAT,
+            \T_BOOLEAN_NOT              => \T_BOOLEAN_NOT,
+        ];
 
     /**
      * Set up this class.
@@ -134,14 +142,6 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     final public function __construct()
     {
         // Enhance the list of accepted tokens.
-        $this->acceptedTokens += Tokens::ASSIGNMENT_TOKENS;
-        $this->acceptedTokens += Tokens::COMPARISON_TOKENS;
-        $this->acceptedTokens += Tokens::ARITHMETIC_TOKENS;
-        $this->acceptedTokens += Tokens::OPERATORS;
-        $this->acceptedTokens += Tokens::BOOLEAN_OPERATORS;
-        $this->acceptedTokens += Tokens::CAST_TOKENS;
-        $this->acceptedTokens += Tokens::BRACKET_TOKENS;
-        $this->acceptedTokens += Tokens::HEREDOC_TOKENS;
         $this->acceptedTokens += Collections::ternaryOperators();
     }
 
