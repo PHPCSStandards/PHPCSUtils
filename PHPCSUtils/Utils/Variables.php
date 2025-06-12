@@ -42,11 +42,11 @@ final class Variables
      *
      * @link https://php.net/reserved.variables PHP Manual on reserved variables
      *
-     * @since 1.0.0
+     * @since 1.x.x Replaces the `Variables::$phpReservedVars` property and holds the same values.
      *
      * @var array<string, bool>
      */
-    public static $phpReservedVars = [
+    public const PHP_RESERVED_VARS = [
         '_SERVER'              => true,
         '_GET'                 => true,
         '_POST'                => true,
@@ -75,6 +75,16 @@ final class Variables
         // Removed PHP 5.6.0.
         'HTTP_RAW_POST_DATA'   => false,
     ];
+
+    /**
+     * List of PHP Reserved variables.
+     *
+     * @since      1.0.0
+     * @deprecated 1.x.x Use the Variables::PHP_RESERVED_VARS class constant instead.
+     *
+     * @var array<string, bool>
+     */
+    public static $phpReservedVars = self::PHP_RESERVED_VARS;
 
     /**
      * Retrieve the visibility and implementation properties of a class member variable.
@@ -269,7 +279,7 @@ final class Variables
     /**
      * Verify if a given variable name is the name of a PHP reserved variable.
      *
-     * @see \PHPCSUtils\Utils\Variables::$phpReservedVars List of variables names reserved by PHP.
+     * @see \PHPCSUtils\Utils\Variables::PHP_RESERVED_VARS List of variables names reserved by PHP.
      *
      * @since 1.0.0
      *
@@ -288,7 +298,7 @@ final class Variables
             $name = \substr($name, 1);
         }
 
-        return (isset(self::$phpReservedVars[$name]) === true);
+        return (isset(self::PHP_RESERVED_VARS[$name]) === true);
     }
 
     /**
@@ -366,10 +376,10 @@ final class Variables
             $name = \substr($name, 1);
         }
 
-        if (isset(self::$phpReservedVars[$name]) === false) {
+        if (isset(self::PHP_RESERVED_VARS[$name]) === false) {
             return false;
         }
 
-        return self::$phpReservedVars[$name];
+        return self::PHP_RESERVED_VARS[$name];
     }
 }
