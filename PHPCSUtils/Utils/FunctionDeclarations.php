@@ -44,10 +44,11 @@ final class FunctionDeclarations
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
+     * @since 1.x.x Replaces the `FunctionDeclarations::$magicFunctions` property and holds the same values.
      *
      * @var array<string, string>
      */
-    public static $magicFunctions = [
+    public const MAGIC_FUNCTIONS = [
         '__autoload' => 'autoload',
     ];
 
@@ -60,10 +61,11 @@ final class FunctionDeclarations
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
+     * @since 1.x.x Replaces the `FunctionDeclarations::$magicMethods` property and holds the same values.
      *
      * @var array<string, string>
      */
-    public static $magicMethods = [
+    public const MAGIC_METHODS = [
         '__construct'   => 'construct',
         '__destruct'    => 'destruct',
         '__call'        => 'call',
@@ -95,10 +97,11 @@ final class FunctionDeclarations
      * and comparisons against this list should therefore always be done in a case-insensitive manner.
      *
      * @since 1.0.0
+     * @since 1.x.x Replaces the `FunctionDeclarations::$methodsDoubleUnderscore` property and holds the same values.
      *
      * @var array<string, string>
      */
-    public static $methodsDoubleUnderscore = [
+    public const METHODS_DOUBLE_UNDERSCORE = [
         '__dorequest'              => 'SOAPClient',
         '__getcookies'             => 'SOAPClient',
         '__getfunctions'           => 'SOAPClient',
@@ -112,6 +115,36 @@ final class FunctionDeclarations
         '__setsoapheaders'         => 'SOAPClient',
         '__soapcall'               => 'SOAPClient',
     ];
+
+    /**
+     * A list of all PHP magic functions.
+     *
+     * @since      1.0.0
+     * @deprecated 1.x.x Use the FunctionDeclarations::MAGIC_FUNCTIONS class constant instead.
+     *
+     * @var array<string, string>
+     */
+    public static $magicFunctions = self::MAGIC_FUNCTIONS;
+
+    /**
+     * A list of all PHP magic methods.
+     *
+     * @since      1.0.0
+     * @deprecated 1.x.x Use the FunctionDeclarations::MAGIC_METHODS class constant instead.
+     *
+     * @var array<string, string>
+     */
+    public static $magicMethods = self::MAGIC_METHODS;
+
+    /**
+     * A list of all PHP native non-magic methods starting with a double underscore.
+     *
+     * @since      1.0.0
+     * @deprecated 1.x.x Use the FunctionDeclarations::METHODS_DOUBLE_UNDERSCORE class constant instead.
+     *
+     * @var array<string, string>
+     */
+    public static $methodsDoubleUnderscore = self::METHODS_DOUBLE_UNDERSCORE;
 
     /**
      * Returns the declaration name for a function.
@@ -654,7 +687,7 @@ final class FunctionDeclarations
      *
      * @todo Add check for the function declaration being namespaced!
      *
-     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions       List of names of magic functions.
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::MAGIC_FUNCTIONS       List of names of magic functions.
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isMagicFunctionName() For when you already know the name of the
      *                                                                   function and scope checking is done in the
      *                                                                   sniff.
@@ -684,7 +717,7 @@ final class FunctionDeclarations
     /**
      * Verify if a given function name is the name of a PHP magic function.
      *
-     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicFunctions List of names of magic functions.
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::MAGIC_FUNCTIONS List of names of magic functions.
      *
      * @since 1.0.0
      *
@@ -695,13 +728,13 @@ final class FunctionDeclarations
     public static function isMagicFunctionName($name)
     {
         $name = \strtolower($name);
-        return (isset(self::$magicFunctions[$name]) === true);
+        return (isset(self::MAGIC_FUNCTIONS[$name]) === true);
     }
 
     /**
      * Checks if a given function is a PHP magic method.
      *
-     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicMethods       List of names of magic methods.
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::MAGIC_METHODS       List of names of magic methods.
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isMagicMethodName() For when you already know the name of the
      *                                                                 method and scope checking is done in the
      *                                                                 sniff.
@@ -726,7 +759,7 @@ final class FunctionDeclarations
     /**
      * Verify if a given function name is the name of a PHP magic method.
      *
-     * @see \PHPCSUtils\Utils\FunctionDeclaration::$magicMethods List of names of magic methods.
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::MAGIC_METHODS List of names of magic methods.
      *
      * @since 1.0.0
      *
@@ -737,13 +770,13 @@ final class FunctionDeclarations
     public static function isMagicMethodName($name)
     {
         $name = \strtolower($name);
-        return (isset(self::$magicMethods[$name]) === true);
+        return (isset(self::MAGIC_METHODS[$name]) === true);
     }
 
     /**
      * Checks if a given function is a non-magic PHP native double underscore method.
      *
-     * @see \PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore          List of the PHP native non-magic
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::METHODS_DOUBLE_UNDERSCORE         List of the PHP native non-magic
      *                                                                               double underscore method names.
      * @see \PHPCSUtils\Utils\FunctionDeclaration::isPHPDoubleUnderscoreMethodName() For when you already know the
      *                                                                               name of the method and scope
@@ -788,8 +821,8 @@ final class FunctionDeclarations
     /**
      * Verify if a given function name is the name of a non-magic PHP native double underscore method.
      *
-     * @see \PHPCSUtils\Utils\FunctionDeclaration::$methodsDoubleUnderscore List of the PHP native non-magic
-     *                                                                      double underscore method names.
+     * @see \PHPCSUtils\Utils\FunctionDeclaration::METHODS_DOUBLE_UNDERSCORE List of the PHP native non-magic
+     *                                                                       double underscore method names.
      *
      * @since 1.0.0
      *
@@ -800,7 +833,7 @@ final class FunctionDeclarations
     public static function isPHPDoubleUnderscoreMethodName($name)
     {
         $name = \strtolower($name);
-        return (isset(self::$methodsDoubleUnderscore[$name]) === true);
+        return (isset(self::METHODS_DOUBLE_UNDERSCORE[$name]) === true);
     }
 
     /**
@@ -845,6 +878,6 @@ final class FunctionDeclarations
     public static function isSpecialMethodName($name)
     {
         $name = \strtolower($name);
-        return (isset(self::$magicMethods[$name]) === true || isset(self::$methodsDoubleUnderscore[$name]) === true);
+        return (isset(self::MAGIC_METHODS[$name]) === true || isset(self::METHODS_DOUBLE_UNDERSCORE[$name]) === true);
     }
 }
