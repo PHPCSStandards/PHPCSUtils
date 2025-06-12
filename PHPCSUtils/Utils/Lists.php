@@ -32,10 +32,11 @@ final class Lists
      * Used by the `getAssignments()` method.
      *
      * @since 1.0.0
+     * @since 1.x.x Changed from property to class constant.
      *
      * @var array<string, mixed>
      */
-    private static $listItemDefaults = [
+    private const LIST_ITEM_DEFAULTS = [
         'raw'                  => '',
         'assignment'           => '',
         'is_empty'             => false,
@@ -268,7 +269,7 @@ final class Lists
                     }
 
                     // Ok, so this is actually the end of the list item.
-                    $current        = self::$listItemDefaults;
+                    $current        = self::LIST_ITEM_DEFAULTS;
                     $current['raw'] = \trim(GetTokensAsString::normal($phpcsFile, ($lastComma + 1), ($i - 1)));
 
                     if ($start === null) {
