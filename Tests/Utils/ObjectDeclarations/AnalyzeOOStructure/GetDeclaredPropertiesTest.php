@@ -210,6 +210,16 @@ final class GetDeclaredPropertiesTest extends PolyfilledTestCase
                     '$propC'    => '/* markerCPP4_Property5 */',
                 ],
             ],
+            'class with multi-property declaration' => [
+                'testMarker' => '/* testMultiPropertyDeclarations */',
+                'expected'   => [
+                    '$propA' => '/* markerClassMultiProperty1 */',
+                    '$propB' => '/* markerClassMultiProperty2 */',
+                    '$propC' => '/* markerClassMultiProperty3 */',
+                    '$propD' => '/* markerClassMultiProperty4 */',
+                    '$propE' => '/* markerClassMultiProperty5 */',
+                ],
+            ],
         ];
     }
 

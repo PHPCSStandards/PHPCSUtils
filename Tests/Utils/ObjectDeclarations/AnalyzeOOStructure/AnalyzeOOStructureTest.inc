@@ -345,3 +345,17 @@ trait ConstructorWithParamsAndProperties {
         string $paramB,
     ) {}
 }
+
+/* testMultiPropertyDeclarations */
+class testMultiProperty {
+    /* markerClassMultiProperty1 */
+    public private(set) int $propA = 5,
+        /* markerClassMultiProperty2 */
+        $propB = 10,
+        /* markerClassMultiProperty3 */
+        $propC,
+        /* markerClassMultiProperty4 */
+        $propD,
+        /* markerClassMultiProperty5 */
+        $propE = 10;
+}
