@@ -21,7 +21,7 @@ jobs:
   phpcs-version-check:
     name: "Check latest PHPCS version"
     # Don't run the cron job on forks.
-    if: ${{ github.event_name != 'schedule' || github.repository == 'PHPCSStandards/PHPCSUtils' }}
+    if: ${{ github.event_name != 'schedule' || github.event.repository.fork == false }}
 
     runs-on: ubuntu-latest
     steps:
