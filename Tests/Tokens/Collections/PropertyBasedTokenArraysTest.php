@@ -36,9 +36,9 @@ final class PropertyBasedTokenArraysTest extends TestCase
     public function testPropertyBasedTokenArrays($name)
     {
         $reflProp = new ReflectionProperty('PHPCSUtils\Tokens\Collections', $name);
-        $reflProp->setAccessible(true);
+        (\PHP_VERSION_ID < 80100) && $reflProp->setAccessible(true);
         $expected = $reflProp->getValue();
-        $reflProp->setAccessible(false);
+        (\PHP_VERSION_ID < 80100) && $reflProp->setAccessible(false);
 
         $this->assertSame($expected, Collections::$name());
     }
