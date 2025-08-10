@@ -78,9 +78,9 @@ trait AssertPropertySame
                     return $objectUnderTest->$propertyName;
                 }
 
-                $property->setAccessible(true);
+                (\PHP_VERSION_ID < 80100) && $property->setAccessible(true);
                 $value = $property->getValue($objectUnderTest);
-                $property->setAccessible(false);
+                (\PHP_VERSION_ID < 80100) && $property->setAccessible(false);
 
                 return $value;
             } catch (ReflectionException $e) {
