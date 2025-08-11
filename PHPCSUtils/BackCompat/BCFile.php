@@ -559,6 +559,7 @@ final class BCFile
      *   'is_static'       => boolean,       // TRUE if the static keyword was found.
      *   'is_readonly'     => boolean,       // TRUE if the readonly keyword was found.
      *   'is_final'        => boolean,       // TRUE if the final keyword was found.
+     *   'is_abstract'     => boolean,       // TRUE if the abstract keyword was found.
      *   'type'            => string,        // The type of the var (empty if no type specified).
      *   'type_token'      => integer|false, // The stack pointer to the start of the type
      *                                       // or FALSE if there is no type.
@@ -573,6 +574,7 @@ final class BCFile
      *
      * Changelog for the PHPCS native function:
      * - Introduced in PHPCS 0.0.5.
+     * - PHPCS 3.13.3: support for PHP 8.4 abstract properties.
      * - PHPCS 4.0: properties in interfaces (PHP 8.4+) are accepted.
      * - PHPCS 4.0: will no longer throw a parse error warning.
      *
@@ -580,6 +582,8 @@ final class BCFile
      * @see \PHPCSUtils\Utils\Variables::getMemberProperties() PHPCSUtils native improved version.
      *
      * @since 1.0.0
+     * @since 1.1.0 Sync with PHPCS 4.0.0, remove parse error warning and support PHP 8.4 properties in interfaces. PHPCS(new)#991
+     * @since 1.1.2 Sync with PHPCS 3.13.3, support for abstract properties. PHPCS(new)#xxx
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token to
@@ -626,6 +630,7 @@ final class BCFile
             T_VAR      => T_VAR,
             T_READONLY => T_READONLY,
             T_FINAL    => T_FINAL,
+            T_ABSTRACT => T_ABSTRACT,
         ];
 
         $valid += Tokens::$scopeModifiers;
@@ -637,6 +642,7 @@ final class BCFile
         $isStatic       = false;
         $isReadonly     = false;
         $isFinal        = false;
+        $isAbstract     = false;
 
         $startOfStatement = $phpcsFile->findPrevious(
             [
@@ -684,6 +690,9 @@ final class BCFile
                 case T_FINAL:
                     $isFinal = true;
                     break;
+                case T_ABSTRACT:
+                    $isAbstract = true;
+                    break;
             }
         }
 
@@ -728,6 +737,7 @@ final class BCFile
             'is_static'       => $isStatic,
             'is_readonly'     => $isReadonly,
             'is_final'        => $isFinal,
+            'is_abstract'     => $isAbstract,
             'type'            => $type,
             'type_token'      => $typeToken,
             'type_end_token'  => $typeEndToken,
