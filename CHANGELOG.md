@@ -10,6 +10,23 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.1.3] - 2025-10-16
+
+### Changed
+
+#### Other
+
+* Various housekeeping.
+
+### Fixed
+
+#### PHPCS Backcompat
+
+* `BCFile::getMemberProperties()`: sync with PHPCS 3.13.4 - fix PHP 8.5 "Using null as an array offset" deprecation notice. [#711]
+
+[#711]: https://github.com/PHPCSStandards/PHPCSUtils/pull/711
+
+
 ## [1.1.2] - 2025-09-05
 
 ### Added
@@ -1276,6 +1293,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.1.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.2...1.1.3
 [1.1.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.1...1.1.2
 [1.1.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.0...1.1.1
 [1.1.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.0.12...1.1.0
