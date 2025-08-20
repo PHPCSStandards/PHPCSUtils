@@ -218,7 +218,7 @@ final class TypeString
 
         // Check for nullable union type.
         $matched = \preg_match(
-            '`(?<before>^|[^|&(?\s]+\s*\|)\s*null\s*(?<after>\|\s*[^|&)?\s]+|$)`i',
+            '`(?<before>^|[^|&(?\s]+\s*\|)\s*[\\\\]?null\s*(?<after>\|\s*[^|&)?\s]+|$)`i',
             $typeString,
             $matches
         );
