@@ -290,6 +290,14 @@ final class FilterTypesTest extends TestCase
                     '\Fully\Qualified'    => '\Fully\Qualified',
                 ],
             ],
+            'keyed array containing FQN and uppercase true/false/null keywords' => [
+                'keywords' => [
+                    '\FALSE' => '\FALSE',
+                    '\NULL'  => '\NULL',
+                    '\TRUE'  => '\TRUE',
+                ],
+                'oonames'  => [],
+            ],
             'keyed array containing both keywords and oo names, keys not the same as values' => [
                 'keywords' => [
                     'float'  => 'callable',

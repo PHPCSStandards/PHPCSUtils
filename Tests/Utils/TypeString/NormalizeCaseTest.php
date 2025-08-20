@@ -135,6 +135,31 @@ final class NormalizeCaseTest extends TestCase
             ];
         }
 
+        $data['true: fully qualified']             = [
+            'type'     => '\true',
+            'expected' => 'true',
+        ];
+        $data['false: fully qualified']            = [
+            'type'     => '\false',
+            'expected' => 'false',
+        ];
+        $data['null: fully qualified']             = [
+            'type'     => '\null',
+            'expected' => 'null',
+        ];
+        $data['true: fully qualified, uppercase']  = [
+            'type'     => '\TRUE',
+            'expected' => 'true',
+        ];
+        $data['false: fully qualified, uppercase'] = [
+            'type'     => '\FALSE',
+            'expected' => 'false',
+        ];
+        $data['null: fully qualified, uppercase']  = [
+            'type'     => '\NULL',
+            'expected' => 'null',
+        ];
+
         $data['Classname: UnqualifiedName'] = [
             'type'     => 'UnqualifiedName',
             'expected' => 'UnqualifiedName',

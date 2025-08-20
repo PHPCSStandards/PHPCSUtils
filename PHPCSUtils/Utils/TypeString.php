@@ -129,7 +129,7 @@ final class TypeString
             return false;
         }
 
-        $typeLC = \strtolower(\trim($type));
+        $typeLC = \strtolower(\ltrim(\trim($type), '\\'));
         return isset(self::$keywordTypes[$typeLC]);
     }
 
@@ -137,6 +137,8 @@ final class TypeString
      * Normalize the case for a single type.
      *
      * - Types which are recognized PHP "keyword" types will be returned in lowercase.
+     * - Types which are recognized PHP "keyword" types and can be fully qualified (true/false/null)
+     *   will be returned as unqualified.
      * - Class/Interface/Enum names will be returned in their original case.
      *
      * @since 1.1.0
@@ -152,7 +154,7 @@ final class TypeString
         }
 
         if (self::isKeyword($type)) {
-            return \strtolower($type);
+            return \strtolower(\ltrim($type, '\\'));
         }
 
         return $type;
@@ -218,7 +220,7 @@ final class TypeString
 
         // Check for nullable union type.
         $matched = \preg_match(
-            '`(?<before>^|[^|&(?\s]+\s*\|)\s*null\s*(?<after>\|\s*[^|&)?\s]+|$)`i',
+            '`(?<before>^|[^|&(?\s]+\s*\|)\s*[\\\\]?null\s*(?<after>\|\s*[^|&)?\s]+|$)`i',
             $typeString,
             $matches
         );
