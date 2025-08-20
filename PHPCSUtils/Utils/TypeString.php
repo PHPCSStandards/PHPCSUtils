@@ -137,6 +137,8 @@ final class TypeString
      * Normalize the case for a single type.
      *
      * - Types which are recognized PHP "keyword" types will be returned in lowercase.
+     * - Types which are recognized PHP "keyword" types and can be fully qualified (true/false/null)
+     *   will be returned as unqualified.
      * - Class/Interface/Enum names will be returned in their original case.
      *
      * @since 1.1.0
@@ -152,7 +154,7 @@ final class TypeString
         }
 
         if (self::isKeyword($type)) {
-            return \strtolower($type);
+            return \strtolower(\ltrim($type, '\\'));
         }
 
         return $type;
