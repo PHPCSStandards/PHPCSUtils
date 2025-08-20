@@ -129,7 +129,7 @@ final class TypeString
             return false;
         }
 
-        $typeLC = \strtolower(\trim($type));
+        $typeLC = \strtolower(\ltrim(\trim($type), '\\'));
         return isset(self::$keywordTypes[$typeLC]);
     }
 
