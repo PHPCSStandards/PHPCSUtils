@@ -182,6 +182,14 @@ final class ParenthesesTest extends UtilityMethodTestCase
             'code'    => \T_CONSTANT_ENCAPSED_STRING,
             'content' => "'message'",
         ],
+        'testIfFQNExitDie-boolean-or' => [
+            'marker'  => '/* testFQNExit */',
+            'code'    => \T_BOOLEAN_OR,
+        ],
+        'testIfFQNExitDie-statuscode' => [
+            'marker'  => '/* testFQNExit */',
+            'code'    => \T_LNUMBER,
+        ],
         'testMatch-count' => [
             'marker'  => '/* testMatch */',
             'code'    => \T_STRING,
@@ -637,6 +645,8 @@ final class ParenthesesTest extends UtilityMethodTestCase
      */
     public static function dataWalkParentheses()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         $data = [
             'testIfWithArray-$a' => [
                 'testName'        => 'testIfWithArray-$a',
@@ -927,6 +937,40 @@ final class ParenthesesTest extends UtilityMethodTestCase
                     'lastIfElseOwner'       => -12,
                 ],
             ],
+            'testIfFQNExitDie-boolean-or' => [
+                'testName'        => 'testIfFQNExitDie-boolean-or',
+                'expectedResults' => [
+                    'firstOpener'           => -6,
+                    'firstCloser'           => ($php8Names === true) ? 6 : 7,
+                    'firstOwner'            => -8,
+                    'firstScopeOwnerOpener' => -6,
+                    'firstScopeOwnerCloser' => ($php8Names === true) ? 6 : 7,
+                    'firstScopeOwnerOwner'  => -8,
+                    'lastOpener'            => -6,
+                    'lastCloser'            => ($php8Names === true) ? 6 : 7,
+                    'lastOwner'             => -8,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => -8,
+                ],
+            ],
+            'testIfFQNExitDie-message' => [
+                'testName'        => 'testIfFQNExitDie-statuscode',
+                'expectedResults' => [
+                    'firstOpener'           => ($php8Names === true) ? -10 : -11,
+                    'firstCloser'           => 2,
+                    'firstOwner'            => ($php8Names === true) ? -12 : -13,
+                    'firstScopeOwnerOpener' => ($php8Names === true) ? -10 : -11,
+                    'firstScopeOwnerCloser' => 2,
+                    'firstScopeOwnerOwner'  => ($php8Names === true) ? -12 : -13,
+                    'lastOpener'            => -1,
+                    'lastCloser'            => 1,
+                    'lastOwner'             => -2,
+                    'lastArrayOpener'       => false,
+                    'lastFunctionCloser'    => false,
+                    'lastIfElseOwner'       => ($php8Names === true) ? -12 : -13,
+                ],
+            ],
             'testMatch-count' => [
                 'testName'        => 'testMatch-count',
                 'expectedResults' => [
@@ -1205,6 +1249,17 @@ final class ParenthesesTest extends UtilityMethodTestCase
             ],
             'testIfExitDie-message' => [
                 'testName'        => 'testIfExitDie-message',
+                'expectedResults' => [
+                    'T_IF'   => true,
+                    'T_EXIT' => true,
+                ],
+            ],
+            'testIfFQNExitDie-boolean-or' => [
+                'testName'        => 'testIfFQNExitDie-boolean-or',
+                'expectedResults' => ['T_IF' => true],
+            ],
+            'testIfFQNExitDie-statuscode' => [
+                'testName'        => 'testIfFQNExitDie-statuscode',
                 'expectedResults' => [
                     'T_IF'   => true,
                     'T_EXIT' => true,

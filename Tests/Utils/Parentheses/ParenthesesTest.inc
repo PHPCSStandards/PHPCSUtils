@@ -65,6 +65,9 @@ eval($a . $b . $c );
 /* testExit */
 if (defined('FOO') || die('message')) {}
 
+/* testFQNExit */
+if (defined('FOO') || \exit(10)) {}
+
 /* testMatch */
 $m = match(count($a)) {
     1 => true,
