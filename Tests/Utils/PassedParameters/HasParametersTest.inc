@@ -174,10 +174,10 @@ unset(
 exit();
 
 /* testHasParamsExit */
-exit( $code );
+\exit( $code );
 
 /* testNoParamsDie */
-die( /*comment*/ );
+\die( /*comment*/ );
 
 /* testHasParamsDie */
 die( $status );
