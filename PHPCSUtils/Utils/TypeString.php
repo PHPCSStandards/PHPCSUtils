@@ -137,11 +137,12 @@ final class TypeString
      * Normalize the case for a single type.
      *
      * - Types which are recognized PHP "keyword" types will be returned in lowercase.
-     * - Types which are recognized PHP "keyword" types and can be fully qualified (true/false/null)
-     *   will be returned as unqualified.
+     * - Types which are recognized PHP "keyword" types and are incorrectly provided as fully qualified
+     *   (typically: true/false/null) will be returned as unqualified.
      * - Class/Interface/Enum names will be returned in their original case.
      *
      * @since 1.1.0
+     * @since 1.1.2 Will now also normalize (illegal) FQN true/false/null to unqualified.
      *
      * @param string $type Type to normalize the case for.
      *
