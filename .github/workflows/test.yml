@@ -25,7 +25,7 @@ env:
 
 jobs:
   lint:
-    if: ${{ github.ref != 'refs/heads/develop' }}
+    if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -67,7 +67,7 @@ jobs:
 
   #### TEST STAGE ####
   test:
-    if: ${{ github.ref != 'refs/heads/develop' }}
+    if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
     needs: lint
     runs-on: ubuntu-latest
 
