@@ -583,7 +583,7 @@ final class BCFile
      *
      * @since 1.0.0
      * @since 1.1.0 Sync with PHPCS 4.0.0, remove parse error warning and support PHP 8.4 properties in interfaces. PHPCS(new)#991
-     * @since 1.1.2 Sync with PHPCS 3.13.3, support for abstract properties. PHPCS(new)#xxx
+     * @since 1.1.2 Sync with PHPCS 3.13.3, support for abstract properties. PHPCS(new)#1183
      *
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
      * @param int                         $stackPtr  The position in the stack of the `T_VARIABLE` token to
@@ -601,6 +601,10 @@ final class BCFile
 
         if ($tokens[$stackPtr]['code'] !== T_VARIABLE) {
             throw new RuntimeException('$stackPtr must be of type T_VARIABLE');
+        }
+
+        if (empty($tokens[$stackPtr]['conditions']) === true) {
+            throw new RuntimeException('$stackPtr is not a class member var');
         }
 
         $conditions = $tokens[$stackPtr]['conditions'];
