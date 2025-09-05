@@ -372,6 +372,23 @@ final class ToArrayTest extends TestCase
                     'void'      => 'void',
                 ],
             ],
+            'union type: \true|\false|\null (FQN)' => [
+                'type'     => '\true|\false|\null',
+                'expected' => [
+                    'true'  => 'true',
+                    'false' => 'false',
+                    'null'  => 'null',
+                ],
+            ],
+            'union type: \TRUE|\FALSE|\NULL (FQN + uppercase)' => [
+                'type'     => '\TRUE|\FALSE|\NULL',
+                'expected' => [
+                    'true'  => 'true',
+                    'false' => 'false',
+                    'null'  => 'null',
+                ],
+            ],
+
             'DNF type: keywords in mixed case' => [
                 'type'     => 'FALSE|(B&A)|Null',
                 'expected' => [
@@ -423,6 +440,23 @@ final class ToArrayTest extends TestCase
                     'void'      => 'void',
                 ],
             ],
+            'union type: \true|\false|\null (FQN)' => [
+                'type'     => '\true|\false|\null',
+                'expected' => [
+                    '\true'  => '\true',
+                    '\false' => '\false',
+                    '\null'  => '\null',
+                ],
+            ],
+            'union type: \TRUE|\FALSE|\NULL (FQN + uppercase)' => [
+                'type'     => '\TRUE|\FALSE|\NULL',
+                'expected' => [
+                    '\TRUE'  => '\TRUE',
+                    '\FALSE' => '\FALSE',
+                    '\NULL'  => '\NULL',
+                ],
+            ],
+
             'DNF type: keywords in mixed case' => [
                 'type'     => 'FALSE|(B&A)|Null',
                 'expected' => [

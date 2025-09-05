@@ -97,14 +97,14 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
     {
         return [
             'closure-use-previous-empty-array' => [
-                'testMarker' => '/* testClosureUse */',
+                'testMarker'  => '/* testClosureUse */',
                 'expected'    => [],
                 'previousUse' => [],
             ],
             // Documenting that a "previous" array is not cleaned of unexpected keys.
             'closure-use-previous-non-empty-array-unexpected-keys' => [
-                'testMarker' => '/* testClosureUse */',
-                'expected'   => [
+                'testMarker'  => '/* testClosureUse */',
+                'expected'    => [
                     'something' => 'else',
                 ],
                 'previousUse' => [
@@ -112,8 +112,8 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
                 ],
             ],
             'closure-use-previous-base-array' => [
-                'testMarker' => '/* testClosureUse */',
-                'expected'   => [
+                'testMarker'  => '/* testClosureUse */',
+                'expected'    => [
                     'name'     => [],
                     'function' => [],
                     'const'    => [],
@@ -138,8 +138,8 @@ final class SplitAndMergeImportUseStatementTest extends PolyfilledTestCase
     {
         $data = [
             'name-plain' => [
-                'testMarker' => '/* testUseNamePlainAliased */',
-                'expected'   => [
+                'testMarker'  => '/* testUseNamePlainAliased */',
+                'expected'    => [
                     'name'     => ['ClassAlias' => 'MyNamespace\YourClass'],
                     'function' => [],
                     'const'    => [],

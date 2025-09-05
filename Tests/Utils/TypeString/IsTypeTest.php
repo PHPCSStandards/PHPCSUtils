@@ -319,6 +319,16 @@ final class IsTypeTest extends TestCase
                     'dnf'          => false,
                 ],
             ],
+            'nullable union type: \true|\null (FQN)' => [
+                'type'     => '\true|\null',
+                'expected' => [
+                    'singular'     => false,
+                    'nullable'     => true,
+                    'union'        => true,
+                    'intersection' => false,
+                    'dnf'          => false,
+                ],
+            ],
 
             'intersection type: UnqualifiedName&Package\Partially&\Vendor\FullyQualified&namespace\Relative\Name' => [
                 'type'     => 'UnqualifiedName&Package\Partially&\Vendor\FullyQualified&namespace\Relative\Name',
@@ -383,6 +393,36 @@ final class IsTypeTest extends TestCase
             ],
             'DNF type: null at start and whitespace rich' => [
                 'type'     => ' null | ( Foo & Bar & \Baz )',
+                'expected' => [
+                    'singular'     => false,
+                    'nullable'     => true,
+                    'union'        => false,
+                    'intersection' => false,
+                    'dnf'          => true,
+                ],
+            ],
+            'DNF type: FQN null at end' => [
+                'type'     => '(Foo&Bar)|\null',
+                'expected' => [
+                    'singular'     => false,
+                    'nullable'     => true,
+                    'union'        => false,
+                    'intersection' => false,
+                    'dnf'          => true,
+                ],
+            ],
+            'DNF type: FQN null in the middle' => [
+                'type'     => '(Foo&Bar)|\null|(Baz&Countable)',
+                'expected' => [
+                    'singular'     => false,
+                    'nullable'     => true,
+                    'union'        => false,
+                    'intersection' => false,
+                    'dnf'          => true,
+                ],
+            ],
+            'DNF type: FQN null at start and whitespace rich' => [
+                'type'     => ' \null | ( Foo & Bar & \Baz )',
                 'expected' => [
                     'singular'     => false,
                     'nullable'     => true,

@@ -117,6 +117,13 @@ final class IsKeywordTest extends TestCase
             ];
         }
 
+        $data['true: fully qualified']             = ['type' => '\true'];
+        $data['false: fully qualified']            = ['type' => '\false'];
+        $data['null: fully qualified']             = ['type' => '\null'];
+        $data['true: fully qualified, uppercase']  = ['type' => '\TRUE'];
+        $data['false: fully qualified, uppercase'] = ['type' => '\FALSE'];
+        $data['null: fully qualified, uppercase']  = ['type' => '\NULL'];
+
         return $data;
     }
 

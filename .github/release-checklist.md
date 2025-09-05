@@ -26,5 +26,6 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
 
 ### Publicize
 
+- [ ] Post on Mastodon about the release.
 - [ ] Tweet about the release.
 - [ ] Inform the primary dependants of this repo (PHPCSExtra, WordPressCS, PHPCompatibility and VariableAnalysis) about the release.

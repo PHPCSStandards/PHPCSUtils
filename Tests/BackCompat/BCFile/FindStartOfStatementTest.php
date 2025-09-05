@@ -545,6 +545,8 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
      */
     public static function dataFindStartInsideSwitchCaseDefaultStatements()
     {
+        $php8Names = parent::usesPhp8NameTokens();
+
         return [
             'Case keyword should be start of case statement - case itself' => [
                 'testMarker'     => '/* testCaseStatement */',
@@ -607,15 +609,21 @@ final class FindStartOfStatementTest extends UtilityMethodTestCase
                 'targets'        => \T_CLOSE_PARENTHESIS,
                 'expectedTarget' => \T_THROW,
             ],
-            'Goto should be start for contents of the goto statement - goto label'                    => [
+            'Goto should be start for contents of the goto statement - goto label' => [
                 'testMarker'     => '/* testInsideCaseGotoStatement */',
                 'targets'        => \T_STRING,
                 'expectedTarget' => \T_GOTO,
             ],
-            'Goto should be start for contents of the goto statement - semicolon'                     => [
+            'Goto should be start for contents of the goto statement - semicolon' => [
                 'testMarker'     => '/* testInsideCaseGotoStatement */',
                 'targets'        => \T_SEMICOLON,
                 'expectedTarget' => \T_GOTO,
+            ],
+            'Namespace separator for "die" should be start for contents of the die statement - close parenthesis' => [
+                // Note: not sure if this is actually correct - should this be the open parenthesis ?
+                'testMarker'     => '/* testInsideCaseFullyQualifiedDieStatement */',
+                'targets'        => T_CLOSE_PARENTHESIS,
+                'expectedTarget' => ($php8Names === true ? T_EXIT : T_NS_SEPARATOR),
             ],
             'Default keyword should be start of default statement - default itself' => [
                 'testMarker'     => '/* testDefaultStatement */',

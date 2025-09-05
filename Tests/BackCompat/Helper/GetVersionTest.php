@@ -30,7 +30,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const LATEST_3X_VERSION = '3.13.2';
+    const LATEST_3X_VERSION = '3.13.3';
 
     /**
      * Version number of the last PHPCS 4.x release.
@@ -56,7 +56,7 @@ final class GetVersionTest extends TestCase
         }
 
         if ($expected === 'lowest') {
-            $expected = '3.13.0';
+            $expected = '3.13.3';
         }
 
         $result = Helper::getVersion();

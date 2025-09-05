@@ -25,7 +25,7 @@ env:
 
 jobs:
   lint:
-    if: ${{ github.ref != 'refs/heads/develop' }}
+    if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -67,7 +67,7 @@ jobs:
 
   #### TEST STAGE ####
   test:
-    if: ${{ github.ref != 'refs/heads/develop' }}
+    if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
     needs: lint
     runs-on: ubuntu-latest
 
@@ -161,7 +161,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -294,7 +294,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.

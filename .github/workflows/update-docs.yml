@@ -58,7 +58,7 @@ jobs:
           fi
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ steps.base_branch.outputs.BRANCH }}
           # fetch-depth is needed to allow for retrieving the last tag for a non-tag workflow run.
@@ -129,7 +129,7 @@ jobs:
           destination: ./docs/_site
 
       - name: Upload GH Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./docs/_site
 
