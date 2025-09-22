@@ -27,6 +27,120 @@ final class AttributeBlock
 {
 
     /**
+     * Given an attribute opener, find the relevant construct token the attribute applies to.
+     *
+     * @since 1.2.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position of the T_ATTRIBUTE (attribute opener) token.
+     *
+     * @return int|false The stackPtr to the OO, function, closure, fn, constant, or variable token the attribute block
+     *                   applies to; or FALSE if the attribute target could not be determined.
+     *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not an attribute token and
+     *                                                    not within an attribute.
+     */
+    public static function appliesTo(File $phpcsFile, $stackPtr)
+    {
+        static $allowedTokens;
+
+        $tokens = $phpcsFile->getTokens();
+
+        if (\is_int($stackPtr) === false) {
+            throw TypeError::create(2, '$stackPtr', 'integer', $stackPtr);
+        }
+
+        if (isset($tokens[$stackPtr]) === false) {
+            throw OutOfBoundsStackPtr::create(2, '$stackPtr', $stackPtr);
+        }
+
+        if ($tokens[$stackPtr]['code'] !== \T_ATTRIBUTE
+            && $tokens[$stackPtr]['code'] !== \T_ATTRIBUTE_END
+            && Context::inAttribute($phpcsFile, $stackPtr) === false
+        ) {
+            $acceptedTokens = 'T_ATTRIBUTE, T_ATTRIBUTE_END or a token within an attribute';
+            throw UnexpectedTokenType::create(2, '$stackPtr', $acceptedTokens, $tokens[$stackPtr]['type']);
+        }
+
+        if (isset($tokens[$stackPtr]['attribute_closer']) === false) {
+            return false;
+        }
+
+        if (Cache::isCached($phpcsFile, __METHOD__, $stackPtr) === true) {
+            return Cache::get($phpcsFile, __METHOD__, $stackPtr);
+        }
+
+        $attributeTarget = false;
+
+        if (isset($allowedTokens) === false) {
+            /*
+             * Allow every type of token which could be encountered between the attribute and the target construct,
+             * even though some are only allowed in specific circumstances or for specific constructs.
+             * That, however, is not a concern for this method.
+             * Parse error tolerance prevails to give sniffs the most flexibility.
+             */
+            $allowedTokens = Tokens::$emptyTokens;
+
+            // OO constants.
+            $allowedTokens += Collections::constantModifierKeywords();
+
+            // Functions, closures, arrow functions and methods.
+            $allowedTokens += [\T_STATIC => \T_STATIC];
+            $allowedTokens += Tokens::$methodPrefixes;
+
+            // OO declarations.
+            $allowedTokens += Collections::classModifierKeywords();
+
+            // Properties and parameters
+            $allowedTokens += [\T_NULLABLE => \T_NULLABLE];
+            $allowedTokens += Collections::propertyModifierKeywords();
+            $allowedTokens += Collections::propertyTypeTokens();
+            $allowedTokens += Collections::parameterTypeTokens();
+            $allowedTokens += [
+                \T_BITWISE_AND => \T_BITWISE_AND,
+                \T_ELLIPSIS    => \T_ELLIPSIS,
+            ];
+        }
+
+        for ($i = ($tokens[$stackPtr]['attribute_closer'] + 1); $i <= $phpcsFile->numTokens; $i++) {
+            // Skip over potentially large docblocks.
+            if ($tokens[$i]['code'] === \T_DOC_COMMENT_OPEN_TAG
+                && isset($tokens[$i]['comment_closer'])
+            ) {
+                $i = $tokens[$i]['comment_closer'];
+                continue;
+            }
+
+            if ($tokens[$i]['code'] === \T_ATTRIBUTE
+                && isset($tokens[$i]['attribute_closer']) === true
+            ) {
+                $i = $tokens[$i]['attribute_closer'];
+                continue;
+            }
+
+            if (isset($allowedTokens[$tokens[$i]['code']])) {
+                continue;
+            }
+
+            // Okay, so this _must_ be the token for the construct.
+            if (isset(Tokens::$ooScopeTokens[$tokens[$i]['code']]) === true
+                || isset(Collections::functionDeclarationTokens()[$tokens[$i]['code']]) === true
+                || $tokens[$i]['code'] === \T_CONST
+                || $tokens[$i]['code'] === \T_VARIABLE
+            ) {
+                $attributeTarget = $i;
+            }
+
+            break;
+        }
+
+        Cache::set($phpcsFile, __METHOD__, $stackPtr, $attributeTarget);
+        return $attributeTarget;
+    }
+
+    /**
      * Retrieve information on each attribute instantiation within an attribute block.
      *
      * @since 1.2.0
