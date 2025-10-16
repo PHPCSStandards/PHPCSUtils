@@ -34,19 +34,23 @@ jobs:
     strategy:
       matrix:
         php: ['5.4', 'latest']
-        phpcs_version: ['lowest', 'dev-master']
+        phpcs_version: ['lowest', '3.x-dev']
 
         include:
           - php: '7.2'
+            phpcs_version: '4.0.0'
+          - php: '7.2'
             phpcs_version: '4.x-dev'
+          - php: 'latest'
+            phpcs_version: '4.0.0'
           - php: 'latest'
             phpcs_version: '4.x-dev'
 
-    name: "QTest${{ matrix.phpcs_version == 'dev-master' && ' + Lint' || '' }}: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
+    name: "QTest: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -60,7 +64,7 @@ jobs:
           fi
 
       - name: Install PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@bf6b4fbd49ca58e4608c9c89fba0b8d90bd2a39f # 2.35.5
         with:
           php-version: ${{ matrix.php }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
@@ -70,8 +74,8 @@ jobs:
       - name: 'Composer: remove PHPCSDevCS'
         run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
 
-      - name: "Composer: set PHPCS version for tests (dev)"
-        if: ${{ contains( matrix.phpcs_version, 'dev') }}
+      - name: "Composer: set PHPCS version for tests"
+        if: ${{ matrix.phpcs_version != 'lowest' }}
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts --no-interaction
 
       - name: "Composer: use lock file when necessary"
@@ -81,7 +85,7 @@ jobs:
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # 3.1.1
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
@@ -90,9 +94,13 @@ jobs:
         if: ${{ matrix.phpcs_version == 'lowest' }}
         run: composer update squizlabs/php_codesniffer --prefer-lowest --no-scripts --no-interaction
 
-      - name: Lint against parse errors
-        if: matrix.phpcs_version == 'dev-master'
+      - name: Lint against parse errors (PHP < 7.2)
+        if: ${{ matrix.php == '5.4' && matrix.phpcs_version == '3.x-dev' }}
         run: composer lint-lt72
+
+      - name: Lint against parse errors (PHP 7.2+)
+        if: ${{ matrix.phpcs_version == '4.x-dev' }}
+        run: composer lint
 
       - name: Grab PHPUnit version
         id: phpunit_version
