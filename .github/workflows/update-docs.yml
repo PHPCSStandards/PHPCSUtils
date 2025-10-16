@@ -63,6 +63,7 @@ jobs:
           ref: ${{ steps.base_branch.outputs.BRANCH }}
           # fetch-depth is needed to allow for retrieving the last tag for a non-tag workflow run.
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install PHP
         uses: shivammathur/setup-php@bf6b4fbd49ca58e4608c9c89fba0b8d90bd2a39f # 2.35.5
