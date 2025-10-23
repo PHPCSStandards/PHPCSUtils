@@ -398,8 +398,12 @@ class AsymVisibility {
     /* testPHP84AsymPrivateSetPublicProperty */
     private(set) public mixed $prop9;
 
-    /* testPHP84IllegalAsymPublicProtectedSetStaticProperty */
-    public protected(set) static mixed $prop10;
+    /* testPHP85AsymPrivateSetStaticProperty */
+    private(set) static mixed $prop10;
+    /* testPHP85AsymFinalPublicProtectedSetStaticProperty */
+    final public protected(set) static Union|Type $prop11;
+    /* testPHP85AsymPublicSetStaticProperty */
+    static public(set) ?array $prop12;
 }
 
 abstract class WithAbstractProperties {
