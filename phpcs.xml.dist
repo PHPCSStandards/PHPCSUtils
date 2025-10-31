@@ -36,11 +36,7 @@
     -->
 
     <rule ref="PHPCSDev">
-        <!-- Allow for the file docblock on the line directly following the PHP open tag.
-             As the sniff in PHPCS does not use modular error codes (yet - see PR #2729),
-             the complete error code needs to be disabled, not just the bit involving
-             the file docblocks.
-        -->
+        <!-- Only needed for PHPCS 3.x. This exclusion can be removed when PHPCSDevCS drops support for PHPCS 3.x. -->
         <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
     </rule>
 
@@ -107,6 +103,31 @@
     <rule ref="PEAR.Commenting.FileComment.LinkTagOrder">
         <exclude-pattern>/PHPCSUtils/BackCompat/BCFile\.php$</exclude-pattern>
         <exclude-pattern>/Tests/BackCompat/BCFile/*Test\.php$</exclude-pattern>
+    </rule>
+
+    <!-- This is fine. -->
+    <rule ref="PHPCompatibility.Attributes.NewAttributes.PHPUnitAttributeFound">
+        <exclude-pattern>/PHPCSUtils/TestUtils/UtilityMethodTestCase\.php$</exclude-pattern>
+    </rule>
+
+    <!-- Disregard this rule in code which doesn't need to be tested (or is part of the test code itself). -->
+    <rule ref="Universal.FunctionDeclarations.NoLongClosures.ExceedsMaximum">
+        <exclude-pattern>/.github/GHPages/update-docgen-config\.php$</exclude-pattern>
+        <exclude-pattern>/Tests/</exclude-pattern>
+    </rule>
+
+    <rule ref="Universal.Classes.RequireFinalClass">
+        <!-- The BackCompat tests cannot be final as it is verified that the PHPCSUtils functionality
+             mirrors the PHPCS native functionality by extending these tests and re-running them
+             using the PHPCSUtils methods. -->
+        <exclude-pattern>*/Tests/BackCompat/*Test\.php$</exclude-pattern>
+        <exclude-pattern>*/Tests/*Mock\.php$</exclude-pattern>
+        <exclude-pattern>*/Tests/*Double\.php$</exclude-pattern>
+    </rule>
+
+    <!-- Allow for return value from PassedParameters::getParameters() potentially having mixed keys. -->
+    <rule ref="Universal.Arrays.MixedArrayKeyTypes">
+        <exclude-pattern>/Tests/Utils/PassedParameters/GetParametersNamedTest\.php$</exclude-pattern>
     </rule>
 
 </ruleset>

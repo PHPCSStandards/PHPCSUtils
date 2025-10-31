@@ -44,7 +44,7 @@ $phpcsutilsPhpdocVersionUpdater = static function () {
         echo 'This is your own responsibility!' . \PHP_EOL, \PHP_EOL;
 
         $config = \file_get_contents($projectRoot . '/' . $destination);
-        if (!$config) {
+        if (\is_string($config) === false) {
             echo "ERROR: Failed to read phpDocumentor $destination configuration file.", \PHP_EOL;
             exit(1);
         }
@@ -59,7 +59,7 @@ $phpcsutilsPhpdocVersionUpdater = static function () {
         );
     } else {
         $config = \file_get_contents($projectRoot . '/' . $source);
-        if (!$config) {
+        if (\is_string($config) === false) {
             echo "ERROR: Failed to read phpDocumentor $source configuration template file.", \PHP_EOL;
             exit(1);
         }

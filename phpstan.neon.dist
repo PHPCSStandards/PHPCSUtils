@@ -26,6 +26,12 @@ parameters:
             path: PHPCSUtils/TestUtils/UtilityMethodTestCase.php
             count: 1
 
+        # PHPCS 3.x vs 4.x. This is 100% okay.
+        -
+            message: '`^Static call to instance method PHP_CodeSniffer\\Config::setConfigData\(\)\.$`'
+            path: PHPCSUtils/BackCompat/Helper.php
+            count: 1
+
         # Level 1
         # These are on purpose for testing the magic method. This is 100% okay.
         -
@@ -36,6 +42,12 @@ parameters:
             message: '`^Call to an undefined static method PHPCSUtils\\Tokens\\Collections::notATokenArray\(\)\.$`'
             path: Tests/Tokens/Collections/PropertyBasedTokenArraysTest.php
             count: 1
+
+        # PHPCS 3.x vs 4.x. This is 100% okay.
+        -
+            message: '`^Constant T_(ZSR_EQUAL|OBJECT|PROPERTY) not found\.$`'
+            path: Tests/BackCompat/BCTokens/
+            count: 4
 
         # Level 2
         # The __destruct() method exists on the ConfigDouble, not the PHPCS native Config. This is 100% okay.

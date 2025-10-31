@@ -268,7 +268,7 @@ seo:
     private function getContents(string $source): string
     {
         $contents = \file_get_contents($source);
-        if (!$contents) {
+        if (\is_string($contents) === false) {
             throw new RuntimeException(\sprintf('Failed to read doc file: %s', $source));
         }
 

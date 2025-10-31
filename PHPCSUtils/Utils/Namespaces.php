@@ -109,8 +109,8 @@ final class Namespaces
         $start = BCFile::findStartOfStatement($phpcsFile, $stackPtr);
         if ($start === $stackPtr
             && ($tokens[$next]['code'] === \T_STRING
-               || $tokens[$next]['code'] === \T_NAME_QUALIFIED
-               || $tokens[$next]['code'] === \T_OPEN_CURLY_BRACKET)
+                || $tokens[$next]['code'] === \T_NAME_QUALIFIED
+                || $tokens[$next]['code'] === \T_OPEN_CURLY_BRACKET)
         ) {
             return 'declaration';
         }

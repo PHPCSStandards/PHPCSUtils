@@ -103,7 +103,7 @@ final class GetCompleteNumberTest extends PolyfilledTestCase
          * Disabling the hexnumeric string detection for the rest of the file.
          * These are only strings within the context of PHPCS and need to be tested as such.
          *
-         * @phpcs:disable PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+         * @phpcs:disable PHPCompatibility.Numbers.RemovedHexadecimalNumericStrings.Found
          */
 
         return [
