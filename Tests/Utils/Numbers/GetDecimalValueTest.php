@@ -62,7 +62,7 @@ final class GetDecimalValueTest extends TestCase
             'multi-digit-scientific-float-with-underscores' => ['6.674_083e+11', '6.674083e+11'],
 
             // Hex.
-            // phpcs:disable PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+            // phpcs:disable PHPCompatibility.Numbers.RemovedHexadecimalNumericStrings.Found
             'hex-int-no-numbers'                            => ['0xA', '10'],
             'hex-int-all-numbers'                           => ['0x400', '1024'],
             'hex-int-mixed-uppercase-x'                     => ['0XAB953C', '11244860'],

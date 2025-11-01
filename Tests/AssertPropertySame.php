@@ -36,7 +36,7 @@ trait AssertPropertySame
      *
      * @return void
      */
-    public function assertPropertySame($expected, $propertyName, $actualObject, $message = '')
+    final public function assertPropertySame($expected, $propertyName, $actualObject, $message = '')
     {
         // Will throw a warning on PHPUnit 8, but will still work.
         if (\method_exists($this, 'assertAttributeSame')) {
@@ -66,7 +66,7 @@ trait AssertPropertySame
      *
      * @throws \Exception
      */
-    public static function getObjectPropertyValue($objectUnderTest, $propertyName)
+    final public static function getObjectPropertyValue($objectUnderTest, $propertyName)
     {
         $reflector = new ReflectionObject($objectUnderTest);
 
@@ -74,6 +74,7 @@ trait AssertPropertySame
             try {
                 $property = $reflector->getProperty($propertyName);
 
+                // phpcs:ignore Squiz.Operators.ComparisonOperatorUsage.NotAllowed -- This is deliberate to mirror the PHPUnit method.
                 if (!$property || $property->isPublic()) {
                     return $objectUnderTest->$propertyName;
                 }
