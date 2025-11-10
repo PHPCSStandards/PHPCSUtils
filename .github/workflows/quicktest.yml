@@ -38,11 +38,11 @@ jobs:
 
         include:
           - php: '7.2'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '7.2'
             phpcs_version: '4.x-dev'
           - php: 'latest'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: 'latest'
             phpcs_version: '4.x-dev'
 
