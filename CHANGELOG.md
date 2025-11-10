@@ -10,6 +10,35 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.2.0] - 2025-11-11
+
+### Added
+
+#### Utils
+
+* New [`PHPCSUtils\Utils\AttributeBlock`][`AttributeBlock`] class: Utility functions to examine attribute blocks. [#720], [#729]
+    For the purposes of these utilities, an "attribute block" is defined as being an attribute opener, an attribute closer and everything between. I.e. `#[MyAttribute(1, 2), AnotherAttribute]` is one attribute block.
+    Initial set of available methods:
+    - `getAttributes()` to retrieve information about each attribute being instantiated within a particular attribute block.
+    - `countAttributes()` to retrieve a count of the number of attribute instantiations with a particular attribute block.
+    - `appliesTo()` to find the stack pointer to the language construct an attribute block applies to.
+* New `PHPCSUtils\Utils\Constants::getAttributeOpeners()`, `PHPCSUtils\Utils\FunctionDeclarations::getAttributeOpeners()`, `PHPCSUtils\Utils\ObjectDeclarations::getAttributeOpeners()` and `PHPCSUtils\Utils\Variables::getAttributeOpeners()` utility methods. [#719]
+    These methods will each return an array with the stack pointers to the attribute openers for applicable attribute blocks.
+    This may be an empty array if no attributes apply to the constant/function/OO structure/property.
+
+### Changed
+
+#### Other
+
+* Dropped support for [PHP_CodeSniffer] < 3.13.5/<4.00. [#729]
+    Please ensure you run `composer update phpcsstandards/phpcsutils --with-dependencies` to benefit from this.
+* Various housekeeping.
+
+[#719]: https://github.com/PHPCSStandards/PHPCSUtils/pull/719
+[#720]: https://github.com/PHPCSStandards/PHPCSUtils/pull/720
+[#729]: https://github.com/PHPCSStandards/PHPCSUtils/pull/729
+
+
 ## [1.1.3] - 2025-10-16
 
 ### Changed
@@ -1293,6 +1322,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.2.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.3...1.2.0
 [1.1.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.2...1.1.3
 [1.1.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.1...1.1.2
 [1.1.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.0...1.1.1
@@ -1329,6 +1359,7 @@ This initial alpha release contains the following utility classes:
 [`Collections`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Tokens-Collections.html
 [`TokenHelper`]:                   https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Tokens-TokenHelper.html
 [`Arrays`]:                        https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Arrays.html
+[`AttributeBlock`]:                https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-AttributeBlock.html
 [`Conditions`]:                    https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Conditions.html
 [`Constants`]:                     https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Constants.html
 [`Context`]:                       https://phpcsutils.com/phpdoc/classes/PHPCSUtils-Utils-Context.html
