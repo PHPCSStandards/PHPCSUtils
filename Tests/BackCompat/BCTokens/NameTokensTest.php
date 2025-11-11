@@ -59,6 +59,6 @@ final class NameTokensTest extends TestCase
             $this->markTestSkipped('Test only applicable to PHPCS >= 4.x');
         }
 
-        $this->assertSame(Tokens::NAME_TOKENS, BCTokens::nameTokens()); // @phpstan-ignore classConstant.notFound
+        $this->assertSame(Tokens::NAME_TOKENS, BCTokens::nameTokens());
     }
 }

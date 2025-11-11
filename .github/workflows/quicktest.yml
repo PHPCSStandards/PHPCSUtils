@@ -38,11 +38,11 @@ jobs:
 
         include:
           - php: '7.2'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '7.2'
             phpcs_version: '4.x-dev'
           - php: 'latest'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: 'latest'
             phpcs_version: '4.x-dev'
 
@@ -51,6 +51,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -70,7 +72,7 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
+      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS "lowest".
       - name: 'Composer: remove PHPCSDevCS'
         run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
 

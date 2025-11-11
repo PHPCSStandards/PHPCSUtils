@@ -39,6 +39,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       - name: Install PHP
         uses: shivammathur/setup-php@bf6b4fbd49ca58e4608c9c89fba0b8d90bd2a39f # 2.35.5
@@ -85,30 +87,30 @@ jobs:
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
         php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
-        phpcs_version: ['lowest', '3.x-dev', '4.0.0', '4.x-dev']
+        phpcs_version: ['lowest', '3.x-dev', '4.0.1', '4.x-dev']
         risky: [false]
         experimental: [false]
 
         exclude:
           - php: '5.5'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '5.5'
             phpcs_version: '4.x-dev'
           - php: '5.6'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '5.6'
             phpcs_version: '4.x-dev'
           - php: '7.0'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '7.0'
             phpcs_version: '4.x-dev'
           - php: '7.1'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '7.1'
             phpcs_version: '4.x-dev'
           # Also exclude the 7.2 builds as those are run in code coverage, no need to duplicate.
           - php: '7.2'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '7.2'
             phpcs_version: '4.x-dev'
 
@@ -161,7 +163,7 @@ jobs:
             experimental: true
 
           - php: '8.4'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
             risky: true
             experimental: true
 
@@ -177,6 +179,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -197,7 +201,7 @@ jobs:
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
 
-      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS 4.x.
+      # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS "lowest".
       - name: 'Composer: remove PHPCSDevCS'
         run: composer remove --dev phpcsstandards/phpcsdevcs --no-update --no-interaction
 
@@ -295,7 +299,7 @@ jobs:
             phpcs_version: '4.x-dev'
             extensions: ':iconv' # Run one build with iconv disabled.
           - php: '8.4'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '8.4'
             phpcs_version: '3.x-dev'
           - php: '8.4'
@@ -303,7 +307,7 @@ jobs:
           - php: '7.2'
             phpcs_version: '4.x-dev'
           - php: '7.2'
-            phpcs_version: '4.0.0'
+            phpcs_version: '4.0.1'
           - php: '5.4'
             phpcs_version: '3.x-dev'
           - php: '5.4'
@@ -314,6 +318,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.

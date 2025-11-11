@@ -63,6 +63,7 @@ jobs:
           ref: ${{ steps.base_branch.outputs.BRANCH }}
           # fetch-depth is needed to allow for retrieving the last tag for a non-tag workflow run.
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install PHP
         uses: shivammathur/setup-php@bf6b4fbd49ca58e4608c9c89fba0b8d90bd2a39f # 2.35.5
@@ -112,7 +113,7 @@ jobs:
       # Retention is normally 90 days, but this artifact is only for reviewing
       # and debugging the generated files for the website.
       - name: Upload the generated files
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: generated-files
           path: ./docs/

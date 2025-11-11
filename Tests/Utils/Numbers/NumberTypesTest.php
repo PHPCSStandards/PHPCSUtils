@@ -708,7 +708,7 @@ final class NumberTypesTest extends TestCase
             ],
 
             // Hexidecimal numeric strings.
-            // phpcs:disable PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+            // phpcs:disable PHPCompatibility.Numbers.RemovedHexadecimalNumericStrings.Found
             'hexidecimal-single-digit-zero' => [
                 'input'    => '0x0',
                 'expected' => [

@@ -16,6 +16,7 @@ use PHPCSUtils\Exceptions\OutOfBoundsStackPtr;
 use PHPCSUtils\Exceptions\TypeError;
 use PHPCSUtils\Exceptions\UnexpectedTokenType;
 use PHPCSUtils\Exceptions\ValueError;
+use PHPCSUtils\Internal\AttributeHelper;
 use PHPCSUtils\Internal\Cache;
 use PHPCSUtils\Tokens\Collections;
 use PHPCSUtils\Utils\Scopes;
@@ -190,5 +191,27 @@ final class Constants
 
         Cache::set($phpcsFile, __METHOD__, $stackPtr, $returnValue);
         return $returnValue;
+    }
+
+    /**
+     * Retrieve the stack pointers to the attribute openers for any attribute block
+     * which applies to the constant declaration.
+     *
+     * @since 1.2.0
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcsFile The file being scanned.
+     * @param int                         $stackPtr  The position in the stack of the `T_CONST` token
+     *                                               to acquire the attributes for.
+     *
+     * @return array<int> Array with the stack pointers to the applicable attribute openers
+     *                    or an empty array if there are no attributes attached to the constant declaration.
+     *
+     * @throws \PHPCSUtils\Exceptions\TypeError           If the $stackPtr parameter is not an integer.
+     * @throws \PHPCSUtils\Exceptions\OutOfBoundsStackPtr If the token passed does not exist in the $phpcsFile.
+     * @throws \PHPCSUtils\Exceptions\UnexpectedTokenType If the token passed is not a `T_CONST` token.
+     */
+    public static function getAttributeOpeners(File $phpcsFile, $stackPtr)
+    {
+        return AttributeHelper::getOpeners($phpcsFile, $stackPtr, 'constant');
     }
 }

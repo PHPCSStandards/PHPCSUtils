@@ -198,7 +198,7 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
             2 => '002',
             3 => '0o3',
             4 => '0b1',
-            5 => '0x7', // phpcs:ignore PHPCompatibility.Miscellaneous.ValidIntegers.HexNumericStringFound
+            5 => '0x7', // phpcs:ignore PHPCompatibility.Numbers.RemovedHexadecimalNumericStrings.Found
             6 => '0.0',
         ];
 
