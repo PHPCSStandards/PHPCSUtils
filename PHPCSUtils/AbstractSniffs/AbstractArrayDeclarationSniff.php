@@ -493,7 +493,9 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                 }
             }
 
-            if (isset($this->acceptedTokens[$this->tokens[$i]['code']]) === false) {
+            if (isset($this->acceptedTokens[$this->tokens[$i]['code']]) === false
+                || \T_UNSET_CAST === $this->tokens[$i]['code']
+            ) {
                 // This is not a key we can evaluate. Might be a variable or constant.
                 return;
             }
@@ -504,6 +506,40 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                 $content .= $number['content'];
                 $i        = $number['last_token'];
                 continue;
+            }
+
+            /*
+             * Make sure that when new/deprecated/removed casts are used in the code under scan and the sniff is run
+             * on a PHP version which doesn't support the cast, the eval() won't cause a deprecation notice,
+             * borking the scan of the file.
+             *
+             * - (unset) was deprecated in PHP 7.2 and removed in PHP 8.0;
+             * - (real) was deprecated in PHP 7.4 and removed in PHP 8.0;
+             * - (boolean) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
+             * - (integer) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
+             * - (double) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
+             * - (string) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
+             */
+            if (\T_DOUBLE_CAST === $this->tokens[$i]['code']) {
+                $content .= '(float)';
+                continue;
+            }
+
+            if (\PHP_VERSION_ID >= 80500) {
+                if (\T_INT_CAST === $this->tokens[$i]['code']) {
+                    $content .= '(int)';
+                    continue;
+                }
+
+                if (\T_BOOL_CAST === $this->tokens[$i]['code']) {
+                    $content .= '(bool)';
+                    continue;
+                }
+
+                if (\T_BINARY_CAST === $this->tokens[$i]['code']) {
+                    $content .= '(string)';
+                    continue;
+                }
             }
 
             // Account for heredoc with vars.

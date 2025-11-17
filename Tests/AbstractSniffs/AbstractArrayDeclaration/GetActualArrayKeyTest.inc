@@ -26,6 +26,7 @@ EOD
 $var text
 EOD
                                 => 'excluded',
+    (unset) false               => 'excluded', // Type cast deprecated per PHP 7.2, removed 8.0.
 ];
 
 /* testAllEmptyString */
@@ -34,6 +35,7 @@ $emptyStringKey = array(
     null           => 'null',
     (string) false => 'false',
     \null          => 'null',
+    (binary) false => 'binary false', // Type cast deprecated per PHP 8.5.
 );
 
 /* testAllZero */
@@ -61,6 +63,10 @@ $everythingZero = [
     (true) ? 0 : 1   => 't',
     ! true           => 'u',
     \false           => 'v',
+    (integer) ''     => 'w', // Type cast deprecated per PHP 8.5.
+    (float) 0.14     => 'x',
+    (real) 0.2       => 'y', // Type cast deprecated per PHP 7.4, removed 8.0.
+    (double) 0.005   => 'z', // Type cast deprecated per PHP 8.5.
 ];
 
 /* testAllOne */
@@ -89,6 +95,11 @@ $everythingOne = [
     ! false          => 't',
     (string) true    => 'u',
     \true            => 'v',
+    (boolean) 1      => 'w',  // Type cast deprecated per PHP 8.5.
+    (binary) true    => 'x',
+    (float) 1.14     => 'y',
+    (real) 1.2       => 'z',  // Type cast deprecated per PHP 7.4, removed 8.0.
+    (double) 1.005   => 'aa', // Type cast deprecated per PHP 8.5.
 ];
 
 /* testAllEleven */
@@ -110,6 +121,7 @@ $everythingEleven = [
     "11"               => 'o',
     11.                => 'p',
     35 % 12            => 'q',
+    (integer) '11'     => 'r', // Type cast deprecated per PHP 8.5.
 ];
 
 /* testAllStringAbc */
