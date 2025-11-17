@@ -107,22 +107,6 @@ final class UnchangedTokenArraysTest extends TestCase
     ];
 
     /**
-     * Tokens that represent casting.
-     *
-     * @var array<int|string, int|string>
-     */
-    private $castTokens = [
-        \T_INT_CAST    => \T_INT_CAST,
-        \T_STRING_CAST => \T_STRING_CAST,
-        \T_DOUBLE_CAST => \T_DOUBLE_CAST,
-        \T_ARRAY_CAST  => \T_ARRAY_CAST,
-        \T_BOOL_CAST   => \T_BOOL_CAST,
-        \T_OBJECT_CAST => \T_OBJECT_CAST,
-        \T_UNSET_CAST  => \T_UNSET_CAST,
-        \T_BINARY_CAST => \T_BINARY_CAST,
-    ];
-
-    /**
      * Tokens that represent scope modifiers.
      *
      * @var array<int|string, int|string>
