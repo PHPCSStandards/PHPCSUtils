@@ -10,6 +10,17 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.2.1] - 2025-11-17
+
+### Fixed
+
+#### Abstract Sniffs
+
+* The `AbstractArrayDeclarationSniff::getActualArrayKey()` method could cause deprecation notices and even fatal errors, when a PHPCS scan would be run on a different PHP version than the "code under scan" is targetting and the "code under scan" contained deprecated/removed type casts. [#733]
+
+[#733]: https://github.com/PHPCSStandards/PHPCSUtils/pull/733
+
+
 ## [1.2.0] - 2025-11-11
 
 ### Added
@@ -30,7 +41,7 @@ _Nothing yet._
 
 #### Other
 
-* Dropped support for [PHP_CodeSniffer] < 3.13.5/<4.00. [#729]
+* Dropped support for [PHP_CodeSniffer] < 3.13.5/4.0.1. [#729]
     Please ensure you run `composer update phpcsstandards/phpcsutils --with-dependencies` to benefit from this.
 * Various housekeeping.
 
@@ -1322,6 +1333,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.2.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.2.0...1.2.1
 [1.2.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.3...1.2.0
 [1.1.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.2...1.1.3
 [1.1.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.1...1.1.2
