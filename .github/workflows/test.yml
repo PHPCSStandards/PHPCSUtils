@@ -30,11 +30,11 @@ jobs:
 
     strategy:
       matrix:
-        php: ['5.4', '7.0', '7.4', '8.0', '8.4', '8.5']
+        php: ['5.4', '7.0', '7.4', '8.0', '8.5', 'nightly']
 
     name: "Lint: PHP ${{ matrix.php }}"
 
-    continue-on-error: ${{ matrix.php == '8.5' }}
+    continue-on-error: ${{ matrix.php == 'nightly' }}
 
     steps:
       - name: Checkout code
@@ -54,16 +54,16 @@ jobs:
         uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # 3.1.1
         with:
           # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
-          composer-options: ${{ matrix.php == '8.5' && '--ignore-platform-req=php+' || '' }}
+          composer-options: ${{ matrix.php == 'nightly' && '--ignore-platform-req=php+' || '' }}
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: "Lint against parse errors (PHP < 7.2)"
-        if: ${{ matrix.php < 7.2 }}
+        if: ${{ matrix.php < 7.2 && matrix.php != 'nightly' }}
         run: composer lint-lt72 -- --checkstyle | cs2pr
 
       - name: "Lint against parse errors (PHP 7.2+)"
-        if: ${{ matrix.php >= 7.2 }}
+        if: ${{ matrix.php >= 7.2 || matrix.php == 'nightly' }}
         run: composer lint -- --checkstyle | cs2pr
 
 
@@ -86,7 +86,7 @@ jobs:
         # IMPORTANT: test runs shouldn't fail because of PHPCS being incompatible with a PHP version.
         #
         # The matrix is set up so as not to duplicate the builds which are run for code coverage.
-        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
         phpcs_version: ['lowest', '3.x-dev', '4.0.1', '4.x-dev']
         risky: [false]
         experimental: [false]
@@ -127,11 +127,11 @@ jobs:
             extensions: ':iconv' # Run with iconv disabled.
 
           # Experimental builds. These are allowed to fail.
-          - php: '8.5'
+          - php: '8.6'
             phpcs_version: '3.x-dev'
             risky: false
             experimental: true
-          - php: '8.5'
+          - php: '8.6'
             phpcs_version: '4.x-dev'
             risky: false
             experimental: true
@@ -152,22 +152,22 @@ jobs:
             risky: true
             experimental: true
 
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: 'lowest'
             risky: true
             experimental: true
 
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: '3.x-dev'
             risky: true
             experimental: true
 
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: '4.0.1'
             risky: true
             experimental: true
 
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: '4.x-dev'
             risky: true
             experimental: true
@@ -219,7 +219,7 @@ jobs:
         uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # 3.1.1
         with:
           # For PHP "nightly", we need to install with ignore platform reqs as not all dependencies may allow it yet.
-          composer-options: ${{ matrix.php == '8.5' && '--ignore-platform-req=php+' || '' }}
+          composer-options: ${{ matrix.php == '8.6' && '--ignore-platform-req=php+' || '' }}
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")
 
@@ -295,14 +295,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: '4.x-dev'
             extensions: ':iconv' # Run one build with iconv disabled.
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: '4.0.1'
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: '3.x-dev'
-          - php: '8.4'
+          - php: '8.5'
             phpcs_version: 'lowest'
           - php: '7.2'
             phpcs_version: '4.x-dev'
