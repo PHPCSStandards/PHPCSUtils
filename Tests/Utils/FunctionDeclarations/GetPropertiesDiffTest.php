@@ -59,6 +59,32 @@ final class GetPropertiesDiffTest extends PolyfilledTestCase
     }
 
     /**
+     * Test that for invalid code, the return type parsing doesn't grab too many tokens.
+     *
+     * @return void
+     */
+    public function testInvalidTypeParseError()
+    {
+        $php8Names = parent::usesPhp8NameTokens();
+
+        // Offsets are relative to the T_FUNCTION token.
+        $expected = [
+            'scope'                 => 'public',
+            'scope_specified'       => false,
+            'return_type'           => ($php8Names === true) ? '?\\\\SomeType' : '?\\&\\SomeType',
+            'return_type_token'     => 9,
+            'return_type_end_token' => ($php8Names === true) ? 11 : 12,
+            'nullable_return_type'  => true,
+            'is_abstract'           => false,
+            'is_final'              => false,
+            'is_static'             => false,
+            'has_body'              => true,
+        ];
+
+        $this->getPropertiesTestHelper('/* ' . __FUNCTION__ . ' */', $expected);
+    }
+
+    /**
      * Test handling of the PHPCS 3.2.0+ annotations between the keywords.
      *
      * @return void
