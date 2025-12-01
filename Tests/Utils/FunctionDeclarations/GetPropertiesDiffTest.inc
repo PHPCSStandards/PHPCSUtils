@@ -1,5 +1,9 @@
 <?php
 
+/* testInvalidTypeParseError */
+// This test MUST have code containing name tokens after this code sample.
+function InvalidType($param): ?\&\SomeType {}
+
 /* testMessyPhpcsAnnotationsMethod */
 trait FooTrait {
     /**
