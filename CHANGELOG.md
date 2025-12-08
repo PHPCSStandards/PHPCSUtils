@@ -10,13 +10,35 @@ This projects adheres to [Keep a CHANGELOG](https://keepachangelog.com/) and use
 _Nothing yet._
 
 
+## [1.2.2] - 2025-12-08
+
+### Added
+
+#### PHPCS Backcompat
+
+* `BCTokens::castTokens()`: sync with PHPCS 4.0.2 - added the `T_VOID_CAST` token (when available). [#742]
+
+### Changed
+
+#### Utils
+
+* `FunctionDeclarations::getProperties()`: more defensive coding against parse errors/live coding. [#740]
+
+#### Other
+
+* Various housekeeping.
+
+[#740]: https://github.com/PHPCSStandards/PHPCSUtils/pull/740
+[#742]: https://github.com/PHPCSStandards/PHPCSUtils/pull/742
+
+
 ## [1.2.1] - 2025-11-17
 
 ### Fixed
 
 #### Abstract Sniffs
 
-* The `AbstractArrayDeclarationSniff::getActualArrayKey()` method could cause deprecation notices and even fatal errors, when a PHPCS scan would be run on a different PHP version than the "code under scan" is targetting and the "code under scan" contained deprecated/removed type casts. [#733]
+* The `AbstractArrayDeclarationSniff::getActualArrayKey()` method could cause deprecation notices and even fatal errors, when a PHPCS scan would be run on a different PHP version than the "code under scan" is targeting and the "code under scan" contained deprecated/removed type casts. [#733]
 
 [#733]: https://github.com/PHPCSStandards/PHPCSUtils/pull/733
 
@@ -1333,6 +1355,7 @@ This initial alpha release contains the following utility classes:
 
 
 [Unreleased]:   https://github.com/PHPCSStandards/PHPCSUtils/compare/stable...HEAD
+[1.2.2]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.2.1...1.2.2
 [1.2.1]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.2.0...1.2.1
 [1.2.0]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.3...1.2.0
 [1.1.3]:        https://github.com/PHPCSStandards/PHPCSUtils/compare/1.1.2...1.1.3
