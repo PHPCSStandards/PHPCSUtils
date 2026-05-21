@@ -43,7 +43,7 @@ jobs:
           persist-credentials: false
 
       - name: Install PHP
-        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # 2.37.1
         with:
           php-version: ${{ matrix.php }}
           ini-file: 'development'
@@ -194,7 +194,7 @@ jobs:
           fi
 
       - name: Install PHP
-        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # 2.37.1
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ matrix.extensions }}
@@ -333,7 +333,7 @@ jobs:
           fi
 
       - name: Install PHP
-        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # 2.37.1
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ matrix.extensions }}
