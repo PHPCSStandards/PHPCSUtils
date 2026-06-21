@@ -81,12 +81,6 @@ parameters:
             path: Tests/BackCompat/Helper/GetCommandLineDataTest.php
 
         # Level 4
-        # Defensive coding as this project is not type safe. This is okay.
-        -
-            message: '`^Call to function is_string\(\) with string will always evaluate to true\.$`'
-            path: PHPCSUtils/Utils/TypeString.php
-            count: 1
-
         # This is by design.
         -
             message: '`^Static method PHPCSUtils\\Tokens\\Collections::triggerDeprecation\(\) is unused\.$`'
