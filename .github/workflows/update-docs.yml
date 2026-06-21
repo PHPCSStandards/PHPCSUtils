@@ -25,17 +25,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# Permissions should be configured at the job level.
+permissions: {}
 
 env:
   DEFAULT_BRANCH: 'stable'
 
 jobs:
   build:
+    permissions:
+      contents: read # To clone the repo.
+
     # Don't run on forks.
     if: github.repository == 'PHPCSStandards/PHPCSUtils'
 
@@ -136,7 +136,12 @@ jobs:
           path: ./docs/_site
 
   deploy:
+    permissions:
+      pages: write # To deploy to Pages.
+      id-token: write # To verify the deployment originates from an appropriate source.
+
     needs: build
+
     # Don't run on forks, don't run on normal pushes or PRs (dry-runs).
     if: always() && github.repository == 'PHPCSStandards/PHPCSUtils' && github.event_name != 'pull_request' && needs.build.result == 'success'
 
