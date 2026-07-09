@@ -229,3 +229,15 @@ $excluded = array(
 $excluded = [
     array($obj, 'stripEmbeds')('arg') => 'excluded',
 ];
+
+/* testCatchableExceptionInExecutedCodeResultsInVoid1 */
+$excluded = [ 1/0     => 1 ];  // Uncaught DivisionByZeroError.
+
+/* testCatchableExceptionInExecutedCodeResultsInVoid2 */
+$excluded = [ 5 % 0   => 1 ];  // Uncaught DivisionByZeroError.
+
+/* testCatchableExceptionInExecutedCodeResultsInVoid3 */
+$excluded = [ null + 'x' => 1 ]; // Uncaught TypeError.
+
+/* testCatchableExceptionInExecutedCodeResultsInVoid4 */
+$excluded = [ (100 - ) => 1 ]; // Uncaught ParseError.

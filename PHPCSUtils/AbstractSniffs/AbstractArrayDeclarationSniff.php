@@ -10,6 +10,7 @@
 
 namespace PHPCSUtils\AbstractSniffs;
 
+use Exception;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
@@ -20,6 +21,7 @@ use PHPCSUtils\Utils\Arrays;
 use PHPCSUtils\Utils\Numbers;
 use PHPCSUtils\Utils\PassedParameters;
 use PHPCSUtils\Utils\TextStrings;
+use Throwable;
 
 /**
  * Abstract sniff to easily examine all parts of an array declaration.
@@ -591,8 +593,16 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
             $content .= $this->tokens[$i]['content'];
         }
 
-        // The PHP_EOL is to prevent getting parse errors when the key is a heredoc/nowdoc.
-        $key = eval('return ' . $content . ';' . \PHP_EOL);
+        try {
+            // The PHP_EOL is to prevent getting parse errors when the key is a heredoc/nowdoc.
+            $key = @eval('return ' . $content . ';' . \PHP_EOL);
+        } catch (Throwable $e) { // phpcs:ignore PHPCompatibility.Interfaces.NewInterfaces.throwableFound
+            // The code didn't evaluate cleanly on PHP >= 7.0. Bow out.
+            return;
+        } catch (Exception $e) {
+            // The code didn't evaluate cleanly on PHP < 7.0. Bow out.
+            return;
+        }
 
         /*
          * Ok, so now we know the base value of the key, let's determine whether it is
