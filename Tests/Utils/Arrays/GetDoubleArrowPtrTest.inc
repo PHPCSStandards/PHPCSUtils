@@ -111,6 +111,12 @@ $array = [
     /* testNoArrowKeyedShortListInValue */
     [ 'key1' => $a, 'key2' => $b ] = $array,
 
+    /* testArrowKeyIsCallbackInLongArrayFormat */
+    array($obj, 'method')('arg') => 'excluded',
+
+    /* testArrowKeyIsCallbackInShortArrayFormat */
+    ['ClassName', 'method']('arg') => 'excluded',
+
     /* testNoArrowValueClosureWithAttribute */
     #[MyAttribute([0 => 'value'])] function() { /* do something */ }(),
 
