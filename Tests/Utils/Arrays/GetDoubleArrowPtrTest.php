@@ -272,6 +272,16 @@ final class GetDoubleArrowPtrTest extends PolyfilledTestCase
                 'expected'   => false,
             ],
 
+            // Verify that the arrow will be found even if the array item key contains a (nested) array.
+            'test-arrow-key-is-callback-in-long-array-format' => [
+                'testMarker' => '/* testArrowKeyIsCallbackInLongArrayFormat */',
+                'expected'   => 17,
+            ],
+            'test-arrow-key-is-callback-in-short-array-format' => [
+                'testMarker' => '/* testArrowKeyIsCallbackInShortArrayFormat */',
+                'expected'   => 16,
+            ],
+
             // Safeguard that double arrows in PHP 8.0 attributes are disregarded.
             'test-no-arrow-value-closure-with-attached-attribute-containing-arrow' => [
                 'testMarker' => '/* testNoArrowValueClosureWithAttribute */',
