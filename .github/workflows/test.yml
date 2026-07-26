@@ -49,6 +49,8 @@ jobs:
           ini-file: 'development'
           coverage: none
           tools: cs2pr
+        env:
+          fail-fast: true
 
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # 4.0.0
@@ -200,6 +202,8 @@ jobs:
           extensions: ${{ matrix.extensions }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
+        env:
+          fail-fast: true
 
       # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS "lowest".
       - name: 'Composer: remove PHPCSDevCS'
@@ -339,6 +343,8 @@ jobs:
           extensions: ${{ matrix.extensions }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: xdebug
+        env:
+          fail-fast: true
 
       - name: "DEBUG: Show version details"
         run: php -v
