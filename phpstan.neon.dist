@@ -87,6 +87,12 @@ parameters:
             path: PHPCSUtils/Tokens/Collections.php
             count: 1
 
+        # This is by design for PHP cross-version compatibility.
+        -
+            message: '`^Dead catch - Exception is already caught above\.$`'
+            path: PHPCSUtils/AbstractSniffs/AbstractArrayDeclarationSniff.php
+            count: 1
+
         # Ignoring these as availability depends on which PHPUnit/PHPUnit Polyfills version is loaded/installed. This is 100% okay.
         -
             message: "`^Call to function method_exists\\(\\) with \\$this\\([^)]+\\) and 'expectError' will always evaluate to false\\.$`"
