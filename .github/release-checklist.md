@@ -10,6 +10,7 @@ PR for tracking changes for the x.x.x release. Target release date: **DOW MONTH 
 - [ ] Verify that any new functions have type declarations whenever possible.
 - [ ] Add changelog for the release - PR #xxx
     :pencil2: Remember to add a release link at the bottom!
+- [ ] Open PR to merge the `develop` branch to `stable` (= this PR).
 
 ### Release
 
