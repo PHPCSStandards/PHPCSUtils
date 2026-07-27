@@ -58,7 +58,7 @@ jobs:
           fi
 
       - name: Checkout code
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ steps.base_branch.outputs.BRANCH }}
           # fetch-depth is needed to allow for retrieving the last tag for a non-tag workflow run.
@@ -66,7 +66,7 @@ jobs:
           persist-credentials: false
 
       - name: Install PHP
-        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # 2.36.0
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
         with:
           # Use a version known to be safe for last phpDocumentor release.
           php-version: '8.4'
@@ -113,7 +113,7 @@ jobs:
       # Retention is normally 90 days, but this artifact is only for reviewing
       # and debugging the generated files for the website.
       - name: Upload the generated files
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: generated-files
           path: ./docs/
@@ -121,7 +121,7 @@ jobs:
           retention-days: 5
 
       - name: Setup GH Pages
-        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Build the GH Pages site with Jekyll
         uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697 # v1.0.13
@@ -130,12 +130,12 @@ jobs:
           destination: ./docs/_site
 
       - name: Upload GH Pages artifact
-        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./docs/_site
 
       - name: Check GitHub Pages status
-        uses: crazy-max/ghaction-github-status@fa6ac37620bc5d44b93e15caed498629665e9ff5 # v4.2.0
+        uses: crazy-max/ghaction-github-status@f0ef9e1cf727f9f76f8485f8c525fa03afc4ec02 # v5.0.0
         with:
           pages_threshold: major_outage
 
@@ -154,4 +154,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

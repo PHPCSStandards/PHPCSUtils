@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -66,11 +66,13 @@ jobs:
           fi
 
       - name: Install PHP
-        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # 2.36.0
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
         with:
           php-version: ${{ matrix.php }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
+        env:
+          fail-fast: true
 
       # Remove PHPCSDevCS as it would (for now) prevent the tests from being able to run against PHPCS "lowest".
       - name: 'Composer: remove PHPCSDevCS'
@@ -87,7 +89,7 @@ jobs:
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-php-dependencies-with-composer
       - name: Install Composer dependencies
-        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # 3.1.1
+        uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # 4.0.0
         with:
           # Bust the cache at least once a month - output format: YYYY-MM.
           custom-cache-suffix: $(date -u "+%Y-%m")

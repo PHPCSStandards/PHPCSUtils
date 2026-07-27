@@ -220,4 +220,112 @@ final class GetActualArrayKeyTest extends UtilityMethodTestCase
         $actualKeys   = \array_keys(\array_combine($expected, $expected));
         $this->assertSame($expectedKeys, $actualKeys, 'getActualArrayKey() results do not match PHP native handling');
     }
+
+    /**
+     * Verify that callbacks in array keys are not executed.
+     *
+     * @dataProvider dataGetActualArrayKeyDoesNotExecuteCallbacks
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     *
+     * @return void
+     */
+    public function testGetActualArrayKeyDoesNotExecuteCallbacks($testMarker)
+    {
+        $this->assertArrayKeyCouldNotBeDeterminedForAnyItemInTheArray($testMarker);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetActualArrayKeyDoesNotExecuteCallbacks() For the array format.
+     *
+     * @return array<string, array<string>>
+     */
+    public static function dataGetActualArrayKeyDoesNotExecuteCallbacks()
+    {
+        $data = [];
+
+        for ($i = 1; $i <= 9; $i++) {
+            $data['callback-type-' . $i] = ['/* testCallbackInKeyResultsInVoid' . $i . ' */'];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Verify that if evaluated code from an array key would result in a catchable exception, this exception is handled.
+     *
+     * @dataProvider dataGetActualArrayKeyCatchesCatchableException
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     *
+     * @return void
+     */
+    public function testGetActualArrayKeyCatchesCatchableException($testMarker)
+    {
+        $this->assertArrayKeyCouldNotBeDeterminedForAnyItemInTheArray($testMarker);
+    }
+
+    /**
+     * Data provider.
+     *
+     * @see testGetActualArrayKeyCatchesCatchableException() For the array format.
+     *
+     * @return array<string, array<string>>
+     */
+    public static function dataGetActualArrayKeyCatchesCatchableException()
+    {
+        $data = [];
+
+        if (PHP_VERSION_ID >= 80000) {
+            // Prior to PHP 8.0, this was a warning, not a catchable exception.
+            $data['exception-1'] = ['/* testCatchableExceptionInExecutedCodeResultsInVoid1 */'];
+        }
+
+        if (PHP_VERSION_ID >= 70000) {
+            // Prior to PHP 7.0, this was a warning, not a DivisionByZeroError.
+            $data['exception-2'] = ['/* testCatchableExceptionInExecutedCodeResultsInVoid2 */'];
+        }
+
+        if (PHP_VERSION_ID >= 80000) {
+            // Prior to PHP 8.0, this was a (non-numeric value) warning, not a TypeError.
+            $data['exception-3'] = ['/* testCatchableExceptionInExecutedCodeResultsInVoid3 */'];
+        }
+
+        if (PHP_VERSION_ID >= 70000) {
+            // Prior to PHP 7.0, parse errors in the eval-ed code would result in a `false` return value.
+            $data['exception-4'] = ['/* testCatchableExceptionInExecutedCodeResultsInVoid4 */'];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Test helper to verify that the `getActualArrayKey()` method bows out for array items
+     * where the value of the key could not be determined.
+     *
+     * @param string $testMarker The comment which prefaces the target token in the test file.
+     *
+     * @return void
+     */
+    public function assertArrayKeyCouldNotBeDeterminedForAnyItemInTheArray($testMarker)
+    {
+        $testObj         = new ArrayDeclarationSniffTestDouble();
+        $testObj->tokens = self::$phpcsFile->getTokens();
+
+        $stackPtr   = $this->getTargetToken($testMarker, [\T_ARRAY, \T_OPEN_SHORT_ARRAY]);
+        $arrayItems = PassedParameters::getParameters(self::$phpcsFile, $stackPtr);
+
+        foreach ($arrayItems as $itemNr => $arrayItem) {
+            $arrowPtr = Arrays::getDoubleArrowPtr(self::$phpcsFile, $arrayItem['start'], $arrayItem['end']);
+            if ($arrowPtr !== false) {
+                $result = $testObj->getActualArrayKey(self::$phpcsFile, $arrayItem['start'], ($arrowPtr - 1));
+                $this->assertNull(
+                    $result,
+                    'Failed: actual key ' . \var_export($result, true) . ' is not void for item number ' . $itemNr
+                );
+            }
+        }
+    }
 }
