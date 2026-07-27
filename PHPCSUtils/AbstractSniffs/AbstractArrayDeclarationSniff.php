@@ -123,6 +123,24 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
     ];
 
     /**
+     * List of tokens which, when found directly before an open parenthesis, indicate a function call/callback.
+     *
+     * Note: some of these (end heredoc/nowdoc) can not result in valid code (parse error), but that's not our concern.
+     *
+     * @since 1.2.3
+     *
+     * @var array<int|string, int|string>
+     */
+    private $callbackIndicators = [
+        \T_CONSTANT_ENCAPSED_STRING => \T_CONSTANT_ENCAPSED_STRING,
+        \T_END_HEREDOC              => \T_END_HEREDOC,
+        \T_END_NOWDOC               => \T_END_NOWDOC,
+        \T_CLOSE_PARENTHESIS        => \T_CLOSE_PARENTHESIS,
+        \T_CLOSE_CURLY_BRACKET      => \T_CLOSE_CURLY_BRACKET,
+        \T_CLOSE_SQUARE_BRACKET     => \T_CLOSE_SQUARE_BRACKET,
+    ];
+
+    /**
      * Set up this class.
      *
      * @since 1.0.0
@@ -468,7 +486,10 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
 
         $content = '';
 
-        for ($i = $firstNonEmpty; $i <= $lastNonEmpty; $i++) {
+        for ($i = $firstNonEmpty, $lastEffective = null;
+            $i <= $lastNonEmpty;
+            ($lastEffective = isset(Tokens::$emptyTokens[$this->tokens[$i]['code']]) === false ? $i : $lastEffective), $i++
+        ) {
             if (isset(Tokens::$commentTokens[$this->tokens[$i]['code']]) === true) {
                 continue;
             }
@@ -540,6 +561,14 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
                     $content .= '(string)';
                     continue;
                 }
+            }
+
+            if (isset($lastEffective) === true
+                && $this->tokens[$i]['code'] === \T_OPEN_PARENTHESIS
+                && isset($this->callbackIndicators[$this->tokens[$lastEffective]['code']]) === true
+            ) {
+                // Bow out for potential function call in callback format.
+                return;
             }
 
             // Account for heredoc with vars.

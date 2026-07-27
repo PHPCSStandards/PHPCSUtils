@@ -27,6 +27,7 @@ $var text
 EOD
                                 => 'excluded',
     (unset) false               => 'excluded', // Type cast deprecated per PHP 7.2, removed 8.0.
+    ClassName::method('arg')    => 'excluded',
 ];
 
 /* testAllEmptyString */
@@ -174,3 +175,57 @@ $validNumericStringKeys = array(
     '0x7' => 'value5',
     '0.0' => 'value6',
 );
+
+/* testCallbackInKeyResultsInVoid1 */
+$excluded = [
+    ('tr'. /*comment*/ 'im')('arg') => 'excluded',
+];
+
+/* testCallbackInKeyResultsInVoid2 */
+$excluded = [
+    'trim'('arg') => 'excluded',
+];
+
+/* testCallbackInKeyResultsInVoid3 */
+$excluded = [
+    {'trim'}('arg') => 'excluded',
+];
+
+/* testCallbackInKeyResultsInVoid4 */
+$excluded = [
+    'PHPCSUtils\\Utils\\TextStrings::stripEmbeds'('arg') => 'excluded',
+];
+
+/* testCallbackInKeyResultsInVoid5 */
+$excluded = array(
+    (<<<'EOT'
+trim
+EOT
+)('arg') => 'excluded',
+);
+
+/* testCallbackInKeyResultsInVoid6 */
+$excluded = [
+    (<<<EOT
+trim
+EOT
+)('arg') => 'excluded',
+];
+
+/* testCallbackInKeyResultsInVoid7 */
+$excluded = [
+    (<<<"EOT"
+trim
+EOT
+)('arg') => 'excluded',
+];
+
+/* testCallbackInKeyResultsInVoid8 */
+$excluded = array(
+    ['PHPCSUtils\\Utils\\TextStrings', 'stripEmbeds']('arg') => 'excluded',
+);
+
+/* testCallbackInKeyResultsInVoid9 */
+$excluded = [
+    array($obj, 'stripEmbeds')('arg') => 'excluded',
+];
