@@ -30,7 +30,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const LATEST_3X_VERSION = '3.13.5';
+    const LATEST_3X_VERSION = '3.13.6';
 
     /**
      * Version number of the last PHPCS 4.x release.
@@ -39,7 +39,7 @@ final class GetVersionTest extends TestCase
      *
      * @var string
      */
-    const LATEST_4X_VERSION = '4.0.1';
+    const LATEST_4X_VERSION = '4.0.4';
 
     /**
      * Test the method.
