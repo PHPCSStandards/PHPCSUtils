@@ -134,11 +134,6 @@ jobs:
         with:
           path: ./docs/_site
 
-      - name: Check GitHub Pages status
-        uses: crazy-max/ghaction-github-status@f0ef9e1cf727f9f76f8485f8c525fa03afc4ec02 # v5.0.0
-        with:
-          pages_threshold: major_outage
-
   deploy:
     needs: build
     # Don't run on forks, don't run on normal pushes or PRs (dry-runs).
@@ -152,6 +147,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check GitHub Pages status
+        uses: crazy-max/ghaction-github-status@f0ef9e1cf727f9f76f8485f8c525fa03afc4ec02 # v5.0.0
+        with:
+          pages_threshold: major_outage
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
