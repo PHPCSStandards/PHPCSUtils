@@ -17,7 +17,8 @@
                 "^https?://github\\.com/PHPCSStandards/PHPCSUtils/security/advisories/GHSA-.+",
                 "^https://phpcsutils\\.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations\\.html#method_isArrowFunction",
                 "^https://phpcsutils\\.com/phpdoc/classes/PHPCSUtils-Utils-FunctionDeclarations\\.html#method_getArrowFunctionOpenClose",
-                "^https://packagist.org/packages/phpcsstandards/phpcsutils#dev-develop"
+                "^https://packagist.org/packages/phpcsstandards/phpcsutils#dev-develop",
+                "^https://coveralls\\.io/github/PHPCSStandards/PHPCSUtils"
             ],
             "deadOrAliveOptions": {
                 "maxRetries": 3
