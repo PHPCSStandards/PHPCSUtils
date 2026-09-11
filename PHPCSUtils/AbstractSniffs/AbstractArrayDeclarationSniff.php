@@ -541,7 +541,7 @@ abstract class AbstractArrayDeclarationSniff implements Sniff
              * - (boolean) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
              * - (integer) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
              * - (double) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
-             * - (string) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
+             * - (binary) was deprecated in PHP 8.5 and will be removed in PHP 9.0;
              */
             if (\T_DOUBLE_CAST === $this->tokens[$i]['code']) {
                 $content .= '(float)';
