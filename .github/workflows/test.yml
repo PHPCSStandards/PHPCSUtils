@@ -26,15 +26,15 @@ env:
 jobs:
   lint:
     if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
-    runs-on: ubuntu-latest
 
     strategy:
       matrix:
         php: ['5.4', '7.0', '7.4', '8.0', '8.5', 'nightly']
 
-    name: "Lint: PHP ${{ matrix.php }}"
-
     continue-on-error: ${{ matrix.php == 'nightly' }}
+
+    name: "Lint: PHP ${{ matrix.php }}"
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -71,9 +71,8 @@ jobs:
 
   #### TEST STAGE ####
   test:
-    if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
     needs: lint
-    runs-on: ubuntu-latest
+    if: ${{ github.ref != 'refs/heads/develop' || github.event_name != 'pull_request' }}
 
     strategy:
       # Keys:
@@ -174,9 +173,10 @@ jobs:
             risky: true
             experimental: true
 
-    name: "Test: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}${{ matrix.risky == true && ' (risky)' || '' }}"
-
     continue-on-error: ${{ matrix.experimental }}
+
+    name: "Test: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}${{ matrix.risky == true && ' (risky)' || '' }}"
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -294,8 +294,6 @@ jobs:
     # The default condition is success(), but this is false when one of the previous jobs is skipped
     if: always() && (needs.test.result == 'success' || needs.test.result == 'skipped')
 
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
         include:
@@ -318,6 +316,7 @@ jobs:
             phpcs_version: 'lowest'
 
     name: "Coverage: PHP ${{ matrix.php }} - PHPCS ${{ matrix.phpcs_version }}"
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -415,9 +414,8 @@ jobs:
     needs: coverage
     if: always() && needs.coverage.result == 'success'
 
-    runs-on: ubuntu-latest
-
     name: Coveralls Finish
+    runs-on: ubuntu-latest
 
     steps:
       - name: Coveralls Finished

@@ -19,11 +19,12 @@ concurrency:
 
 jobs:
   phpcs-version-check:
-    name: "Check latest PHPCS version"
     # Don't run the cron job on forks.
     if: ${{ github.event_name != 'schedule' || github.event.repository.fork == false }}
 
+    name: "Check latest PHPCS version"
     runs-on: ubuntu-latest
+
     steps:
       - name: Retrieve latest PHPCS release info
         uses: octokit/request-action@b91aabaa861c777dcdb14e2387e30eddf04619ae # v3.0.0
