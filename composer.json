@@ -1,54 +1,73 @@
 {
-    "name" : "phpcsstandards/phpcsutils",
-    "description" : "A suite of utility functions for use with PHP_CodeSniffer",
-    "type" : "phpcodesniffer-standard",
-    "keywords" : [ "phpcs", "phpcbf", "standards", "static analysis", "php_codesniffer", "phpcs3", "phpcs4", "tokens", "utility", "phpcodesniffer-standard" ],
-    "license" : "LGPL-3.0-or-later",
-    "homepage": "https://phpcsutils.com/",
-    "authors" : [
+    "name": "phpcsstandards/phpcsutils",
+    "description": "A suite of utility functions for use with PHP_CodeSniffer",
+    "license": "LGPL-3.0-or-later",
+    "type": "phpcodesniffer-standard",
+    "keywords": [
+        "phpcs",
+        "phpcbf",
+        "standards",
+        "static analysis",
+        "php_codesniffer",
+        "phpcs3",
+        "phpcs4",
+        "tokens",
+        "utility",
+        "phpcodesniffer-standard"
+    ],
+    "authors": [
         {
-            "name" : "Juliette Reinders Folmer",
-            "role" : "lead",
-            "homepage" : "https://github.com/jrfnl"
+            "name": "Juliette Reinders Folmer",
+            "homepage": "https://github.com/jrfnl",
+            "role": "lead"
         },
         {
-            "name" : "Contributors",
-            "homepage" : "https://github.com/PHPCSStandards/PHPCSUtils/graphs/contributors"
+            "name": "Contributors",
+            "homepage": "https://github.com/PHPCSStandards/PHPCSUtils/graphs/contributors"
         }
     ],
-    "support" : {
-        "issues" : "https://github.com/PHPCSStandards/PHPCSUtils/issues",
-        "source" : "https://github.com/PHPCSStandards/PHPCSUtils",
-        "docs"   : "https://phpcsutils.com/",
+    "homepage": "https://phpcsutils.com/",
+    "support": {
+        "issues": "https://github.com/PHPCSStandards/PHPCSUtils/issues",
+        "source": "https://github.com/PHPCSStandards/PHPCSUtils",
+        "docs": "https://phpcsutils.com/",
         "security": "https://github.com/PHPCSStandards/PHPCSUtils/security/policy"
     },
-    "require" : {
-        "php" : ">=5.4",
-        "squizlabs/php_codesniffer" : "^3.13.6 || ^4.0.2",
-        "dealerdirect/phpcodesniffer-composer-installer" : "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0"
+    "require": {
+        "php": ">=5.4",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
+        "squizlabs/php_codesniffer": "^3.13.6 || ^4.0.2"
     },
-    "require-dev" : {
+    "require-dev": {
         "ext-filter": "*",
-        "phpcsstandards/phpcsdevcs": "^1.2.0",
-        "php-parallel-lint/php-parallel-lint": "^1.4.0",
         "php-parallel-lint/php-console-highlighter": "^1.0",
+        "php-parallel-lint/php-parallel-lint": "^1.4.0",
+        "phpcsstandards/phpcsdevcs": "^1.2.0",
         "yoast/phpunit-polyfills": "^1.1.0 || ^2.0.0 || ^3.0.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
-        "classmap": ["PHPCSUtils/"]
+        "classmap": [
+            "PHPCSUtils/"
+        ]
     },
-    "autoload-dev" : {
+    "autoload-dev": {
         "psr-4": {
-            "PHPCSUtils\\Tests\\": "Tests/",
-            "PHPCSUtils\\GHPages\\": ".github/GHPages/"
+            "PHPCSUtils\\GHPages\\": ".github/GHPages/",
+            "PHPCSUtils\\Tests\\": "Tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "lock": false
     },
     "extra": {
         "branch-alias": {
-            "dev-stable": "1.x-dev",
-            "dev-develop": "1.x-dev"
+            "dev-develop": "1.x-dev",
+            "dev-stable": "1.x-dev"
         }
     },
     "scripts" : {
@@ -82,11 +101,5 @@
         "coverage-local10": [
             "@php ./vendor/phpunit/phpunit/phpunit -c phpunit10.xml.dist --coverage-html ./build/coverage-html"
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        },
-        "lock": false
     }
 }
