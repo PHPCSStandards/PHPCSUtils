@@ -36,11 +36,12 @@ env:
 
 jobs:
   build:
-    name: "Build the website"
     # Don't run on forks.
     if: github.repository == 'PHPCSStandards/PHPCSUtils'
 
+    name: "Build the website"
     runs-on: ubuntu-latest
+
     steps:
       # By default use the `stable` branch as the published docs should always
       # reflect the latest release.
