@@ -53,11 +53,16 @@ jobs:
       - name: Show tag name found in API response
         run: "echo latest release: ${{ steps.version.outputs.TAG }}"
 
-      - name: Set branches to use
+      - name: Set branch to use
         id: branches
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
-          echo "BASE=develop" >> "$GITHUB_OUTPUT"
-          echo "PR_BRANCH=feature/getversiontest-update-phpcs-version" >> "$GITHUB_OUTPUT"
+          if [[ "${{ github.event_name }}" == 'schedule' ]]; then
+            echo "BASE=develop" >> "$GITHUB_OUTPUT"
+          else # = PR, manual run or manual (re-)run for a workflow triggered by a PR.
+            echo "BASE=$HEAD_REF" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -90,7 +95,7 @@ jobs:
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           base: ${{ steps.branches.outputs.BASE }}
-          branch: ${{ steps.branches.outputs.PR_BRANCH }}
+          branch: "feature/getversiontest-update-phpcs-version"
           delete-branch: true
           sign-commits: true
           commit-message: "GetVersionTest: update for release of PHPCS ${{ steps.version.outputs.TAG }}"
